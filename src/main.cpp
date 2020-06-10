@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	Tw::Utils::CommandlineParser clp;
 	QList<fileToOpenStruct> filesToOpen;
 	fileToOpenStruct fileToOpen = {QString(), -1};
-	
+
 	clp.registerSwitch(QString::fromLatin1("help"), TWApp::tr("Display this message"), QString::fromLatin1("?"));
 	clp.registerOption(QString::fromLatin1("position"), TWApp::tr("Open the following file at the given position (line or page)"), QString::fromLatin1("p"));
 	clp.registerSwitch(QString::fromLatin1("version"), TWApp::tr("Display version information"), QString::fromLatin1("v"));

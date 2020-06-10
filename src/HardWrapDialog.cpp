@@ -37,14 +37,14 @@ HardWrapDialog::init()
 	spinbox_charCount->setMaximum(INT_MAX);
 	spinbox_charCount->setValue(wrapWidth);
 	spinbox_charCount->selectAll();
-	
+
 	connect(radio_Unwrap, SIGNAL(toggled(bool)), this, SLOT(unwrapModeToggled(bool)));
 
 	int wrapMode = settings.value(QString::fromLatin1("hardWrapMode"), kHardWrapMode_Fixed).toInt();
 	radio_currentWidth->setChecked(wrapMode == kHardWrapMode_Window);
 	radio_fixedLineLength->setChecked(wrapMode == kHardWrapMode_Fixed);
 	radio_Unwrap->setChecked(wrapMode == kHardWrapMode_Unwrap);
-	
+
 	bool rewrapParagraphs = settings.value(QString::fromLatin1("hardWrapRewrap"), false).toBool();
 	checkbox_rewrap->setChecked(rewrapParagraphs);
 
@@ -71,7 +71,7 @@ HardWrapDialog::mode() const
 		return kHardWrapMode_Fixed;
 	if (radio_Unwrap->isChecked())
 		return kHardWrapMode_Unwrap;
-	
+
 	return kHardWrapMode_Fixed;
 }
 

@@ -36,7 +36,7 @@ class CommandlineParser
 public:
 	enum CommandlineItemType { Commandline_Argument, Commandline_Option, Commandline_Switch };
 	enum CommandlineGetItemFlags { GetFlag_Default = 0, GetFlag_IncludeProcessed = 1 };
-	
+
 	struct CommandlineItem {
 		CommandlineItemType type;
 		QString longName;
@@ -65,7 +65,7 @@ public:
 		spec.description = description;
 		m_specs << spec;
 	}
-	
+
 	int getNextArgument(int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
 	int getPrevArgument(int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
 	int getNextOption(const QString & longName = QString(), int index = -1, CommandlineGetItemFlags flags = GetFlag_Default) const;
@@ -76,10 +76,10 @@ public:
 	CommandlineItem & at(int idx) {
 		return m_items[idx];
 	}
-	
+
 	bool parse();
 	void printUsage(QTextStream &stream);
-	
+
 private:
 	struct CommandlineItemSpec {
 		CommandlineItemType type;

@@ -38,7 +38,7 @@ class LuaScript : public Script
 {
 	Q_OBJECT
 	Q_INTERFACES(Tw::Scripting::Script)
-		
+
 public:
 	/** \brief Constructor
 	 *
@@ -46,7 +46,7 @@ public:
 	 * \param	lua	pointer to the plugin that holds the lua state to operate on
 	 */
 	LuaScript(LuaScriptInterface * lua, const QString& fileName) : Script(lua, fileName), m_LuaPlugin(lua) { }
-	
+
 	/** \brief Parse the script header
 	 *
 	 * \return	\c true if successful, \c false if not (e.g. because the file
@@ -62,7 +62,7 @@ protected:
 	 * \return	\c true on success, \c false if an error occured
 	 */
 	bool execute(ScriptAPIInterface *tw) const override;
-	
+
 	/** \brief Convenience function to wrap a QObject and push it onto the stack
 	 *
 	 * \param	L	the lua state to operate on
@@ -100,7 +100,7 @@ protected:
 	 * \return	the QVariant
 	 */
 	static QVariant getLuaStackValue(lua_State * L, int idx, const bool throwError = true);
-	
+
 	/** \brief Handler for property requests on QObjects
 	 *
 	 * On success, the value of the property is pushed onto the stack

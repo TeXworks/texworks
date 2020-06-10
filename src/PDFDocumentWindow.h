@@ -169,7 +169,7 @@ private:
 	QTimer _searchResultHighlightRemover;
 
 	bool openedManually;
-	
+
 	static QList<PDFDocumentWindow*> docList;
 
 	TWSyncTeXSynchronizer * _synchronizer;

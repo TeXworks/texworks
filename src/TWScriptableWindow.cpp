@@ -54,9 +54,9 @@ TWScriptableWindow::initScriptable(QMenu* theScriptsMenu,
 	scriptMapper = new QSignalMapper(this);
 	connect(scriptMapper, SIGNAL(mapped(QObject*)), this, SLOT(runScript(QObject*)));
 	staticScriptMenuItemCount = scriptsMenu->actions().count();
-	
+
 	connect(qApp, SIGNAL(scriptListChanged()), this, SLOT(updateScriptsMenu()));
-	
+
 	updateScriptsMenu();
 }
 
@@ -64,7 +64,7 @@ void
 TWScriptableWindow::updateScriptsMenu()
 {
 	TWScriptManager * scriptManager = TWApp::instance()->getScriptManager();
-	
+
 	removeScriptsFromMenu(scriptsMenu, staticScriptMenuItemCount);
 	addScriptsToMenu(scriptsMenu, scriptManager->getScripts());
 }
@@ -74,7 +74,7 @@ TWScriptableWindow::removeScriptsFromMenu(QMenu *menu, int startIndex /* = 0 */)
 {
 	if (!menu)
 		return;
-	
+
 	QList<QAction*> actions = menu->actions();
 	for (int i = startIndex; i < actions.count(); ++i) {
 		// if this is a popup menu, make sure all its children are destroyed
@@ -126,7 +126,7 @@ void
 TWScriptableWindow::runScript(QObject* script, Tw::Scripting::Script::ScriptType scriptType)
 {
 	QVariant result;
-	
+
 	TWScriptManager * sm = TWApp::instance()->getScriptManager();
 	if (!sm)
 		return;
@@ -134,7 +134,7 @@ TWScriptableWindow::runScript(QObject* script, Tw::Scripting::Script::ScriptType
 	Tw::Scripting::Script * s = qobject_cast<Tw::Scripting::Script*>(script);
 	if (!s || s->getType() != scriptType)
 		return;
-	
+
 	bool success = sm->runScript(script, this, result, scriptType);
 
 	if (success) {
@@ -248,11 +248,11 @@ void TWScriptableWindow::scriptDeleted(QObject * obj)
 {
 	if (!obj || !scriptMapper)
 		return;
-	
+
 	QAction * a = qobject_cast<QAction*>(scriptMapper->mapping(obj));
 	if (!a)
 		return;
-	
+
 	// a script got deleted that we still have in the menu => remove it
 	scriptMapper->removeMappings(a);
 	scriptsMenu->removeAction(a);

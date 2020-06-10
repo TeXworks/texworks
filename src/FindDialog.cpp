@@ -68,10 +68,10 @@ void RecentStringsKeyFilter::setRecentString(QObject *obj, int dir)
 	QLineEdit *lineEdit = qobject_cast<QLineEdit*>(obj);
 	if (!lineEdit)
 		return;
-	
+
 	if (strings.empty())
 		return;
-	
+
 	int index = strings.indexOf(lineEdit->text());
 	if (index == -1)
 		index = (dir == 1) ? 0 : strings.size() - 1;
@@ -82,7 +82,7 @@ void RecentStringsKeyFilter::setRecentString(QObject *obj, int dir)
 		else if (index >= strings.size())
 			index = 0;
 	}
-	
+
 	lineEdit->setText(strings[index]);
 	lineEdit->selectAll();
 }
@@ -110,7 +110,7 @@ void FindDialog::init(QTextEdit *document)
 
 	bool findAll = settings.value(QString::fromLatin1("searchFindAll")).toBool();
 	checkBox_findAll->setChecked(findAll);
-	
+
 	bool allFiles = settings.value(QString::fromLatin1("searchAllFiles")).toBool();
 	checkBox_allFiles->setEnabled(TeXDocumentWindow::documentList().count() > 1);
 	checkBox_allFiles->setChecked(allFiles && checkBox_allFiles->isEnabled());
@@ -128,7 +128,7 @@ void FindDialog::init(QTextEdit *document)
 	checkBox_words->setChecked((flags & QTextDocument::FindWholeWords) != 0);
 	checkBox_backwards->setChecked((flags & QTextDocument::FindBackward) != 0);
 	checkBox_backwards->setEnabled(!findAll);
-	
+
 	QMenu *recentItemsMenu = new QMenu(this);
 	QStringList recentStrings = settings.value(QString::fromLatin1("recentSearchStrings")).toStringList();
 	if (recentStrings.empty())
@@ -198,12 +198,12 @@ QDialog::DialogCode FindDialog::doFindDialog(QTextEdit *document)
 
 	dlg.show();
 	DialogCode result = static_cast<DialogCode>(dlg.exec());
-	
+
 	if (result == Accepted) {
 		Tw::Settings settings;
 		QString str = dlg.searchText->text();
 		settings.setValue(QString::fromLatin1("searchText"), str);
-		
+
 		QStringList recentStrings = settings.value(QString::fromLatin1("recentSearchStrings")).toStringList();
 		recentStrings.removeAll(str);
 		recentStrings.prepend(str);
@@ -440,7 +440,7 @@ void SearchResults::goToSource()
 	if (!item)
 		return;
 	fileName = item->toolTip();
-	
+
 	if (!fileName.isEmpty()) {
 		QWidget *theDoc = TeXDocumentWindow::openDocument(fileName);
 		if (theDoc) {
@@ -549,7 +549,7 @@ void SearchResults::presentResults(const QString& searchText,
 		resultsWindow->setParent(nullptr);
 		resultsWindow->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint);
 	}
-	
+
 	resultsWindow->show();
 }
 
@@ -605,7 +605,7 @@ void PDFFindDialog::init(PDFDocumentWindow *document)
 	QString	str = settings.value(QString::fromLatin1("searchText")).toString();
 	searchText->setText(str);
 	searchText->selectAll();
-	
+
 	// if findAll is enabled, revisit the saving of settings in
 	// PDFFindDialog::doFindDialog (and enable saving findAll if it's reasonable
 	// to override the setting (also for searches in the editor))
@@ -628,10 +628,10 @@ void PDFFindDialog::init(PDFDocumentWindow *document)
 	// Searching backwards currently doesn't work
 	// Might be a bug in Poppler
 	checkBox_backwards->setEnabled(false);
-	
+
 	checkBox_sync->setChecked(settings.value(QString::fromLatin1("searchPdfSync")).toBool());
 	checkBox_sync->setEnabled(document->hasSyncData());
-	
+
 	QMenu *recentItemsMenu = new QMenu(this);
 	QStringList recentStrings = settings.value(QString::fromLatin1("recentSearchStrings")).toStringList();
 	if (recentStrings.empty())
@@ -655,7 +655,7 @@ QDialog::DialogCode PDFFindDialog::doFindDialog(PDFDocumentWindow *document)
 		Tw::Settings settings;
 		QString str = dlg.searchText->text();
 		settings.setValue(QString::fromLatin1("searchText"), str);
-		
+
 		QStringList recentStrings = settings.value(QString::fromLatin1("recentSearchStrings")).toStringList();
 		recentStrings.removeAll(str);
 		recentStrings.prepend(str);

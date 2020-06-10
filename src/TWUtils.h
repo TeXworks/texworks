@@ -52,7 +52,7 @@ public:
 
 	// return a sorted list of all the available text codecs
 	static QList<QTextCodec*> *findCodecs();
-	
+
 	// list of filename filters for the Open/Save dialogs
 	static QStringList* filterList();
 	static void setDefaultFilters();
@@ -83,7 +83,7 @@ public:
 	static QChar closerMatching(QChar c);
 	static QChar openerMatching(QChar c);
 	static void readConfig();
-	
+
 	static int balanceDelim(const QString& text, int pos, QChar delim, int direction);
 	static int findOpeningDelim(const QString& text, int pos);
 
@@ -91,9 +91,9 @@ public:
 	static const QString& includePdfCommand();
 	static const QString& includeImageCommand();
 	static const QString& includePostscriptCommand();
-	
+
 	static const QString& cleanupPatterns();
-	
+
 	static void installCustomShortcuts(QWidget * widget, bool recursive = true, QSettings * map = nullptr);
 
 	static bool isGitInfoAvailable();
@@ -122,7 +122,7 @@ private:
 class SelWinAction : public QAction
 {
 	Q_OBJECT
-	
+
 public:
 	SelWinAction(QObject *parent, const QString & fileName, const QString &label);
 };

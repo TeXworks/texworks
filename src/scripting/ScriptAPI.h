@@ -37,41 +37,41 @@ class Script;
 class ScriptAPI : public QObject, public ScriptAPIInterface
 {
 	Q_OBJECT
-	
+
 	Q_PROPERTY(QObject* app READ GetApp)
 	Q_PROPERTY(QObject* target READ GetTarget)
 	Q_PROPERTY(QVariant result READ GetResult WRITE SetResult)
 	Q_PROPERTY(QObject * script READ GetScript)
-	
+
 public:
 	ScriptAPI(Script* script, QObject* twapp, QObject* ctx, QVariant& res);
 
 	QObject* self() override { return this; }
-	
+
 public:
 	QObject* GetApp() override { return m_app; }
 	QObject* GetTarget() override { return m_target; }
 	QObject* GetScript() override;
 	QVariant& GetResult() override { return m_result; }
-	
+
 	void SetResult(const QVariant& rval) override;
-	
+
 	enum SystemAccessResult {
 		SystemAccess_OK = 0,
 		SystemAccess_Failed,
 		SystemAccess_PermissionDenied
 	};
-	
+
 	// provide utility functions for scripts, implemented as methods on the TW object
 
 	// length of a string in UTF-16 code units, useful if script language uses a different encoding form
 	Q_INVOKABLE
 	int strlen(const QString& str) const override;
-	
+
 	// return the host platform name
 	Q_INVOKABLE
 	QString platform() const override;
-	
+
 	// return the Qt version Tw was built against (0xMMNNPP)
 	Q_INVOKABLE
 	int getQtVersion() const override { return QT_VERSION; }
@@ -94,7 +94,7 @@ public:
 	//       error reporting on this is system dependent
 	Q_INVOKABLE
 	QMap<QString, QVariant> launchFile(const QString& fileName) const override;
-	
+
 	// Return type is one of SystemAccessResult
 	// Content is written in text-mode in utf8 encoding
 	Q_INVOKABLE
@@ -112,7 +112,7 @@ public:
 	// Can be (ab)used to check folders, too
 	Q_INVOKABLE
 	int fileExists(const QString& filename) const override;
-	
+
 	// QMessageBox functions to display alerts
 	Q_INVOKABLE
 	int information(QWidget* parent,
@@ -134,7 +134,7 @@ public:
 				 const QString& title, const QString& text,
 				 int buttons = QMessageBox::Ok,
 				 int defaultButton = QMessageBox::NoButton) override;
-	
+
 	// QInputDialog functions
 	// These return QVariant rather than simple types, so that they can return null
 	// to indicate that the dialog was cancelled.
@@ -150,29 +150,29 @@ public:
 	Q_INVOKABLE
 	QVariant getText(QWidget* parent, const QString& title, const QString& label,
 					 const QString& text = QString()) override;
-	
+
 	Q_INVOKABLE
 	void yield() override;
-	
+
 	// Allow script to create a QProgressDialog
 	Q_INVOKABLE
 	QWidget * progressDialog(QWidget * parent) override;
-	
+
 	// functions to create windows from .ui data or files using QUiLoader
 	Q_INVOKABLE
 	QWidget * createUIFromString(const QString& uiSpec, QWidget * parent = nullptr) override;
 
 	Q_INVOKABLE
 	QWidget * createUI(const QString& filename, QWidget * parent = nullptr) override;
-	
+
 	// to find children of a widget
 	Q_INVOKABLE
 	QWidget * findChildWidget(QWidget* parent, const QString& name) override;
-	
+
 	// to make connections among widgets (or other objects)
 	Q_INVOKABLE
 	bool makeConnection(QObject* sender, const QString& signal, QObject* receiver, const QString& slot) override;
-	
+
 	//////////////// Wrapper around selected TWUtils functions ////////////////
 	// Returns a map of the type "language code => array(filenames)"
 	// "filenames" are paths to *.dic files associated with the respective
@@ -182,7 +182,7 @@ public:
 	Q_INVOKABLE
 	QMap<QString, QVariant> getDictionaryList(const bool forceReload = false) override;
 	//////////////// Wrapper around selected TWUtils functions ////////////////
-	
+
 	// Wrapper around TWApp::getEngineList()
 	// Currently, only the name is returned
 	Q_INVOKABLE

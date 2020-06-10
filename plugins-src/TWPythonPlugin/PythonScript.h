@@ -39,7 +39,7 @@ class PythonScript : public Script
 {
 	Q_OBJECT
 	Q_INTERFACES(Tw::Scripting::Script)
-		
+
 public:
 	/** \brief Constructor
 	 *
@@ -47,14 +47,14 @@ public:
 	 */
 	PythonScript(PythonScriptInterface * interface, const QString& fileName)
 		: Script(interface, fileName) { }
-	
+
 	/** \brief Parse the script header
 	 *
 	 * \return	\c true if successful, \c false if not (e.g. because the file
 	 * 			is no valid Tw python script)
 	 */
 	bool parseHeader() override { return doParseHeader("", "", "#"); }
-	
+
 protected:
 	/** \brief Run the python script
 	 *
@@ -65,7 +65,7 @@ protected:
 	 * \return	\c true on success, \c false if an error occured
 	 */
 	bool execute(ScriptAPIInterface *tw) const override;
-	
+
 	/** \brief Handler for attribute requests on QObjects
 	 *
 	 * \param	o			the pyQObject of which to retrieve the attribute value

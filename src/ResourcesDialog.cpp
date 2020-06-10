@@ -35,7 +35,7 @@ void ResourcesDialog::init()
 	Tw::Settings s;
 
 	setupUi(this);
-	
+
 #if defined(Q_OS_WIN)
 	if(Tw::Settings::defaultFormat() == QSettings::NativeFormat)
 		locationOfSettings->setText(tr("Registry (%1)").arg(s.fileName()));

@@ -101,7 +101,7 @@ public:
 	int selectionLength() const { return textCursor().selectionEnd() - textCursor().selectionStart(); }
 	QString getCurrentCodecName() const { return (codec ? QString::fromUtf8(codec->name().constData()) : QString()); }
 	bool getUTF8BOM() const { return utf8BOM; }
-	
+
 	QString spellcheckLanguage() const;
 
 	PDFDocumentWindow* pdfDocument()
@@ -125,7 +125,7 @@ public:
 	Q_PROPERTY(QString spellcheckLanguage READ spellcheckLanguage WRITE setSpellcheckLanguage STORED false)
 	Q_PROPERTY(QString currentCodecName READ getCurrentCodecName STORED false)
 	Q_PROPERTY(bool writeUTF8BOM READ getUTF8BOM STORED false)
-	
+
 signals:
 	void syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview);
 	void activatedWindow(QWidget*);
@@ -192,7 +192,7 @@ public slots:
 	void setSmartQuotesMode(const QString& mode);
 	void setAutoIndentMode(const QString& mode);
 	void setSyntaxColoringMode(const QString& mode);
-	
+
 private slots:
 	void setLangInternal(const QString& lang);
 	void maybeEnableSaveAndRevert(bool modified);
@@ -252,16 +252,16 @@ private:
 	void presentResults(const QList<SearchResult>& results);
 	void showLineEndingSetting();
 	void showEncodingSetting();
-	
+
 	QString selectedText() { return textCursor().selectedText().replace(QChar(QChar::ParagraphSeparator), QChar::fromLatin1('\n')); }
 	QString consoleText() { return textEdit_console->toPlainText(); }
 	QString text() { return textEdit->toPlainText(); }
-	
+
 	Tw::Document::TeXDocument * _texDoc;
 	PDFDocumentWindow * pdfDoc{nullptr};
 
 	QTextCodec * codec{nullptr};
-	// When using the UTF-8 codec, byte order marks (BOMs) are ignored during 
+	// When using the UTF-8 codec, byte order marks (BOMs) are ignored during
 	// reading and not produced when writing. To keep them in files that have
 	// them, we need to keep track of them ourselves.
 	bool utf8BOM{false};
@@ -275,7 +275,7 @@ private:
 
 	QActionGroup *engineActions{nullptr};
 	QString engineName;
-	
+
 	QSignalMapper dictSignalMapper;
 
 	QComboBox * engine{nullptr};

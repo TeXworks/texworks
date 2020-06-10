@@ -35,7 +35,7 @@ public:
 	explicit ClickableLabel(QWidget * parent = nullptr, Qt::WindowFlags f = {});
 	explicit ClickableLabel(const QString & text, QWidget * parent = nullptr, Qt::WindowFlags f = {});
 	~ClickableLabel() override = default;
-	
+
 signals:
 	void mouseDoubleClick(QMouseEvent * event);
 	void mouseLeftClick(QMouseEvent * event);

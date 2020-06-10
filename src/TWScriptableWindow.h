@@ -41,12 +41,12 @@ class TWScriptableWindow : public QMainWindow
 public:
 	TWScriptableWindow() = default;
 	~TWScriptableWindow() override = default;
-	
+
 public slots:
 	void updateScriptsMenu();
 	void runScript(QObject * script, Tw::Scripting::Script::ScriptType scriptType = Tw::Scripting::Script::ScriptStandalone);
 	void runHooks(const QString& hookName);
-	
+
 	void selectWindow(bool activate = true);
 	void placeOnLeft();
 	void placeOnRight();
@@ -54,12 +54,12 @@ public slots:
 private slots:
 	void doManageScripts();
 	void doAboutScripts();
-	
+
 	void hideFloatersUnlessThis(QWidget* currWindow);
-	
+
 protected slots:
 	void scriptDeleted(QObject * obj);
-	
+
 protected:
 	void initScriptable(QMenu* scriptsMenu,
 						QAction* aboutScriptsAction,

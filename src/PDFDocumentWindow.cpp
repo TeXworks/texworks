@@ -95,7 +95,7 @@ PDFDocumentWindow::PDFDocumentWindow(const QString &fileName, TeXDocumentWindow 
 
 	if (properties.contains(QString::fromLatin1("state")))
 		restoreState(properties.value(QString::fromLatin1("state")).toByteArray(), kPDFWindowStateVersion);
-	
+
 	if (properties.contains(QString::fromLatin1("pdfPageMode")))
 		setPageMode(properties.value(QString::fromLatin1("pdfPageMode"), -1).toInt());
 
@@ -160,7 +160,7 @@ void PDFDocumentWindow::init()
 	scaleLabel->setFrameStyle(QFrame::StyledPanel);
 	scaleLabel->setFont(statusBar()->font());
 	connect(scaleLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(scaleLabelClick(QMouseEvent*)));
-	
+
 	pageLabel = new Tw::UI::ClickableLabel();
 	statusBar()->addPermanentWidget(pageLabel);
 	pageLabel->setFrameStyle(QFrame::StyledPanel);
@@ -210,16 +210,16 @@ void PDFDocumentWindow::init()
 
 	if (actionZoom_In->shortcut() == QKeySequence(tr("Ctrl++")))
 		new QShortcut(QKeySequence(tr("Ctrl+=")), pdfWidget, SLOT(zoomIn()));
-	
+
 	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(retypeset()));
-	
+
 	connect(actionStack, SIGNAL(triggered()), qApp, SLOT(stackWindows()));
 	connect(actionTile, SIGNAL(triggered()), qApp, SLOT(tileWindows()));
 	connect(actionSide_by_Side, SIGNAL(triggered()), this, SLOT(sideBySide()));
 	connect(actionPlace_on_Left, SIGNAL(triggered()), this, SLOT(placeOnLeft()));
 	connect(actionPlace_on_Right, SIGNAL(triggered()), this, SLOT(placeOnRight()));
 	connect(actionGo_to_Source, SIGNAL(triggered()), this, SLOT(goToSource()));
-	
+
 	connect(actionFind_Again, SIGNAL(triggered()), this, SLOT(doFindAgain()));
 
 	updateRecentFileActions();
@@ -269,7 +269,7 @@ void PDFDocumentWindow::init()
 	dw->hide();
 	addDockWidget(Qt::LeftDockWidgetArea, dw);
 	menuShow->addAction(dw->toggleViewAction());
-	
+
 	Tw::Settings settings;
 	switch(settings.value(QString::fromLatin1("pdfPageMode"), kDefault_PDFPageMode).toInt()) {
 		case 0:
@@ -293,10 +293,10 @@ void PDFDocumentWindow::init()
 	TWUtils::applyToolbarOptions(this, settings.value(QString::fromLatin1("toolBarIconSize"), 2).toInt(), settings.value(QString::fromLatin1("toolBarShowText"), false).toBool());
 
 	TWApp::instance()->updateWindowMenus();
-	
+
 	initScriptable(menuScripts, actionAbout_Scripts, actionManage_Scripts,
 				   actionUpdate_Scripts, actionShow_Scripts_Folder);
-	
+
 	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);
 
@@ -669,7 +669,7 @@ void PDFDocumentWindow::setCurrentFile(const QString &fileName)
 	setWindowTitle(tr("%1[*] - %2").arg(TWUtils::strippedName(curFile), tr(TEXWORKS_NAME)));
 	TWApp::instance()->updateWindowMenus();
 }
- 
+
 PDFDocumentWindow *PDFDocumentWindow::findDocument(const QString &fileName)
 {
 	QString canonicalFilePath = QFileInfo(fileName).canonicalFilePath();
@@ -1026,11 +1026,11 @@ void PDFDocumentWindow::print()
 {
 	// Currently, printing is not supported in a reliable, cross-platform way
 	// Instead, offer to open the document in the system's default viewer
-	
+
 	QString msg = tr("Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.\n").arg(QString::fromLatin1(TEXWORKS_NAME));
 	msg += tr("Do you want to open the file in the default viewer for printing instead?");
 	msg += tr(" (remember to close it again to avoid access problems)");
-	
+
 	if(QMessageBox::information(this,
 		tr("Print PDF..."), msg,
 		QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes
@@ -1042,16 +1042,16 @@ void PDFDocumentWindow::print()
 void PDFDocumentWindow::showScaleContextMenu(const QPoint pos)
 {
 	static QMenu * contextMenu = nullptr;
-	
+
 	if (!contextMenu) {
 		contextMenu = new QMenu(this);
 		static QSignalMapper * contextMenuMapper = new QSignalMapper(this);
 		QAction * a{nullptr};
-		
+
 		contextMenu->addAction(actionFit_to_Width);
 		contextMenu->addAction(actionFit_to_Window);
 		contextMenu->addSeparator();
-		
+
 		a = contextMenu->addAction(tr("Custom..."));
 		connect(a, SIGNAL(triggered()), this, SLOT(doScaleDialog()));
 
@@ -1073,10 +1073,10 @@ void PDFDocumentWindow::showScaleContextMenu(const QPoint pos)
 		a = contextMenu->addAction(tr("50%"));
 		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
 		contextMenuMapper->setMapping(a, QString::fromLatin1(".5"));
-		
+
 		connect(contextMenuMapper, SIGNAL(mapped(const QString&)), this, SLOT(setScaleFromContextMenu(const QString&)));
 	}
-	
+
 	contextMenu->popup(scaleLabel->mapToGlobal(pos));
 }
 

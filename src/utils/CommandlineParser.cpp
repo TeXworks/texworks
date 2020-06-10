@@ -30,7 +30,7 @@ bool CommandlineParser::parse()
 {
 	foreach (const QString& rawItem, m_rawItems) {
 		bool found = false;
-		
+
 		foreach (const CommandlineItemSpec& spec, m_specs) {
 			CommandlineItem item;
 			item.type = spec.type;
@@ -39,7 +39,7 @@ bool CommandlineParser::parse()
 
 			QString strLong = QLatin1String("--") + spec.longName;
 			QString strShort = QLatin1String("-") + spec.shortName;
-			
+
 			switch (spec.type) {
 				case Commandline_Option:
 					if (!spec.longName.isEmpty() && rawItem.startsWith(strLong + QLatin1String("="))) {
@@ -60,13 +60,13 @@ bool CommandlineParser::parse()
 				default:
 					break;
 			}
-			
+
 			if (found) {
 				m_items << item;
 				break;
 			}
 		}
-		
+
 		if (!found) {
 			CommandlineItem item;
 			item.type = Commandline_Argument;

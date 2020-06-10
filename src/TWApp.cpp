@@ -147,11 +147,11 @@ void TWApp::init()
 #endif
 	appIcon.addFile(QString::fromLatin1(":/images/images/TeXworks.png"));
 	setWindowIcon(appIcon);
-	
+
 	setOrganizationName(QString::fromLatin1("TUG"));
 	setOrganizationDomain(QString::fromLatin1("tug.org"));
 	setApplicationName(QString::fromLatin1(TEXWORKS_NAME));
-	
+
 	// <Check for portable mode>
 #if defined(Q_OS_DARWIN)
 	QDir appDir(applicationDirPath() + QLatin1String("/../../..")); // move up to dir containing the .app package
@@ -193,7 +193,7 @@ void TWApp::init()
 	theAppInstance = this;
 
 	Tw::Settings settings;
-	
+
 	QString locale = settings.value(QString::fromLatin1("locale"), QLocale::system().name()).toString();
 	applyTranslation(locale);
 
@@ -263,7 +263,7 @@ void TWApp::init()
 	aboutAction->setMenuRole(QAction::AboutRole);
 	menuHelp->addAction(aboutAction);
 	connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
-	
+
 	TWUtils::insertHelpMenuItems(menuHelp);
 
 	connect(this, SIGNAL(updatedTranslators()), this, SLOT(changeLanguage()));
@@ -352,21 +352,21 @@ QString TWApp::GetWindowsVersionString()
 	PGNSI pGNSI;
 	BOOL bOsVersionInfoEx;
 	QString result = QLatin1String("(unknown version)");
-	
+
 	memset(&si, 0, sizeof(SYSTEM_INFO));
 	memset(&osvi, 0, sizeof(OSVERSIONINFOEXA));
-	
+
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXA);
 	if ( !(bOsVersionInfoEx = GetVersionExA (reinterpret_cast<OSVERSIONINFOA *>(&osvi))) )
 		return result;
-	
+
 	// Call GetNativeSystemInfo if supported or GetSystemInfo otherwise.
 	pGNSI = reinterpret_cast<PGNSI>(GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetNativeSystemInfo"));
 	if (pGNSI)
 		pGNSI(&si);
 	else
 		GetSystemInfo(&si);
-	
+
 	if ( VER_PLATFORM_WIN32_NT == osvi.dwPlatformId && osvi.dwMajorVersion > 4 ) {
 		if ( osvi.dwMajorVersion == 10 ) {
 			if ( osvi.dwMinorVersion == 0 ) {
@@ -428,7 +428,7 @@ QString TWApp::GetWindowsVersionString()
 		}
 		else if ( osvi.dwMajorVersion == 5 && osvi.dwMinorVersion == 0 ) {
 			result = QLatin1String("2000 ");
-			
+
 			if ( osvi.wProductType == VER_NT_WORKSTATION ) {
 				result += QLatin1String("Professional");
 			}
@@ -441,12 +441,12 @@ QString TWApp::GetWindowsVersionString()
 					result += QLatin1String("Server");
 			}
 		}
-		
+
 		if ( strlen(osvi.szCSDVersion) > 0 ) {
 			result += QChar::fromLatin1(' ');
 			result += QLatin1String(osvi.szCSDVersion);
 		}
-		
+
 		if ( osvi.dwMajorVersion >= 6 ) {
 			if ( si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64 )
 				result += QLatin1String(", 64-bit");
@@ -454,20 +454,20 @@ QString TWApp::GetWindowsVersionString()
 				result += QLatin1String(", 32-bit");
 		}
 	}
-	
+
 	return result;
 }
 
 unsigned int TWApp::GetWindowsVersion()
 {
 	OSVERSIONINFOEXA osvi;
-	
+
 	memset(&osvi, 0, sizeof(OSVERSIONINFOEXA));
-	
+
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXA);
 	if (!GetVersionExA (reinterpret_cast<OSVERSIONINFOA *>(&osvi)))
 		return 0;
-	
+
 	return (osvi.dwMajorVersion << 24) | (osvi.dwMinorVersion << 16) | (osvi.wServicePackMajor << 8) | (osvi.wServicePackMinor << 0);
 }
 #endif
@@ -542,9 +542,9 @@ void TWApp::writeToMailingList()
 		QFileInfo info(pdftex);
 		pdftex = info.canonicalFilePath();
 	}
-	
+
 	body += QLatin1String("pdfTeX location  : ") + pdftex + QChar::fromLatin1('\n');
-	
+
 	body += QLatin1String("Operating system : ");
 #if defined(Q_OS_WIN)
 	body += QLatin1String("Windows ") + GetWindowsVersionString() + QChar::fromLatin1('\n');
@@ -883,7 +883,7 @@ void TWApp::setDefaultEngineList()
 	else
 		engineList->clear();
 	*engineList
-//		<< Engine("LaTeXmk", "latexmk" EXE, QStringList("-e") << 
+//		<< Engine("LaTeXmk", "latexmk" EXE, QStringList("-e") <<
 //				  "$pdflatex=q/pdflatex -synctex=1 %O %S/" << "-pdf" << "$fullname", true)
 	    << Engine(QString::fromLatin1("pdfTeX"), QString::fromLatin1("pdftex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
 	    << Engine(QString::fromLatin1("pdfLaTeX"), QString::fromLatin1("pdflatex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
@@ -1122,7 +1122,7 @@ void TWApp::addToRecentFiles(const QMap<QString,QVariant>& fileProperties)
 	QString fileName = fileProperties.value(QString::fromLatin1("path")).toString();
 	if (fileName.isEmpty())
 		return;
-	
+
 	QList<QVariant> fileList = settings.value(QString::fromLatin1("recentFiles")).toList();
 	QList<QVariant>::iterator i = fileList.begin();
 	while (i != fileList.end()) {
@@ -1200,7 +1200,7 @@ void TWApp::bringToFront()
 QList<QVariant> TWApp::getOpenWindows() const
 {
 	QList<QVariant> result;
-	
+
 	foreach (QWidget *widget, QApplication::topLevelWidgets()) {
 		if (qobject_cast<TWScriptableWindow*>(widget))
 			result << QVariant::fromValue(qobject_cast<QObject*>(widget));
@@ -1211,10 +1211,10 @@ QList<QVariant> TWApp::getOpenWindows() const
 void TWApp::setGlobal(const QString& key, const QVariant& val)
 {
 	QVariant v = val;
-	
+
 	if (key.isEmpty())
 		return;
-	
+
 	// For objects on the heap make sure we are notified when their lifetimes
 	// end so that we can remove them from our hash accordingly
 	switch (static_cast<QMetaType::Type>(val.type())) {
@@ -1229,7 +1229,7 @@ void TWApp::setGlobal(const QString& key, const QVariant& val)
 void TWApp::globalDestroyed(QObject * obj)
 {
 	QHash<QString, QVariant>::iterator i = m_globals.begin();
-	
+
 	while (i != m_globals.end()) {
 		switch (static_cast<QMetaType::Type>(i.value().type())) {
 			case QMetaType::QObjectStar:
@@ -1271,17 +1271,17 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 		Tw::Scripting::Script * script = qobject_cast<Tw::Scripting::Script*>(scriptApi->GetScript());
 		if (!script)
 			return retVal; // this should never happen
-	
+
 		// relative paths are taken to be relative to the folder containing the
 		// executing script's file
 		QDir scriptDir(QFileInfo(script->getFilename()).dir());
 		QString path = scriptDir.absoluteFilePath(fileName);
-	
+
 		if (!scriptApi->mayReadFile(path, scriptApi->GetTarget())) {
 			// Possibly ask user to override the permissions
 			if (!askUser)
 				return retVal;
-			if (QMessageBox::warning(qobject_cast<QWidget*>(scriptApi->GetTarget()), 
+			if (QMessageBox::warning(qobject_cast<QWidget*>(scriptApi->GetTarget()),
 				tr("Permission request"),
 				tr("The script \"%1\" is trying to open the file \"%2\" without sufficient permissions. Do you want to open the file?")\
 					.arg(script->getTitle(), path),
@@ -1313,12 +1313,12 @@ void TWApp::reloadSpellchecker()
 			texDoc->setSpellcheckLanguage(QString());
 		}
 	}
-	
+
 	// reset dictionaries (getDictionaryList(true) automatically updates all
 	// spell checker menus)
 	Tw::Document::SpellChecker::clearDictionaries();
 	Tw::Document::SpellChecker::getDictionaryList(true);
-	
+
 	// reenable spell checker
 	for (QHash<TeXDocumentWindow*, QString>::iterator it = oldLangs.begin(); it != oldLangs.end(); ++it) {
 		it.key()->setSpellcheckLanguage(it.value());

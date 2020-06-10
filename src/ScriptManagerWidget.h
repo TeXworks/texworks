@@ -41,7 +41,7 @@ protected:
 
 signals:
 	void scriptListChanged();
-	
+
 private slots:
 	void treeItemClicked(QTreeWidgetItem * item, int column);
 	void treeItemActivated(QTreeWidgetItem * item, int column);
@@ -49,15 +49,15 @@ private slots:
 
 private:
 	ScriptManagerWidget(QWidget * parent = nullptr) : QWidget(parent) { init(); }
-	
+
 	void init();
-	
+
 	void populateTree();
 	void populateTree(QTreeWidget * tree, QTreeWidgetItem * parentItem, const TWScriptList * scripts);
 	void setFolderCheckedState(QTreeWidgetItem * item);
 
 	void addDetailsRow(QString& html, const QString & label, const QString & value);
-	
+
 	static ScriptManagerWidget * gManageScriptsWindow;
 	static QRect           gGeometry;
 };

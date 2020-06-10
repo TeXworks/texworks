@@ -42,7 +42,7 @@ public:
 
 private slots:
 	void buttonClicked(QAbstractButton *whichButton);
-	
+
 	void changedTabPanel(int index);
 
 	void updatePathButtons();
@@ -50,7 +50,7 @@ private slots:
 	void movePathDown();
 	void addPath();
 	void removePath();
-	
+
 	void updateToolButtons();
 	void moveToolUp();
 	void moveToolDown();
@@ -63,22 +63,22 @@ private:
 	void restoreDefaults();
 	void refreshDefaultTool();
 	void initPathAndToolLists();
-	
+
 	QList<Engine> engineList;
-	
+
 	bool pathsChanged;
 	bool toolsChanged;
-	
+
 	static int sCurrentTab;
 };
 
 class ToolConfig : public QDialog, private Ui::ToolConfigDialog
 {
 	Q_OBJECT
-	
+
 public:
 	explicit ToolConfig(QWidget * parent);
-	
+
 	static DialogCode doToolConfig(QWidget *parent, Engine &engine);
 
 private slots:

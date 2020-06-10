@@ -57,7 +57,7 @@
 const QString TWUtils::getLibraryPath(const QString& subdir, const bool updateOnDisk /* = true */)
 {
 	QString libRootPath, libPath;
-	
+
 	libRootPath = TWApp::instance()->getPortableLibPath();
 	if (libRootPath.isEmpty()) {
 #if defined(Q_OS_DARWIN)
@@ -92,21 +92,21 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 {
 	QDir srcDir(srcRootDir);
 	QDir destDir(destRootDir.absolutePath() + QDir::separator() + subdir);
-	
+
 	// sanity check
 	if (!srcDir.cd(subdir))
 		return;
-	
+
 	// make sure the library folder exists - even if the user deleted it;
 	// otherwise other parts of the program might fail
 	if (!destDir.exists())
 		QDir::root().mkpath(destDir.absolutePath());
-	
+
 	if (subdir == QString::fromLatin1("translations")) // don't copy the built-in translations
 		return;
-	
+
 	Tw::Utils::FileVersionDatabase fvdb = Tw::Utils::FileVersionDatabase::load(destRootDir.absoluteFilePath(QString::fromLatin1("TwFileVersions.db")));
-	
+
 	QDirIterator iter(srcDir, QDirIterator::Subdirectories);
 	while (iter.hasNext()) {
 		(void)iter.next();
@@ -126,7 +126,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 			// remember that this file was deleted by the user
 			if (!QFileInfo(destPath).exists())
 				continue;
-			
+
 			QByteArray srcHash = Tw::Utils::FileVersionDatabase::hashForFile(srcPath);
 			QByteArray destHash = Tw::Utils::FileVersionDatabase::hashForFile(destPath);
 			// If the file was modified, don't do anything, either
@@ -186,11 +186,11 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 		QString destPath = rec.filePath.filePath();
 		QString path = destRootDir.relativeFilePath(destPath);
 		QString srcPath = srcRootDir.filePath(path);
-		
+
 		// If the source file still exists there is nothing to do here
 		if (QFileInfo(srcPath).exists())
 			continue;
-		
+
 		// If the source file no longer exists but the file on disk is up to
 		// date, remove it
 		if (rec.filePath.exists() && Tw::Utils::FileVersionDatabase::hashForFile(destPath) == rec.hash) {
@@ -263,7 +263,7 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	QString loc = settings.value(QString::fromLatin1("locale")).toString();
 	if (loc.isEmpty())
 		loc = QLocale::system().name();
-	
+
 	QDirIterator iter(helpDir);
 	int inserted = 0;
 	while (iter.hasNext()) {
@@ -446,7 +446,7 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	labelList = constructUniqueFileLabels(fileList);
 
 	int numRecentFiles = fileList.size();
-	
+
 	foreach(QAction * sep, menu->actions()) {
 		if (sep->isSeparator())
 			delete sep;
@@ -473,7 +473,7 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 		actions[i]->setData(fileList[i]);
 		actions[i]->setVisible(true);
 	}
-	
+
 	if (numRecentFiles > 0)
 		menu->insertSeparator(clearAction);
 	if (clearAction)
@@ -491,7 +491,7 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	}
 	while (!menu->actions().isEmpty() && menu->actions().last()->isSeparator())
 		menu->removeAction(menu->actions().last());
-	
+
 	QList<TeXDocumentWindow *> texDocList;
 	QStringList fileList, labelList;
 	Q_FOREACH(TeXDocumentWindow * texDoc, TeXDocumentWindow::documentList()) {
@@ -620,7 +620,7 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 #endif
 		}
 	}
-	
+
 	// Ensure the window is not maximized, otherwise some window managers might
 	// react strangely to resizing
 	window->showNormal();
@@ -640,7 +640,7 @@ void TWUtils::sideBySide(QWidget *window1, QWidget *window2)
 {
 	QDesktopWidget *desktop = QApplication::desktop();
 
-	// if the windows reside on the same screen zoom each so that it occupies 
+	// if the windows reside on the same screen zoom each so that it occupies
 	// half of that screen
 	if (desktop->screenNumber(window1) == desktop->screenNumber(window2)) {
 		zoomToHalfScreen(window1, false);
@@ -683,7 +683,7 @@ void TWUtils::tileWindowsInRect(const QWidgetList& windows, const QRect& bounds)
 			r.moveTop(bounds.top() + (bounds.height() * y) / rows);
 		}
 		else
-			r.moveLeft(bounds.left() + (bounds.width() * x) / cols); 
+			r.moveLeft(bounds.left() + (bounds.width() * x) / cols);
 	}
 }
 
@@ -811,7 +811,7 @@ void TWUtils::readConfig()
 	sCleanupPatterns = QString::fromLatin1("*.aux $jobname.log $jobname.lof $jobname.lot $jobname.toc");
 
 	filters = new QStringList;
-	
+
 	QFile configFile(configDir.filePath(QString::fromLatin1("texworks-config.txt")));
 	if (configFile.open(QIODevice::ReadOnly)) {
 		QRegularExpression keyVal(QStringLiteral("^([-a-z]+):\\s*([^ \\t].+)$"));
@@ -862,7 +862,7 @@ void TWUtils::readConfig()
 			}
 		}
 	}
-	
+
 	if (filters->count() == 0)
 		setDefaultFilters();
 }
@@ -899,7 +899,7 @@ int TWUtils::findOpeningDelim(const QString& text, int pos)
 void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true */, QSettings * map /* = nullptr */)
 {
 	bool deleteMap = false;
-	
+
 	if (!widget)
 		return;
 
@@ -922,7 +922,7 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 		if (map->contains(act->objectName()))
 			act->setShortcut(QKeySequence(map->value(act->objectName()).toString()));
 	}
-	
+
 	if (recursive) {
 		foreach (QObject * obj, widget->children()) {
 			QWidget * child = qobject_cast<QWidget*>(obj);
@@ -930,7 +930,7 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 				installCustomShortcuts(child, true, map);
 		}
 	}
-	
+
 	if (deleteMap)
 		delete map;
 }

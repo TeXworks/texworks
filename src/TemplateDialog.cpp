@@ -44,7 +44,7 @@ void TemplateDialog::init()
 
 	QString templatePath = TWUtils::getLibraryPath(QString::fromLatin1("templates"));
 		// do this before creating the model, as getLibraryPath might initialize a new dir
-		
+
 	model = new QFileSystemModel(this);
 	model->setRootPath(templatePath);
 	treeView->setModel(model);
@@ -53,7 +53,7 @@ void TemplateDialog::init()
 
 	connect(treeView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
 			this, SLOT(selectionChanged(const QItemSelection&, const QItemSelection&)));
-	
+
 	connect(treeView, SIGNAL(activated(const QModelIndex&)), this, SLOT(itemActivated(const QModelIndex&)));
 
 	Tw::Settings settings;
@@ -107,7 +107,7 @@ QString TemplateDialog::doTemplateDialog()
 				rval = filePath;
 		}
 	}
-	
+
 	return rval;
 }
 

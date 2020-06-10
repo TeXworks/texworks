@@ -46,9 +46,9 @@ public:
 	bool rewrap() const { // whether to re-wrap paragraphs (fill lines)
 	    return checkbox_rewrap->isChecked();
 	}
-	
+
 	int mode() const; // returns one of the kHardWrapMode_* values
-	
+
 	void saveSettings();
 
 protected:

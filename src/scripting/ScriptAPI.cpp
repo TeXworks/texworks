@@ -151,12 +151,12 @@ QVariant ScriptAPI::getText(QWidget* parent, const QString& title, const QString
 	QString s = QInputDialog::getText(parent, title, label, QLineEdit::Normal, text, &ok);
 	return ok ? QVariant(s) : QVariant();
 }
-	
+
 void ScriptAPI::yield()
 {
 	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 }
-	
+
 QWidget * ScriptAPI::progressDialog(QWidget * parent)
 {
 	QProgressDialog * dlg = new QProgressDialog(parent);
@@ -165,7 +165,7 @@ QWidget * ScriptAPI::progressDialog(QWidget * parent)
 	dlg->show();
 	return dlg;
 }
-	
+
 QWidget * ScriptAPI::createUIFromString(const QString& uiSpec, QWidget * parent)
 {
 	QByteArray ba(uiSpec.toUtf8());
@@ -197,13 +197,13 @@ QWidget * ScriptAPI::createUI(const QString& filename, QWidget * parent)
 	}
 	return widget;
 }
-	
+
 QWidget * ScriptAPI::findChildWidget(QWidget* parent, const QString& name)
 {
 	QWidget* child = parent->findChild<QWidget*>(name);
 	return child;
 }
-	
+
 bool ScriptAPI::makeConnection(QObject* sender, const QString& signal, QObject* receiver, const QString& slot)
 {
 	return QObject::connect(sender, QString::fromLatin1("2%1").arg(signal).toUtf8().data(),
@@ -271,7 +271,7 @@ QMap<QString, QVariant> ScriptAPI::launchFile(const QString& fileName) const
 {
 	QFileInfo finfo(fileName);
 	QMap<QString, QVariant> retVal;
-	
+
 	retVal[QString::fromLatin1("status")] = SystemAccess_PermissionDenied;
 	retVal[QString::fromLatin1("message")] = QVariant();
 
@@ -299,13 +299,13 @@ int ScriptAPI::writeFile(const QString& filename, const QString& content) const
 
 	if (!mayWriteFile(path, m_target))
 		return ScriptAPI::SystemAccess_PermissionDenied;
-	
+
 	QFile fout(path);
 	qint64 numBytes = -1;
-	
+
 	if (!fout.open(QIODevice::WriteOnly | QIODevice::Text))
 		return ScriptAPI::SystemAccess_Failed;
-	
+
 	numBytes = fout.write(content.toUtf8());
 	fout.close();
 
@@ -318,7 +318,7 @@ QMap<QString, QVariant> ScriptAPI::readFile(const QString& filename) const
 	// relative paths are taken to be relative to the folder containing the
 	// executing script's file
 	QMap<QString, QVariant> retVal;
-	
+
 	retVal[QString::fromLatin1("status")] = SystemAccess_PermissionDenied;
 	retVal[QString::fromLatin1("result")] = QVariant();
 	retVal[QString::fromLatin1("message")] = QVariant();
@@ -331,15 +331,15 @@ QMap<QString, QVariant> ScriptAPI::readFile(const QString& filename) const
 		retVal[QString::fromLatin1("status")] = ScriptAPI::SystemAccess_PermissionDenied;
 		return retVal;
 	}
-	
+
 	QFile fin(path);
-	
+
 	if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		retVal[QString::fromLatin1("message")] = tr("The file \"%1\" could not be opened for reading").arg(path);
 		retVal[QString::fromLatin1("status")] = ScriptAPI::SystemAccess_Failed;
 		return retVal;
 	}
-	
+
 	// with readAll, there's no way to detect an error during the actual read
 	retVal[QString::fromLatin1("result")] = QString::fromUtf8(fin.readAll().constData());
 	retVal[QString::fromLatin1("status")] = ScriptAPI::SystemAccess_OK;
@@ -369,7 +369,7 @@ QMap<QString, QVariant> ScriptAPI::getDictionaryList(const bool forceReload /* =
 		else
 			retVal[it.value()] = (retVal[it.value()].toList() << it.key());
 	}
-	
+
 	return retVal;
 }
 

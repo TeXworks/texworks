@@ -61,7 +61,7 @@ bool Script::doParseHeader(const QString& beginComment, const QString& endCommen
 
 	if (!file.exists() || !file.open(QIODevice::ReadOnly))
 		return false;
-	
+
 	m_Codec = QTextCodec::codecForName("UTF-8");
 	if (!m_Codec)
 		m_Codec = QTextCodec::codecForLocale();
@@ -70,7 +70,7 @@ bool Script::doParseHeader(const QString& beginComment, const QString& endCommen
 		QTextCodec * codec = m_Codec;
 		file.seek(0);
 		lines = codec->toUnicode(file.readAll()).split(QRegularExpression(QStringLiteral("\r\n|[\n\r]")));
-	
+
 		// skip any empty lines
 		if (skipEmpty) {
 			while (!lines.isEmpty() && lines.first().isEmpty())
@@ -78,7 +78,7 @@ bool Script::doParseHeader(const QString& beginComment, const QString& endCommen
 		}
 		if (lines.isEmpty())
 			break;
-	
+
 		// is this a valid TW script?
 		line = lines.takeFirst();
 		if (!beginComment.isEmpty()) {
@@ -93,7 +93,7 @@ bool Script::doParseHeader(const QString& beginComment, const QString& endCommen
 		}
 		if (!line.startsWith(QLatin1String("TeXworksScript")))
 			break;
-	
+
 		// scan to find the extent of the header lines
 		QStringList::iterator i;
 		for (i = lines.begin(); i != lines.end(); ++i) {
@@ -112,7 +112,7 @@ bool Script::doParseHeader(const QString& beginComment, const QString& endCommen
 			*i = i->mid(Comment.size()).trimmed();
 		}
 		lines.erase(i, lines.end());
-		
+
 		codecChanged = false;
 		switch (doParseHeader(lines)) {
 			case ParseHeader_OK:
@@ -126,7 +126,7 @@ bool Script::doParseHeader(const QString& beginComment, const QString& endCommen
 				break;
 		}
 	}
-	
+
 	file.close();
 	return success;
 }
@@ -135,14 +135,14 @@ Script::ParseHeaderResult Script::doParseHeader(const QStringList & lines)
 {
 	QString line, key, value;
 	QFileInfo fi(m_Filename);
-	
+
 	m_FileSize = fi.size();
 	m_LastModified = fi.lastModified();
-	
+
 	foreach (line, lines) {
 		key = line.section(QChar::fromLatin1(':'), 0, 0).trimmed();
 		value = line.section(QChar::fromLatin1(':'), 1).trimmed();
-		
+
 		if (key == QLatin1String("Title")) m_Title = value;
 		else if (key == QLatin1String("Description")) m_Description = value;
 		else if (key == QLatin1String("Author")) m_Author = value;
@@ -165,7 +165,7 @@ Script::ParseHeaderResult Script::doParseHeader(const QStringList & lines)
 			}
 		}
 	}
-	
+
 	if (m_Type != ScriptUnknown && !m_Title.isEmpty())
 		return ParseHeader_OK;
 	return ParseHeader_Failed;
@@ -176,10 +176,10 @@ Script::PropertyResult Script::doGetProperty(const QObject * obj, const QString&
 {
 	if (!obj || !(obj->metaObject()))
 		return Property_Invalid;
-	
+
 	// Get the parameters
 	int iProp = obj->metaObject()->indexOfProperty(qPrintable(name));
-	
+
 	// if we didn't find a property maybe it's a method
 	if (iProp < 0) {
 		for (int i = 0; i < obj->metaObject()->methodCount(); ++i) {
@@ -188,13 +188,13 @@ Script::PropertyResult Script::doGetProperty(const QObject * obj, const QString&
 		}
 		return Property_DoesNotExist;
 	}
-	
+
 	QMetaProperty prop = obj->metaObject()->property(iProp);
-	
+
 	// If we can't get the property's value, abort
 	if (!prop.isReadable())
 		return Property_NotReadable;
-	
+
 	value = prop.read(obj);
 	return Property_OK;
 }
@@ -204,19 +204,19 @@ Script::PropertyResult Script::doSetProperty(QObject * obj, const QString& name,
 {
 	if (!obj || !(obj->metaObject()))
 		return Property_Invalid;
-	
+
 	int iProp = obj->metaObject()->indexOfProperty(qPrintable(name));
-	
+
 	// if we didn't find the property abort
 	if (iProp < 0)
 		return Property_DoesNotExist;
-	
+
 	QMetaProperty prop = obj->metaObject()->property(iProp);
-	
+
 	// If we can't set the property's value, abort
 	if (!prop.isWritable())
 		return Property_NotWritable;
-	
+
 	prop.write(obj, value);
 	return Property_OK;
 }
@@ -232,12 +232,12 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 	QGenericReturnArgument retValArg;
 	void * retValBuffer = nullptr;
 	void * myNullPtr = nullptr;
-	
+
 	if (!obj || !(obj->metaObject()))
 		return Method_Invalid;
-	
+
 	const QMetaObject * mo = obj->metaObject();
-	
+
 	for (int i = 0; i < mo->methodCount(); ++i) {
 		mm = mo->method(i);
 		// Check for the method name
@@ -246,13 +246,13 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 		// we can only call public methods
 		if (mm.access() != QMetaMethod::Public)
 			continue;
-		
+
 		methodExists = true;
-		
+
 		// we need the correct number of arguments
 		if (mm.parameterTypes().count() != arguments.count())
 			continue;
-		
+
 		// Check if the given arguments are compatible with those taken by the
 		// method
 		int j{0};
@@ -260,7 +260,7 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 			// QVariant can be passed as-is
 			if (mm.parameterTypes()[j] == "QVariant")
 				continue;
-			
+
 			int type = QMetaType::type(mm.parameterTypes()[j].constData());
 			int typeOfArg = static_cast<int>(arguments[j].type());
 			if (typeOfArg == type)
@@ -274,17 +274,17 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 		}
 		if (j < arguments.count())
 			continue;
-		
+
 		// Convert the arguments into QGenericArgument structures
 		for (j = 0; j < arguments.count() && j < 10; ++j) {
 			typeName = QString::fromUtf8(mm.parameterTypes()[j].constData());
 			int type = QMetaType::type(qPrintable(typeName));
 			int typeOfArg = static_cast<int>(arguments[j].type());
-			
+
 			// allocate type name on the heap so it survives the method call
 			char * strTypeName = new char[typeName.size() + 1];
 			strcpy(strTypeName, qPrintable(typeName));
-			
+
 			if (typeName == QString::fromLatin1("QVariant")) {
 				genericArgs.append(QGenericArgument(strTypeName, &arguments[j]));
 				continue;
@@ -297,7 +297,7 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 			}
 			// \TODO	handle failure during conversion
 			else { }
-			
+
 			// Note: This line is a hack!
 			// QVariant::data() is undocumented; QGenericArgument should not be
 			// called directly; if this ever causes problems, think of another
@@ -307,7 +307,7 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 		// Fill up the list so we get the 10 values we need later on
 		for (; j < 10; ++j)
 			genericArgs.append(QGenericArgument());
-		
+
 		typeName = QString::fromUtf8(mm.typeName());
 		if (typeName.isEmpty()) {
 			// no return type
@@ -324,7 +324,7 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 			retValBuffer = QMetaType::create(QMetaType::type(mm.typeName()));
 			retValArg = QGenericReturnArgument(mm.typeName(), retValBuffer);
 		}
-		
+
 		Script::MethodResult status{Method_Failed};
 		if (QMetaObject::invokeMethod(obj, qPrintable(name),
 							 Qt::DirectConnection,
@@ -348,18 +348,18 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 				result = QVariant();
 			status = Method_OK;
 		}
-		
+
 		if (retValBuffer)
 			QMetaType::destroy(QMetaType::type(mm.typeName()), retValBuffer);
-		
+
 		for (j = 0; j < arguments.count() && j < 10; ++j) {
 			// we pushed the data on the heap, we need to remove it from there
 			delete[] genericArgs[j].name();
 		}
-		
+
 		return status;
 	}
-	
+
 	if (methodExists)
 		return Method_WrongArgs;
 	return Method_DoesNotExist;
@@ -386,7 +386,7 @@ void Script::setGlobal(const QString& key, const QVariant& val)
 void Script::globalDestroyed(QObject * obj)
 {
 	QHash<QString, QVariant>::iterator i = m_globals.begin();
-	
+
 	while (i != m_globals.end()) {
 		switch (static_cast<QMetaType::Type>(i.value().type())) {
 			case QMetaType::QObjectStar:

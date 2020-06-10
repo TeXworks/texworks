@@ -44,10 +44,10 @@ namespace Scripting {
 class Script : public QObject
 {
 	Q_OBJECT
-	
+
 public:
 	/** \brief	Types of scripts */
-	enum ScriptType { 
+	enum ScriptType {
 		ScriptUnknown,		///< unknown or invalid script
 		ScriptHook,			///< hook, i.e. a script that is called automatically when the execution reaches a certain point
 		ScriptStandalone	///< standalone script, i.e. one that can be invoked by the user
@@ -64,25 +64,25 @@ public:
 	 * Does nothing
 	 */
 	~Script() override = default;
-	
+
 	/** \brief  Return the enabled/disabled status of the script
 	 *
 	 * \return  \c true if script is enabled, \c false if disabled
 	 */
 	bool isEnabled() const { return m_Enabled; }
-	
+
 	/** \brief  Set the enabled/disabled status of the script
 	 *
 	 * \param  enable   the new enabled status to set on the script object
 	 */
 	void setEnabled(bool enable) { m_Enabled = enable; }
-	
+
 	/** \brief	Determine if the file has changed on the disk since it was last parsed
 	 *
 	 * \return	\c true if it has changed, \c false otherwise
 	 */
 	bool hasChanged() const;
-	
+
 	/** \brief Parse the script header
 	 *
 	 * \note	This method must be implemented in derived classes.
@@ -92,7 +92,7 @@ public:
 	 * 			is no valid Tw script)
 	 */
 	virtual bool parseHeader() = 0;
-	
+
 	/** \brief	Get the type of the script
 	 *
 	 * \return	the script type
@@ -144,16 +144,16 @@ public:
 	 *			(TeXDocument or PDFDocument), or empty if the script is universal
 	 */
 	const QString& getContext() const { return m_Context; }
-	
+
 	/** \brief	Get the shortcut of this script
 	 *
 	 * \note	This is only useful for standalone scripts.
 	 * \return	the shortcut
 	 */
 	const QKeySequence& getKeySequence() const { return m_KeySequence; }
-	
+
 	const QObject * getScriptLanguagePlugin() const { return m_Plugin; }
-	
+
 	/** \brief Run the script (public method called from the TeXworks application).
 	 *
 	 * This method sets up the TW object that provides scripts with access to
@@ -168,7 +168,7 @@ public:
 	 * \return	\c true on success, \c false if an error occured
 	 */
 	bool run(Tw::Scripting::ScriptAPIInterface & api);
-	
+
 	/** \brief Check if two scripts are the same
 	 *
 	 * \note	This method compares the file paths
@@ -200,13 +200,13 @@ protected:
 	 * \return     \c true on success, \c false if an error occurred.
 	 */
 	virtual bool execute(Tw::Scripting::ScriptAPIInterface * tw) const = 0;
-	
+
 	enum ParseHeaderResult {
 		ParseHeader_OK,
 		ParseHeader_Failed,
 		ParseHeader_CodecChanged
 	};
-	
+
 	/** \brief	Convenience function to parse supported key:value pairs of the header
 	 *
 	 * Currently supported keys:
@@ -239,7 +239,7 @@ protected:
 	 * \return	\c true if a title and type were found, \c false otherwise
 	 */
 	bool doParseHeader(const QString& beginComment, const QString& endComment, const QString& Comment, bool skipEmpty = true);
-	
+
 	/** \brief	Possible results of calls to doGetProperty() and doSetProperty() */
 	enum PropertyResult {
 		Property_OK,			///< the get/set operation was successful
@@ -289,7 +289,7 @@ protected:
 	 * \return	one of Script::MethodResult
 	 */
 	static Script::MethodResult doCallMethod(QObject * obj, const QString& name, QVariantList & arguments, QVariant & result);
-	
+
 	QObject * m_Plugin; ///< pointer to the language interface for this script
 	QString m_Filename;	///< the name of the file the script is stored in
 	ScriptType m_Type;	///< the type of the script (ScriptUnknown indicates invalid)
@@ -302,22 +302,22 @@ protected:
 	QKeySequence m_KeySequence;	///< the keyboard shortcut associated with this script
 
 	bool m_Enabled; ///< whether this script is enabled (runtime property, not stored in the script itself)
-	
+
 	QTextCodec * m_Codec;
 
 private slots:
 	void globalDestroyed(QObject * obj);
-	
+
 private:
 	/** \brief	Constructor
 	 *
 	 * Private, to prevent inadvertent use of the no-arg constructor.
 	 */
 	Script() = default;
-	
+
 	QDateTime m_LastModified;	///< keeps track of the file modification time so we can detect changes
 	qint64	m_FileSize;	///< similar to m_LastModified
- 	
+
  	QHash<QString, QVariant> m_globals;
 };
 

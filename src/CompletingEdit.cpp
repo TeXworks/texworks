@@ -71,12 +71,12 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 
 	loadIndentModes();
 	loadSmartQuotesModes();
-	
+
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
 	connect(this, SIGNAL(selectionChanged()), this, SLOT(cursorPositionChangedSlot()));
 
 	lineNumberArea = new Tw::UI::LineNumberWidget(this);
-	
+
 	// Invoke our setDocument() method to properly set up document-specific
 	// connections
 	setDocument(document());
@@ -288,7 +288,7 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 		case none:
 			QTextEdit::mouseMoveEvent(e);
 			return;
-		
+
 		case synctexClick:
 		case ignoring:
 			e->accept();
@@ -297,7 +297,7 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 		case extendingSelection:
 			QTextEdit::mouseMoveEvent(e);
 			return;
-			
+
 		case normalSelection:
 			if (clickCount == 1
 				&& dragStartCursor.position() >= textCursor().selectionStart()
@@ -341,7 +341,7 @@ void CompletingEdit::mouseMoveEvent(QMouseEvent *e)
 								// Otherwise, simply remove the source text
 								source.removeSelectedText();
 							}
-							
+
 							if (!insideWindow) {
 								// The selection was moved to a different window,
 								// so dropCursor has no sensible data here. Thus,
@@ -553,7 +553,7 @@ void CompletingEdit::timerEvent(QTimerEvent *e)
 	else
 		QTextEdit::timerEvent(e);
 }
-	
+
 void CompletingEdit::focusInEvent(QFocusEvent *e)
 {
 	if (c)
@@ -711,7 +711,7 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 				}
 			}
 		}
-	}	
+	}
 }
 
 void CompletingEdit::setSmartQuotesMode(int index)
@@ -722,7 +722,7 @@ void CompletingEdit::setSmartQuotesMode(int index)
 QStringList CompletingEdit::smartQuotesModes()
 {
 	loadSmartQuotesModes();
-	
+
 	QStringList modes;
 	foreach (const QuotesMode& mode, *quotesModes)
 		modes << mode.name;
@@ -789,7 +789,7 @@ void CompletingEdit::maybeSmartenQuote(int offset)
 	QuoteMapping::const_iterator iter = mappings.find(keyChar);
 	if (iter == mappings.end())
 		return;
-	
+
 	replacement = iter.value().second;
 	if (offset == 0) {
 		// always use opening quotes at the beginning of the document
@@ -798,12 +798,12 @@ void CompletingEdit::maybeSmartenQuote(int offset)
 	else {
 		if (text[offset - 1].isSpace())
 			replacement = iter.value().first;
-		
+
 		// after opening brackets, also use opening quotes
 		if (text[offset - 1] == QChar::fromLatin1('{') || text[offset - 1] == QChar::fromLatin1('[') || text[offset - 1] == QChar::fromLatin1('('))
 			replacement = iter.value().first;
 	}
-	
+
 	cursor.insertText(replacement);
 }
 
@@ -869,7 +869,7 @@ bool CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 		if(lineStartCursor.selectedText().trimmed().isEmpty())
 			atLineStart = true;
 	}
-	
+
 	if (!c && !atLineStart) {
 		cmpCursor = textCursor();
 		if (!selectWord(cmpCursor) && textCursor().selectionStart() > 0) {
@@ -903,7 +903,7 @@ bool CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 				}
 			}
 		}
-		
+
 		while (true) {
 			QString completionPrefix = cmpCursor.selectedText();
 			if (!completionPrefix.isEmpty()) {
@@ -928,7 +928,7 @@ bool CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 			break;
 		}
 	}
-	
+
 	if (c && c->completionCount() > 0) {
 		if (seq == actionPrevious_Completion->shortcut()) {
 			if (c->currentRow() == 0) {
@@ -1025,7 +1025,7 @@ void CompletingEdit::showCurrentCompletion()
 	}
 
 	QString completion = model->item(items[itemIndex]->row(), 1)->text();
-	
+
 	int insOffset = completion.indexOf(QLatin1String("#INS#"));
 	if (insOffset != -1)
 		completion.replace(QLatin1String("#INS#"), QLatin1String(""));
@@ -1102,7 +1102,7 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	connect(act, SIGNAL(triggered()), this, SLOT(jumpToPdfFromContextMenu()));
 	menu->insertSeparator(menu->actions().first());
 	menu->insertAction(menu->actions().first(), act);
-	
+
 	const Tw::Document::SpellChecker::Dictionary * dictionary = getSpellChecker();
 	if (dictionary) {
 		currentWord = cursorForPosition(event->pos());
@@ -1136,7 +1136,7 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 			}
 		}
 	}
-	
+
 	menu->exec(event->globalPos(), defaultAction);
 	delete menu;
 }
@@ -1198,7 +1198,7 @@ void CompletingEdit::loadIndentModes()
 QStringList CompletingEdit::autoIndentModes()
 {
 	loadIndentModes();
-	
+
 	QStringList modes;
 	foreach (const IndentMode& mode, *indentModes)
 		modes << mode.name;
@@ -1274,7 +1274,7 @@ void CompletingEdit::updateLineNumberArea(const QRect &rect, int dy)
 		lineNumberArea->scroll(0, dy);
 	else
 		lineNumberArea->update(0, rect.y(), lineNumberArea->width(), rect.height());
-	
+
 	if (rect.contains(viewport()->rect()))
 		updateLineNumberAreaWidth(0);
 }
@@ -1282,7 +1282,7 @@ void CompletingEdit::updateLineNumberArea(const QRect &rect, int dy)
 void CompletingEdit::resizeEvent(QResizeEvent *e)
 {
 	QTextEdit::resizeEvent(e);
-	
+
 	QRect cr = contentsRect();
 	lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberArea->sizeHint().width(), cr.height()));
 }
@@ -1311,7 +1311,7 @@ void CompletingEdit::wheelEvent(QWheelEvent *e)
 
 void CompletingEdit::setTextCursor(const QTextCursor & cursor)
 {
-	// QTextEdit::setTextCursor only scrolls to cursor.position(). If 
+	// QTextEdit::setTextCursor only scrolls to cursor.position(). If
 	// position() > anchor(), the two are on different lines, and the view has
 	// to scroll up, this means that not the whole selection is visible.
 	// By manually setting the cursor to anchor() first, we ensure that the

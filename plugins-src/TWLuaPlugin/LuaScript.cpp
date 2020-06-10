@@ -52,7 +52,7 @@ bool LuaScript::execute(ScriptAPIInterface * tw) const
 		return false;
 	}
 	lua_setglobal(L, "TW");
-	
+
 	int status = luaL_loadfile(L, qPrintable(m_Filename));
 	if (status != 0) {
 		tw->SetResult(getLuaStackValue(L, -1, false).toString());
@@ -67,7 +67,7 @@ bool LuaScript::execute(ScriptAPIInterface * tw) const
 		lua_pop(L, 1);
 		return false;
 	}
-	
+
 	lua_pushnil(L);
 	lua_setglobal(L, "TW");
 
@@ -78,10 +78,10 @@ bool LuaScript::execute(ScriptAPIInterface * tw) const
 int LuaScript::pushQObject(lua_State * L, QObject * obj, const bool throwError /* = true */)
 {
 	Q_UNUSED(throwError)
-	
+
 	if (!L || !obj)
 		return 0;
-	
+
 	lua_newtable(L);
 
 	// register callback for all get/set operations on object properties and
@@ -91,7 +91,7 @@ int LuaScript::pushQObject(lua_State * L, QObject * obj, const bool throwError /
 
 	lua_pushlightuserdata(L, obj);
 	lua_setfield(L, -2, "__qobject");
-	
+
 	lua_pushlightuserdata(L, obj);
 	lua_pushcclosure(L, LuaScript::setProperty, 1);
 	lua_setfield(L, -2, "__newindex");
@@ -117,7 +117,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 		lua_pushnil(L);
 		return 1;
 	}
-	
+
 	switch (static_cast<int>(v.type())) {
 		case QVariant::Bool:
 			lua_pushboolean(L, v.toBool());
@@ -150,7 +150,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 		case QVariant::Hash:
 		{
 			QVariantHash hash = v.toHash();
-			
+
 			lua_newtable(L);
 			for (QVariantHash::const_iterator iHash = hash.cbegin(); iHash != hash.cend(); ++iHash) {
 				LuaScript::pushVariant(L, iHash.value());
@@ -161,7 +161,7 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 		case QVariant::Map:
 		{
 			QVariantMap map = v.toMap();
-			
+
 			lua_newtable(L);
 			for (QVariantMap::const_iterator iMap = map.cbegin(); iMap != map.cend(); ++iMap) {
 				LuaScript::pushVariant(L, iMap.value());
@@ -196,10 +196,10 @@ int LuaScript::getProperty(lua_State * L)
 
 	// Get the QObject* we operate on
 	QObject * obj = static_cast<QObject*>(lua_touserdata(L, lua_upvalueindex(1)));
-	
+
 	// Get the parameters
 	propName = QString::fromUtf8(lua_tostring(L, 2));
-	
+
 	switch (doGetProperty(obj, propName, result)) {
 		case Property_DoesNotExist:
 			luaL_error(L, qPrintable(tr("__get: object doesn't have property/method %s")), qPrintable(propName));
@@ -233,7 +233,7 @@ int LuaScript::callMethod(lua_State * L)
 	QObject * obj = static_cast<QObject*>(lua_touserdata(L, lua_upvalueindex(1)));
 
 	methodName = QString::fromUtf8(lua_tostring(L, lua_upvalueindex(2)));
-	
+
 	for (int i = 1; i <= lua_gettop(L); ++i) {
 		args.append(getLuaStackValue(L, i));
 	}
@@ -253,7 +253,7 @@ int LuaScript::callMethod(lua_State * L)
 		default:
 			break;
 	}
-	
+
 	// we should never reach this point
 	return 0;
 }
@@ -296,7 +296,7 @@ int LuaScript::setProperty(lua_State * L)
 QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwError /* = true */)
 {
 	if (!L) return QVariant();
-	
+
 	switch (lua_type(L, idx)) {
 		case LUA_TNIL:
 			return QVariant();
@@ -311,7 +311,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			// convert index to an absolute value since we'll be messing with
 			// the stack
 			if (idx < 0) idx += lua_gettop(L) + 1;
-			
+
 			// Check if we're dealing with a QObject* wrapper
 			if (lua_getmetatable(L, idx)) {
 				int i = lua_gettop(L);
@@ -341,10 +341,10 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 				}
 				lua_pop(L, 1); // pop the metatable
 			}
-			
+
 			// Special treatment for tables
 			// If all keys are in the form 1..n, we can convert it to a QList
-			
+
 			// taken from the lua reference of lua_next()
 			lua_pushnil(L);
 			int n{0};
@@ -376,7 +376,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			}
 			if (n != iMax)
 				isArray = false;
-			
+
 			// Lua is picky about the correct type of index for accessing table
 			// members. Hence we can't simply retrieve the table items by index
 			// because they must only be _convertible_ to numbers, so 1 and "1"
@@ -389,7 +389,7 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 
 				for (int i = 0; i < n; ++i)
 					vl.append(QVariant());
-				
+
 				lua_pushnil(L);
 				while (lua_next(L, idx)) {
 					vl[static_cast<int>(lua_tointeger(L, -2) - 1)] = LuaScript::getLuaStackValue(L, -1);

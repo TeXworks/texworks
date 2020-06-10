@@ -50,9 +50,9 @@ PrefsDialog::PrefsDialog(QWidget *parent)
 void PrefsDialog::init()
 {
 	setupUi(this);
-	
+
 	connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(buttonClicked(QAbstractButton*)));
-	
+
 	connect(binPathList, SIGNAL(itemSelectionChanged()), this, SLOT(updatePathButtons()));
 	connect(pathUp, SIGNAL(clicked()), this, SLOT(movePathUp()));
 	connect(pathDown, SIGNAL(clicked()), this, SLOT(movePathDown()));
@@ -66,9 +66,9 @@ void PrefsDialog::init()
 	connect(toolAdd, SIGNAL(clicked()), this, SLOT(addTool()));
 	connect(toolRemove, SIGNAL(clicked()), this, SLOT(removeTool()));
 	connect(toolEdit, SIGNAL(clicked()), this, SLOT(editTool()));
-	
+
 	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changedTabPanel(int)));
-	
+
 	pathsChanged = toolsChanged = false;
 }
 
@@ -254,7 +254,7 @@ void PrefsDialog::refreshDefaultTool()
 {
 	QString val;
 	int toolIndex = -1, defaultIndex = -1;
-	
+
 	if (defaultTool->count() > 0)
 		val = defaultTool->currentText();
 	defaultTool->clear();
@@ -265,7 +265,7 @@ void PrefsDialog::refreshDefaultTool()
 		if (e.name() == QString::fromUtf8(DEFAULT_ENGINE_NAME))
 			defaultIndex = defaultTool->count() - 1;
 	}
-	
+
 	if (toolIndex >= 0)
 		defaultTool->setCurrentIndex(toolIndex);
 	else if (defaultIndex >= 0)
@@ -332,7 +332,7 @@ void PrefsDialog::restoreDefaults()
 			autocompleteEnabled->setChecked(kDefault_AutocompleteEnabled);
 			autoFollowFocusEnabled->setChecked(kDefault_AutoFollowFocusEnabled);
 			break;
-	
+
 		case 2:
 			// Preview
 			switch (kDefault_PreviewScaleOption) {
@@ -401,7 +401,7 @@ void PrefsDialog::restoreDefaults()
 			}
 			circularMag->setChecked(kDefault_CircularMagnifier);
 			break;
-		
+
 		case 3:
 			// Typesetting
 			TWApp::instance()->setDefaultEngineList();
@@ -456,18 +456,18 @@ static bool dictPairLessThan(const DictPair& d1, const DictPair& d2)
 QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 {
 	PrefsDialog dlg(nullptr);
-	
+
 	QStringList nameList;
 	foreach (QTextCodec *codec, *TWUtils::findCodecs())
 		nameList.append(QString::fromUtf8(codec->name().constData()));
 	dlg.encoding->addItems(nameList);
-	
+
 	QStringList syntaxOptions = TeXHighlighter::syntaxOptions();
 	dlg.syntaxColoring->addItems(syntaxOptions);
-	
+
 	QStringList indentModes = CompletingEdit::autoIndentModes();
 	dlg.autoIndent->addItems(indentModes);
-	
+
 	QStringList quotesModes = CompletingEdit::smartQuotesModes();
 	dlg.smartQuotes->addItems(quotesModes);
 
@@ -496,10 +496,10 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	std::sort(dictList.begin(), dictList.end(), dictPairLessThan);
 	foreach (const DictPair& dict, dictList)
 		dlg.language->addItem(dict.first, dict.second);
-		
+
 	Tw::Settings settings;
 	// initialize controls based on the current settings
-	
+
 	// General
 	int oldIconSize = settings.value(QString::fromLatin1("toolBarIconSize"), kDefault_ToolBarIcons).toInt();
 	switch (oldIconSize) {
@@ -528,7 +528,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			break;
 	}
 	dlg.openPDFwithTeX->setChecked(settings.value(QString::fromLatin1("openPDFwithTeX"), kDefault_OpenPDFwithTeX).toBool());
-	
+
 	QString oldLocale = settings.value(QString::fromLatin1("locale")).toString();
 	// System and English are predefined at index 0 and 1 (see constants above)
 	dlg.localePopup->addItem(tr("System default [%1]").arg(QLocale::languageToString(QLocale(QLocale::system().name()).language())));
@@ -560,7 +560,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			oldLocaleIndex = dlg.localePopup->count() - 1;
 	}
 	dlg.localePopup->setCurrentIndex(oldLocaleIndex);
-	
+
 	// Editor
 	dlg.syntaxColoring->setCurrentIndex(settings.contains(QString::fromLatin1("syntaxColoring"))
 	                        ? 1 + syntaxOptions.indexOf(settings.value(QString::fromLatin1("syntaxColoring")).toString())
@@ -631,7 +631,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 
 	int oldSyncToPDF = settings.value(QString::fromLatin1("syncResolutionToPDF"), TWSynchronizer::kDefault_Resolution_ToPDF).toInt();
 	dlg.cbSyncToPDF->setCurrentIndex(oldSyncToPDF);
-	
+
 	int oldMagSize = settings.value(QString::fromLatin1("magnifierSize"), kDefault_MagnifierSize).toInt();
 	switch (oldMagSize) {
 		case 1:
@@ -646,7 +646,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	}
 	bool oldCircular = settings.value(QString::fromLatin1("circularMagnifier"), kDefault_CircularMagnifier).toBool();
 	dlg.circularMag->setChecked(oldCircular);
-	
+
 	// Typesetting
 	dlg.initPathAndToolLists();
 	QVariant hideConsoleSetting = settings.value(QString::fromLatin1("autoHideConsole"), kDefault_HideConsole);
@@ -664,7 +664,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	if (TWApp::instance()->getScriptManager()->languages().size() <= 1)
 		dlg.enableScriptingPlugins->setEnabled(false);
 	dlg.scriptDebugger->setChecked(settings.value(QString::fromLatin1("scriptDebugger"), kDefault_ScriptDebugger).toBool());
-	
+
 	// Decide which tab to select initially
 	if (sCurrentTab == -1) {
 		if (parent && parent->inherits("TeXDocument"))
@@ -676,14 +676,14 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	}
 	if (sCurrentTab != dlg.tabWidget->currentIndex())
 		dlg.tabWidget->setCurrentIndex(sCurrentTab);
-	
+
 	dlg.show();
 
 	DialogCode result = static_cast<DialogCode>(dlg.exec());
 
 	if (result == Accepted) {
 		sCurrentTab = dlg.tabWidget->currentIndex();
-	
+
 		// General
 		int iconSize = 2;
 		if (dlg.smallIcons->isChecked())
@@ -700,16 +700,16 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 					TWUtils::applyToolbarOptions(theWindow, iconSize, showText);
 			}
 		}
-		
+
 		int launchOption = 1;
 		if (dlg.templateDialog->isChecked())
 			launchOption = 2;
 		else if (dlg.openDialog->isChecked())
 			launchOption = 3;
 		settings.setValue(QString::fromLatin1("launchOption"), launchOption);
-		
+
 		settings.setValue(QString::fromLatin1("openPDFwithTeX"), dlg.openPDFwithTeX->isChecked());
-		
+
 		if (dlg.localePopup->currentIndex() != oldLocaleIndex) {
 			switch (dlg.localePopup->currentIndex()) {
 				case kSystemLocaleIndex: // system locale
@@ -728,7 +728,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 					break;
 			}
 		}
-		
+
 		// Editor
 		settings.setValue(QString::fromLatin1("syntaxColoring"), dlg.syntaxColoring->currentText());
 		settings.setValue(QString::fromLatin1("autoIndent"), dlg.autoIndent->currentText());
@@ -773,7 +773,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 				editor->setTabStopDistance(dlg.tabWidth->value());
 #endif
 		}
-		
+
 		// Preview
 		int scaleOption = 1;
 		if (dlg.fitWidth->isChecked())
@@ -860,7 +860,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 int PrefsDialog::sCurrentTab = -1;
 
 ToolConfig::ToolConfig(QWidget *parent)
-	: QDialog(parent)	
+	: QDialog(parent)
 {
 	init();
 }
@@ -868,7 +868,7 @@ ToolConfig::ToolConfig(QWidget *parent)
 void ToolConfig::init()
 {
 	setupUi(this);
-	
+
 	connect(arguments, SIGNAL(itemSelectionChanged()), this, SLOT(updateArgButtons()));
 	connect(argUp, SIGNAL(clicked()), this, SLOT(moveArgUp()));
 	connect(argDown, SIGNAL(clicked()), this, SLOT(moveArgDown()));
@@ -946,7 +946,7 @@ void ToolConfig::removeArg()
 QDialog::DialogCode ToolConfig::doToolConfig(QWidget *parent, Engine &engine)
 {
 	ToolConfig dlg(parent);
-	
+
 	dlg.toolName->setText(engine.name());
 	dlg.program->setText(engine.program());
 	dlg.arguments->addItems(engine.arguments());
@@ -955,7 +955,7 @@ QDialog::DialogCode ToolConfig::doToolConfig(QWidget *parent, Engine &engine)
 		item->setFlags(item->flags() | Qt::ItemIsEditable);
 	}
 	dlg.viewPdf->setChecked(engine.showPdf());
-	
+
 	dlg.show();
 
 	DialogCode result = static_cast<DialogCode>(dlg.exec());
