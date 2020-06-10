@@ -14,6 +14,8 @@
 #include "PaperSizes.h"
 #include <QList>
 
+namespace QtPDF {
+
 class StandardPaperSizes : public QList<PaperSize>
 {
 public:
@@ -282,3 +284,5 @@ bool PaperSize::operator ==(const PaperSize & other) const
 
   return false;
 }
+
+} // namespace QtPDF

@@ -1055,18 +1055,18 @@ void TestQtPDF::paperSize()
   QFETCH(QString, label);
   QFETCH(bool, landscape);
 
-  PaperSize ps(QString(), QSizeF(0, 0));
+  QtPDF::PaperSize ps(QString(), QSizeF(0, 0));
 
   switch (sizeType) {
   case 0:
   default:
-    ps = PaperSize::findForMillimeter(requestSize);
+    ps = QtPDF::PaperSize::findForMillimeter(requestSize);
     break;
   case 1:
-    ps = PaperSize::findForInch(requestSize);
+    ps = QtPDF::PaperSize::findForInch(requestSize);
     break;
   case 2:
-    ps = PaperSize::findForPDFSize(requestSize);
+    ps = QtPDF::PaperSize::findForPDFSize(requestSize);
     break;
   }
 

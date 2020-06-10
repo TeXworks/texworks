@@ -18,6 +18,8 @@
 #include <QSizeF>
 #include <QString>
 
+namespace QtPDF {
+
 class PaperSize
 {
   Q_DECLARE_TR_FUNCTIONS(PaperSize)
@@ -44,5 +46,7 @@ protected:
   bool _landscape;
   LengthUnit _lengthUnit;
 };
+
+} // namespace QtPDF
 
 #endif // !defined(__PAPER_SIZES_H)
