@@ -70,7 +70,7 @@ namespace UnitTest {
 class FullscreenManager : public Tw::Utils::FullscreenManager
 {
 public:
-	FullscreenManager(QMainWindow * parent) : Tw::Utils::FullscreenManager(parent) {
+	explicit FullscreenManager(QMainWindow * parent) : Tw::Utils::FullscreenManager(parent) {
 		_menuBarTimer.setInterval(100);
 	}
 	int timeout() const { return _menuBarTimer.interval(); }

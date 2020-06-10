@@ -48,15 +48,13 @@ Stefan Löffler
 
 To build TeXworks from source, you will need to install
 
--   CMake <https://cmake.org/>
+- CMake <https://cmake.org/>
 
 as well as developer packages (or equivalent) for:
 
--   Qt 5 <https://www.qt.io/download/>
-
--   Poppler <https://poppler.freedesktop.org/>
-
--   Hunspell <https://hunspell.github.io/>
+- Qt 5 <https://www.qt.io/download/>
+- Poppler <https://poppler.freedesktop.org/>
+- Hunspell <https://hunspell.github.io/>
 
 along with their dependencies (such as Freetype, fontconfig, zlib, etc.) If you
 also want to build the scripting plugins (optional), you additionally need
@@ -74,6 +72,7 @@ Xcode to build the application.
 
 Further tips on building TeXworks from source are available on some of the wiki
 pages:
+
 - <https://github.com/TeXworks/texworks/wiki/Building>
 - <https://github.com/TeXworks/texworks/wiki/Building-on-Windows-(MinGW)>
 - <https://github.com/TeXworks/texworks/wiki/Building-on-Mac-OS-X-(Homebrew)>

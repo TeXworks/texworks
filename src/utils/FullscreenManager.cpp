@@ -86,7 +86,7 @@ void FullscreenManager::setFullscreen(const bool fullscreen /* = true */)
 			sci.shortcut->setEnabled(fullscreen);
 		}
 	}
-	else if (!fullscreen) {
+	else {
 		// exiting full-screen mode
 		// stop the timer, just in case
 		_menuBarTimer.stop();

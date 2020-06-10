@@ -176,8 +176,10 @@ void ScreenCalibrationWidget::paintEvent(QPaintEvent * event)
 	painter.setClipRect(_rulerRect);
 
 	// Print unit label
-	double x = _rulerRect.left() + 2;
-	painter.drawText(QPointF(x, y + _paperTickHeight), _units[_curUnit].label);
+	{
+		double x = _rulerRect.left() + 2;
+		painter.drawText(QPointF(x, y + _paperTickHeight), _units[_curUnit].label);
+	}
 
 	// Draw tick marks
 	for (int majorTick = 0; majorTick * dpu < _rulerRect.width(); ++majorTick) {

@@ -295,10 +295,6 @@ int LuaScript::setProperty(lua_State * L)
 /*static*/
 QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwError /* = true */)
 {
-	bool isArray{true}, isMap{true};
-	QVariantList vl;
-	QVariantMap vm;
-
 	if (!L) return QVariant();
 	
 	switch (lua_type(L, idx)) {
@@ -353,6 +349,8 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			lua_pushnil(L);
 			int n{0};
 			int iMax{0};
+			bool isArray{true}, isMap{true};
+
 			while (lua_next(L, idx)) {
 				if (isArray) {
 					if (!lua_isinteger(L, -2))
@@ -387,6 +385,8 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			// allocate the complete list first and overwrite the items as we
 			// get them.
 			if (isArray) {
+				QVariantList vl;
+
 				for (int i = 0; i < n; ++i)
 					vl.append(QVariant());
 				
@@ -401,6 +401,8 @@ QVariant LuaScript::getLuaStackValue(lua_State * L, int idx, const bool throwErr
 			// key (those are converted to lists implicitly) and QVariantMap is
 			// backwards compatible
 			if (isMap) {
+				QVariantMap vm;
+
 				lua_pushnil(L);
 				while (lua_next(L, idx)) {
 					// duplicate the key. If we didn't, lua_tostring could
