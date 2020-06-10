@@ -333,6 +333,10 @@ void TestUtils::MacCentralEurRomanCodec()
 	QTextEncoder * e = c->makeEncoder(QTextCodec::ConvertInvalidToNull);
 	QCOMPARE(e->fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4\x00", 6));
 	delete e;
+
+	QTextDecoder * d = c->makeDecoder(QTextCodec::ConvertInvalidToNull);
+	QCOMPARE(d->toUnicode(QByteArray("\x41\x80\x81\xA1\xA4")), QStringLiteral("AÄĀ°§"));
+	delete d;
 }
 
 void TestUtils::FullscreenManager()

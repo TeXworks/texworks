@@ -64,7 +64,7 @@ QByteArray MacCentralEurRomanCodec::convertFromUnicode(const QChar * input, int 
 	const uchar replacement = (state && state->flags & ConvertInvalidToNull) ? 0 : '?';
 	QByteArray r(length, Qt::Uninitialized);
 	uchar * d = reinterpret_cast<uchar*>(r.data());
-	int invalid = 0;
+	int invalid{0};
 
 	for (int i = 0; i < length; ++i) {
 		uchar c = replacement;
@@ -81,6 +81,7 @@ QByteArray MacCentralEurRomanCodec::convertFromUnicode(const QChar * input, int 
 			}
 			if (j >= 128) {
 				c = replacement;
+				++invalid;
 			}
 		}
 		d[i] = c;
@@ -105,6 +106,11 @@ QString MacCentralEurRomanCodec::convertToUnicode(const char * chars, int len, C
 		if (uc->unicode() >= 0x80 && uc->unicode() <= 0xff)
 			*uc = unicodeCodepoints[uc->unicode() - 0x80];
 		uc++;
+	}
+	if (state) {
+		state->remainingChars = 0;
+		// No need to adjust state->invalidChars; we didn't find any by
+		// definition
 	}
 	return str;
 }
