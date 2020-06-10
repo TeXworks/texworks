@@ -59,6 +59,7 @@ void TestDocument::isPDFfile_data()
 	QTest::addColumn<bool>("success");
 
 	QTest::newRow("does-not-exist") << false;
+	QTest::newRow("sync.tex") << false;
 	QTest::newRow("base14-fonts.png") << false;
 	QTest::newRow("base14-fonts.pdf") << true;
 	QTest::newRow("hello-world.ps") << false;
@@ -75,9 +76,12 @@ void TestDocument::isImageFile_data()
 	QTest::addColumn<bool>("success");
 
 	QTest::newRow("does-not-exist") << false;
+	QTest::newRow("sync.tex") << false;
 	QTest::newRow("base14-fonts.png") << true;
-	QTest::newRow("base14-fonts.pdf") << false;
-	QTest::newRow("hello-world.ps") << false;
+	// Don't test .pdf and .ps files for now. They may or may not be recognized
+	// depending on the OS, Qt version, plugins, etc.
+//	QTest::newRow("base14-fonts.pdf") << false;
+//	QTest::newRow("hello-world.ps") << false;
 }
 
 void TestDocument::isImageFile()
@@ -91,6 +95,7 @@ void TestDocument::isPostscriptFile_data()
 	QTest::addColumn<bool>("success");
 
 	QTest::newRow("does-not-exist") << false;
+	QTest::newRow("sync.tex") << false;
 	QTest::newRow("base14-fonts.png") << false;
 	QTest::newRow("base14-fonts.pdf") << false;
 	QTest::newRow("hello-world.ps") << true;
