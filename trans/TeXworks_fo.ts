@@ -1187,7 +1187,7 @@ Vilt tú halda fram?</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="802"/>
-        <source>Preview &gt; Source :</source>
+        <source>Preview &gt; Source:</source>
         <translation>Forsýning &gt; Kelda:</translation>
     </message>
     <message>

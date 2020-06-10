@@ -1298,8 +1298,8 @@ Você quer continuar?</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="802"/>
-        <source>Preview &gt; Source :</source>
-        <translation>Visualização &gt; Fonte :</translation>
+        <source>Preview &gt; Source:</source>
+        <translation type="unfinished">Visualização &gt; Fonte:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="551"/>

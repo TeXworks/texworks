@@ -1303,7 +1303,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="802"/>
-        <source>Preview &gt; Source :</source>
+        <source>Preview &gt; Source:</source>
         <translation>Previsualización &gt; Fuente:</translation>
     </message>
     <message>

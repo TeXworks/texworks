@@ -1177,7 +1177,7 @@ Vol continuar?</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="802"/>
-        <source>Preview &gt; Source :</source>
+        <source>Preview &gt; Source:</source>
         <translation>Vista prèvia &gt; Font:</translation>
     </message>
     <message>

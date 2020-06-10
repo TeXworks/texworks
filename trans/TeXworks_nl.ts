@@ -1296,8 +1296,8 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="802"/>
-        <source>Preview &gt; Source :</source>
-        <translation>Preview &gt; tekst :</translation>
+        <source>Preview &gt; Source:</source>
+        <translation type="unfinished">Preview &gt; tekst:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="550"/>

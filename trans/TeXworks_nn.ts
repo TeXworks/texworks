@@ -1317,7 +1317,7 @@ Er du sikker på at du vil halda fram?</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="802"/>
-        <source>Preview &gt; Source :</source>
+        <source>Preview &gt; Source:</source>
         <translation>Førehandsvising&#xa0;→ kjelde:</translation>
     </message>
     <message>

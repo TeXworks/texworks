@@ -1299,7 +1299,7 @@ Vuoi continuare?</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="802"/>
-        <source>Preview &gt; Source :</source>
+        <source>Preview &gt; Source:</source>
         <translation>Anteprima &gt; Sorgente:</translation>
     </message>
     <message>
