@@ -323,7 +323,8 @@ Wil jy voortgaan?</translation>
         <location filename="../src/PDFDocumentWindow.cpp" line="1026"/>
         <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
-        <translation>Weens tegniese redes kan hierdie weergawe van %1 ongelukkig nie PDF dokumente druk nie.</translation>
+        <translation>Weens tegniese redes kan hierdie weergawe van %1 ongelukkig nie PDF dokumente druk nie.
+</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1027"/>

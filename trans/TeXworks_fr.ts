@@ -317,7 +317,8 @@ Do you want to continue?</source>
         <location filename="../src/PDFDocumentWindow.cpp" line="1026"/>
         <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
-        <translation>Malheureusement, cette version de %1 est incapable d&apos;imprimer les documents PDF pour diverses raisons techniques.</translation>
+        <translation>Malheureusement, cette version de %1 est incapable d&apos;imprimer les documents PDF pour diverses raisons techniques.
+</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1027"/>
