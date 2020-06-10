@@ -541,12 +541,13 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		if (language == QLocale::C)
 			locName = trans;
 		else {
-			locName = QLocale::languageToString(language);
-			if (trans.contains(QChar::fromLatin1('_'))) {
-				QLocale::Country country  = loc.country();
-				if (country != QLocale::AnyCountry)
-					//: Country suffix for TeXworks translations (ex. "Portuguese (Brazil)")
-					locName += tr(" (%1)").arg(QLocale::countryToString(country));
+			QLocale::Country country  = loc.country();
+			if (trans.contains(QChar::fromLatin1('_')) && country != QLocale::AnyCountry) {
+				locName = tr("%1 (%2)").arg(QLocale::languageToString(language), QLocale::countryToString(country));
+				//: Language (%1) and Country (%2) for TeXworks translations (ex. "Portuguese (Brazil)")
+			}
+			else {
+				locName = QLocale::languageToString(language);
 			}
 		}
 		displayList << qMakePair(locName, trans);
