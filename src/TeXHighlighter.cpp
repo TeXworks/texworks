@@ -37,9 +37,13 @@ TeXHighlighter::TeXHighlighter(Tw::Document::TeXDocument * parent)
 	, texDoc(parent)
 {
 	loadPatterns();
-	// TODO: We should use QTextCharFormat::SpellCheckUnderline here, but that
-	// causes problems for some fonts/font sizes in Qt 5 (QTBUG-50499)
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+	// Using QTextCharFormat::SpellCheckUnderline causes problems for some
+	// fonts/font sizes (QTBUG-50499)
 	spellFormat.setUnderlineStyle(QTextCharFormat::WaveUnderline);
+#else
+	spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+#endif
 	spellFormat.setUnderlineColor(Qt::red);
 }
 
@@ -223,9 +227,13 @@ void TeXHighlighter::loadPatterns()
 				if (parts[1].compare(QChar::fromLatin1('Y'), Qt::CaseInsensitive) == 0) {
 					rule.spellCheck = true;
 					rule.spellFormat = rule.format;
-					// TODO: We should use QTextCharFormat::SpellCheckUnderline here, but that
-					// causes problems for some fonts/font sizes in Qt 5 (QTBUG-50499)
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+					// Using QTextCharFormat::SpellCheckUnderline causes
+					// problems for some fonts/font sizes (QTBUG-50499)
 					rule.spellFormat.setUnderlineStyle(QTextCharFormat::WaveUnderline);
+#else
+					rule.spellFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+#endif
 					rule.spellFormat.setUnderlineColor(Qt::red);
 				}
 				else
