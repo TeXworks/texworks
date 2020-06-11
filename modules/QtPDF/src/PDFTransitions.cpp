@@ -81,6 +81,10 @@ void AbstractInPlaceTransition::start(const QImage & imgStart, const QImage & im
 
 QImage AbstractInPlaceTransition::getImage()
 {
+  if (_imgStart.isNull() || _imgEnd.isNull()) {
+    return QImage();
+  }
+
   Q_ASSERT(_imgStart.size() == _imgEnd.size() && _imgStart.size() == _mask.size());
   Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
   Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
@@ -354,6 +358,9 @@ void Fly::start(const QImage & imgStart, const QImage & imgEnd)
 
 QImage Fly::getImage()
 {
+  if (_imgStart.isNull() || _imgEnd.isNull()) {
+    return QImage();
+  }
   Q_ASSERT(_imgStart.size() == _imgEnd.size());
   Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
   Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
@@ -434,6 +441,9 @@ QImage Fly::getImage()
 
 QImage Push::getImage()
 {
+  if (_imgStart.isNull() || _imgEnd.isNull()) {
+    return QImage();
+  }
   Q_ASSERT(_imgStart.size() == _imgEnd.size());
   Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
   Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
@@ -467,6 +477,9 @@ QImage Push::getImage()
 
 QImage Cover::getImage()
 {
+  if (_imgStart.isNull() || _imgEnd.isNull()) {
+    return QImage();
+  }
   Q_ASSERT(_imgStart.size() == _imgEnd.size());
   Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
   Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
@@ -500,6 +513,9 @@ QImage Cover::getImage()
 
 QImage Uncover::getImage()
 {
+  if (_imgStart.isNull() || _imgEnd.isNull()) {
+    return QImage();
+  }
   Q_ASSERT(_imgStart.size() == _imgEnd.size());
   Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
   Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
@@ -533,6 +549,9 @@ QImage Uncover::getImage()
 
 QImage Fade::getImage()
 {
+  if (_imgStart.isNull() || _imgEnd.isNull()) {
+    return QImage();
+  }
   Q_ASSERT(_imgStart.size() == _imgEnd.size());
   Q_ASSERT(_imgStart.format() == QImage::Format_ARGB32);
   Q_ASSERT(_imgEnd.format() == QImage::Format_ARGB32);
