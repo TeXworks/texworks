@@ -46,8 +46,6 @@ public:
   virtual void reset() { _started = _finished = false; }
   virtual QImage getImage() = 0;
 
-  static AbstractTransition * newTransition(const Type type);
-
 protected:
   double getFracTime();
   virtual void setImages(const QImage & imgStart, const QImage & imgEnd);

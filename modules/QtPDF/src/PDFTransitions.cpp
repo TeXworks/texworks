@@ -66,30 +66,6 @@ double AbstractTransition::getFracTime()
   return t;
 }
 
-//static
-AbstractTransition * AbstractTransition::newTransition(const Type type)
-{
-  switch (type) {
-  case Type_Split:
-    return new Split();
-  case Type_Blinds:
-  case Type_Box:
-  case Type_Wipe:
-  case Type_Dissolve:
-  case Type_Glitter:
-    break;
-  case Type_Replace:
-    return new Replace();
-  case Type_Fly:
-  case Type_Push:
-  case Type_Cover:
-  case Type_Uncover:
-  case Type_Fade:
-    break;
-  }
-  return nullptr;
-}
-
 void AbstractInPlaceTransition::start(const QImage & imgStart, const QImage & imgEnd)
 {
   setImages(imgStart, imgEnd);
