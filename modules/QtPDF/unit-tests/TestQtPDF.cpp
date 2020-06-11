@@ -1074,6 +1074,141 @@ void TestQtPDF::paperSize()
   QCOMPARE(ps.landscape(), landscape);
 }
 
+void TestQtPDF::transitions_data()
+{
+  constexpr double duration = 0.05;
+  constexpr int w = 10;
+  constexpr int h = 10;
+  using SPT = QSharedPointer<QtPDF::Transition::AbstractTransition>;
+  QTest::addColumn<QtPDF::Transition::AbstractTransition::Type>("type");
+  QTest::addColumn<SPT>("transition");
+  QTest::addColumn<double>("duration");
+  QTest::addColumn<int>("direction");
+  QTest::addColumn<QtPDF::Transition::AbstractTransition::Motion>("motion");
+  QTest::addColumn<QImage>("imgStart");
+  QTest::addColumn<QImage>("imgEnd");
+
+  QImage imgStart{QSize{w, h}, QImage::Format_ARGB32};
+  QImage imgEnd{QSize{w, h}, QImage::Format_ARGB32};
+
+  imgStart.fill(Qt::red);
+  imgEnd.fill(Qt::blue);
+
+  QTest::newRow("replace") << QtPDF::Transition::AbstractTransition::Type_Replace << SPT(new QtPDF::Transition::Replace) << duration << -1 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("split-H-in") << QtPDF::Transition::AbstractTransition::Type_Split << SPT(new QtPDF::Transition::Split) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("split-V-in") << QtPDF::Transition::AbstractTransition::Type_Split << SPT(new QtPDF::Transition::Split) << duration << 90 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("split-H-out") << QtPDF::Transition::AbstractTransition::Type_Split << SPT(new QtPDF::Transition::Split) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Outward << imgStart << imgEnd;
+  QTest::newRow("split-V-out") << QtPDF::Transition::AbstractTransition::Type_Split << SPT(new QtPDF::Transition::Split) << duration << 90 << QtPDF::Transition::AbstractTransition::Motion_Outward << imgStart << imgEnd;
+  QTest::newRow("blinds-H") << QtPDF::Transition::AbstractTransition::Type_Blinds << SPT(new QtPDF::Transition::Blinds) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("blinds-V") << QtPDF::Transition::AbstractTransition::Type_Blinds << SPT(new QtPDF::Transition::Blinds) << duration << 90 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("box-in") << QtPDF::Transition::AbstractTransition::Type_Box << SPT(new QtPDF::Transition::Box) << duration << -1 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("box-out") << QtPDF::Transition::AbstractTransition::Type_Box << SPT(new QtPDF::Transition::Box) << duration << -1 << QtPDF::Transition::AbstractTransition::Motion_Outward << imgStart << imgEnd;
+  QTest::newRow("wipe-0") << QtPDF::Transition::AbstractTransition::Type_Wipe << SPT(new QtPDF::Transition::Wipe) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("wipe-90") << QtPDF::Transition::AbstractTransition::Type_Wipe << SPT(new QtPDF::Transition::Wipe) << duration << 90 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("wipe-180") << QtPDF::Transition::AbstractTransition::Type_Wipe << SPT(new QtPDF::Transition::Wipe) << duration << 180 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("wipe-270") << QtPDF::Transition::AbstractTransition::Type_Wipe << SPT(new QtPDF::Transition::Wipe) << duration << 270 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("dissolve") << QtPDF::Transition::AbstractTransition::Type_Dissolve << SPT(new QtPDF::Transition::Dissolve) << duration << -1 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("glitter-H") << QtPDF::Transition::AbstractTransition::Type_Glitter << SPT(new QtPDF::Transition::Glitter) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("glitter-V") << QtPDF::Transition::AbstractTransition::Type_Glitter << SPT(new QtPDF::Transition::Glitter) << duration << 270 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("glitter-D") << QtPDF::Transition::AbstractTransition::Type_Glitter << SPT(new QtPDF::Transition::Glitter) << duration << 315 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("fly-H-in") << QtPDF::Transition::AbstractTransition::Type_Fly << SPT(new QtPDF::Transition::Fly) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("fly-V-in") << QtPDF::Transition::AbstractTransition::Type_Fly << SPT(new QtPDF::Transition::Fly) << duration << 270 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("fly-H-out") << QtPDF::Transition::AbstractTransition::Type_Fly << SPT(new QtPDF::Transition::Fly) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Outward << imgStart << imgEnd;
+  QTest::newRow("fly-V-out") << QtPDF::Transition::AbstractTransition::Type_Fly << SPT(new QtPDF::Transition::Fly) << duration << 270 << QtPDF::Transition::AbstractTransition::Motion_Outward << imgStart << imgEnd;
+  QTest::newRow("push-H") << QtPDF::Transition::AbstractTransition::Type_Push << SPT(new QtPDF::Transition::Push) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("push-V") << QtPDF::Transition::AbstractTransition::Type_Push << SPT(new QtPDF::Transition::Push) << duration << 270 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("cover-H") << QtPDF::Transition::AbstractTransition::Type_Cover << SPT(new QtPDF::Transition::Cover) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("cover-V") << QtPDF::Transition::AbstractTransition::Type_Cover << SPT(new QtPDF::Transition::Cover) << duration << 270 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("uncover-H") << QtPDF::Transition::AbstractTransition::Type_Uncover << SPT(new QtPDF::Transition::Uncover) << duration << 0 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("uncover-V") << QtPDF::Transition::AbstractTransition::Type_Uncover << SPT(new QtPDF::Transition::Uncover) << duration << 270 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+  QTest::newRow("fade") << QtPDF::Transition::AbstractTransition::Type_Fade << SPT(new QtPDF::Transition::Fade) << duration << -1 << QtPDF::Transition::AbstractTransition::Motion_Inward << imgStart << imgEnd;
+}
+
+void TestQtPDF::transitions()
+{
+  QFETCH(QtPDF::Transition::AbstractTransition::Type, type);
+  QFETCH(QSharedPointer<QtPDF::Transition::AbstractTransition>, transition);
+  QFETCH(double, duration);
+  QFETCH(int, direction);
+  QFETCH(QtPDF::Transition::AbstractTransition::Motion, motion);
+  QFETCH(QImage, imgStart);
+  QFETCH(QImage, imgEnd);
+
+  ComparableImage cStart{imgStart};
+  ComparableImage cEnd{imgEnd};
+
+  // Test defaults
+  QCOMPARE(transition->duration(), 1.0);
+  QCOMPARE(transition->direction(), 0);
+  QCOMPARE(transition->motion(), QtPDF::Transition::AbstractTransition::Motion_Inward);
+  QCOMPARE(transition->isRunning(), false);
+  QCOMPARE(transition->isFinished(), false);
+  QCOMPARE(transition->getImage().isNull(), true);
+
+  // Set and test values
+  transition->setDuration(duration);
+  transition->setDirection(direction);
+  transition->setMotion(motion);
+  QCOMPARE(transition->duration(), duration);
+  QCOMPARE(transition->direction(), direction);
+  QCOMPARE(transition->motion(), motion);
+
+  // Run animation
+  transition->start(imgStart, imgEnd);
+  QCOMPARE(transition->isRunning(), true);
+  QCOMPARE(transition->isFinished(), false);
+
+  QTest::qSleep(qCeil(0.5 * duration * 1000));
+  switch (type) {
+    case QtPDF::Transition::AbstractTransition::Type_Replace:
+      // Replace directly jumps to the final image
+      QVERIFY(ComparableImage(transition->getImage()) == cEnd);
+      QCOMPARE(transition->isRunning(), false);
+      QCOMPARE(transition->isFinished(), true);
+      break;
+  case QtPDF::Transition::AbstractTransition::Type_Blinds:
+  case QtPDF::Transition::AbstractTransition::Type_Box:
+  case QtPDF::Transition::AbstractTransition::Type_Cover:
+  case QtPDF::Transition::AbstractTransition::Type_Dissolve:
+  case QtPDF::Transition::AbstractTransition::Type_Fade:
+  case QtPDF::Transition::AbstractTransition::Type_Fly:
+  case QtPDF::Transition::AbstractTransition::Type_Glitter:
+  case QtPDF::Transition::AbstractTransition::Type_Push:
+  case QtPDF::Transition::AbstractTransition::Type_Split:
+  case QtPDF::Transition::AbstractTransition::Type_Uncover:
+  case QtPDF::Transition::AbstractTransition::Type_Wipe:
+    // Test that we get neither the start nor the end image, i.e., we are
+    // "somewhere in the middle"
+    // TODO: Potentially test specifics, e.g., that a horizontal swipe is
+    // really horizontal
+    QVERIFY(ComparableImage(transition->getImage()) != cStart);
+    QVERIFY(ComparableImage(transition->getImage()) != cEnd);
+    QCOMPARE(transition->isRunning(), true);
+    QCOMPARE(transition->isFinished(), false);
+    break;
+  }
+
+  // Wait slightly longer than 0.5 * duration to ensure t>1 in
+  // AbstractTransition::getFracTime()
+  QTest::qSleep(qCeil(0.6 * duration * 1000));
+
+  // Test getImage() before isRunning() as the running state is only updated
+  // when getImage() is called
+  QVERIFY(ComparableImage(transition->getImage()) == cEnd);
+  QCOMPARE(transition->isRunning(), false);
+  QCOMPARE(transition->isFinished(), true);
+
+  // Check that the image returned when finished is still the same
+  QVERIFY(ComparableImage(transition->getImage()) == cEnd);
+
+  // Reset
+  transition->reset();
+  QCOMPARE(transition->isRunning(), false);
+  QCOMPARE(transition->isFinished(), false);
+  // Don't test getImage here - it corresponds to the first frame of the
+  // animation, not imgStart
+}
+
 } // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)

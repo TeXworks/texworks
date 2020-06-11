@@ -20,6 +20,7 @@
 */
 
 #include "PDFBackend.h"
+#include "PDFTransitions.h"
 
 #include <QObject>
 #include <QtTest/QtTest>
@@ -139,6 +140,9 @@ private slots:
 
   void paperSize_data();
   void paperSize();
+
+  void transitions_data();
+  void transitions();
 };
 
 } // namespace UnitTest
@@ -156,3 +160,6 @@ Q_DECLARE_METATYPE(QList<QtPDF::Backend::SearchResult>)
 Q_DECLARE_METATYPE(QtPDF::Backend::SearchFlags)
 Q_DECLARE_METATYPE(QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> >)
 Q_DECLARE_METATYPE(QStringMap)
+Q_DECLARE_METATYPE(QSharedPointer<QtPDF::Transition::AbstractTransition>)
+Q_DECLARE_METATYPE(QtPDF::Transition::AbstractTransition::Type)
+Q_DECLARE_METATYPE(QtPDF::Transition::AbstractTransition::Motion)
