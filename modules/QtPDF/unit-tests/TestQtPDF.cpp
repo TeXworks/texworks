@@ -109,6 +109,25 @@ public:
   }
 };
 
+inline void sleep(quint64 ms)
+{
+#ifdef Q_OS_MACOS
+  // QTest::qSleep seems very unreliable on Mac OS X (QTBUG-84998)
+  QElapsedTimer t;
+  t.start();
+  qint64 dt = (ms < 100 ? 1 : ms / 100);
+  while(t.elapsed() < ms) {
+    QTest::qSleep(dt);
+  }
+  // Issue a warning if the timing is off by more than 20%
+  if (t.elapsed() > 1.2 * ms) {
+    qWarning() << t.elapsed() << "ms have passed instead of the requested" << ms << "ms";
+  }
+#else
+  QTest::qSleep(ms);
+#endif
+}
+
 QTestData & TestQtPDF::newDocTest(const char * tag)
 {
   return QTest::newRow(tag) << _docs[QString::fromUtf8(tag)];
@@ -1076,7 +1095,12 @@ void TestQtPDF::paperSize()
 
 void TestQtPDF::transitions_data()
 {
+#ifdef Q_OS_MACOS
+  // Use longer duration on Mac OS as timing seems flaky there (QTBUG-84998)
+  constexpr double duration = 0.2;
+#else
   constexpr double duration = 0.05;
+#endif
   constexpr int w = 10;
   constexpr int h = 10;
   using SPT = QSharedPointer<QtPDF::Transition::AbstractTransition>;
@@ -1158,7 +1182,7 @@ void TestQtPDF::transitions()
   QCOMPARE(transition->isRunning(), true);
   QCOMPARE(transition->isFinished(), false);
 
-  QTest::qSleep(qCeil(0.5 * duration * 1000));
+  sleep(qRound(0.5 * duration * 1000));
   switch (type) {
     case QtPDF::Transition::AbstractTransition::Type_Replace:
       // Replace directly jumps to the final image
@@ -1190,7 +1214,7 @@ void TestQtPDF::transitions()
 
   // Wait slightly longer than 0.5 * duration to ensure t>1 in
   // AbstractTransition::getFracTime()
-  QTest::qSleep(qCeil(0.6 * duration * 1000));
+  sleep(qCeil(0.6 * duration * 1000));
 
   // Test getImage() before isRunning() as the running state is only updated
   // when getImage() is called
