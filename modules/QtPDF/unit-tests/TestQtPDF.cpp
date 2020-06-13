@@ -1233,6 +1233,42 @@ void TestQtPDF::transitions()
   // animation, not imgStart
 }
 
+void TestQtPDF::pageTile()
+{
+  QList<QtPDF::Backend::PDFPageTile> tiles;
+
+  tiles.append({1., 1., QRect(0, 0, 1, 1), 0});
+  tiles.append({2., 1., QRect(0, 0, 1, 1), 0});
+  tiles.append({1., 3., QRect(0, 0, 1, 1), 0});
+  tiles.append({1., 1., QRect(4, 0, 1, 1), 0});
+  tiles.append({1., 1., QRect(0, 5, 1, 1), 0});
+  tiles.append({1., 1., QRect(0, 0, 6, 1), 0});
+  tiles.append({1., 1., QRect(0, 0, 1, 7), 0});
+  tiles.append({1., 1., QRect(0, 0, 1, 1), 8});
+
+  for (int i = 0; i < tiles.size(); ++i) {
+    for (int j = i + 1; j < tiles.size(); ++j) {
+      auto t1 = tiles[i];
+      auto t2 = tiles[j];
+      uint h1{QtPDF::Backend::qHash(t1)};
+      uint h2{QtPDF::Backend::qHash(t2)};
+
+      QVERIFY(t1 == t1);
+      QVERIFY(t2 == t2);
+      QCOMPARE(t1 == t2, false);
+      QVERIFY(h1 != h2);
+
+      QCOMPARE(t1 < t1, false);
+      QCOMPARE(t2 < t2, false);
+      QCOMPARE(t1 < t2 || t2 < t1, true);
+    }
+  }
+
+#ifdef DEBUG
+  QCOMPARE(static_cast<QString>(tiles[0]), QStringLiteral("p0,1x1,r0|0x1|1"));
+#endif
+}
+
 } // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)

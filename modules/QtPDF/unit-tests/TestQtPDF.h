@@ -143,6 +143,8 @@ private slots:
 
   void transitions_data();
   void transitions();
+
+  void pageTile();
 };
 
 } // namespace UnitTest

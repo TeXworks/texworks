@@ -15,6 +15,7 @@
 #define PDFBackend_H
 
 #include "PDFAnnotations.h"
+#include "PDFPageTile.h"
 #include "PDFTransitions.h"
 
 #include <QCache>
@@ -144,44 +145,6 @@ protected:
   FontType _fontType{FontType_Type1};
   CIDFontType _CIDType{CIDFont_None};
   FontProgramType _fontProgramType{ProgramType_None};
-};
-
-class PDFPageTile;
-
-// Need a hash function in order to allow `PDFPageTile` to be used as a key
-// object for a `QCache`.
-uint qHash(const PDFPageTile &tile);
-
-class PDFPageTile
-{
-public:
-  // TODO:
-  // We may want an application-wide cache instead of a document-specific cache
-  // to keep memory usage down. This may require an additional piece of
-  // information---the document that the page belongs to.
-  PDFPageTile(double xres, double yres, QRect render_box, int page_num):
-    xres(xres), yres(yres),
-    render_box(render_box),
-    page_num(page_num)
-  {}
-
-  double xres, yres;
-  QRect render_box;
-  int page_num;
-
-  bool operator==(const PDFPageTile &other) const
-  {
-    return (xres == other.xres && yres == other.yres && render_box == other.render_box && page_num == other.page_num);
-  }
-
-  bool operator <(const PDFPageTile &other) const
-  {
-    return qHash(*this) < qHash(other);
-  }
-
-#ifdef DEBUG
-  operator QString() const;
-#endif
 };
 
 // This class is thread-safe
