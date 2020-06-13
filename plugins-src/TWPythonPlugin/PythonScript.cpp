@@ -88,12 +88,12 @@ static PyTypeObject pyQObjectMethodType;
 
 static void QObjectDealloc(pyQObject * self) {
 	Py_XDECREF(self->_TWcontext);
-	((PyObject*)self)->ob_type->tp_free((PyObject*)self);
+	_PyObject_CAST(self)->ob_type->tp_free(self);
 }
 static void QObjectMethodDealloc(pyQObjectMethodObject * self) {
 	Py_XDECREF(self->_TWcontext);
 	Py_XDECREF(self->_methodName);
-	((PyObject*)self)->ob_type->tp_free((PyObject*)self);
+	_PyObject_CAST(self)->ob_type->tp_free(self);
 }
 
 bool PythonScript::execute(ScriptAPIInterface * tw) const
@@ -141,7 +141,7 @@ bool PythonScript::execute(ScriptAPIInterface * tw) const
 	// Create a dictionary of global variables
 	// without the __builtins__ module, nothing would work!
 	PyDict_SetItemString(globals, "__builtins__", PyEval_GetBuiltins());
-	PyDict_SetItemString(globals, "TW", (PyObject*)TW);
+	PyDict_SetItemString(globals, "TW", _PyObject_CAST(TW));
 
 	PyObject * ret = nullptr;
 
@@ -234,9 +234,9 @@ PyObject * PythonScript::QObjectToPython(QObject * o)
 
 	if (!obj) return nullptr;
 
-	obj = (pyQObject*)PyObject_Init((PyObject*)obj, &pyQObjectType);
+	obj = (pyQObject*)PyObject_Init(_PyObject_CAST(obj), &pyQObjectType);
 	obj->_TWcontext = ENCAPSULATE_C_POINTER(o);
-	return (PyObject*)obj;
+	return _PyObject_CAST(obj);
 }
 
 /*static*/
@@ -274,12 +274,12 @@ PyObject* PythonScript::getAttribute(PyObject * o, PyObject * attr_name)
 		case Property_Method:
 		{
 			pyQObjectMethodObject * pyMethod = PyObject_New(pyQObjectMethodObject, &pyQObjectMethodType);
-			pyMethod = (pyQObjectMethodObject*)PyObject_Init((PyObject*)pyMethod, &pyQObjectMethodType);
+			pyMethod = (pyQObjectMethodObject*)PyObject_Init(_PyObject_CAST(pyMethod), &pyQObjectMethodType);
 			Py_INCREF(pyMethod);
 			pyMethod->_TWcontext = ENCAPSULATE_C_POINTER(obj);
 			Py_XINCREF(attr_name);
-			pyMethod->_methodName = (PyObject*)attr_name;
-			return (PyObject*)pyMethod;
+			pyMethod->_methodName = _PyObject_CAST(attr_name);
+			return _PyObject_CAST(pyMethod);
 		}
 		case Property_OK:
 			return PythonScript::VariantToPython(result);
