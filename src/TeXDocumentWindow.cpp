@@ -1038,6 +1038,12 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 
 	if (fileContents.isNull())
 		return;
+	// Although we were asked to reload, nothing has changed, so we are done.
+	// Don't re-set the content as that would, e.g., destroy the undo/redo
+	// stack.
+	if (reload && fileContents == textEdit->toPlainText()) {
+		return;
+	}
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
