@@ -1195,7 +1195,8 @@ void Page::loadTransitionData()
   // NOTE: That data is not available in the pdf_page struct - we need to parse
   // the fz_obj ourselves
   pdf_xref * xref = static_cast<Document*>(_parent)->_mupdf_data;
-  Q_ASSERT(xref != NULL);
+  if (Q_UNLIKELY(pdf_xref == nullptr))
+    return;
   Q_ASSERT(xref->page_len >= _n);
 
   fz_obj * page = xref->page_objs[_n];
