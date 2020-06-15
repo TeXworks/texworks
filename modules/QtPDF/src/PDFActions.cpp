@@ -17,7 +17,7 @@
 
 namespace QtPDF {
 
-QRectF PDFDestination::viewport(const Backend::Document * doc, const QRectF oldViewport, const qreal oldZoom) const
+QRectF PDFDestination::viewport(Backend::Document * doc, const QRectF oldViewport, const qreal oldZoom) const
 {
   QRectF retVal = oldViewport;
 

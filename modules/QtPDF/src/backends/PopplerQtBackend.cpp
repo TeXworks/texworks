@@ -324,16 +324,6 @@ QWeakPointer<Backend::Page> Document::page(int at)
   return _pages[at].toWeakRef();
 }
 
-QWeakPointer<Backend::Page> Document::page(int at) const
-{
-  QReadLocker docLocker(_docLock.data());
-
-  if (at < 0 || at >= _numPages || at >= _pages.size())
-    return QWeakPointer<Backend::Page>();
-
-  return QWeakPointer<Backend::Page>(_pages[at]);
-}
-
 PDFDestination Document::resolveDestination(const PDFDestination & namedDestination) const
 {
   QReadLocker docLocker(_docLock.data());

@@ -440,9 +440,9 @@ public:
   PDFPageCache& pageCache();
 
   // Uses doc-read-lock and may use doc-write-lock
+  // NB: no const variant exists as we may need to create a new Page (if it was
+  // not cached in _pages), which requires a non-const `this` pointer as parent
   virtual QWeakPointer<Page> page(int at) = 0;
-  // Uses doc-read-lock
-  virtual QWeakPointer<Page> page(int at) const = 0;
   virtual PDFDestination resolveDestination(const PDFDestination & namedDestination) const {
     return (namedDestination.isExplicit() ? namedDestination : PDFDestination());
   }

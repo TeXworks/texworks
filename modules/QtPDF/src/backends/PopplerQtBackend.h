@@ -68,7 +68,6 @@ public:
   bool unlock(const QString password) override;
 
   QWeakPointer<Backend::Page> page(int at) override;
-  QWeakPointer<Backend::Page> page(int at) const override;
   PDFDestination resolveDestination(const PDFDestination & namedDestination) const override;
 
   PDFToC toc() const override;

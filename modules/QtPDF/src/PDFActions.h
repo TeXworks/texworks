@@ -59,7 +59,7 @@ public:
   // Params:
   //  - oldViewport: viewport in old page's coordinate system
   //  - oldZoom
-  QRectF viewport(const Backend::Document * doc, const QRectF oldViewport, const qreal oldZoom) const;
+  QRectF viewport(Backend::Document * doc, const QRectF oldViewport, const qreal oldZoom) const;
 
   void setPage(const int page) { _page = page; }
   void setType(const Type type) { _type = type; }
