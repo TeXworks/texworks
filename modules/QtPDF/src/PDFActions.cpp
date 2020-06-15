@@ -24,7 +24,7 @@ QRectF PDFDestination::viewport(Backend::Document * doc, const QRectF oldViewpor
   if (!isValid())
     return retVal;
   if (!isExplicit()) {
-    if (!doc)
+    if (!doc || !doc->isValid())
       return retVal;
     return doc->resolveDestination(*this).viewport(doc, oldViewport, oldZoom);
   }
@@ -49,7 +49,7 @@ QRectF PDFDestination::viewport(Backend::Document * doc, const QRectF oldViewpor
     case Destination_Fit:
     case Destination_FitB:
     {
-      if (!doc)
+      if (!doc || !doc->isValid())
         break;
       QSharedPointer<Backend::Page> p(doc->page(_page).toStrongRef());
       if (!p)
@@ -60,7 +60,7 @@ QRectF PDFDestination::viewport(Backend::Document * doc, const QRectF oldViewpor
     case Destination_FitH:
     case Destination_FitBH:
     {
-      if (!doc)
+      if (!doc || !doc->isValid())
         break;
       QSharedPointer<Backend::Page> p(doc->page(_page).toStrongRef());
       if (!p)
@@ -72,7 +72,7 @@ QRectF PDFDestination::viewport(Backend::Document * doc, const QRectF oldViewpor
     case Destination_FitV:
     case Destination_FitBV:
     {
-      if (!doc)
+      if (!doc || !doc->isValid())
         break;
       QSharedPointer<Backend::Page> p(doc->page(_page).toStrongRef());
       if (!p)
