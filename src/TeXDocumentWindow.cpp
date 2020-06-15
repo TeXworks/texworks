@@ -1038,60 +1038,59 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 
 	if (fileContents.isNull())
 		return;
-	// Although we were asked to reload, nothing has changed, so we are done.
-	// Don't re-set the content as that would, e.g., destroy the undo/redo
-	// stack.
-	if (reload && fileContents == textEdit->toPlainText()) {
-		return;
-	}
+	bool identicalContent{fileContents == textEdit->toPlainText()};
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);
+	// Only re-set the content if it has actually changed. Setting the content
+	// has many side effects, e.g., destroying the undo/redo stack.
+	if (!reload || !identicalContent) {
+		QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	textEdit->setPlainText(fileContents);
+		textEdit->setPlainText(fileContents);
 
-	// Ensure the window is shown early (before setPlainText()).
-	// - this ensures it is shown before the PDF (if opening a new doc)
-	// - this avoids problems during layouting (which can be broken if the
-	//   geometry, highlighting, ... is changed before the window is shown)
-	if (!reload)
-		show();
-	QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+		// Ensure the window is shown early (before setPlainText()).
+		// - this ensures it is shown before the PDF (if opening a new doc)
+		// - this avoids problems during layouting (which can be broken if the
+		//   geometry, highlighting, ... is changed before the window is shown)
+		if (!reload)
+			show();
+		QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
-	{
-		// Try to work around QTBUG-20354
-		// It seems that adding additionalFormats (as is done automatically on
-		// setPlainText() by the syntax highlighter) can disturb the layouting
-		// process, leaving some blocks with size zero. This causes the
-		// corresponding lines to "disappear" and can even crash the application
-		// in connection with the "highlight current line" feature.
-		QTextDocument * doc = textEdit->document();
-		Q_ASSERT(doc);
-		QAbstractTextDocumentLayout * docLayout = doc->documentLayout();
-		Q_ASSERT(docLayout);
+		{
+			// Try to work around QTBUG-20354
+			// It seems that adding additionalFormats (as is done automatically on
+			// setPlainText() by the syntax highlighter) can disturb the layouting
+			// process, leaving some blocks with size zero. This causes the
+			// corresponding lines to "disappear" and can even crash the application
+			// in connection with the "highlight current line" feature.
+			QTextDocument * doc = textEdit->document();
+			Q_ASSERT(doc);
+			QAbstractTextDocumentLayout * docLayout = doc->documentLayout();
+			Q_ASSERT(docLayout);
 
-		int tries{0};
-		for (tries = 0; tries < 10; ++tries) {
-			bool isLayoutOK = true;
-			for (QTextBlock b = doc->firstBlock(); b.isValid(); b = b.next()) {
-				if (docLayout->	blockBoundingRect(b).isEmpty()) {
-					isLayoutOK = false;
-					break;
+			int tries{0};
+			for (tries = 0; tries < 10; ++tries) {
+				bool isLayoutOK = true;
+				for (QTextBlock b = doc->firstBlock(); b.isValid(); b = b.next()) {
+					if (docLayout->	blockBoundingRect(b).isEmpty()) {
+						isLayoutOK = false;
+						break;
+					}
 				}
+				if (isLayoutOK) break;
+				// Re-setting the document content naturally triggers a relayout
+				// (also a rehighlight). Note that layouting only works sensibly
+				// once show() was called, or else there is no valid widget geometry
+				// to act as bounding box.
+				doc->setPlainText(doc->toPlainText());
+				QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 			}
-			if (isLayoutOK) break;
-			// Re-setting the document content naturally triggers a relayout
-			// (also a rehighlight). Note that layouting only works sensibly
-			// once show() was called, or else there is no valid widget geometry
-			// to act as bounding box.
-			doc->setPlainText(doc->toPlainText());
-			QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+			if (tries >= 10) {
+				QMessageBox::warning(this, tr("Layout Problem"), tr("A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:\n -) Turn syntax highlighting off and on\n -) Turn line numbers off and on\n -) Resize the window\n\nWe are sorry for the inconvenience."));
+			}
 		}
-		if (tries >= 10) {
-			QMessageBox::warning(this, tr("Layout Problem"), tr("A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:\n -) Turn syntax highlighting off and on\n -) Turn line numbers off and on\n -) Resize the window\n\nWe are sorry for the inconvenience."));
-		}
-	}
 
-	QApplication::restoreOverrideCursor();
+		QApplication::restoreOverrideCursor();
+	}
 
 	if (asTemplate) {
 		lastModified = QDateTime();
