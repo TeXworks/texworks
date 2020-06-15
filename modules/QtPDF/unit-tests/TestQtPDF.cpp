@@ -355,7 +355,7 @@ void TestQtPDF::resolveDestination_data()
   {
     QtPDF::PDFDestination d;
     d.setDestinationName(QString::fromLatin1("does not exist"));
-    newDocTest("annotations") << d << d;
+    newDocTest("annotations") << d << QtPDF::PDFDestination();
   }
   {
     QtPDF::PDFDestination d(1);

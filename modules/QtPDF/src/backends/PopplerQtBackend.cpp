@@ -343,9 +343,10 @@ PDFDestination Document::resolveDestination(const PDFDestination & namedDestinat
   if (namedDestination.isExplicit())
     return namedDestination;
 
-  // If the destination could not be resolved, return an invalid object
+  // If the destination could not be resolved (a nullptr or an invalid page
+  // number is returned), return an invalid object
   ::Poppler::LinkDestination * dest = _poppler_doc->linkDestination(namedDestination.destinationName());
-  if (!dest)
+  if (dest == nullptr || dest->pageNumber() < 1)
     return PDFDestination();
   return toPDFDestination(_poppler_doc.data(), *dest);
 }
