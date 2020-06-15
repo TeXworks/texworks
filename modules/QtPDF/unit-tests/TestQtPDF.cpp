@@ -497,10 +497,10 @@ void TestQtPDF::destination()
 
   QRectF viewport{QPointF{1, 2}, QSizeF{3, 4}};
   QCOMPARE(dst.viewport(nullptr, viewport, 1), nullptrRect);
-  QCOMPARE(dst.viewport(_docs[QStringLiteral("invalid")].get(), viewport, 1), invalidRect);
-  QCOMPARE(dst.viewport(_docs[QStringLiteral("base14-fonts")].get(), viewport, 1), base14Rect);
-  QCOMPARE(dst.viewport(_docs[QStringLiteral("annotations")].get(), viewport, 1), zoom1Rect);
-  QCOMPARE(dst.viewport(_docs[QStringLiteral("annotations")].get(), viewport, 2), zoom2Rect);
+  QCOMPARE(dst.viewport(_docs[QStringLiteral("invalid")].data(), viewport, 1), invalidRect);
+  QCOMPARE(dst.viewport(_docs[QStringLiteral("base14-fonts")].data(), viewport, 1), base14Rect);
+  QCOMPARE(dst.viewport(_docs[QStringLiteral("annotations")].data(), viewport, 1), zoom1Rect);
+  QCOMPARE(dst.viewport(_docs[QStringLiteral("annotations")].data(), viewport, 2), zoom2Rect);
 #ifdef DEBUG
   QString buffer;
   QDebug dbg(&buffer);
