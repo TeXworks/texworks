@@ -29,17 +29,32 @@
   #error Must specify one backend
 #endif
 
+namespace QTest {
+
+#ifdef DEBUG
+
+// Starting with QT_VERSION_CHECK(5, 5, 0), this could (should) be changed from
+// a template instanciation in the QTest namespace to a function overload in the
+// type's namespace - see docs of QTest::toString()
+template<>
+char * toString(const QtPDF::PDFDestination & dst) {
+  QString buffer;
+  QDebug dbg(&buffer);
+  dbg << dst;
+  return QTest::toString(buffer);
+}
+
+#endif // defined(DEBUG)
+
+} // namespace QTest
+
 namespace QtPDF {
+// compareDestination() is required to be able to use it inside functions with
+// a return value (e.g., bool operator==()) as the QCOMPARE macro expands to
+// code including a `return` statement without argument.
 void compareDestination(const QtPDF::PDFDestination & a, const QtPDF::PDFDestination & b)
 {
-  QCOMPARE(a.isExplicit(), b.isExplicit());
-  QCOMPARE(a.page(), b.page());
-  if (a.isExplicit()) {
-    QCOMPARE(a.rect(), b.rect());
-    QCOMPARE(a.zoom(), b.zoom());
-  }
-  else
-    QCOMPARE(a.destinationName(), b.destinationName());
+  QCOMPARE(a, b);
 }
 
 bool operator== (const QtPDF::PDFAction & a, const QtPDF::PDFAction & b) {
@@ -509,6 +524,20 @@ void TestQtPDF::destination()
 #endif
 }
 
+void TestQtPDF::destinationComparison()
+{
+  QVector<QtPDF::PDFDestination> dests;
+
+  dests << QtPDF::PDFDestination() << QtPDF::PDFDestination(QStringLiteral("name")) << QtPDF::PDFDestination(0);
+
+  for (int i = 0; i < dests.length(); ++i) {
+    QVERIFY(dests[i] == dests[i]);
+    for (int j = i + 1; j < dests.length(); ++j) {
+      QVERIFY2(!(dests[i] == dests[j]), qPrintable(QStringLiteral("dests[%1] == dests[%2]").arg(i).arg(j)));
+    }
+  }
+}
+
 void TestQtPDF::resolveDestination_data()
 {
   QTest::addColumn<pDoc>("doc");
@@ -538,7 +567,7 @@ void TestQtPDF::resolveDestination()
 
   QtPDF::PDFDestination actual = doc->resolveDestination(src);
 
-  compareDestination(actual, dest);
+  QCOMPARE(actual, dest);
 }
 
 void TestQtPDF::metaDataTitle_data()

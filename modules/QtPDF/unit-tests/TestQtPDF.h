@@ -75,6 +75,8 @@ private slots:
   void destination_data();
   void destination();
 
+  void destinationComparison();
+
   void resolveDestination_data();
   void resolveDestination();
 

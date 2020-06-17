@@ -61,6 +61,8 @@ public:
   //  - oldZoom
   QRectF viewport(Backend::Document * doc, const QRectF oldViewport, const qreal oldZoom) const;
 
+  bool operator==(const PDFDestination & o) const;
+
   void setPage(const int page) { _page = page; }
   void setType(const Type type) { _type = type; }
   void setZoom(const qreal zoom) { _zoom = zoom; }

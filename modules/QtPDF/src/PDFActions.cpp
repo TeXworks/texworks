@@ -88,6 +88,24 @@ QRectF PDFDestination::viewport(Backend::Document * doc, const QRectF oldViewpor
   return retVal;
 }
 
+bool PDFDestination::operator==(const PDFDestination & o) const
+{
+  if (isValid() != o.isValid()) {
+    return false;
+  }
+  if (!isValid()) {
+    // Two invalid destinations are considered equal
+    return true;
+  }
+  if (!isExplicit() || !o.isExplicit()) {
+    // NB: a named destination does not compare equal to its resolved (explicit)
+    // variant as we have no Document handle to resolve the named destination
+    return _destinationName == o._destinationName;
+  }
+
+  return (_page == o._page && _type == o._type && _rect == o._rect && qFuzzyCompare(_zoom, o._zoom));
+}
+
 #ifdef DEBUG
   QDebug operator<<(QDebug dbg, const PDFDestination & dest)
   {
