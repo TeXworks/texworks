@@ -109,7 +109,9 @@ bool PDFDestination::operator==(const PDFDestination & o) const
 #ifdef DEBUG
   QDebug operator<<(QDebug dbg, const PDFDestination & dest)
   {
-    dbg.nospace() << "PDFDestination(";
+    bool oldSpace = dbg.autoInsertSpaces();
+    dbg.setAutoInsertSpaces(false);
+    dbg << "PDFDestination(";
     if (dest.isValid()) {
       if (dest.isExplicit()) {
         dbg << dest.page() << " ";
@@ -144,7 +146,8 @@ bool PDFDestination::operator==(const PDFDestination & o) const
         dbg << "name=" << dest.destinationName();
     }
     dbg << ")";
-    return dbg.space();
+    dbg.setAutoInsertSpaces(oldSpace);
+    return dbg;
   }
 #endif // defined(DEBUG)
 
