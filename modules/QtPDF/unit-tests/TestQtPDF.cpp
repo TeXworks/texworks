@@ -590,7 +590,7 @@ void TestQtPDF::PDFUriAction()
   QtPDF::PDFAction * c = a.clone();
   Q_ASSERT(c != nullptr);
   QVERIFY(c != &a);
-  QCOMPARE(*c, a);
+  QCOMPARE(*c, dynamic_cast<QtPDF::PDFAction&>(a));
   delete c;
 }
 
@@ -622,7 +622,7 @@ void TestQtPDF::PDFGotoAction()
   QtPDF::PDFAction * c = a.clone();
   Q_ASSERT(c != nullptr);
   QVERIFY(c != &a);
-  QCOMPARE(*c, a);
+  QCOMPARE(*c, dynamic_cast<QtPDF::PDFAction&>(a));
   delete c;
 }
 
@@ -639,7 +639,7 @@ void TestQtPDF::PDFLaunchAction()
   QtPDF::PDFAction * c = a.clone();
   Q_ASSERT(c != nullptr);
   QVERIFY(c != &a);
-  QCOMPARE(*c, a);
+  QCOMPARE(*c, dynamic_cast<QtPDF::PDFAction&>(a));
   delete c;
 }
 
