@@ -523,9 +523,13 @@ void TestQtPDF::actionComparison()
           << QSP(new QtPDF::PDFLaunchAction(QStringLiteral("cmd")));
 
   for (int i = 0; i < actions.size(); ++i) {
-    QCOMPARE(*actions[i], *actions[i]);
-    for (int j = i + 1; j < actions.size(); ++j) {
-      QVERIFY2(!(*actions[i] == *actions[j]), qPrintable(QStringLiteral("actions[%1] == actions[%2]").arg(i).arg(j)));
+    for (int j = 0; j < actions.size(); ++j) {
+      if (i == j) {
+        QCOMPARE(*actions[i], *actions[i]);
+      }
+      else {
+        QVERIFY2(!(*actions[i] == *actions[j]), qPrintable(QStringLiteral("actions[%1] == actions[%2]").arg(i).arg(j)));
+      }
     }
   }
 }
