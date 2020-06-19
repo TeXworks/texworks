@@ -373,6 +373,7 @@ void TestQtPDF::destination_data()
     invalidRect << viewport << viewport << viewport << viewport << viewport <<
     QStringLiteral("PDFDestination()");
 
+  // Check explicit destinations
   dst.setPage(0);
   dst.setRect(viewport);
   dst.setZoom(1.5);
@@ -401,7 +402,7 @@ void TestQtPDF::destination_data()
 
     // FitB destination
     dst.setType(QtPDF::PDFDestination::Type::Destination_FitB);
-    QTest::newRow("Fit") << dst << true << true << 0 << QStringLiteral() <<
+    QTest::newRow("FitB") << dst << true << true << 0 << QStringLiteral() <<
       QtPDF::PDFDestination::Type::Destination_FitB << 1.5 <<
       viewport << viewport << viewport << A4RectRounded << A4Rect << A4Rect <<
       QStringLiteral("PDFDestination(%1 /FitB)").arg(dst.page());
@@ -420,7 +421,7 @@ void TestQtPDF::destination_data()
 
     // FitBH destination
     dst.setType(QtPDF::PDFDestination::Type::Destination_FitBH);
-    QTest::newRow("FitH") << dst << true << true << 0 << QStringLiteral() <<
+    QTest::newRow("FitBH") << dst << true << true << 0 << QStringLiteral() <<
       QtPDF::PDFDestination::Type::Destination_FitBH << 1.5 <<
       viewport << viewport << viewport << A4RectRounded << A4Rect << A4Rect <<
       QStringLiteral("PDFDestination(%1 /FitBH %2)").arg(dst.page()).arg(dst.top());
@@ -439,7 +440,7 @@ void TestQtPDF::destination_data()
 
     // FitBV destination
     dst.setType(QtPDF::PDFDestination::Type::Destination_FitBV);
-    QTest::newRow("FitV") << dst << true << true << 0 << QStringLiteral() <<
+    QTest::newRow("FitBV") << dst << true << true << 0 << QStringLiteral() <<
       QtPDF::PDFDestination::Type::Destination_FitBV << 1.5 <<
       viewport << viewport << viewport << A4RectRounded << A4Rect << A4Rect <<
       QStringLiteral("PDFDestination(%1 /FitBV %2)").arg(dst.page()).arg(dst.left());
