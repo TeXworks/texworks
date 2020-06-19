@@ -151,6 +151,71 @@ bool PDFDestination::operator==(const PDFDestination & o) const
   }
 #endif // defined(DEBUG)
 
+bool PDFURIAction::operator==(const PDFAction & o) const
+{
+  if (o.type() != ActionTypeURI) {
+    return false;
+  }
+  return (*this == dynamic_cast<const PDFURIAction&>(o));
+}
+
+bool PDFURIAction::operator==(const PDFURIAction & o) const
+{
+  return (o._url == _url && o._isMap == _isMap);
+}
+
+bool PDFGotoAction::operator==(const PDFAction & o) const
+{
+  if (o.type() != ActionTypeGoTo) {
+    return false;
+  }
+  return (*this == dynamic_cast<const PDFGotoAction&>(o));
+}
+
+bool PDFGotoAction::operator==(const PDFGotoAction & o) const
+{
+  return (_destination == o._destination && _filename == o._filename && _isRemote == o._isRemote && _openInNewWindow == o._openInNewWindow);
+}
+
+bool PDFLaunchAction::operator==(const PDFAction & o) const
+{
+  if (o.type() != ActionTypeLaunch) {
+    return false;
+  }
+  return (*this == dynamic_cast<const PDFLaunchAction&>(o));
+}
+
+bool PDFLaunchAction::operator==(const PDFLaunchAction & o) const
+{
+  return (_command == o._command);
+}
+
+#ifdef DEBUG
+QDebug operator<<(QDebug dbg, const PDFAction & action)
+{
+  bool oldSpace = dbg.autoInsertSpaces();
+  dbg.setAutoInsertSpaces(false);
+  switch (action.type()) {
+  case PDFAction::ActionTypeURI:
+    dbg << "PDFURIAction(" << dynamic_cast<const PDFURIAction&>(action).url() << ")";
+    break;
+  case PDFAction::ActionTypeGoTo:
+  {
+    auto a = dynamic_cast<const PDFGotoAction&>(action);
+    dbg << "PDFGotoAction(" << a.destination() << ", remote=" << a.isRemote() << ", filename=" << a.filename() << ", newWin=" << a.openInNewWindow() << ")";
+    break;
+  }
+  case PDFAction::ActionTypeLaunch:
+    dbg << "PDFLaunchAction(" << dynamic_cast<const PDFLaunchAction&>(action).command() << ")";
+    break;
+  default:
+    dbg << "PDFAction(type=" << action.type() << ")";
+  }
+  dbg.setAutoInsertSpaces(oldSpace);
+  return dbg;
+}
+#endif
+
 } // namespace QtPDF
 
 // vim: set sw=2 ts=2 et

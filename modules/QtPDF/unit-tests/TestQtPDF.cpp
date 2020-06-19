@@ -43,47 +43,17 @@ char * toString(const QtPDF::PDFDestination & dst) {
   dbg << dst;
   return QTest::toString(buffer);
 }
+template<>
+char * toString(const QtPDF::PDFAction & act) {
+  QString buffer;
+  QDebug dbg(&buffer);
+  dbg << act;
+  return QTest::toString(buffer);
+}
 
 #endif // defined(DEBUG)
 
 } // namespace QTest
-
-namespace QtPDF {
-// compareDestination() is required to be able to use it inside functions with
-// a return value (e.g., bool operator==()) as the QCOMPARE macro expands to
-// code including a `return` statement without argument.
-void compareDestination(const QtPDF::PDFDestination & a, const QtPDF::PDFDestination & b)
-{
-  QCOMPARE(a, b);
-}
-
-bool operator== (const QtPDF::PDFAction & a, const QtPDF::PDFAction & b) {
-  if (a.type() != b.type()) return false;
-  switch (a.type()) {
-  case QtPDF::PDFAction::ActionTypeGoTo:
-  {
-    const QtPDF::PDFGotoAction & A = reinterpret_cast<const QtPDF::PDFGotoAction &>(a);
-    const QtPDF::PDFGotoAction & B = reinterpret_cast<const QtPDF::PDFGotoAction &>(b);
-
-    compareDestination(A.destination(), B.destination());
-    if (QTest::currentTestFailed()) return false;
-    if (A.isRemote() != B.isRemote()) return false;
-    if (A.filename() != B.filename()) return false;
-    if (A.openInNewWindow() != B.openInNewWindow()) return false;
-
-    return true;
-  }
-  case QtPDF::PDFAction::ActionTypeURI:
-  {
-    const QtPDF::PDFURIAction & A = reinterpret_cast<const QtPDF::PDFURIAction &>(a);
-    const QtPDF::PDFURIAction & B = reinterpret_cast<const QtPDF::PDFURIAction &>(b);
-    return A.url() == B.url();
-  }
-  default:
-    return false;
-  }
-}
-} // namespace QtPDF
 
 namespace UnitTest {
 
@@ -534,6 +504,28 @@ void TestQtPDF::destinationComparison()
     QVERIFY(dests[i] == dests[i]);
     for (int j = i + 1; j < dests.length(); ++j) {
       QVERIFY2(!(dests[i] == dests[j]), qPrintable(QStringLiteral("dests[%1] == dests[%2]").arg(i).arg(j)));
+    }
+  }
+}
+
+void TestQtPDF::actionComparison()
+{
+  // Can't use QScopedPointer here as that does not work with QVector's <<
+  using QSP = QSharedPointer<QtPDF::PDFAction>;
+  QVector< QSP > actions;
+
+  actions << QSP(new QtPDF::PDFURIAction(QUrl()))
+          << QSP(new QtPDF::PDFURIAction(QUrl(QStringLiteral("http://www.tug.org/texworks/"))))
+          << QSP(new QtPDF::PDFGotoAction())
+          << QSP(new QtPDF::PDFGotoAction(QtPDF::PDFDestination(0)))
+          << QSP(new QtPDF::PDFGotoAction(QtPDF::PDFDestination(QStringLiteral("name"))))
+          << QSP(new QtPDF::PDFLaunchAction(QStringLiteral()))
+          << QSP(new QtPDF::PDFLaunchAction(QStringLiteral("cmd")));
+
+  for (int i = 0; i < actions.size(); ++i) {
+    QCOMPARE(*actions[i], *actions[i]);
+    for (int j = i + 1; j < actions.size(); ++j) {
+      QVERIFY2(!(*actions[i] == *actions[j]), qPrintable(QStringLiteral("actions[%1] == actions[%2]").arg(i).arg(j)));
     }
   }
 }
@@ -1039,17 +1031,19 @@ void TestQtPDF::page_loadLinks()
   for (int i = 0; i < actual.size(); ++i) {
     compareLinks(*(actual[i]), links[i]);
 
+#ifdef DEBUG
     if (QTest::currentTestFailed()) {
       qDebug() << "Actual Link" << (i + 1);
       qDebug() << "  " << actual[i]->quadPoints();
       if (actual[i]->actionOnActivation())
-        printAction(*(actual[i]->actionOnActivation()));
+        qDebug() << "  " << *(actual[i]->actionOnActivation());
       qDebug() << "Expected Link" << (i + 1);
       qDebug() << "  " << links[i].quadPoints();
       if (actual[i]->actionOnActivation())
-        printAction(*(links[i].actionOnActivation()));
+        qDebug() << "  " << *(links[i].actionOnActivation());
       break;
     }
+#endif // defined(DEBUG)
   }
 }
 

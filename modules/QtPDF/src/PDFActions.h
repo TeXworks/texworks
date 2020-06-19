@@ -97,6 +97,8 @@ public:
   PDFAction() = default;
   virtual ~PDFAction() = default;
 
+  virtual bool operator==(const PDFAction & o) const = 0;
+
   virtual ActionType type() const = 0;
   virtual PDFAction * clone() const = 0;
 };
@@ -104,8 +106,8 @@ public:
 class PDFURIAction : public PDFAction
 {
 public:
-  PDFURIAction(const QUrl url) : _url(url), _isMap(false) { }
-  PDFURIAction(const PDFURIAction & a) : _url(a._url), _isMap(a._isMap) { }
+  PDFURIAction(const QUrl url) : _url(url) { }
+  PDFURIAction(const PDFURIAction &) = default;
 
   ActionType type() const override { return ActionTypeURI; }
   PDFAction * clone() const override { return new PDFURIAction(*this); }
@@ -113,16 +115,19 @@ public:
   // TODO: handle _isMap (see PDF 1.7 specs)
   QUrl url() const { return _url; }
 
+  bool operator==(const PDFAction & o) const override;
+  bool operator==(const PDFURIAction & o) const;
+
 private:
   QUrl _url;
-  bool _isMap;
+  bool _isMap{false};
 };
 
 class PDFGotoAction : public PDFAction
 {
 public:
   PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination) { }
-  PDFGotoAction(const PDFGotoAction & a) : _destination(a._destination), _isRemote(a._isRemote), _filename(a._filename), _openInNewWindow(a._openInNewWindow) { }
+  PDFGotoAction(const PDFGotoAction &) = default;
 
   ActionType type() const override { return ActionTypeGoTo; }
   PDFAction * clone() const override { return new PDFGotoAction(*this); }
@@ -137,6 +142,9 @@ public:
   void setFilename(const QString filename) { _filename = filename; }
   void setOpenInNewWindow(const bool openInNewWindow = true) { _openInNewWindow = openInNewWindow; }
 
+  bool operator==(const PDFAction & o) const override;
+  bool operator==(const PDFGotoAction & o) const;
+
 private:
   PDFDestination _destination;
   bool _isRemote{false};
@@ -148,6 +156,7 @@ class PDFLaunchAction : public PDFAction
 {
 public:
   PDFLaunchAction(const QString command) : _command(command) { }
+  PDFLaunchAction(const PDFLaunchAction &) = default;
 
   ActionType type() const override { return ActionTypeLaunch; }
   PDFAction * clone() const override { return new PDFLaunchAction(*this); }
@@ -155,11 +164,18 @@ public:
   QString command() const { return _command; }
   void setCommand(const QString command) { _command = command; }
 
+  bool operator==(const PDFAction & o) const override;
+  bool operator==(const PDFLaunchAction & o) const;
+
   // TODO: handle newWindow, implement OS-specific extensions
 private:
   QString _command;
   //bool _newWindow{false};
 };
+
+#ifdef DEBUG
+  QDebug operator<<(QDebug dbg, const PDFAction & action);
+#endif
 
 } // namespace QtPDF
 
