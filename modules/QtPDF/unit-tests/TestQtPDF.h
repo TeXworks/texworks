@@ -36,7 +36,7 @@ class TestQtPDF : public QObject
   QMap<QString, pDoc> _docs;
 
   QTestData & newDocTest(const char * tag);
-  QTestData & newPageTest(const char * tag, const unsigned int iPage);
+  QTestData & newPageTest(const char * tag, const int iPage);
 
   static void compareAnnotation(const QtPDF::Annotation::AbstractAnnotation & a, const QtPDF::Annotation::AbstractAnnotation & b);
   static void compareAnnotations(const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & a, const QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> > & b);

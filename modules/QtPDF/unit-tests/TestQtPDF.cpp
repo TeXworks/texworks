@@ -94,7 +94,7 @@ public:
   }
 };
 
-inline void sleep(quint64 ms)
+inline void sleep(int ms)
 {
 #ifdef Q_OS_MACOS
   // QTest::qSleep seems very unreliable on Mac OS X (QTBUG-84998)
@@ -118,7 +118,7 @@ QTestData & TestQtPDF::newDocTest(const char * tag)
   return QTest::newRow(tag) << _docs[QString::fromUtf8(tag)];
 }
 
-QTestData & TestQtPDF::newPageTest(const char * tag, const unsigned int iPage)
+QTestData & TestQtPDF::newPageTest(const char * tag, const int iPage)
 {
   return QTest::newRow(qPrintable(QString::fromUtf8(tag) + QString::fromLatin1(" p") + QString::number(iPage + 1))) << _docs[QString::fromUtf8(tag)]->page(iPage).toStrongRef();
 }
@@ -857,12 +857,12 @@ void TestQtPDF::metaDataTrapped_data()
 {
     QTest::addColumn<pDoc>("doc");
     QTest::addColumn<int>("expected");
-    newDocTest("invalid") << (int)QtPDF::Backend::Document::Trapped_Unknown;
-    newDocTest("transitions") << (int)QtPDF::Backend::Document::Trapped_Unknown;
-    newDocTest("pgfmanual") << (int)QtPDF::Backend::Document::Trapped_False;
-    newDocTest("base14-fonts") << (int)QtPDF::Backend::Document::Trapped_Unknown;
-    newDocTest("base14-locked") << (int)QtPDF::Backend::Document::Trapped_Unknown;
-    newDocTest("metadata") << (int)QtPDF::Backend::Document::Trapped_Unknown;
+    newDocTest("invalid") << static_cast<int>(QtPDF::Backend::Document::Trapped_Unknown);
+    newDocTest("transitions") << static_cast<int>(QtPDF::Backend::Document::Trapped_Unknown);
+    newDocTest("pgfmanual") << static_cast<int>(QtPDF::Backend::Document::Trapped_False);
+    newDocTest("base14-fonts") << static_cast<int>(QtPDF::Backend::Document::Trapped_Unknown);
+    newDocTest("base14-locked") << static_cast<int>(QtPDF::Backend::Document::Trapped_Unknown);
+    newDocTest("metadata") << static_cast<int>(QtPDF::Backend::Document::Trapped_Unknown);
 }
 
 void TestQtPDF::metaDataTrapped()
@@ -872,7 +872,7 @@ void TestQtPDF::metaDataTrapped()
 #ifdef USE_POPPLERQT
     QEXPECT_FAIL("pgfmanual", "poppler-qt doesn't handle trapping properly", Continue);
 #endif
-    QCOMPARE((int)doc->trapped(), expected);
+    QCOMPARE(static_cast<int>(doc->trapped()), expected);
 }
 
 void TestQtPDF::metaDataOther_data()
