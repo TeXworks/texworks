@@ -452,6 +452,76 @@ void TestQtPDF::destination_data()
     QtPDF::PDFDestination::Type::Destination_FitR << 1.5 <<
     viewport << viewport << viewport << viewport << viewport << viewport <<
     QStringLiteral("PDFDestination(%1 /FitR %2 %3 %4 %5)").arg(dst.page()).arg(dst.left()).arg(dst.rect().bottom()).arg(dst.rect().right()).arg(dst.top());
+
+  // Check explicit destinations with a page number that doesn't exist
+  constexpr int invalidPageNum = 10000;
+  dst.setPage(invalidPageNum);
+  {
+    QRectF zoom1Rect{QPointF(1.5, 3), QSizeF(4.5, 6)};
+    QRectF zoom2Rect{QPointF(0.75, 1.5), QSizeF(2.25, 3)};
+
+    // XYZ destination
+    dst.setType(QtPDF::PDFDestination::Type::Destination_XYZ);
+    QTest::newRow("XYZ invalid page") << dst << true << true << invalidPageNum << QStringLiteral() <<
+      QtPDF::PDFDestination::Type::Destination_XYZ << 1.5 <<
+      viewport << zoom1Rect << zoom1Rect << zoom1Rect << zoom1Rect << zoom2Rect <<
+      QStringLiteral("PDFDestination(%1 /XYZ %2 %3 %4)").arg(dst.page()).arg(dst.left()).arg(dst.top()).arg(dst.zoom());
+  }
+
+  {
+    // Fit destination
+    dst.setType(QtPDF::PDFDestination::Type::Destination_Fit);
+    QTest::newRow("Fit invalid page") << dst << true << true << invalidPageNum << QStringLiteral() <<
+      QtPDF::PDFDestination::Type::Destination_Fit << 1.5 <<
+      viewport << viewport << viewport << viewport << viewport << viewport <<
+      QStringLiteral("PDFDestination(%1 /Fit)").arg(dst.page());
+
+    // FitB destination
+    dst.setType(QtPDF::PDFDestination::Type::Destination_FitB);
+    QTest::newRow("FitB invalid page") << dst << true << true << invalidPageNum << QStringLiteral() <<
+      QtPDF::PDFDestination::Type::Destination_FitB << 1.5 <<
+      viewport << viewport << viewport << viewport << viewport << viewport <<
+      QStringLiteral("PDFDestination(%1 /FitB)").arg(dst.page());
+  }
+
+  {
+    // FitH destination
+    dst.setType(QtPDF::PDFDestination::Type::Destination_FitH);
+    QTest::newRow("FitH invalid page") << dst << true << true << invalidPageNum << QStringLiteral() <<
+      QtPDF::PDFDestination::Type::Destination_FitH << 1.5 <<
+      viewport << viewport << viewport << viewport << viewport << viewport <<
+      QStringLiteral("PDFDestination(%1 /FitH %2)").arg(dst.page()).arg(dst.top());
+
+    // FitBH destination
+    dst.setType(QtPDF::PDFDestination::Type::Destination_FitBH);
+    QTest::newRow("FitBH invalid page") << dst << true << true << invalidPageNum << QStringLiteral() <<
+      QtPDF::PDFDestination::Type::Destination_FitBH << 1.5 <<
+      viewport << viewport << viewport << viewport << viewport << viewport <<
+      QStringLiteral("PDFDestination(%1 /FitBH %2)").arg(dst.page()).arg(dst.top());
+  }
+
+  {
+    // FitV destination
+    dst.setType(QtPDF::PDFDestination::Type::Destination_FitV);
+    QTest::newRow("FitV invalid page") << dst << true << true << invalidPageNum << QStringLiteral() <<
+      QtPDF::PDFDestination::Type::Destination_FitV << 1.5 <<
+      viewport << viewport << viewport << viewport << viewport << viewport <<
+      QStringLiteral("PDFDestination(%1 /FitV %2)").arg(dst.page()).arg(dst.left());
+
+    // FitBV destination
+    dst.setType(QtPDF::PDFDestination::Type::Destination_FitBV);
+    QTest::newRow("FitBV invalid page") << dst << true << true << invalidPageNum << QStringLiteral() <<
+      QtPDF::PDFDestination::Type::Destination_FitBV << 1.5 <<
+      viewport << viewport << viewport << viewport << viewport << viewport <<
+      QStringLiteral("PDFDestination(%1 /FitBV %2)").arg(dst.page()).arg(dst.left());
+  }
+
+  // FitR destination
+  dst.setType(QtPDF::PDFDestination::Type::Destination_FitR);
+  QTest::newRow("FitR invalid page") << dst << true << true << invalidPageNum << QStringLiteral() <<
+    QtPDF::PDFDestination::Type::Destination_FitR << 1.5 <<
+    viewport << viewport << viewport << viewport << viewport << viewport <<
+    QStringLiteral("PDFDestination(%1 /FitR %2 %3 %4 %5)").arg(dst.page()).arg(dst.left()).arg(dst.rect().bottom()).arg(dst.rect().right()).arg(dst.top());
 }
 
 void TestQtPDF::destination()
