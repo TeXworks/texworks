@@ -77,6 +77,9 @@ private slots:
 
   void destinationComparison();
 
+  void PDFUriAction();
+  void PDFGotoAction();
+  void PDFLaunchAction();
   void actionComparison();
 
   void resolveDestination_data();

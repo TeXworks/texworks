@@ -508,6 +508,70 @@ void TestQtPDF::destinationComparison()
   }
 }
 
+void TestQtPDF::PDFUriAction()
+{
+  QUrl urlTw(QStringLiteral("http://www.tug.org/texworks/"));
+  QtPDF::PDFURIAction a(urlTw);
+
+  QCOMPARE(a.type(), QtPDF::PDFAction::ActionTypeURI);
+  QCOMPARE(a.url(), urlTw);
+
+  QtPDF::PDFAction * c = a.clone();
+  Q_ASSERT(c != nullptr);
+  QVERIFY(c != &a);
+  QCOMPARE(*c, a);
+  delete c;
+}
+
+void TestQtPDF::PDFGotoAction()
+{
+  QtPDF::PDFDestination dst(0);
+  QString filename(QStringLiteral("test.pdf"));
+  QtPDF::PDFGotoAction a;
+
+  // Defaults
+  QCOMPARE(a.type(), QtPDF::PDFAction::ActionTypeGoTo);
+  QCOMPARE(a.destination(), QtPDF::PDFDestination());
+  QCOMPARE(a.isRemote(), false);
+  QCOMPARE(a.filename(), QString());
+  QCOMPARE(a.openInNewWindow(), false);
+
+  a.setDestination(dst);
+  QCOMPARE(a.destination(), dst);
+
+  a.setRemote(true);
+  QCOMPARE(a.isRemote(), true);
+
+  a.setFilename(filename);
+  QCOMPARE(a.filename(), filename);
+
+  a.setOpenInNewWindow(true);
+  QCOMPARE(a.openInNewWindow(), true);
+
+  QtPDF::PDFAction * c = a.clone();
+  Q_ASSERT(c != nullptr);
+  QVERIFY(c != &a);
+  QCOMPARE(*c, a);
+  delete c;
+}
+
+void TestQtPDF::PDFLaunchAction()
+{
+  QString empty, cmd(QStringLiteral("cmd"));
+  QtPDF::PDFLaunchAction a(empty);
+
+  QCOMPARE(a.type(), QtPDF::PDFAction::ActionTypeLaunch);
+  QCOMPARE(a.command(), empty);
+  a.setCommand(cmd);
+  QCOMPARE(a.command(), cmd);
+
+  QtPDF::PDFAction * c = a.clone();
+  Q_ASSERT(c != nullptr);
+  QVERIFY(c != &a);
+  QCOMPARE(*c, a);
+  delete c;
+}
+
 void TestQtPDF::actionComparison()
 {
   // Can't use QScopedPointer here as that does not work with QVector's <<
