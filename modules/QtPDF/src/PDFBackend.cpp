@@ -443,6 +443,15 @@ int Document::numPages() { QReadLocker docLocker(_docLock.data()); return _numPa
 PDFPageProcessingThread &Document::processingThread() { QReadLocker docLocker(_docLock.data()); return _processingThread; }
 PDFPageCache &Document::pageCache() { QReadLocker docLocker(_docLock.data()); return _pageCache; }
 
+QWeakPointer<Page> Document::page(int at)
+{
+  QReadLocker l(_docLock.data());
+  if (at < 0 || at >= _pages.size()) {
+    return QWeakPointer<Page>();
+  }
+  return _pages[at];
+}
+
 QList<SearchResult> Document::search(const QString & searchText, const SearchFlags & flags, const int startPage)
 {
   QReadLocker docLocker(_docLock.data());
