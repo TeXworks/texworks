@@ -228,8 +228,8 @@ public:
   void setOpen(const bool open = true) { _open = open; }
 
 private:
-  Markup * _parent;
-  bool _open;
+  Markup * _parent{nullptr};
+  bool _open{false};
 };
 
 class Highlight : public Markup
