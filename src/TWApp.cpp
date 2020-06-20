@@ -56,7 +56,7 @@
 #include <QUrl>
 
 #if defined(Q_OS_DARWIN)
-#include <CoreServices/CoreServices.h>
+extern QString GetMacOSVersionString();
 #endif
 
 #if defined(Q_OS_WIN)
@@ -561,11 +561,7 @@ void TWApp::writeToMailingList()
 	if (unameCmd.waitForStarted(1000) && unameCmd.waitForFinished(1000))
 		unameResult = unameCmd.getResult().trimmed();
 #if defined(Q_OS_DARWIN)
-	SInt32 major = 0, minor = 0, bugfix = 0;
-	Gestalt(gestaltSystemVersionMajor, &major);
-	Gestalt(gestaltSystemVersionMinor, &minor);
-	Gestalt(gestaltSystemVersionBugFix, &bugfix);
-	body += QString::fromLatin1("Mac OS X %1.%2.%3").arg(major).arg(minor).arg(bugfix);
+	body += GetMacOSVersionString();
 	body += QLatin1String(" (") + unameResult + QLatin1String(")\n");
 #else
 	body += unameResult + QChar::fromLatin1('\n');

@@ -70,6 +70,11 @@ target_compile_options(test_Utils PRIVATE ${WARNING_OPTIONS})
 target_link_libraries(test_Utils ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Utils COMMAND test_Utils WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
+if (APPLE)
+	target_sources(test_Utils PRIVATE "${CMAKE_SOURCE_DIR}/src/utils/OSVersionInfo_mac.mm")
+	target_link_libraries(test_Utils "-framework Foundation")
+endif (APPLE)
+
 # Document
 add_executable(test_Document
 	Document_test.cpp

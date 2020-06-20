@@ -42,6 +42,10 @@ private slots:
 	void MacCentralEurRomanCodec();
 
 	void FullscreenManager();
+
+#ifdef Q_OS_DARWIN
+	void OSVersionString();
+#endif // defined(Q_OS_DARWIN)
 };
 
 } // namespace UnitTest
