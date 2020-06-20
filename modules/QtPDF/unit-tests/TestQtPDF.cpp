@@ -1095,6 +1095,65 @@ void TestQtPDF::fonts()
   QCOMPARE(actualFontNames, fontNames);
 }
 
+void TestQtPDF::ToCItem()
+{
+  QtPDF::Backend::PDFToCItem ti, def, act;
+  QString label(QStringLiteral("label"));
+
+  act.setAction(new QtPDF::PDFGotoAction(QtPDF::PDFDestination(0)));
+
+  // Defaults
+  QCOMPARE(ti.label(), QString());
+  QCOMPARE(ti.isOpen(), false);
+  QVERIFY(ti.action() == nullptr);
+  QCOMPARE(ti.color(), QColor());
+  QCOMPARE(ti.children(), QList<QtPDF::Backend::PDFToCItem>());
+  // ensure the const variant of PDFToCItem::flags() is called
+  QCOMPARE(static_cast<const QtPDF::Backend::PDFToCItem&>(ti).flags(), QtPDF::Backend::PDFToCItem::PDFToCItemFlags());
+  QVERIFY(ti == ti);
+  QVERIFY(ti == def);
+  QVERIFY(!(ti == act));
+
+  // Setters
+  ti.setLabel(label);
+  QCOMPARE(ti.label(), label);
+  QVERIFY(!(ti == def));
+  QVERIFY(!(ti == act));
+  ti = def;
+  QVERIFY(ti == def);
+
+  ti.setOpen();
+  QCOMPARE(ti.isOpen(), true);
+  QVERIFY(!(ti == def));
+  QVERIFY(!(ti == act));
+  ti = def;
+  QVERIFY(ti == def);
+
+  ti.setColor(Qt::red);
+  QCOMPARE(ti.color(), QColor(Qt::red));
+  QVERIFY(!(ti == def));
+  QVERIFY(!(ti == act));
+  ti = def;
+  QVERIFY(ti == def);
+
+  ti.flags() |= QtPDF::Backend::PDFToCItem::Flag_Bold;
+  QCOMPARE(ti.flags(), QtPDF::Backend::PDFToCItem::PDFToCItemFlags(QtPDF::Backend::PDFToCItem::Flag_Bold));
+  QVERIFY(!(ti == def));
+  QVERIFY(!(ti == act));
+  ti = def;
+  QVERIFY(ti == def);
+
+  QtPDF::PDFGotoAction actGoto1 = QtPDF::PDFGotoAction(QtPDF::PDFDestination(1));
+  ti.setAction(new QtPDF::PDFGotoAction(actGoto1));
+  QVERIFY(ti.action() != nullptr);
+  QCOMPARE(*ti.action(), dynamic_cast<const QtPDF::PDFAction&>(actGoto1));
+  QVERIFY(!(ti == def));
+  QVERIFY(!(ti == act));
+
+  // Self-assignment (ensure it does not crash)
+  ti = ti;
+}
+
 // static
 void TestQtPDF::compareToC(const QtPDF::Backend::PDFToC & actual, const QtPDF::Backend::PDFToC & expected)
 {

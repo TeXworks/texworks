@@ -16,6 +16,7 @@
 
 #include "PDFAnnotations.h"
 #include "PDFPageTile.h"
+#include "PDFToC.h"
 #include "PDFTransitions.h"
 
 #include <QCache>
@@ -350,65 +351,6 @@ private:
 #endif
 
 };
-
-class PDFToCItem
-{
-public:
-  enum PDFToCItemFlag { Flag_Italic = 0x1, Flag_Bold = 0x2 };
-  Q_DECLARE_FLAGS(PDFToCItemFlags, PDFToCItemFlag)
-
-  PDFToCItem(const QString label = QString()) : _label(label) { }
-  PDFToCItem(const PDFToCItem & o) : _label(o._label), _isOpen(o._isOpen), _color(o._color), _children(o._children), _flags(o._flags) {
-    _action = (o._action ? o._action->clone() : nullptr);
-  }
-  virtual ~PDFToCItem() { if (_action) delete _action; }
-
-  QString label() const { return _label; }
-  bool isOpen() const { return _isOpen; }
-  PDFAction * action() const { return _action; }
-  QColor color() const { return _color; }
-  const QList<PDFToCItem> & children() const { return _children; }
-  QList<PDFToCItem> & children() { return _children; }
-  PDFToCItemFlags flags() const { return _flags; }
-  PDFToCItemFlags & flags() { return _flags; }
-
-  void setLabel(const QString label) { _label = label; }
-  void setOpen(const bool isOpen = true) { _isOpen = isOpen; }
-  void setAction(PDFAction * action) {
-    if (_action)
-      delete _action;
-    _action = action;
-  }
-  void setColor(const QColor color) { _color = color; }
-
-  bool operator==(const PDFToCItem & o) const {
-    if (_label != o._label || _isOpen != o._isOpen || _color != o._color || _flags != o._flags) {
-      return false;
-    }
-    if (_action != nullptr && o._action != nullptr) {
-      if (!(*_action == *o._action)) {
-        return false;
-      }
-    }
-    else {
-      // At least one action is a nullptr
-      if (_action != o._action) {
-        return false;
-      }
-    }
-    return _children == o._children;
-  }
-
-protected:
-  QString _label;
-  bool _isOpen{false}; // derived from the sign of the `Count` member of the outline item dictionary
-  PDFAction * _action{nullptr}; // if the `Dest` member of the outline item dictionary is set, it must be converted to a PDFGotoAction
-  QColor _color;
-  QList<PDFToCItem> _children;
-  PDFToCItemFlags _flags;
-};
-
-typedef QList<PDFToCItem> PDFToC;
 
 enum SearchFlag { Search_WrapAround = 0x01, Search_CaseInsensitive = 0x02, Search_Backwards = 0x04};
 Q_DECLARE_FLAGS(SearchFlags, SearchFlag)

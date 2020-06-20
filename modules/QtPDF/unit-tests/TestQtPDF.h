@@ -128,6 +128,8 @@ private slots:
   void fonts_data();
   void fonts();
 
+  void ToCItem();
+
   void toc_data();
   void toc();
 
