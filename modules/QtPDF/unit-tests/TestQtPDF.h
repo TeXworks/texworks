@@ -55,6 +55,9 @@ private slots:
   void loadDocs();
 //  virtual void reload() = 0;
 
+  void parsePDFDate_data();
+  void parsePDFDate();
+
   void isValid_data();
   void isValid();
 

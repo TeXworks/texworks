@@ -249,6 +249,35 @@ void TestQtPDF::loadDocs()
   }
 }
 
+void TestQtPDF::parsePDFDate_data()
+{
+  QTest::addColumn<QString>("str");
+  QTest::addColumn<QDateTime>("result");
+
+  // NB: fromPDFDate always returns local time
+  QTest::newRow("empty") << QString() << QDateTime();
+  QTest::newRow("yyyy") << QStringLiteral("D:2000") << QDateTime(QDate(2000, 1, 1));
+  QTest::newRow("yyyymm") << QStringLiteral("D:200002") << QDateTime(QDate(2000, 2, 1));
+  QTest::newRow("yyyymmdd") << QStringLiteral("D:20000202") << QDateTime(QDate(2000, 2, 2));
+  QTest::newRow("yyyymmddHH") << QStringLiteral("D:2000020213") << QDateTime(QDate(2000, 2, 2), QTime(13, 0, 0));
+  QTest::newRow("yyyymmddHHMM") << QStringLiteral("D:200002021342") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 0));
+  QTest::newRow("yyyymmddHHMMSS") << QStringLiteral("D:20000202134221") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
+  QTest::newRow("yyyymmddHHMMSSZ") << QStringLiteral("D:20000202134221Z") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21), Qt::UTC).toLocalTime();
+  QTest::newRow("yyyymmddHHMMSS+07'30") << QStringLiteral("D:20000202134221+07'30") << QDateTime(QDate(2000, 2, 2), QTime(6, 12, 21), Qt::UTC).toLocalTime();
+  QTest::newRow("yyyymmddHHMMSS-08'00") << QStringLiteral("D:20000202134221-08'00") << QDateTime(QDate(2000, 2, 2), QTime(21, 42, 21), Qt::UTC).toLocalTime();
+  QTest::newRow("yyyymmddHHMMSS;08'00") << QStringLiteral("D:20000202134221;08'00") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
+  QTest::newRow("yyyymmddHHMMSS-0800") << QStringLiteral("D:20000202134221-0800") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
+  QTest::newRow("yyyymmddHHMMSS-0a'00") << QStringLiteral("D:20000202134221-0a'00") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
+}
+
+void TestQtPDF::parsePDFDate()
+{
+  QFETCH(QString, str);
+  QFETCH(QDateTime, result);
+
+  QCOMPARE(QtPDF::Backend::fromPDFDate(str), result);
+}
+
 void TestQtPDF::isValid_data()
 {
   QTest::addColumn<pDoc>("doc");
