@@ -569,6 +569,9 @@ QRectF Page::getContentBoundingBox() const
   // estimating the content bounding box to about 1% of the page size)
   QImage img = renderToImage(100. * 72 / pageSize.width(), 100. * 72 / pageSize.height());
 
+  if (img.isNull())
+    return QRectF();
+
   // Make sure the image is in a format we can handle here
   switch (img.format()) {
     case QImage::Format_ARGB32:
