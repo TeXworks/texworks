@@ -94,6 +94,38 @@ public:
   }
 };
 
+class GenericDocument;
+
+class GenericPage : public QtPDF::Backend::Page
+{
+public:
+  GenericPage(GenericDocument * parent, int at, QSharedPointer<QReadWriteLock> docLock);
+  QSizeF pageSizeF() const override { return {}; }
+  QList<QSharedPointer<QtPDF::Annotation::Link> > loadLinks() override { return {}; }
+  QList<QtPDF::Backend::SearchResult> search(const QString &searchText, const QtPDF::Backend::SearchFlags &flags) override {
+    Q_UNUSED(searchText) Q_UNUSED(flags) return {};
+  }
+  QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) const override {
+    Q_UNUSED(xres) Q_UNUSED(yres) Q_UNUSED(render_box) Q_UNUSED(cache)
+    return {};
+  }
+};
+
+class GenericDocument : public QtPDF::Backend::Document
+{
+public:
+  GenericDocument(const QString & filename = QString()) : QtPDF::Backend::Document(filename) {
+    _numPages = 1;
+    _pages.append(QSharedPointer<QtPDF::Backend::Page>(new GenericPage(this, 0, _docLock)));
+  }
+  bool isValid() const override { return true; }
+  bool isLocked() const override { return false; }
+  bool unlock(const QString password) override { Q_UNUSED(password) return true; }
+  void reload() override { }
+};
+
+GenericPage::GenericPage(GenericDocument * parent, int at, QSharedPointer<QReadWriteLock> docLock) : QtPDF::Backend::Page(parent, at, docLock) { }
+
 inline void sleep(int ms)
 {
 #ifdef Q_OS_MACOS
@@ -137,6 +169,64 @@ void TestQtPDF::backendInterface()
 
   QVERIFY(backend.canHandleFile(QString::fromLatin1("test.pdf")));
   QVERIFY(!backend.canHandleFile(QString::fromLatin1("test.tex")));
+}
+
+void TestQtPDF::abstractBaseClasses()
+{
+  QString filename = QStringLiteral("test.pdf");
+  GenericDocument doc(filename);
+  QMap<QString, QString> metaDataOther;
+  QtPDF::PDFDestination dstExplicit(0), dstNamed(QStringLiteral("name"));
+
+  // Document
+  QCOMPARE(doc.numPages(), 1);
+  QCOMPARE(doc.fileName(), filename);
+  QCOMPARE(doc.resolveDestination(dstExplicit), dstExplicit);
+  QCOMPARE(doc.resolveDestination(dstNamed), QtPDF::PDFDestination());
+  QCOMPARE(doc.permissions(), QtPDF::Backend::Document::Permissions());
+  QCOMPARE(doc.isValid(), true);
+  QCOMPARE(doc.isLocked(), false);
+  doc.reload();
+  QCOMPARE(doc.unlock(QStringLiteral()), true);
+  QCOMPARE(doc.toc(), QtPDF::Backend::PDFToC());
+  QCOMPARE(doc.fonts(), QList<QtPDF::Backend::PDFFontInfo>());
+  QCOMPARE(doc.title(), QString());
+  QCOMPARE(doc.author(), QString());
+  QCOMPARE(doc.subject(), QString());
+  QCOMPARE(doc.keywords(), QString());
+  QCOMPARE(doc.creator(), QString());
+  QCOMPARE(doc.producer(), QString());
+  QCOMPARE(doc.creationDate(), QDateTime());
+  QCOMPARE(doc.modDate(), QDateTime());
+  QCOMPARE(doc.pageSize(), QSizeF());
+  QCOMPARE(doc.fileSize(), static_cast<qint64>(0));
+  QCOMPARE(doc.trapped(), QtPDF::Backend::Document::Trapped_Unknown);
+  QCOMPARE(doc.metaDataOther(), metaDataOther);
+  QCOMPARE(doc.search(QStringLiteral(), {}), QList<QtPDF::Backend::SearchResult>());
+
+  // Page
+  QSharedPointer<QtPDF::Backend::Page> page = doc.page(0).toStrongRef();
+  QVERIFY(!page.isNull());
+  QCOMPARE(page->document(), &doc);
+  QCOMPARE(page->pageNum(), 0);
+  QCOMPARE(page->pageSizeF(), QSizeF());
+  QCOMPARE(page->getContentBoundingBox(), QRectF());
+  QVERIFY(page->transition() == nullptr);
+  QCOMPARE(page->loadLinks(), QList< QSharedPointer<QtPDF::Annotation::Link> >());
+  QCOMPARE(page->boxes(), QList<QtPDF::Backend::Page::Box>());
+
+  QMap<int, QRectF> wordBoxes,  charBoxes;
+  wordBoxes.insert(0, QRectF());
+  charBoxes.insert(0, QRectF());
+  QCOMPARE(page->selectedText({}, &wordBoxes, &charBoxes), QString());
+  QVERIFY(wordBoxes.isEmpty());
+  QVERIFY(charBoxes.isEmpty());
+
+  QVERIFY(page->renderToImage(1, 1).isNull());
+  QVERIFY(page->getTileImage(nullptr, 1, 1).isNull());
+
+  QCOMPARE(page->loadAnnotations(), QList< QSharedPointer<QtPDF::Annotation::AbstractAnnotation> >());
+  QCOMPARE(page->search(QStringLiteral(), {}), QList<QtPDF::Backend::SearchResult>());
 }
 
 void TestQtPDF::loadDocs()

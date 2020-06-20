@@ -50,6 +50,7 @@ class TestQtPDF : public QObject
 
 private slots:
   void backendInterface();
+  void abstractBaseClasses();
 
   void loadDocs();
 //  virtual void reload() = 0;
