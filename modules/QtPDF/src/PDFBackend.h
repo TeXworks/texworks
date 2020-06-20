@@ -72,6 +72,11 @@ public:
   void setName(const QString name) { _name = name; }
   // TODO: Accessor methods for all other properties
 
+  bool operator==(const PDFFontDescriptor & o) const {
+    // TODO: more in-depth comparisons once the data is made available
+    return (_name == o._name);
+  }
+
 protected:
   // From pdf specs
   QString _name;
@@ -137,6 +142,12 @@ public:
   void setDescriptor(const PDFFontDescriptor descriptor) { _descriptor = descriptor; }
   void setFileName(const QFileInfo file) { _source = Source_File; _substitutionFile = file; }
   void setSource(const FontSource source) { _source = source; }
+
+  bool operator==(const PDFFontInfo & o) const {
+    return (_source == o._source && _descriptor == o._descriptor &&
+      _substitutionFile == o._substitutionFile && _fontType == o._fontType &&
+      _CIDType == o._CIDType && _fontProgramType == o._fontProgramType);
+  }
 
 protected:
   FontSource _source{Source_Builtin};
@@ -370,6 +381,24 @@ public:
   }
   void setColor(const QColor color) { _color = color; }
 
+  bool operator==(const PDFToCItem & o) const {
+    if (_label != o._label || _isOpen != o._isOpen || _color != o._color || _flags != o._flags) {
+      return false;
+    }
+    if (_action != nullptr && o._action != nullptr) {
+      if (!(*_action == *o._action)) {
+        return false;
+      }
+    }
+    else {
+      // At least one action is a nullptr
+      if (_action != o._action) {
+        return false;
+      }
+    }
+    return _children == o._children;
+  }
+
 protected:
   QString _label;
   bool _isOpen{false}; // derived from the sign of the `Count` member of the outline item dictionary
@@ -397,6 +426,10 @@ struct SearchResult
 {
   unsigned int pageNum;
   QRectF bbox;
+
+  bool operator==(const SearchResult & o) const {
+    return (pageNum == o.pageNum && bbox == o.bbox);
+  }
 };
 
 
@@ -553,6 +586,10 @@ public:
   public:
     QRectF boundingBox;
     QList<Box> subBoxes;
+
+    bool operator==(const Box & o) const {
+      return (boundingBox == o.boundingBox && subBoxes == o.subBoxes);
+    }
   };
 
   virtual ~Page() = default;
