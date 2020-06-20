@@ -128,6 +128,11 @@ private slots:
   void permissions_data();
   void permissions();
 
+  void fontDescriptor_data();
+  void fontDescriptor();
+
+  void fontDescriptorComparison();
+
   void fonts_data();
   void fonts();
 

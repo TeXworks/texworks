@@ -107,37 +107,6 @@ void PDFPageProcessingThread::dumpWorkStack(const QStack<PageProcessingRequest*>
 #endif
 
 
-
-
-// Fonts
-// =================
-
-PDFFontDescriptor::PDFFontDescriptor(const QString & fontName /* = QString() */) :
-  _name(fontName)
-{
-}
-
-bool PDFFontDescriptor::isSubset() const
-{
-  // Subset fonts have a tag of 6 upper-case letters, followed by a '+',
-  // prefixed to the font name
-  if (_name.length() < 7 || _name[6] != QChar::fromLatin1('+'))
-    return false;
-  for (int i = 0; i < 6; ++i) {
-    if (!_name[i].isUpper())
-      return false;
-  }
-  return true;
-}
-
-QString PDFFontDescriptor::pureName() const
-{
-  if (!isSubset())
-    return _name;
-  return _name.mid(7);
-}
-
-
 // Backend Rendering
 // =================
 

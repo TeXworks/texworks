@@ -1084,6 +1084,53 @@ void TestQtPDF::permissions()
   QCOMPARE(doc->permissions(), permissions);
 }
 
+void TestQtPDF::fontDescriptor_data()
+{
+  QTest::addColumn<QString>("fontName");
+  QTest::addColumn<QString>("pureName");
+  QTest::addColumn<bool>("isSubset");
+
+  QTest::newRow("default") << QString() << QString() << false;
+  QTest::newRow("full") << QStringLiteral("Font") << QStringLiteral("Font") << false;
+  QTest::newRow("subset") << QStringLiteral("ABCDEF+font") << QStringLiteral("font") << true;
+  QTest::newRow("not-subset") << QStringLiteral("Font56+") << QStringLiteral("Font56+") << false;
+}
+
+void TestQtPDF::fontDescriptor()
+{
+  QFETCH(QString, fontName);
+  QFETCH(QString, pureName);
+  QFETCH(bool, isSubset);
+
+  QtPDF::Backend::PDFFontDescriptor fd;
+  fd.setName(fontName);
+  QCOMPARE(fd.name(), fontName);
+  QCOMPARE(fd.pureName(), pureName);
+  QCOMPARE(fd.isSubset(), isSubset);
+}
+
+void TestQtPDF::fontDescriptorComparison()
+{
+  QVector<QtPDF::Backend::PDFFontDescriptor> fds;
+
+  fds << QtPDF::Backend::PDFFontDescriptor()
+      << QtPDF::Backend::PDFFontDescriptor(QStringLiteral("font1"))
+      << QtPDF::Backend::PDFFontDescriptor(QStringLiteral("Font2"))
+      << QtPDF::Backend::PDFFontDescriptor(QStringLiteral("Font56+"))
+      << QtPDF::Backend::PDFFontDescriptor(QStringLiteral("ABCDEF+font1"))
+      << QtPDF::Backend::PDFFontDescriptor(QStringLiteral("ABCDEF+Font2"));
+  for (int i = 0; i < fds.size(); ++i) {
+    for (int j = 0; j < fds.size(); ++j) {
+      if (i == j) {
+        QCOMPARE(fds[i], fds[i]);
+      }
+      else {
+        QVERIFY2(!(fds[i] == fds[j]), qPrintable(QStringLiteral("fds[%1] == fds[%2]").arg(i).arg(j)));
+      }
+    }
+  }
+}
+
 void TestQtPDF::fonts_data()
 {
   QTest::addColumn<pDoc>("doc");
