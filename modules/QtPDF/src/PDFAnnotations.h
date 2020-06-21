@@ -115,6 +115,8 @@ class Markup : public AbstractAnnotation
 public:
   Markup() : AbstractAnnotation() { }
   ~Markup() override;
+  Markup(const Markup & o);
+  Markup & operator=(const Markup & o);
 
   bool isMarkup() const override { return true; }
 

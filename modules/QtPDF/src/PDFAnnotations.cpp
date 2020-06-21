@@ -27,6 +27,37 @@ Markup::~Markup()
   delete _popup;
 }
 
+Markup::Markup(const Markup & o)
+  : AbstractAnnotation(o)
+  , _title(o._title)
+  , _richContents(o._richContents)
+  , _creationDate(o._creationDate)
+  , _subject(o._subject)
+{
+  if (o.popup() != nullptr) {
+    setPopup(new Popup(*(o.popup())));
+  }
+}
+
+Markup & Markup::operator=(const Markup & o)
+{
+  if (this == &o) {
+    return *this;
+  }
+  AbstractAnnotation::operator=(o);
+  _title = o._title;
+  _richContents = o._richContents;
+  _creationDate = o._creationDate;
+  _subject = o._subject;
+  if (o.popup() != nullptr) {
+    setPopup(new Popup(*(o.popup())));
+  }
+  else {
+    setPopup(nullptr);
+  }
+  return *this;
+}
+
 void Markup::setPopup(Popup * popup)
 {
   delete _popup;
