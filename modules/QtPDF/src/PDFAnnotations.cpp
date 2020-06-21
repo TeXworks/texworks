@@ -31,6 +31,9 @@ void Markup::setPopup(Popup * popup)
 {
   delete _popup;
   _popup = popup;
+  if (_popup != nullptr) {
+    _popup->setParent(this);
+  }
 }
 
 
