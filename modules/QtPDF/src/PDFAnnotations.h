@@ -229,9 +229,17 @@ public:
   void setParent(Markup * parent) { _parent = parent; }
   void setOpen(const bool open = true) { _open = open; }
 
+  QString contents() const override { return (_parent != nullptr ? _parent->contents() : _contents); }
+  QDateTime lastModified() const override { return (_parent != nullptr ? _parent->lastModified() : _lastModified); }
+  QColor color() const override { return (_parent != nullptr ? _parent->color() : _color); }
+  QString title() const { return (_parent != nullptr ? _parent->title() : _title); }
+
+  void setTitle(const QString & title) { _title = title; }
+
 private:
   Markup * _parent{nullptr};
   bool _open{false};
+  QString _title;
 };
 
 class Highlight : public Markup
