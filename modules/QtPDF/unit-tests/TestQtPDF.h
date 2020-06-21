@@ -141,6 +141,8 @@ private slots:
   void toc_data();
   void toc();
 
+  void annotationComparison();
+
   void page_renderToImage_data();
   void page_renderToImage();
 

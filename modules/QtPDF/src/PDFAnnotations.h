@@ -90,6 +90,8 @@ public:
   virtual void setLastModified(const QDateTime lastModified) { _lastModified = lastModified; }
   virtual void setColor(const QColor color) { _color = color; }
 
+  virtual bool operator==(const AbstractAnnotation & o) const;
+
 protected:
   QRectF _rect; // required, in pdf coordinates
   QString _contents; // optional
@@ -137,6 +139,8 @@ public:
   // Note: the Markup takes ownership of `popup`
   virtual void setPopup(Popup * popup);
 
+  bool operator==(const AbstractAnnotation & o) const override;
+
 protected:
   QString _title; // optional; since PDF 1.1; by convention identifies the annotation author
   Popup * _popup{nullptr};
@@ -180,6 +184,8 @@ public:
   void setQuadPoints(const QPolygonF quadPoints) { _quadPoints = quadPoints; }
   // Note: Link takes ownership of PDFAction pointers
   void setActionOnActivation(PDFAction * const action);
+
+  bool operator==(const AbstractAnnotation & o) const override;
 
 private:
   // Note: the PA member of the link annotation dict is deliberately ommitted
@@ -235,6 +241,8 @@ public:
   QString title() const { return (_parent != nullptr ? _parent->title() : _title); }
 
   void setTitle(const QString & title) { _title = title; }
+
+  bool operator==(const AbstractAnnotation & o) const override;
 
 private:
   Markup * _parent{nullptr};

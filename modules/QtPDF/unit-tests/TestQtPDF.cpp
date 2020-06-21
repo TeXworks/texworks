@@ -1282,6 +1282,73 @@ void TestQtPDF::toc()
   }
 }
 
+void TestQtPDF::annotationComparison()
+{
+  using SAP = QSharedPointer<QtPDF::Annotation::AbstractAnnotation>;
+  QVector<SAP> annots;
+
+  annots << SAP(new QtPDF::Annotation::Link())
+         << SAP(new QtPDF::Annotation::Text())
+         << SAP(new QtPDF::Annotation::FreeText())
+         << SAP(new QtPDF::Annotation::Caret())
+         << SAP(new QtPDF::Annotation::Highlight())
+         << SAP(new QtPDF::Annotation::Underline())
+         << SAP(new QtPDF::Annotation::Squiggly())
+         << SAP(new QtPDF::Annotation::StrikeOut());
+  {
+    QtPDF::Annotation::Text t;
+    t.setName(QStringLiteral("name"));
+    annots << SAP(new QtPDF::Annotation::Text(t));
+  }
+  {
+    QtPDF::Annotation::Text t;
+    t.setTitle(QStringLiteral("title"));
+    annots << SAP(new QtPDF::Annotation::Text(t));
+  }
+  {
+    QtPDF::Annotation::Text t;
+    t.setPopup(new QtPDF::Annotation::Popup);
+    annots << SAP(new QtPDF::Annotation::Text(t));
+  }
+  {
+    QtPDF::Annotation::Text t;
+    t.setPopup(new QtPDF::Annotation::Popup);
+    t.popup()->setOpen();
+    annots << SAP(new QtPDF::Annotation::Text(t));
+  }
+  {
+    QtPDF::Annotation::Link l;
+    l.setHighlightingMode(QtPDF::Annotation::Link::HighlightingInvert);
+    annots << SAP(new QtPDF::Annotation::Link(l));
+  }
+  {
+    QtPDF::Annotation::Link l;
+    l.setActionOnActivation(QtPDF::PDFGotoAction(QtPDF::PDFDestination(0)).clone());
+    annots << SAP(new QtPDF::Annotation::Link(l));
+  }
+  {
+    QtPDF::Annotation::Link l;
+    l.setActionOnActivation(QtPDF::PDFGotoAction(QtPDF::PDFDestination(1)).clone());
+    annots << SAP(new QtPDF::Annotation::Link(l));
+  }
+  {
+    QtPDF::Annotation::Popup p;
+    p.setOpen();
+    annots << SAP(new QtPDF::Annotation::Popup(p));
+  }
+
+  for (int i = 0; i < annots.size(); ++i) {
+    for (int j = 0; j < annots.size(); ++j) {
+      if (i == j) {
+        QCOMPARE(*annots[i], *annots[j]);
+      }
+      else {
+        QVERIFY2(!(*annots[i] == *annots[j]), qPrintable(QStringLiteral("annots[%1] == annots[%2]").arg(i).arg(j)));
+      }
+    }
+  }
+}
+
 
 void TestQtPDF::page_renderToImage_data()
 {
