@@ -1405,16 +1405,6 @@ void TestQtPDF::printAction(const QtPDF::PDFAction & a)
   }
 }
 
-// static
-void TestQtPDF::compareLinks(const QtPDF::Annotation::Link & actual, const QtPDF::Annotation::Link & expected)
-{
-  QCOMPARE(actual.quadPoints(), expected.quadPoints());
-  QTEST_ASSERT(actual.actionOnActivation());
-  QTEST_ASSERT(expected.actionOnActivation());
-  QCOMPARE(*(actual.actionOnActivation()), *(expected.actionOnActivation()));
-
-}
-
 void TestQtPDF::page_loadLinks_data()
 {
   QTest::addColumn<pPage>("page");
@@ -1460,7 +1450,7 @@ void TestQtPDF::page_loadLinks()
   QCOMPARE(actual.size(), links.size());
 
   for (int i = 0; i < actual.size(); ++i) {
-    compareLinks(*(actual[i]), links[i]);
+    QCOMPARE(*(actual[i]), links[i]);
 
 #ifdef DEBUG
     if (QTest::currentTestFailed()) {
