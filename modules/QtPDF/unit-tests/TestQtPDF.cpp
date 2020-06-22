@@ -1378,33 +1378,6 @@ void TestQtPDF::page_renderToImage()
   QVERIFY(render == ref);
 }
 
-// static
-void TestQtPDF::printAction(const QtPDF::PDFAction & a)
-{
-  switch (a.type()) {
-  case QtPDF::PDFAction::ActionTypeGoTo:
-  {
-    const QtPDF::PDFGotoAction & A = reinterpret_cast<const QtPDF::PDFGotoAction &>(a);
-    qDebug() << "   GotoAction" << A.filename()
-             << "remote:" << A.isRemote()
-             << "newWindow:" << A.openInNewWindow()
-             << "page:" << A.destination().page()
-             << "destName:" << A.destination().destinationName()
-             << "rect:" << A.destination().rect()
-             << "zoom:" << A.destination().zoom();
-    break;
-  }
-  case QtPDF::PDFAction::ActionTypeURI:
-  {
-    const QtPDF::PDFURIAction & A = reinterpret_cast<const QtPDF::PDFURIAction &>(a);
-    qDebug() << "   URIAction" << A.url();
-    break;
-  }
-  default:
-    qDebug() << "   Type:" << a.type();
-  }
-}
-
 void TestQtPDF::page_loadLinks_data()
 {
   QTest::addColumn<pPage>("page");
