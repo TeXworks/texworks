@@ -341,6 +341,32 @@ PDFDestination Document::resolveDestination(const PDFDestination & namedDestinat
   return toPDFDestination(_poppler_doc.data(), *dest);
 }
 
+#if POPPLER_HAS_OUTLINE
+void Document::recursiveConvertToC(QList<PDFToCItem> & items, const QVector<Poppler::OutlineItem> & popplerItems) const
+{
+  for (const Poppler::OutlineItem & popplerItem : popplerItems) {
+    PDFToCItem newItem(popplerItem.name());
+    newItem.setOpen(popplerItem.isOpen());
+    // Note: color and flags are not supported by poppler
+
+    PDFGotoAction * action = nullptr;
+    if (popplerItem.destination())
+      action = new PDFGotoAction(toPDFDestination(_poppler_doc.data(), *(popplerItem.destination())));
+
+    if (action && !popplerItem.externalFileName().isEmpty()) {
+      // Open external links in new window by default (since poppler doesn't
+      // tell us what to do)
+      action->setOpenInNewWindow(true);
+      action->setRemote();
+      action->setFilename(popplerItem.externalFileName());
+    }
+    newItem.setAction(action);
+
+    recursiveConvertToC(newItem.children(), popplerItem.children());
+    items << newItem;
+  }
+}
+#else // POPPLER_HAS_OUTLINE
 void Document::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode node) const
 {
   while (!node.isNull()) {
@@ -377,6 +403,7 @@ void Document::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode node) con
     node = node.nextSibling();
   }
 }
+#endif // POPPLER_HAS_OUTLINE
 
 PDFToC Document::toc() const
 {
@@ -386,11 +413,15 @@ PDFToC Document::toc() const
   if (!_poppler_doc || _isLocked())
     return retVal;
 
+#if POPPLER_HAS_OUTLINE
+  recursiveConvertToC(retVal, _poppler_doc->outline());
+#else // POPPLER_HAS_OUTLINE
   QDomDocument * toc = _poppler_doc->toc();
   if (!toc)
     return retVal;
   recursiveConvertToC(retVal, toc->firstChild());
   delete toc;
+#endif // POPPLER_HAS_OUTLINE
   return retVal;
 }
 

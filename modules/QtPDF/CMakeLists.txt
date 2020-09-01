@@ -143,6 +143,12 @@ IF( WITH_POPPLERQT )
   if (POPPLER_HAS_DURATION_REAL)
     add_definitions(-DPOPPLER_HAS_DURATION_REAL)
   endif (POPPLER_HAS_DURATION_REAL)
+
+  # Document::outline() was added in 0.74
+  CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { Poppler::Document::load(QString())->outline(); return 0; }" POPPLER_HAS_OUTLINE)
+  if (POPPLER_HAS_OUTLINE)
+    add_definitions(-DPOPPLER_HAS_OUTLINE)
+  endif (POPPLER_HAS_OUTLINE)
 ENDIF()
 
 IF( WITH_MUPDF )
