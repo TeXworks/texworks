@@ -19,7 +19,7 @@ function (target_add_qt_translations _TARGET)
     create_qt_pro_file("${_PRO_FILE}" INCLUDEPATH "${_INCLUDEPATH}" FILES ${_sources} ${_TS_FILES})
   endif ()
 
-  qt5_add_translation(_generated_qm ${_TS_FILES})
+  qt_add_translation(_generated_qm ${_TS_FILES})
 
   set(_qm_qrc_path ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}_trans.qrc)
   create_translations_resource_file(${_qm_qrc_path} ${_generated_qm} ${_QM_FILES})
@@ -143,3 +143,46 @@ function (_qt_pro_file_add_sources _output_var _pro_basepath _label)
     set(${_output_var} "${_retval}" PARENT_SCOPE)
   endif()
 endfunction()
+
+# FIXME: This is a workaround until Qt6 ships with this function
+# Taken from: https://github.com/qt/qttools/blob/eac773c8dfd0e2166db53c88f5aa0c1e85933cac/src/linguist/Qt5LinguistToolsMacros.cmake
+if (NOT COMMAND qt_add_translation)
+  if (COMMAND qt5_add_translation)
+    function(qt_add_translation _qm_files)
+      qt5_add_translation("${_qm_files}" ${ARGN})
+      set("${_qm_files}" "${${_qm_files}}" PARENT_SCOPE)
+    endfunction(qt_add_translation)
+  else ()
+    function(qt_add_translation _qm_files)
+      set(options)
+      set(oneValueArgs)
+      set(multiValueArgs OPTIONS)
+
+      cmake_parse_arguments(_LRELEASE "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+      set(_lrelease_files ${_LRELEASE_UNPARSED_ARGUMENTS})
+
+      foreach(_current_FILE ${_lrelease_files})
+        get_filename_component(_abs_FILE ${_current_FILE} ABSOLUTE)
+        get_filename_component(qm ${_abs_FILE} NAME)
+        # everything before the last dot has to be considered the file name (including other dots)
+        string(REGEX REPLACE "\\.[^.]*$" "" FILE_NAME ${qm})
+        get_source_file_property(output_location ${_abs_FILE} OUTPUT_LOCATION)
+        if(output_location)
+          file(MAKE_DIRECTORY "${output_location}")
+          set(qm "${output_location}/${FILE_NAME}.qm")
+        else()
+          set(qm "${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}.qm")
+        endif()
+
+        add_custom_command(OUTPUT ${qm}
+          COMMAND Qt${QT_VERSION_MAJOR}::lrelease
+          ARGS ${_LRELEASE_OPTIONS} ${_abs_FILE} -qm ${qm}
+          DEPENDS ${_abs_FILE} VERBATIM
+        )
+        list(APPEND ${_qm_files} ${qm})
+      endforeach()
+      set(${_qm_files} ${${_qm_files}} PARENT_SCOPE)
+    endfunction()
+	endif ()
+endif (NOT COMMAND qt_add_translation)
+

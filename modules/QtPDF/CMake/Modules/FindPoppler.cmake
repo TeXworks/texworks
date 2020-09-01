@@ -1,6 +1,6 @@
 # - Try to find Poppler and its components
 #
-# Valid components are: cpp glib qt5
+# Valid components are: cpp glib qt5 qt6
 #
 # Once done this will define
 #
@@ -114,7 +114,14 @@ foreach (cmp IN LISTS Poppler_FIND_COMPONENTS)
   )
 
   # Find include directory
-  if ("${cmp}" STREQUAL qt5)
+  if ("${cmp}" STREQUAL qt6)
+    set(${pkg}_header poppler-qt6.h)
+    # NB: find_package(Qt6) changes pkg in our scope, so back it up and restore
+    # it afterwards
+    set(_pkg "${pkg}")
+    find_package(Qt6 REQUIRED COMPONENTS Core Gui Xml)
+    set(pkg "${_pkg}")
+  elseif ("${cmp}" STREQUAL qt5)
     set(${pkg}_header poppler-qt5.h)
     find_package(Qt5 REQUIRED COMPONENTS Core Gui Xml)
   else ()

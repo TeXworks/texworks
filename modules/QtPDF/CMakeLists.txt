@@ -83,24 +83,65 @@ set (CMAKE_CXX_STANDARD 11)
 # Core Components
 # ---------------
 
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
+FIND_PACKAGE(ZLIB REQUIRED)
 
-if (WITH_TESTS)
-  find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
-  if (NOT Qt5Test_FOUND)
-    set(WITH_TESTS OFF)
+if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
+  find_package(Qt6 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
+
+  if (WITH_TESTS)
+    find_package(Qt6 OPTIONAL_COMPONENTS Test QUIET)
+    if (NOT Qt6Test_FOUND)
+      set(WITH_TESTS OFF)
+    endif()
   endif()
-endif()
 
-if (WIN32 AND NOT BUILD_SHARED_LIBS)
-  find_package(Qt5WindowsPlatformSupport)
+  if (WIN32 AND NOT BUILD_SHARED_LIBS)
+    find_package(Qt6WindowsPlatformSupport)
+  endif ()
+
+  # Note: Qt6 only sets Qt6_VERSION, etc., but not QT_VERSION_MAJOR,
+  # etc. which is used here.
+  set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")
+  set(QT_VERSION_MINOR "${Qt6_VERSION_MINOR}")
+  set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
+
+  SET(QTPDF_LIBS
+    ${QT_PLATFORM_LIBRARIES}
+    Qt6::Core Qt6::Widgets Qt6::Concurrent Qt6::Core Qt6::Xml
+    ZLIB::ZLIB
+  )
+  SET(QTPDF_TEST_LIBS
+    Qt6::Test
+  )
+else ()
+  find_package(Qt5 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
+
+  if (WITH_TESTS)
+    find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
+    if (NOT Qt5Test_FOUND)
+    set(WITH_TESTS OFF)
+    endif()
+  endif()
+
+  if (WIN32 AND NOT BUILD_SHARED_LIBS)
+    find_package(Qt5WindowsPlatformSupport)
+  endif ()
+
+  # Note: Qt5 only sets Qt5_VERSION, etc., but not QT_VERSION_MAJOR,
+  # etc. which is used here.
+  set(QT_VERSION_MAJOR "${Qt5_VERSION_MAJOR}")
+  set(QT_VERSION_MINOR "${Qt5_VERSION_MINOR}")
+  set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
+
+  SET(QTPDF_LIBS
+    ${QT_PLATFORM_LIBRARIES}
+    Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml
+    ZLIB::ZLIB
+  )
+  SET(QTPDF_TEST_LIBS
+    Qt5::Test
+  )
 endif ()
-
-# Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
-# etc. which is used here.
-string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
-string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
-string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
 # to include the correct Qt headers (as QTVERSION is not defined before any Qt
@@ -108,29 +149,20 @@ string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${
 ADD_DEFINITIONS(-DQT_VERSION_MAJOR=${QT_VERSION_MAJOR})
 
 
-FIND_PACKAGE(ZLIB REQUIRED)
-
-SET(QTPDF_LIBS
-  ${QT_PLATFORM_LIBRARIES}
-  Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml
-  ZLIB::ZLIB
-)
-
-
 # Backend Components
 # ------------------
 IF( WITH_POPPLERQT )
-  FIND_PACKAGE(Poppler REQUIRED COMPONENTS qt5)
+  FIND_PACKAGE(Poppler REQUIRED COMPONENTS qt${QT_VERSION_MAJOR})
 
   # As in FindPoppler.cmake, it is important to list poppler after Qt to avoid
   # confusion with dependencies when using statically linked libraries
-  SET(QTPDF_LIBS ${QTPDF_LIBS} Poppler::poppler-qt5)
+  SET(QTPDF_LIBS ${QTPDF_LIBS} Poppler::poppler-qt${QT_VERSION_MAJOR})
 
   # Check if Poppler provides certain features (as poppler does not reliably
   # expose its version number, there is no easy way to check for these at
   # compile-time)
   include(CheckCXXSourceCompiles)
-  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt5)
+  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR} Qt${QT_VERSION_MAJOR}::Core)
 
   # Page::SearchFlags were added in 0.31
   CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { double x; Poppler::Document::load(QString())->page(0)->search(QString(), x, x, x, x, Poppler::Page::NextResult, Poppler::Page::IgnoreCase); return 0; }" POPPLER_HAS_SEARCH_FLAGS)
@@ -256,7 +288,7 @@ IF( WITH_POPPLERQT )
   if (POPPLER_HAS_XPDF)
     set(QTPDF_FLAGS "${QTPDF_FLAGS} -DHAVE_POPPLER_XPDF_HEADERS")
 
-    set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt5)
+    set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR})
 
     # GlobalParamsIniter was introduced in 0.85
     CHECK_CXX_SOURCE_COMPILES("#include <GlobalParams.h>\nint main() { GlobalParamsIniter::setCustomDataDir(\"\"); return 0; }" POPPLER_HAS_GLOBALPARAMSINITER)
@@ -297,7 +329,7 @@ include(TranslationMacros)
 file(GLOB TRANSLATIONS_SOURCES trans/*.ts)
 target_add_qt_translations(qtpdf TS_FILES ${TRANSLATIONS_SOURCES})
 
-get_target_property(lupdatePath Qt5::lupdate LOCATION)
+get_target_property(lupdatePath Qt${QT_VERSION_MAJOR}::lupdate LOCATION)
 get_target_property(_sources qtpdf SOURCES)
 add_custom_target(${PROJECT_NAME}_UpdateTranslations COMMAND "${CMAKE_COMMAND}"
   "-DOUTPUTFILE=\"${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro\""
@@ -402,9 +434,9 @@ IF ( WITH_TESTS )
       ${QTPDFTEST_HDRS}
     )
     SET_TARGET_PROPERTIES(test_poppler-qt${QT_VERSION_MAJOR} PROPERTIES
-      COMPILE_FLAGS "-DUSE_POPPLERQT ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
+      COMPILE_FLAGS "-DUSE_POPPLERQT ${Qt${QT_VERSION_MAJOR}Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
-    target_link_libraries(test_poppler-qt${QT_VERSION_MAJOR} Qt5::Test qtpdf)
+    target_link_libraries(test_poppler-qt${QT_VERSION_MAJOR} ${QTPDF_TEST_LIBS} qtpdf)
     ADD_TEST(NAME test_poppler-qt${QT_VERSION_MAJOR} COMMAND test_poppler-qt${QT_VERSION_MAJOR} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
   IF( WITH_MUPDF )
@@ -413,9 +445,9 @@ IF ( WITH_TESTS )
       ${QTPDFTEST_HDRS}
     )
     SET_TARGET_PROPERTIES(test_mupdf PROPERTIES
-      COMPILE_FLAGS "-DUSE_MUPDF ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
+      COMPILE_FLAGS "-DUSE_MUPDF ${Qt${QT_VERSION_MAJOR}Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
-    target_link_libraries(test_mupdf Qt5::Test qtpdf)
+    target_link_libraries(test_mupdf ${QTPDF_TEST_LIBS} qtpdf)
     ADD_TEST(NAME test_mupdf COMMAND test_mupdf WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
 ENDIF( WITH_TESTS )

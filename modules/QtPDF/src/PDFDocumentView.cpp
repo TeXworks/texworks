@@ -2765,7 +2765,7 @@ void PDFMarkupAnnotationGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent
   layout->addWidget(subject, 0, 0, 1, -1);
   QLabel * author = new QLabel(_annot->author(), _popup);
   layout->addWidget(author, 1, 0, 1, 1);
-  QLabel * date = new QLabel(_annot->creationDate().toString(Qt::DefaultLocaleLongDate), _popup);
+  QLabel * date = new QLabel(QLocale().toString(_annot->creationDate(), QLocale::LongFormat), _popup);
   layout->addWidget(date, 1, 1, 1, 1, Qt::AlignRight);
   QTextEdit * content = new QTextEdit(_annot->richContents(), _popup);
   content->setEnabled(false);
@@ -3022,6 +3022,7 @@ void PDFMetaDataInfoWidget::initFromDocument(const QWeakPointer<Backend::Documen
 
 void PDFMetaDataInfoWidget::reload()
 {
+  QLocale locale;
   QStringList sizeUnits;
   //: File size: bytes
   sizeUnits << PDFDocumentView::tr("B");
@@ -3058,8 +3059,8 @@ void PDFMetaDataInfoWidget::reload()
 
   _creator->setText(doc->creator());
   _producer->setText(doc->producer());
-  _creationDate->setText(doc->creationDate().toString(Qt::DefaultLocaleLongDate));
-  _modDate->setText(doc->modDate().toString(Qt::DefaultLocaleLongDate));
+  _creationDate->setText(locale.toString(doc->creationDate(), QLocale::LongFormat));
+  _modDate->setText(locale.toString(doc->modDate(), QLocale::LongFormat));
   switch (doc->trapped()) {
     case Backend::Document::Trapped_True:
       _trapped->setText(PDFDocumentView::tr("Yes"));

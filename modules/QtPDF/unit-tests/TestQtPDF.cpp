@@ -256,9 +256,9 @@ void TestQtPDF::parsePDFDate_data()
 
   // NB: fromPDFDate always returns local time
   QTest::newRow("empty") << QString() << QDateTime();
-  QTest::newRow("yyyy") << QStringLiteral("D:2000") << QDateTime(QDate(2000, 1, 1));
-  QTest::newRow("yyyymm") << QStringLiteral("D:200002") << QDateTime(QDate(2000, 2, 1));
-  QTest::newRow("yyyymmdd") << QStringLiteral("D:20000202") << QDateTime(QDate(2000, 2, 2));
+  QTest::newRow("yyyy") << QStringLiteral("D:2000") << QDateTime(QDate(2000, 1, 1), QTime());
+  QTest::newRow("yyyymm") << QStringLiteral("D:200002") << QDateTime(QDate(2000, 2, 1), QTime());
+  QTest::newRow("yyyymmdd") << QStringLiteral("D:20000202") << QDateTime(QDate(2000, 2, 2), QTime());
   QTest::newRow("yyyymmddHH") << QStringLiteral("D:2000020213") << QDateTime(QDate(2000, 2, 2), QTime(13, 0, 0));
   QTest::newRow("yyyymmddHHMM") << QStringLiteral("D:200002021342") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 0));
   QTest::newRow("yyyymmddHHMMSS") << QStringLiteral("D:20000202134221") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));

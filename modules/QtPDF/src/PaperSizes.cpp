@@ -230,7 +230,7 @@ PaperSize PaperSize::findForMillimeter(const QSizeF & paperSize)
   PaperSize ps(QString(), QSizeF(w, h));
   ps.setLandscape(ls);
 
-  int idx = standardPaperSizes.indexOf(ps);
+  auto idx = standardPaperSizes.indexOf(ps);
   if (idx < 0) return ps;
 
   ps = standardPaperSizes[idx];

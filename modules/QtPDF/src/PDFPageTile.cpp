@@ -73,6 +73,8 @@ inline uint qHash(const double &d)
 
 #endif // Qt < 5.3.0
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+
 inline uint qHash(const QRect &key) {
   return qHash(
         QPair< QPair< int, int >, QPair< int, int > >(
@@ -81,6 +83,8 @@ inline uint qHash(const QRect &key) {
         )
         );
 }
+
+#endif
 
 // ### Cache for Rendered Images
 uint qHash(const QtPDF::Backend::PDFPageTile &tile)
