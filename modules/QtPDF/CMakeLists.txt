@@ -23,6 +23,11 @@ if(POLICY CMP0058)
   cmake_policy(SET CMP0058 NEW)
 endif()
 
+# Prefer newer OpenGL libraries over legacy ones
+if (POLICY CMP0072)
+  cmake_policy(SET CMP0072 NEW)
+endif ()
+
 # Silence warning about option() treating variables differently on the first run
 if(POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
