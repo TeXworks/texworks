@@ -25,12 +25,6 @@ namespace QtPDF {
 
 namespace Backend {
 
-class PDFPageTile;
-
-// Need a hash function in order to allow `PDFPageTile` to be used as a key
-// object for a `QCache`.
-uint qHash(const PDFPageTile &tile);
-
 class PDFPageTile
 {
 public:
@@ -53,10 +47,7 @@ public:
     return (xres == other.xres && yres == other.yres && render_box == other.render_box && page_num == other.page_num);
   }
 
-  bool operator <(const PDFPageTile &other) const
-  {
-    return qHash(*this) < qHash(other);
-  }
+  bool operator <(const PDFPageTile &other) const;
 
 #ifdef DEBUG
   operator QString() const;
