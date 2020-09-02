@@ -17,30 +17,6 @@
 #include <QHash>
 #include <QPair>
 
-// Need a hash function in order to allow `PDFPageTile` to be used as a key
-// object for a `QCache`.
-uint qHash(const QtPDF::Backend::PDFPageTile &tile);
-
-namespace QtPDF {
-
-namespace Backend {
-
-bool PDFPageTile::operator <(const PDFPageTile &other) const
-{
-  return qHash(*this) < qHash(other);
-}
-
-#ifdef DEBUG
-PDFPageTile::operator QString() const
-{
-  return QString::fromUtf8("p%1,%2x%3,r%4|%5x%6|%7").arg(page_num).arg(xres).arg(yres).arg(render_box.x()).arg(render_box.y()).arg(render_box.width()).arg(render_box.height());
-}
-#endif
-
-} // namespace Backend
-
-} // namespace QtPDF
-
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
 
 // Taken from Qt 4.7.2 sources (<Qt>/src/corelib/tools/qhash.cpp)
@@ -86,11 +62,30 @@ inline uint qHash(const QRect &key) {
 
 #endif
 
-// ### Cache for Rendered Images
-uint qHash(const QtPDF::Backend::PDFPageTile &tile)
+namespace QtPDF {
+
+namespace Backend {
+
+bool PDFPageTile::operator <(const PDFPageTile &other) const
 {
-  uint h1 = qHash(QPair<uint, uint>(qHash(tile.xres), qHash(tile.yres)));
-  uint h2 = qHash(QPair<uint,int>(qHash(tile.render_box), tile.page_num));
-  return qHash(QPair<uint, uint>(h1, h2));
+  return qHash(*this) < qHash(other);
 }
 
+#ifdef DEBUG
+PDFPageTile::operator QString() const
+{
+  return QString::fromUtf8("p%1,%2x%3,r%4|%5x%6|%7").arg(page_num).arg(xres).arg(yres).arg(render_box.x()).arg(render_box.y()).arg(render_box.width()).arg(render_box.height());
+}
+#endif
+
+// ### Cache for Rendered Images
+uint qHash(const PDFPageTile &tile) noexcept
+{
+  uint h1 = ::qHash(QPair<uint, uint>(::qHash(tile.xres), ::qHash(tile.yres)));
+  uint h2 = ::qHash(QPair<uint,int>(::qHash(tile.render_box), tile.page_num));
+  return ::qHash(QPair<uint, uint>(h1, h2));
+}
+
+} // namespace Backend
+
+} // namespace QtPDF

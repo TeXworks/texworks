@@ -54,6 +54,9 @@ public:
 #endif
 };
 
+// ### Cache for Rendered Images
+uint qHash(const PDFPageTile &tile) noexcept;
+
 } // namespace Backend
 
 } // namespace QtPDF
