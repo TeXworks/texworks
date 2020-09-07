@@ -19,7 +19,7 @@
 	see <http://www.tug.org/texworks/>.
 */
 #include "scripting/ECMAScript.h"
-#include "scripting/ScriptAPI.h"
+#include "scripting/ScriptAPIInterface.h"
 
 #include <QJSEngine>
 #include <QTextStream>

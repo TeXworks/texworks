@@ -36,7 +36,7 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	print_info "Running CMake"
 	echo_and_run "${MXEDIR}/usr/bin/${MXETARGET}-cmake .. \
 		${CMAKE_OPTS} \
-		-DPLATFORM_DEPENDENCIES='freetype;harfbuzz_too;freetype;bz2' \
+		-DPLATFORM_DEPENDENCIES='freetype;harfbuzz_too;freetype;bz2;iphlpapi;ssl;crypto;crypt32;ws2_32' \
 		-DPoppler_ADDITIONAL_DEPENDENCIES='freetype;harfbuzz;freetype_too;glib-2.0;intl;iconv;ws2_32;winmm;tiff;webp;jpeg;openjp2;png;lcms2;lzma;bz2;pcre16;wtsapi32' \
 		-DTEXWORKS_ADDITIONAL_LIBS='wtsapi32;opengl32;imm32;shlwapi;dwmapi;uxtheme' \
 		-Dgp_tool='none'"
