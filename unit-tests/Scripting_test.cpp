@@ -22,6 +22,8 @@
 #include "Scripting_test.h"
 
 #include "MockScriptingAPI.h"
+#include "scripting/ECMAScript.h"
+#include "scripting/ECMAScriptInterface.h"
 #include "scripting/JSScript.h"
 #include "scripting/JSScriptInterface.h"
 
@@ -36,28 +38,44 @@ void TestScripting::scriptLanguageName()
 {
 	Tw::Scripting::JSScriptInterface js;
 	QCOMPARE(js.scriptLanguageName(), QStringLiteral("QtScript"));
+
+	Tw::Scripting::ECMAScriptInterface es;
+	QCOMPARE(es.scriptLanguageName(), QStringLiteral("ECMAScript"));
 }
 
 void TestScripting::scriptLanguageURL()
 {
 	Tw::Scripting::JSScriptInterface js;
 	QCOMPARE(js.scriptLanguageURL(), QStringLiteral("http://doc.qt.io/qt-5/qtscript-index.html"));
+
+	Tw::Scripting::ECMAScriptInterface es;
+	QCOMPARE(es.scriptLanguageURL(), QStringLiteral("https://doc.qt.io/qt-5/qjsengine.html"));
 }
 
 void TestScripting::canHandleFile()
 {
-	Tw::Scripting::JSScriptInterface js;
 	QFileInfo fiNull;
+	QFileInfo fiEs(QStringLiteral("file.es"));
 	QFileInfo fiJs(QStringLiteral("file.js"));
 	QFileInfo fiPy(QStringLiteral("file.py"));
 	QFileInfo fiLua(QStringLiteral("file.lua"));
 	QFileInfo fiTex(QStringLiteral("file.tex"));
 
+	Tw::Scripting::JSScriptInterface js;
 	QVERIFY(js.canHandleFile(fiNull) == false);
+	QVERIFY(js.canHandleFile(fiEs) == false);
 	QVERIFY(js.canHandleFile(fiJs));
 	QVERIFY(js.canHandleFile(fiPy) == false);
 	QVERIFY(js.canHandleFile(fiLua) == false);
 	QVERIFY(js.canHandleFile(fiTex) == false);
+
+	Tw::Scripting::ECMAScriptInterface es;
+	QVERIFY(es.canHandleFile(fiNull) == false);
+	QVERIFY(es.canHandleFile(fiEs));
+	QVERIFY(es.canHandleFile(fiJs));
+	QVERIFY(es.canHandleFile(fiPy) == false);
+	QVERIFY(es.canHandleFile(fiLua) == false);
+	QVERIFY(es.canHandleFile(fiTex) == false);
 }
 
 void TestScripting::isEnabled()

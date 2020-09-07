@@ -14,6 +14,8 @@ add_executable(test_Scripting
 	Scripting_test.h
 	MockScriptingAPI.h
 	"${CMAKE_SOURCE_DIR}/src/scripting/Script.cpp"
+	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScriptInterface.cpp"
+	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScript.cpp"
 	"${CMAKE_SOURCE_DIR}/src/scripting/JSScriptInterface.cpp"
 	"${CMAKE_SOURCE_DIR}/src/scripting/JSScript.cpp"
 	"${CMAKE_SOURCE_DIR}/src/Settings.cpp"

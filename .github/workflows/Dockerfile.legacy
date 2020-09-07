@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install --no-install-recommends --assume-yes \
 	git \
 	make \
 	qtbase5-dev \
+	qtdeclarative5-dev \
 	qtscript5-dev \
 	qttools5-dev \
 	qttools5-dev-tools \

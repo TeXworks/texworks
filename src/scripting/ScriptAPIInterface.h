@@ -41,6 +41,8 @@ public:
 
 	virtual ~ScriptAPIInterface() = default;
 
+	virtual QObject* clone() const = 0;
+
 	virtual QObject* self() = 0;
 
 	virtual QObject* GetApp() = 0;

@@ -35,6 +35,8 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   document/SpellChecker.cpp
                   document/TextDocument.cpp
                   document/TeXDocument.cpp
+                  scripting/ECMAScriptInterface.cpp
+                  scripting/ECMAScript.cpp
                   scripting/JSScriptInterface.cpp
                   scripting/ScriptAPI.cpp
                   scripting/Script.cpp

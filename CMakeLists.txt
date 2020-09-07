@@ -233,8 +233,8 @@ use_cxx11()
 # ========================
 
 # Check for Qt5
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Script ScriptTools Xml LinguistTools)
-set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::ScriptTools Qt5::Script Qt5::Xml)
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Script ScriptTools Xml LinguistTools Qml)
+set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::ScriptTools Qt5::Script Qt5::Xml Qt5::Qml)
 
 if (UNIX AND NOT APPLE)
   find_package(Qt5 REQUIRED COMPONENTS DBus)

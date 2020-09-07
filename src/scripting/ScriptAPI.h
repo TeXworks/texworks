@@ -46,6 +46,8 @@ class ScriptAPI : public QObject, public ScriptAPIInterface
 public:
 	ScriptAPI(Script* script, QObject* twapp, QObject* ctx, QVariant& res);
 
+	QObject* clone() const override { return new ScriptAPI(m_script, m_app, m_target, m_result); }
+
 	QObject* self() override { return this; }
 
 public:

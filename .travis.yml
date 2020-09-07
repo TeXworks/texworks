@@ -28,6 +28,7 @@ matrix:
             - mxe-i686-w64-mingw32.static-openjpeg # poppler dependency
 #            - mxe-i686-w64-mingw32.static-poppler
             - mxe-i686-w64-mingw32.static-qtbase # poppler dependency
+            - mxe-i686-w64-mingw32.static-qtdeclarative
             - mxe-i686-w64-mingw32.static-qtscript
             - mxe-i686-w64-mingw32.static-qttools
             - mxe-i686-w64-mingw32.static-tiff # poppler dependency
@@ -44,6 +45,7 @@ matrix:
             - python-paramiko
             - debhelper
             - qtbase5-dev
+            - qtdeclarative5-dev
             - qtscript5-dev
             - qttools5-dev
             - qttools5-dev-tools
@@ -62,6 +64,7 @@ matrix:
         apt:
           packages:
             - qtbase5-dev
+            - qtdeclarative5-dev
             - qtscript5-dev
             - qttools5-dev
             - qttools5-dev-tools

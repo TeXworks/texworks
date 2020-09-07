@@ -50,6 +50,7 @@ class MockAPI : public QObject, public ScriptAPIInterface
 
 public:
 	MockAPI(Script * script) : _script(script) { }
+	QObject* clone() const override { return new MockAPI(_script); }
 
 	QObject* self() override { return this; }
 
