@@ -1577,6 +1577,7 @@ void TeXDocumentWindow::updateEngineList()
 		newAction->setCheckable(true);
 		bool available{e.isAvailable()};
 		newAction->setEnabled(available);
+		newAction->setObjectName(QStringLiteral("actionTypesetTool%1").arg(e.name()));
 		menuRun->addAction(newAction);
 		QStandardItem * item = new QStandardItem(e.name());
 		item->setFlags(Qt::ItemIsSelectable | (available ? Qt::ItemIsEnabled : Qt::NoItemFlags));
