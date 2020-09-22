@@ -28,13 +28,13 @@
 #include "ResourcesDialog.h"
 #include "Settings.h"
 #include "TWUtils.h"
-#include "TWVersion.h"
 #include "TeXDocumentWindow.h"
 #include "TemplateDialog.h"
 #include "document/SpellChecker.h"
 #include "scripting/ScriptAPI.h"
 #include "utils/SystemCommand.h"
 #include "utils/TextCodecs.h"
+#include "utils/VersionInfo.h"
 
 #include <QAction>
 #include <QDesktopServices>
@@ -310,10 +310,10 @@ void TWApp::about()
 	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(QString::fromLatin1(TEXWORKS_NAME));
 	aboutText += QLatin1String("<small>");
 	aboutText += QLatin1String("<p>&#xA9; 2007-2020  Jonathan Kew, Stefan L&#xF6;ffler, Charlie Sharpsteen");
-	if (TWUtils::isGitInfoAvailable())
-		aboutText += tr("<br>Version %1 (%2) [r.%3, %4]").arg(QString::fromLatin1(TEXWORKS_VERSION), QString::fromLatin1(TW_BUILD_ID_STR), TWUtils::gitCommitHash(), TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
+	if (Tw::Utils::VersionInfo::isGitInfoAvailable())
+		aboutText += tr("<br>Version %1 (%2) [r.%3, %4]").arg(Tw::Utils::VersionInfo::versionString(), Tw::Utils::VersionInfo::buildIdString(), Tw::Utils::VersionInfo::gitCommitHash(), Tw::Utils::VersionInfo::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
 	else
-		aboutText += tr("<br>Version %1 (%2)").arg(QString::fromLatin1(TEXWORKS_VERSION), QString::fromLatin1(TW_BUILD_ID_STR));
+		aboutText += tr("<br>Version %1 (%2)").arg(Tw::Utils::VersionInfo::versionString(), Tw::Utils::VersionInfo::buildIdString());
 	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2 or (at your option) any later version.");
 	aboutText += tr("<p><a href=\"http://www.qt.io/\">Qt application framework</a> v%1 by The Qt Company.").arg(QString::fromLatin1(qVersion()));
 	aboutText += tr("<br><a href=\"http://poppler.freedesktop.org/\">Poppler</a> PDF rendering library by Kristian H&#xF8;gsberg, Albert Astals Cid and others.");
@@ -526,7 +526,7 @@ void TWApp::writeToMailingList()
 	QString address(QLatin1String("texworks@tug.org"));
 	QString body(QLatin1String("Thank you for taking the time to write an email to the TeXworks mailing list. Please read the instructions below carefully as following them will greatly facilitate the communication.\n\nInstructions:\n-) Please write your message in English (it's in your own best interest; otherwise, many people will not be able to understand it and therefore will not answer).\n\n-) Please type something meaningful in the subject line.\n\n-) If you are having a problem, please describe it step-by-step in detail.\n\n-) After reading, please delete these instructions (up to the \"configuration info\" below which we may need to find the source of problems).\n\n\n\n----- configuration info -----\n"));
 
-	body += QLatin1String("TeXworks version : " TEXWORKS_VERSION "r.") + TWUtils::gitCommitHash() + QLatin1String(" (" TW_BUILD_ID_STR ")\n");
+	body += QStringLiteral("TeXworks version : %1 (%2) [r.%3, %4]\n").arg(Tw::Utils::VersionInfo::versionString(), Tw::Utils::VersionInfo::buildIdString(), Tw::Utils::VersionInfo::gitCommitHash(), Tw::Utils::VersionInfo::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
 #if defined(Q_OS_DARWIN)
 	body += QLatin1String("Install location : ") + QDir(applicationDirPath() + QLatin1String("/../..")).absolutePath() + QChar::fromLatin1('\n');
 #else
@@ -1244,7 +1244,7 @@ void TWApp::globalDestroyed(QObject * obj)
 /*Q_INVOKABLE static*/
 int TWApp::getVersion()
 {
-	return (VER_MAJOR << 16) | (VER_MINOR << 8) | VER_BUGFIX;
+	return Tw::Utils::VersionInfo::getVersion();
 }
 
 //Q_INVOKABLE

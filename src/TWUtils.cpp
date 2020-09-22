@@ -25,9 +25,9 @@
 #include "PDFDocumentWindow.h"
 #include "Settings.h"
 #include "TWApp.h"
-#include "TWVersion.h"
 #include "TeXDocumentWindow.h"
 #include "utils/FileVersionDatabase.h"
+#include "utils/VersionInfo.h"
 
 #include <QAction>
 #include <QCompleter>
@@ -138,19 +138,19 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// latest version from the internet)
 				if (destHash != srcHash)
 					continue;
-				fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
+				fvdb.addFileRecord(destPath, srcHash, Tw::Utils::VersionInfo::gitCommitHash());
 			}
 			else {
 				// The file matches the record in the database; update it
 				// (copying is only necessary if the contents has changed)
 				if (srcHash == destHash)
-					fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
+					fvdb.addFileRecord(destPath, srcHash, Tw::Utils::VersionInfo::gitCommitHash());
 				else {
 					// we have to remove the file first as QFile::copy doesn't
 					// overwrite existing files
 					QFile::remove(destPath);
 					if(QFile::copy(srcPath, destPath))
-						fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
+						fvdb.addFileRecord(destPath, srcHash, Tw::Utils::VersionInfo::gitCommitHash());
 				}
 			}
 		}
@@ -163,7 +163,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// might fail
 				destRootDir.mkpath(QFileInfo(destPath).path());
 				QFile(srcPath).copy(destPath);
-				fvdb.addFileRecord(destPath, srcHash, gitCommitHash());
+				fvdb.addFileRecord(destPath, srcHash, Tw::Utils::VersionInfo::gitCommitHash());
 			}
 			else {
 				// If a file with that name already exists, we don't replace it
@@ -172,7 +172,7 @@ void TWUtils::updateLibraryResources(const QDir& srcRootDir, const QDir& destRoo
 				// database so that future updates are applied
 				QByteArray destHash = Tw::Utils::FileVersionDatabase::hashForFile(destPath);
 				if (srcHash == destHash)
-					fvdb.addFileRecord(destPath, destHash, gitCommitHash());
+					fvdb.addFileRecord(destPath, destHash, Tw::Utils::VersionInfo::gitCommitHash());
 			}
 		}
 	}
@@ -933,28 +933,6 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 
 	if (deleteMap)
 		delete map;
-}
-
-// static
-bool TWUtils::isGitInfoAvailable()
-{
-	return (!QString::fromLatin1(GIT_COMMIT_HASH).startsWith(QString::fromLatin1("$Format:")) && !QString::fromLatin1(GIT_COMMIT_DATE).startsWith(QString::fromLatin1("$Format:")));
-}
-
-// static
-QString TWUtils::gitCommitHash()
-{
-	if(QString::fromLatin1(GIT_COMMIT_HASH).startsWith(QString::fromLatin1("$Format:")))
-		return QString();
-	return QString::fromLatin1(GIT_COMMIT_HASH);
-}
-
-// static
-QDateTime TWUtils::gitCommitDate()
-{
-	if (QString::fromLatin1(GIT_COMMIT_DATE).startsWith(QString::fromLatin1("$Format:")))
-		return QDateTime();
-	return QDateTime::fromString(QString::fromLatin1(GIT_COMMIT_DATE), Qt::ISODate).toUTC();
 }
 
 // action subclass used for dynamic window-selection items in the Window menu

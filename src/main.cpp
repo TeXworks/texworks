@@ -21,10 +21,10 @@
 
 #include "InterProcessCommunicator.h"
 #include "TWApp.h"
-#include "TWUtils.h"
-#include "TWVersion.h"
 #include "utils/CommandlineParser.h"
+#include "utils/VersionInfo.h"
 
+#include <QFileInfo>
 #include <QTextCodec>
 #include <QTimer>
 
@@ -78,10 +78,10 @@ int main(int argc, char *argv[])
 				launchApp = false;
 			clp.at(i).processed = true;
 			QTextStream strm(stdout);
-			if (TWUtils::isGitInfoAvailable())
-				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(QString::fromLatin1(TEXWORKS_VERSION), QString::fromLatin1(TW_BUILD_ID_STR), TWUtils::gitCommitHash(), TWUtils::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
+			if (Tw::Utils::VersionInfo::isGitInfoAvailable())
+				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(Tw::Utils::VersionInfo::versionString(), Tw::Utils::VersionInfo::buildIdString(), Tw::Utils::VersionInfo::gitCommitHash(), Tw::Utils::VersionInfo::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
 			else
-				strm << QString::fromUtf8("TeXworks %1 (%2)\n\n").arg(QString::fromLatin1(TEXWORKS_VERSION), QString::fromLatin1(TW_BUILD_ID_STR));
+				strm << QString::fromUtf8("TeXworks %1 (%2)\n\n").arg(Tw::Utils::VersionInfo::versionString(), Tw::Utils::VersionInfo::buildIdString());
 			strm << QString::fromUtf8("\
 Copyright (C) %1  %2\n\
 License GPLv2+: GNU GPL (version 2 or later) <http://gnu.org/licenses/gpl.html>\n\
