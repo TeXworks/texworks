@@ -32,6 +32,7 @@
 #include "TemplateDialog.h"
 #include "document/SpellChecker.h"
 #include "scripting/ScriptAPI.h"
+#include "utils/ResourcesLibrary.h"
 #include "utils/SystemCommand.h"
 #include "utils/TextCodecs.h"
 #include "utils/VersionInfo.h"
@@ -170,7 +171,7 @@ void TWApp::init()
 		}
 		if (portable.contains(QString::fromLatin1("libpath"))) {
 			if (libPath.cd(portable.value(QString::fromLatin1("libpath")).toString())) {
-				portableLibPath = libPath.absolutePath();
+				Tw::Utils::ResourcesLibrary::setPortableLibPath(libPath.absolutePath());
 			}
 		}
 		if (portable.contains(QString::fromLatin1("defaultbinpaths"))) {
@@ -185,7 +186,7 @@ void TWApp::init()
 	}
 	envPath = QString::fromLocal8Bit(getenv("TW_LIBPATH"));
 	if (!envPath.isNull() && libPath.cd(envPath)) {
-		portableLibPath = libPath.absolutePath();
+		Tw::Utils::ResourcesLibrary::setPortableLibPath(libPath.absolutePath());
 	}
 	// </Check for portable mode>
 
@@ -532,7 +533,7 @@ void TWApp::writeToMailingList()
 #else
 	body += QLatin1String("Install location : ") + applicationFilePath() + QChar::fromLatin1('\n');
 #endif
-	body += QLatin1String("Library path     : ") + TWUtils::getLibraryPath(QString()) + QChar::fromLatin1('\n');
+	body += QLatin1String("Library path     : ") + Tw::Utils::ResourcesLibrary::getLibraryPath(QString()) + QChar::fromLatin1('\n');
 
 	const QStringList binPaths = getBinaryPaths();
 	QString pdftex = findProgram(QString::fromLatin1("pdftex"), binPaths);
@@ -922,7 +923,7 @@ const QList<Engine> TWApp::getEngineList()
 		settings.remove(QString::fromLatin1("engines"));
 
 		if (!foundList) { // read engine list from config file
-			QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
+			QDir configDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration")));
 			QFile toolsFile(configDir.filePath(QString::fromLatin1("tools.ini")));
 			if (toolsFile.exists()) {
 				QSettings toolsSettings(toolsFile.fileName(), QSettings::IniFormat);
@@ -950,7 +951,7 @@ const QList<Engine> TWApp::getEngineList()
 
 void TWApp::saveEngineList()
 {
-	QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
+	QDir configDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration")));
 	QFile toolsFile(configDir.filePath(QString::fromLatin1("tools.ini")));
 	QSettings toolsSettings(toolsFile.fileName(), QSettings::IniFormat);
 	toolsSettings.clear();
@@ -1051,7 +1052,7 @@ void TWApp::activatedWindow(QWidget* theWindow)
 QStringList TWApp::getTranslationList()
 {
 	QStringList translationList;
-	QVector<QDir> dirs({QDir(QStringLiteral(":/resfiles/translations")), QDir(TWUtils::getLibraryPath(QString::fromLatin1("translations")))});
+	QVector<QDir> dirs({QDir(QStringLiteral(":/resfiles/translations")), QDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("translations")))});
 
 	for (QDir transDir : dirs) {
 		for (QFileInfo qmFileInfo : transDir.entryInfoList(QStringList(QStringLiteral(TEXWORKS_NAME "_*.qm")),
@@ -1093,7 +1094,7 @@ void TWApp::applyTranslation(const QString& locale)
 					<< QString::fromLatin1(TEXWORKS_NAME) + QString::fromLatin1("_") + locale;
 		directories << QString::fromLatin1(":/resfiles/translations") \
 								<< QLibraryInfo::location(QLibraryInfo::TranslationsPath) \
-		                        << TWUtils::getLibraryPath(QString::fromLatin1("translations"));
+								<< Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("translations"));
 
 		foreach (QString name, names) {
 			foreach (QString dir, directories) {
@@ -1179,7 +1180,7 @@ void TWApp::updateScriptsList()
 
 void TWApp::showScriptsFolder()
 {
-	QDesktopServices::openUrl(QUrl::fromLocalFile(TWUtils::getLibraryPath(QString::fromLatin1("scripts"))));
+	QDesktopServices::openUrl(QUrl::fromLocalFile(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("scripts"))));
 }
 
 void TWApp::bringToFront()

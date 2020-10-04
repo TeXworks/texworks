@@ -98,7 +98,6 @@ public:
 	static TWApp *instance();
 
 	static QStringList getTranslationList();
-	QString getPortableLibPath() const { return portableLibPath; }
 
 	TWScriptManager* getScriptManager() { return scriptManager; }
 
@@ -239,7 +238,6 @@ private:
 	QStringList *defaultBinPaths;
 	QList<Engine> *engineList;
 	int defaultEngineIndex;
-	QString portableLibPath;
 
 	QList<QTranslator*> translators;
 

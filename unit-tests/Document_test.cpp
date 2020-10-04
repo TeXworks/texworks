@@ -21,12 +21,12 @@
 
 #include "Document_test.h"
 
-#include "TWUtils.h"
 #include "TeXHighlighter.h"
 #include "document/Document.h"
 #include "document/SpellChecker.h"
 #include "document/TeXDocument.h"
 #include "document/TextDocument.h"
+#include "utils/ResourcesLibrary.h"
 
 #include <QSignalSpy>
 #include <limits>
@@ -40,7 +40,12 @@ void NonblockingSyntaxHighlighter::processWhenIdle() {}
 TeXHighlighter::TeXHighlighter(Tw::Document::TeXDocument * parent) : NonblockingSyntaxHighlighter(parent) { }
 void TeXHighlighter::highlightBlock(const QString &text) { Q_UNUSED(text) }
 
-const QStringList TWUtils::getLibraryPaths(const QString & subdir, const bool updateOnDisk) { Q_UNUSED(subdir) Q_UNUSED(updateOnDisk) return QStringList(QDir::currentPath()); }
+namespace Tw {
+namespace Utils {
+// Referenced in Tw::Document::SpellChecker
+const QStringList ResourcesLibrary::getLibraryPaths(const QString & subdir, const bool updateOnDisk) { Q_UNUSED(subdir) Q_UNUSED(updateOnDisk) return QStringList(QDir::currentPath()); }
+} // namespace Utils
+} // namespace Tw
 
 namespace Tw {
 namespace Document {

@@ -48,6 +48,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   utils/CommandlineParser.cpp
                   utils/FileVersionDatabase.cpp
                   utils/FullscreenManager.cpp
+                  utils/ResourcesLibrary.cpp
                   utils/SystemCommand.cpp
                   utils/TextCodecs.cpp
                   utils/VersionInfo.cpp
@@ -96,6 +97,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   utils/CommandlineParser.h
                   utils/FileVersionDatabase.h
                   utils/FullscreenManager.h
+                  utils/ResourcesLibrary.h
                   utils/SystemCommand.h
                   utils/TextCodecs.h
                   utils/VersionInfo.h

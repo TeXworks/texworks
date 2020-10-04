@@ -22,11 +22,11 @@
 #include "ScriptManagerWidget.h"
 #include "Settings.h"
 #include "TWScriptManager.h"
-#include "TWUtils.h"
 #include "scripting/ECMAScriptInterface.h"
 #include "scripting/JSScriptInterface.h"
 #include "scripting/ScriptAPI.h"
 #include "scripting/ScriptLanguageInterface.h"
+#include "utils/ResourcesLibrary.h"
 
 #include <QDir>
 #include <QPluginLoader>
@@ -52,7 +52,7 @@ TWScriptManager::TWScriptManager()
 void
 TWScriptManager::saveDisabledList()
 {
-	QDir scriptRoot(TWUtils::getLibraryPath(QString::fromLatin1("scripts")));
+	QDir scriptRoot(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("scripts")));
 	QStringList disabled;
 
 	QList<QObject*> list = m_Scripts.findChildren<QObject*>();
@@ -130,7 +130,7 @@ void TWScriptManager::reloadScripts(bool forceAll /* = false */)
 	QStringList processed;
 
 	// canonicalize the paths
-	QDir scriptsDir(TWUtils::getLibraryPath(QString::fromLatin1("scripts")));
+	QDir scriptsDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("scripts")));
 	for (int i = 0; i < disabled.size(); ++i)
 		disabled[i] = QFileInfo(scriptsDir.absoluteFilePath(disabled[i])).canonicalFilePath();
 

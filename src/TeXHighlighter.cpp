@@ -22,6 +22,7 @@
 #include "TeXHighlighter.h"
 #include "TWUtils.h"
 #include "document/TeXDocument.h"
+#include "utils/ResourcesLibrary.h"
 
 #include <QTextCursor>
 #include <climits> // for INT_MAX
@@ -175,7 +176,7 @@ void TeXHighlighter::loadPatterns()
 	if (syntaxRules)
 		return;
 
-	QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
+	QDir configDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration")));
 	QRegularExpression whitespace(QStringLiteral("\\s+"));
 
 	if (!syntaxRules) {

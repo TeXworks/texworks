@@ -27,6 +27,7 @@
 #include "TWUtils.h"
 #include "TeXHighlighter.h"
 #include "document/TeXDocument.h"
+#include "utils/ResourcesLibrary.h"
 
 #include <QAbstractItemView>
 #include <QAbstractTextDocumentLayout>
@@ -732,7 +733,7 @@ QStringList CompletingEdit::smartQuotesModes()
 void CompletingEdit::loadSmartQuotesModes()
 {
 	if (!quotesModes) {
-		QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
+		QDir configDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration")));
 		quotesModes = new QList<QuotesMode>;
 		QFile quotesModesFile(configDir.filePath(QString::fromLatin1("smart-quotes-modes.txt")));
 		if (quotesModesFile.open(QIODevice::ReadOnly)) {
@@ -1067,7 +1068,7 @@ void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
 {
 	QStandardItemModel *model = new QStandardItemModel(0, 2, theCompleter); // columns are abbrev, expansion
 
-	QDir completionDir(TWUtils::getLibraryPath(QString::fromLatin1("completion")));
+	QDir completionDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("completion")));
 	foreach (QFileInfo fileInfo, completionDir.entryInfoList(QDir::Files | QDir::Readable, QDir::Name)) {
 		loadCompletionsFromFile(model, fileInfo.canonicalFilePath());
 	}
@@ -1170,7 +1171,7 @@ void CompletingEdit::ignoreWord()
 void CompletingEdit::loadIndentModes()
 {
 	if (!indentModes) {
-		QDir configDir(TWUtils::getLibraryPath(QString::fromLatin1("configuration")));
+		QDir configDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration")));
 		indentModes = new QList<IndentMode>;
 		QFile indentPatternFile(configDir.filePath(QString::fromLatin1("auto-indent-patterns.txt")));
 		if (indentPatternFile.open(QIODevice::ReadOnly)) {

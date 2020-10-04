@@ -24,6 +24,8 @@
 #include "Settings.h"
 #include "TWUtils.h"
 
+#include "utils/ResourcesLibrary.h"
+
 ResourcesDialog::ResourcesDialog(QWidget *parent)
 : QDialog(parent)
 {
@@ -45,7 +47,7 @@ void ResourcesDialog::init()
 	locationOfSettings->setText(pathToLink(s.fileName()));
 #endif
 
-	locationOfResources->setText(pathToLink(TWUtils::getLibraryPath(QString(), false)));
+	locationOfResources->setText(pathToLink(Tw::Utils::ResourcesLibrary::getLibraryPath(QString(), false)));
 
 	connect(locationOfSettings, SIGNAL(linkActivated(const QString&)), this, SLOT(openURL(const QString&)));
 	connect(locationOfResources, SIGNAL(linkActivated(const QString&)), this, SLOT(openURL(const QString&)));
