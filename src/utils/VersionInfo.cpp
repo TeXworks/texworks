@@ -21,7 +21,11 @@
 
 #include "utils/VersionInfo.h"
 
-#include "GitRev.h"
+// Explicitly specify ../src/ to make unit-tests compile.
+// GitRev.h is created automatically in the TeXworks binary directory (i.e.,
+// <build>/src), but that is generally different from the unit-test binary
+// directory (i.e., <build>/unit-tests)
+#include "../src/GitRev.h"
 #include "TWVersion.h"
 
 #ifndef TW_BUILD_ID

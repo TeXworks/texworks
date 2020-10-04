@@ -25,6 +25,7 @@
 #include "utils/CommandlineParser.h"
 #include "utils/FileVersionDatabase.h"
 #include "utils/FullscreenManager.h"
+#include "utils/ResourcesLibrary.h"
 #include "utils/SystemCommand.h"
 #include "utils/TextCodecs.h"
 
@@ -528,6 +529,68 @@ void TestUtils::FullscreenManager()
 			QCOMPARE(m.shortcuts()[1].shortcut->isEnabled(), false);
 		}
 	}
+}
+
+void TestUtils::ResourcesLibrary_getLibraryPath_data()
+{
+	QTest::addColumn<QString>("portableLibPath");
+	QTest::addColumn<QString>("subdir");
+	QTest::addColumn<QString>("result");
+
+	const QString sConfig(QStringLiteral("configuration"));
+	const QString sDicts(QStringLiteral("dictionaries"));
+	const QString sInvalid(QStringLiteral("does-not-exist"));
+
+#if defined(Q_OS_DARWIN)
+	QString stem = QDir::homePath() + QStringLiteral("/Library/TeXworks/");
+#elif defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
+	QString stem = QDir::homePath() + QStringLiteral("/.TeXworks/");
+#else // defined(Q_OS_WIN)
+	QString stem = QDir::homePath() + QStringLiteral("/TeXworks/");
+#endif
+
+	QTest::newRow("root") << QString() << QString() << stem;
+	QTest::newRow("configuration") << QString() << sConfig << stem + sConfig;
+	QTest::newRow("does-not-exist") << QString() << sInvalid << stem + sInvalid;
+#if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN) // *nix
+#	ifndef TW_DICPATH
+	QTest::newRow("dictionaries") << QString() << sDicts << QStringLiteral("/usr/share/hunspell:/usr/share/myspell/dicts");
+#	else
+	QTest::newRow("dictionaries") << QString() << sDicts << TW_DICPATH;
+#	endif
+#else // not *nix
+	QTest::newRow("dictionaries") << QString() << sDicts << stem + sDicts;
+#endif
+
+	stem = "/invented/portable/root/";
+	QTest::newRow("portable-root") << stem << QString() << stem;
+	QTest::newRow("portable-configuration") << stem << sConfig << stem + sConfig;
+	QTest::newRow("portable-does-not-exist") << stem << sInvalid << stem + sInvalid;
+	QTest::newRow("portable-dictionaries") << stem << sDicts << stem + sDicts;
+}
+
+void TestUtils::ResourcesLibrary_getLibraryPath()
+{
+	QFETCH(QString, portableLibPath);
+	QFETCH(QString, subdir);
+	QFETCH(QString, result);
+
+	Tw::Utils::ResourcesLibrary::setPortableLibPath(portableLibPath);
+	QCOMPARE(Tw::Utils::ResourcesLibrary::getLibraryPath(subdir, false), result);
+}
+
+void TestUtils::ResourcesLibrary_portableLibPath()
+{
+	QString noDir;
+	QString curDir(QStringLiteral("."));
+	QString invalidDir(QStringLiteral("/does-not-exist/"));
+
+	Tw::Utils::ResourcesLibrary::setPortableLibPath(noDir);
+	QCOMPARE(Tw::Utils::ResourcesLibrary::getPortableLibPath(), noDir);
+	Tw::Utils::ResourcesLibrary::setPortableLibPath(curDir);
+	QCOMPARE(Tw::Utils::ResourcesLibrary::getPortableLibPath(), curDir);
+	Tw::Utils::ResourcesLibrary::setPortableLibPath(invalidDir);
+	QCOMPARE(Tw::Utils::ResourcesLibrary::getPortableLibPath(), invalidDir);
 }
 
 #ifdef Q_OS_DARWIN

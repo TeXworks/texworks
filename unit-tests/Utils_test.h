@@ -43,6 +43,10 @@ private slots:
 
 	void FullscreenManager();
 
+	void ResourcesLibrary_getLibraryPath_data();
+	void ResourcesLibrary_getLibraryPath();
+	void ResourcesLibrary_portableLibPath();
+
 #ifdef Q_OS_DARWIN
 	void OSVersionString();
 #endif // defined(Q_OS_DARWIN)

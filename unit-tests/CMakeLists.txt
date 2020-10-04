@@ -64,12 +64,15 @@ add_executable(test_Utils
 	"${CMAKE_SOURCE_DIR}/src/utils/CommandlineParser.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/FileVersionDatabase.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/FullscreenManager.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/ResourcesLibrary.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/SystemCommand.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/TextCodecs.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/VersionInfo.cpp"
 )
 
 target_compile_options(test_Utils PRIVATE ${WARNING_OPTIONS})
 target_link_libraries(test_Utils ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_dependencies(test_Utils GitRev)
 add_test(NAME test_Utils COMMAND test_Utils WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
 if (APPLE)
