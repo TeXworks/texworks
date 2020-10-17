@@ -64,7 +64,7 @@ const QString ResourcesLibrary::getLibraryPath(const QString& subdir, const bool
 		libRootPath = QDir::homePath() + QLatin1String("/" TEXWORKS_NAME "/");
 #endif
 	}
-	libPath = QDir(libRootPath).absolutePath() + QDir::separator() + subdir;
+	libPath = QDir(libRootPath).absolutePath() + QStringLiteral("/") + subdir;
 
 	if(updateOnDisk)
 		updateLibraryResources(QDir(QString::fromLatin1(":/resfiles")), libRootPath, subdir);
