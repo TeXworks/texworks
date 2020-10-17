@@ -103,7 +103,8 @@ TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchron
                       synctex_node_box_visible_v(node) - synctex_node_box_visible_height(node),
                       synctex_node_box_visible_width(node),
                       synctex_node_box_visible_height(node) + synctex_node_box_visible_depth(node));
-      retVal.rects.append(nodeRect);
+      if (!retVal.rects.contains(nodeRect))
+        retVal.rects.append(nodeRect);
     }
   }
 
