@@ -23,7 +23,6 @@ class PDFDocumentWidget : public PDFDocumentView
 	Q_OBJECT
 public:
   PDFDocumentWidget(QWidget * parent = nullptr, const double dpi = -1);
-  ~PDFDocumentWidget() override;
 
   bool load(const QString & filename);
 
@@ -35,17 +34,10 @@ public:
   }
   void setWatchForDocumentChangesOnDisk(const bool doWatch = true) { if (_scene) _scene->setWatchForDocumentChangesOnDisk(doWatch); }
 
-  QStringList backends() const;
-  QString defaultBackend() const;
-  void setDefaultBackend(const QString & backend);
-
-  // *TODO*: Possibly add some way to describe/choose/change the PDF backend used
-
   void setResolution(const double dpi);
 
 protected:
   QSharedPointer<QtPDF::PDFDocumentScene> _scene;
-  QList<BackendInterface*> _backends;
   double _dpi;
 };
 

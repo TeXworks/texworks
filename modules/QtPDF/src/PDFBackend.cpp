@@ -18,10 +18,73 @@
 #include <QElapsedTimer>
 #include <QPainter>
 #include <QPainterPath>
+#include <algorithm>
+#include <memory>
+#include <list>
 
 namespace QtPDF {
 
 namespace Backend {
+
+class BackendManager
+{
+  std::list< std::unique_ptr<BackendInterface> > m_backendInterfaces;
+public:
+  BackendManager() {
+#ifdef USE_POPPLERQT
+    m_backendInterfaces.push_back(std::unique_ptr<BackendInterface>(new PopplerQtBackend));
+#endif
+#ifdef USE_MUPDF
+    m_backendInterfaces.push_back(std::unique_ptr<BackendInterface>(new MuPDFBackend)));
+#endif
+  }
+  BackendInterface * backend(const QString & name = {})
+  {
+    if (!name.isEmpty()) {
+      for (const std::unique_ptr<BackendInterface> & b : m_backendInterfaces) {
+        if (b && b->name() == name)
+          return b.get();
+      }
+    }
+    return (m_backendInterfaces.empty() ? nullptr : m_backendInterfaces.front().get());
+  }
+  QStringList backendNames() const
+  {
+    QStringList rv;
+    for (const std::unique_ptr<BackendInterface> & bi : m_backendInterfaces) {
+      if (!bi) {
+        continue;
+      }
+      rv.append(bi->name());
+    }
+    return rv;
+  }
+  QString defaultBackendName() const
+  {
+    return (m_backendInterfaces.empty() ? QString() : m_backendInterfaces.front()->name());
+  }
+  void setDefaultBackend(const QString & name)
+  {
+    auto it = std::find_if(m_backendInterfaces.begin(), m_backendInterfaces.end(),
+      [name](const std::unique_ptr<BackendInterface> & bi) { return (bi && bi->name() == name); });
+    if (it == m_backendInterfaces.end()) {
+      // No such backend found
+      return;
+    }
+    if (it == m_backendInterfaces.begin()) {
+      // It's already the default
+      return;
+    }
+    std::unique_ptr<BackendInterface> placeholder;
+    // Swap backend into placeholder
+    std::swap(placeholder, *it);
+    // Erase the (now empty) entry in the list
+    m_backendInterfaces.erase(it);
+    // Insert the placeholder back in the front
+    m_backendInterfaces.insert(m_backendInterfaces.begin(), std::move(placeholder));
+  }
+};
+static BackendManager backendManager;
 
 // TODO: Find a better place to put this
 static QBrush * pageDummyBrush = nullptr;
@@ -398,6 +461,29 @@ Document::Document(QString fileName):
   // NOTE: The application seems to exceed 1 GB---usage plateaus at around 2GB. No idea why. Perhaps freed
   // blocks are not garbage collected?? Perhaps my math is off??
   _pageCache.setMaxSize(1024 * 1024 * 1024);
+}
+
+// FIXME: Consider porting Document to a PIMPL design in which we could just
+// call the constructor to construct a document
+QSharedPointer<Document> Document::newDocument(const QString & fileName, const QString & backend)
+{
+  BackendInterface * bi = backendManager.backend(backend);
+  return (bi ? bi->newDocument(fileName) : QSharedPointer<Document>());
+}
+
+QStringList Document::backends()
+{
+  return backendManager.backendNames();
+}
+
+QString Document::defaultBackend()
+{
+  return backendManager.defaultBackendName();
+}
+
+void Document::setDefaultBackend(const QString & backend)
+{
+  backendManager.setDefaultBackend(backend);
 }
 
 Document::~Document()

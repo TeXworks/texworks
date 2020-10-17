@@ -344,7 +344,11 @@ public:
                   };
   Q_DECLARE_FLAGS(Permissions, Permission)
 
-  Document(const QString fileName);
+  static QSharedPointer<Backend::Document> newDocument(const QString & fileName, const QString & backend = {});
+  static QStringList backends();
+  static QString defaultBackend();
+  static void setDefaultBackend(const QString & backend);
+
   virtual ~Document();
 
   // Uses doc-read-lock
@@ -413,6 +417,8 @@ public:
   virtual QList<SearchResult> search(const QString & searchText, const SearchFlags & flags, const int startPage = 0);
 
 protected:
+  Document(const QString fileName);
+
   void clearPages();
   virtual void clearMetaData();
 
