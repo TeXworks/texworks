@@ -47,11 +47,19 @@ public:
     int line;
     int col;
     int len;
+
+    bool operator==(const TeXSyncPoint & o) const {
+      return (filename == o.filename && line == o.line && col == o.col && len == o.len);
+    }
   };
   struct PDFSyncPoint {
     QString filename;
     int page;
     QList<QRectF> rects;
+
+    bool operator==(const PDFSyncPoint & o) const {
+      return (filename == o.filename && page == o.page && rects == o.rects);
+    }
   };
 
   TWSynchronizer() = default;

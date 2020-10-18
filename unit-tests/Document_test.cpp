@@ -21,6 +21,8 @@
 
 #include "Document_test.h"
 
+#include "../modules/QtPDF/src/PDFBackend.h"
+#include "TWSynchronizer.h"
 #include "TeXHighlighter.h"
 #include "document/Document.h"
 #include "document/SpellChecker.h"
@@ -31,6 +33,11 @@
 #include <QSignalSpy>
 #include <limits>
 
+Q_DECLARE_METATYPE(QSharedPointer<TWSyncTeXSynchronizer>)
+Q_DECLARE_METATYPE(TWSynchronizer::TeXSyncPoint)
+Q_DECLARE_METATYPE(TWSynchronizer::PDFSyncPoint)
+Q_DECLARE_METATYPE(TWSynchronizer::Resolution)
+
 void NonblockingSyntaxHighlighter::setDocument(QTextDocument * doc) { Q_UNUSED(doc) }
 void NonblockingSyntaxHighlighter::rehighlight() { }
 void NonblockingSyntaxHighlighter::rehighlightBlock(const QTextBlock & block) { Q_UNUSED(block) }
@@ -39,6 +46,18 @@ void NonblockingSyntaxHighlighter::process() { }
 void NonblockingSyntaxHighlighter::processWhenIdle() {}
 TeXHighlighter::TeXHighlighter(Tw::Document::TeXDocument * parent) : NonblockingSyntaxHighlighter(parent) { }
 void TeXHighlighter::highlightBlock(const QString &text) { Q_UNUSED(text) }
+
+char * toString(const TWSyncTeXSynchronizer::TeXSyncPoint & p) {
+	return QTest::toString(QStringLiteral("TeXSyncPoint(%0 @ %1, %2 - %3)").arg(p.filename).arg(p.line).arg(p.col).arg(p.col + p.len));
+}
+
+char * toString(const TWSyncTeXSynchronizer::PDFSyncPoint & p) {
+	QStringList rectStr;
+	for (const QRectF & r : p.rects) {
+		rectStr.append(QTest::toString(r));
+	}
+	return QTest::toString(QStringLiteral("PDFSyncPoint(%0 @ %1, %2)").arg(p.filename).arg(p.page).arg(rectStr.join(" ")));
+}
 
 namespace Tw {
 namespace Utils {
@@ -393,6 +412,442 @@ void TestDocument::SpellChecker_ignoreWord()
 
 		QCOMPARE(d->isWordCorrect(wrongWord), false);
 	}
+}
+
+void TestDocument::Synchronizer_isValid()
+{
+	TWSyncTeXSynchronizer valid(QStringLiteral("sync.pdf"), nullptr, nullptr);
+	TWSyncTeXSynchronizer invalid(QStringLiteral("does-not-exist"), nullptr, nullptr);
+
+	QCOMPARE(valid.isValid(), true);
+	QCOMPARE(invalid.isValid(), false);
+}
+
+void TestDocument::syncTeXFilename()
+{
+	TWSyncTeXSynchronizer valid(QStringLiteral("sync.pdf"), nullptr, nullptr);
+	TWSyncTeXSynchronizer invalid(QStringLiteral("does-not-exist"), nullptr, nullptr);
+
+	QCOMPARE(valid.syncTeXFilename(), QStringLiteral("sync.synctex.gz"));
+	QCOMPARE(invalid.syncTeXFilename(), QString());
+}
+
+void TestDocument::pdfFilename()
+{
+	const QString pdfFilename(QStringLiteral("sync.pdf"));
+	TWSyncTeXSynchronizer valid(pdfFilename, nullptr, nullptr);
+	TWSyncTeXSynchronizer invalid(QStringLiteral("does-not-exist"), nullptr, nullptr);
+
+	QCOMPARE(valid.pdfFilename(), pdfFilename);
+	QCOMPARE(invalid.pdfFilename(), QString());
+}
+
+void TestDocument::Synchronizer_syncFromTeX_data()
+{
+	const QString texFilename(QStringLiteral("sync.tex"));
+	const QString pdfFilename(QStringLiteral("sync.pdf"));
+
+	QTest::addColumn<QSharedPointer<TWSyncTeXSynchronizer>>("synchronizer");
+	QTest::addColumn<TWSynchronizer::Resolution>("resolution");
+	QTest::addColumn<TWSynchronizer::TeXSyncPoint>("texPoint");
+	QTest::addColumn<TWSynchronizer::PDFSyncPoint>("pdfPoint");
+
+	QSharedPointer<QtPDF::Backend::Document> pdfDoc = QtPDF::Backend::Document::newDocument(pdfFilename);
+	QFile f(texFilename);
+	QVERIFY(f.open(QIODevice::ReadOnly));
+	QTextStream strm(&f);
+	QSharedPointer<Tw::Document::TeXDocument> texDoc(new Tw::Document::TeXDocument(strm.readAll()));
+
+	QSharedPointer<TWSyncTeXSynchronizer> synchronizer{new TWSyncTeXSynchronizer(
+		pdfFilename,
+		[texDoc](const QString &) { return texDoc.data(); },
+		[pdfDoc](const QString &) { return pdfDoc; })};
+
+	// Line resolution checks
+	QTest::newRow("simple start-of-line (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.7683563232422, 127.84612274169922, 343.7110595703125, 6.9184980392456055)})});
+
+	QTest::newRow("simple space (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 5, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.7683563232422, 127.84612274169922, 343.7110595703125, 6.9184980392456055)})});
+
+	QTest::newRow("simple end-of-line (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 11, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.7683563232422, 127.84612274169922, 343.7110595703125, 6.9184980392456055)})});
+
+	QTest::newRow("empty-line (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 10, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.7683563232422, 127.84612274169922, 343.7110595703125, 6.9184980392456055)})});
+
+	QTest::newRow("text-command (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 13, 3, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 151.756454467773, 343.711059570313, 6.918498039246)})});
+
+	QTest::newRow("long-line (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 15, 16, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 163.711624145508, 365.353179931641, 8.855676651001)})});
+
+	QTest::newRow("simple-footnote before (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 656.538208007813, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 186.43083190918, 343.711059570313, 8.109618186951)})});
+
+	QTest::newRow("simple-footnote \\footnote (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 19, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 656.538208007813, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 186.43083190918, 343.711059570313, 8.109618186951)})});
+
+	QTest::newRow("simple-footnote inside (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 24, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 656.538208007813, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 186.43083190918, 343.711059570313, 8.109618186951)})});
+
+	QTest::newRow("complex-footnote before (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 666.042663574219, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 198.386001586914, 343.711059570313, 10.046796798706)})});
+
+	QTest::newRow("complex-footnote \\footnote (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, 48, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 666.042663574219, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 198.386001586914, 343.711059570313, 10.046796798706)})});
+
+	QTest::newRow("complex-footnote inside (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, 53, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 666.042663574219, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 198.386001586914, 343.711059570313, 10.046796798706)})});
+
+	QTest::newRow("simple-section \\section (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 21, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 229.598388671875, 343.711059570313, 9.843077659607)})});
+
+	QTest::newRow("simple-section inside (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 21, 9, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 229.598388671875, 343.711059570313, 9.843077659607)})});
+
+	QTest::newRow("complex-section \\section (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 23, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 257.27734375, 343.711059570313, 9.962624549866)})});
+
+	QTest::newRow("complex-section inside (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 23, 9, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.7683563232422, 257.27734375, 343.7110595703125, 9.9626245498657)})});
+
+	// Word resolution checks
+	QTest::newRow("simple start-of-line (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(148.712, 127.85092784, 22.41594, 8.84682432)})});
+
+	QTest::newRow("simple space (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 5, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(148.712, 127.85092784, 22.41594, 8.84682432)})});
+
+	QTest::newRow("simple end-of-line (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 11, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(174.44549912, 127.85092784, 26.599252536, 8.84682432)})});
+
+	QTest::newRow("empty-line (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 10, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.7683563232422, 127.84612274169922, 343.7110595703125, 6.9184980392456055)})});
+
+	QTest::newRow("text-command (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 13, 3, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 151.756454467773, 343.711059570313, 6.918498039246)})});
+
+	QTest::newRow("long-line (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 15, 16, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(148.712, 163.71592784, 350.408962872, 8.84682432)})});
+
+	QTest::newRow("simple-footnote before (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(148.712, 187.62692784, 20.977334784, 8.84682432)})});
+
+	QTest::newRow("simple-footnote \\footnote (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 19, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 656.538208007813, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 186.43083190918, 343.711059570313, 8.109618186951)})});
+
+	QTest::newRow("simple-footnote inside (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 24, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(149.011, 657.67174366, 3.049364086, 7.07745768)})});
+
+	QTest::newRow("complex-footnote before (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(148.712, 199.58192784, 7.47198, 8.84682432)})});
+
+	QTest::newRow("complex-footnote \\footnote (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, 48, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 666.042663574219, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 198.386001586914, 343.711059570313, 10.046796798706)})});
+
+	QTest::newRow("complex-footnote inside (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, 53, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(149.011, 667.1767436599999, 6.342613537999995, 7.077457680000066)})});
+
+	QTest::newRow("simple-section \\section (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 21, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 229.598388671875, 343.711059570313, 9.843077659607)})});
+
+	QTest::newRow("simple-section inside (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 21, 9, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(157.9772125, 229.4857372, 35.31747516, 12.7394256)})});
+
+	QTest::newRow("complex-section \\section (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 23, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 257.27734375, 343.711059570313, 9.962624549866)})});
+
+	QTest::newRow("complex-section inside (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 23, 9, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(157.9772125, 257.2837372, 48.69961052, 12.7394256)})});
+
+	// Character resolution checks
+	QTest::newRow("simple start-of-line (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(148.712, 127.85092784, 7.47198, 8.84682432)})});
+
+	QTest::newRow("simple space (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 5, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(148.712, 127.85092784, 22.41594, 8.84682432)})});
+
+	QTest::newRow("simple end-of-line (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 11, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(195.509508872, 127.85092784, 5.535242784, 8.84682432)})});
+
+	QTest::newRow("empty-line (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 10, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.7683563232422, 127.84612274169922, 343.7110595703125, 6.9184980392456055)})});
+
+	QTest::newRow("text-command (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 13, 3, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 151.756454467773, 343.711059570313, 6.918498039246)})});
+
+	QTest::newRow("long-line (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 15, 16, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(234.232298024, 163.71592784, 2.767621392, 8.84682432)})});
+
+	QTest::newRow("simple-footnote before (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(148.712, 187.62692784, 6.503611392, 8.84682432)})});
+
+	QTest::newRow("simple-footnote \\footnote (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 19, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 656.538208007813, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 186.43083190918, 343.711059570313, 8.109618186951)})});
+
+	QTest::newRow("simple-footnote inside (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 24, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(149.011, 657.67174366, 3.049364086, 7.07745768)})});
+
+	QTest::newRow("complex-footnote before (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(148.712, 199.58192784, 7.47198, 8.84682432)})});
+
+	QTest::newRow("complex-footnote \\footnote (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, 48, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 666.042663574219, 343.711059570313, 9.504366874695), QRectF(133.768356323242, 198.386001586914, 343.711059570313, 10.046796798706)})});
+
+	QTest::newRow("complex-footnote inside (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, 53, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(149.011, 667.1767436599999, 6.342613537999995, 7.077457680000066)})});
+
+	QTest::newRow("simple-section \\section (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 21, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 229.598388671875, 343.711059570313, 9.843077659607)})});
+
+	QTest::newRow("simple-section inside (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 21, 9, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(157.9772125, 229.4857372, 12.1870969, 12.7394256)})});
+
+	QTest::newRow("complex-section \\section (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 23, 0, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(133.768356323242, 257.27734375, 343.711059570313, 9.962624549866)})});
+
+	QTest::newRow("complex-section inside (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 23, 9, 0}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(157.9772125, 257.2837372, 6.36684356, 12.7394256)})});
+}
+
+void TestDocument::Synchronizer_syncFromTeX()
+{
+	QFETCH(QSharedPointer<TWSyncTeXSynchronizer>, synchronizer);
+	QFETCH(TWSynchronizer::Resolution, resolution);
+	QFETCH(TWSynchronizer::TeXSyncPoint, texPoint);
+	QFETCH(TWSynchronizer::PDFSyncPoint, pdfPoint);
+
+	QEXPECT_FAIL("complex-footnote inside (word)", "Complex footnotes don't always work yet", Continue);
+	QEXPECT_FAIL("complex-footnote inside (char)", "Complex footnotes don't always work yet", Continue);
+	QCOMPARE(synchronizer->syncFromTeX(texPoint, resolution), pdfPoint);
+}
+
+void TestDocument::Synchronizer_syncFromPDF_data()
+{
+	const QString texFilename(QStringLiteral("./sync.tex"));
+	const QString pdfFilename(QStringLiteral("sync.pdf"));
+
+	QTest::addColumn<QSharedPointer<TWSyncTeXSynchronizer>>("synchronizer");
+	QTest::addColumn<TWSynchronizer::Resolution>("resolution");
+	QTest::addColumn<TWSynchronizer::TeXSyncPoint>("texPoint");
+	QTest::addColumn<TWSynchronizer::PDFSyncPoint>("pdfPoint");
+
+	QSharedPointer<QtPDF::Backend::Document> pdfDoc = QtPDF::Backend::Document::newDocument(pdfFilename);
+	QFile f(texFilename);
+	QVERIFY(f.open(QIODevice::ReadOnly));
+	QTextStream strm(&f);
+	QSharedPointer<Tw::Document::TeXDocument> texDoc(new Tw::Document::TeXDocument(strm.readAll()));
+
+	QSharedPointer<TWSyncTeXSynchronizer> synchronizer{new TWSyncTeXSynchronizer(
+		pdfFilename,
+		[texDoc](const QString &) { return texDoc.data(); },
+		[pdfDoc](const QString &) { return pdfDoc; })};
+
+	// Line resolution checks
+	QTest::newRow("top left (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(50, 50, 0, 0)})});
+
+	QTest::newRow("simple start-of-line (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 130, 0, 0)})});
+
+	QTest::newRow("simple space (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(173, 130, 0, 0)})});
+
+	QTest::newRow("simple end-of-line (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(197, 130, 0, 0)})});
+
+	QTest::newRow("text-command (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 13, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(167, 155, 0, 0)})});
+
+	QTest::newRow("long-line (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 15, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(235, 165, 0, 0)})});
+
+	QTest::newRow("simple-footnote before (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 190, 0, 0)})});
+
+	QTest::newRow("simple-footnote inside (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 660, 0, 0)})});
+
+	QTest::newRow("complex-footnote before (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 205, 0, 0)})});
+
+	QTest::newRow("complex-footnote inside (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 670, 0, 0)})});
+
+	QTest::newRow("simple-section inside (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 21, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(160, 235, 0, 0)})});
+
+	QTest::newRow("complex-section inside (line)") << synchronizer << TWSynchronizer::LineResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 23, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(160, 260, 0, 0)})});
+
+	// Word resolution checks
+	QTest::newRow("top left (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(50, 50, 0, 0)})});
+
+	QTest::newRow("simple start-of-line (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 0, 5}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 130, 0, 0)})});
+
+	QTest::newRow("simple space (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(173, 130, 0, 0)})});
+
+	QTest::newRow("simple end-of-line (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 6, 5}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(197, 130, 0, 0)})});
+
+	QTest::newRow("text-command (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 13, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(167, 155, 0, 0)})});
+
+	QTest::newRow("long-line (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 15, 0, 85}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(235, 165, 0, 0)})});
+
+	QTest::newRow("simple-footnote before (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 0, 5}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 190, 0, 0)})});
+
+	QTest::newRow("simple-footnote inside (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 24, 1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 660, 0, 0)})});
+
+	QTest::newRow("complex-footnote before (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 205, 0, 0)})});
+
+	QTest::newRow("complex-footnote inside (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 670, 0, 0)})});
+
+	QTest::newRow("simple-section inside (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 21, 9, 3}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(160, 235, 0, 0)})});
+
+	QTest::newRow("complex-section inside (word)") << synchronizer << TWSynchronizer::WordResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 23, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(160, 260, 0, 0)})});
+
+	// Character resolution checks
+	QTest::newRow("top left (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(50, 50, 0, 0)})});
+
+	QTest::newRow("simple start-of-line (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 0, 1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 130, 0, 0)})});
+
+	QTest::newRow("simple space (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(173, 130, 0, 0)})});
+
+	QTest::newRow("simple end-of-line (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 9, 10, 1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(197, 130, 0, 0)})});
+
+	QTest::newRow("text-command (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 13, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(167, 155, 0, 0)})});
+
+	QTest::newRow("long-line (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 15, 16, 1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(235, 165, 0, 0)})});
+
+	QTest::newRow("simple-footnote before (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 0, 1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 190, 0, 0)})});
+
+	QTest::newRow("simple-footnote inside (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 17, 24, 1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 660, 0, 0)})});
+
+	QTest::newRow("complex-footnote before (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 205, 0, 0)})});
+
+	QTest::newRow("complex-footnote inside (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 19, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(150, 670, 0, 0)})});
+
+	QTest::newRow("simple-section inside (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 21, 9, 1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(160, 235, 0, 0)})});
+
+	QTest::newRow("complex-section inside (char)") << synchronizer << TWSynchronizer::CharacterResolution <<
+		TWSynchronizer::TeXSyncPoint({texFilename, 23, -1, -1}) <<
+		TWSynchronizer::PDFSyncPoint({pdfFilename, 1, QList<QRectF>({QRectF(160, 260, 0, 0)})});
+}
+
+void TestDocument::Synchronizer_syncFromPDF()
+{
+	QFETCH(QSharedPointer<TWSyncTeXSynchronizer>, synchronizer);
+	QFETCH(TWSynchronizer::Resolution, resolution);
+	QFETCH(TWSynchronizer::TeXSyncPoint, texPoint);
+	QFETCH(TWSynchronizer::PDFSyncPoint, pdfPoint);
+
+	QCOMPARE(synchronizer->syncFromPDF(pdfPoint, resolution), texPoint);
 }
 
 } // namespace UnitTest

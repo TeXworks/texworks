@@ -48,6 +48,15 @@ private slots:
 	void SpellChecker_getDictionaryList();
 	void SpellChecker_getDictionary();
 	void SpellChecker_ignoreWord();
+
+	void Synchronizer_isValid();
+	void syncTeXFilename();
+	void pdfFilename();
+
+	void Synchronizer_syncFromTeX_data();
+	void Synchronizer_syncFromTeX();
+	void Synchronizer_syncFromPDF_data();
+	void Synchronizer_syncFromPDF();
 };
 
 } // namespace UnitTest
