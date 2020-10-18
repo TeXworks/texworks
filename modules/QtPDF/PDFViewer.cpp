@@ -19,7 +19,7 @@ PDFViewer::PDFViewer(const QString & pdf_doc, QWidget *parent, Qt::WindowFlags f
   QtPDF::PDFDocumentWidget *docWidget = new QtPDF::PDFDocumentWidget(this);
   connect(this, SIGNAL(switchInterfaceLocale(QLocale)), docWidget, SLOT(switchInterfaceLocale(QLocale)));
 
-  if (!pdf_doc.isEmpty() && docWidget)
+  if (!pdf_doc.isEmpty())
     docWidget->load(pdf_doc);
   docWidget->goFirst();
 
@@ -96,7 +96,9 @@ void PDFViewer::open()
     return;
 
   QtPDF::PDFDocumentWidget * docWidget = qobject_cast<QtPDF::PDFDocumentWidget*>(centralWidget());
-  Q_ASSERT(docWidget != nullptr);
+  if (!docWidget) {
+    return;
+  }
   docWidget->load(pdf_doc);
 }
 
