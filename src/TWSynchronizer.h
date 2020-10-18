@@ -22,10 +22,13 @@
 #ifndef TW_SYNCHRONIZER_H
 #define TW_SYNCHRONIZER_H
 
+#include "document/TeXDocument.h"
+#include "../modules/QtPDF/src/PDFBackend.h"
+
 #include <QList>
 #include <QRectF>
 #include <QString>
-
+#include <functional>
 
 namespace SyncTeX {
   #include <synctex_parser.h>
@@ -61,7 +64,10 @@ public:
 class TWSyncTeXSynchronizer : public TWSynchronizer
 {
 public:
-  explicit TWSyncTeXSynchronizer(const QString & filename);
+  using TeXLoader = std::function<const Tw::Document::TeXDocument*(const QString &)>;
+  using PDFLoader = std::function<const QSharedPointer<QtPDF::Backend::Document>(const QString &)>;
+
+  explicit TWSyncTeXSynchronizer(const QString & filename, TeXLoader texLoader, PDFLoader pdfLoader);
   ~TWSyncTeXSynchronizer() override;
 
   bool isValid() const;
@@ -79,6 +85,8 @@ protected:
   static int _findCorrespondingPosition(const QString & srcContext, const QString & destContext, const int col, bool & unique);
 
   SyncTeX::synctex_scanner_p _scanner;
+  TeXLoader m_TeXLoader;
+  PDFLoader m_PDFLoader;
 };
 
 #endif // !defined(TW_SYNCHRONIZER_H)

@@ -21,12 +21,9 @@
 
 #include "TWSynchronizer.h"
 
-#include "PDFDocumentWindow.h"
-#include "TWApp.h"
-#include "TeXDocumentWindow.h"
-
 #include <QDir>
 #include <QFileInfo>
+#include <QTextBlock>
 
 // TODO for fine-grained search:
 // - Specially handle \commands (and possibly other TeX codes)
@@ -36,9 +33,11 @@
 //   substrings in the line (e.g., to properly sync lines like
 //   "abc\footnote{abc}")
 
-TWSyncTeXSynchronizer::TWSyncTeXSynchronizer(const QString & filename)
+TWSyncTeXSynchronizer::TWSyncTeXSynchronizer(const QString & filename, TeXLoader texLoader, PDFLoader pdfLoader)
+  : _scanner(SyncTeX::synctex_scanner_new_with_output_file(filename.toLocal8Bit().data(), nullptr, 1))
+  , m_TeXLoader(texLoader)
+  , m_PDFLoader(pdfLoader)
 {
-  _scanner = SyncTeX::synctex_scanner_new_with_output_file(filename.toLocal8Bit().data(), nullptr, 1);
 }
 
 TWSyncTeXSynchronizer::~TWSyncTeXSynchronizer()
@@ -160,19 +159,23 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
     return;
 
   QDir curDir(QFileInfo(src.filename).canonicalPath());
-  TeXDocumentWindow * tex = TeXDocumentWindow::findDocument(src.filename);
-  PDFDocumentWindow * pdf = PDFDocumentWindow::findDocument(QFileInfo(curDir, dest.filename).canonicalFilePath());
-  if (!tex || !pdf || !pdf->widget())
+
+  if (!m_TeXLoader || !m_PDFLoader) {
     return;
-  QSharedPointer<QtPDF::Backend::Document> pdfDoc = pdf->widget()->document().toStrongRef();
-  if (!pdfDoc)
+  }
+
+  const Tw::Document::TeXDocument * tex = m_TeXLoader(src.filename);
+  QSharedPointer<QtPDF::Backend::Document> pdfDoc = m_PDFLoader(QFileInfo(curDir, dest.filename).canonicalFilePath());
+
+  if (!tex || !pdfDoc) {
     return;
+  }
   QSharedPointer<QtPDF::Backend::Page> pdfPage = pdfDoc->page(dest.page - 1).toStrongRef();
   if (!pdfPage)
     return;
 
   // Get source context
-  QString srcContext = tex->getLineText(src.line);
+  QString srcContext = tex->findBlockByNumber(src.line - 1).text();
   if (srcContext.isEmpty())
     return;
 
@@ -221,13 +224,16 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   if (dest.filename.isEmpty())
     return;
   QDir curDir(QFileInfo(src.filename).canonicalPath());
-  TeXDocumentWindow * tex = TeXDocumentWindow::openDocument(QFileInfo(curDir, dest.filename).canonicalFilePath(), false, false, dest.line);
-  PDFDocumentWindow * pdf = PDFDocumentWindow::findDocument(src.filename);
-  if (!tex || !pdf || !pdf->widget())
+
+  if (!m_TeXLoader || !m_PDFLoader) {
     return;
-  QSharedPointer<QtPDF::Backend::Document> pdfDoc = pdf->widget()->document().toStrongRef();
-  if (!pdfDoc)
+  }
+  const Tw::Document::TeXDocument * tex = m_TeXLoader(QFileInfo(curDir, dest.filename).canonicalFilePath());
+  QSharedPointer<QtPDF::Backend::Document> pdfDoc = m_PDFLoader(src.filename);
+
+  if (!tex || !pdfDoc) {
     return;
+  }
   QSharedPointer<QtPDF::Backend::Page> pdfPage = pdfDoc->page(src.page - 1).toStrongRef();
   if (!pdfPage)
     return;
@@ -269,7 +275,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
     return;
 
   // Get destination context
-  QString destContext = tex->getLineText(dest.line);
+  QString destContext = tex->findBlockByNumber(dest.line - 1).text();
   if (destContext.isEmpty())
     return;
 
