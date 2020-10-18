@@ -127,7 +127,9 @@ void TemplateDialog::showEvent(QShowEvent * event)
 	_shouldResizeColumns = false;
 
 	QHeaderView * h = treeView->header();
-	Q_ASSERT(h != nullptr);
+	if (!h) {
+		return;
+	}
 	// Do not use the real section sizes as reference, as the last section might
 	// be expanding and is hence larger than necessary. The default section size
 	// seems to work well here.

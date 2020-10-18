@@ -322,7 +322,7 @@ void TestUtils::CommandLineParser_printUsage()
 void TestUtils::MacCentralEurRomanCodec()
 {
 	Tw::Utils::MacCentralEurRomanCodec * c = Tw::Utils::MacCentralEurRomanCodec::instance();
-	Q_ASSERT(c != nullptr);
+	QVERIFY(c != nullptr);
 
 	QCOMPARE(c->mibEnum(), -4000);
 	QCOMPARE(c->name(), QByteArray("Mac Central European Roman"));
@@ -336,10 +336,12 @@ void TestUtils::MacCentralEurRomanCodec()
 	QCOMPARE(c->toUnicode(nullptr), QString());
 
 	QTextEncoder * e = c->makeEncoder(QTextCodec::ConvertInvalidToNull);
+	QVERIFY(e != nullptr);
 	QCOMPARE(e->fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4\x00", 6));
 	delete e;
 
 	QTextDecoder * d = c->makeDecoder(QTextCodec::ConvertInvalidToNull);
+	QVERIFY(d != nullptr);
 	QCOMPARE(d->toUnicode(QByteArray("\x41\x80\x81\xA1\xA4")), QStringLiteral("AÄĀ°§"));
 	delete d;
 }
