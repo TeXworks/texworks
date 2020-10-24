@@ -1022,7 +1022,17 @@ void PDFDocumentWindow::maybeOpenPdf(const QString & filename, const QtPDF::PDFD
 	// PDFDocument (e.g., in the TeXDocument associated with it) to notify the
 	// other parts of the code that a completely new and unrelated document is
 	// loaded here now.
-	PDFDocumentWindow * pdf = qobject_cast<PDFDocumentWindow*>(TWApp::instance()->openFile(filename));
+	// NB: TWApp::openFile() requires an absolute filename. Therefore, we have
+	// to make it absolute (using the current file's folder as base) if it isn't
+	// already
+	PDFDocumentWindow * pdf = qobject_cast<PDFDocumentWindow*>(TWApp::instance()->openFile([this] (const QString & filename) {
+			const QFileInfo fi(filename);
+			if (fi.isAbsolute()) {
+				return filename;
+			}
+			return QFileInfo(this->fileName()).dir().filePath(filename);
+		}(filename)
+	));
 	if (!pdf || !pdf->widget())
 		return;
 	pdf->widget()->goToPDFDestination(destination, false);
