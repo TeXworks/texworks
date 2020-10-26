@@ -144,12 +144,12 @@ QDateTime fromPDFDate(QString pdfDate)
   pdfDate.remove(0, 1);
   if (pdfDate.length() < 3 || pdfDate[2] != QChar::fromLatin1('\''))
     return QDateTime(date, time);
-  hourOffset = pdfDate.leftRef(2).toInt(&ok);
+  hourOffset = pdfDate.left(2).toInt(&ok);
   if (!ok)
     return QDateTime(date, time);
   pdfDate.remove(0, 3);
   if (pdfDate.length() >= 2)
-    minuteOffset = pdfDate.leftRef(2).toInt();
+    minuteOffset = pdfDate.left(2).toInt();
   return QDateTime(date, time, Qt::UTC).addSecs(sign * (hourOffset * 3600 + minuteOffset * 60)).toLocalTime();
 }
 

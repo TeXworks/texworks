@@ -1053,14 +1053,24 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int align
     _currentPage = pageNum;
   }
   else { // _pageMode != PageMode_Presentation
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     double oldXres = QApplication::desktop()->physicalDpiX() * _zoomLevel;
     double oldYres = QApplication::desktop()->physicalDpiY() * _zoomLevel;
+#else
+    double oldXres = screen()->physicalDotsPerInchX() * _zoomLevel;
+    double oldYres = screen()->physicalDotsPerInchY() * _zoomLevel;
+#endif
     _pdf_scene->showOnePage(page);
     _currentPage = pageNum;
     maybeUpdateSceneRect();
     zoomFitWindow();
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     double xres = QApplication::desktop()->physicalDpiX() * _zoomLevel;
     double yres = QApplication::desktop()->physicalDpiY() * _zoomLevel;
+#else
+    double xres = screen()->physicalDotsPerInchX() * _zoomLevel;
+    double yres = screen()->physicalDotsPerInchY() * _zoomLevel;
+#endif
     QSharedPointer<Backend::Page> backendPage(page->page().toStrongRef());
 
     if (backendPage && backendPage->transition()) {
@@ -1805,8 +1815,27 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
   // pass it through inter-thread (i.e., queued) connections
   qRegisterMetaType< QList<PDFLinkGraphicsItem *> >();
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
   _dpiX = (dpiX > 0 ? dpiX : QApplication::desktop()->physicalDpiX());
   _dpiY = (dpiY > 0 ? dpiY : QApplication::desktop()->physicalDpiY());
+#else
+  // FIXME: The QGraphicsScene should be independent of the hardware it is shown
+  // on
+  const QList<QGraphicsView *> & v = views();
+  if (dpiX > 0)
+    _dpiX = dpiX;
+  else if (!v.isEmpty())
+    _dpiX = v.first()->screen()->physicalDotsPerInchX();
+  else
+    _dpiX = 72;
+
+  if (dpiY > 0)
+    _dpiY = dpiY;
+  else if (!v.isEmpty())
+    _dpiY = v.first()->screen()->physicalDotsPerInchY();
+  else
+    _dpiY = 72;
+#endif
 
   connect(&_pageLayout, SIGNAL(layoutChanged(const QRectF)), this, SLOT(pageLayoutChanged(const QRectF)));
 
@@ -2157,15 +2186,15 @@ void PDFDocumentScene::setResolution(const double dpiX, const double dpiY)
 PDFPageGraphicsItem::PDFPageGraphicsItem(QWeakPointer<Backend::Page> a_page, const double dpiX, const double dpiY, QGraphicsItem *parent /* = nullptr */):
   Super(parent),
   _page(a_page),
-
+  // FIXME: The QGraphicsObject should be independent of the hardware it is
+  // shown on
+  _dpiX(dpiX),
+  _dpiY(dpiY),
   _pageNum(-1),
   _linksLoaded(false),
   _annotationsLoaded(false),
   _zoomLevel(0.0)
 {
-  _dpiX = (dpiX > 0 ? dpiX : QApplication::desktop()->physicalDpiX());
-  _dpiY = (dpiY > 0 ? dpiY : QApplication::desktop()->physicalDpiY());
-
   // So we get information during paint events about what portion of the page
   // is visible.
   //

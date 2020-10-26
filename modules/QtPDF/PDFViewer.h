@@ -29,7 +29,7 @@ class PDFViewer : public QMainWindow {
   QToolBar * _toolBar;
 
 public:
-  PDFViewer(const QString & pdf_doc = QString(), QWidget * parent = Q_NULLPTR, Qt::WindowFlags flags = Q_NULLPTR);
+  PDFViewer(const QString & pdf_doc = QString(), QWidget * parent = Q_NULLPTR, Qt::WindowFlags flags = {});
 
 public slots:
   void open();

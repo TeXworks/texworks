@@ -13,6 +13,10 @@
  */
 #include "PDFDocumentWidget.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+#include <QApplication>
+#endif
+
 namespace QtPDF {
 
 PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = nullptr */, const double dpi /* = -1 */)
@@ -20,8 +24,13 @@ PDFDocumentWidget::PDFDocumentWidget(QWidget * parent /* = nullptr */, const dou
 {
   if (dpi > 0)
     _dpi = dpi;
-  else
+  else {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     _dpi = QApplication::desktop()->physicalDpiX();
+#else
+    _dpi = screen()->physicalDotsPerInch();
+#endif
+  }
 }
 
 // Loads the file specified by filename. If this succeeds, the new file is

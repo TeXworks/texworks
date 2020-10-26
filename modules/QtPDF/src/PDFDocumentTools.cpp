@@ -502,8 +502,8 @@ void MeasureLine::updateMeasurement()
   // NOTE: The view internally uses coordinates scaled by DPI/72 (owing to the
   // PDF convention of 1 in = 72 pt). We have to undo that scaling here to get
   // physical units.
-  qreal dx = line().dx() / QApplication::desktop()->physicalDpiX();
-  qreal dy = line().dy() / QApplication::desktop()->physicalDpiY();
+  qreal dx = line().dx() / _primaryView->physicalDpiX();
+  qreal dy = line().dy() / _primaryView->physicalDpiY();
   // length: Length of the measurement line in pt (i.e., 1/72.27 inch)
   qreal length = 72.27 * qSqrt(dx * dx + dy * dy);
 
