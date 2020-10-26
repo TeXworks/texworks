@@ -121,7 +121,6 @@ void PDFDocumentWindow::init()
 	setupUi(this);
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
-	setAttribute(Qt::WA_MacNoClickThrough, true);
 
 	QIcon winIcon;
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
@@ -687,17 +686,6 @@ PDFDocumentWindow *PDFDocumentWindow::findDocument(const QString &fileName)
 			return theDoc;
 	}
 	return nullptr;
-}
-
-void PDFDocumentWindow::zoomToRight(QWidget *otherWindow)
-{
-	QDesktopWidget *desktop = QApplication::desktop();
-	QRect screenRect = desktop->availableGeometry(otherWindow ? otherWindow : this);
-	screenRect.setTop(screenRect.top() + 22);
-	screenRect.setLeft((screenRect.left() + screenRect.right()) / 2 + 1);
-	screenRect.setBottom(screenRect.bottom() - 1);
-	screenRect.setRight(screenRect.right() - 1);
-	setGeometry(screenRect);
 }
 
 void PDFDocumentWindow::showPage(int page)

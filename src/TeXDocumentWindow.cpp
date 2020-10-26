@@ -44,7 +44,6 @@
 #include <QClipboard>
 #include <QCloseEvent>
 #include <QComboBox>
-#include <QDesktopWidget>
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QFileSystemWatcher>
@@ -110,7 +109,6 @@ void TeXDocumentWindow::init()
 	editor()->setDocument(textDoc());
 
 	setAttribute(Qt::WA_DeleteOnClose, true);
-	setAttribute(Qt::WA_MacNoClickThrough, true);
 
 	setContextMenuPolicy(Qt::NoContextMenu);
 
@@ -2682,17 +2680,6 @@ void TeXDocumentWindow::showSelection()
 		oldScrollValue = textEdit->verticalScrollBar()->value();
 	textEdit->ensureCursorVisible();
 	maybeCenterSelection(oldScrollValue);
-}
-
-void TeXDocumentWindow::zoomToLeft(QWidget *otherWindow)
-{
-	QDesktopWidget *desktop = QApplication::desktop();
-	QRect screenRect = desktop->availableGeometry(otherWindow ? otherWindow : this);
-	screenRect.setTop(screenRect.top() + 22);
-	screenRect.setLeft(screenRect.left() + 1);
-	screenRect.setBottom(screenRect.bottom() - 1);
-	screenRect.setRight((screenRect.left() + screenRect.right()) / 2 - 1);
-	setGeometry(screenRect);
 }
 
 void TeXDocumentWindow::typeset()
