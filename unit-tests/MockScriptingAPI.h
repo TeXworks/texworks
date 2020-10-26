@@ -41,7 +41,7 @@ class MockAPI : public QObject, public ScriptAPIInterface
 	Q_OBJECT
 	Script * _script;
 	QVariant _result;
-	MockTarget _target;
+	MockTarget * _target;
 
 	Q_PROPERTY(QObject* app READ GetApp)
 	Q_PROPERTY(QObject* target READ GetTarget)
@@ -49,13 +49,13 @@ class MockAPI : public QObject, public ScriptAPIInterface
 	Q_PROPERTY(QObject * script READ GetScript)
 
 public:
-	MockAPI(Script * script) : _script(script) { }
-	QObject* clone() const override { return new MockAPI(_script); }
+	MockAPI(Script * script, MockTarget * target) : _script(script), _target(target) { }
+	QObject* clone() const override { return new MockAPI(_script, _target); }
 
 	QObject* self() override { return this; }
 
 	QObject* GetApp() override { return this; }
-	QObject* GetTarget() override { return &_target; }
+	QObject* GetTarget() override { return _target; }
 	QObject* GetScript() override { return _script; }
 	QVariant& GetResult() override { return _result; }
 	void SetResult(const QVariant& rval) override { _result = rval; }

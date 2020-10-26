@@ -106,11 +106,13 @@ void TestLuaScripting::execute()
 //	QSharedPointer<Script> s3 = QSharedPointer<Script>(luaSI->newScript(QStringLiteral("script2.js")));
 
 	{
-		MockAPI api(s1.data());
+		MockTarget target;
+		MockAPI api(s1.data(), &target);
 		QVERIFY(s1->run(api) == false);
 	}
 	{
-		MockAPI api(s2.data());
+		MockTarget target;
+		MockAPI api(s2.data(), &target);
 
 		s2->setGlobal("TwNil", QVariant());
 		s2->setGlobal("TwBool", QVariant::fromValue(true));

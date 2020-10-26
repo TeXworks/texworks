@@ -282,7 +282,8 @@ void TestScripting::parseHeader()
 void TestScripting::mocks()
 {
 	Script * s = ECMAScriptInterface().newScript(QString());
-	MockAPI api(s);
+	MockTarget target;
+	MockAPI api(s, &target);
 
 	QCOMPARE(api.self(), &api);
 	QCOMPARE(api.GetApp(), &api);
@@ -358,17 +359,20 @@ void TestScripting::execute()
 	QSharedPointer<Script> js3 = QSharedPointer<Script>(jsi.newScript(QStringLiteral("script2.js")));
 
 	{
-		MockAPI api(js1.data());
+		MockTarget target;
+		MockAPI api(js1.data(), &target);
 		QVERIFY(js1->run(api) == false);
 	}
 	{
-		MockAPI api(js2.data());
+		MockTarget target;
+		MockAPI api(js2.data(), &target);
 		QVERIFY(js2->run(api));
 		QCOMPARE(qobject_cast<MockTarget*>(api.GetTarget())->text, QStringLiteral("It works!"));
 		QCOMPARE(api.GetResult(), QVariant(QVariantList({1, 2, 3})));
 	}
 	{
-		MockAPI api(js3.data());
+		MockTarget target;
+		MockAPI api(js3.data(), &target);
 		QVERIFY(js3->run(api) == false);
 		QCOMPARE(api.GetResult(), QVariant(QStringLiteral("an exception")));
 	}
@@ -381,17 +385,20 @@ void TestScripting::execute()
 	QSharedPointer<Script> es3 = QSharedPointer<Script>(esi.newScript(QStringLiteral("script2.js")));
 
 	{
-		MockAPI api(es1.data());
+		MockTarget target;
+		MockAPI api(es1.data(), &target);
 		QVERIFY(es1->run(api) == false);
 	}
 	{
-		MockAPI api(es2.data());
+		MockTarget target;
+		MockAPI api(es2.data(), &target);
 		QVERIFY(es2->run(api));
 		QCOMPARE(qobject_cast<MockTarget*>(api.GetTarget())->text, QStringLiteral("It works!"));
 		QCOMPARE(api.GetResult(), QVariant(QVariantList({1, 2, 3})));
 	}
 	{
-		MockAPI api(es3.data());
+		MockTarget target;
+		MockAPI api(es3.data(), &target);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		QEXPECT_FAIL("", "Script exceptions are not handled correctly until Qt6", Continue);
 #endif
