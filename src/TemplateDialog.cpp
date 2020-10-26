@@ -26,7 +26,6 @@
 #include "document/TeXDocument.h"
 #include "utils/ResourcesLibrary.h"
 
-#include <QDirModel>
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
@@ -70,7 +69,7 @@ void TemplateDialog::init()
 
 void TemplateDialog::itemActivated(const QModelIndex & index)
 {
-	QDirModel * model = qobject_cast<QDirModel*>(treeView->model());
+	QFileSystemModel * model = qobject_cast<QFileSystemModel*>(treeView->model());
 	if (model && !model->isDir(index))
 		accept();
 }
