@@ -35,13 +35,13 @@ void AbstractTool::disarm() {
 void AbstractTool::keyPressEvent(QKeyEvent *event)
 {
   if (_parent)
-    _parent->maybeArmTool(Qt::LeftButton + event->modifiers());
+    _parent->maybeArmTool(Qt::MouseButtons(Qt::LeftButton) | event->modifiers());
 }
 
 void AbstractTool::keyReleaseEvent(QKeyEvent *event)
 {
   if (_parent)
-    _parent->maybeArmTool(Qt::LeftButton + event->modifiers());
+    _parent->maybeArmTool(Qt::MouseButtons(Qt::LeftButton) | event->modifiers());
 }
 
 void AbstractTool::mousePressEvent(QMouseEvent * event)

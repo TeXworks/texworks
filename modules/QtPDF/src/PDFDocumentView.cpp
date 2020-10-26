@@ -722,11 +722,11 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
 
   // TODO: eventually make _toolAccessors configurable
   _toolAccessors.clear();
-  _toolAccessors[Qt::ControlModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_ContextClick);
-  _toolAccessors[Qt::NoModifier + Qt::RightButton] = getToolByType(DocumentTool::AbstractTool::Tool_ContextMenu);
-  _toolAccessors[Qt::NoModifier + Qt::MiddleButton] = getToolByType(DocumentTool::AbstractTool::Tool_Move);
-  _toolAccessors[Qt::ShiftModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_ZoomIn);
-  _toolAccessors[Qt::AltModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_ZoomOut);
+  _toolAccessors[Qt::KeyboardModifiers(Qt::ControlModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_ContextClick);
+  _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::RightButton)] = getToolByType(DocumentTool::AbstractTool::Tool_ContextMenu);
+  _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::MiddleButton)] = getToolByType(DocumentTool::AbstractTool::Tool_Move);
+  _toolAccessors[Qt::KeyboardModifiers(Qt::ShiftModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_ZoomIn);
+  _toolAccessors[Qt::KeyboardModifiers(Qt::AltModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_ZoomOut);
   // Other tools: Tool_MagnifyingGlass, Tool_MarqueeZoom, Tool_Move
 
   disarmTool();
@@ -734,27 +734,27 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
   switch (newMode) {
     case MouseMode_Move:
       armTool(DocumentTool::AbstractTool::Tool_Move);
-      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_Move);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_Move);
       break;
 
     case MouseMode_MarqueeZoom:
       armTool(DocumentTool::AbstractTool::Tool_MarqueeZoom);
-      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_MarqueeZoom);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_MarqueeZoom);
       break;
 
     case MouseMode_MagnifyingGlass:
       armTool(DocumentTool::AbstractTool::Tool_MagnifyingGlass);
-      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_MagnifyingGlass);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_MagnifyingGlass);
       break;
 
     case MouseMode_Measure:
       armTool(DocumentTool::AbstractTool::Tool_Measure);
-      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_Measure);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_Measure);
       break;
 
     case MouseMode_Select:
       armTool(DocumentTool::AbstractTool::Tool_Select);
-      _toolAccessors[Qt::NoModifier + Qt::LeftButton] = getToolByType(DocumentTool::AbstractTool::Tool_Select);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_Select);
       break;
   }
 
@@ -1419,7 +1419,7 @@ void PDFDocumentView::keyPressEvent(QKeyEvent *event)
     _armedTool->keyPressEvent(event);
   // If there is no currently armed tool, maybe we can arm one now
   else
-    maybeArmTool(Qt::LeftButton + event->modifiers());
+    maybeArmTool(Qt::MouseButtons(Qt::LeftButton) | event->modifiers());
 }
 
 void PDFDocumentView::keyReleaseEvent(QKeyEvent *event)
@@ -1430,7 +1430,7 @@ void PDFDocumentView::keyReleaseEvent(QKeyEvent *event)
   if(_armedTool)
     _armedTool->keyReleaseEvent(event);
   else
-    maybeArmTool(Qt::LeftButton + event->modifiers());
+    maybeArmTool(Qt::MouseButtons(Qt::LeftButton) | event->modifiers());
 }
 
 void PDFDocumentView::mousePressEvent(QMouseEvent * event)
