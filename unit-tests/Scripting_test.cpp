@@ -98,6 +98,15 @@ void TestScripting::isEnabled()
 	js->setEnabled(true);
 	QVERIFY(js->isEnabled());
 #endif
+
+	ECMAScriptInterface esi;
+	Script * es = esi.newScript(QString());
+
+	QVERIFY(es->isEnabled());
+	es->setEnabled(false);
+	QVERIFY(es->isEnabled() == false);
+	es->setEnabled(true);
+	QVERIFY(es->isEnabled());
 }
 
 void TestScripting::getScriptLanguagePlugin()
@@ -106,6 +115,9 @@ void TestScripting::getScriptLanguagePlugin()
 	JSScriptInterface jsi;
 	QCOMPARE(jsi.newScript(QString())->getScriptLanguagePlugin(), &jsi);
 #endif
+
+	ECMAScriptInterface esi;
+	QCOMPARE(esi.newScript(QString())->getScriptLanguagePlugin(), &esi);
 }
 
 void TestScripting::getFilename()
@@ -117,6 +129,11 @@ void TestScripting::getFilename()
 	QCOMPARE(jsi.newScript(QString())->getFilename(), QString());
 	QCOMPARE(jsi.newScript(invalid)->getFilename(), invalid);
 #endif
+
+	ECMAScriptInterface esi;
+
+	QCOMPARE(esi.newScript(QString())->getFilename(), QString());
+	QCOMPARE(esi.newScript(invalid)->getFilename(), invalid);
 }
 
 void TestScripting::globals()
@@ -139,6 +156,20 @@ void TestScripting::globals()
 	js->unsetGlobal(key);
 	QVERIFY(js->hasGlobal(key) == false);
 #endif
+
+	ECMAScriptInterface esi;
+	QSharedPointer<Script> es = QSharedPointer<Script>(esi.newScript(QString()));
+
+	QVERIFY(es->hasGlobal(key) == false);
+	QCOMPARE(es->getGlobal(key), QVariant());
+	QVERIFY(es->hasGlobal(key) == false);
+	es->unsetGlobal(key);
+	QVERIFY(es->hasGlobal(key) == false);
+	es->setGlobal(key, val);
+	QVERIFY(es->hasGlobal(key));
+	QCOMPARE(es->getGlobal(key), val);
+	es->unsetGlobal(key);
+	QVERIFY(es->hasGlobal(key) == false);
 }
 
 void TestScripting::parseHeader_data()
@@ -188,6 +219,39 @@ void TestScripting::parseHeader_data()
 								<< QString()
 								<< QKeySequence();
 #endif
+
+	ECMAScriptInterface esi;
+
+	QTest::newRow("invalid (ECMA)") << QSharedPointer<Script>(esi.newScript(QString()))
+							 << false
+							 << Script::ScriptType::ScriptUnknown
+							 << QString()
+							 << QString()
+							 << QString()
+							 << QString()
+							 << QString()
+							 << QString()
+							 << QKeySequence();
+	QTest::newRow("script1.js (ECMA)") << QSharedPointer<Script>(esi.newScript(QStringLiteral("script1.js")))
+								<< true
+								<< Script::ScriptType::ScriptStandalone
+								<< QStringLiteral("Tw.insertText test")
+								<< QStringLiteral(u"This is a unicode string 🤩")
+								<< QStringLiteral(u"Stefan Löffler")
+								<< QStringLiteral("0.0.1")
+								<< QString()
+								<< QStringLiteral("TeXDocument")
+								<< QKeySequence(QStringLiteral("Ctrl+Alt+Shift+I"));
+	QTest::newRow("script2.js (ECMA)") << QSharedPointer<Script>(esi.newScript(QStringLiteral("script2.js")))
+								<< false
+								<< Script::ScriptType::ScriptUnknown
+								<< QStringLiteral("Exception test")
+								<< QString()
+								<< QStringLiteral(u"Stefan Löffler")
+								<< QStringLiteral("0.0.1")
+								<< QString()
+								<< QString()
+								<< QKeySequence();
 }
 
 void TestScripting::parseHeader()
@@ -309,6 +373,31 @@ void TestScripting::execute()
 		QCOMPARE(api.GetResult(), QVariant(QStringLiteral("an exception")));
 	}
 #endif
+
+	ECMAScriptInterface esi;
+
+	QSharedPointer<Script> es1 = QSharedPointer<Script>(esi.newScript(QStringLiteral("does-not-exist")));
+	QSharedPointer<Script> es2 = QSharedPointer<Script>(esi.newScript(QStringLiteral("script1.js")));
+	QSharedPointer<Script> es3 = QSharedPointer<Script>(esi.newScript(QStringLiteral("script2.js")));
+
+	{
+		MockAPI api(es1.data());
+		QVERIFY(es1->run(api) == false);
+	}
+	{
+		MockAPI api(es2.data());
+		QVERIFY(es2->run(api));
+		QCOMPARE(qobject_cast<MockTarget*>(api.GetTarget())->text, QStringLiteral("It works!"));
+		QCOMPARE(api.GetResult(), QVariant(QVariantList({1, 2, 3})));
+	}
+	{
+		MockAPI api(es3.data());
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+		QEXPECT_FAIL("", "Script exceptions are not handled correctly until Qt6", Continue);
+#endif
+		QVERIFY(es3->run(api) == false);
+		QCOMPARE(api.GetResult(), QVariant(QStringLiteral("an exception")));
+	}
 }
 
 } // namespace UnitTest
