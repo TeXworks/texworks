@@ -16,10 +16,15 @@ add_executable(test_Scripting
 	"${CMAKE_SOURCE_DIR}/src/scripting/Script.cpp"
 	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScriptInterface.cpp"
 	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScript.cpp"
-	"${CMAKE_SOURCE_DIR}/src/scripting/JSScriptInterface.cpp"
-	"${CMAKE_SOURCE_DIR}/src/scripting/JSScript.cpp"
 	"${CMAKE_SOURCE_DIR}/src/Settings.cpp"
 )
+if (WITH_QTSCRIPT)
+	target_sources(test_Scripting
+		PRIVATE "${CMAKE_SOURCE_DIR}/src/scripting/JSScriptInterface.cpp"
+		PRIVATE "${CMAKE_SOURCE_DIR}/src/scripting/JSScript.cpp"
+	)
+	target_compile_definitions(test_Scripting PRIVATE WITH_QTSCRIPT)
+endif (WITH_QTSCRIPT)
 target_compile_options(test_Scripting PRIVATE ${WARNING_OPTIONS})
 target_link_libraries(test_Scripting ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Scripting COMMAND test_Scripting WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")

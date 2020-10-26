@@ -26,7 +26,10 @@
 #include "TWApp.h"
 #include "TWScriptManager.h"
 #include "TWUtils.h"
-#include "scripting/JSScriptInterface.h"
+#include "scripting/ECMAScriptInterface.h"
+#if WITH_QTSCRIPT
+#	include "scripting/JSScriptInterface.h"
+#endif
 #include "scripting/ScriptAPI.h"
 #include "scripting/ScriptLanguageInterface.h"
 
@@ -180,8 +183,14 @@ TWScriptableWindow::doAboutScripts()
 			 TWApp::instance()->getScriptManager()->languages()) {
 		const Tw::Scripting::ScriptLanguageInterface * i = qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(plugin);
 		if(!i) continue;
+		const bool isPlugin = (
+#if WITH_QTSCRIPT
+			qobject_cast<const Tw::Scripting::JSScriptInterface*>(plugin) == nullptr &&
+#endif
+			qobject_cast<const Tw::Scripting::ECMAScriptInterface*>(plugin) == nullptr
+		);
 		aboutText += QString::fromLatin1("<li><a href=\"%1\">%2</a>").arg(i->scriptLanguageURL(), i->scriptLanguageName());
-		if (!enableScriptsPlugins && !qobject_cast<const Tw::Scripting::JSScriptInterface*>(plugin)) {
+		if (isPlugin && !enableScriptsPlugins) {
 			//: This string is appended to a script language name to indicate it is currently disabled
 			aboutText += QChar::fromLatin1(' ') + tr("(disabled in the preferences)");
 		}

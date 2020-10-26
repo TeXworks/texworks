@@ -23,7 +23,9 @@
 #include "Settings.h"
 #include "TWScriptManager.h"
 #include "scripting/ECMAScriptInterface.h"
-#include "scripting/JSScriptInterface.h"
+#if WITH_QTSCRIPT
+#	include "scripting/JSScriptInterface.h"
+#endif
 #include "scripting/ScriptAPI.h"
 #include "scripting/ScriptLanguageInterface.h"
 #include "utils/ResourcesLibrary.h"
@@ -77,7 +79,9 @@ TWScriptManager::saveDisabledList()
 void TWScriptManager::loadPlugins()
 {
 	// the JSScript interface isn't really a plugin, but provides the same interface
+#if WITH_QTSCRIPT
 	scriptLanguages += new Tw::Scripting::JSScriptInterface();
+#endif
 	scriptLanguages += new Tw::Scripting::ECMAScriptInterface();
 
 	// get any static plugins
@@ -170,7 +174,12 @@ void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & pro
 					continue;
 				}
 			}
-			const bool needsPlugin = (qobject_cast<const Tw::Scripting::JSScriptInterface*>(s->getScriptLanguagePlugin()) == nullptr && qobject_cast<const Tw::Scripting::ECMAScriptInterface*>(s->getScriptLanguagePlugin()) == nullptr);
+			const bool needsPlugin = (
+#if WITH_QTSCRIPT
+				qobject_cast<const Tw::Scripting::JSScriptInterface*>(s->getScriptLanguagePlugin()) == nullptr &&
+#endif
+				qobject_cast<const Tw::Scripting::ECMAScriptInterface*>(s->getScriptLanguagePlugin()) == nullptr
+			);
 			if (needsPlugin && !enableScriptsPlugins) {
 				// the plugin necessary to execute this scripts has been disabled
 				delete s;
@@ -286,7 +295,12 @@ void TWScriptManager::addScriptsInDirectory(TWScriptList *scriptList,
 			Tw::Scripting::ScriptLanguageInterface * i = qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(plugin);
 			if (!i)
 				continue;
-			const bool isPlugin = (qobject_cast<Tw::Scripting::JSScriptInterface*>(plugin) == nullptr && qobject_cast<Tw::Scripting::ECMAScriptInterface*>(plugin) == nullptr);
+			const bool isPlugin = (
+#if WITH_QTSCRIPT
+				qobject_cast<Tw::Scripting::JSScriptInterface*>(plugin) == nullptr &&
+#endif
+				qobject_cast<Tw::Scripting::ECMAScriptInterface*>(plugin) == nullptr
+			);
 			if (isPlugin && !scriptingPluginsEnabled)
 				continue;
 			if (!i->canHandleFile(info))
@@ -378,7 +392,12 @@ TWScriptManager::runScript(QObject* script, QObject * context, QVariant & result
 	if (!s || s->getType() != scriptType)
 		return false;
 
-	const bool needsPlugin = (qobject_cast<const Tw::Scripting::JSScriptInterface*>(s->getScriptLanguagePlugin()) == nullptr && qobject_cast<const Tw::Scripting::ECMAScriptInterface*>(s->getScriptLanguagePlugin()) == nullptr);
+	const bool needsPlugin = (
+#if WITH_QTSCRIPT
+		qobject_cast<const Tw::Scripting::JSScriptInterface*>(s->getScriptLanguagePlugin()) == nullptr &&
+#endif
+		qobject_cast<const Tw::Scripting::ECMAScriptInterface*>(s->getScriptLanguagePlugin()) == nullptr
+	);
 	if (needsPlugin && !settings.value(QString::fromLatin1("enableScriptingPlugins"), false).toBool())
 		return false;
 

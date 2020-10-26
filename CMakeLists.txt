@@ -233,8 +233,13 @@ use_cxx11()
 # ========================
 
 # Check for Qt5
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Script ScriptTools Xml LinguistTools Qml)
-set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::ScriptTools Qt5::Script Qt5::Xml Qt5::Qml)
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml OPTIONAL_COMPONENTS Script ScriptTools)
+set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::Xml Qt5::Qml)
+
+if (Qt5Script_FOUND AND Qt5ScriptTools_FOUND)
+  list(APPEND QT_LIBRARIES Qt5::ScriptTools Qt5::Script)
+  set(WITH_QTSCRIPT ON)
+endif()
 
 if (UNIX AND NOT APPLE)
   find_package(Qt5 REQUIRED COMPONENTS DBus)
@@ -494,6 +499,7 @@ message("")
 
 CONFIG_INFO("Build ID" ${TW_BUILD_ID})
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
+CONFIG_YESNO("QtScript scripting" ${WITH_QTSCRIPT})
 CONFIG_YESNO("Lua scripting plugin" LUA_FOUND)
 CONFIG_YESNO("Python scripting plugin" PYTHONLIBS_FOUND)
 IF( APPLE )

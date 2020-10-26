@@ -37,10 +37,8 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   document/TeXDocument.cpp
                   scripting/ECMAScriptInterface.cpp
                   scripting/ECMAScript.cpp
-                  scripting/JSScriptInterface.cpp
                   scripting/ScriptAPI.cpp
                   scripting/Script.cpp
-                  scripting/JSScript.cpp
                   ui/ClickableLabel.cpp
                   ui/ClosableTabWidget.cpp
                   ui/LineNumberWidget.cpp
@@ -88,8 +86,6 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   scripting/ScriptLanguageInterface.h
                   scripting/ScriptAPI.h
                   scripting/Script.h
-                  scripting/JSScriptInterface.h
-                  scripting/JSScript.h
                   ui/ClickableLabel.h
                   ui/ClosableTabWidget.h
                   ui/LineNumberWidget.h
@@ -111,6 +107,12 @@ elseif (APPLE)
 else ()
   list(APPEND TEXWORKS_SRCS InterProcessCommunicatorDBus.cpp)
 endif ()
+
+if (WITH_QTSCRIPT)
+  list(APPEND TEXWORKS_SRCS scripting/JSScriptInterface.cpp scripting/JSScript.cpp)
+  list(APPEND TEXWORKS_HDRS scripting/JSScriptInterface.h scripting/JSScript.h)
+  add_definitions(-DWITH_QTSCRIPT)
+endif (WITH_QTSCRIPT)
 
 set(TEXWORKS_UIS CitationSelectDialog.ui
                  CompletingEdit.ui
