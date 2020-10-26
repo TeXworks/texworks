@@ -22,7 +22,6 @@
 #include "scripting/ScriptAPIInterface.h"
 
 #include <QJSEngine>
-#include <QTextStream>
 
 namespace Tw {
 namespace Scripting {
@@ -34,9 +33,7 @@ bool ECMAScript::execute(ScriptAPIInterface *tw) const
 		// handle error
 		return false;
 	}
-	QTextStream stream(&scriptFile);
-	stream.setCodec(m_Codec);
-	QString contents = stream.readAll();
+	QString contents = m_Codec->toUnicode(scriptFile.readAll());
 	scriptFile.close();
 
 
@@ -46,7 +43,12 @@ bool ECMAScript::execute(ScriptAPIInterface *tw) const
 #endif
 	QJSValue twObject = engine.newQObject(tw->clone());
 	engine.globalObject().setProperty(QString::fromLatin1("TW"), twObject);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	QJSValue val = engine.evaluate(contents, m_Filename);
+#else
+	QStringList exceptionStackTrace;
+	QJSValue val = engine.evaluate(contents, m_Filename, 1, &exceptionStackTrace);
+#endif
 
 	if (val.isError()) {
 		tw->SetResult(val.toString() +
@@ -54,6 +56,12 @@ bool ECMAScript::execute(ScriptAPIInterface *tw) const
 									val.property(QStringLiteral("stack")).toString());
 		return false;
 	}
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	if (!exceptionStackTrace.isEmpty()) {
+		tw->SetResult(val.toString());
+		return false;
+	}
+#endif
 	if (!val.isUndefined())
 		tw->SetResult(val.toVariant());
 	return true;

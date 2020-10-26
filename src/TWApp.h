@@ -33,6 +33,7 @@
 #endif
 #include <QSettings>
 #include <QString>
+#include <QTextCodec>
 #include <QVariant>
 
 class Engine;

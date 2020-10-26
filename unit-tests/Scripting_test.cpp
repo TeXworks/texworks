@@ -340,7 +340,8 @@ void TestScripting::mocks()
 	QCOMPARE(api.createUI(QString()), static_cast<QWidget*>(nullptr));
 	QCOMPARE(api.findChildWidget(nullptr, QString()), static_cast<QWidget*>(nullptr));
 	QVERIFY(api.makeConnection(nullptr, QString(), nullptr, QString()) == false);
-	QCOMPARE(api.getDictionaryList(), {});
+	QMap<QString, QVariant> emptyDictList;
+	QCOMPARE(api.getDictionaryList(), emptyDictList);
 	QCOMPARE(api.getEngineList(), {});
 	QVERIFY(api.mayExecuteSystemCommand(QString(), nullptr) == false);
 	QVERIFY(api.mayWriteFile(QString(), nullptr) == false);

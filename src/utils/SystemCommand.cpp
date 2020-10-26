@@ -31,7 +31,11 @@ SystemCommand::SystemCommand(QObject* parent, const bool isOutputWanted /* = tru
 {
 	connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(processOutput()));
 	connect(this, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
+#if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
 	connect(this, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
+#else
+	connect(this, SIGNAL(errorOccurred(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
+#endif
 	finishedSuccessfully = false;
 	finished = false;
 }

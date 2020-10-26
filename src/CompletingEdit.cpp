@@ -190,8 +190,13 @@ void CompletingEdit::updateColors()
 	Q_ASSERT(currentLineFormat);
 	Q_ASSERT(lineNumberArea);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	qreal bgR{1}, bgG{1}, bgB{1};
 	qreal fgR{0}, fgG{0}, fgB{0};
+#else
+	float bgR{1}, bgG{1}, bgB{1};
+	float fgR{0}, fgG{0}, fgB{0};
+#endif
 
 	palette().color(QPalette::Active, QPalette::Base).getRgbF(&bgR, &bgG, &bgB);
 	palette().color(QPalette::Active, QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
@@ -1039,7 +1044,9 @@ void CompletingEdit::loadCompletionsFromFile(QStandardItemModel *model, const QS
 	QFile	completionFile(filename);
 	if (completionFile.exists() && completionFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		QTextStream in(&completionFile);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		in.setCodec("UTF-8");
+#endif
 		in.setAutoDetectUnicode(true);
 		QList<QStandardItem*> row;
 		while (true) {

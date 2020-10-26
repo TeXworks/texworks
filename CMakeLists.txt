@@ -73,6 +73,11 @@ if(POLICY CMP0058)
   cmake_policy(SET CMP0058 NEW)
 endif()
 
+# Prefer newer OpenGL libraries over legacy ones
+if (POLICY CMP0072)
+  cmake_policy(SET CMP0072 NEW)
+endif ()
+
 # Silence warning about option() treating variables differently on the first run
 if(POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
@@ -232,40 +237,67 @@ use_cxx11()
 # Dependency Configuration
 # ========================
 
-# Check for Qt5
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml OPTIONAL_COMPONENTS Script ScriptTools)
-set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::Xml Qt5::Qml)
+if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
+	# Check for Qt6
+	find_package(Qt6 REQUIRED COMPONENTS Core Core5Compat Widgets Gui UiTools Concurrent Xml LinguistTools Qml)
+	set(QT_LIBRARIES Qt6::Core Qt6::Core5Compat Qt6::Widgets Qt6::Gui Qt6::UiTools Qt6::Concurrent Qt6::Xml Qt6::Qml)
 
-if (Qt5Script_FOUND AND Qt5ScriptTools_FOUND)
-  list(APPEND QT_LIBRARIES Qt5::ScriptTools Qt5::Script)
-  set(WITH_QTSCRIPT ON)
-endif()
+	if (UNIX AND NOT APPLE)
+	  find_package(Qt6 REQUIRED COMPONENTS DBus)
+	  list(APPEND QT_LIBRARIES Qt6::DBus)
+	endif ()
 
-if (UNIX AND NOT APPLE)
-  find_package(Qt5 REQUIRED COMPONENTS DBus)
-  list(APPEND QT_LIBRARIES Qt5::DBus)
+	if (WITH_TESTS)
+	  find_package(Qt6 OPTIONAL_COMPONENTS Test QUIET)
+	  if (NOT Qt6Test_FOUND)
+		set(WITH_TESTS OFF)
+	  else ()
+		list(APPEND QT_LIBRARIES Qt6::Test)
+	  endif ()
+	endif ()
+
+	if (WIN32 AND NOT BUILD_SHARED_LIBS)
+	  find_package(Qt6WindowsPlatformSupport)
+	  list(APPEND QT_LIBRARIES Qt6::WindowsPlatformSupport)
+	endif ()
+
+	set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")
+	set(QT_VERSION_MINOR "${Qt6_VERSION_MINOR}")
+	set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
+else ()
+	# Check for Qt5
+	find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml OPTIONAL_COMPONENTS Script ScriptTools)
+	set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::Xml Qt5::Qml)
+
+	if (Qt5Script_FOUND AND Qt5ScriptTools_FOUND)
+		list(APPEND QT_LIBRARIES Qt5::ScriptTools Qt5::Script)
+		set(WITH_QTSCRIPT ON)
+	endif()
+
+	if (UNIX AND NOT APPLE)
+	  find_package(Qt5 REQUIRED COMPONENTS DBus)
+	  list(APPEND QT_LIBRARIES Qt5::DBus)
+	endif ()
+
+	if (WITH_TESTS)
+	  find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
+	  if (NOT Qt5Test_FOUND)
+		set(WITH_TESTS OFF)
+	  else ()
+		list(APPEND QT_LIBRARIES Qt5::Test)
+	  endif ()
+	endif ()
+
+	if (WIN32 AND NOT BUILD_SHARED_LIBS)
+	  find_package(Qt5WindowsPlatformSupport)
+	  list(APPEND QT_LIBRARIES Qt5::WindowsPlatformSupport)
+	endif ()
+
+	set(QT_VERSION_MAJOR "${Qt5_VERSION_MAJOR}")
+	set(QT_VERSION_MINOR "${Qt5_VERSION_MINOR}")
+	set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
+	set(WITH_QTSCRIPT ON)
 endif ()
-
-if (WITH_TESTS)
-  find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
-  if (NOT Qt5Test_FOUND)
-    set(WITH_TESTS OFF)
-  else ()
-    list(APPEND QT_LIBRARIES Qt5::Test)
-  endif ()
-endif ()
-
-if (WIN32 AND NOT BUILD_SHARED_LIBS)
-  find_package(Qt5WindowsPlatformSupport)
-  list(APPEND QT_LIBRARIES Qt5::WindowsPlatformSupport)
-endif ()
-
-# Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
-# etc. which is used here.
-string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
-string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
-string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
-
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
 # to include the correct Qt headers (as QTVERSION is not defined before any Qt
@@ -499,7 +531,7 @@ message("")
 
 message("  Scripting")
 CONFIG_YESNO("  ECMA scripting" ON)
-CONFIG_YESNO("  QtScript scripting" ${WITH_QTSCRIPT})
+CONFIG_YESNO("  QtScript scripting" WITH_QTSCRIPT)
 CONFIG_YESNO("  Lua scripting plugin" LUA_FOUND)
 CONFIG_YESNO("  Python scripting plugin" PYTHONLIBS_FOUND)
 message("")

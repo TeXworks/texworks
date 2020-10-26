@@ -30,7 +30,6 @@
 #include "TeXHighlighter.h"
 #include "document/SpellChecker.h"
 
-#include <QDesktopWidget>
 #include <QFileDialog>
 #include <QFontDatabase>
 #include <QMainWindow>
@@ -363,7 +362,7 @@ void PrefsDialog::restoreDefaults()
 				break;
 			}
 
-			resolution->setDpi(QApplication::desktop()->physicalDpiX());
+			resolution->setDpi(QApplication::screens().first()->physicalDotsPerInch());
 
 			switch (TWSynchronizer::kDefault_Resolution_ToTeX) {
 				case TWSynchronizer::CharacterResolution:
@@ -623,7 +622,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			break;
 	}
 
-	double oldResolution = settings.value(QString::fromLatin1("previewResolution"), QApplication::desktop()->physicalDpiX()).toDouble();
+	double oldResolution = settings.value(QString::fromLatin1("previewResolution"), QApplication::screens().first()->physicalDotsPerInch()).toDouble();
 	dlg.resolution->setDpi(oldResolution);
 
 	int oldSyncToTeX = settings.value(QString::fromLatin1("syncResolutionToTeX"), TWSynchronizer::kDefault_Resolution_ToTeX).toInt();

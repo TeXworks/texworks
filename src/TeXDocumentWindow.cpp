@@ -58,7 +58,6 @@
 #include <QStringList>
 #include <QTextBrowser>
 #include <QTextCodec>
-#include <QTextStream>
 #include <QUrl>
 
 #if defined(Q_OS_WIN)
@@ -1003,9 +1002,7 @@ QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 	if (file.atEnd())
 		return QStringLiteral("");
 
-	QTextStream in(&file);
-	in.setCodec(*codecUsed);
-	QString text = in.readAll();
+	QString text = (*codecUsed)->toUnicode(file.readAll());
 
 	if (lineEndings) {
 		if (text.contains(QLatin1String("\r\n"))) {
@@ -1874,7 +1871,11 @@ void TeXDocumentWindow::toggleCase()
 {
 	QString theText = textEdit->textCursor().selectedText();
 	for (int i = 0; i < theText.length(); ++i) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		QCharRef ch = theText[i];
+#else
+		QChar & ch = theText[i];
+#endif
 		if (ch.isLower())
 			ch = ch.toUpper();
 		else
@@ -2141,7 +2142,7 @@ void TeXDocumentWindow::doHardWrap(int mode, int lineWidth, bool rewrap)
 				newText.append(QChar::fromLatin1(' '));
 				curLength += 1;
 			}
-			newText.append(line.leftRef(breakPoint));
+			newText.append(line.left(breakPoint));
 			curLength += breakPoint;
 			line.remove(0, breakPoint + matchLen);
 		}

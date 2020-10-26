@@ -21,6 +21,7 @@
 #ifndef SCREENCALIBRATIONWIDGET_H
 #define SCREENCALIBRATIONWIDGET_H
 
+#include <QActionGroup>
 #include <QMenu>
 #include <QSignalMapper>
 #include <QWidget>

@@ -59,7 +59,7 @@ void ClickableLabel::mouseReleaseEvent(QMouseEvent * event)
 			case Qt::RightButton:
 				emit mouseRightClick(event);
 				break;
-			case Qt::MidButton:
+			case Qt::MiddleButton:
 				emit mouseMiddleClick(event);
 				break;
 			default:

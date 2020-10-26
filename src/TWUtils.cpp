@@ -33,7 +33,9 @@
 #include <QAction>
 #include <QCompleter>
 #include <QDateTime>
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 #include <QDesktopWidget>
+#endif
 #include <QDirIterator>
 #include <QEvent>
 #include <QFile>
@@ -61,7 +63,9 @@ insertItemIfPresent(QFileInfo& fi, QMenu* helpMenu, QAction* before, QSignalMapp
 			QFile titleFile(titlefileInfo.absoluteFilePath());
 			titleFile.open(QIODevice::ReadOnly | QIODevice::Text);
 			QTextStream titleStream(&titleFile);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 			titleStream.setCodec("UTF-8");
+#endif
 			title = titleStream.readLine();
 		}
 		QAction* action = new QAction(title, helpMenu);
@@ -397,8 +401,12 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 
 void TWUtils::ensureOnScreen(QWidget *window)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect screenRect = desktop->availableGeometry(window);
+#else
+	QRect screenRect = window->screen()->availableGeometry();
+#endif
 	QRect adjustedFrame = window->frameGeometry();
 	if (adjustedFrame.width() > screenRect.width())
 		adjustedFrame.setWidth(screenRect.width());
@@ -422,16 +430,24 @@ void TWUtils::ensureOnScreen(QWidget *window)
 
 void TWUtils::zoomToScreen(QWidget *window)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect screenRect = desktop->availableGeometry(window);
+#else
+	QRect screenRect = window->screen()->availableGeometry();
+#endif
 	screenRect.setTop(screenRect.top() + window->geometry().y() - window->y());
 	window->setGeometry(screenRect);
 }
 
 void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect r = desktop->availableGeometry(window);
+#else
+	QRect r = window->screen()->availableGeometry();
+#endif
 	int wDiff = window->frameGeometry().width() - window->width();
 	int hDiff = window->frameGeometry().height() - window->height();
 
@@ -486,11 +502,14 @@ void TWUtils::zoomToHalfScreen(QWidget *window, bool rhs)
 
 void TWUtils::sideBySide(QWidget *window1, QWidget *window2)
 {
-	QDesktopWidget *desktop = QApplication::desktop();
-
 	// if the windows reside on the same screen zoom each so that it occupies
 	// half of that screen
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	QDesktopWidget *desktop = QApplication::desktop();
 	if (desktop->screenNumber(window1) == desktop->screenNumber(window2)) {
+#else
+	if (window1->screen() == window2->screen()) {
+#endif
 		zoomToHalfScreen(window1, false);
 		zoomToHalfScreen(window2, true);
 	}

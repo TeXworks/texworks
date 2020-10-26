@@ -217,7 +217,7 @@ target_add_qt_translations(TeXworks
   QM_FILES ${QT_TRANS_QM}
 )
 
-get_target_property(lupdatePath Qt5::lupdate LOCATION)
+get_target_property(lupdatePath Qt${QT_VERSION_MAJOR}::lupdate LOCATION)
 get_target_property(_sources TeXworks SOURCES)
 add_custom_target(${PROJECT_NAME}_UpdateTranslations COMMAND "${CMAKE_COMMAND}"
   "-DOUTPUTFILE=\"${CMAKE_SOURCE_DIR}/trans/${PROJECT_NAME}_trans.pro\""

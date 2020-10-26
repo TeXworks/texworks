@@ -324,7 +324,7 @@ int TWSyncTeXSynchronizer::_findCorrespondingPosition(const QString & srcContext
   // Search to the right
   // FIXME: Possibly use some form of bisectioning
   for (deltaBack = 1; col + deltaBack <= srcContext.length(); ++deltaBack) {
-    int c = destContext.count(srcContext.midRef(col - deltaFront, deltaBack + deltaFront));
+    int c = destContext.count(srcContext.mid(col - deltaFront, deltaBack + deltaFront));
     found = (c > 0);
     unique = (c == 1);
     if (!found || unique)
@@ -342,7 +342,7 @@ int TWSyncTeXSynchronizer::_findCorrespondingPosition(const QString & srcContext
     // Search to the left
     // FIXME: Possibly use some form of bisectioning
     for (deltaFront = 1; deltaFront <= col; ++deltaFront) {
-      int c = destContext.count(srcContext.midRef(col - deltaFront, deltaBack + deltaFront));
+      int c = destContext.count(srcContext.mid(col - deltaFront, deltaBack + deltaFront));
       found = (c > 0);
       unique = (c == 1);
       if (!found || unique)
@@ -360,5 +360,5 @@ int TWSyncTeXSynchronizer::_findCorrespondingPosition(const QString & srcContext
   // If we did not find any match return -1
   if (!found || (deltaBack == 0 && deltaFront == 0))
     return -1;
-  return destContext.indexOf(srcContext.midRef(col - deltaFront, deltaBack + deltaFront)) + deltaFront;
+  return destContext.indexOf(srcContext.mid(col - deltaFront, deltaBack + deltaFront)) + deltaFront;
 }

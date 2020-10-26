@@ -30,7 +30,9 @@
 
 #include <QCloseEvent>
 #include <QDesktopServices>
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 #include <QDesktopWidget>
+#endif
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QInputDialog>
@@ -286,8 +288,13 @@ void PDFDocumentWindow::init()
 	}
 	resetMagnifier();
 
-	if (settings.contains(QString::fromLatin1("previewResolution")))
+	if (settings.contains(QString::fromLatin1("previewResolution"))) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 		pdfWidget->setResolution(settings.value(QString::fromLatin1("previewResolution"), QApplication::desktop()->logicalDpiX()).toInt());
+#else
+		pdfWidget->setResolution(settings.value(QString::fromLatin1("previewResolution"), screen()->logicalDotsPerInch()).toInt());
+#endif
+	}
 
 	TWUtils::applyToolbarOptions(this, settings.value(QString::fromLatin1("toolBarIconSize"), 2).toInt(), settings.value(QString::fromLatin1("toolBarShowText"), false).toBool());
 

@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 			clp.at(i).processed = true;
 			QTextStream strm(stdout);
 			if (Tw::Utils::VersionInfo::isGitInfoAvailable())
-				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(Tw::Utils::VersionInfo::versionString(), Tw::Utils::VersionInfo::buildIdString(), Tw::Utils::VersionInfo::gitCommitHash(), Tw::Utils::VersionInfo::gitCommitDate().toLocalTime().toString(Qt::SystemLocaleShortDate));
+				strm << QString::fromUtf8("TeXworks %1 (%2) [r.%3, %4]\n\n").arg(Tw::Utils::VersionInfo::versionString(), Tw::Utils::VersionInfo::buildIdString(), Tw::Utils::VersionInfo::gitCommitHash(), QLocale::system().toString(Tw::Utils::VersionInfo::gitCommitDate().toLocalTime(), QLocale::ShortFormat));
 			else
 				strm << QString::fromUtf8("TeXworks %1 (%2)\n\n").arg(Tw::Utils::VersionInfo::versionString(), Tw::Utils::VersionInfo::buildIdString());
 			strm << QString::fromUtf8("\

@@ -221,11 +221,11 @@ void BibTeXFile::parseEntry(Entry & e, const QString & block)
 
 			int end = findBlock(block, i, startDelim, endDelim);
 			if (end < 0) {
-				val += block.midRef(i);
+				val += block.mid(i);
 				i = block.size();
 			}
 			else {
-				val += block.midRef(i, end - i + 1);
+				val += block.mid(i, end - i + 1);
 				i = end;
 			}
 		}

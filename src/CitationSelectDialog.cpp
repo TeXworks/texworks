@@ -313,7 +313,11 @@ bool CitationProxyModel::filterAcceptsRow(int source_row, const QModelIndex &sou
 	static QLatin1String space(" ");
 	const BibTeXFile::Entry * e = static_cast<const BibTeXFile::Entry*>(sourceModel()->index(source_row, 1).internalPointer());
 	QString haystack = e->key() + space + e->typeString() + space + e->author() + space + e->title() + space + e->year() + space + e->howPublished();
+#if QT_VERSION < QT_VERSION_CHECK(5, 12, 0)
 	QStringList needles = filterRegExp().pattern().split(QChar::fromLatin1(' '), SkipEmptyParts);
+#else
+	QStringList needles = filterRegularExpression().pattern().split(QChar::fromLatin1(' '), SkipEmptyParts);
+#endif
 
 	haystack = haystack.toLower();
 

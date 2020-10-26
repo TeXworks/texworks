@@ -340,8 +340,13 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 							 genericArgs[8],
 							 genericArgs[9])
 		   ) {
-			if (retValBuffer)
+			if (retValBuffer) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 				result = QVariant(QMetaType::type(mm.typeName()), retValBuffer);
+#else
+				result = QVariant(QMetaType::fromName(mm.typeName()), retValBuffer);
+#endif
+			}
 			else if (typeName == QString::fromLatin1("QVariant"))
 				; // don't do anything here; the return valus is already in result
 			else

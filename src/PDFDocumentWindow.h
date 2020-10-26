@@ -72,7 +72,6 @@ public:
 	QString fileName() const
 		{ return curFile; }
 
-	void zoomToRight(QWidget *otherWindow);
 	void showScale(qreal scale);
 	void showPage(int page);
 	void setResolution(const double res);

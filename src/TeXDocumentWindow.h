@@ -236,7 +236,6 @@ private:
 	bool openPdfIfAvailable(bool show);
 	void replaceSelection(const QString& newText);
 	void doHardWrap(int mode, int lineWidth, bool rewrap);
-	void zoomToLeft(QWidget *otherWindow);
 	QTextCursor doSearch(QTextDocument *theDoc, const QString& searchText, const QRegularExpression *regex,
 						 QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
 	int doReplaceAll(const QString& searchText, QRegularExpression* regex, const QString& replacement,
