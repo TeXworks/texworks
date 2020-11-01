@@ -1323,7 +1323,7 @@ bool TeXDocumentWindow::getPreviewFileName(QString &pdfName)
 	if (rootFilePath.isEmpty())
 		return false;
 	QFileInfo fi(rootFilePath);
-	pdfName = fi.canonicalPath() + QChar::fromLatin1('/') + fi.completeBaseName() + QLatin1String(".pdf");
+	pdfName = QDir(fi.canonicalPath()).filePath(fi.completeBaseName() + QLatin1String(".pdf"));
 	fi.setFile(pdfName);
 	return fi.exists();
 }
