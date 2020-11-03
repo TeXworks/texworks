@@ -10,7 +10,7 @@ export poppler_ARCHIVE=poppler-${poppler_VERSION}.tar.xz
 export poppler_DIRNAME=poppler-${poppler_VERSION}
 export poppler_URL=https://poppler.freedesktop.org/${poppler_ARCHIVE}
 
-export popplerdata_VERSION=0.4.9
+export popplerdata_VERSION=0.4.10
 export popplerdata_ARCHIVE=poppler-data-${popplerdata_VERSION}.tar.gz
 export popplerdata_DIRNAME=poppler-data-${popplerdata_VERSION}
 export popplerdata_URL=https://poppler.freedesktop.org/${popplerdata_ARCHIVE}
