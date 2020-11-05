@@ -1,4 +1,4 @@
-image: Visual Studio 2015
+image: Visual Studio 2019
 
 version: '0.7_{build}'
 shallow_clone: true
@@ -12,7 +12,7 @@ environment:
   matrix:
     - MSYSTEM: MINGW64
       BASH_PATH: C:\msys64\usr\bin\bash
-      QT5: C:\Qt\5.12\mingw73_64
+      QT5: C:\Qt\5.15\mingw81_64
 
 install:
   - set Path=%QT5%\bin;%Path%

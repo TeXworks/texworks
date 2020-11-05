@@ -7,11 +7,16 @@
 print_headline "Installing dependencies"
 pacman --noconfirm -S mingw-w64-x86_64-freetype mingw-w64-x86_64-openjpeg2 mingw-w64-x86_64-lcms2 mingw-w64-x86_64-libpng mingw-w64-x86_64-libtiff mingw-w64-x86_64-curl mingw-w64-x86_64-lua
 
+# /mingw64/ssl/certs/ca-bundle.crt seems to be invalid (empty)
+# It is installed by mingw-w64-x86_64-ca-certificates, a dependency of curl
+# It is required for verifying https connections
+# FIXME: As a temporary workaround, use --insecure with curl
+
 print_headline "Installing poppler-data"
 print_info "Downloading poppler-data"
 mkdir -p /c/projects/poppler-data
 cd /c/projects/poppler-data
-curl -sSL -O "${popplerdata_URL}"
+curl -sSL -O --insecure "${popplerdata_URL}"
 # FIXME: Check checksum
 print_info "Extracting poppler-data"
 7z x "${popplerdata_ARCHIVE}" -so | 7z x -si -ttar
@@ -23,7 +28,7 @@ print_headline "Installing poppler"
 print_info "Downloading poppler"
 mkdir -p /c/projects/poppler
 cd /c/projects/poppler
-curl -sSL -O "${poppler_URL}"
+curl -sSL -O --insecure "${poppler_URL}"
 # FIXME: Check checksum
 print_info "Extracting poppler"
 7z x "${poppler_ARCHIVE}" -so | 7z x -si -ttar
@@ -41,7 +46,7 @@ print_headline "Installing hunspell"
 print_info "Downloading hunspell"
 mkdir -p /c/projects/hunspell
 cd /c/projects/hunspell
-curl -sSL -O "${hunspell_URL}"
+curl -sSL -O --insecure "${hunspell_URL}"
 # FIXME: Check checksum
 print_info "Extracting hunspell"
 7z x "${hunspell_ARCHIVE}" -so | 7z x -si -ttar
