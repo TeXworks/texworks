@@ -96,8 +96,8 @@ PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
   // in turn sets up other variables such as _toolAccessors
   setMouseMode(MouseMode_MagnifyingGlass);
 
-  connect(&_searchResultWatcher, SIGNAL(resultReadyAt(int)), this, SLOT(searchResultReady(int)));
-  connect(&_searchResultWatcher, SIGNAL(progressValueChanged(int)), this, SLOT(searchProgressValueChanged(int)));
+  connect(&_searchResultWatcher, &QFutureWatcher< QList<Backend::SearchResult> >::resultReadyAt, this, &PDFDocumentView::searchResultReady);
+  connect(&_searchResultWatcher, &QFutureWatcher< QList<Backend::SearchResult> >::progressValueChanged, this, &PDFDocumentView::searchProgressValueChanged);
 }
 
 PDFDocumentView::~PDFDocumentView()
@@ -133,14 +133,14 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
     // **TODO:**
     // _May want to consider not doing this by default. It is conceivable to have
     // a View that would ignore page jumps that other scenes would respond to._
-    connect(_pdf_scene.data(), SIGNAL(pageChangeRequested(int)), this, SLOT(goToPage(int)));
-    connect(_pdf_scene.data(), SIGNAL(pdfActionTriggered(const QtPDF::PDFAction*)), this, SLOT(pdfActionTriggered(const QtPDF::PDFAction*)));
-    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)), this, SLOT(reinitializeFromScene()));
+    connect(_pdf_scene.data(), &PDFDocumentScene::pageChangeRequested, this, [=](int pageNum){ this->goToPage(pageNum); });
+    connect(_pdf_scene.data(), &PDFDocumentScene::pdfActionTriggered, this, &PDFDocumentView::pdfActionTriggered);
+    connect(_pdf_scene.data(), &PDFDocumentScene::documentChanged, this, &PDFDocumentView::reinitializeFromScene);
     // The connection PDFDocumentScene::documentChanged > PDFDocumentView::changedDocument
     // must be last in this list to ensure all internal states are updated (e.g.
     // in _lastPage in reinitializeFromScene()) before the signal is
     // communicated on to the "outside world".
-    connect(_pdf_scene.data(), SIGNAL(documentChanged(const QWeakPointer<QtPDF::Backend::Document>)), this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)));
+    connect(_pdf_scene.data(), &PDFDocumentScene::documentChanged, this, &PDFDocumentView::changedDocument);
   }
 
   // ensure the zoom is reset if we load a new document
@@ -249,7 +249,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
     case Dock_TableOfContents:
     {
       PDFToCInfoWidget * tocWidget = new PDFToCInfoWidget(dock);
-      connect(tocWidget, SIGNAL(actionTriggered(const QtPDF::PDFAction*)), this, SLOT(pdfActionTriggered(const QtPDF::PDFAction*)));
+      connect(tocWidget, &PDFToCInfoWidget::actionTriggered, this, &PDFDocumentView::pdfActionTriggered);
       infoWidget = tocWidget;
       break;
     }
@@ -273,11 +273,11 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
   }
   if (_pdf_scene && _pdf_scene->document())
       infoWidget->initFromDocument(_pdf_scene->document());
-  connect(this, SIGNAL(changedDocument(const QWeakPointer<QtPDF::Backend::Document>)), infoWidget, SLOT(initFromDocument(const QWeakPointer<QtPDF::Backend::Document>)));
+  connect(this, &PDFDocumentView::changedDocument, infoWidget, &PDFDocumentInfoWidget::initFromDocument);
 
   dock->setWindowTitle(infoWidget->windowTitle());
   dock->setObjectName(infoWidget->objectName() + QString::fromLatin1(".DockWidget"));
-  connect(infoWidget, SIGNAL(windowTitleChanged(const QString &)), dock, SLOT(setWindowTitle(const QString &)));
+  connect(infoWidget, &PDFDocumentInfoWidget::windowTitleChanged, dock, &QDockWidget::setWindowTitle);
 
   // We don't want docks to (need to) take up a lot of space. If the infoWidget
   // can't shrink, we thus put it into a scroll area that can
@@ -1837,7 +1837,7 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
     _dpiY = 72;
 #endif
 
-  connect(&_pageLayout, SIGNAL(layoutChanged(const QRectF)), this, SLOT(pageLayoutChanged(const QRectF)));
+  connect(&_pageLayout, &PDFPageLayout::layoutChanged, this, static_cast<void (PDFDocumentScene::*)(const QRectF&)>(&PDFDocumentScene::pageLayoutChanged));
 
   // Initialize the unlock widget
   {
@@ -1849,7 +1849,7 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
     _unlockWidgetLockText = new QLabel(_unlockWidget);
     _unlockWidgetUnlockButton = new QPushButton(_unlockWidget);
 
-    connect(_unlockWidgetUnlockButton, SIGNAL(clicked()), this, SLOT(doUnlockDialog()));
+    connect(_unlockWidgetUnlockButton, &QPushButton::clicked, this, &PDFDocumentScene::doUnlockDialog);
 
     layout->addWidget(_unlockWidgetLockIcon);
     layout->addWidget(_unlockWidgetLockText);
@@ -1874,8 +1874,8 @@ PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObj
   // time.
   _reloadTimer.setSingleShot(true);
   _reloadTimer.setInterval(500);
-  connect(&_reloadTimer, SIGNAL(timeout()), this, SLOT(reloadDocument()));
-  connect(&_fileWatcher, SIGNAL(fileChanged(const QString &)), &_reloadTimer, SLOT(start()));
+  connect(&_reloadTimer, &QTimer::timeout, this, &PDFDocumentScene::reloadDocument);
+  connect(&_fileWatcher, &QFileSystemWatcher::fileChanged, &_reloadTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
   setWatchForDocumentChangesOnDisk(true);
 
   reinitializeScene();
@@ -2023,7 +2023,11 @@ void PDFDocumentScene::doUnlockDialog()
       // it until control returns to the event queue. Problem: slots connected
       // to documentChanged() will receive the new doc, but the scene itself
       // will not have changed, yet.
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
       QTimer::singleShot(1, this, SLOT(finishUnlock()));
+#else
+      QTimer::singleShot(1, this, &PDFDocumentScene::finishUnlock);
+#endif
     }
     else
       QMessageBox::information(nullptr, tr("Incorrect password"), tr("The password you entered was incorrect."));
@@ -2308,7 +2312,11 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
       // Trigger an update as soon as possible (without recursion) to proceed
       // with the animation.
       if (widget) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
         QTimer::singleShot(1, widget, SLOT(update()));
+#else
+        QTimer::singleShot(1, widget, static_cast<void (QWidget::*)()>(&QWidget::update));
+#endif
       }
     }
     else {
@@ -2841,7 +2849,7 @@ PDFToCInfoWidget::PDFToCInfoWidget(QWidget * parent) :
   _tree->setAlternatingRowColors(true);
   _tree->setHeaderHidden(true);
   _tree->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-  connect(_tree, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));
+  connect(_tree, &QTreeWidget::itemSelectionChanged, this, &PDFToCInfoWidget::itemSelectionChanged);
 
   layout->addWidget(_tree);
   setLayout(layout);
@@ -3410,7 +3418,7 @@ PDFAnnotationsInfoWidget::PDFAnnotationsInfoWidget(QWidget * parent) :
   layout->addWidget(_table);
   setLayout(layout);
 
-  connect(&_annotWatcher, SIGNAL(resultReadyAt(int)), this, SLOT(annotationsReady(int)));
+  connect(&_annotWatcher, &QFutureWatcher< QList< QSharedPointer<Annotation::AbstractAnnotation> > >::resultReadyAt, this, &PDFAnnotationsInfoWidget::annotationsReady);
   retranslateUi();
 }
 
