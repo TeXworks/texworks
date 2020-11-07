@@ -413,11 +413,19 @@ void TestQtPDF::page()
   QVERIFY(doc->page(-1).isNull());
   QVERIFY(doc->page(doc->numPages()).isNull());
 
-  if (pageSize.type() == QVariant::SizeF) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+  const bool isSizeF = (pageSize.type() == QVariant::SizeF);
+  const bool isVariantList = (pageSize.type() == QVariant::List);
+#else
+  const bool isSizeF = (pageSize.metaType().id() == QMetaType::QSizeF);
+  const bool isVariantList = (pageSize.metaType().id() == QMetaType::QVariantList);
+#endif
+
+  if (isSizeF) {
     for (int i = 0; i < doc->numPages(); ++i)
       pageSizes.append(pageSize.toSizeF());
   }
-  else if (pageSize.type() == QVariant::List) {
+  else if (isVariantList) {
     QVariantList l(pageSize.value<QVariantList>());
     while (pageSizes.length() < doc->numPages()) {
       for (int i = 0; i < l.length(); ++i)
