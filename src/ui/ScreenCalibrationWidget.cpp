@@ -41,7 +41,11 @@ ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget * parent)
 	connect(_sbDPI, SIGNAL(valueChanged(double)), this, SLOT(repaint()));
 	connect(_sbDPI, SIGNAL(valueChanged(double)), this, SIGNAL(dpiChanged(double)));
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	connect(&_unitSignalMapper, SIGNAL(mapped(int)), this, SLOT(setUnit(int)));
+#else
+	connect(&_unitSignalMapper, &QSignalMapper::mappedInt, this, &ScreenCalibrationWidget::setUnit);
+#endif
 
 	setToolTip(tr("Drag the ruler or change the value to match real world lengths.\nCommon paper sizes are marked as well (you may need to resize the dialog window to see them).\nUse the context menu to change the units."));
 

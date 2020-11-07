@@ -207,7 +207,11 @@ void PDFDocumentWindow::init()
 	connect(actionPageMode_Single, SIGNAL(triggered()), &pageModeSignalMapper, SLOT(map()));
 	connect(actionPageMode_Continuous, SIGNAL(triggered()), &pageModeSignalMapper, SLOT(map()));
 	connect(actionPageMode_TwoPagesContinuous, SIGNAL(triggered()), &pageModeSignalMapper, SLOT(map()));
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	connect(&pageModeSignalMapper, SIGNAL(mapped(int)), this, SLOT(setPageMode(int)));
+#else
+	connect(&pageModeSignalMapper, &QSignalMapper::mappedInt, this, &PDFDocumentWindow::setPageMode);
+#endif
 
 	if (actionZoom_In->shortcut() == QKeySequence(tr("Ctrl++")))
 		new QShortcut(QKeySequence(tr("Ctrl+=")), pdfWidget, SLOT(zoomIn()));
@@ -1086,7 +1090,11 @@ void PDFDocumentWindow::showScaleContextMenu(const QPoint pos)
 		connect(a, SIGNAL(triggered()), contextMenuMapper, SLOT(map()));
 		contextMenuMapper->setMapping(a, QString::fromLatin1(".5"));
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 		connect(contextMenuMapper, SIGNAL(mapped(const QString&)), this, SLOT(setScaleFromContextMenu(const QString&)));
+#else
+		connect(contextMenuMapper, &QSignalMapper::mappedString, this, &PDFDocumentWindow::setScaleFromContextMenu);
+#endif
 	}
 
 	contextMenu->popup(scaleLabel->mapToGlobal(pos));

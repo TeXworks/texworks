@@ -55,7 +55,11 @@ TWScriptableWindow::initScriptable(QMenu* theScriptsMenu,
 	connect(updateScriptsAction, SIGNAL(triggered()), TWApp::instance(), SLOT(updateScriptsList()));
 	connect(showScriptsFolderAction, SIGNAL(triggered()), TWApp::instance(), SLOT(showScriptsFolder()));
 	scriptMapper = new QSignalMapper(this);
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	connect(scriptMapper, SIGNAL(mapped(QObject*)), this, SLOT(runScript(QObject*)));
+#else
+	connect(scriptMapper, &QSignalMapper::mappedObject, this, [=](QObject * obj) { this->runScript(obj); });
+#endif
 	staticScriptMenuItemCount = scriptsMenu->actions().count();
 
 	connect(qApp, SIGNAL(scriptListChanged()), this, SLOT(updateScriptsMenu()));

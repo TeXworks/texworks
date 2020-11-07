@@ -274,7 +274,11 @@ void TeXDocumentWindow::init()
 	QStringList options = TeXHighlighter::syntaxOptions();
 
 	QSignalMapper *syntaxMapper = new QSignalMapper(this);
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	connect(syntaxMapper, SIGNAL(mapped(int)), this, SLOT(setSyntaxColoring(int)));
+#else
+	connect(syntaxMapper, &QSignalMapper::mappedInt, this, &TeXDocumentWindow::setSyntaxColoring);
+#endif
 	syntaxMapper->setMapping(actionSyntaxColoring_None, -1);
 	connect(actionSyntaxColoring_None, SIGNAL(triggered()), syntaxMapper, SLOT(map()));
 
@@ -308,7 +312,11 @@ void TeXDocumentWindow::init()
 	options = CompletingEdit::autoIndentModes();
 
 	QSignalMapper *indentMapper = new QSignalMapper(this);
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	connect(indentMapper, SIGNAL(mapped(int)), textEdit, SLOT(setAutoIndentMode(int)));
+#else
+	connect(indentMapper, &QSignalMapper::mappedInt, textEdit, &CompletingEdit::setAutoIndentMode);
+#endif
 	indentMapper->setMapping(actionAutoIndent_None, -1);
 	connect(actionAutoIndent_None, SIGNAL(triggered()), indentMapper, SLOT(map()));
 
@@ -332,7 +340,11 @@ void TeXDocumentWindow::init()
 	options = CompletingEdit::smartQuotesModes();
 
 	QSignalMapper *quotesMapper = new QSignalMapper(this);
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	connect(quotesMapper, SIGNAL(mapped(int)), textEdit, SLOT(setSmartQuotesMode(int)));
+#else
+	connect(quotesMapper, &QSignalMapper::mappedInt, textEdit, &CompletingEdit::setSmartQuotesMode);
+#endif
 	quotesMapper->setMapping(actionSmartQuotes_None, -1);
 	connect(actionSmartQuotes_None, SIGNAL(triggered()), quotesMapper, SLOT(map()));
 
@@ -362,7 +374,11 @@ void TeXDocumentWindow::init()
 
 	connect(actionNone, SIGNAL(triggered()), &dictSignalMapper, SLOT(map()));
 	dictSignalMapper.setMapping(actionNone, QString());
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	connect(&dictSignalMapper, SIGNAL(mapped(const QString&)), this, SLOT(setLangInternal(const QString&)));
+#else
+	connect(&dictSignalMapper, &QSignalMapper::mappedString, this, &TeXDocumentWindow::setLangInternal);
+#endif
 
 	QActionGroup *group = new QActionGroup(this);
 	group->addAction(actionNone);

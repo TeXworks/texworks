@@ -80,7 +80,11 @@ insertItemIfPresent(QFileInfo& fi, QMenu* helpMenu, QAction* before, QSignalMapp
 void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 {
 	QSignalMapper* mapper = new QSignalMapper(helpMenu);
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 	QObject::connect(mapper, SIGNAL(mapped(const QString&)), TWApp::instance(), SLOT(openHelpFile(const QString&)));
+#else
+	QObject::connect(mapper, &QSignalMapper::mappedString, TWApp::instance(), &TWApp::openHelpFile);
+#endif
 
 	QAction* before = nullptr;
 	int i{0}, firstSeparator = 0;

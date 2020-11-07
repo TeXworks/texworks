@@ -1132,7 +1132,11 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 						if (!defaultAction)
 							defaultAction = act;
 					}
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 					connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(correction(const QString&)));
+#else
+					connect(mapper, &QSignalMapper::mappedString, this, &CompletingEdit::correction);
+#endif
 				}
 				sep = menu->insertSeparator(menu->actions().first());
 //				QAction *add = new QAction(tr("Add to dictionary"), menu);
