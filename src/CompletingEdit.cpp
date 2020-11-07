@@ -1223,7 +1223,11 @@ void CompletingEdit::dragEnterEvent(QDragEnterEvent *event)
 
 void CompletingEdit::dropEvent(QDropEvent *event)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	QTextCursor dropCursor = cursorForPosition(event->pos());
+#else
+	QTextCursor dropCursor = cursorForPosition(event->position().toPoint());
+#endif
 	if (!dropCursor.isNull()) {
 		droppedOffset = dropCursor.position();
 		droppedLength = event->mimeData()->text().length();

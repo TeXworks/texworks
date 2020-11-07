@@ -226,7 +226,7 @@ void ScreenCalibrationWidget::mousePressEvent(QMouseEvent * event)
 	if (event->buttons() == Qt::LeftButton && _rulerRect.contains(event->pos(), true)) {
 		_mouseDownPos = event->pos();
 		double dpi = _sbDPI->value();
-		_mouseDownInches = (event->x() - _rulerRect.left()) / dpi;
+		_mouseDownInches = (event->pos().x() - _rulerRect.left()) / dpi;
 	}
 }
 
@@ -238,7 +238,7 @@ void ScreenCalibrationWidget::mouseMoveEvent(QMouseEvent * event)
 	if (!_isDragging && event->buttons() == Qt::LeftButton && (event->pos() - _mouseDownPos).manhattanLength() >= QApplication::startDragDistance())
 		_isDragging = true;
 	if (_isDragging) {
-		int px = event->x() - _rulerRect.left();
+		int px = event->pos().x() - _rulerRect.left();
 		if (px <= 0)
 			px = _mouseDownPos.x() - _rulerRect.left();
 		double dpi = px / _mouseDownInches;

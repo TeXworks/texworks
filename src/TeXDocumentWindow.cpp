@@ -3141,7 +3141,11 @@ void TeXDocumentWindow::dragMoveEvent(QDragMoveEvent *event)
 	if (event->proposedAction() == INSERT_DOCUMENT_TEXT || event->proposedAction() == CREATE_INCLUDE_COMMAND) {
 		if (dragSavedCursor.isNull())
 			dragSavedCursor = textEdit->textCursor();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		QTextCursor curs = textEdit->cursorForPosition(textEdit->mapFromGlobal(mapToGlobal(event->pos())));
+#else
+		QTextCursor curs = textEdit->cursorForPosition(textEdit->mapFromGlobal(mapToGlobal(event->position().toPoint())));
+#endif
 		textEdit->setTextCursor(curs);
 	}
 	else {
@@ -3169,7 +3173,11 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 		const QList<QUrl> urls = event->mimeData()->urls();
 		bool editBlockStarted = false;
 		QString text;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		QTextCursor curs = textEdit->cursorForPosition(textEdit->mapFromGlobal(mapToGlobal(event->pos())));
+#else
+		QTextCursor curs = textEdit->cursorForPosition(textEdit->mapFromGlobal(mapToGlobal(event->position().toPoint())));
+#endif
 		foreach (const QUrl& url, urls) {
 			if (url.scheme() == QString::fromLatin1("file")) {
 				QString fileName = url.toLocalFile();

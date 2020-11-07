@@ -257,6 +257,7 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 		// method
 		int j{0};
 		for (j = 0; j < arguments.count(); ++j) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 			// QVariant can be passed as-is
 			if (mm.parameterTypes()[j] == "QVariant")
 				continue;
@@ -270,6 +271,19 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 			// allow invalid===nullptr for pointers
 			if (typeOfArg == QVariant::Invalid && type == QMetaType::QObjectStar)
 				continue;
+#else
+			// QVariant can be passed as-is
+			if (mm.parameterType(j) == QMetaType::QVariant)
+				continue;
+
+			if (mm.parameterMetaType(j) == arguments[j].metaType())
+				continue;
+			if (arguments[j].canConvert(mm.parameterMetaType(j)))
+				continue;
+			// allow invalid===nullptr for pointers
+			if (arguments[j].metaType().id() == QMetaType::UnknownType && mm.parameterType(j) == QMetaType::QObjectStar)
+				continue;
+#endif
 			break;
 		}
 		if (j < arguments.count())
@@ -277,6 +291,7 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 
 		// Convert the arguments into QGenericArgument structures
 		for (j = 0; j < arguments.count() && j < 10; ++j) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 			typeName = QString::fromUtf8(mm.parameterTypes()[j].constData());
 			int type = QMetaType::type(qPrintable(typeName));
 			int typeOfArg = static_cast<int>(arguments[j].type());
@@ -303,6 +318,27 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 			// called directly; if this ever causes problems, think of another
 			// (better) way to do this
 			genericArgs.append(QGenericArgument(strTypeName, arguments[j].data()));
+#else
+			const QMetaType mt = mm.parameterMetaType(j);
+			if (mt.id() == QMetaType::QVariant) {
+				genericArgs.append(QGenericArgument(mt.name(), &arguments[j]));
+				continue;
+			}
+			if (arguments[j].canConvert(mt))
+				arguments[j].convert(mt);
+			else if (arguments[j].metaType().id() == QMetaType::UnknownType && mt.id() == QMetaType::QObjectStar) {
+				genericArgs.append(QGenericArgument(mt.name(), &myNullPtr));
+				continue;
+			}
+			// \TODO	handle failure during conversion
+			else { }
+
+			// Note: This line is a hack!
+			// QGenericArgument should not be
+			// called directly; if this ever causes problems, think of another
+			// (better) way to do this
+			genericArgs.append(QGenericArgument(mt.name(), arguments[j].constData()));
+#endif
 		}
 		// Fill up the list so we get the 10 values we need later on
 		for (; j < 10; ++j)
@@ -321,7 +357,11 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 			// Note: These two lines are a hack!
 			// QGenericReturnArgument should not be constructed directly; if
 			// this ever causes problems, think of another (better) way to do this
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 			retValBuffer = QMetaType::create(QMetaType::type(mm.typeName()));
+#else
+			retValBuffer = mm.returnMetaType().create();
+#endif
 			retValArg = QGenericReturnArgument(mm.typeName(), retValBuffer);
 		}
 
@@ -344,7 +384,7 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 				result = QVariant(QMetaType::type(mm.typeName()), retValBuffer);
 #else
-				result = QVariant(QMetaType::fromName(mm.typeName()), retValBuffer);
+				result = QVariant(mm.returnMetaType(), retValBuffer);
 #endif
 			}
 			else if (typeName == QString::fromLatin1("QVariant"))
@@ -354,13 +394,20 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 			status = Method_OK;
 		}
 
-		if (retValBuffer)
+		if (retValBuffer) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 			QMetaType::destroy(QMetaType::type(mm.typeName()), retValBuffer);
+#else
+			mm.returnMetaType().destroy(retValBuffer);
+#endif
+		}
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		for (j = 0; j < arguments.count() && j < 10; ++j) {
 			// we pushed the data on the heap, we need to remove it from there
 			delete[] genericArgs[j].name();
 		}
+#endif
 
 		return status;
 	}
@@ -379,7 +426,11 @@ void Script::setGlobal(const QString& key, const QVariant& val)
 
 	// For objects on the heap make sure we are notified when their lifetimes
 	// end so that we can remove them from our hash accordingly
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	switch (static_cast<QMetaType::Type>(val.type())) {
+#else
+	switch (val.metaType().id()) {
+#endif
 		case QMetaType::QObjectStar:
 			connect(v.value<QObject*>(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
 			break;
@@ -393,7 +444,11 @@ void Script::globalDestroyed(QObject * obj)
 	QHash<QString, QVariant>::iterator i = m_globals.begin();
 
 	while (i != m_globals.end()) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		switch (static_cast<QMetaType::Type>(i.value().type())) {
+#else
+		switch (i.value().metaType().id()) {
+#endif
 			case QMetaType::QObjectStar:
 				if (i.value().value<QObject*>() == obj)
 					i = m_globals.erase(i);

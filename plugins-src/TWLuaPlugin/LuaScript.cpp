@@ -118,7 +118,11 @@ int LuaScript::pushVariant(lua_State * L, const QVariant & v, const bool throwEr
 		return 1;
 	}
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	switch (static_cast<int>(v.type())) {
+#else
+	switch (v.metaType().id()) {
+#endif
 		case QVariant::Bool:
 			lua_pushboolean(L, v.toBool());
 			return 1;

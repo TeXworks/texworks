@@ -1091,9 +1091,15 @@ void TWApp::applyTranslation(const QString& locale)
 		names << QString::fromLatin1("qt_") + locale \
 					<< QString::fromLatin1("QtPDF_") + locale \
 					<< QString::fromLatin1(TEXWORKS_NAME) + QString::fromLatin1("_") + locale;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		directories << QString::fromLatin1(":/resfiles/translations") \
-								<< QLibraryInfo::location(QLibraryInfo::TranslationsPath) \
-								<< Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("translations"));
+					<< QLibraryInfo::location(QLibraryInfo::TranslationsPath) \
+					<< Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("translations"));
+#else
+		directories << QStringLiteral(":/resfiles/translations") \
+					<< QLibraryInfo::path(QLibraryInfo::TranslationsPath) \
+					<< Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("translations"));
+#endif
 
 		foreach (QString name, names) {
 			foreach (QString dir, directories) {
@@ -1213,7 +1219,11 @@ void TWApp::setGlobal(const QString& key, const QVariant& val)
 
 	// For objects on the heap make sure we are notified when their lifetimes
 	// end so that we can remove them from our hash accordingly
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	switch (static_cast<QMetaType::Type>(val.type())) {
+#else
+	switch (val.metaType().id()) {
+#endif
 		case QMetaType::QObjectStar:
 			connect(v.value<QObject*>(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
 			break;
@@ -1227,7 +1237,11 @@ void TWApp::globalDestroyed(QObject * obj)
 	QHash<QString, QVariant>::iterator i = m_globals.begin();
 
 	while (i != m_globals.end()) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		switch (static_cast<QMetaType::Type>(i.value().type())) {
+#else
+		switch (i.value().metaType().id()) {
+#endif
 			case QMetaType::QObjectStar:
 				if (i.value().value<QObject*>() == obj)
 					i = m_globals.erase(i);
