@@ -154,7 +154,7 @@ void TestUtils::FileVersionDatabase_save()
 void TestUtils::SystemCommand_wait()
 {
 	Tw::Utils::SystemCommand cmd(this);
-	SignalCounter spy(&cmd, SIGNAL(finished(int, QProcess::ExitStatus)));
+	SignalCounter spy(&cmd, static_cast<void (Tw::Utils::SystemCommand::*)(int, QProcess::ExitStatus)>(&Tw::Utils::SystemCommand::finished));
 
 	QVERIFY(spy.isValid());
 
@@ -208,7 +208,11 @@ void TestUtils::SystemCommand_getResult()
 	QFETCH(QString, output);
 
 	Tw::Utils::SystemCommand * cmd = new Tw::Utils::SystemCommand(this, outputWanted, runInBackground);
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QSignalSpy spy(cmd, SIGNAL(destroyed()));
+#else
+	QSignalSpy spy(cmd, &Tw::Utils::SystemCommand::destroyed);
+#endif
 
 	QVERIFY(spy.isValid());
 
@@ -350,7 +354,11 @@ void TestUtils::FullscreenManager()
 {
 	{
 		::UnitTest::FullscreenManager m(nullptr);
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 		QSignalSpy spy(&m, SIGNAL(fullscreenChanged(bool)));
+#else
+		QSignalSpy spy(&m, &::UnitTest::FullscreenManager::fullscreenChanged);
+#endif
 		QVERIFY(spy.isValid());
 		QCOMPARE(m.isFullscreen(), false);
 		m.toggleFullscreen();
@@ -369,7 +377,11 @@ void TestUtils::FullscreenManager()
 	{
 		QMainWindow w;
 		::UnitTest::FullscreenManager m(&w);
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 		QSignalSpy spy(&m, SIGNAL(fullscreenChanged(bool)));
+#else
+		QSignalSpy spy(&m, &::UnitTest::FullscreenManager::fullscreenChanged);
+#endif
 
 		w.setAttribute(Qt::WA_TranslucentBackground);
 		w.setMenuBar(new QMenuBar);
@@ -515,7 +527,11 @@ void TestUtils::FullscreenManager()
 			QCOMPARE(m.shortcuts()[2].shortcut->isEnabled(), false);
 
 			// Destroy the action to check if the corresponding shortcut is removed
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 			QSignalSpy deletionSpy(a, SIGNAL(destroyed(QObject*)));
+#else
+			QSignalSpy deletionSpy(a, &QAction::destroyed);
+#endif
 			a->deleteLater();
 			QVERIFY(deletionSpy.wait());
 

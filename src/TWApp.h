@@ -60,6 +60,9 @@ class TWApp : public QApplication
 	// window positioning utilities
 	typedef void (WindowArrangementFunction)(const QWidgetList& windows, const QRect& bounds);
 
+	// FIXME: Required for functor-access to private slot openRecentFile()
+	friend class TWUtils;
+
 public:
 	TWApp(int &argc, char **argv);
 	~TWApp() override;
@@ -159,6 +162,9 @@ public slots:
 	void bringToFront();
 	QObject* openFile(const QString& fileName, const int pos = -1);
 
+	void preferences();
+
+	void clearRecentFiles();
 	// called by documents when they load a file
 	void updateRecentFileActions();
 
@@ -186,6 +192,7 @@ public slots:
 	void about();
 	void doResourcesDialog() const;
 	QObject * newFile() const;
+	QObject * newFromTemplate() const;
 	void open();
 	void stackWindows();
 	void tileWindows();
@@ -214,10 +221,7 @@ signals:
 	void highlightLineOptionChanged();
 
 private slots:
-	void clearRecentFiles();
-	QObject * newFromTemplate() const;
 	void openRecentFile();
-	void preferences();
 
 	void changeLanguage();
 

@@ -49,13 +49,13 @@ void ResourcesDialog::init()
 
 	locationOfResources->setText(pathToLink(Tw::Utils::ResourcesLibrary::getLibraryPath(QString(), false)));
 
-	connect(locationOfSettings, SIGNAL(linkActivated(const QString&)), this, SLOT(openURL(const QString&)));
-	connect(locationOfResources, SIGNAL(linkActivated(const QString&)), this, SLOT(openURL(const QString&)));
+	connect(locationOfSettings, &QLabel::linkActivated, this, &ResourcesDialog::openURL);
+	connect(locationOfResources, &QLabel::linkActivated, this, &ResourcesDialog::openURL);
 
 	adjustSize();
 
 // TODO: Implement Details (e.g., files that are versioned, ...)
-//	connect(labelDetails, SIGNAL(linkActivated(const QString&)), this, SLOT(toggleDetails()));
+//	connect(labelDetails, &QLabel::linkActivated, this, &ResourcesDialog::toggleDetails);
 //	toggleDetails();
 }
 

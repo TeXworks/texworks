@@ -38,7 +38,7 @@ HardWrapDialog::init()
 	spinbox_charCount->setValue(wrapWidth);
 	spinbox_charCount->selectAll();
 
-	connect(radio_Unwrap, SIGNAL(toggled(bool)), this, SLOT(unwrapModeToggled(bool)));
+	connect(radio_Unwrap, &QRadioButton::toggled, this, &HardWrapDialog::unwrapModeToggled);
 
 	int wrapMode = settings.value(QString::fromLatin1("hardWrapMode"), kHardWrapMode_Fixed).toInt();
 	radio_currentWidth->setChecked(wrapMode == kHardWrapMode_Window);

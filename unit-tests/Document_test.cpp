@@ -162,7 +162,11 @@ void TestDocument::absoluteFilePath()
 void TestDocument::tags()
 {
 	Tw::Document::TextDocument doc(QStringLiteral("Hello World"));
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QSignalSpy spy(&doc, SIGNAL(tagsChanged()));
+#else
+	QSignalSpy spy(&doc, &Tw::Document::TextDocument::tagsChanged);
+#endif
 
 	Tw::Document::TextDocument::Tag tag1{QTextCursor(&doc), 0, QStringLiteral("tag1")};
 	tag1.cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, 2);
@@ -200,7 +204,11 @@ void TestDocument::getHighlighter()
 void TestDocument::modelines()
 {
 	Tw::Document::TeXDocument doc(QStringLiteral("Lorem ipsum\n").repeated(200));
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QSignalSpy spy(&doc, SIGNAL(modelinesChanged(QStringList, QStringList)));
+#else
+	QSignalSpy spy(&doc, &Tw::Document::TeXDocument::modelinesChanged);
+#endif
 
 	// Work around QTBUG-43695
 	doc.documentLayout();
@@ -341,7 +349,11 @@ void TestDocument::SpellChecker_getDictionaryList()
 {
 	auto * sc = Tw::Document::SpellChecker::instance();
 	Q_ASSERT(sc != nullptr);
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QSignalSpy spy(sc, SIGNAL(dictionaryListChanged()));
+#else
+	QSignalSpy spy(sc, &Tw::Document::SpellChecker::dictionaryListChanged);
+#endif
 
 	QVERIFY(spy.isValid());
 

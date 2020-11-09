@@ -26,13 +26,13 @@
 #include "FindDialog.h"
 #include "TWScriptableWindow.h"
 #include "TWSynchronizer.h"
+#include "ui/ClickableLabel.h"
 #include "ui_PDFDocumentWindow.h"
 #include "utils/FullscreenManager.h"
 
 #include <QButtonGroup>
 #include <QCursor>
 #include <QImage>
-#include <QLabel>
 #include <QList>
 #include <QMouseEvent>
 #include <QPainterPath>
@@ -155,8 +155,8 @@ private:
 
 	QList<TeXDocumentWindow*> sourceDocList;
 
-	QLabel *pageLabel;
-	QLabel *scaleLabel;
+	Tw::UI::ClickableLabel *pageLabel;
+	Tw::UI::ClickableLabel *scaleLabel;
 	QList<QAction*> recentFileActions;
 	Tw::Utils::FullscreenManager * _fullScreenManager;
 	QSignalMapper pageModeSignalMapper;

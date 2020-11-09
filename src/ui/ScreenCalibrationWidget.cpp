@@ -38,11 +38,11 @@ ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget * parent)
 	_sbDPI->setRange(0, 9999);
 	_sbDPI->setValue(physicalDpiX());
 	_sbDPI->installEventFilter(this);
-	connect(_sbDPI, SIGNAL(valueChanged(double)), this, SLOT(repaint()));
-	connect(_sbDPI, SIGNAL(valueChanged(double)), this, SIGNAL(dpiChanged(double)));
+	connect(_sbDPI, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, static_cast<void (ScreenCalibrationWidget::*)()>(&ScreenCalibrationWidget::repaint));
+	connect(_sbDPI, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, &ScreenCalibrationWidget::dpiChanged);
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-	connect(&_unitSignalMapper, SIGNAL(mapped(int)), this, SLOT(setUnit(int)));
+	connect(&_unitSignalMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &ScreenCalibrationWidget::setUnit);
 #else
 	connect(&_unitSignalMapper, &QSignalMapper::mappedInt, this, &ScreenCalibrationWidget::setUnit);
 #endif
@@ -97,13 +97,13 @@ void ScreenCalibrationWidget::retranslate()
 	a->setCheckable(true);
 	a->setChecked(_curUnit == 0);
 	_unitSignalMapper.setMapping(a, 0);
-	connect(a, SIGNAL(triggered()), &_unitSignalMapper, SLOT(map()));
+	connect(a, &QAction::triggered, &_unitSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 	_contextMenuActionGroup.addAction(a);
 	a = _contextMenu.addAction(tr("in"));
 	a->setCheckable(true);
 	a->setChecked(_curUnit == 1);
 	_unitSignalMapper.setMapping(a, 1);
-	connect(a, SIGNAL(triggered()), &_unitSignalMapper, SLOT(map()));
+	connect(a, &QAction::triggered, &_unitSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 	_contextMenuActionGroup.addAction(a);
 }
 

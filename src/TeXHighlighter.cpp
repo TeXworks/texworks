@@ -288,8 +288,8 @@ void NonblockingSyntaxHighlighter::setDocument(QTextDocument * doc)
 	_highlightRanges.clear();
 	_dirtyRanges.clear();
 	if (_parent) {
-		connect(_parent, SIGNAL(destroyed(QObject*)), this, SLOT(unlinkFromDocument()));
-		connect(_parent, SIGNAL(contentsChange(int,int,int)), this, SLOT(maybeRehighlightText(int, int, int)));
+		connect(_parent, &QTextDocument::destroyed, this, &NonblockingSyntaxHighlighter::unlinkFromDocument);
+		connect(_parent, &QTextDocument::contentsChange, this, &NonblockingSyntaxHighlighter::maybeRehighlightText);
 		rehighlight();
 	}
 }

@@ -51,10 +51,9 @@ void TemplateDialog::init()
 	treeView->setRootIndex(model->index(templatePath));
 	treeView->hideColumn(2);
 
-	connect(treeView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
-			this, SLOT(selectionChanged(const QItemSelection&, const QItemSelection&)));
+	connect(treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &TemplateDialog::selectionChanged);
 
-	connect(treeView, SIGNAL(activated(const QModelIndex&)), this, SLOT(itemActivated(const QModelIndex&)));
+	connect(treeView, &QTreeView::activated, this, &TemplateDialog::itemActivated);
 
 	Tw::Settings settings;
 	if (settings.value(QString::fromLatin1("syntaxColoring"), true).toBool()) {

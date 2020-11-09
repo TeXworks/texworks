@@ -23,11 +23,6 @@
 
 namespace UnitTest {
 
-SignalCounter::SignalCounter(QObject * obj, const char * signal)
-{
-	_connection = connect(obj, signal, this, SLOT(increment()));
-}
-
 bool SignalCounter::wait(int timeout)
 {
 	const int origCount = count();

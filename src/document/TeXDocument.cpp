@@ -27,12 +27,12 @@ namespace Document {
 
 TeXDocument::TeXDocument(QObject * parent) : TextDocument(parent)
 {
-	connect(this, SIGNAL(contentsChange(int, int, int)), this, SLOT(maybeUpdateModeLines(int, int, int)));
+	connect(this, &TeXDocument::contentsChange, this, &TeXDocument::maybeUpdateModeLines);
 }
 
 TeXDocument::TeXDocument(const QString & text, QObject * parent) : TextDocument(text, parent)
 {
-	connect(this, SIGNAL(contentsChange(int, int, int)), this, SLOT(maybeUpdateModeLines(int, int, int)));
+	connect(this, &TeXDocument::contentsChange, this, &TeXDocument::maybeUpdateModeLines);
 	parseModeLines();
 }
 

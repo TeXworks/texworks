@@ -72,8 +72,8 @@ CitationSelectDialog::CitationSelectDialog(QWidget *parent)
 
 	lineEdit->installEventFilter(new KeyForwarder(tableView));
 
-	connect(lineEdit, SIGNAL(textChanged(QString)), &_proxyModel, SLOT(setFilterFixedString(QString)));
-	connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(buttonClicked(QAbstractButton*)));
+	connect(lineEdit, &QLineEdit::textChanged, &_proxyModel, &CitationProxyModel::setFilterFixedString);
+	connect(buttonBox, &QDialogButtonBox::clicked, this, &CitationSelectDialog::buttonClicked);
 }
 
 void CitationSelectDialog::buttonClicked(QAbstractButton * button)
@@ -136,9 +136,9 @@ QStringList CitationSelectDialog::getSelectedKeys(const bool ordered /* = true *
 CitationModel::CitationModel(QObject * parent /* = nullptr */)
   : QAbstractTableModel(parent)
 {
-	connect(this, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(rebuildEntryCache()));
-	connect(this, SIGNAL(rowsRemoved(QModelIndex,int,int)), this, SLOT(rebuildEntryCache()));
-	connect(this, SIGNAL(rowsMoved(QModelIndex,int,int,QModelIndex,int)), this, SLOT(rebuildEntryCache()));
+	connect(this, &CitationModel::rowsInserted, this, &CitationModel::rebuildEntryCache);
+	connect(this, &CitationModel::rowsRemoved, this, &CitationModel::rebuildEntryCache);
+	connect(this, &CitationModel::rowsMoved, this, &CitationModel::rebuildEntryCache);
 }
 
 //virtual

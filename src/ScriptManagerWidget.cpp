@@ -44,16 +44,16 @@ void ScriptManagerWidget::init()
 
 	populateTree();
 
-	connect(scriptTabs, SIGNAL(currentChanged(int)), this, SLOT(treeSelectionChanged()));
+	connect(scriptTabs, &QTabWidget::currentChanged, this, &ScriptManagerWidget::treeSelectionChanged);
 
-	connect(hookTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(treeItemClicked(QTreeWidgetItem *, int)));
-	connect(hookTree, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(treeItemActivated(QTreeWidgetItem *, int)));
-	connect(hookTree, SIGNAL(itemSelectionChanged()), this, SLOT(treeSelectionChanged()));
-	connect(standaloneTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(treeItemClicked(QTreeWidgetItem *, int)));
-	connect(standaloneTree, SIGNAL(itemActivated(QTreeWidgetItem *, int)), this, SLOT(treeItemActivated(QTreeWidgetItem *, int)));
-	connect(standaloneTree, SIGNAL(itemSelectionChanged()), this, SLOT(treeSelectionChanged()));
+	connect(hookTree, &QTreeWidget::itemClicked, this, &ScriptManagerWidget::treeItemClicked);
+	connect(hookTree, &QTreeWidget::itemActivated, this, &ScriptManagerWidget::treeItemActivated);
+	connect(hookTree, &QTreeWidget::itemSelectionChanged, this, &ScriptManagerWidget::treeSelectionChanged);
+	connect(standaloneTree, &QTreeWidget::itemClicked, this, &ScriptManagerWidget::treeItemClicked);
+	connect(standaloneTree, &QTreeWidget::itemActivated, this, &ScriptManagerWidget::treeItemActivated);
+	connect(standaloneTree, &QTreeWidget::itemSelectionChanged, this, &ScriptManagerWidget::treeSelectionChanged);
 
-	connect(this, SIGNAL(scriptListChanged()), qApp, SIGNAL(scriptListChanged()));
+	connect(this, &ScriptManagerWidget::scriptListChanged, TWApp::instance(), &TWApp::scriptListChanged);
 }
 
 void ScriptManagerWidget::closeEvent(QCloseEvent * event)

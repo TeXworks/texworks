@@ -29,34 +29,34 @@ SystemCommand::SystemCommand(QObject* parent, const bool isOutputWanted /* = tru
 , wantOutput(isOutputWanted)
 , deleteOnFinish(runInBackground)
 {
-	connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(processOutput()));
-	connect(this, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
+	connect(this, &SystemCommand::readyReadStandardOutput, this, &SystemCommand::processOutput);
+	connect(this, static_cast<void (SystemCommand::*)(int, QProcess::ExitStatus)>(&SystemCommand::finished), this, &SystemCommand::processFinished);
 #if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
-	connect(this, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
+	connect(this, static_cast<void (SystemCommand::*)(QProcess::ProcessError)>(&SystemCommand::error), this, &SystemCommand::processError);
 #else
-	connect(this, SIGNAL(errorOccurred(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
+	connect(this, &SystemCommand::errorOccurred, this, &SystemCommand::processError);
 #endif
-	finishedSuccessfully = false;
-	finished = false;
+	hasFinishedSuccessfully = false;
+	hasFinished = false;
 }
 
 bool SystemCommand::waitForStarted(int msecs /* = 30000 */)
 {
-	if (finished)
-		return finishedSuccessfully;
+	if (hasFinished)
+		return hasFinishedSuccessfully;
 	return QProcess::waitForStarted(msecs);
 }
 
 bool SystemCommand::waitForFinished(int msecs /* = 30000 */)
 {
-	if (finished)
-		return finishedSuccessfully;
+	if (hasFinished)
+		return hasFinishedSuccessfully;
 	return QProcess::waitForFinished(msecs);
 }
 
 void SystemCommand::processError(QProcess::ProcessError error)
 {
-	finished = true;
+	hasFinished = true;
 	if (wantOutput)
 		result = tr("ERROR: failure code %1").arg(error);
 	if (deleteOnFinish)
@@ -65,8 +65,8 @@ void SystemCommand::processError(QProcess::ProcessError error)
 
 void SystemCommand::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-	finished = true;
-	finishedSuccessfully = (exitStatus == QProcess::NormalExit);
+	hasFinished = true;
+	hasFinishedSuccessfully = (exitStatus == QProcess::NormalExit);
 	if (wantOutput) {
 		if (exitStatus == QProcess::NormalExit) {
 			if (bytesAvailable() > 0) {

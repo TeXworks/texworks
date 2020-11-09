@@ -55,6 +55,7 @@ private slots:
 	void doManageScripts();
 	void doAboutScripts();
 
+protected slots:
 	void hideFloatersUnlessThis(QWidget* currWindow);
 
 protected slots:

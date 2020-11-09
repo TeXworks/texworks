@@ -50,23 +50,23 @@ void PrefsDialog::init()
 {
 	setupUi(this);
 
-	connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(buttonClicked(QAbstractButton*)));
+	connect(buttonBox, &QDialogButtonBox::clicked, this, &PrefsDialog::buttonClicked);
 
-	connect(binPathList, SIGNAL(itemSelectionChanged()), this, SLOT(updatePathButtons()));
-	connect(pathUp, SIGNAL(clicked()), this, SLOT(movePathUp()));
-	connect(pathDown, SIGNAL(clicked()), this, SLOT(movePathDown()));
-	connect(pathAdd, SIGNAL(clicked()), this, SLOT(addPath()));
-	connect(pathRemove, SIGNAL(clicked()), this, SLOT(removePath()));
+	connect(binPathList, &QListWidget::itemSelectionChanged, this, &PrefsDialog::updatePathButtons);
+	connect(pathUp, &QToolButton::clicked, this, &PrefsDialog::movePathUp);
+	connect(pathDown, &QToolButton::clicked, this, &PrefsDialog::movePathDown);
+	connect(pathAdd, &QToolButton::clicked, this, &PrefsDialog::addPath);
+	connect(pathRemove, &QToolButton::clicked, this, &PrefsDialog::removePath);
 
-	connect(toolList, SIGNAL(itemSelectionChanged()), this, SLOT(updateToolButtons()));
-	connect(toolList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(editTool(QListWidgetItem*)));
-	connect(toolUp, SIGNAL(clicked()), this, SLOT(moveToolUp()));
-	connect(toolDown, SIGNAL(clicked()), this, SLOT(moveToolDown()));
-	connect(toolAdd, SIGNAL(clicked()), this, SLOT(addTool()));
-	connect(toolRemove, SIGNAL(clicked()), this, SLOT(removeTool()));
-	connect(toolEdit, SIGNAL(clicked()), this, SLOT(editTool()));
+	connect(toolList, &QListWidget::itemSelectionChanged, this, &PrefsDialog::updateToolButtons);
+	connect(toolList, &QListWidget::itemDoubleClicked, this, &PrefsDialog::editTool);
+	connect(toolUp, &QToolButton::clicked, this, &PrefsDialog::moveToolUp);
+	connect(toolDown, &QToolButton::clicked, this, &PrefsDialog::moveToolDown);
+	connect(toolAdd, &QToolButton::clicked, this, &PrefsDialog::addTool);
+	connect(toolRemove, &QToolButton::clicked, this, &PrefsDialog::removeTool);
+	connect(toolEdit, &QToolButton::clicked, this, [=]() { this->editTool(); });
 
-	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(changedTabPanel(int)));
+	connect(tabWidget, &QTabWidget::currentChanged, this, &PrefsDialog::changedTabPanel);
 
 	pathsChanged = toolsChanged = false;
 }
@@ -868,12 +868,12 @@ void ToolConfig::init()
 {
 	setupUi(this);
 
-	connect(arguments, SIGNAL(itemSelectionChanged()), this, SLOT(updateArgButtons()));
-	connect(argUp, SIGNAL(clicked()), this, SLOT(moveArgUp()));
-	connect(argDown, SIGNAL(clicked()), this, SLOT(moveArgDown()));
-	connect(argAdd, SIGNAL(clicked()), this, SLOT(addArg()));
-	connect(argRemove, SIGNAL(clicked()), this, SLOT(removeArg()));
-	connect(btnBrowseForProgram, SIGNAL(clicked()), this, SLOT(browseForProgram()));
+	connect(arguments, &QListWidget::itemSelectionChanged, this, &ToolConfig::updateArgButtons);
+	connect(argUp, &QToolButton::clicked, this, &ToolConfig::moveArgUp);
+	connect(argDown, &QToolButton::clicked, this, &ToolConfig::moveArgDown);
+	connect(argAdd, &QToolButton::clicked, this, &ToolConfig::addArg);
+	connect(argRemove, &QToolButton::clicked, this, &ToolConfig::removeArg);
+	connect(btnBrowseForProgram, &QPushButton::clicked, this, &ToolConfig::browseForProgram);
 }
 
 void ToolConfig::browseForProgram()

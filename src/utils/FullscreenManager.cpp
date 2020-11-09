@@ -35,13 +35,13 @@ FullscreenManager::FullscreenManager(QMainWindow * parent)
 	if (parent) {
 		QShortcut * esc = new QShortcut(QKeySequence(Qt::Key_Escape), parent);
 		Q_ASSERT(esc != nullptr);
-		connect(esc, SIGNAL(activated()), this, SLOT(toggleFullscreen()));
+		connect(esc, &QShortcut::activated, this, &FullscreenManager::toggleFullscreen);
 		_shortcuts << shortcut_info{esc, nullptr};
 	}
 
 	_menuBarTimer.setSingleShot(true);
 	_menuBarTimer.setInterval(500);
-	connect(&_menuBarTimer, SIGNAL(timeout()), this, SLOT(showMenuBar()));
+	connect(&_menuBarTimer, &QTimer::timeout, this, &FullscreenManager::showMenuBar);
 }
 
 //virtual
@@ -160,7 +160,7 @@ void FullscreenManager::addShortcut(const QKeySequence & key, const char * membe
 	sci.shortcut->setEnabled(false);
 	sci.action = action;
 	if (action)
-		connect(action, SIGNAL(destroyed(QObject*)), this, SLOT(actionDeleted(QObject*)));
+		connect(action, &QAction::destroyed, this, &FullscreenManager::actionDeleted);
 	_shortcuts << sci;
 }
 

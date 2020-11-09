@@ -70,7 +70,7 @@ insertItemIfPresent(QFileInfo& fi, QMenu* helpMenu, QAction* before, QSignalMapp
 		}
 		QAction* action = new QAction(title, helpMenu);
 		mapper->setMapping(action, fi.canonicalFilePath());
-		QObject::connect(action, SIGNAL(triggered()), mapper, SLOT(map()));
+		QObject::connect(action, &QAction::triggered, mapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 		helpMenu->insertAction(before, action);
 		return 1;
 	}
@@ -81,7 +81,7 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 {
 	QSignalMapper* mapper = new QSignalMapper(helpMenu);
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-	QObject::connect(mapper, SIGNAL(mapped(const QString&)), TWApp::instance(), SLOT(openHelpFile(const QString&)));
+	QObject::connect(mapper, static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped), TWApp::instance(), &TWApp::openHelpFile);
 #else
 	QObject::connect(mapper, &QSignalMapper::mappedString, TWApp::instance(), &TWApp::openHelpFile);
 #endif
@@ -311,7 +311,7 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	while (actions.size() < numRecentFiles) {
 		QAction *act = new QAction(parent);
 		act->setVisible(false);
-		QObject::connect(act, SIGNAL(triggered()), qApp, SLOT(openRecentFile()));
+		QObject::connect(act, &QAction::triggered, TWApp::instance(), &TWApp::openRecentFile);
 		actions.append(act);
 		menu->insertAction(clearAction, act);
 	}
@@ -373,7 +373,7 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
 		}
-		QObject::connect(selWin, SIGNAL(triggered()), texDoc, SLOT(selectWindow()));
+		QObject::connect(selWin, &SelWinAction::triggered, texDoc, &TeXDocumentWindow::selectWindow);
 		menu->addAction(selWin);
 	}
 
@@ -398,7 +398,7 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
 		}
-		QObject::connect(selWin, SIGNAL(triggered()), pdfDoc, SLOT(selectWindow()));
+		QObject::connect(selWin, &SelWinAction::triggered, pdfDoc, &PDFDocumentWindow::selectWindow);
 		menu->addAction(selWin);
 	}
 }

@@ -73,21 +73,21 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	loadIndentModes();
 	loadSmartQuotesModes();
 
-	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
-	connect(this, SIGNAL(selectionChanged()), this, SLOT(cursorPositionChangedSlot()));
+	connect(this, &CompletingEdit::cursorPositionChanged, this, &CompletingEdit::cursorPositionChangedSlot);
+	connect(this, &CompletingEdit::selectionChanged, this, &CompletingEdit::cursorPositionChangedSlot);
 
 	lineNumberArea = new Tw::UI::LineNumberWidget(this);
 
 	// Invoke our setDocument() method to properly set up document-specific
 	// connections
 	setDocument(document());
-	connect(this, SIGNAL(updateRequest(const QRect&, int)), this, SLOT(updateLineNumberArea(const QRect&, int)));
-	connect(this, SIGNAL(textChanged()), lineNumberArea, SLOT(update()));
+	connect(this, &CompletingEdit::updateRequest, this, &CompletingEdit::updateLineNumberArea);
+	connect(this, &CompletingEdit::textChanged, lineNumberArea, static_cast<void (Tw::UI::LineNumberWidget::*)()>(&Tw::UI::LineNumberWidget::update));
 
-	connect(TWApp::instance(), SIGNAL(highlightLineOptionChanged()), this, SLOT(resetExtraSelections()));
+	connect(TWApp::instance(), &TWApp::highlightLineOptionChanged, this, &CompletingEdit::resetExtraSelections);
 
 	setupUi(this);
-	connect(actionJump_To_PDF, SIGNAL(triggered()), this, SLOT(jumpToPdf()));
+	connect(actionJump_To_PDF, &QAction::triggered, this, [=]() { this->jumpToPdf(); });
 	// As these actions are not used in menus/toolbars, we need to manually add
 	// them to the widget for TWUtils::installCustomShortcuts to work
 	insertActions(nullptr, {actionNext_Completion, actionPrevious_Completion, actionNext_Completion_Placeholder, actionPrevious_Completion_Placeholder, actionJump_To_PDF});
@@ -713,7 +713,11 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 					sel.format = *braceMatchingFormat;
 					selList.append(sel);
 					setExtraSelections(selList);
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 					QTimer::singleShot(250, this, SLOT(resetExtraSelections()));
+#else
+					QTimer::singleShot(250, this, &CompletingEdit::resetExtraSelections);
+#endif
 				}
 			}
 		}
@@ -976,7 +980,7 @@ void CompletingEdit::handleTab(QKeyEvent * e)
 
 void CompletingEdit::showCompletion(const QString& completion, int insOffset)
 {
-	disconnect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
+	disconnect(this, &CompletingEdit::cursorPositionChanged, this, &CompletingEdit::cursorPositionChangedSlot);
 
 	if (c->widget() != this)
 		return;
@@ -998,7 +1002,7 @@ void CompletingEdit::showCompletion(const QString& completion, int insOffset)
 	currentCompletionRange = cmpCursor;
 	resetExtraSelections();
 
-	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(cursorPositionChangedSlot()));
+	connect(this, &CompletingEdit::cursorPositionChanged, this, &CompletingEdit::cursorPositionChangedSlot);
 }
 
 void CompletingEdit::showCurrentCompletion()
@@ -1107,7 +1111,7 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	QTextCursor cur = cursorForPosition(event->pos());
 
 	act->setData(QVariant(QPoint(cur.positionInBlock(), cur.blockNumber() + 1)));
-	connect(act, SIGNAL(triggered()), this, SLOT(jumpToPdfFromContextMenu()));
+	connect(act, &QAction::triggered, this, &CompletingEdit::jumpToPdfFromContextMenu);
 	menu->insertSeparator(menu->actions().first());
 	menu->insertAction(menu->actions().first(), act);
 
@@ -1126,24 +1130,24 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 					QSignalMapper *mapper = new QSignalMapper(menu);
 					foreach(const QString & str, suggestions) {
 						act = new QAction(str, menu);
-						connect(act, SIGNAL(triggered()), mapper, SLOT(map()));
+						connect(act, &QAction::triggered, mapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 						mapper->setMapping(act, str);
 						menu->insertAction(sep, act);
 						if (!defaultAction)
 							defaultAction = act;
 					}
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-					connect(mapper, SIGNAL(mapped(const QString&)), this, SLOT(correction(const QString&)));
+					connect(mapper, static_cast<void (QSignalMapper::*)(const QString &)>(&QSignalMapper::mapped), this, &CompletingEdit::correction);
 #else
 					connect(mapper, &QSignalMapper::mappedString, this, &CompletingEdit::correction);
 #endif
 				}
 				sep = menu->insertSeparator(menu->actions().first());
 //				QAction *add = new QAction(tr("Add to dictionary"), menu);
-//				connect(add, SIGNAL(triggered()), this, SLOT(addToDictionary()));
+//				connect(add, &QAction::triggered, this, &CompletingEdit::addToDictionary);
 //				menu->insertAction(sep, add);
 				QAction *ignore = new QAction(tr("Ignore word"), menu);
-				connect(ignore, SIGNAL(triggered()), this, SLOT(ignoreWord()));
+				connect(ignore, &QAction::triggered, this, &CompletingEdit::ignoreWord);
 				menu->insertAction(sep, ignore);
 			}
 		}
@@ -1230,7 +1234,7 @@ void CompletingEdit::dropEvent(QDropEvent *event)
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	QTextCursor dropCursor = cursorForPosition(event->pos());
 #else
-	QTextCursor dropCursor = cursorForPosition(event->position().toPoint());
+  QTextCursor dropCursor = cursorForPosition(event->position().toPoint());
 #endif
 	if (!dropCursor.isNull()) {
 		droppedOffset = dropCursor.position();
@@ -1342,12 +1346,12 @@ void CompletingEdit::setTextCursor(const QTextCursor & cursor)
 
 void CompletingEdit::setDocument(QTextDocument * document)
 {
-	disconnect(this, SLOT(updateLineNumberAreaWidth(int)));
+	disconnect(QTextEdit::document(), nullptr, this, nullptr);
 	// Remember the cursor width setting
 	int oldCursorWidth = cursorWidth();
 	QTextEdit::setDocument(document);
 	setCursorWidth(oldCursorWidth);
-	connect(document, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
+	connect(document, &QTextDocument::blockCountChanged, this, &CompletingEdit::updateLineNumberAreaWidth);
 }
 
 bool CompletingEdit::event(QEvent *e)

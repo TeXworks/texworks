@@ -124,7 +124,11 @@ void TestUI::LineNumberWidget_setParent()
 void TestUI::ScreenCalibrationWidget_dpi()
 {
 	Tw::UI::ScreenCalibrationWidget w;
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QSignalSpy spy(&w, SIGNAL(dpiChanged(double)));
+#else
+	QSignalSpy spy(&w, &Tw::UI::ScreenCalibrationWidget::dpiChanged);
+#endif
 	constexpr double MagicDPI = 42;
 
 	QVERIFY(spy.isValid());
@@ -140,7 +144,11 @@ void TestUI::ScreenCalibrationWidget_dpi()
 void TestUI::ScreenCalibrationWidget_drag()
 {
 	MyScreenCalibrationWidget w;
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QSignalSpy spy(&w, SIGNAL(dpiChanged(double)));
+#else
+	QSignalSpy spy(&w, &MyScreenCalibrationWidget::dpiChanged);
+#endif
 
 	w.resize(400, 40);
 	w.show();
@@ -291,9 +299,9 @@ void TestUI::ClickableLable_ctor()
 void TestUI::ClickableLabel_click()
 {
 	Tw::UI::ClickableLabel cl;
-	SignalCounter leftCounter(&cl, SIGNAL(mouseLeftClick(QMouseEvent*)));
-	SignalCounter middleCounter(&cl, SIGNAL(mouseMiddleClick(QMouseEvent*)));
-	SignalCounter rightCounter(&cl, SIGNAL(mouseRightClick(QMouseEvent*)));
+	SignalCounter leftCounter(&cl, &Tw::UI::ClickableLabel::mouseLeftClick);
+	SignalCounter middleCounter(&cl, &Tw::UI::ClickableLabel::mouseMiddleClick);
+	SignalCounter rightCounter(&cl, &Tw::UI::ClickableLabel::mouseRightClick);
 
 	// Clicking emits appropriate signals
 	QCOMPARE(leftCounter.count(), 0);
@@ -343,7 +351,7 @@ void TestUI::ClickableLabel_doubleClick()
 {
 	Tw::UI::ClickableLabel cl;
 
-	SignalCounter spy(&cl, SIGNAL(mouseDoubleClick(QMouseEvent*)));
+	SignalCounter spy(&cl, &Tw::UI::ClickableLabel::mouseDoubleClick);
 
 	QVERIFY(spy.isValid());
 	QCOMPARE(spy.count(), 0);
@@ -355,7 +363,11 @@ void TestUI::ClickableLabel_doubleClick()
 void TestUI::ClosableTabWidget_signals()
 {
 	ClosableTabWidget w;
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QSignalSpy spy(&w, SIGNAL(requestClose()));
+#else
+	QSignalSpy spy(&w, &ClosableTabWidget::requestClose);
+#endif
 
 	QVERIFY(spy.isValid());
 	QCOMPARE(spy.count(), 0);

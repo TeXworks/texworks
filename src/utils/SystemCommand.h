@@ -54,8 +54,8 @@ private slots:
 private:
 	bool wantOutput;
 	bool deleteOnFinish;
-	bool finished;
-	bool finishedSuccessfully;
+	bool hasFinished;
+	bool hasFinishedSuccessfully;
 	QString result;
 };
 

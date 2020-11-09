@@ -35,7 +35,7 @@ ClosableTabWidget::ClosableTabWidget(QWidget * parent /* = nullptr */)
 	_closeButton->setIcon(style()->standardIcon(QStyle::SP_TitleBarCloseButton));
 	_closeButton->setCursor(Qt::ArrowCursor);
 //	_closeButton->setStyleSheet(QString::fromUtf8("QToolButton { border: none; padding: 0px; }"));
-	connect(_closeButton, SIGNAL(clicked()), this, SIGNAL(requestClose()));
+	connect(_closeButton, &QToolButton::clicked, this, &ClosableTabWidget::requestClose);
 }
 
 void ClosableTabWidget::resizeEvent(QResizeEvent * e)

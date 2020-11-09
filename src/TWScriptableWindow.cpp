@@ -50,19 +50,19 @@ TWScriptableWindow::initScriptable(QMenu* theScriptsMenu,
 							 QAction* showScriptsFolderAction)
 {
 	scriptsMenu = theScriptsMenu;
-	connect(aboutScriptsAction, SIGNAL(triggered()), this, SLOT(doAboutScripts()));
-	connect(manageScriptsAction, SIGNAL(triggered()), this, SLOT(doManageScripts()));
-	connect(updateScriptsAction, SIGNAL(triggered()), TWApp::instance(), SLOT(updateScriptsList()));
-	connect(showScriptsFolderAction, SIGNAL(triggered()), TWApp::instance(), SLOT(showScriptsFolder()));
+	connect(aboutScriptsAction, &QAction::triggered, this, &TWScriptableWindow::doAboutScripts);
+	connect(manageScriptsAction, &QAction::triggered, this, &TWScriptableWindow::doManageScripts);
+	connect(updateScriptsAction, &QAction::triggered, TWApp::instance(), &TWApp::updateScriptsList);
+	connect(showScriptsFolderAction, &QAction::triggered, TWApp::instance(), &TWApp::showScriptsFolder);
 	scriptMapper = new QSignalMapper(this);
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-	connect(scriptMapper, SIGNAL(mapped(QObject*)), this, SLOT(runScript(QObject*)));
+	connect(scriptMapper, static_cast<void (QSignalMapper::*)(QObject*)>(&QSignalMapper::mapped), this, [=](QObject * script) { this->runScript(script); });
 #else
-	connect(scriptMapper, &QSignalMapper::mappedObject, this, [=](QObject * obj) { this->runScript(obj); });
+	connect(scriptMapper, &QSignalMapper::mappedObject, this, [=](QObject * script) { this->runScript(script); });
 #endif
 	staticScriptMenuItemCount = scriptsMenu->actions().count();
 
-	connect(qApp, SIGNAL(scriptListChanged()), this, SLOT(updateScriptsMenu()));
+	connect(TWApp::instance(), &TWApp::scriptListChanged, this, &TWScriptableWindow::updateScriptsMenu);
 
 	updateScriptsMenu();
 }
@@ -105,7 +105,7 @@ TWScriptableWindow::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 				continue;
 			if (script->getContext().isEmpty() || script->getContext() == scriptContext()) {
 				QAction *a = menu->addAction(script->getTitle());
-				connect(script, SIGNAL(destroyed(QObject*)), this, SLOT(scriptDeleted(QObject*)));
+				connect(script, &Tw::Scripting::Script::destroyed, this, &TWScriptableWindow::scriptDeleted);
 				if (!script->getKeySequence().isEmpty())
 					a->setShortcut(script->getKeySequence());
 //				a->setEnabled(script->isEnabled());
@@ -114,7 +114,7 @@ TWScriptableWindow::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 				a->setObjectName(QString::fromLatin1("Script: %1").arg(script->getTitle()));
 				a->setStatusTip(script->getDescription());
 				scriptMapper->setMapping(a, script);
-				connect(a, SIGNAL(triggered()), scriptMapper, SLOT(map()));
+				connect(a, &QAction::triggered, scriptMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 				++count;
 			}
 			continue;

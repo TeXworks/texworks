@@ -160,7 +160,7 @@ void ScriptAPI::yield()
 QWidget * ScriptAPI::progressDialog(QWidget * parent)
 {
 	QProgressDialog * dlg = new QProgressDialog(parent);
-	connect(this, SIGNAL(destroyed(QObject*)), dlg, SLOT(deleteLater()));
+	connect(this, &ScriptAPI::destroyed, dlg, &QProgressDialog::deleteLater);
 	dlg->setCancelButton(nullptr);
 	dlg->show();
 	return dlg;

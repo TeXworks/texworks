@@ -432,7 +432,7 @@ void Script::setGlobal(const QString& key, const QVariant& val)
 	switch (val.metaType().id()) {
 #endif
 		case QMetaType::QObjectStar:
-			connect(v.value<QObject*>(), SIGNAL(destroyed(QObject*)), this, SLOT(globalDestroyed(QObject*)));
+			connect(v.value<QObject*>(), &QObject::destroyed, this, &Script::globalDestroyed);
 			break;
 		default: break;
 	}

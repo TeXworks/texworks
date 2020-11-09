@@ -101,8 +101,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLat
 	}
 
 	if (IPC.isFirstInstance()) {
-		QObject::connect(&IPC, SIGNAL(receivedBringToFront()), &app, SLOT(bringToFront()));
-		QObject::connect(&IPC, SIGNAL(receivedOpenFile(const QString&, const int)), &app, SLOT(openFile(const QString &, const int)));
+		QObject::connect(&IPC, &Tw::InterProcessCommunicator::receivedBringToFront, &app, &TWApp::bringToFront);
+		QObject::connect(&IPC, &Tw::InterProcessCommunicator::receivedOpenFile, &app, &TWApp::openFile);
 	}
 	else {
 		IPC.sendBringToFront();

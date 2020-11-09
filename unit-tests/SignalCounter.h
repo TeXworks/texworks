@@ -25,6 +25,7 @@
 #include <QEventLoop>
 #include <QObject>
 #include <QTimerEvent>
+#include <type_traits>
 
 namespace UnitTest {
 
@@ -36,7 +37,9 @@ class SignalCounter : public QObject
 	QEventLoop _eventLoop;
 	int _timerId{-1};
 public:
-	SignalCounter(QObject * obj, const char * signal);
+	template <typename Object, typename Func, typename std::enable_if<std::is_member_function_pointer<Func>::value, int>::type = 0>
+	SignalCounter(Object * obj, Func signal) : _connection(connect(obj, signal, this, &SignalCounter::increment)) { }
+
 	int count() const { return _count; }
 	void clear() { _count = 0; }
 	bool isValid() const { return static_cast<bool>(_connection); }

@@ -209,7 +209,7 @@ private slots:
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void acceptInputLine();
 	void selectedEngine(QAction* engineAction);
-	void selectedEngine(const QString& name);
+	void selectedEngine(int idx);
 	void handleModelineChange(QStringList changedKeys, QStringList removedKeys);
 	void reloadIfChangedOnDisk();
 	void setupFileWatcher();

@@ -114,28 +114,28 @@ void TeXDocumentWindow::init()
 	makeUntitled();
 	hideConsole();
 	keepConsoleOpen = false;
-	connect(consoleTabs, SIGNAL(requestClose()), actionShow_Hide_Console, SLOT(trigger()));
+	connect(consoleTabs, &Tw::UI::ClosableTabWidget::requestClose, actionShow_Hide_Console, &QAction::trigger);
 
 	statusBar()->addPermanentWidget(lineEndingLabel = new Tw::UI::ClickableLabel());
 	lineEndingLabel->setFrameStyle(QFrame::StyledPanel);
 	lineEndingLabel->setFont(statusBar()->font());
-	connect(lineEndingLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(lineEndingLabelClick(QMouseEvent*)));
+	connect(lineEndingLabel, &Tw::UI::ClickableLabel::mouseLeftClick, this, &TeXDocumentWindow::lineEndingLabelClick);
 	showLineEndingSetting();
 
 	statusBar()->addPermanentWidget(encodingLabel = new Tw::UI::ClickableLabel());
 	encodingLabel->setFrameStyle(QFrame::StyledPanel);
 	encodingLabel->setFont(statusBar()->font());
-	connect(encodingLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(encodingLabelClick(QMouseEvent*)));
+	connect(encodingLabel, &Tw::UI::ClickableLabel::mouseLeftClick, this, &TeXDocumentWindow::encodingLabelClick);
 	showEncodingSetting();
 
 	statusBar()->addPermanentWidget(lineNumberLabel = new Tw::UI::ClickableLabel());
 	lineNumberLabel->setFrameStyle(QFrame::StyledPanel);
 	lineNumberLabel->setFont(statusBar()->font());
-	connect(lineNumberLabel, SIGNAL(mouseLeftClick(QMouseEvent*)), this, SLOT(doLineDialog()));
+	connect(lineNumberLabel, &Tw::UI::ClickableLabel::mouseLeftClick, this, &TeXDocumentWindow::doLineDialog);
 	showCursorPosition();
 
 	engineActions = new QActionGroup(this);
-	connect(engineActions, SIGNAL(triggered(QAction*)), this, SLOT(selectedEngine(QAction*)));
+	connect(engineActions, &QActionGroup::triggered, this, static_cast<void (TeXDocumentWindow::*)(QAction*)>(&TeXDocumentWindow::selectedEngine));
 
 	codec = TWApp::instance()->getDefaultCodec();
 	engineName = TWApp::instance()->getDefaultEngine().name();
@@ -149,98 +149,98 @@ void TeXDocumentWindow::init()
 #endif
 	toolBar_run->addWidget(engine);
 	updateEngineList();
-	connect(engine, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(selectedEngine(const QString&)));
+	connect(engine, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, static_cast<void (TeXDocumentWindow::*)(int)>(&TeXDocumentWindow::selectedEngine));
 
-	connect(TWApp::instance(), SIGNAL(engineListChanged()), this, SLOT(updateEngineList()));
+	connect(TWApp::instance(), &TWApp::engineListChanged, this, &TeXDocumentWindow::updateEngineList);
 
-	connect(actionNew, SIGNAL(triggered()), this, SLOT(newFile()));
-	connect(actionNew_from_Template, SIGNAL(triggered()), this, SLOT(newFromTemplate()));
-	connect(actionOpen, SIGNAL(triggered()), this, SLOT(open()));
-	connect(actionAbout_TW, SIGNAL(triggered()), qApp, SLOT(about()));
-	connect(actionSettings_and_Resources, SIGNAL(triggered()), qApp, SLOT(doResourcesDialog()));
-	connect(actionGoToHomePage, SIGNAL(triggered()), qApp, SLOT(goToHomePage()));
-	connect(actionWriteToMailingList, SIGNAL(triggered()), qApp, SLOT(writeToMailingList()));
+	connect(actionNew, &QAction::triggered, this, &TeXDocumentWindow::newFile);
+	connect(actionNew_from_Template, &QAction::triggered, this, &TeXDocumentWindow::newFromTemplate);
+	connect(actionOpen, &QAction::triggered, this, static_cast<void (TeXDocumentWindow::*)()>(&TeXDocumentWindow::open));
+	connect(actionAbout_TW, &QAction::triggered, TWApp::instance(), &TWApp::about);
+	connect(actionSettings_and_Resources, &QAction::triggered, TWApp::instance(), &TWApp::doResourcesDialog);
+	connect(actionGoToHomePage, &QAction::triggered, TWApp::instance(), &TWApp::goToHomePage);
+	connect(actionWriteToMailingList, &QAction::triggered, TWApp::instance(), &TWApp::writeToMailingList);
 
-	connect(actionSave, SIGNAL(triggered()), this, SLOT(save()));
-	connect(actionSave_As, SIGNAL(triggered()), this, SLOT(saveAs()));
-	connect(actionSave_All, SIGNAL(triggered()), this, SLOT(saveAll()));
-	connect(actionRevert_to_Saved, SIGNAL(triggered()), this, SLOT(revert()));
-	connect(actionClose, SIGNAL(triggered()), this, SLOT(close()));
+	connect(actionSave, &QAction::triggered, this, &TeXDocumentWindow::save);
+	connect(actionSave_As, &QAction::triggered, this, &TeXDocumentWindow::saveAs);
+	connect(actionSave_All, &QAction::triggered, this, &TeXDocumentWindow::saveAll);
+	connect(actionRevert_to_Saved, &QAction::triggered, this, &TeXDocumentWindow::revert);
+	connect(actionClose, &QAction::triggered, this, &TeXDocumentWindow::close);
 
-	connect(actionRemove_Aux_Files, SIGNAL(triggered()), this, SLOT(removeAuxFiles()));
+	connect(actionRemove_Aux_Files, &QAction::triggered, this, &TeXDocumentWindow::removeAuxFiles);
 
-	connect(actionQuit_TeXworks, SIGNAL(triggered()), TWApp::instance(), SLOT(maybeQuit()));
+	connect(actionQuit_TeXworks, &QAction::triggered, TWApp::instance(), &TWApp::maybeQuit);
 
-	connect(actionClear, SIGNAL(triggered()), this, SLOT(clear()));
+	connect(actionClear, &QAction::triggered, this, &TeXDocumentWindow::clear);
 
-	connect(actionFont, SIGNAL(triggered()), this, SLOT(doFontDialog()));
-	connect(actionGo_to_Line, SIGNAL(triggered()), this, SLOT(doLineDialog()));
-	connect(actionFind, SIGNAL(triggered()), this, SLOT(doFindDialog()));
-	connect(actionFind_Again, SIGNAL(triggered()), this, SLOT(doFindAgain()));
-	connect(actionReplace, SIGNAL(triggered()), this, SLOT(doReplaceDialog()));
-	connect(actionReplace_Again, SIGNAL(triggered()), this, SLOT(doReplaceAgain()));
+	connect(actionFont, &QAction::triggered, this, &TeXDocumentWindow::doFontDialog);
+	connect(actionGo_to_Line, &QAction::triggered, this, &TeXDocumentWindow::doLineDialog);
+	connect(actionFind, &QAction::triggered, this, &TeXDocumentWindow::doFindDialog);
+	connect(actionFind_Again, &QAction::triggered, this, &TeXDocumentWindow::doFindAgain);
+	connect(actionReplace, &QAction::triggered, this, &TeXDocumentWindow::doReplaceDialog);
+	connect(actionReplace_Again, &QAction::triggered, this, &TeXDocumentWindow::doReplaceAgain);
 
-	connect(actionCopy_to_Find, SIGNAL(triggered()), this, SLOT(copyToFind()));
-	connect(actionCopy_to_Replace, SIGNAL(triggered()), this, SLOT(copyToReplace()));
-	connect(actionFind_Selection, SIGNAL(triggered()), this, SLOT(findSelection()));
+	connect(actionCopy_to_Find, &QAction::triggered, this, &TeXDocumentWindow::copyToFind);
+	connect(actionCopy_to_Replace, &QAction::triggered, this, &TeXDocumentWindow::copyToReplace);
+	connect(actionFind_Selection, &QAction::triggered, this, &TeXDocumentWindow::findSelection);
 
-	connect(actionShow_Selection, SIGNAL(triggered()), this, SLOT(showSelection()));
+	connect(actionShow_Selection, &QAction::triggered, this, &TeXDocumentWindow::showSelection);
 
-	connect(actionIndent, SIGNAL(triggered()), this, SLOT(doIndent()));
-	connect(actionUnindent, SIGNAL(triggered()), this, SLOT(doUnindent()));
+	connect(actionIndent, &QAction::triggered, this, &TeXDocumentWindow::doIndent);
+	connect(actionUnindent, &QAction::triggered, this, &TeXDocumentWindow::doUnindent);
 
-	connect(actionComment, SIGNAL(triggered()), this, SLOT(doComment()));
-	connect(actionUncomment, SIGNAL(triggered()), this, SLOT(doUncomment()));
+	connect(actionComment, &QAction::triggered, this, &TeXDocumentWindow::doComment);
+	connect(actionUncomment, &QAction::triggered, this, &TeXDocumentWindow::doUncomment);
 
-	connect(actionHard_Wrap, SIGNAL(triggered()), this, SLOT(doHardWrapDialog()));
-	connect(actionInsert_Citations, SIGNAL(triggered()), this, SLOT(doInsertCitationsDialog()));
+	connect(actionHard_Wrap, &QAction::triggered, this, &TeXDocumentWindow::doHardWrapDialog);
+	connect(actionInsert_Citations, &QAction::triggered, this, &TeXDocumentWindow::doInsertCitationsDialog);
 
-	connect(actionTo_Uppercase, SIGNAL(triggered()), this, SLOT(toUppercase()));
-	connect(actionTo_Lowercase, SIGNAL(triggered()), this, SLOT(toLowercase()));
-	connect(actionToggle_Case, SIGNAL(triggered()), this, SLOT(toggleCase()));
+	connect(actionTo_Uppercase, &QAction::triggered, this, &TeXDocumentWindow::toUppercase);
+	connect(actionTo_Lowercase, &QAction::triggered, this, &TeXDocumentWindow::toLowercase);
+	connect(actionToggle_Case, &QAction::triggered, this, &TeXDocumentWindow::toggleCase);
 
-	connect(actionBalance_Delimiters, SIGNAL(triggered()), this, SLOT(balanceDelimiters()));
+	connect(actionBalance_Delimiters, &QAction::triggered, this, &TeXDocumentWindow::balanceDelimiters);
 
-	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(setWindowModified(bool)));
-	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(maybeEnableSaveAndRevert(bool)));
-	connect(textDoc(), SIGNAL(modelinesChanged(QStringList, QStringList)), this, SLOT(handleModelineChange(QStringList, QStringList)));
-	connect(textEdit, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
-	connect(textEdit, SIGNAL(selectionChanged()), this, SLOT(showCursorPosition()));
-	connect(textEdit, SIGNAL(syncClick(int, int)), this, SLOT(syncClick(int, int)));
-	connect(this, SIGNAL(syncFromSource(const QString&, int, int, bool)), qApp, SIGNAL(syncPdf(const QString&, int, int, bool)));
+	connect(textDoc(), &Tw::Document::TeXDocument::modificationChanged, this, &TeXDocumentWindow::setWindowModified);
+	connect(textDoc(), &Tw::Document::TeXDocument::modificationChanged, this, &TeXDocumentWindow::maybeEnableSaveAndRevert);
+	connect(textDoc(), &Tw::Document::TeXDocument::modelinesChanged, this, &TeXDocumentWindow::handleModelineChange);
+	connect(textEdit, &CompletingEdit::cursorPositionChanged, this, &TeXDocumentWindow::showCursorPosition);
+	connect(textEdit, &CompletingEdit::selectionChanged, this, &TeXDocumentWindow::showCursorPosition);
+	connect(textEdit, &CompletingEdit::syncClick, this, &TeXDocumentWindow::syncClick);
+	connect(this, &TeXDocumentWindow::syncFromSource, TWApp::instance(), &TWApp::syncPdf);
 
-	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(clipboardChanged()));
+	connect(QApplication::clipboard(), &QClipboard::dataChanged, this, &TeXDocumentWindow::clipboardChanged);
 	clipboardChanged();
 
-	connect(actionTypeset, SIGNAL(triggered()), this, SLOT(typeset()));
+	connect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::typeset);
 
 	updateRecentFileActions();
-	connect(qApp, SIGNAL(recentFileActionsChanged()), this, SLOT(updateRecentFileActions()));
-	connect(qApp, SIGNAL(windowListChanged()), this, SLOT(updateWindowMenu()));
-	connect(actionClear_Recent_Files, SIGNAL(triggered()), TWApp::instance(), SLOT(clearRecentFiles()));
+	connect(TWApp::instance(), &TWApp::recentFileActionsChanged, this, &TeXDocumentWindow::updateRecentFileActions);
+	connect(TWApp::instance(), &TWApp::windowListChanged, this, &TeXDocumentWindow::updateWindowMenu);
+	connect(actionClear_Recent_Files, &QAction::triggered, TWApp::instance(), &TWApp::clearRecentFiles);
 
-	connect(qApp, SIGNAL(hideFloatersExcept(QWidget*)), this, SLOT(hideFloatersUnlessThis(QWidget*)));
-	connect(this, SIGNAL(activatedWindow(QWidget*)), qApp, SLOT(activatedWindow(QWidget*)));
+	connect(TWApp::instance(), &TWApp::hideFloatersExcept, this, &TeXDocumentWindow::hideFloatersUnlessThis);
+	connect(this, &TeXDocumentWindow::activatedWindow, TWApp::instance(), &TWApp::activatedWindow);
 
-	connect(actionStack, SIGNAL(triggered()), qApp, SLOT(stackWindows()));
-	connect(actionTile, SIGNAL(triggered()), qApp, SLOT(tileWindows()));
-	connect(actionSide_by_Side, SIGNAL(triggered()), this, SLOT(sideBySide()));
-	connect(actionPlace_on_Left, SIGNAL(triggered()), this, SLOT(placeOnLeft()));
-	connect(actionPlace_on_Right, SIGNAL(triggered()), this, SLOT(placeOnRight()));
-	connect(actionShow_Hide_Console, SIGNAL(triggered()), this, SLOT(toggleConsoleVisibility()));
-	connect(actionGo_to_Preview, SIGNAL(triggered()), this, SLOT(goToPreview()));
+	connect(actionStack, &QAction::triggered, TWApp::instance(), &TWApp::stackWindows);
+	connect(actionTile, &QAction::triggered, TWApp::instance(), &TWApp::tileWindows);
+	connect(actionSide_by_Side, &QAction::triggered, this, &TeXDocumentWindow::sideBySide);
+	connect(actionPlace_on_Left, &QAction::triggered, this, &TeXDocumentWindow::placeOnLeft);
+	connect(actionPlace_on_Right, &QAction::triggered, this, &TeXDocumentWindow::placeOnRight);
+	connect(actionShow_Hide_Console, &QAction::triggered, this, &TeXDocumentWindow::toggleConsoleVisibility);
+	connect(actionGo_to_Preview, &QAction::triggered, this, &TeXDocumentWindow::goToPreview);
 
-	connect(this, SIGNAL(destroyed()), qApp, SLOT(updateWindowMenus()));
+	connect(this, &TeXDocumentWindow::destroyed, TWApp::instance(), &TWApp::updateWindowMenus);
 
-	connect(actionPreferences, SIGNAL(triggered()), qApp, SLOT(preferences()));
+	connect(actionPreferences, &QAction::triggered, TWApp::instance(), &TWApp::preferences);
 
-	connect(menuEdit, SIGNAL(aboutToShow()), this, SLOT(editMenuAboutToShow()));
+	connect(menuEdit, &QMenu::aboutToShow, this, &TeXDocumentWindow::editMenuAboutToShow);
 
 #if defined(Q_OS_DARWIN)
 	textEdit->installEventFilter(CmdKeyFilter::filter());
 #endif
 
-	connect(inputLine, SIGNAL(returnPressed()), this, SLOT(acceptInputLine()));
+	connect(inputLine, &QLineEdit::returnPressed, this, &TeXDocumentWindow::acceptInputLine);
 
 	Tw::Settings settings;
 	TWUtils::applyToolbarOptions(this, settings.value(QString::fromLatin1("toolBarIconSize"), 2).toInt(), settings.value(QString::fromLatin1("toolBarShowText"), false).toBool());
@@ -275,12 +275,12 @@ void TeXDocumentWindow::init()
 
 	QSignalMapper *syntaxMapper = new QSignalMapper(this);
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-	connect(syntaxMapper, SIGNAL(mapped(int)), this, SLOT(setSyntaxColoring(int)));
+	connect(syntaxMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), this, &TeXDocumentWindow::setSyntaxColoring);
 #else
 	connect(syntaxMapper, &QSignalMapper::mappedInt, this, &TeXDocumentWindow::setSyntaxColoring);
 #endif
 	syntaxMapper->setMapping(actionSyntaxColoring_None, -1);
-	connect(actionSyntaxColoring_None, SIGNAL(triggered()), syntaxMapper, SLOT(map()));
+	connect(actionSyntaxColoring_None, &QAction::triggered, syntaxMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 
 	QActionGroup *syntaxGroup = new QActionGroup(this);
 	syntaxGroup->addAction(actionSyntaxColoring_None);
@@ -306,19 +306,19 @@ void TeXDocumentWindow::init()
 	// It is VITAL that this connection is queued! Calling showMessage directly
 	// from TeXDocument::contentsChanged would otherwise result in a seg fault
 	// (for whatever reason)
-	connect(this, SIGNAL(asyncFlashStatusBarMessage(QString, int)), statusBar(), SLOT(showMessage(QString, int)), Qt::QueuedConnection);
+	connect(this, &TeXDocumentWindow::asyncFlashStatusBarMessage, statusBar(), &QStatusBar::showMessage, Qt::QueuedConnection);
 
 	QString indentOption = settings.value(QString::fromLatin1("autoIndent")).toString();
 	options = CompletingEdit::autoIndentModes();
 
 	QSignalMapper *indentMapper = new QSignalMapper(this);
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-	connect(indentMapper, SIGNAL(mapped(int)), textEdit, SLOT(setAutoIndentMode(int)));
+	connect(indentMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), textEdit, &CompletingEdit::setAutoIndentMode);
 #else
 	connect(indentMapper, &QSignalMapper::mappedInt, textEdit, &CompletingEdit::setAutoIndentMode);
 #endif
 	indentMapper->setMapping(actionAutoIndent_None, -1);
-	connect(actionAutoIndent_None, SIGNAL(triggered()), indentMapper, SLOT(map()));
+	connect(actionAutoIndent_None, &QAction::triggered, indentMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 
 	QActionGroup *indentGroup = new QActionGroup(this);
 	indentGroup->addAction(actionAutoIndent_None);
@@ -341,12 +341,12 @@ void TeXDocumentWindow::init()
 
 	QSignalMapper *quotesMapper = new QSignalMapper(this);
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-	connect(quotesMapper, SIGNAL(mapped(int)), textEdit, SLOT(setSmartQuotesMode(int)));
+	connect(quotesMapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped), textEdit, &CompletingEdit::setSmartQuotesMode);
 #else
 	connect(quotesMapper, &QSignalMapper::mappedInt, textEdit, &CompletingEdit::setSmartQuotesMode);
 #endif
 	quotesMapper->setMapping(actionSmartQuotes_None, -1);
-	connect(actionSmartQuotes_None, SIGNAL(triggered()), quotesMapper, SLOT(map()));
+	connect(actionSmartQuotes_None, &QAction::triggered, quotesMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 
 	QActionGroup *quotesGroup = new QActionGroup(this);
 	quotesGroup->addAction(actionSmartQuotes_None);
@@ -367,15 +367,15 @@ void TeXDocumentWindow::init()
 	if (!options.empty())
 		menuSmart_Quotes_Mode->addSeparator();
 	menuSmart_Quotes_Mode->addAction(actionApply_to_Selection);
-	connect(actionApply_to_Selection, SIGNAL(triggered()), textEdit, SLOT(smartenQuotes()));
+	connect(actionApply_to_Selection, &QAction::triggered, textEdit, &CompletingEdit::smartenQuotes);
 
-	connect(actionLine_Numbers, SIGNAL(triggered(bool)), this, SLOT(setLineNumbers(bool)));
-	connect(actionWrap_Lines, SIGNAL(triggered(bool)), this, SLOT(setWrapLines(bool)));
+	connect(actionLine_Numbers, &QAction::triggered, this, &TeXDocumentWindow::setLineNumbers);
+	connect(actionWrap_Lines, &QAction::triggered, this, &TeXDocumentWindow::setWrapLines);
 
-	connect(actionNone, SIGNAL(triggered()), &dictSignalMapper, SLOT(map()));
+	connect(actionNone, &QAction::triggered, &dictSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 	dictSignalMapper.setMapping(actionNone, QString());
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-	connect(&dictSignalMapper, SIGNAL(mapped(const QString&)), this, SLOT(setLangInternal(const QString&)));
+	connect(&dictSignalMapper, static_cast<void (QSignalMapper::*)(const QString&)>(&QSignalMapper::mapped), this, &TeXDocumentWindow::setLangInternal);
 #else
 	connect(&dictSignalMapper, &QSignalMapper::mappedString, this, &TeXDocumentWindow::setLangInternal);
 #endif
@@ -384,7 +384,7 @@ void TeXDocumentWindow::init()
 	group->addAction(actionNone);
 
 	reloadSpellcheckerMenu();
-	connect(Tw::Document::SpellChecker::instance(), SIGNAL(dictionaryListChanged()), this, SLOT(reloadSpellcheckerMenu()));
+	connect(Tw::Document::SpellChecker::instance(), &Tw::Document::SpellChecker::dictionaryListChanged, this, &TeXDocumentWindow::reloadSpellcheckerMenu);
 
 	menuShow->addAction(toolBar_run->toggleViewAction());
 	menuShow->addAction(toolBar_edit->toggleViewAction());
@@ -398,8 +398,8 @@ void TeXDocumentWindow::init()
 	menuShow->addAction(dw->toggleViewAction());
 
 	watcher = new QFileSystemWatcher(this);
-	connect(watcher, SIGNAL(fileChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()), Qt::QueuedConnection);
-	connect(watcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(reloadIfChangedOnDisk()), Qt::QueuedConnection);
+	connect(watcher, &QFileSystemWatcher::fileChanged, this, &TeXDocumentWindow::reloadIfChangedOnDisk, Qt::QueuedConnection);
+	connect(watcher, &QFileSystemWatcher::directoryChanged, this, &TeXDocumentWindow::reloadIfChangedOnDisk, Qt::QueuedConnection);
 
 	docList.append(this);
 
@@ -542,7 +542,7 @@ void TeXDocumentWindow::reloadSpellcheckerMenu()
 			act->setCheckable(true);
 			if (!oldSelected.isEmpty() && label == oldSelected)
 				act->setChecked(true);
-			connect(act, SIGNAL(triggered()), &dictSignalMapper, SLOT(map()));
+			connect(act, &QAction::triggered, &dictSignalMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 			dictSignalMapper.setMapping(act, dict);
 			group->addAction(act);
 			dictActions << act;
@@ -717,7 +717,7 @@ bool TeXDocumentWindow::event(QEvent *event) // based on example at doc.trolltec
 				}
 				else if (mods == Qt::ShiftModifier) {
 					QMenu menu(this);
-					connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(openAt(QAction*)));
+					connect(&menu, &QMenu::triggered, this, &TeXDocumentWindow::openAt);
 					QFileInfo info(textDoc()->getFileInfo());
 					QAction *action = menu.addAction(info.fileName());
 					action->setIcon(QIcon(QString::fromLatin1(":/images/images/TeXworks-doc.png")));
@@ -1190,7 +1190,7 @@ void TeXDocumentWindow::delayedInit()
 		Tw::Settings settings;
 
 		TeXHighlighter * highlighter = new TeXHighlighter(_texDoc);
-		connect(textEdit, SIGNAL(rehighlight()), highlighter, SLOT(rehighlight()));
+		connect(textEdit, &CompletingEdit::rehighlight, highlighter, &TeXHighlighter::rehighlight);
 
 		// set up syntax highlighting
 		// First, use the current file's syntaxMode property (if available)
@@ -1368,8 +1368,8 @@ bool TeXDocumentWindow::openPdfIfAvailable(bool show)
 	if (pdfDoc) {
 		actionSide_by_Side->setEnabled(true);
 		actionGo_to_Preview->setEnabled(true);
-		connect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
-		connect(this, SIGNAL(destroyed(QObject*)), pdfDoc, SLOT(texClosed(QObject*)));
+		connect(pdfDoc, &PDFDocumentWindow::destroyed, this, &TeXDocumentWindow::pdfClosed);
+		connect(this, &TeXDocumentWindow::destroyed, pdfDoc, &PDFDocumentWindow::texClosed);
 		return true;
 	}
 
@@ -1594,7 +1594,7 @@ void TeXDocumentWindow::updateEngineList()
 		item->setFlags(Qt::ItemIsSelectable | (available ? Qt::ItemIsEnabled : Qt::NoItemFlags));
 		model->appendRow(item);
 	}
-	connect(engine, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(selectedEngine(const QString&)));
+	connect(engine, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, static_cast<void (TeXDocumentWindow::*)(int)>(&TeXDocumentWindow::selectedEngine));
 	int index = engine->findText(engineName, Qt::MatchFixedString);
 	if (index < 0)
 		index = engine->findText(TWApp::instance()->getDefaultEngine().name(), Qt::MatchFixedString);
@@ -1612,8 +1612,9 @@ void TeXDocumentWindow::selectedEngine(QAction* engineAction) // sent by actions
 		}
 }
 
-void TeXDocumentWindow::selectedEngine(const QString& name) // sent by toolbar combo box; need to update menu
+void TeXDocumentWindow::selectedEngine(int idx) // sent by toolbar combo box; need to update menu
 {
+	const QString name = engine->itemText(idx);
 	engineName = name;
 	foreach (QAction *act, engineActions->actions()) {
 		if (act->text() == name) {
@@ -2760,9 +2761,13 @@ void TeXDocumentWindow::typeset()
 		showPdfWhenFinished = e.showPdf();
 		userInterrupt = false;
 
-		connect(process, SIGNAL(readyReadStandardOutput()), this, SLOT(processStandardOutput()));
-		connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
-		connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processFinished(int, QProcess::ExitStatus)));
+		connect(process, &QProcess::readyReadStandardOutput, this, &TeXDocumentWindow::processStandardOutput);
+#if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
+		connect(process, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::error), this, &TeXDocumentWindow::processError);
+#else
+		connect(process, &QProcess::errorOccurred, this, &TeXDocumentWindow::processError);
+#endif
+		connect(process, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &TeXDocumentWindow::processFinished);
 	}
 	else {
 		// Since the process didn't run, restart watching the output immediately
@@ -2803,18 +2808,18 @@ void TeXDocumentWindow::interrupt()
 void TeXDocumentWindow::updateTypesettingAction()
 {
 	if (!process) {
-		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
+		disconnect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::interrupt);
 		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-start")));
 		actionTypeset->setText(tr("Typeset"));
-		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(typeset()));
+		connect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::typeset);
 		if (pdfDoc)
 			pdfDoc->updateTypesettingAction(false);
 	}
 	else {
-		disconnect(actionTypeset, SIGNAL(triggered()), this, SLOT(typeset()));
+		disconnect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::typeset);
 		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
 		actionTypeset->setText(tr("Abort typesetting"));
-		connect(actionTypeset, SIGNAL(triggered()), this, SLOT(interrupt()));
+		connect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::interrupt);
 		if (pdfDoc)
 			pdfDoc->updateTypesettingAction(true);
 	}
@@ -2927,7 +2932,7 @@ void TeXDocumentWindow::executeAfterTypesetHooks()
 				// Use console font (which is customizable)
 				browser->setFont(textEdit_console->font());
 				browser->setOpenLinks(false);
-				connect(browser, SIGNAL(anchorClicked(const QUrl&)), this, SLOT(anchorClicked(const QUrl&)));
+				connect(browser, &QTextBrowser::anchorClicked, this, &TeXDocumentWindow::anchorClicked);
 				browser->setHtml(res);
 				browser->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard | Qt::LinksAccessibleByMouse | Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
 				consoleTabs->addTab(browser, s->getTitle());
@@ -3256,8 +3261,8 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 void TeXDocumentWindow::detachPdf()
 {
 	if (pdfDoc) {
-		disconnect(pdfDoc, SIGNAL(destroyed()), this, SLOT(pdfClosed()));
-		disconnect(this, SIGNAL(destroyed(QObject*)), pdfDoc, SLOT(texClosed(QObject*)));
+		disconnect(pdfDoc, &PDFDocumentWindow::destroyed, this, &TeXDocumentWindow::pdfClosed);
+		disconnect(this, &TeXDocumentWindow::destroyed, pdfDoc, &PDFDocumentWindow::texClosed);
 		pdfDoc = nullptr;
 	}
 }

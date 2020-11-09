@@ -36,11 +36,11 @@ void ConfirmDelete::init()
 {
 	setupUi(this);
 	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Delete"));
-	connect(selectAll, SIGNAL(clicked()), this, SLOT(doSelectAll()));
-	connect(selectNone, SIGNAL(clicked()), this, SLOT(doSelectNone()));
-	connect(toggleSelection, SIGNAL(clicked()), this, SLOT(doToggleSelection()));
-	connect(listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(doToggleItemSelection(QListWidgetItem*)));
-	connect(listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(setDeleteButtonEnabledStatus()));
+	connect(selectAll, &QPushButton::clicked, this, &ConfirmDelete::doSelectAll);
+	connect(selectNone, &QPushButton::clicked, this, &ConfirmDelete::doSelectNone);
+	connect(toggleSelection, &QPushButton::clicked, this, &ConfirmDelete::doToggleSelection);
+	connect(listWidget, &QListWidget::itemClicked, this, &ConfirmDelete::doToggleItemSelection);
+	connect(listWidget, &QListWidget::itemClicked, this, &ConfirmDelete::setDeleteButtonEnabledStatus);
 }
 
 void ConfirmDelete::doConfirmDelete(const QDir& dir, const QStringList& fileList)
