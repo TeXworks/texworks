@@ -144,45 +144,12 @@ function (_qt_pro_file_add_sources _output_var _pro_basepath _label)
   endif()
 endfunction()
 
-# FIXME: This is a workaround until Qt6 ships with this function
-# Taken from: https://github.com/qt/qttools/blob/eac773c8dfd0e2166db53c88f5aa0c1e85933cac/src/linguist/Qt5LinguistToolsMacros.cmake
+# The version-agnostic qt_add_translation was introduced in Qt 5.15
+# (see https://www.qt.io/blog/versionless-cmake-targets-qt-5.15)
+# For older versions, we need this work-around
 if (NOT COMMAND qt_add_translation)
-  if (COMMAND qt5_add_translation)
-    function(qt_add_translation _qm_files)
-      qt5_add_translation("${_qm_files}" ${ARGN})
-      set("${_qm_files}" "${${_qm_files}}" PARENT_SCOPE)
-    endfunction(qt_add_translation)
-  else ()
-    function(qt_add_translation _qm_files)
-      set(options)
-      set(oneValueArgs)
-      set(multiValueArgs OPTIONS)
-
-      cmake_parse_arguments(_LRELEASE "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
-      set(_lrelease_files ${_LRELEASE_UNPARSED_ARGUMENTS})
-
-      foreach(_current_FILE ${_lrelease_files})
-        get_filename_component(_abs_FILE ${_current_FILE} ABSOLUTE)
-        get_filename_component(qm ${_abs_FILE} NAME)
-        # everything before the last dot has to be considered the file name (including other dots)
-        string(REGEX REPLACE "\\.[^.]*$" "" FILE_NAME ${qm})
-        get_source_file_property(output_location ${_abs_FILE} OUTPUT_LOCATION)
-        if(output_location)
-          file(MAKE_DIRECTORY "${output_location}")
-          set(qm "${output_location}/${FILE_NAME}.qm")
-        else()
-          set(qm "${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}.qm")
-        endif()
-
-        add_custom_command(OUTPUT ${qm}
-          COMMAND Qt${QT_VERSION_MAJOR}::lrelease
-          ARGS ${_LRELEASE_OPTIONS} ${_abs_FILE} -qm ${qm}
-          DEPENDS ${_abs_FILE} VERBATIM
-        )
-        list(APPEND ${_qm_files} ${qm})
-      endforeach()
-      set(${_qm_files} ${${_qm_files}} PARENT_SCOPE)
-    endfunction()
-	endif ()
+  function(qt_add_translation _qm_files)
+    qt5_add_translation("${_qm_files}" ${ARGN})
+    set("${_qm_files}" "${${_qm_files}}" PARENT_SCOPE)
+  endfunction(qt_add_translation)
 endif (NOT COMMAND qt_add_translation)
-
