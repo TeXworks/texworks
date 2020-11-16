@@ -5,6 +5,7 @@ matrix:
     - name: "Mac OS X (Qt 5)"
       env: TARGET_OS=osx QT=5
       os: osx
+      osx_image: xcode12
     - name: "Windows (Qt 5)"
       env: TARGET_OS=win QT=5
       os: linux
