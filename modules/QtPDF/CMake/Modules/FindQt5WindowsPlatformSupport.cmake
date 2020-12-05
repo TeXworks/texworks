@@ -4,6 +4,10 @@
 # This file defines Qt5::WindowsPlatformSupport and sets
 # QT_PLATFORM_LIBRARIES = Qt5::WindowsPlatformSupport
 
+if (QT_PLATFORM_LIBRARIES)
+  return()
+endif ()
+
 get_target_property(QT_LIB_DIR Qt5::Widgets LOCATION)
 get_filename_component(QT_LIB_DIR "${QT_LIB_DIR}" PATH)
 

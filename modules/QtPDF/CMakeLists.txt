@@ -144,6 +144,7 @@ else ()
     ZLIB::ZLIB
   )
   SET(QTPDF_TEST_LIBS
+    ${QT_PLATFORM_LIBRARIES}
     Qt5::Test
   )
 endif ()
