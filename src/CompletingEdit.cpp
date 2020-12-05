@@ -861,7 +861,7 @@ bool CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 	QKeySequence seq(static_cast<int>(e->modifiers()) | e->key());
 	if (seq == actionNext_Completion_Placeholder->shortcut() || seq == actionPrevious_Completion_Placeholder->shortcut())
 	{
-		if (!find(QString(0x2022), (seq == actionPrevious_Completion_Placeholder->shortcut())
+		if (!find(QString(QChar(0x2022)), (seq == actionPrevious_Completion_Placeholder->shortcut())
 									? QTextDocument::FindBackward : QTextDocument::FindFlags()))
 			QApplication::beep();
 		return true;

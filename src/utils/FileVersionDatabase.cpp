@@ -48,8 +48,8 @@ FileVersionDatabase FileVersionDatabase::load(const QString & path)
 
 		rec.version = line.section(QChar::fromLatin1(' '), 0, 0);
 		rec.hash = QByteArray::fromHex(line.section(QChar::fromLatin1(' '), 1, 1).toLatin1());
-		rec.filePath = line.section(QChar::fromLatin1(' '), 2).trimmed();
-		rec.filePath = rootDir.absoluteFilePath(rec.filePath.filePath());
+		rec.filePath = QFileInfo(line.section(QChar::fromLatin1(' '), 2).trimmed());
+		rec.filePath = QFileInfo(rootDir.absoluteFilePath(rec.filePath.filePath()));
 		retVal.m_records.append(rec);
 	}
 

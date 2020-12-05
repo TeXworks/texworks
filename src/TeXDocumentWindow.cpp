@@ -77,7 +77,7 @@ TeXDocumentWindow::TeXDocumentWindow(const QString &fileName, bool asTemplate)
 	: _texDoc(new Tw::Document::TeXDocument(this))
 {
 	init();
-	loadFile(fileName, asTemplate);
+	loadFile(QFileInfo(fileName), asTemplate);
 }
 
 TeXDocumentWindow::~TeXDocumentWindow()
@@ -579,7 +579,7 @@ void TeXDocumentWindow::newFromTemplate()
 	if (!templateName.isEmpty()) {
 		TeXDocumentWindow *doc = nullptr;
 		if (untitled() && textEdit->document()->isEmpty() && !isWindowModified()) {
-			loadFile(templateName, true);
+			loadFile(QFileInfo(templateName), true);
 			doc = this;
 		}
 		else {
@@ -596,7 +596,7 @@ void TeXDocumentWindow::newFromTemplate()
 
 void TeXDocumentWindow::makeUntitled()
 {
-	setCurrentFile(QString());
+	setCurrentFile({});
 	actionRemove_Aux_Files->setEnabled(false);
 }
 
@@ -629,7 +629,7 @@ TeXDocumentWindow* TeXDocumentWindow::open(const QString &fileName)
 		doc = findDocument(fileName);
 		if (!doc) {
 			if (untitled() && textEdit->document()->isEmpty() && !isWindowModified()) {
-				loadFile(fileName);
+				loadFile(QFileInfo(fileName));
 				doc = this;
 			}
 			else {
@@ -776,7 +776,7 @@ bool TeXDocumentWindow::save()
 {
 	if (untitled())
 		return saveAs();
-	return saveFile(textDoc()->absoluteFilePath());
+	return saveFile(QFileInfo(textDoc()->absoluteFilePath()));
 }
 
 bool TeXDocumentWindow::saveAll()
@@ -837,7 +837,7 @@ bool TeXDocumentWindow::saveAs()
 
 	settings.setValue(QString::fromLatin1("saveDialogDir"), info.absolutePath());
 
-	return saveFile(fileName);
+	return saveFile(QFileInfo(fileName));
 }
 
 bool TeXDocumentWindow::maybeSave()
@@ -889,7 +889,7 @@ void TeXDocumentWindow::revert()
 		messageBox.setWindowModality(Qt::WindowModal);
 		messageBox.exec();
 		if (messageBox.clickedButton() == revertButton)
-			loadFile(textDoc()->absoluteFilePath());
+			loadFile(QFileInfo(textDoc()->absoluteFilePath()));
 	}
 }
 
@@ -1288,7 +1288,7 @@ void TeXDocumentWindow::reloadIfChangedOnDisk()
 		// miss the second change otherwise)
 		while (QDateTime::currentDateTime() <= textDoc()->getFileInfo().lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			; // do nothing
-		loadFile(textDoc()->absoluteFilePath(), false, true, true);
+		loadFile(QFileInfo(textDoc()->absoluteFilePath()), false, true, true);
 		// one final safety check - if the file has not changed, we can safely end this
 		if (QDateTime::currentDateTime() > textDoc()->getFileInfo().lastModified().addMSecs(FILE_MODIFICATION_ACCURACY))
 			break;
@@ -1460,7 +1460,7 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 	// has the existance of the file cached. If the file is saved for the first
 	// time (i.e. it did not exist before saveFile() was called),
 	// fileInfo.exists() will return the wrong (cached) info.
-	setCurrentFile(fileInfo.absoluteFilePath());
+	setCurrentFile(QFileInfo(fileInfo.absoluteFilePath()));
 	statusBar()->showMessage(tr("File \"%1\" saved")
 								.arg(textDoc()->getFileInfo().fileName()),
 								kStatusMessageDuration);
@@ -1496,7 +1496,7 @@ void TeXDocumentWindow::setCurrentFile(const QFileInfo & fileInfo)
 	textDoc()->setStoredInFilesystem(!isUntitled);
 	if (isUntitled) {
 		static int sequenceNumber = 1;
-		textDoc()->setFileInfo(tr("untitled-%1.tex").arg(sequenceNumber++));
+		textDoc()->setFileInfo(QFileInfo(tr("untitled-%1.tex").arg(sequenceNumber++)));
 		setWindowIcon(QApplication::windowIcon());
 	}
 	else {
@@ -3215,7 +3215,7 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 					case INSERT_DOCUMENT_TEXT:
 						if (!Tw::Document::isPDFfile(fileName) && !Tw::Document::isImageFile(fileName) && !Tw::Document::isPostscriptFile(fileName)) {
 							QTextCodec * codecUsed{nullptr};
-							text = readFile(fileName, &codecUsed);
+							text = readFile(QFileInfo(fileName), &codecUsed);
 							if (!text.isNull()) {
 								if (!editBlockStarted) {
 									curs.beginEditBlock();

@@ -106,7 +106,7 @@ void ResourcesLibrary::updateLibraryResources(const QDir& srcRootDir, const QDir
 
 		QString srcPath = iter.fileInfo().filePath();
 		QString path = srcRootDir.relativeFilePath(srcPath);
-		QString destPath = destRootDir.filePath(path);
+		QFileInfo destPath(destRootDir.filePath(path));
 
 		// Check if the file is in the database
 		if (fvdb.hasFileRecord(destPath)) {
@@ -118,7 +118,7 @@ void ResourcesLibrary::updateLibraryResources(const QDir& srcRootDir, const QDir
 				continue;
 
 			QByteArray srcHash = Tw::Utils::FileVersionDatabase::hashForFile(srcPath);
-			QByteArray destHash = Tw::Utils::FileVersionDatabase::hashForFile(destPath);
+			QByteArray destHash = Tw::Utils::FileVersionDatabase::hashForFile(destPath.filePath());
 			// If the file was modified, don't do anything, either
 			if (destHash != rec.hash) {
 				// The only exception is if the file on the disk matches the
@@ -138,8 +138,8 @@ void ResourcesLibrary::updateLibraryResources(const QDir& srcRootDir, const QDir
 				else {
 					// we have to remove the file first as QFile::copy doesn't
 					// overwrite existing files
-					QFile::remove(destPath);
-					if(QFile::copy(srcPath, destPath))
+					QFile::remove(destPath.filePath());
+					if(QFile::copy(srcPath, destPath.filePath()))
 						fvdb.addFileRecord(destPath, srcHash, Tw::Utils::VersionInfo::gitCommitHash());
 				}
 			}
@@ -152,7 +152,7 @@ void ResourcesLibrary::updateLibraryResources(const QDir& srcRootDir, const QDir
 				// We have to make sure the directory exists - otherwise copying
 				// might fail
 				destRootDir.mkpath(QFileInfo(destPath).path());
-				QFile(srcPath).copy(destPath);
+				QFile(srcPath).copy(destPath.filePath());
 				fvdb.addFileRecord(destPath, srcHash, Tw::Utils::VersionInfo::gitCommitHash());
 			}
 			else {
@@ -160,7 +160,7 @@ void ResourcesLibrary::updateLibraryResources(const QDir& srcRootDir, const QDir
 				// If it happens to be identical with the version we would install
 				// we do take ownership, however, and register it in the
 				// database so that future updates are applied
-				QByteArray destHash = Tw::Utils::FileVersionDatabase::hashForFile(destPath);
+				QByteArray destHash = Tw::Utils::FileVersionDatabase::hashForFile(destPath.filePath());
 				if (srcHash == destHash)
 					fvdb.addFileRecord(destPath, destHash, Tw::Utils::VersionInfo::gitCommitHash());
 			}
