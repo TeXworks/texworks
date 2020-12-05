@@ -1,0 +1,47 @@
+name: CD
+on:
+  - push
+
+jobs:
+  macosx-bintray:
+    name: Mac OS X (Bintray)
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        # Temporary fix for https://github.com/actions/virtual-environments/issues/1811
+        brew untap local/homebrew-openssl
+        brew untap local/homebrew-python2
+        # End of fix
+        brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
+        brew install hunspell poppler lua qt5
+
+    - name: Configure
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5"
+
+    - name: Build
+      run: make -j
+      working-directory: build
+
+    - name: Test
+      run: QT_QPA_PLATFORM_PLUGIN_PATH="${Qt5_DIR}/plugins/platforms" ctest -V
+      working-directory: build
+
+    - name: Package
+      id: package
+      uses: ./.github/actions/package-macos
+
+    - name: Deploy to Bintray
+      uses: ./.github/actions/deploy-bintray
+      with:
+        file: build/${{ steps.package.outputs.file }}
+        subject: texworks
+        repo: OSX-latest
+        pkg: TeXworks-for-Mac:latest
+        version: ${{ steps.package.outputs.version }}
+        username: stloeffler
+        key: ${{ secrets.bintray_key }}
