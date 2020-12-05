@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/TeXworks/texworks.svg?branch=master)](https://travis-ci.com/TeXworks/texworks)
-[![Build status](https://ci.appveyor.com/api/projects/status/eb4e9108blt0pehr?svg=true)](https://ci.appveyor.com/project/stloeffler/texworks)
 [![CI](https://github.com/TeXworks/texworks/workflows/CI/badge.svg)](https://github.com/TeXworks/texworks/actions?query=workflow%3ACI)
+[![CD](https://github.com/TeXworks/texworks/workflows/CD/badge.svg)](https://github.com/TeXworks/texworks/actions?query=workflow%3ACD)
+[![Build status](https://ci.appveyor.com/api/projects/status/eb4e9108blt0pehr?svg=true)](https://ci.appveyor.com/project/stloeffler/texworks)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4e9f1a5159b4060a88dd72dc3803f54)](https://www.codacy.com/app/TeXworks/texworks?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TeXworks/texworks&amp;utm_campaign=Badge_Grade)
 
 About TeXworks
