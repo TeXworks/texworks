@@ -442,7 +442,7 @@ QList<PDFFontInfo> Document::fonts() const
     if (popplerFontInfo.isEmbedded())
       fi.setSource(PDFFontInfo::Source_Embedded);
     else
-      fi.setFileName(popplerFontInfo.file());
+      fi.setFileName(QFileInfo(popplerFontInfo.file()));
     fi.setDescriptor(PDFFontDescriptor(popplerFontInfo.name()));
 
     switch (popplerFontInfo.type()) {
