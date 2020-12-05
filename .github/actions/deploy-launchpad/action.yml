@@ -1,0 +1,33 @@
+name: 'Deploy to Launchpad'
+author: 'Stefan Löffler'
+description: 'Upload packages to Launchpad PPAs'
+
+inputs:
+  changes_files:
+    description: 'space-separated list of paths to .changes files to upload'
+    required: true
+  devel-repo:
+    description: 'PPA to upload development versions to (e.g., ppa:testuser/nighlies)'
+    required: true
+  stable-repo:
+    description: 'PPA to upload releases (tags) to (e.g., ppa:testuser/stable)'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - run: |
+        case "${GITHUB_REF}" in
+          refs/tags/*)
+            REPO="${{ inputs.stable-repo }}"
+            ;;
+          *)
+            REPO="${{ inputs.devel-repo }}"
+            ;;
+        esac
+        for FILE in ${{ inputs.changes_files }}; do
+          echo "::group::Uploading ${FILE}"
+          dput ${REPO} "$FILE"
+          echo "::endgroup::"
+        done
+      shell: bash

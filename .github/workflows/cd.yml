@@ -3,6 +3,46 @@ on:
   - push
 
 jobs:
+  ubuntu:
+    name: Ubuntu (Launchpad)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # fetch the entire history so we can create the changelog
+
+    - name: Install Dependencies
+      run: sudo apt install --assume-yes --no-install-recommends cmake g++ git libhunspell-dev make qtbase5-dev qtdeclarative5-dev qtscript5-dev qttools5-dev qttools5-dev-tools zlib1g-dev libpoppler-qt5-dev libpoppler-private-dev poppler-data liblua5.3-dev gsfonts xvfb
+
+    - name: Configure
+      run: cmake -B build -DTW_BUILD_ID='github'
+
+    - name: Build
+      run: make -j
+      working-directory: build
+
+    - name: Test
+      run: ctest -V
+      working-directory: build
+
+    - name: Package for Launchpad
+      id: package
+      uses: ./.github/actions/package-launchpad
+      with:
+        DEB_PASSPHRASE: ${{ secrets.DEB_PASSPHRASE }}
+        DECRYPTION_KEY: ${{ secrets.DECRYPTION_KEY }}
+
+    - name: Deploy to Launchpad
+      uses: ./.github/actions/deploy-launchpad
+      with:
+        changes_files: ${{ steps.package.outputs.changes_files }}
+        devel-repo: "ppa:texworks/ppa"
+        stable-repo: "ppa:texworks/stable"
+
+################################################################################
+
   macosx-bintray:
     name: Mac OS X (Bintray)
     runs-on: macos-latest
