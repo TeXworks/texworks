@@ -27,7 +27,7 @@ build-arch: build-stamp
 # Build architecture-dependent files
 build-stamp: configure-stamp  
 	dh_testdir
-	cd build && $(MAKE) VERBOSE=1
+	cd build && $(MAKE) VERBOSE=1 && ctest -V
 	touch $@
 
 clean: 
