@@ -59,6 +59,8 @@ jobs:
     - name: Test
       run: ctest -V
       working-directory: build
+      env:
+        QT_FORCE_STDERR_LOGGING: 1
 
 ################################################################################
 
