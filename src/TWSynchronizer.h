@@ -58,7 +58,21 @@ public:
     QList<QRectF> rects;
 
     bool operator==(const PDFSyncPoint & o) const {
-      return (filename == o.filename && page == o.page && rects == o.rects);
+      if (filename != o.filename || page != o.page || rects.size() != o.rects.size()) {
+        return false;
+      }
+      // Explicitly use float qFuzzyCompare as SyncTeX internally uses float
+      // which may not be converted to double in the same way on all platforms
+      // (issues have occured with MXE compilations for Windows with GCC 5.5)
+      for (int i = 0; i < rects.size(); ++i) {
+        const QRectF & a = rects[i];
+        const QRectF & b = o.rects[i];
+        if (!qFuzzyCompare(static_cast<float>(a.top()), static_cast<float>(b.top()))) return false;
+        if (!qFuzzyCompare(static_cast<float>(a.left()), static_cast<float>(b.left()))) return false;
+        if (!qFuzzyCompare(static_cast<float>(a.width()), static_cast<float>(b.width()))) return false;
+        if (!qFuzzyCompare(static_cast<float>(a.height()), static_cast<float>(b.height()))) return false;
+      }
+      return true;
     }
   };
 

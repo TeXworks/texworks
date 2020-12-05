@@ -52,11 +52,9 @@ char * toString(const TWSyncTeXSynchronizer::TeXSyncPoint & p) {
 }
 
 char * toString(const TWSyncTeXSynchronizer::PDFSyncPoint & p) {
-	QStringList rectStr;
-	for (const QRectF & r : p.rects) {
-		rectStr.append(QTest::toString(r));
-	}
-	return QTest::toString(QStringLiteral("PDFSyncPoint(%0 @ %1, %2)").arg(p.filename).arg(p.page).arg(rectStr.join(" ")));
+	QString rectStr;
+	QDebug(&rectStr) << qSetRealNumberPrecision(20) << p.rects;
+	return QTest::toString(QStringLiteral("PDFSyncPoint(%0 @ %1, %2)").arg(p.filename).arg(p.page).arg(rectStr));
 }
 
 namespace Tw {
