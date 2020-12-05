@@ -184,11 +184,7 @@ void TestUtils::SystemCommand_getResult_data()
 	QString progInvalid{QStringLiteral("invalid-command")};
 	QStringList progInvalidArgs{};
 	QString outputQuiet;
-#ifdef Q_OS_WIN
-	QString outputOK{QStringLiteral("OK\r\n")};
-#else
 	QString outputOK{QStringLiteral("OK\n")};
-#endif
 	QString outputInvalid{QStringLiteral("ERROR: failure code 0")};
 
 	QTest::newRow("success-quiet") << progOK << progOKArgs << false << false << true << outputQuiet;
@@ -222,7 +218,11 @@ void TestUtils::SystemCommand_getResult()
 
 	cmd->start(program, args);
 	QCOMPARE(cmd->waitForFinished(), success);
+#ifdef Q_OS_WIN
+	QCOMPARE(cmd->getResult().replace(QStringLiteral("\r\n"), QStringLiteral("\n")), output);
+#else
 	QCOMPARE(cmd->getResult(), output);
+#endif
 
 	if (!runInBackground) {
 		cmd->deleteLater();
