@@ -1,0 +1,97 @@
+name: 'Package TeXworks for Windows'
+author: 'Stefan Löffler'
+description: ''
+
+inputs:
+  builddir:
+    description: 'Directory the program was built in (default: build)'
+    required: false
+    default: build
+
+outputs:
+  file:
+    description: 'The filename of the packaged artifact (relative to builddir)'
+    value: ${{ steps.bundle-zip.outputs.file }}
+  version:
+    description: 'The version of the packaged artifact (e.g., 0.7-202011160643-git_14dcc2c)'
+    value: ${{ steps.version-info.outputs.version }}
+
+runs:
+  using: composite
+  steps:
+    - name: Determine version info
+      shell: wsl-bash {0}
+      id: version-info
+      run: |
+        # NB: On Windows, there might be a stray \r at the end!
+        TW_VERSION=$(sed -ne 's/^#define TEXWORKS_VERSION[[:space:]]"\([0-9.]\{3,\}\)"[[:space:]]*$/\1/p' src/TWVersion.h)
+        echo "TW_VERSION = ${TW_VERSION}"
+        GIT_HASH=$(git --git-dir=".git" show --no-patch --pretty="%h")
+        echo "GIT_HASH = ${GIT_HASH}"
+        DATE_HASH=$(date -u +"%Y%m%d%H%M")
+        echo "DATE_HASH = ${DATE_HASH}"
+        VERSION="${TW_VERSION}-${DATE_HASH}-git_${GIT_HASH}"
+        echo "VERSION = ${VERSION}"
+        echo "::set-output name=version::${VERSION}"
+
+    - name: Strip TeXworks.exe
+      shell: wsl-bash {0}
+      run: /usr/lib/mxe/usr/bin/i686-w64-mingw32.static-strip --strip-all TeXworks.exe
+      working-directory: ${{ inputs.builddir }}
+
+    - name: Assemble package
+      shell: wsl-bash {0}
+      run: |
+        mkdir -p package-zip/share
+        cp build/TeXworks.exe package-zip/
+        cp COPYING package-zip/
+        cp -r win32/fonts package-zip/share/
+        cp -r .github/actions/package-windows/README.win package-zip/README.txt
+
+    - name: Fetch manual
+      shell: wsl-bash {0}
+      run: |
+        # FIXME: Manual for releases
+
+    - name: Fetch poppler-data
+      shell: wsl-bash {0}
+      run: |
+        TOPDIR=$(pwd)
+        POPPLERDATA_VERSION="0.4.10"
+        POPPLERDATA_SUBDIR="poppler-data-${POPPLERDATA_VERSION}"
+        POPPLERDATA_FILE="poppler-data-${POPPLERDATA_VERSION}.tar.gz"
+        POPPLERDATA_URL="https://poppler.freedesktop.org/${POPPLERDATA_FILE}"
+        POPPLERDATA_SHA256="6e2fcef66ec8c44625f94292ccf8af9f1d918b410d5aa69c274ce67387967b30"
+        wget "${POPPLERDATA_URL}"
+        CHKSUM=$(openssl dgst -sha256 "${POPPLERDATA_FILE}" 2> /dev/null)
+        if [ "${CHKSUM}" != "SHA256(${POPPLERDATA_FILE})= ${POPPLERDATA_SHA256}" ]; then
+          echo "::error::Wrong poppler-data checksum {CHKSUM} (expected: ${POPPLERDATA_SHA256})"
+          exit 1
+        fi
+        tar -xf "${POPPLERDATA_FILE}"
+        cd "${POPPLERDATA_SUBDIR}"
+        make install prefix="${TOPDIR}/package-zip"
+        # Cleanup unused pkgconfig data
+        rm -rf "${TOPDIR}/package-zip/share/pkgconfig"
+        # Install to build (required for testing)
+        make install prefix="${TOPDIR}/${{ inputs.builddir }}"
+
+    - name: Package installer
+      shell: wsl-bash {0}
+      run: |
+        # Fixme: installer for releases
+
+    - name: Bundle zip archive
+      shell: wsl-bash {0}
+      id: bundle-zip
+      run: |
+        cd package-zip && zip -r "../TeXworks-win-${{ steps.version-info.outputs.version }}.zip" *
+        echo "::set-output name=file::TeXworks-win-${{ steps.version-info.outputs.version }}.zip"
+
+    - name: Checksums
+      shell: wsl-bash {0}
+      run: |
+        echo "MD5"
+        md5sum TeXworks-win-${{ steps.version-info.outputs.version }}.zip
+        echo "SHA256"
+        sha256sum TeXworks-win-${{ steps.version-info.outputs.version }}.zip
