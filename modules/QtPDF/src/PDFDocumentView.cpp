@@ -1520,7 +1520,7 @@ void PDFDocumentView::wheelEvent(QWheelEvent * event)
     QWheelEvent newEvent(event->position(), event->globalPosition(),
                          QPoint{event->pixelDelta().y(), event->pixelDelta().x()},
                          QPoint{event->angleDelta().y(), event->angleDelta().x()},
-                         event->buttons(), event->modifiers(), event->phase(),
+                         event->buttons(), Qt::NoModifier, event->phase(),
                          event->inverted(), event->source());
 #endif
     wheelEvent(&newEvent);
