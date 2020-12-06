@@ -1392,8 +1392,8 @@ void TestQtPDF::page_renderToImage_data()
 
   const pDoc & base14Doc = _docs[QStringLiteral("base14-fonts")];
 
-  QTest::newRow("base14-fonts-ZapfDingbats") << base14Doc << 0 << "base14-fonts-1.png" << QRect(200, 1468, 840, 30) << 3.;
-  newDocTest("base14-fonts") << 0 << "base14-fonts-1.png" << QRect() << 10.;
+  QTest::newRow("base14-fonts-ZapfDingbats") << base14Doc << 0 << "base14-fonts-1.png" << QRect(200, 1468, 840, 30) << 150.;
+  newDocTest("base14-fonts") << 0 << "base14-fonts-1.png" << QRect() << 15.;
   newDocTest("poppler-data") << 0 << "poppler-data-1.png" << QRect() << 3.;
 }
 
