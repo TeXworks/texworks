@@ -35,6 +35,7 @@ FullscreenManager::FullscreenManager(QMainWindow * parent)
 	if (parent) {
 		QShortcut * esc = new QShortcut(QKeySequence(Qt::Key_Escape), parent);
 		Q_ASSERT(esc != nullptr);
+		esc->setEnabled(false);
 		connect(esc, &QShortcut::activated, this, &FullscreenManager::toggleFullscreen);
 		_shortcuts << shortcut_info{esc, nullptr};
 	}
