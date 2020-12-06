@@ -63,6 +63,27 @@ public:
   explicit ComparableImage(const QImage & other, const double threshold = 3) : QImage(other.convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
   explicit ComparableImage(const QString & filename, const double threshold = 3) : QImage(QImage(filename).convertToFormat(QImage::Format_RGB32)), _threshold(threshold) { }
 
+  bool isHomogeneous() const {
+    if (size().isEmpty()) {
+      return true;
+    }
+    Q_ASSERT(format() == QImage::Format_RGB32);
+
+    QRgb refColor = pixel(0, 0);
+    for (int j = 0; j < height(); ++j) {
+      const uchar * row = constScanLine(j);
+      for (int i = 0; i < 3 * width(); i += 3) {
+        uchar r = row[i];
+        uchar g = row[i + 1];
+        uchar b = row[i + 2];
+        if (qRgb(r, g, b) != refColor) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   bool operator==(const ComparableImage & other) const {
     Q_ASSERT(format() == QImage::Format_RGB32);
     Q_ASSERT(other.format() == QImage::Format_RGB32);
@@ -1031,7 +1052,7 @@ void TestQtPDF::fileSize_data()
 
   newDocTest("invalid") << static_cast<qint64>(0);
   newDocTest("base14-fonts") << static_cast<qint64>(3800);
-  newDocTest("base14-locked") << static_cast<qint64>(4292);
+  newDocTest("base14-locked") << static_cast<qint64>(2774);
   newDocTest("pgfmanual") << static_cast<qint64>(5346838);
   newDocTest("annotations") << static_cast<qint64>(11817);
 }
@@ -1363,12 +1384,17 @@ void TestQtPDF::page_renderToImage_data()
   QTest::addColumn<pDoc>("doc");
   QTest::addColumn<int>("iPage");
   QTest::addColumn<QString>("filename");
+  QTest::addColumn<QRect>("rect");
   QTest::addColumn<double>("threshold");
   // Use a higher threshold for the base14 test since the fonts are not
   // embedded. Consequently, system fonts are used as replacements, but they can
   // differ substantially between different systems.
-  newDocTest("base14-fonts") << 0 << "base14-fonts-1.png" << 10.;
-  newDocTest("poppler-data") << 0 << "poppler-data-1.png" << 3.;
+
+  const pDoc & base14Doc = _docs[QStringLiteral("base14-fonts")];
+
+  QTest::newRow("base14-fonts-ZapfDingbats") << base14Doc << 0 << "base14-fonts-1.png" << QRect(200, 1468, 840, 30) << 3.;
+  newDocTest("base14-fonts") << 0 << "base14-fonts-1.png" << QRect() << 10.;
+  newDocTest("poppler-data") << 0 << "poppler-data-1.png" << QRect() << 3.;
 }
 
 void TestQtPDF::page_renderToImage()
@@ -1376,13 +1402,20 @@ void TestQtPDF::page_renderToImage()
   QFETCH(pDoc, doc);
   QFETCH(int, iPage);
   QFETCH(QString, filename);
+  QFETCH(QRect, rect);
   QFETCH(double, threshold);
 
   QSharedPointer<QtPDF::Backend::Page> page = doc->page(iPage).toStrongRef();
   QVERIFY(page);
-  ComparableImage render(page->renderToImage(150, 150), threshold);
+  ComparableImage render(page->renderToImage(150, 150).copy(rect), threshold);
 //  render.save(filename);
-  ComparableImage ref(filename);
+  ComparableImage ref(QImage(filename).copy(rect));
+  // Check if the images are both homogeneous (or both not homogeneous)
+  // This is intended to catch problems such in base14 tests in which the exact
+  // rendering is not tremendously important (hence the threshold is high), but
+  // it is crucial that _something_ is rendered (which is not the case, e.g., if
+  // a font is missing)
+  QCOMPARE(ref.isHomogeneous(), render.isHomogeneous());
   QVERIFY(render == ref);
 }
 
