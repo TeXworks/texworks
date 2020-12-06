@@ -31,6 +31,7 @@ jobs:
   build-win-msys:
     name: Windows (MSYS)
     runs-on: windows-latest
+    if: false
     defaults:
       run:
         shell: msys2 {0}
