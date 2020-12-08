@@ -86,6 +86,10 @@ TeXDocumentWindow::~TeXDocumentWindow()
 	updateWindowMenu();
 	// Because _texDoc->parent() == this, _texDoc will be destroyed
 	// automatically by ~QObject()
+#if defined(Q_OS_DARWIN)
+	// Work around QTBUG-17941
+	QTimer::singleShot(0, TWApp::instance(), &TWApp::recreateSpecialMenuItems);
+#endif // defined(Q_OS_DARWIN)
 }
 
 static bool dictActionLessThan(const QAction * a1, const QAction * a2) {

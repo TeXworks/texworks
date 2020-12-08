@@ -137,25 +137,26 @@ public:
 	Q_INVOKABLE QVariant getGlobal(const QString& key) const { return m_globals[key]; }
 
 #if defined(Q_OS_DARWIN)
+	void recreateSpecialMenuItems();
 private:
 	// on the Mac only, we have a top-level app menu bar, including its own copy of the recent files menu
 	QMenuBar *menuBar;
 
-	QMenu *menuFile;
-	QAction *actionNew;
-	QAction *actionNew_from_Template;
-	QAction *actionOpen;
-	QAction *actionPreferences;
-	QAction *actionQuit;
+	QMenu *menuFile{nullptr};
+	QAction *actionNew{nullptr};
+	QAction *actionNew_from_Template{nullptr};
+	QAction *actionOpen{nullptr};
+	QAction *actionPreferences{nullptr};
+	QAction *actionQuit{nullptr};
 
-	QMenu *menuRecent;
-	QAction *actionClear_Recent_Files;
+	QMenu *menuRecent{nullptr};
+	QAction *actionClear_Recent_Files{nullptr};
 	QList<QAction*> recentFileActions;
 
-	QMenu *menuHelp;
-	QAction *aboutAction;
-	QAction *homePageAction;
-	QAction *mailingListAction;
+	QMenu *menuHelp{nullptr};
+	QAction *aboutAction{nullptr};
+	QAction *homePageAction{nullptr};
+	QAction *mailingListAction{nullptr};
 #endif
 
 public slots:

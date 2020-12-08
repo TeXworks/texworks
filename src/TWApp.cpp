@@ -225,12 +225,6 @@ void TWApp::init()
 	menuFile->addAction(actionNew_from_Template);
 	connect(actionNew_from_Template, &QAction::triggered, this, &TWApp::newFromTemplate);
 
-	actionPreferences = new QAction(tr("Preferences..."), this);
-	actionPreferences->setIcon(QIcon::fromTheme(QStringLiteral("preferences-system")));
-	actionPreferences->setMenuRole(QAction::PreferencesRole);
-	menuFile->addAction(actionPreferences);
-	connect(actionPreferences, &QAction::triggered, this, &TWApp::preferences);
-
 	actionOpen = new QAction(tr("Open..."), this);
 	actionOpen->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
 	menuFile->addAction(actionOpen);
@@ -243,11 +237,6 @@ void TWApp::init()
 	updateRecentFileActions();
 	menuFile->addMenu(menuRecent);
 
-	actionQuit = new QAction(tr("Quit TeXworks"), this);
-	actionQuit->setMenuRole(QAction::QuitRole);
-	menuFile->addAction(actionQuit);
-	connect(actionQuit, &QAction::triggered, this, &TWApp::quit);
-
 	menuHelp = menuBar->addMenu(tr("Help"));
 
 	homePageAction = new QAction(tr("Go to TeXworks home page"), this);
@@ -259,12 +248,9 @@ void TWApp::init()
 	QAction* sep = new QAction(this);
 	sep->setSeparator(true);
 	menuHelp->addAction(sep);
-	aboutAction = new QAction(tr("About " TEXWORKS_NAME "..."), this);
-	aboutAction->setMenuRole(QAction::AboutRole);
-	menuHelp->addAction(aboutAction);
-	connect(aboutAction, &QAction::triggered, this, &TWApp::about);
 
 	TWUtils::insertHelpMenuItems(menuHelp);
+	recreateSpecialMenuItems();
 
 	connect(this, &TWApp::updatedTranslators, this, &TWApp::changeLanguage);
 	changeLanguage();
@@ -279,8 +265,58 @@ void TWApp::maybeQuit()
 	closeAllWindows();
 #if defined(Q_OS_DARWIN)
 	setQuitOnLastWindowClosed(false);
+	// If maybeQuit() was called from the global menu (i.e., no windows were open),
+	// closeAllWindows() has no effect; so we have to check for this condition
+	// ourselves and quit Tw if necessary
+	bool isAnyWindowStillOpen = false;
+	for (QWidget * w : topLevelWidgets()) {
+		if (w && w->isWindow() && w->isVisible()) {
+			isAnyWindowStillOpen = true;
+			break;
+		}
+	}
+	if (!isAnyWindowStillOpen) {
+		quit();
+	}
 #endif
 }
+
+#if defined(Q_OS_DARWIN)
+
+void TWApp::recreateSpecialMenuItems()
+{
+	// This is an attempt to work around QTBUG-17941
+	// On macOS, certain special menu items (Quit, Preferences, About) are moved from
+	// the menus they are added to to the global system menu.
+	// If several menu items with the same role are created (e.g., each window creates
+	// a "Quit" item), only one (probably the last) such item is displayed in the
+	// system menu.
+	// When _any_ of those special actions is deleted (e.g. because their owning window is
+	// destroyed) - regardless of whether it was the current/only item with a given role -
+	// the corresponding system menu item vanishes.
+	// As a workaround, this function can re-create the global menu items to forcefully re-add
+	// the system menu items. This function has to be called _after any menu item with
+	// a special role has been deleted_ (e.g. by using QTimer::singleShot(0, ...)) and will
+	// override _all_ special menu items.
+
+	delete actionQuit;
+	actionQuit = menuFile->addAction(tr("Quit TeXworks"));
+	actionQuit->setMenuRole(QAction::QuitRole);
+	connect(actionQuit, &QAction::triggered, this, &TWApp::maybeQuit);
+
+	delete actionPreferences;
+	actionPreferences = menuFile->addAction(tr("Preferences..."));
+	actionPreferences->setIcon(QIcon::fromTheme(QStringLiteral("preferences-system")));
+	actionPreferences->setMenuRole(QAction::PreferencesRole);
+	connect(actionPreferences, &QAction::triggered, this, &TWApp::preferences);
+
+	delete aboutAction;
+	aboutAction = menuHelp->addAction(tr("About " TEXWORKS_NAME "..."));
+	aboutAction->setMenuRole(QAction::AboutRole);
+	connect(aboutAction, &QAction::triggered, this, &TWApp::about);
+}
+
+#endif // defined(Q_OS_DARWIN)
 
 void TWApp::changeLanguage()
 {

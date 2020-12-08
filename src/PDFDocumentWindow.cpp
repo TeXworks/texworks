@@ -117,6 +117,10 @@ PDFDocumentWindow::PDFDocumentWindow(const QString &fileName, TeXDocumentWindow 
 PDFDocumentWindow::~PDFDocumentWindow()
 {
 	docList.removeAll(this);
+#if defined(Q_OS_DARWIN)
+	// Work around QTBUG-17941
+	QTimer::singleShot(0, TWApp::instance(), &TWApp::recreateSpecialMenuItems);
+#endif // defined(Q_OS_DARWIN)
 }
 
 void PDFDocumentWindow::init()
