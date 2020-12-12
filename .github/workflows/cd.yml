@@ -1,6 +1,7 @@
 name: CD
 on:
   - push
+  - pull_request
 
 jobs:
   ubuntu:
@@ -21,6 +22,7 @@ jobs:
         DECRYPTION_KEY: ${{ secrets.DECRYPTION_KEY }}
 
     - name: Deploy to Launchpad
+      if: github.event_name == 'push'
       uses: ./.github/actions/deploy-launchpad
       with:
         changes_files: ${{ steps.package.outputs.changes_files }}
@@ -86,6 +88,7 @@ jobs:
         QT_FORCE_STDERR_LOGGING: 1
 
     - name: Deploy to Bintray
+      if: github.event_name == 'push'
       uses: ./.github/actions/deploy-bintray
       with:
           file: ${{ steps.package.outputs.file }}
@@ -131,6 +134,7 @@ jobs:
       uses: ./.github/actions/package-macos
 
     - name: Deploy to Bintray
+      if: github.event_name == 'push'
       uses: ./.github/actions/deploy-bintray
       with:
         file: build/${{ steps.package.outputs.file }}
