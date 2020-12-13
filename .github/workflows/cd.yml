@@ -7,6 +7,7 @@ jobs:
   ubuntu:
     name: Ubuntu (Launchpad)
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
 
     steps:
     - name: Checkout
@@ -22,7 +23,6 @@ jobs:
         DECRYPTION_KEY: ${{ secrets.DECRYPTION_KEY }}
 
     - name: Deploy to Launchpad
-      if: github.event_name == 'push'
       uses: ./.github/actions/deploy-launchpad
       with:
         changes_files: ${{ steps.package.outputs.changes_files }}
