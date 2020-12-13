@@ -20,7 +20,7 @@ runs:
   steps:
     - run: |
         echo "::group::Install dependencies"
-        sudo apt update && sudo apt install --assume-yes --no-install-recommends ubuntu-dev-tools debhelper
+        sudo apt update && sudo apt install --assume-yes --no-install-recommends ubuntu-dev-tools debhelper dput
         echo "::endgroup::"
         echo "::group::Import signing keys"
         mkdir -p "${HOME}/.gnupg"
