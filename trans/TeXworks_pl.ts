@@ -1191,7 +1191,7 @@ Czy chcesz kontynuować?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="928"/>
         <source>Processing tools</source>
-        <translation>Narzedzia przetwarzania</translation>
+        <translation>Narzędzia przetwarzania</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="963"/>
