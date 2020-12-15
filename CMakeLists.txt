@@ -467,13 +467,9 @@ IF ( APPLE )
   SET(MAC_PACK_BITS "${CMAKE_SOURCE_DIR}/CMake/packaging/mac")
   SET(CPACK_GENERATOR DragNDrop)
   SET( CPACK_DMG_BACKGROUND_IMAGE "${MAC_PACK_BITS}/texworks_dmg_background.png" )
-
   # Configure an AppleScript for applying a nice window layout to Drag N' Drop disk
   # image.
-  CONFIGURE_FILE( ${MAC_PACK_BITS}/set_dmg_layout.scpt.in
-    ${PROJECT_BINARY_DIR}/set_dmg_layout.scpt
-    @ONLY
-  )
+  set(CPACK_DMG_DS_STORE_SETUP_SCRIPT "${MAC_PACK_BITS}/DMGSetup.scpt")
 ENDIF ()
 
 INCLUDE(CPack)
