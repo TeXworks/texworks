@@ -107,10 +107,9 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        # Temporary fix for https://github.com/actions/virtual-environments/issues/1811
-        brew untap local/homebrew-openssl
-        brew untap local/homebrew-python2
-        # End of fix
+        # /usr/local/bin/2to3 is symlinked to the native python2 installation
+        # but prevents the homebrew install from succeeding
+        rm -f /usr/local/bin/2to3
         brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
         brew install hunspell poppler lua qt5
 
