@@ -67,10 +67,6 @@ jobs:
     - name: Prepare testing
       shell: wsl-bash {0}
       run: |
-        echo "::group::Copy fonts"
-        mkdir -p build/share
-        cp -r win32/fonts build/share
-        echo "::endgroup::"
         echo "::group::Fixup CTest files"
         SRC=$(pwd)
         DST=$(echo "${{ github.workspace }}" | tr '\\' '/')

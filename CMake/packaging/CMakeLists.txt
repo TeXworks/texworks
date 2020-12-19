@@ -19,3 +19,6 @@ ENDIF ()
 # executing during `make install` rather than `make` or `cmake`.
 INSTALL(SCRIPT ${PROJECT_BINARY_DIR}/CPackPackagingTasks.cmake)
 
+if (WIN32)
+	file(COPY "${CMAKE_SOURCE_DIR}/win32/fonts" DESTINATION "${CMAKE_BINARY_DIR}/share")
+endif (WIN32)
