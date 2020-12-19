@@ -28,6 +28,46 @@ jobs:
 
 ################################################################################
 
+  coverage-linux:
+    name: Coverage (Linux)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt update && sudo apt install --assume-yes --no-install-recommends qtbase5-dev qtdeclarative5-dev qtscript5-dev qttools5-dev qttools5-dev-tools zlib1g-dev libhunspell-dev libpoppler-qt5-dev libpoppler-private-dev liblua5.3-dev xvfb fonts-urw-base35 poppler-data lcov
+
+    - name: Configure
+      run: cmake -B build -DCMAKE_BUILD_TYPE="Debug" -DWITH_COVERAGE=On .
+
+    - name: Build
+      run: cmake --build build
+
+    - name: Test
+      working-directory: build
+      run: |
+        echo "::group::Initialization"
+        lcov --zerocounters --directory .
+        lcov --capture --initial --directory . --output-file "coverage.base"
+        echo "::endgroup::"
+        echo "::group::Run tests"
+        xvfb-run ctest -V
+        echo "::endgroup::"
+        echo "::group::Collect data"
+        lcov --capture --directory . --output-file "coverage.info"
+        lcov --add-tracefile "coverage.base" --add-tracefile "coverage.info" --output-file "coverage.info"
+        lcov --remove "coverage.info" '/usr/*' --output-file "coverage.info"
+        echo "::endgroup::"
+        echo "::group::Info"
+        lcov --list coverage.info #debug info
+        echo "::endgroup::"
+        echo "::group::Upload to Codecov"
+        bash <(curl -s https://codecov.io/bash) || echo "::warning::Codecov did not collect coverage reports"
+        echo "::endgroup::"
+
+################################################################################
+
   build-win-msys:
     name: Windows (MSYS)
     runs-on: windows-latest
