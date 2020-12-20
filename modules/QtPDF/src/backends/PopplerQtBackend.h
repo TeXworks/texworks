@@ -126,12 +126,7 @@ class PopplerQtBackend : public BackendInterface
   Q_OBJECT
   Q_INTERFACES(QtPDF::BackendInterface)
 public:
-  PopplerQtBackend();
-  ~PopplerQtBackend() override = default;
-
-  QSharedPointer<Backend::Document> newDocument(const QString & fileName) override {
-    return QSharedPointer<Backend::Document>(new Backend::PopplerQt::Document(fileName));
-  }
+  QSharedPointer<Backend::Document> newDocument(const QString & fileName) override;
 
   QString name() const override { return QString::fromLatin1("poppler-qt"); }
   bool canHandleFile(const QString & fileName) override { return QFileInfo(fileName).suffix() == QString::fromLatin1("pdf"); }
