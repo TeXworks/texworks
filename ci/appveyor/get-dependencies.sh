@@ -12,18 +12,6 @@ pacman --noconfirm -S mingw-w64-x86_64-freetype mingw-w64-x86_64-openjpeg2 mingw
 # It is required for verifying https connections
 # FIXME: As a temporary workaround, use --insecure with curl
 
-print_headline "Installing poppler-data"
-print_info "Downloading poppler-data"
-mkdir -p /c/projects/poppler-data
-cd /c/projects/poppler-data
-curl -sSL -O --insecure "${popplerdata_URL}"
-# FIXME: Check checksum
-print_info "Extracting poppler-data"
-7z x "${popplerdata_ARCHIVE}" -so | 7z x -si -ttar
-print_info "Renaming ${popplerdata_DIRNAME} > poppler-data"
-mv "${popplerdata_DIRNAME}" poppler-data
-
-
 print_headline "Installing poppler"
 print_info "Downloading poppler"
 mkdir -p /c/projects/poppler

@@ -1066,7 +1066,7 @@ QSharedPointer<Backend::Document> PopplerQtBackend::newDocument(const QString & 
     globalParamsInitialized = true;
     #if defined(POPPLER_HAS_GLOBALPARAMSINITER)
       QDir dataDir{QCoreApplication::applicationDirPath()};
-      if (dataDir.cd(QStringLiteral("../poppler-data"))){
+      if (dataDir.cd(QStringLiteral("../share/poppler"))) {
         GlobalParamsIniter::setCustomDataDir(qPrintable(dataDir.path()));
       }
     #else // defined(POPPLER_HAS_GLOBALPARAMSINITER)
@@ -1074,12 +1074,12 @@ QSharedPointer<Backend::Document> PopplerQtBackend::newDocument(const QString & 
       // (requires patched poppler-qt lib to be effective,
       // otherwise the GlobalParams gets overwritten when a
       // document is opened)
-      QDir popplerDataDir(QCoreApplication::applicationDirPath() + QLatin1String("/../poppler-data"));
-      if (popplerDataDir.exists()) {
+      QDir dataDir{QCoreApplication::applicationDirPath()};
+      if (dataDir.cd(QStringLiteral("../share/poppler"))) {
         #if defined(POPPLER_GLOBALPARAMS_IS_UNIQUE)
-          globalParams = std::move(std::unique_ptr<GlobalParams>(new GlobalParams(popplerDataDir.canonicalPath().toUtf8().data())));
+          globalParams = std::move(std::unique_ptr<GlobalParams>(new GlobalParams(qPrintable(dataDir.path()))));
         #else
-          globalParams = new GlobalParams(popplerDataDir.canonicalPath().toUtf8().data());
+          globalParams = new GlobalParams(qPrintable(dataDir.path()));
         #endif
       }
     #endif // defined(POPPLER_HAS_GLOBALPARAMSINITER)

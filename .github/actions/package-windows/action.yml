@@ -53,29 +53,6 @@ runs:
       run: |
         # FIXME: Manual for releases
 
-    - name: Fetch poppler-data
-      shell: wsl-bash {0}
-      run: |
-        TOPDIR=$(pwd)
-        POPPLERDATA_VERSION="0.4.10"
-        POPPLERDATA_SUBDIR="poppler-data-${POPPLERDATA_VERSION}"
-        POPPLERDATA_FILE="poppler-data-${POPPLERDATA_VERSION}.tar.gz"
-        POPPLERDATA_URL="https://poppler.freedesktop.org/${POPPLERDATA_FILE}"
-        POPPLERDATA_SHA256="6e2fcef66ec8c44625f94292ccf8af9f1d918b410d5aa69c274ce67387967b30"
-        wget "${POPPLERDATA_URL}"
-        CHKSUM=$(openssl dgst -sha256 "${POPPLERDATA_FILE}" 2> /dev/null)
-        if [ "${CHKSUM}" != "SHA256(${POPPLERDATA_FILE})= ${POPPLERDATA_SHA256}" ]; then
-          echo "::error::Wrong poppler-data checksum {CHKSUM} (expected: ${POPPLERDATA_SHA256})"
-          exit 1
-        fi
-        tar -xf "${POPPLERDATA_FILE}"
-        cd "${POPPLERDATA_SUBDIR}"
-        make install prefix="${TOPDIR}/package-zip"
-        # Cleanup unused pkgconfig data
-        rm -rf "${TOPDIR}/package-zip/share/pkgconfig"
-        # Install to build (required for testing)
-        make install prefix="${TOPDIR}/${{ inputs.builddir }}"
-
     - name: Package installer
       shell: wsl-bash {0}
       run: |

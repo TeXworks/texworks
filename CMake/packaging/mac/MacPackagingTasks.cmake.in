@@ -11,13 +11,6 @@ SET(CMAKE_SHARED_LIBRARY_SUFFIX @CMAKE_SHARED_LIBRARY_SUFFIX@)
 SET(QT_PLUGINS @QT_PLUGINS@)
 SET(QT_VERSION_MAJOR @QT_VERSION_MAJOR@)
 
-# Poppler data files: version, matching hash, and derived variables.
-SET(POPPLER_DATA_VERSION "0.4.10")
-SET(POPPLER_DATA_ARCHIVE_SHA256 "6e2fcef66ec8c44625f94292ccf8af9f1d918b410d5aa69c274ce67387967b30")
-SET(POPPLER_DATA_BASE "poppler-data-${POPPLER_DATA_VERSION}")
-SET(POPPLER_DATA_ARCHIVE "${POPPLER_DATA_BASE}.tar.gz")
-SET(POPPLER_DATA_ARCHIVE_URL "http://poppler.freedesktop.org/${POPPLER_DATA_ARCHIVE}")
-
 # TeXworks HTML manual: version, matching hash, and derived variables.
 SET(TW_MANUAL_VERSION "20200329154824-18e0761")
 SET(TW_MANUAL_ARCHIVE_SHA256 "d74cd729abd1dd4b892f6e6e99334cb3f01aceffb4836d848fc84fcfdf2b8b8e")
@@ -28,36 +21,6 @@ SET(TW_MANUAL_ARCHIVE_URL "https://github.com/TeXworks/manual/releases/download/
 # This `IF` statement ensures that the following commands are executed only when
 # CPack is running---i.e. when a user executes `make package` but not `make install`
 IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
-
-  # Download and install Poppler data
-  # ---------------------------------
-  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}" )
-    MESSAGE(STATUS "Downloading Poppler data files from ${POPPLER_DATA_ARCHIVE_URL}")
-    FILE(DOWNLOAD "${POPPLER_DATA_ARCHIVE_URL}"
-      "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}"
-      EXPECTED_HASH SHA256=${POPPLER_DATA_ARCHIVE_SHA256}
-      SHOW_PROGRESS
-    )
-  ELSE ( )
-    MESSAGE(STATUS "Using Poppler data files in '${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}'")
-  ENDIF ()
-
-  IF ( NOT EXISTS "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}" )
-    EXECUTE_PROCESS(
-      COMMAND tar xzf "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_ARCHIVE}"
-      WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-    )
-  ELSE ( )
-    MESSAGE(STATUS "'${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}' already present")
-  ENDIF ()
-
-  MESSAGE(STATUS "Bundling poppler data files")
-  FILE(INSTALL "${PROJECT_SOURCE_DIR}/${POPPLER_DATA_BASE}/"
-    DESTINATION "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/poppler-data"
-    PATTERN CMakeLists.txt EXCLUDE
-    PATTERN Makefile EXCLUDE
-  )
-
 
   # Download and install TeXworks manual
   # ------------------------------------
