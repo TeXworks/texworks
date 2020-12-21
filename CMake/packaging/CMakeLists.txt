@@ -31,7 +31,9 @@ if (WIN32)
 	)
 	file(COPY "${CMAKE_SOURCE_DIR}/win32/fonts" DESTINATION "${CMAKE_BINARY_DIR}/share")
 
-	install(DIRECTORY ${CMAKE_BINARY_DIR}/share/ TYPE DATA PATTERN pkgconfig EXCLUDE)
+	install(DIRECTORY ${CMAKE_BINARY_DIR}/share
+		DESTINATION ${CMAKE_INSTALL_PREFIX}
+		PATTERN pkgconfig EXCLUDE)
 elseif (APPLE)
 	include(ExternalProject)
 	ExternalProject_Add(poppler-data
