@@ -784,18 +784,19 @@
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="999"/>
         <source>Open URL</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">打开 URL</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="999"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
 Do you want to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">您正在打开 URL %1。打开未知或不受信任的网址会有安全风险。
+您要继续吗？</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1051"/>
         <source>Custom...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自定义...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1122"/>
@@ -995,7 +996,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">行距：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="315"/>
@@ -1025,7 +1026,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="548"/>
         <source>Enable auto-follow focus</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">启用自动跟踪焦点</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="582"/>
@@ -1274,7 +1275,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="770"/>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">源文件 &gt; 预览：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="784"/>
@@ -1297,7 +1298,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="802"/>
         <source>Preview &gt; Source:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">预览 &gt; 源文件：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="550"/>
