@@ -46,7 +46,7 @@ runs:
         cp build/TeXworks.exe package-zip/
         cp COPYING package-zip/
         cp -r win32/fonts package-zip/share/
-        cp -r .github/actions/package-windows/README.win package-zip/README.txt
+        cp -r win32/README.win package-zip/README.txt
 
     - name: Fetch manual
       shell: wsl-bash {0}

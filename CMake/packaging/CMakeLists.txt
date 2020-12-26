@@ -32,8 +32,10 @@ if (WIN32)
 	file(COPY "${CMAKE_SOURCE_DIR}/win32/fonts" DESTINATION "${CMAKE_BINARY_DIR}/share")
 
 	install(DIRECTORY ${CMAKE_BINARY_DIR}/share
-		DESTINATION ${CMAKE_INSTALL_PREFIX}
+		DESTINATION "."
 		PATTERN pkgconfig EXCLUDE)
+	install(FILES "${CMAKE_SOURCE_DIR}/COPYING" DESTINATION ".")
+	install(FILES "${CMAKE_SOURCE_DIR}/win32/README.win" DESTINATION "." RENAME "README.txt")
 elseif (APPLE)
 	include(ExternalProject)
 	ExternalProject_Add(poppler-data
