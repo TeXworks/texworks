@@ -25,7 +25,7 @@ if (GIT_FOUND)
 
 	if (${HASH_RESULT} EQUAL 0 AND ${DATE_RESULT} EQUAL 0 AND NOT "${NEW_HASH}" STREQUAL "" AND NOT "${NEW_DATE}" STREQUAL "")
 		set(SUCCESS TRUE)
-		execute_process(COMMAND "${GIT_EXECUTABLE}" "--git-dir=.git" "diff-index" "--quiet" "HEAD" RESULT_VARIABLE MODIFIED_RESULT)
+		execute_process(COMMAND "${GIT_EXECUTABLE}" "--git-dir=.git" "diff" "--ignore-cr-at-eol" "--quiet" "HEAD" RESULT_VARIABLE MODIFIED_RESULT)
 		if ("${MODIFIED_RESULT}" EQUAL 1)
 			set(NEW_HASH "${NEW_HASH}*")
 		endif ("${MODIFIED_RESULT}" EQUAL 1)
