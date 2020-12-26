@@ -27,6 +27,7 @@ runs:
     - name: Info
       shell: wsl-bash {0}
       id: info
+      working-directory: ${{ inputs.builddir }}
       run: |
         FILENAME=$(find . -maxdepth 1 -name 'TeXworks-win-*.zip')
         VERSION=$(echo "$FILENAME" | sed -e 's/^\.\/TeXworks-win-\(.*\)\.zip$/\1/')
