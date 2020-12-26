@@ -22,7 +22,13 @@ INSTALL(SCRIPT ${PROJECT_BINARY_DIR}/CPackPackagingTasks.cmake)
 set(POPPLERDATA_URL https://poppler.freedesktop.org/poppler-data-0.4.10.tar.gz)
 set(POPPLERDATA_SHA256 6e2fcef66ec8c44625f94292ccf8af9f1d918b410d5aa69c274ce67387967b30)
 
+set(CPACK_PROJECT_CONFIG_FILE "${CMAKE_SOURCE_DIR}/CMake/packaging/CPackProjectConfig.txt" PARENT_SCOPE)
+
+# Set custom CPack variables
+set(CPACK_GIT_HASH "${TeXworks_GIT_HASH}" PARENT_SCOPE)
+
 if (WIN32)
+	set(CPACK_TARGET_OS "win" PARENT_SCOPE)
 	include(ExternalProject)
 	ExternalProject_Add(poppler-data
 		URL ${POPPLERDATA_URL}
@@ -37,6 +43,7 @@ if (WIN32)
 	install(FILES "${CMAKE_SOURCE_DIR}/COPYING" DESTINATION ".")
 	install(FILES "${CMAKE_SOURCE_DIR}/win32/README.win" DESTINATION "." RENAME "README.txt")
 elseif (APPLE)
+	set(CPACK_TARGET_OS "macos" PARENT_SCOPE)
 	include(ExternalProject)
 	ExternalProject_Add(poppler-data
 		URL ${POPPLERDATA_URL}

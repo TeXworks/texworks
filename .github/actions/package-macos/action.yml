@@ -11,32 +11,24 @@ inputs:
 outputs:
   file:
     description: 'The filename of the packaged artifact (relative to builddir)'
-    value: ${{ steps.rename-dmg.outputs.file }}
+    value: ${{ steps.info.outputs.file }}
   version:
-    description: 'The version of the packaged artifact (e.g., 0.7-202011160643-git_14dcc2c)'
-    value: ${{ steps.rename-dmg.outputs.version }}
+    description: 'The version of the packaged artifact (e.g., 0.7.0-202011160643-git_14dcc2c)'
+    value: ${{ steps.info.outputs.version }}
 
 runs:
   using: composite
   steps:
-    - name: 'Determining version info'
-      id: version-info
-      shell: bash
-      run: |
-        echo "::set-output name=TW_VERSION::$(sed -ne 's,^#define TEXWORKS_VERSION[[:space:]]"\([0-9.]\{3\,\}\)"$,\1,p' src/TWVersion.h)"
-        echo "::set-output name=GIT_HASH::$(git --git-dir=".git" show --no-patch --pretty="%h")"
-        echo "::set-output name=DATE_HASH::$(date -u +"%Y%m%d%H%M")"
     - name: 'Running CPack'
       shell: bash
       run: cpack --verbose
       working-directory: ${{ inputs.builddir }}
-    - name: 'Renaming .dmg'
-      id: rename-dmg
+    - name: 'Info'
+      id: info
       shell: bash
       run: |
-        VERSION="${{ steps.version-info.outputs.TW_VERSION }}-${{ steps.version-info.outputs.DATE_HASH }}-git_${{ steps.version-info.outputs.GIT_HASH }}"
-        FILENAME="TeXworks-osx-${VERSION}.dmg"
-        mv TeXworks.*.dmg "${FILENAME}"
+        FILENAME=$(find . -depth 1 -name 'TeXworks-macos-*.dmg')
+        VERSION=$(echo "$FILENAME" | sed -e 's/^\.\/TeXworks-macos-\(.*\)\.dmg$/\1/')
         echo "::set-output name=version::${VERSION}"
         echo "::set-output name=file::${FILENAME}"
       working-directory: ${{ inputs.builddir }}
