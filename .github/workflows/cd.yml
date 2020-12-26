@@ -87,7 +87,7 @@ jobs:
       if: github.event_name == 'push'
       uses: ./.github/actions/deploy-bintray
       with:
-          file: ${{ steps.package.outputs.file }}
+          file: build/${{ steps.package.outputs.file }}
           subject: texworks
           repo: Windows-latest
           pkg: TeXworks-for-Windows:latest
