@@ -29,6 +29,9 @@ set(CPACK_GIT_HASH "${TeXworks_GIT_HASH}" PARENT_SCOPE)
 
 if (WIN32)
 	set(CPACK_TARGET_OS "win" PARENT_SCOPE)
+	set(CPACK_GENERATOR "ZIP" PARENT_SCOPE)
+	set(CPACK_STRIP_FILES ON PARENT_SCOPE)
+	set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF PARENT_SCOPE)
 	include(ExternalProject)
 	ExternalProject_Add(poppler-data
 		URL ${POPPLERDATA_URL}
@@ -42,6 +45,9 @@ if (WIN32)
 		PATTERN pkgconfig EXCLUDE)
 	install(FILES "${CMAKE_SOURCE_DIR}/COPYING" DESTINATION ".")
 	install(FILES "${CMAKE_SOURCE_DIR}/win32/README.win" DESTINATION "." RENAME "README.txt")
+
+	# FIXME: Manual for releases
+	# FIXME: Installer for releases
 elseif (APPLE)
 	set(CPACK_TARGET_OS "macos" PARENT_SCOPE)
 	include(ExternalProject)
