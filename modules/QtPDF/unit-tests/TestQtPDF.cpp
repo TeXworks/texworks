@@ -1181,9 +1181,11 @@ void TestQtPDF::fonts_data()
                                                << QString::fromLatin1("Courier-BoldOblique")
                                                << QString::fromLatin1("Symbol")
                                                << QString::fromLatin1("ZapfDingbats"));
-  newDocTest("annotations") << (QStringList() << QString::fromLatin1("LMRoman12-Regular")
-                                              << QString::fromLatin1("LMRoman12-Bold")
-                                              << QString::fromLatin1("LMMono12-Regular"));
+  newDocTest("poppler-data") << (QStringList() << QString::fromLatin1("MHei-Bold-Identity-H")
+                                               << QString::fromLatin1("MKai-SemiBold-Identity-H")
+                                               << QString::fromLatin1("MSung-Light-Identity-H")
+                                               << QString::fromLatin1("Helvetica-Bold")
+                                               << QString::fromLatin1("Times-Roman"));
 }
 
 void TestQtPDF::fonts()
