@@ -31,8 +31,8 @@ jobs:
 
 ################################################################################
 
-  win-bintray:
-    name: Windows (Bintray)
+  win-artifactory:
+    name: Windows (Artifactory)
     runs-on: windows-latest
 
     steps:
@@ -83,22 +83,21 @@ jobs:
       uses: ./.github/actions/package-windows
       id: package
 
-    - name: Deploy to Bintray
+    - name: Deploy to Artifactory
       if: github.event_name == 'push'
-      uses: ./.github/actions/deploy-bintray
+      uses: ./.github/actions/deploy-artifactory
       with:
           file: build/${{ steps.package.outputs.file }}
-          subject: texworks
-          repo: Windows-latest
-          pkg: TeXworks-for-Windows:latest
-          version: ${{ steps.package.outputs.version }}
-          username: stloeffler
-          key: ${{ secrets.bintray_key }}
+          baseurl: https://texworks.jfrog.io
+          repo: windows-latest
+          remotePath: ${{ steps.package.outputs.version }}
+          username: st.loeffler@gmail.com
+          key: ${{ secrets.jfrog_key }}
 
 ################################################################################
 
-  macosx-bintray:
-    name: Mac OS X (Bintray)
+  macosx-artifactory:
+    name: Mac OS X (Artifactory)
     runs-on: macos-latest
 
     steps:
@@ -128,14 +127,13 @@ jobs:
       id: package
       uses: ./.github/actions/package-macos
 
-    - name: Deploy to Bintray
+    - name: Deploy to Artifactory
       if: github.event_name == 'push'
-      uses: ./.github/actions/deploy-bintray
+      uses: ./.github/actions/deploy-artifactory
       with:
         file: build/${{ steps.package.outputs.file }}
-        subject: texworks
-        repo: OSX-latest
-        pkg: TeXworks-for-Mac:latest
-        version: ${{ steps.package.outputs.version }}
-        username: stloeffler
-        key: ${{ secrets.bintray_key }}
+        baseurl: https://texworks.jfrog.io
+        repo: macos-latest
+        remotePath: ${{ steps.package.outputs.version }}
+        username: st.loeffler@gmail.com
+        key: ${{ secrets.jfrog_key }}

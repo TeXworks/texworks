@@ -1,0 +1,45 @@
+name: 'Deploy to JFrog Artifactory'
+author: 'Stefan Löffler'
+description: 'Deploys artifacts to JFrog Artifactory'
+
+inputs:
+  file:
+    description: 'File to upload'
+    required: true
+  baseurl:
+    description: 'The Artifactory base url (e.g., https://texworks.jfrog.io)'
+    required: true
+  repo:
+    description: 'The repository to deploy to (e.g., windows-latest)'
+    required: true
+  remotePath:
+    description: 'The path in the repository to deploy to (e.g. a/b/c)'
+    required: true
+  username:
+    description: 'The JFrog username to use for authentication'
+    required: true
+  key:
+    description: 'The JFrog API key to use for authentication'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          python '${{ github.action_path }}/upload2artifactory.py' ${{ inputs.file }}
+        else
+          python3 ${{ github.action_path }}/upload2artifactory.py ${{ inputs.file }}
+        fi
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      env:
+        ARTIFACTORY_REPO: ${{ inputs.repo }}
+        ARTIFACTORY_PATH: ${{ inputs.remotePath }}
+        ARTIFACTORY_URL: ${{ inputs.baseurl }}
+        ARTIFACTORY_USER: ${{ inputs.username }}
+        ARTIFACTORY_KEY: ${{ inputs.key }}
+
+branding:
+  color: 'green'
+  icon: 'upload'
