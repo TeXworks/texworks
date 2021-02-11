@@ -1,13 +1,18 @@
 FROM archlinux
 
-RUN echo -e "[kde-unstable]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf && \
-	pacman --noconfirm -Syu \
+# Workaround an issue of old docker running new glibc (faccessat2 being blocked)
+# Modeled after https://github.com/lxqt/lxqt-panel/pull/1562/
+ARG GLIBC=glibc-linux4-2.33-4-x86_64.pkg.tar.zst
+RUN curl -LO https://repo.archlinuxcn.org/x86_64/$GLIBC && bsdtar -C / -xf $GLIBC
+
+RUN pacman --noconfirm -Syu \
 	cmake \
 	gcc \
 	git \
 	make \
 	hunspell \
 	lua \
+	poppler-qt6 \
 	qt6-5compat \
 	qt6-base \
 	qt6-declarative \
@@ -16,20 +21,6 @@ RUN echo -e "[kde-unstable]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.
 	poppler-data \
 	xorg-server-xvfb \
 && pacman --noconfirm -Scc
-
-# Build poppler-qt6
-
-ARG POPPLER_VERSION=20.11.0
-
-RUN pacman --noconfirm -Syu openjpeg2 pkgconfig wget && \
-	mkdir -p /home/poppler/build && cd /home/poppler && \
-	(wget -O- https://poppler.freedesktop.org/poppler-${POPPLER_VERSION}.tar.xz | tar -xJ --strip-components 1) && \
-	cd build && \
-	cmake -DENABLE_UTILS=OFF -DENABLE_CPP=OFF -DBUILD_QT6_TESTS=OFF  .. && \
-	make -j && \
-	make install
-
-# Build TeXworks
 
 COPY . /home/tw
 
