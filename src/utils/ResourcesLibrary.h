@@ -42,6 +42,9 @@ public:
 
 	static QString getPortableLibPath() { return m_portableLibPath; }
 	static void setPortableLibPath(const QString & path) { m_portableLibPath = path; }
+
+private:
+	static const QString getLibraryRootPath();
 };
 
 } // namespace Utils

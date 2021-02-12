@@ -43,15 +43,25 @@ QString ResourcesLibrary::m_portableLibPath;
 #endif
 
 // static
+const QString ResourcesLibrary::getLibraryRootPath()
+{
+#if defined(Q_OS_DARWIN)
+	return QDir::homePath() + QLatin1String("/Library/" TEXWORKS_NAME "/");
+#elif defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
+	return QDir::homePath() + QLatin1String("/." TEXWORKS_NAME "/");
+#else // defined(Q_OS_WIN)
+	return QDir::homePath() + QLatin1String("/" TEXWORKS_NAME "/");
+#endif
+}
+
+// static
 const QString ResourcesLibrary::getLibraryPath(const QString& subdir, const bool updateOnDisk /* = true */)
 {
 	QString libRootPath, libPath;
 
 	libRootPath = getPortableLibPath();
 	if (libRootPath.isEmpty()) {
-#if defined(Q_OS_DARWIN)
-		libRootPath = QDir::homePath() + QLatin1String("/Library/" TEXWORKS_NAME "/");
-#elif defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
+#if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 		if (subdir == QLatin1String("dictionaries")) {
 			libPath = QString::fromLatin1(TW_DICPATH);
 			QString dicPath = QString::fromLocal8Bit(getenv("TW_DICPATH"));
@@ -59,10 +69,8 @@ const QString ResourcesLibrary::getLibraryPath(const QString& subdir, const bool
 				libPath = dicPath;
 			return libPath; // don't try to create/update the system dicts directory
 		}
-		libRootPath = QDir::homePath() + QLatin1String("/." TEXWORKS_NAME "/");
-#else // defined(Q_OS_WIN)
-		libRootPath = QDir::homePath() + QLatin1String("/" TEXWORKS_NAME "/");
 #endif
+		libRootPath = getLibraryRootPath();
 	}
 	libPath = QDir(libRootPath).absolutePath() + QStringLiteral("/") + subdir;
 
