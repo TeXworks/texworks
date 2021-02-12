@@ -27,6 +27,7 @@
 
 #include <QDebug>
 #include <QDirIterator>
+#include <QStandardPaths>
 
 namespace Tw {
 
@@ -46,18 +47,25 @@ QString ResourcesLibrary::m_portableLibPath;
 // static
 const QString ResourcesLibrary::getLibraryRootPath()
 {
-#if defined(Q_OS_DARWIN)
-	return QDir::homePath() + QLatin1String("/Library/" TEXWORKS_NAME "/");
-#elif defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
-	return QDir::homePath() + QLatin1String("/." TEXWORKS_NAME "/");
-#else // defined(Q_OS_WIN)
-	return QDir::homePath() + QLatin1String("/" TEXWORKS_NAME "/");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 4, 0)
+	return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+#else
+	return QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #endif
 }
 
+// the return value is sorted from new to old
 const QStringList ResourcesLibrary::getLegacyLibraryRootPaths()
 {
-	return {};
+	QStringList retVal;
+#if defined(Q_OS_DARWIN)
+	retVal << QDir::homePath() + QLatin1String("/Library/" TEXWORKS_NAME "/");
+#elif defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
+	retVal << QDir::homePath() + QLatin1String("/." TEXWORKS_NAME "/");
+#else // defined(Q_OS_WIN)
+	retVal << QDir::homePath() + QLatin1String("/" TEXWORKS_NAME "/");
+#endif
+	return retVal;
 }
 
 // static

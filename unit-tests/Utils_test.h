@@ -26,6 +26,9 @@ class TestUtils : public QObject
 {
 	Q_OBJECT
 private slots:
+	void initTestCase();
+	void cleanupTestCase();
+
 	void FileVersionDatabase_comparisons();
 	void FileVersionDatabase_hashForFile();
 	void FileVersionDatabase_addFileRecord();

@@ -82,6 +82,16 @@ public:
 	QList<shortcut_info> shortcuts() const { return _shortcuts; }
 };
 
+void TestUtils::initTestCase()
+{
+	QStandardPaths::setTestModeEnabled(true);
+}
+
+void TestUtils::cleanupTestCase()
+{
+	QStandardPaths::setTestModeEnabled(false);
+}
+
 void TestUtils::FileVersionDatabase_comparisons()
 {
 	Tw::Utils::FileVersionDatabase::Record r1 = {QFileInfo(QStringLiteral("base14-fonts.pdf")), QStringLiteral("v1"), QByteArray()};
@@ -563,12 +573,10 @@ void TestUtils::ResourcesLibrary_getLibraryPath_data()
 	const QString sDicts(QStringLiteral("dictionaries"));
 	const QString sInvalid(QStringLiteral("does-not-exist"));
 
-#if defined(Q_OS_DARWIN)
-	QString stem = QDir::homePath() + QStringLiteral("/Library/TeXworks/");
-#elif defined(Q_OS_UNIX) // && !defined(Q_OS_DARWIN)
-	QString stem = QDir::homePath() + QStringLiteral("/.TeXworks/");
-#else // defined(Q_OS_WIN)
-	QString stem = QDir::homePath() + QStringLiteral("/TeXworks/");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 4, 0)
+	QString stem = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/");
+#else
+	QString stem = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/");
 #endif
 
 	QTest::newRow("root") << QString() << QString() << stem;
