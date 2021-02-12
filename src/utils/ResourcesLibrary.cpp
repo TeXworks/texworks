@@ -25,6 +25,7 @@
 #include "utils/FileVersionDatabase.h"
 #include "utils/VersionInfo.h"
 
+#include <QDebug>
 #include <QDirIterator>
 
 namespace Tw {
@@ -54,6 +55,62 @@ const QString ResourcesLibrary::getLibraryRootPath()
 #endif
 }
 
+const QStringList ResourcesLibrary::getLegacyLibraryRootPaths()
+{
+	return {};
+}
+
+// static
+bool ResourcesLibrary::shouldMigrateLegacyLibrary()
+{
+	// We don't migrate old (system) libraries in portable mode
+	if (!getPortableLibPath().isEmpty()) {
+		return false;
+	}
+	const QString dst = getLibraryRootPath();
+	// We don't migrate if the destination exists already
+	if (QDir(dst).exists()) {
+		return false;
+	}
+	for (const QString & src : getLegacyLibraryRootPaths()) {
+		if (QDir(src).exists()) {
+			return true;
+		}
+	}
+	return false;
+}
+
+// static
+void ResourcesLibrary::migrateLegacyLibrary()
+{
+	const QDir dst(getLibraryRootPath());
+
+	for (const QString & srcPath : getLegacyLibraryRootPaths()) {
+		QDir src(srcPath);
+		if (src.exists()) {
+			qDebug() << "Migrating resources library from" << src.absolutePath() << "to" << dst.absolutePath();
+			dst.mkpath(QStringLiteral("."));
+			QDirIterator it(src, QDirIterator::Subdirectories);
+			while (it.hasNext()) {
+				it.next();
+				const QFileInfo & srcFileInfo(it.fileInfo());
+				const QString relativePath(src.relativeFilePath(srcFileInfo.absoluteFilePath()));
+
+				if (srcFileInfo.isSymLink()) {
+					QFile::link(srcFileInfo.symLinkTarget(), dst.filePath(relativePath));
+				}
+				else if (srcFileInfo.isDir()) {
+					dst.mkpath(relativePath);
+				}
+				else {
+					QFile f(srcFileInfo.absoluteFilePath());
+					f.copy(dst.filePath(relativePath));
+				}
+			}
+		}
+	}
+}
+
 // static
 const QString ResourcesLibrary::getLibraryPath(const QString& subdir, const bool updateOnDisk /* = true */)
 {
@@ -71,6 +128,9 @@ const QString ResourcesLibrary::getLibraryPath(const QString& subdir, const bool
 		}
 #endif
 		libRootPath = getLibraryRootPath();
+		if (shouldMigrateLegacyLibrary()) {
+			migrateLegacyLibrary();
+		}
 	}
 	libPath = QDir(libRootPath).absolutePath() + QStringLiteral("/") + subdir;
 
