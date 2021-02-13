@@ -1,4 +1,4 @@
-From 18f3a255561c2fe4cf93a4c0114550b8712e4494 Mon Sep 17 00:00:00 2001
+From 10fbe110cc191b147e543092d53ebff49b5a88ff Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Mon, 6 Nov 2017 06:59:37 +0100
 Subject: [PATCH] Use a custom font directory on Windows
@@ -10,7 +10,7 @@ Uses the share/fonts directory alongside the application/poppler library
  2 files changed, 32 insertions(+), 2 deletions(-)
 
 diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
-index 4e46c183..dbd16c14 100644
+index eab1d724..bb27cde3 100644
 --- a/poppler/GlobalParams.cc
 +++ b/poppler/GlobalParams.cc
 @@ -152,6 +152,36 @@ static const char *get_poppler_datadir(void)
@@ -50,7 +50,7 @@ index 4e46c183..dbd16c14 100644
  #endif
  
  //------------------------------------------------------------------------
-@@ -848,7 +878,7 @@ GooString *GlobalParams::findFontFile(const GooString *fontName)
+@@ -847,7 +877,7 @@ GooString *GlobalParams::findFontFile(const GooString *fontName)
  {
      GooString *path = nullptr;
  
@@ -73,5 +73,5 @@ index 2056df18..c0f760e8 100644
      // TODO: base14Name should be changed?
      // In the system using FontConfig, findSystemFontFile() uses
 -- 
-2.25.1
+2.27.0
 
