@@ -340,7 +340,7 @@ get_target_property(_sources qtpdf SOURCES)
 add_custom_target(${PROJECT_NAME}_UpdateTranslations COMMAND "${CMAKE_COMMAND}"
   "-DOUTPUTFILE=\"${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro\""
   "-DPROJECT_NAME=\"${PROJECT_NAME}\""
-  "-DQt5_LUPDATE_EXECUTABLE=\"${lupdatePath}\""
+  "-DQt_LUPDATE_EXECUTABLE=\"${lupdatePath}\""
   "-DFILES=\"${_sources};${TRANSLATIONS_SOURCES}\""
   -P "${PROJECT_SOURCE_DIR}/CMake/Modules/UpdateTranslations.cmake"
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
