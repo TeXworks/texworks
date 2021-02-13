@@ -333,7 +333,7 @@ ADD_LIBRARY(qtpdf ${QTPDF_LIB_TYPE}
 # Create translations
 include(TranslationMacros)
 file(GLOB TRANSLATIONS_SOURCES trans/*.ts)
-target_add_qt_translations(qtpdf TS_FILES ${TRANSLATIONS_SOURCES})
+target_add_qt_translations(qtpdf TS_FILES ${TRANSLATIONS_SOURCES} INCLUDEPATH "../src/")
 
 get_target_property(lupdatePath Qt${QT_VERSION_MAJOR}::lupdate LOCATION)
 get_target_property(_sources qtpdf SOURCES)

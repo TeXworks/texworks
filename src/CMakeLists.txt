@@ -215,6 +215,7 @@ target_compile_options(TeXworks PRIVATE ${WARNING_OPTIONS})
 target_add_qt_translations(TeXworks
   TS_FILES ${TEXWORKS_TRANS_TS}
   QM_FILES ${QT_TRANS_QM}
+  INCLUDEPATH "../src/"
 )
 
 get_target_property(lupdatePath Qt${QT_VERSION_MAJOR}::lupdate LOCATION)

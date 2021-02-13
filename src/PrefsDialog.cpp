@@ -542,8 +542,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		else {
 			QLocale::Country country  = loc.country();
 			if (trans.contains(QChar::fromLatin1('_')) && country != QLocale::AnyCountry) {
-				locName = tr("%1 (%2)").arg(QLocale::languageToString(language), QLocale::countryToString(country));
 				//: Language (%1) and Country (%2) for TeXworks translations (ex. "Portuguese (Brazil)")
+				locName = tr("%1 (%2)").arg(QLocale::languageToString(language), QLocale::countryToString(country));
 			}
 			else {
 				locName = QLocale::languageToString(language);

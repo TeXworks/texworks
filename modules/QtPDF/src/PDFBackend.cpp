@@ -35,7 +35,7 @@ public:
     m_backendInterfaces.push_back(std::unique_ptr<BackendInterface>(new PopplerQtBackend));
 #endif
 #ifdef USE_MUPDF
-    m_backendInterfaces.push_back(std::unique_ptr<BackendInterface>(new MuPDFBackend)));
+    m_backendInterfaces.push_back(std::unique_ptr<BackendInterface>(new MuPDFBackend));
 #endif
   }
   BackendInterface * backend(const QString & name = {})
