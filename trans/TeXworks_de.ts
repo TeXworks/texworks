@@ -920,7 +920,7 @@ Wollen Sie fortfahren?</translation>
         <location filename="../src/PrefsDialog.cpp" line="546"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="345"/>
@@ -1146,7 +1146,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cursorbreite:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
@@ -3048,7 +3048,10 @@ Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplat
 
 Stack trace:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Stacktrace:
+</translation>
     </message>
 </context>
 <context>
@@ -3056,38 +3059,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Interner Fehler</translation>
+        <translation>Interner Fehler</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Der folgende Systembefehl konnte nicht ausgeführt werden: %1</translation>
+        <translation>Der folgende Systembefehl konnte nicht ausgeführt werden: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Es trat ein Fehler beim Ausführen des folgenden Systembefehls auf: %1</translation>
+        <translation>Es trat ein Fehler beim Ausführen des folgenden Systembefehls auf: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Das Ausführen von Systembefehlen ist deaktiviert (siehe Einstellungen)</translation>
+        <translation>Das Ausführen von Systembefehlen ist deaktiviert (siehe Einstellungen)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; konnte nicht geöffnet werden.</translation>
+        <translation>&quot;%1&quot; konnte nicht geöffnet werden.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Das Lesen von Dateien ist deaktiviert (siehe Einstellungen)</translation>
+        <translation>Das Lesen von Dateien ist deaktiviert (siehe Einstellungen)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Die Datei &quot;%1&quot; konnte nicht zum Lesen geöffnet werden</translation>
+        <translation>Die Datei &quot;%1&quot; konnte nicht zum Lesen geöffnet werden</translation>
     </message>
 </context>
 <context>
@@ -3097,7 +3100,7 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Ziehen Sie das Lineal oder ändern Sie den Wert, bis die angezeigten Abstände realen Abständen entsprechen.
+        <translation>Ziehen Sie das Lineal oder ändern Sie den Wert, bis die angezeigten Abstände realen Abständen entsprechen.
 Gängige Papierformate sind ebenfalls eingezeichnet (Sie müssen eventuell das Dialogfenster vergrößern, um sie zu sehen).
 Verwenden Sie das Kontextmenü, um die Längeneinheit zu ändern.</translation>
     </message>
@@ -3105,31 +3108,31 @@ Verwenden Sie das Kontextmenü, um die Längeneinheit zu ändern.</translation>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">DIN A4</translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
 </context>
 <context>
@@ -3137,12 +3140,12 @@ Verwenden Sie das Kontextmenü, um die Längeneinheit zu ändern.</translation>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">FEHLER: Fehlercode %1</translation>
+        <translation>FEHLER: Fehlercode %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">FEHLER: exit code %1</translation>
+        <translation>FEHLER: exit code %1</translation>
     </message>
 </context>
 </TS>
