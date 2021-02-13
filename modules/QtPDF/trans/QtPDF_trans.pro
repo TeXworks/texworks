@@ -9,6 +9,9 @@ SOURCES = \
   "../src/PDFDocumentTools.cpp" \
   "../src/PDFDocumentView.cpp" \
   "../src/PDFDocumentWidget.cpp" \
+  "../src/PDFFontDescriptor.cpp" \
+  "../src/PDFPageTile.cpp" \
+  "../src/PDFToC.cpp" \
   "../src/PDFTransitions.cpp" \
   "../src/PaperSizes.cpp" \
   "../src/backends/PopplerQtBackend.cpp"
@@ -20,11 +23,15 @@ HEADERS = \
   "../src/PDFDocumentTools.h" \
   "../src/PDFDocumentView.h" \
   "../src/PDFDocumentWidget.h" \
+  "../src/PDFFontDescriptor.h" \
+  "../src/PDFPageTile.h" \
+  "../src/PDFToC.h" \
   "../src/PDFTransitions.h" \
   "../src/PaperSizes.h" \
   "../src/backends/PopplerQtBackend.h"
 
 RESOURCES = \
+  "../../../build/modules/QtPDF/QtPDF_trans.qrc" \
   "../QtPDF_icons.qrc"
 
 TRANSLATIONS = \
