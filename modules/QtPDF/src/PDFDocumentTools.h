@@ -45,7 +45,7 @@ public:
   virtual ~AbstractTool() = default;
 
   virtual Type type() const { return Tool_None; }
-  virtual bool operator==(const AbstractTool & o) { return (type() == o.type()); }
+  virtual bool operator==(const AbstractTool & o) const { return (type() == o.type()); }
 protected:
   virtual void arm();
   virtual void disarm();

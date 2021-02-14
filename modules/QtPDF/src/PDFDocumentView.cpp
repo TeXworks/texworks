@@ -78,14 +78,14 @@ PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
   // it is already looking at page 0.
   _currentPage = -1;
 
-  registerTool(new DocumentTool::ZoomIn(this));
-  registerTool(new DocumentTool::ZoomOut(this));
-  registerTool(new DocumentTool::MagnifyingGlass(this));
-  registerTool(new DocumentTool::MarqueeZoom(this));
-  registerTool(new DocumentTool::Move(this));
-  registerTool(new DocumentTool::ContextClick(this));
-  registerTool(new DocumentTool::Measure(this));
-  registerTool(new DocumentTool::Select(this));
+  registerTool(std::unique_ptr<DocumentTool::AbstractTool>(new DocumentTool::ZoomIn(this)));
+  registerTool(std::unique_ptr<DocumentTool::AbstractTool>(new DocumentTool::ZoomOut(this)));
+  registerTool(std::unique_ptr<DocumentTool::AbstractTool>(new DocumentTool::MagnifyingGlass(this)));
+  registerTool(std::unique_ptr<DocumentTool::AbstractTool>(new DocumentTool::MarqueeZoom(this)));
+  registerTool(std::unique_ptr<DocumentTool::AbstractTool>(new DocumentTool::Move(this)));
+  registerTool(std::unique_ptr<DocumentTool::AbstractTool>(new DocumentTool::ContextClick(this)));
+  registerTool(std::unique_ptr<DocumentTool::AbstractTool>(new DocumentTool::Measure(this)));
+  registerTool(std::unique_ptr<DocumentTool::AbstractTool>(new DocumentTool::Select(this)));
 
   // Some tools (e.g., the Select tool) may need to be informed of mouse events
   // (e.g., mouseMoveEvent) when armed, even before a mouse button is pressed
@@ -722,11 +722,11 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
 
   // TODO: eventually make _toolAccessors configurable
   _toolAccessors.clear();
-  _toolAccessors[Qt::KeyboardModifiers(Qt::ControlModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_ContextClick);
-  _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::RightButton)] = getToolByType(DocumentTool::AbstractTool::Tool_ContextMenu);
-  _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::MiddleButton)] = getToolByType(DocumentTool::AbstractTool::Tool_Move);
-  _toolAccessors[Qt::KeyboardModifiers(Qt::ShiftModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_ZoomIn);
-  _toolAccessors[Qt::KeyboardModifiers(Qt::AltModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_ZoomOut);
+  _toolAccessors[Qt::KeyboardModifiers(Qt::ControlModifier) | Qt::MouseButtons(Qt::LeftButton)] = DocumentTool::AbstractTool::Tool_ContextClick;
+  _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::RightButton)] = DocumentTool::AbstractTool::Tool_ContextMenu;
+  _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::MiddleButton)] = DocumentTool::AbstractTool::Tool_Move;
+  _toolAccessors[Qt::KeyboardModifiers(Qt::ShiftModifier) | Qt::MouseButtons(Qt::LeftButton)] = DocumentTool::AbstractTool::Tool_ZoomIn;
+  _toolAccessors[Qt::KeyboardModifiers(Qt::AltModifier) | Qt::MouseButtons(Qt::LeftButton)] = DocumentTool::AbstractTool::Tool_ZoomOut;
   // Other tools: Tool_MagnifyingGlass, Tool_MarqueeZoom, Tool_Move
 
   disarmTool();
@@ -734,27 +734,27 @@ void PDFDocumentView::setMouseMode(const MouseMode newMode)
   switch (newMode) {
     case MouseMode_Move:
       armTool(DocumentTool::AbstractTool::Tool_Move);
-      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_Move);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = DocumentTool::AbstractTool::Tool_Move;
       break;
 
     case MouseMode_MarqueeZoom:
       armTool(DocumentTool::AbstractTool::Tool_MarqueeZoom);
-      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_MarqueeZoom);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = DocumentTool::AbstractTool::Tool_MarqueeZoom;
       break;
 
     case MouseMode_MagnifyingGlass:
       armTool(DocumentTool::AbstractTool::Tool_MagnifyingGlass);
-      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_MagnifyingGlass);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = DocumentTool::AbstractTool::Tool_MagnifyingGlass;
       break;
 
     case MouseMode_Measure:
       armTool(DocumentTool::AbstractTool::Tool_Measure);
-      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_Measure);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = DocumentTool::AbstractTool::Tool_Measure;
       break;
 
     case MouseMode_Select:
       armTool(DocumentTool::AbstractTool::Tool_Select);
-      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = getToolByType(DocumentTool::AbstractTool::Tool_Select);
+      _toolAccessors[Qt::KeyboardModifiers(Qt::NoModifier) | Qt::MouseButtons(Qt::LeftButton)] = DocumentTool::AbstractTool::Tool_Select;
       break;
   }
 
@@ -976,7 +976,7 @@ void PDFDocumentView::maybeUpdateSceneRect() {
 void PDFDocumentView::maybeArmTool(uint modifiers)
 {
   // Arms the tool corresponding to `modifiers` if one is available.
-  DocumentTool::AbstractTool * t = _toolAccessors.value(modifiers, nullptr);
+  DocumentTool::AbstractTool * t = getToolByType(_toolAccessors.value(modifiers, DocumentTool::AbstractTool::Tool_None));
   if (t != _armedTool) {
     disarmTool();
     armTool(t);
@@ -1310,28 +1310,30 @@ void PDFDocumentView::notifyTextSelectionChanged()
   emit textSelectionChanged(tool->isTextSelected());
 }
 
-void PDFDocumentView::registerTool(DocumentTool::AbstractTool * tool)
+void PDFDocumentView::registerTool(std::unique_ptr<DocumentTool::AbstractTool> tool)
 {
   if (!tool)
     return;
 
   // Remove any identical tools
-  for (int i = 0; i < _tools.size(); ++i) {
-    if (_tools[i] && *_tools[i] == *tool) {
-      delete _tools[i];
-      _tools.remove(i);
-      --i;
+  for (auto it = _tools.begin(); it != _tools.end(); ) {
+    const std::unique_ptr<DocumentTool::AbstractTool> & t = *it;
+    if (t && *t == *tool) {
+      it = _tools.erase(it);
+    }
+    else {
+      ++it;
     }
   }
   // Add the new tool
-  _tools.append(tool);
+  _tools.push_back(std::move(tool));
 }
 
 DocumentTool::AbstractTool* PDFDocumentView::getToolByType(const DocumentTool::AbstractTool::Type type)
 {
-  foreach(DocumentTool::AbstractTool * tool, _tools) {
+  for(const std::unique_ptr<DocumentTool::AbstractTool> & tool : _tools) {
     if (tool && tool->type() == type)
-      return tool;
+      return tool.get();
   }
   return nullptr;
 }

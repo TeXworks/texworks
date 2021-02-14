@@ -18,6 +18,7 @@
 #include "PDFDocumentTools.h"
 
 #include <QtWidgets>
+#include <memory>
 
 namespace QtPDF {
 
@@ -175,7 +176,7 @@ protected:
 
   // Maybe this will become public later on
   // Ownership of tool is transferred to PDFDocumentView
-  void registerTool(DocumentTool::AbstractTool * tool);
+  void registerTool(std::unique_ptr<DocumentTool::AbstractTool> tool);
 
   DocumentTool::AbstractTool * getToolByType(const DocumentTool::AbstractTool::Type type);
 
@@ -200,9 +201,11 @@ private:
   PageMode _pageMode{PageMode_OneColumnContinuous};
   MouseMode _mouseMode{MouseMode_Move};
   QCursor _hiddenCursor;
-  QVector<DocumentTool::AbstractTool*> _tools;
+  // Use std::vector instead of QVector as the latter can't handle non-copyable
+  // types
+  std::vector< std::unique_ptr<DocumentTool::AbstractTool> > _tools;
   DocumentTool::AbstractTool * _armedTool{nullptr};
-  QMap<uint, DocumentTool::AbstractTool*> _toolAccessors;
+  QMap<uint, DocumentTool::AbstractTool::Type> _toolAccessors;
 
   QStack<PDFDestination> _oldViewRects;
 
