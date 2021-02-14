@@ -82,8 +82,8 @@ public:
   void setFontType(const FontType fontType) { _fontType = fontType; }
   void setCIDType(const CIDFontType CIDType) { _CIDType = CIDType; }
   void setFontProgramType(const FontProgramType programType) { _fontProgramType = programType; }
-  void setDescriptor(const PDFFontDescriptor descriptor) { _descriptor = descriptor; }
-  void setFileName(const QFileInfo file) { _source = Source_File; _substitutionFile = file; }
+  void setDescriptor(const PDFFontDescriptor & descriptor) { _descriptor = descriptor; }
+  void setFileName(const QFileInfo & file) { _source = Source_File; _substitutionFile = file; }
   void setSource(const FontSource source) { _source = source; }
 
   bool operator==(const PDFFontInfo & o) const {

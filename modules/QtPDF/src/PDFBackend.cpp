@@ -95,7 +95,8 @@ QDateTime fromPDFDate(QString pdfDate)
   QTime time;
   QString format;
   int sign{0};
-  int hourOffset{0}, minuteOffset{0};
+  // QDateTime::addSecs() uses qint64, so use that type from the start
+  qint64 hourOffset{0}, minuteOffset{0};
   bool ok{false};
 
   // "D:" prefix is strongly recommended, but optional; we don't need it here

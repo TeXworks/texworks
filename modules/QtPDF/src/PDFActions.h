@@ -95,19 +95,29 @@ public:
   };
 
   PDFAction() = default;
+  // As this is an abstract base class, ee need a virtual destructor
   virtual ~PDFAction() = default;
 
   virtual bool operator==(const PDFAction & o) const = 0;
 
   virtual ActionType type() const = 0;
   virtual PDFAction * clone() const = 0;
+protected:
+  // Since we defined a destructor (to make it virtual), we should also define
+  // copt/move c'tor and assignment operator. They must be protected to ensure
+  // "the outside world" can't copy PDFAction instances (which would inevitably
+  // lead to slicing as PDFAction is an abstract base class), but must not be
+  // deleted to allow derived classes to be copied/moved.
+  PDFAction(const PDFAction &) = default;
+  PDFAction(PDFAction &&) = default;
+  PDFAction & operator=(const PDFAction &) = default;
+  PDFAction & operator=(PDFAction &&) = default;
 };
 
 class PDFURIAction : public PDFAction
 {
 public:
   PDFURIAction(const QUrl url) : _url(url) { }
-  PDFURIAction(const PDFURIAction &) = default;
 
   ActionType type() const override { return ActionTypeURI; }
   PDFAction * clone() const override { return new PDFURIAction(*this); }
@@ -127,7 +137,6 @@ class PDFGotoAction : public PDFAction
 {
 public:
   PDFGotoAction(const PDFDestination destination = PDFDestination()) : _destination(destination) { }
-  PDFGotoAction(const PDFGotoAction &) = default;
 
   ActionType type() const override { return ActionTypeGoTo; }
   PDFAction * clone() const override { return new PDFGotoAction(*this); }
@@ -156,7 +165,6 @@ class PDFLaunchAction : public PDFAction
 {
 public:
   PDFLaunchAction(const QString command) : _command(command) { }
-  PDFLaunchAction(const PDFLaunchAction &) = default;
 
   ActionType type() const override { return ActionTypeLaunch; }
   PDFAction * clone() const override { return new PDFLaunchAction(*this); }
