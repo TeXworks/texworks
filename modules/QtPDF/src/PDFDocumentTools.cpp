@@ -717,12 +717,15 @@ void Select::mousePressEvent(QMouseEvent * event)
 
   // We only handle the left mouse button
   if (event->buttons() != Qt::LeftButton) {
-   AbstractTool::mousePressEvent(event);
+    AbstractTool::mousePressEvent(event);
     return;
   }
 
   PDFDocumentScene * scene = dynamic_cast<PDFDocumentScene*>(_parent->scene());
-  Q_ASSERT(scene != nullptr);
+  if (scene == nullptr) {
+    // without a scene, there's nothing to do here
+    return;
+  }
 
   // get the number of the page the mouse is currently over; if the mouse is
   // not over any page (e.g., it's between pages), there's nothing left to do
@@ -779,8 +782,10 @@ void Select::mouseMoveEvent(QMouseEvent *event)
 {
   Q_ASSERT(_parent != nullptr);
   PDFDocumentScene * scene = dynamic_cast<PDFDocumentScene*>(_parent->scene());
-  Q_ASSERT(scene != nullptr);
-  Q_ASSERT(!scene->document().isNull());
+  if (scene == nullptr || scene->document().isNull()) {
+    // without a scene/document, there's nothing to do here
+    return;
+  }
 
   // Check if the mouse cursor is over a page. If not, we bail out and keep the
   // last "valid" state.
@@ -922,7 +927,7 @@ void Select::mouseReleaseEvent(QMouseEvent * event)
 {
   // We only handle the left mouse button
   if (event->buttons() != Qt::NoButton || event->button() != Qt::LeftButton) {
-   AbstractTool::mouseReleaseEvent(event);
+    AbstractTool::mouseReleaseEvent(event);
     return;
   }
   _mouseMode = MouseMode_None;
