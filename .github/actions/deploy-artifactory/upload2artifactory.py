@@ -1,4 +1,4 @@
-import base64, datetime, json, os, sys
+import base64, json, os, sys
 import urllib.request
 import urllib.error
 
@@ -15,10 +15,10 @@ def sendRequest(r, quiet = False):
 		r.add_header('Authorization', auth)
 		with urllib.request.urlopen(r) as f:
 			content = f.read()
-			if not quiet:
-				print('< Server replied')
-				print(json.dumps(json.loads(content), sort_keys=True, indent=4))
-			return content
+		if not quiet:
+			print('< Server replied')
+			print(json.dumps(json.loads(content), sort_keys=True, indent=4))
+		return content
 	except urllib.error.HTTPError as e:
 		print('< Server replied')
 		print(e)

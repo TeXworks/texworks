@@ -110,7 +110,7 @@ for SERIES in ${LAUNCHPAD_SERIES}; do
 	PASSPHRASE_FILE="${TOPDIR}/passphrase.txt"
 	touch "${PASSPHRASE_FILE}"
 	chmod 600 "${PASSPHRASE_FILE}"
-	echo "${DEB_PASSPHRASE}" > ${TOPDIR}/passphrase.txt || print_error "Failed to create passphrase.txt"
+	echo "${DEB_PASSPHRASE}" > "${TOPDIR}/passphrase.txt" || print_error "Failed to create passphrase.txt"
 	debuild -k8740ED04AF6A4FCC6BC51C426806F10000582F84 -p"gpg --no-tty --batch --pinentry-mode=loopback  --passphrase-file ${PASSPHRASE_FILE}" -d -S && DEBUILD_RETVAL=$? || DEBUILD_RETVAL=$?
 	rm -f "${PASSPHRASE_FILE}"
 
