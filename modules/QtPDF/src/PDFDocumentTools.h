@@ -27,7 +27,57 @@
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPaintEvent>
+#include <QPointer>
 #include <QRubberBand>
+
+// Class representing an owning pointer to a QObject
+// When an OwningQObjectPointer is destroyed, the QObject it points to is
+// destroyed as well. Unlike std::unique_ptr, OwningQObjectPointer gracefully
+// handles the case that the managed QObject is destroyed externally (e.g. by
+// calling QObject::deleteLater()).
+template <class T>
+class OwningQObjectPointer
+{
+  bool m_deleteLater;
+  QPointer<T> m_p;
+
+  OwningQObjectPointer(const OwningQObjectPointer &) = delete;
+  OwningQObjectPointer<T> & operator=(const OwningQObjectPointer &) = delete;
+public:
+  OwningQObjectPointer(T * p, const bool deleteLater = false) : m_deleteLater(deleteLater), m_p(p) {}
+  ~OwningQObjectPointer() noexcept {
+    if (!m_deleteLater) {
+      delete m_p;
+    }
+    else if(!m_p.isNull()) {
+      m_p->deleteLater();
+    }
+  }
+  OwningQObjectPointer(OwningQObjectPointer &&) = default;
+  OwningQObjectPointer<T> & operator=(OwningQObjectPointer &&) = default;
+  OwningQObjectPointer<T> & operator=(T * p) {
+    QPointer<T> oldP = m_p;
+    m_p = p;
+    if (!m_deleteLater) {
+      delete oldP;
+    }
+    else if (!oldP.isNull()) {
+      oldP->deleteLater();
+    }
+    return *this;
+  }
+
+  T* data() const { return m_p.data(); }
+  T* operator->() const { return data(); }
+  T& operator*() const { return *data(); }
+  operator T*() const { return data(); }
+  bool isNull() const { return m_p.isNull(); }
+  void clear() { m_p.clear(); }
+
+  bool usesDeleteLater() const { return m_deleteLater; }
+  void setDeleteLater(const bool deleteLater = true) { m_deleteLater = deleteLater; }
+};
+
 
 namespace QtPDF {
 
@@ -47,6 +97,13 @@ public:
   virtual Type type() const { return Tool_None; }
   virtual bool operator==(const AbstractTool & o) const { return (type() == o.type()); }
 protected:
+  // Copy/move c'tor and assignment operators should be protected to avoid
+  // use outside the inheritance tree (which could result in slicing)
+  AbstractTool(const AbstractTool &) = default;
+  AbstractTool(AbstractTool &&) = default;
+  AbstractTool & operator=(AbstractTool &) = default;
+  AbstractTool & operator=(AbstractTool &&) = default;
+
   virtual void arm();
   virtual void disarm();
 
@@ -60,7 +117,7 @@ protected:
   virtual void mouseReleaseEvent(QMouseEvent * event);
   virtual void paintEvent(QPaintEvent * event) { Q_UNUSED(event) }
 
-  PDFDocumentView * _parent;
+  QPointer<PDFDocumentView> _parent;
   QCursor _cursor;
 };
 
@@ -116,7 +173,7 @@ protected:
 
   virtual void hide();
 
-  PDFDocumentMagnifierView * _magnifier;
+  OwningQObjectPointer<PDFDocumentMagnifierView> _magnifier;
   bool _started;
 };
 
@@ -135,7 +192,7 @@ protected:
 
   bool _started;
   QPoint _startPos;
-  QRubberBand * _rubberBand;
+  OwningQObjectPointer<QRubberBand> _rubberBand;
 };
 
 class Move : public AbstractTool
@@ -194,7 +251,6 @@ class MeasureLine : public QGraphicsLineItem
   friend class Measure;
 public:
   MeasureLine(QGraphicsView * primaryView, QGraphicsItem * parent = nullptr);
-  ~MeasureLine() override = default;
 
   void setLine(qreal x1, qreal y1, qreal x2, qreal y2) { setLine(QLineF(x1, y1, x2, y2)); }
   void setLine(QPointF p1, QPointF p2) { setLine(QLineF(p1, p2)); }
@@ -209,8 +265,13 @@ protected:
   void mousePressEvent(QGraphicsSceneMouseEvent * event) override;
   void mouseMoveEvent(QGraphicsSceneMouseEvent * event) override;
 
+  // _measureBox will be embedded in _measureBoxProxy, which in turn will be
+  // parented to this object; so they will all be destroyed automatically by
+  // ~QGraphicsItem()
   QComboBox * _measureBox;
   QGraphicsProxyWidget * _measureBoxProxy;
+  // _grip1 & _grip2 are raw pointers, but they are parented to this object, so
+  // they will automatically be destroyed by ~QGraphicsItem()
   MeasureLineGrip * _grip1, * _grip2;
   QMap<QString, float> _measures;
   QGraphicsView * _primaryView;
@@ -229,6 +290,8 @@ protected:
   void keyPressEvent(QKeyEvent * event) override;
   void keyReleaseEvent(QKeyEvent * event) override;
 
+  // _measureLine will immediately be added to a QGraphicsScene, which takes
+  // ownership. So we don't need a std::unqiue_ptr or similar
   MeasureLine * _measureLine;
   bool _started;
   QPoint _startPos;
@@ -258,7 +321,6 @@ class Select : public AbstractTool
   friend class QtPDF::PDFDocumentView;
 public:
   Select(PDFDocumentView * parent);
-  ~Select() override;
   Type type() const override { return Tool_Select; }
 
   QColor highlightColor() const { return _highlightColor; }
@@ -285,15 +347,19 @@ protected:
 
   bool _cursorOverBox;
   QPointF _startPos;
+  // _highlightPath will immediately be added to a QGraphicsScene, which takes
+  // ownership. So we don't need a std::unqiue_ptr or similar
   QGraphicsPathItem * _highlightPath;
   MouseMode _mouseMode;
-  QRubberBand * _rubberBand;
+  OwningQObjectPointer<QRubberBand> _rubberBand;
   QColor _highlightColor;
 
   int _pageNum;
   QList<Backend::Page::Box> _boxes;
   int _startBox, _startSubbox;
 #ifdef DEBUG
+  // All elements of _displayBoxes are automatically added to a QGraphicsScene,
+  // which takes ownership. So we don't need a std::unqiue_ptr or similar
   QList<QGraphicsRectItem*> _displayBoxes;
 #endif
 };

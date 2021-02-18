@@ -137,9 +137,9 @@ void ZoomOut::mouseReleaseEvent(QMouseEvent * event)
 //
 MagnifyingGlass::MagnifyingGlass(PDFDocumentView * parent) :
   AbstractTool(parent),
+  _magnifier(new PDFDocumentMagnifierView(parent)),
   _started(false)
 {
-  _magnifier = new PDFDocumentMagnifierView(parent);
   _cursor = QCursor(QIcon::fromTheme(QStringLiteral("tool-magnifier-cursor")).pixmap(32));
 }
 
@@ -237,10 +237,9 @@ void MagnifyingGlass::hide()
 //
 MarqueeZoom::MarqueeZoom(PDFDocumentView * parent) :
   AbstractTool(parent),
-  _started(false)
+  _started(false),
+  _rubberBand(new QRubberBand(QRubberBand::Rectangle, parent->viewport()))
 {
-  Q_ASSERT(_parent);
-  _rubberBand = new QRubberBand(QRubberBand::Rectangle, _parent->viewport());
   _cursor = QCursor(Qt::CrossCursor);
 }
 
@@ -466,20 +465,19 @@ void MeasureLineGrip::mouseMove(const QPointF scenePos, const Qt::KeyboardModifi
 //
 MeasureLine::MeasureLine(QGraphicsView * primaryView, QGraphicsItem * parent /* = nullptr */) :
   QGraphicsLineItem(parent),
+  _measureBox(new QComboBox),
+  _measureBoxProxy(new QGraphicsProxyWidget(this)),
+  _grip1(new MeasureLineGrip(this, 1)),
+  _grip2(new MeasureLineGrip(this, 2)),
   _primaryView(primaryView)
 {
-  _measureBox = new QComboBox();
   _measureBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-  _measureBoxProxy = new QGraphicsProxyWidget(this);
   _measureBoxProxy->setWidget(_measureBox);
   _measureBoxProxy->setFlag(QGraphicsItem::ItemIgnoresTransformations);
   _measureBoxProxy->setFlag(QGraphicsItem::ItemSendsGeometryChanges);
 
   setAcceptHoverEvents(true);
   setAcceptedMouseButtons(Qt::LeftButton);
-
-  _grip1 = new MeasureLineGrip(this, 1);
-  _grip2 = new MeasureLineGrip(this, 2);
 }
 
 void MeasureLine::setLine(QLineF line)
@@ -699,12 +697,6 @@ Select::Select(PDFDocumentView * parent) :
   _highlightColor.setAlpha(128);
 }
 
-Select::~Select()
-{
-  delete _highlightPath;
-  delete _rubberBand;
-}
-
 void Select::disarm()
 {
   AbstractTool::disarm();
@@ -739,9 +731,10 @@ void Select::mousePressEvent(QMouseEvent * event)
 
   // Create the highlight path to visualize selections in the scene
   // Note: it will be parented to the page it belongs to later on
-  // FIXME: Maybe use PDFDocumentView::addHighlightPath here instead?
+  // TODO: Maybe use PDFDocumentView::addHighlightPath here instead?
   if (!_highlightPath) {
     _highlightPath = new QGraphicsPathItem(nullptr);
+    scene->addItem(_highlightPath);
     _highlightPath->setBrush(QBrush(_highlightColor));
     _highlightPath->setPen(QPen(Qt::transparent));
   }
@@ -795,7 +788,7 @@ void Select::mouseMoveEvent(QMouseEvent *event)
 
   // If we are not currently selecting and the mouse moved to a different page,
   // reset our boxes data
-  // Note: If we are currently selecting, we tick to the original page
+  // Note: If we are currently selecting, we stick to the original page
   //       regardless where the mouse is
   if (_mouseMode == MouseMode_None && pageNum != _pageNum)
     resetBoxes(pageNum);
@@ -992,10 +985,8 @@ void Select::resetBoxes(const int pageNum /* = -1 */)
   _boxes.clear();
 #ifdef DEBUG
   // In debug builds, remove any previously shown (selectable) boxes
-  foreach(QGraphicsRectItem * rectItem, _displayBoxes) {
-    if (!rectItem)
-      continue;
-    delete rectItem;
+  foreach(QGraphicsRectItem * box, _displayBoxes) {
+    delete box;
   }
   _displayBoxes.clear();
 #endif
