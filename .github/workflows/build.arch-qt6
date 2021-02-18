@@ -1,0 +1,21 @@
+mkdir -p /home/tw/build-arch-qt6 && cd /home/tw/build-arch-qt6
+
+pacman --noconfirm -Syu \
+	cmake \
+	gcc \
+	git \
+	make \
+	hunspell \
+	lua \
+	poppler-qt6 \
+	qt6-5compat \
+	qt6-base \
+	qt6-declarative \
+	qt6-tools \
+	gsfonts \
+	poppler-data \
+	xorg-server-xvfb
+
+cmake -DQT_DEFAULT_MAJOR_VERSION=6 ..
+make -j
+xvfb-run ctest -V
