@@ -44,58 +44,44 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="15"/>
         <source>Next Completion</source>
-        <oldsource>Text Completion</oldsource>
-        <oldcomment>@title:menu</oldcomment>
         <translation>Neste fullføring</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
-        <oldsource>Tab</oldsource>
-        <oldcomment>tabulator delimiter</oldcomment>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation>Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="23"/>
         <source>Previous Completion</source>
-        <oldsource>Previous Completion Match</oldsource>
-        <oldcomment>@action</oldcomment>
         <translation>Førre fullføring</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
-        <oldsource>Backtab</oldsource>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation>Shift+Backtab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="31"/>
         <source>Next Completion Placeholder</source>
-        <oldsource>Next Completion Match</oldsource>
-        <oldcomment>@action</oldcomment>
         <translation>Neste fullføringsplasshaldar</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
-        <oldsource>Ctrl+T</oldsource>
-        <oldcomment>action</oldcomment>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation>Ctrl+Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="39"/>
         <source>Previous Completion Placeholder</source>
-        <oldsource>Previous Completion Match</oldsource>
-        <oldcomment>@action</oldcomment>
         <translation>Førre fullføringsplasshaldar</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
-        <oldsource>Ctrl+Shift+Z</oldsource>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation>Ctrl+Shift+Backtab</translation>
     </message>
@@ -108,7 +94,6 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
-        <oldsource>Ctrl+Shift+Z</oldsource>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
         <translation>Ctrl+Shift+J</translation>
     </message>
@@ -164,6 +149,20 @@
         <location filename="../src/ConfirmDelete.ui" line="64"/>
         <source>Toggle</source>
         <translation>På/av</translation>
+    </message>
+</context>
+<context>
+    <name>ECMAScript</name>
+    <message>
+        <location filename="../src/scripting/ECMAScript.cpp" line="55"/>
+        <source>
+
+Stack trace:
+</source>
+        <translation>
+
+Stabelspor:
+</translation>
     </message>
 </context>
 <context>
@@ -600,10 +599,6 @@
         <translation>Merk tekst</translation>
     </message>
     <message>
-        <source>Select Image</source>
-        <translation type="vanished">Vel bilete</translation>
-    </message>
-    <message>
         <location filename="../src/PDFDocumentWindow.ui" line="596"/>
         <source>Go to TeXworks home page</source>
         <translation>Gå til TeXworks-heimesida</translation>
@@ -940,7 +935,7 @@ Er du sikker på at du vil halda fram?</translation>
         <location filename="../src/PrefsDialog.cpp" line="546"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished">%1 (%2)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="345"/>
@@ -1023,7 +1018,6 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <oldsource>Line Spacing:</oldsource>
         <translation>Linjeavstand:</translation>
     </message>
     <message>
@@ -1054,12 +1048,11 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Breidd på skrivemerke:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
         <source>Enable auto-follow focus</source>
-        <oldsource>Auto-Follow Focus</oldsource>
         <translation>Bruk automatisk fokus</translation>
     </message>
     <message>
@@ -1337,11 +1330,6 @@ Er du sikker på at du vil halda fram?</translation>
         <source>Preview &gt; Source:</source>
         <translation>Førehandsvising&#xa0;→ kjelde:</translation>
     </message>
-    <message>
-        <source> (%1)</source>
-        <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="vanished"> (%1)</translation>
-    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -1511,68 +1499,84 @@ Er du sikker på at du vil halda fram?</translation>
 <context>
     <name>ScreenCalibrationWidget</name>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="50"/>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="vanished">Dra linjalen eller endra verdien slik at han svarar til fysisk lengd.
+        <translation>Dra linjalen eller endra verdien slik at han svarar til fysisk lengd.
 Vanlege papirstorleikar er òg markerte. (Det kan vera du må endra storleiken på vindauget for å sjå dei).
 Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="vanished"> p.p.t.</translation>
+        <translation> p.p.t.</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="vanished">A4</translation>
+        <translation>A4</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
         <translatorcomment>skip-rule: unormert
 </translatorcomment>
-        <translation type="vanished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="vanished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="vanished">tommar</translation>
+        <translation>tommar</translation>
     </message>
 </context>
 <context>
     <name>ScriptAPI</name>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="vanished">Intern feil</translation>
+        <translation>Intern feil</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Klarte ikkje køyra systemkommando: %1</translation>
+        <translation>Klarte ikkje køyra systemkommando: %1</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="vanished">Feil ved køyring av systemkommando: %1</translation>
+        <translation>Feil ved køyring av systemkommando: %1</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
+        <translation>Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">Klarte ikkje opna «%1».</translation>
+        <translation>Klarte ikkje opna «%1».</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Lesing av alle filer er slått av (sjå innstillingane)</translation>
+        <translation>Lesing av alle filer er slått av (sjå innstillingane)</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Klarte ikkje opna fila «%1» for lesing</translation>
+        <translation>Klarte ikkje opna fila «%1» for lesing</translation>
     </message>
 </context>
 <context>
@@ -1949,17 +1953,6 @@ Bruk kontekstmenyen for å endra einingane.</translation>
         <location filename="../src/TWScriptableWindow.cpp" line="203"/>
         <source>About Scripts</source>
         <translation>Om skript</translation>
-    </message>
-</context>
-<context>
-    <name>TWSystemCmd</name>
-    <message>
-        <source>ERROR: failure code %1</source>
-        <translation type="vanished">Feil: feilkode %1</translation>
-    </message>
-    <message>
-        <source>ERROR: exit code %1</source>
-        <translation type="vanished">Feil: avsluttingskode %1</translation>
     </message>
 </context>
 <context>
@@ -3074,108 +3067,16 @@ Do you want to discard your current changes, and reload the file from disk with 
     </message>
 </context>
 <context>
-    <name>Tw::Scripting::ECMAScript</name>
-    <message>
-        <location filename="../src/scripting/ECMAScript.cpp" line="55"/>
-        <source>
-
-Stack trace:
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Tw::Scripting::ScriptAPI</name>
-    <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
-        <source>Internal error</source>
-        <translation type="unfinished">Intern feil</translation>
-    </message>
-    <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
-        <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Klarte ikkje køyra systemkommando: %1</translation>
-    </message>
-    <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
-        <source>Error executing system command: %1</source>
-        <translation type="unfinished">Feil ved køyring av systemkommando: %1</translation>
-    </message>
-    <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
-    </message>
-    <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">Klarte ikkje opna «%1».</translation>
-    </message>
-    <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Lesing av alle filer er slått av (sjå innstillingane)</translation>
-    </message>
-    <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Klarte ikkje opna fila «%1» for lesing</translation>
-    </message>
-</context>
-<context>
-    <name>Tw::UI::ScreenCalibrationWidget</name>
-    <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="50"/>
-        <source>Drag the ruler or change the value to match real world lengths.
-Common paper sizes are marked as well (you may need to resize the dialog window to see them).
-Use the context menu to change the units.</source>
-        <translation type="unfinished">Dra linjalen eller endra verdien slik at han svarar til fysisk lengd.
-Vanlege papirstorleikar er òg markerte. (Det kan vera du må endra storleiken på vindauget for å sjå dei).
-Bruk kontekstmenyen for å endra einingane.</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
-        <source> dpi</source>
-        <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> p.p.t.</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
-        <source>DIN A4</source>
-        <translation type="unfinished">A4</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
-        <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
-        <source>cm</source>
-        <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
-        <source>in</source>
-        <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">tommar</translation>
-    </message>
-</context>
-<context>
     <name>Tw::Utils::SystemCommand</name>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">Feil: feilkode %1</translation>
+        <translation>FEIL: feilkode %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">Feil: avsluttingskode %1</translation>
+        <translation>FEIL: avsluttingskode %1</translation>
     </message>
 </context>
 </TS>
