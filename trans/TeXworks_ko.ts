@@ -922,7 +922,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.cpp" line="546"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="345"/>
@@ -1035,7 +1035,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>커서 폭:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
@@ -1315,7 +1315,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="874"/>
         <source>Preview &gt; Source:</source>
-        <translation type="unfinished">미리보기 &gt; 소스 :</translation>
+        <translation>미리보기 &gt; 소스 :</translation>
     </message>
 </context>
 <context>
@@ -3023,7 +3023,10 @@ We are sorry for the inconvenience.</source>
 
 Stack trace:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+스택 추적:
+</translation>
     </message>
 </context>
 <context>
@@ -3031,38 +3034,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">내부 오류</translation>
+        <translation>내부 오류</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">다음 시스템 명령 실행에 실패: %1</translation>
+        <translation>다음 시스템 명령 실행에 실패: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">다음 시스템 명령 실행에 오류 발생: %1</translation>
+        <translation>다음 시스템 명령 실행에 오류 발생: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">시스템 명령 실행이 허용되지 않았습니다 (환경 설정을 확인하세요)</translation>
+        <translation>시스템 명령 실행이 허용되지 않았습니다 (환경 설정을 확인하세요)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; 파일을 열 수 없습니다.</translation>
+        <translation>&quot;%1&quot; 파일을 열 수 없습니다.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">모든 파일 읽기가 허용되지 않았습니다 (환경 설정을 확인하세요)</translation>
+        <translation>모든 파일 읽기가 허용되지 않았습니다 (환경 설정을 확인하세요)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">&quot;%1&quot; 파일을 읽어들일 수 없음</translation>
+        <translation>&quot;%1&quot; 파일을 읽어들일 수 없음</translation>
     </message>
 </context>
 <context>
@@ -3072,7 +3075,7 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">실제 길이에 맞추려면 줄자를 드래그하거나 값을 변경하세요.
+        <translation>실제 길이에 맞추려면 줄자를 드래그하거나 값을 변경하세요.
 널리 쓰이는 용지 크기도 표시됩니다 (대화창 크기를 조정해야 할 수 있습니다).
 단위를 변경하려면 오른쪽 버튼 메뉴를 이용하세요.</translation>
     </message>
@@ -3080,31 +3083,31 @@ Use the context menu to change the units.</source>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">A4</translation>
+        <translation>A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">레터</translation>
+        <translation>레터</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -3112,12 +3115,12 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">오류: 오류 코드 %1</translation>
+        <translation>오류: 오류 코드 %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">오류: 종료 코드 %1</translation>
+        <translation>오류: 종료 코드 %1</translation>
     </message>
 </context>
 </TS>
