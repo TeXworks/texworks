@@ -258,7 +258,7 @@
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="460"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>Laden van bestand &quot;%1&quot; mislukt; misschien is het geen geldig PDF document. </translation>
+        <translation>Laden van bestand &quot;%1&quot; mislukt; misschien is het geen geldig PDF document.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="482"/>
@@ -917,7 +917,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.cpp" line="546"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="345"/>
@@ -990,7 +990,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="208"/>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="224"/>
@@ -1030,7 +1030,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cursor breedte:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
@@ -1071,7 +1071,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="268"/>
         <location filename="../src/PrefsDialog.ui" line="703"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="795"/>
@@ -1241,7 +1241,8 @@ Do you want to continue?</source>
 </source>
         <translation>&lt;p&gt;&lt;strong&gt;Nooit:&lt;/strong&gt; Onderdruk het console uitvoerscherm nooit.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatisch:&lt;/strong&gt; Verberg het console uitvoerscherm na een geslaagde typeset run, maar alleen als het al onderdrukt was.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Na succes:&lt;/strong&gt; Onderdruk het console uitvoerscherm na een geslaagde typeset run, ongeacht de eerdere toestand.&lt;/p&gt;</translation>
+&lt;p&gt;&lt;strong&gt;Na succes:&lt;/strong&gt; Onderdruk het console uitvoerscherm na een geslaagde typeset run, ongeacht de eerdere toestand.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="46"/>
@@ -1314,7 +1315,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="874"/>
         <source>Preview &gt; Source:</source>
-        <translation type="unfinished">Preview &gt; tekst:</translation>
+        <translation>Preview &gt; tekst:</translation>
     </message>
 </context>
 <context>
@@ -1824,8 +1825,7 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="353"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation>&lt;p&gt;Verspreid onder de &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versie 2 of (naar vrije keuze) een latere versie. 
-</translation>
+        <translation>&lt;p&gt;Verspreid onder de &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versie 2 of (naar vrije keuze) een latere versie.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="234"/>
@@ -2899,7 +2899,7 @@ Het spijt ons van het ongemak.</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="1118"/>
         <source>Insert Citations...</source>
-        <translation>Citaten invoegen</translation>
+        <translation>Citaten invoegen...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="1121"/>
@@ -3044,7 +3044,10 @@ Het spijt ons van het ongemak.</translation>
 
 Stack trace:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Stack trace:
+</translation>
     </message>
 </context>
 <context>
@@ -3052,38 +3055,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Interne fout</translation>
+        <translation>Interne fout</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Uitvoeren van systeemcommando niet mogelijk: %1</translation>
+        <translation>Uitvoeren van systeemcommando niet mogelijk: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Fout tijdens uitvoeren van systeemcommando: %1</translation>
+        <translation>Fout tijdens uitvoeren van systeemcommando: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Systeemcommando&apos;s zijn uitgeschakeld (zie Voorkeuren)</translation>
+        <translation>Systeemcommando&apos;s zijn uitgeschakeld (zie Voorkeuren)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; kon niet geopend worden.</translation>
+        <translation>&quot;%1&quot; kon niet geopend worden.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Algemene bestanden lezen is uitgeschakeld (zie Voorkeuren)</translation>
+        <translation>Algemene bestanden lezen is uitgeschakeld (zie Voorkeuren)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Het bestand &quot;%1&quot; kon niet worden gelezen</translation>
+        <translation>Het bestand &quot;%1&quot; kon niet worden gelezen</translation>
     </message>
 </context>
 <context>
@@ -3093,7 +3096,7 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Sleep de liniaal of verander de waarde tot de maat overeenkomt met de werkelijkheid.
+        <translation>Sleep de liniaal of verander de waarde tot de maat overeenkomt met de werkelijkheid.
 Standaard papierformaten worden eveneens gemarkeerd (je moet misschien het dialoogvenster aanpassen om ze te zien).
 Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     </message>
@@ -3101,31 +3104,31 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished">dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">DIN A4</translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
 </context>
 <context>
@@ -3133,12 +3136,12 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">FOUT: fout code %1</translation>
+        <translation>FOUT: fout code %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">FOUT: resultaat code %1</translation>
+        <translation>FOUT: resultaat code %1</translation>
     </message>
 </context>
 </TS>
