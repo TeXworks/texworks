@@ -923,7 +923,7 @@ Czy chcesz kontynuować?</translation>
         <location filename="../src/PrefsDialog.cpp" line="546"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished">%1 (%2)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <source> (%1)</source>
@@ -1056,7 +1056,7 @@ Czy chcesz kontynuować?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Szerokość kursora</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="591"/>
@@ -3059,7 +3059,7 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
 
 Stack trace:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>\n\nŚlad stosu\n</translation>
     </message>
 </context>
 <context>
@@ -3067,38 +3067,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Błąd wewnętrzny</translation>
+        <translation>Błąd wewnętrzny</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Nie udało się wykonać polecenia: %1</translation>
+        <translation>Nie udało się wykonać polecenia: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Błąd podczas wykonania polecenia: %1</translation>
+        <translation>Błąd podczas wykonania polecenia: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Wykonywanie poleceń systemowych jest wyłaczone (patrz Ustawienia)</translation>
+        <translation>Wykonywanie poleceń systemowych jest wyłaczone (patrz Ustawienia)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">Nie można otworzyć &quot;%1&quot;.</translation>
+        <translation>Nie można otworzyć &quot;%1&quot;.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Odczyt plików jest zablokowany (patrz Ustawienia)</translation>
+        <translation>Odczyt plików jest zablokowany (patrz Ustawienia)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Plik &quot;%1&quot; nie może być otwarty do odczytu</translation>
+        <translation>Plik &quot;%1&quot; nie może być otwarty do odczytu</translation>
     </message>
 </context>
 <context>
@@ -3108,7 +3108,7 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Rozciągnij linijkę lub zmień wartość dpi tak, aby skala odpowiadała rzeczywistym jednostkom.
+        <translation>Rozciągnij linijkę lub zmień wartość dpi tak, aby skala odpowiadała rzeczywistym jednostkom.
 Typowe rozmiary papieru są również zaznaczone (być może trzeba powiększyć okno aby je zobaczyć).
 Użyj menu kontekstowego żeby zmienić jednostki.</translation>
     </message>
@@ -3116,31 +3116,31 @@ Użyj menu kontekstowego żeby zmienić jednostki.</translation>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">A4</translation>
+        <translation>A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Listowy (US)</translation>
+        <translation>Listowy (US)</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">cale</translation>
+        <translation>cale</translation>
     </message>
 </context>
 <context>
@@ -3148,12 +3148,12 @@ Użyj menu kontekstowego żeby zmienić jednostki.</translation>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">ERROR: kod błędu %1</translation>
+        <translation>ERROR: kod błędu %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">ERROR: kod zakończenia %1</translation>
+        <translation>ERROR: kod zakończenia %1</translation>
     </message>
 </context>
 </TS>
