@@ -931,7 +931,7 @@ Vol continuar?</translation>
         <location filename="../src/PrefsDialog.cpp" line="546"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source> (%1)</source>
@@ -1009,7 +1009,7 @@ Vol continuar?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="208"/>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="224"/>
@@ -1061,7 +1061,7 @@ Vol continuar?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplada cursor:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="591"/>
@@ -1112,7 +1112,7 @@ Vol continuar?</translation>
         <location filename="../src/PrefsDialog.ui" line="268"/>
         <location filename="../src/PrefsDialog.ui" line="703"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="795"/>
@@ -3056,7 +3056,10 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
 
 Stack trace:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Pila de traces:
+</translation>
     </message>
 </context>
 <context>
@@ -3064,38 +3067,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Error intern</translation>
+        <translation>Error intern</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">L&apos;execució de la comanda de sistema %1 ha fallat</translation>
+        <translation>L&apos;execució de la comanda de sistema %1 ha fallat</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Error en l&apos;execució de la comanda de sistema %1</translation>
+        <translation>Error en l&apos;execució de la comanda de sistema: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">L&apos;execució de comandes de sistema està desactivada (miri Preferències)</translation>
+        <translation>L&apos;execució de comandes de sistema està desactivada (miri Preferències)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; no es pot obrir.</translation>
+        <translation>&quot;%1&quot; no es pot obrir.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">La lectura de tots elfitxers està desactivada (miri Preferències) </translation>
+        <translation>La lectura de tots els fitxers està desactivada (miri Preferències) </translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">El fitxer &quot;%1&quot; no es pot obrir per lectura</translation>
+        <translation>El fitxer &quot;%1&quot; no es pot obrir per lectura</translation>
     </message>
 </context>
 <context>
@@ -3105,7 +3108,7 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Arrossegui la regla o modifiqui el valor per coincidir amb les longituds reals.
+        <translation>Arrossegui la regla o modifiqui el valor per coincidir amb les longituds reals.
 Mides de paper habituals també es marquen (pot ser cal canviar la mida de la finestra de diàleg per vuere-les).
 Usi el menú de context per canviar les unitats.</translation>
     </message>
@@ -3113,31 +3116,31 @@ Usi el menú de context per canviar les unitats.</translation>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> dpi (punts per polzada)</translation>
+        <translation> dpi (punts per polzada)</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">DIN A4</translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">in (polsades)</translation>
+        <translation>in (polsades)</translation>
     </message>
 </context>
 <context>
@@ -3145,12 +3148,12 @@ Usi el menú de context per canviar les unitats.</translation>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">ERROR: codi de fallida %1</translation>
+        <translation>ERROR: codi de fallida %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">ERROR: codi de sortida %1</translation>
+        <translation>ERROR: codi de sortida %1</translation>
     </message>
 </context>
 </TS>
