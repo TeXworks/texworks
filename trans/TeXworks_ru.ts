@@ -156,6 +156,19 @@
     </message>
 </context>
 <context>
+    <name>ECMAScript</name>
+    <message>
+        <location filename="../src/scripting/ECMAScript.cpp" line="55"/>
+        <source>
+
+Stack trace:
+</source>
+        <translation>
+
+Трассировка стека</translation>
+    </message>
+</context>
+<context>
     <name>FindDialog</name>
     <message>
         <location filename="../src/Find.ui" line="23"/>
@@ -933,7 +946,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.cpp" line="546"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished">%1 (%2)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="345"/>
@@ -1023,7 +1036,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <translation type="unfinished">Высота строки:</translation>
+        <translation>Высота строки:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="315"/>
@@ -1058,7 +1071,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина курсора:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
@@ -1508,66 +1521,82 @@ Do you want to continue?</source>
 <context>
     <name>ScreenCalibrationWidget</name>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="50"/>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="vanished">Передвиньте линейку или измените значение, чтобы задать масштаб.
+        <translation>Передвиньте линейку или измените значение, чтобы задать масштаб.
 Общепринятые размеры страниц также указаны на линейке (чтобы их увидеть измените размер окна).
 Используйте контекстное меню чтобы изменить единицы измерения.</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="vanished"> дпи</translation>
+        <translation> дпи</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="vanished">Размер A4</translation>
+        <translation>Размер A4</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="vanished">Размер Letter</translation>
+        <translation>Размер Letter</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="vanished">см</translation>
+        <translation>см</translation>
     </message>
     <message>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
+        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="vanished">дюйм</translation>
+        <translation>дюйм</translation>
     </message>
 </context>
 <context>
     <name>ScriptAPI</name>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="vanished">Внутренняя ошибка</translation>
+        <translation>Внутренняя ошибка</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Не удалось выполнить системную команду: %1</translation>
+        <translation>Не удалось выполнить системную команду: %1</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="vanished">Ошибка при выполнении системной команды: %1</translation>
+        <translation>Ошибка при выполнении системной команды: %1</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Запуск системных команд отключён (см. Настройки)</translation>
+        <translation>Запуск системных команд отключён (см. Настройки)</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">Невозможно открыть «%1».</translation>
+        <translation>Невозможно открыть «%1».</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Доступ на чтение всех файлов отключён (см. Настройка)</translation>
+        <translation>Доступ на чтение всех файлов отключён (см. Настройка)</translation>
     </message>
     <message>
+        <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Невозможно открыть файл «%1» для чтения</translation>
+        <translation>Невозможно открыть файл «%1» для чтения</translation>
     </message>
 </context>
 <context>
@@ -3065,95 +3094,68 @@ We are sorry for the inconvenience.</source>
     </message>
 </context>
 <context>
-    <name>Tw::Scripting::ECMAScript</name>
-    <message>
-        <location filename="../src/scripting/ECMAScript.cpp" line="55"/>
-        <source>
-
-Stack trace:
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Tw::Scripting::ScriptAPI</name>
     <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Внутренняя ошибка</translation>
+        <translation type="obsolete">Внутренняя ошибка</translation>
     </message>
     <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Не удалось выполнить системную команду: %1</translation>
+        <translation type="obsolete">Не удалось выполнить системную команду: %1</translation>
     </message>
     <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Ошибка при выполнении системной команды: %1</translation>
+        <translation type="obsolete">Ошибка при выполнении системной команды: %1</translation>
     </message>
     <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Запуск системных команд отключён (см. Настройки)</translation>
+        <translation type="obsolete">Запуск системных команд отключён (см. Настройки)</translation>
     </message>
     <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">Невозможно открыть «%1».</translation>
+        <translation type="obsolete">Невозможно открыть «%1».</translation>
     </message>
     <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Доступ на чтение всех файлов отключён (см. Настройка)</translation>
+        <translation type="obsolete">Доступ на чтение всех файлов отключён (см. Настройка)</translation>
     </message>
     <message>
-        <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Невозможно открыть файл «%1» для чтения</translation>
+        <translation type="obsolete">Невозможно открыть файл «%1» для чтения</translation>
     </message>
 </context>
 <context>
     <name>Tw::UI::ScreenCalibrationWidget</name>
     <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="50"/>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Передвиньте линейку или измените значение, чтобы задать масштаб.
+        <translation type="obsolete">Передвиньте линейку или измените значение, чтобы задать масштаб.
 Общепринятые размеры страниц также указаны на линейке (чтобы их увидеть измените размер окна).
 Используйте контекстное меню чтобы изменить единицы измерения.</translation>
     </message>
     <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> дпи</translation>
+        <translation type="obsolete"> дпи</translation>
     </message>
     <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">Размер A4</translation>
+        <translation type="obsolete">Размер A4</translation>
     </message>
     <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Размер Letter</translation>
+        <translation type="obsolete">Размер Letter</translation>
     </message>
     <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">см</translation>
+        <translation type="obsolete">см</translation>
     </message>
     <message>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
-        <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">дюйм</translation>
+        <translation type="obsolete">дюйм</translation>
     </message>
 </context>
 <context>
@@ -3161,12 +3163,12 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">ОШИБКА: сбой в коде %1</translation>
+        <translation>ОШИБКА: сбой в коде %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">ОШИБКА: код завершения %1</translation>
+        <translation>ОШИБКА: код выхода %1</translation>
     </message>
 </context>
 </TS>
