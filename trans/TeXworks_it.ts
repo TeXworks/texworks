@@ -918,7 +918,7 @@ Vuoi continuare?</translation>
         <location filename="../src/PrefsDialog.cpp" line="546"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="345"/>
@@ -1031,7 +1031,7 @@ Vuoi continuare?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Larghezza cursore</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
@@ -3047,7 +3047,10 @@ Ci dispiace per l&apos;inconveniente.</translation>
 
 Stack trace:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Stack trace:
+</translation>
     </message>
 </context>
 <context>
@@ -3055,38 +3058,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Errore interno</translation>
+        <translation>Errore interno</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Tentativo fallito di esecuzione del comando: %1</translation>
+        <translation>Tentativo fallito di esecuzione del comando: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Errore nell&apos;esecuzione del comando: %1</translation>
+        <translation>Errore nell&apos;esecuzione del comando: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Esecuzione dei comandi di sistema disabilitata (vedi Preferenze)</translation>
+        <translation>Esecuzione dei comandi di sistema disabilitata (vedi Preferenze)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; non può essere aperto.</translation>
+        <translation>&quot;%1&quot; non può essere aperto.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Lettura di tutti i file disabilitata (vedi Preferenze)</translation>
+        <translation>Lettura di tutti i file disabilitata (vedi Preferenze)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Il file &quot;%1&quot; non può essere aperto per la lettura</translation>
+        <translation>Il file &quot;%1&quot; non può essere aperto in lettura</translation>
     </message>
 </context>
 <context>
@@ -3096,39 +3099,39 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Trascina il righello o cambia il valore per adeguarlo alla lunghezza reale.
-I formati di carta più comunu sono contrassegnati (potresti dover ridimensionare la finestra per riuscire a vederli).
-Usa il menù constestuale per cambiare le unità.</translation>
+        <translation>Trascina il righello o cambia il valore per adeguarlo alla lunghezza reale.
+I formati di carta più comuni sono già contrassegnati (tuttavia potresti dover ridimensionare la finestra per riuscire a vederli).
+Usa il menù constestuale per cambiare le misure.</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">DIN A4</translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">pollici</translation>
+        <translation>pollici</translation>
     </message>
 </context>
 <context>
@@ -3136,12 +3139,12 @@ Usa il menù constestuale per cambiare le unità.</translation>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">ERRORE: codice %1</translation>
+        <translation>ERRORE: codice %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">ERRORE: codice uscita %1</translation>
+        <translation>ERRORE: codice uscita %1</translation>
     </message>
 </context>
 </TS>
