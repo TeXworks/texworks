@@ -884,12 +884,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFFind.ui" line="78"/>
         <source>Find &amp;backwards</source>
-        <translation>向后查找 (&amp;b)</translation>
+        <translation>向后查找 (&amp;B)</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="85"/>
         <source>Find &amp;all occurrences</source>
-        <translation>查找所有出现字串 (&amp;a)</translation>
+        <translation>查找所有出现字串 (&amp;A)</translation>
     </message>
     <message>
         <location filename="../src/PDFFind.ui" line="92"/>
@@ -1427,17 +1427,17 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/Replace.ui" line="114"/>
         <source>Find &amp;backwards</source>
-        <translation>向后查找 (&amp;b)</translation>
+        <translation>向后查找 (&amp;B)</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="121"/>
         <source>Replace within &amp;selection</source>
-        <translation>在选择区域中替换 (&amp;s)</translation>
+        <translation>在选择区域中替换 (&amp;S)</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="128"/>
         <source>Replace in all &amp;open files</source>
-        <translation>在所有已打开文件中替换 (&amp;o)</translation>
+        <translation>在所有已打开文件中替换 (&amp;O)</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="139"/>
@@ -1447,7 +1447,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/Replace.ui" line="146"/>
         <source>W&amp;hole words</source>
-        <translation>全字匹配 (&amp;h)</translation>
+        <translation>全字匹配 (&amp;H)</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="153"/>
@@ -1835,17 +1835,17 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/main.cpp" line="56"/>
         <source>Display this message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">显示此消息</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="57"/>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">打开下列文件的给定位置 (行或页)</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="58"/>
         <source>Display version information</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">显示版本信息</translation>
     </message>
 </context>
 <context>
@@ -2857,7 +2857,7 @@ We are sorry for the inconvenience.</source>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1695"/>
         <source>Write UTF-8 byte order mark</source>
-        <translation>写入 UTF-8 字节顺序标记(BOM)</translation>
+        <translation>写入 UTF-8 字节顺序标记 (BOM)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="1118"/>
