@@ -148,6 +148,11 @@
 			Tra le caratteristiche principali di TeXworks spiccano il visualizzatore integrato di file PDF,
 			la sincronizzazone tra file di TeX e il PDF generato e un linguaggio di scripting estensibile.
 		</p>
+		<p xml:lang="ja">
+			TeXworksは、TeX文書 (LaTeX, ConTeXtなど) を作成するための統合環境です。Unicodeを標準として、
+			TeX文書の作成支援機能を持ったエディター、組み込みのPDFビューアーを備え、ITに詳しくないユーザーでも簡単に
+			使用できるシンプルなユーザーインターフェースを提供します。
+		</p>
 		<p xml:lang="ko">
 			TeXworks는 TeX (LaTeX, ConTeXt 등) 문서를 작성하기 위한 환경입니다. 유니코드 기반의
 			텍 친화적인 에디터, 내장 PDF 뷰어, 깔끔하고 단순한 인터페이스를 가지고 있어
