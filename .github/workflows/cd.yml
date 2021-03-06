@@ -47,9 +47,11 @@ jobs:
 
     - name: Configure
       shell: wsl-bash {0}
+      # ../release is where Inno Setup looks for distribution files
       run: |
         mkdir build && cd build
         /usr/lib/mxe/usr/bin/i686-w64-mingw32.static-cmake -DTW_BUILD_ID='github' .. \
+          -DCMAKE_INSTALL_PREFIX="../release" \
           -DPLATFORM_DEPENDENCIES='freetype;harfbuzz;freetype_too;bz2;iphlpapi;ssl;crypto;crypt32;ws2_32' \
           -DPoppler_ADDITIONAL_DEPENDENCIES='freetype;harfbuzz;freetype_too;glib-2.0;intl;iconv;ws2_32;winmm;tiff;webp;jpeg;openjp2;png;lcms2;lzma;bz2;pcre16;wtsapi32' \
           -DTEXWORKS_ADDITIONAL_LIBS='freetype;harfbuzz;freetype_too;bz2;wtsapi32;opengl32;imm32;shlwapi;dwmapi;uxtheme' \
@@ -57,7 +59,7 @@ jobs:
 
     - name: Build
       shell: wsl-bash {0}
-      run: make VERBOSE=1
+      run: make VERBOSE=1 && make VERBOSE=1 install
       working-directory: build
 
     - name: Prepare testing
@@ -93,6 +95,16 @@ jobs:
           remotePath: ${{ steps.package.outputs.version }}
           username: st.loeffler@gmail.com
           key: ${{ secrets.jfrog_key }}
+
+    - name: Build installer
+      run: ISCC texworks-setup-script.iss
+      working-directory: win32
+
+    - name: Upload installer artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: installer-win
+        path: win32/Output/*.exe
 
 ################################################################################
 
