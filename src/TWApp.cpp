@@ -718,7 +718,7 @@ QString TWApp::getOpenFileName(QString selectedFilter)
 void TWApp::open(const QString & defaultFilter /* = {} */)
 {
 	Tw::Settings settings;
-	QStringList files = getOpenFileNames(selectedFilter);
+	QStringList files = getOpenFileNames(defaultFilter);
 	foreach (QString fileName, files) {
 		if (!fileName.isEmpty()) {
 			QFileInfo info(fileName);
