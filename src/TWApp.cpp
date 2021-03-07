@@ -228,7 +228,7 @@ void TWApp::init()
 	actionOpen = new QAction(tr("Open..."), this);
 	actionOpen->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
 	menuFile->addAction(actionOpen);
-	connect(actionOpen, &QAction::triggered, this, &TWApp::open);
+	connect(actionOpen, &QAction::triggered, [=]() { this->open(); });
 
 	menuRecent = new QMenu(tr("Open Recent"));
 	actionClear_Recent_Files = menuRecent->addAction(tr("Clear Recent Files"));
