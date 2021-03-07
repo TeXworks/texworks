@@ -715,10 +715,10 @@ QString TWApp::getOpenFileName(QString selectedFilter)
 	                                    filters.join(QLatin1String(";;")), &selectedFilter, options);
 }
 
-void TWApp::open()
+void TWApp::open(const QString & defaultFilter /* = {} */)
 {
 	Tw::Settings settings;
-	QStringList files = getOpenFileNames();
+	QStringList files = getOpenFileNames(selectedFilter);
 	foreach (QString fileName, files) {
 		if (!fileName.isEmpty()) {
 			QFileInfo info(fileName);
