@@ -52,8 +52,8 @@ endfunction (GenerateDefaultBinPaths)
 # x86_64-linuxmusl/
 # x86_64-solaris/
 function (addTeXLiveDefaultBinPaths pathVar)
-	set(yearMin 2014)
-	set(yearMax 2024)
+	set(yearMin 2016)
+	set(yearMax 2026)
 	if (WIN32)
 		set(_path "c:/w32tex/bin")
 		foreach(year RANGE ${yearMin} ${yearMax})
