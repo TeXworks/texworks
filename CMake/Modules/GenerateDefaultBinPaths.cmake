@@ -95,12 +95,16 @@ function (addTeXLiveDefaultBinPaths pathVar)
 endfunction (addTeXLiveDefaultBinPaths pathVar)
 
 # MiKTeX
-# Windows: Installs to "%LOCALAPPDATA%\Programs\MiKTeX 2.9" or "C:\Program Files\MiKTeX 2.9"
+# Windows: Installs to "%LOCALAPPDATA%\Programs\MiKTeX" or "C:\Program Files\MiKTeX"
+# (previously, versioned folders such as "C:\Program Files\MiKTeX 2.9" were used)
 # Linux: Installs miktex-* binaries to /usr/bin and symlinks them to ~/bin or
 # /usr/local/bin (https://miktex.org/howto/install-miktex-unx)
 # Mac OS X uses the same symlink locations as Linux (https://miktex.org/howto/install-miktex-mac)
 function (addMiKTeXDefaultBinPaths pathVar)
 	if (WIN32)
+		list(APPEND ${pathVar} "%LOCALAPPDATA%/Programs/MiKTeX/miktex/bin")
+		list(APPEND ${pathVar} "%SystemDrive%/Program Files/MiKTeX/miktex/bin")
+		list(APPEND ${pathVar} "%SystemDrive%/Program Files (x86)/MiKTeX/miktex/bin")
 		foreach(_miktex_version IN ITEMS 3.0 2.9 2.8)
 			# TODO: replace hard coded program files path with
 			# %ProgramFiles% (might cause problems when running a 32bit application
