@@ -61,7 +61,7 @@ class CopyrightedFile:
         for log in logs:
             log = log[1:-1]
             commit, timestamp_str, msg = log.split(' ', 2)
-            if msg in ['Update copyrights', 'Update copyright notices', 'Update copyright statements', 'Updated copyright information', 'Update copyright and add Charlie to list of authors', 'Update URLs to http://www.tug.org/texworks/', 'update copyright to 2010']: continue
+            if msg in ['Update copyright', 'Update copyrights', 'Update copyright notices', 'Update copyright statements', 'Updated copyright information', 'Update copyright and add Charlie to list of authors', 'Update URLs to http://www.tug.org/texworks/', 'update copyright to 2010']: continue
             self.log = (commit, timestamp_str, msg)
             break
 #        print(logs)
