@@ -1,0 +1,30 @@
+name: 'Set up build environment for TeXworks for Windows'
+author: 'Stefan Löffler'
+description: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Install MXE
+      shell: wsl-bash {0}
+      run: |
+        sudo apt update
+        sudo apt install --assume-yes --no-install-recommends apt-transport-https ca-certificates dirmngr gnupg
+        echo "deb https://pkg.mxe.cc/repos/apt stretch main" | sudo tee -a /etc/apt/sources.list
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C6BF758A33A3A276
+        sudo apt update
+        sudo apt install --assume-yes --no-install-recommends cmake git libgdk-pixbuf2.0-dev lzip make patch python wget xz-utils zip \
+          mxe-i686-w64-mingw32.static-cairo mxe-i686-w64-mingw32.static-curl mxe-i686-w64-mingw32.static-freetype mxe-i686-w64-mingw32.static-glib mxe-i686-w64-mingw32.static-hunspell mxe-i686-w64-mingw32.static-jpeg mxe-i686-w64-mingw32.static-lcms mxe-i686-w64-mingw32.static-libpng mxe-i686-w64-mingw32.static-libwebp mxe-i686-w64-mingw32.static-lua mxe-i686-w64-mingw32.static-openjpeg mxe-i686-w64-mingw32.static-qtbase mxe-i686-w64-mingw32.static-qtdeclarative mxe-i686-w64-mingw32.static-qtscript mxe-i686-w64-mingw32.static-qttools mxe-i686-w64-mingw32.static-tiff mxe-i686-w64-mingw32.static-zlib
+
+        sudo chmod --recursive a+w /usr/lib/mxe
+        rm -f "/usr/lib/mxe/usr/i686-w64-mingw32.static/share/cmake/mxe-conf.d/ccache.cmake"
+
+    - name: Build poppler
+      shell: wsl-bash {0}
+      run: |
+        rm -f /usr/lib/mxe/src/poppler*
+        cp .github/actions/setup-windows/mxe/poppler* /usr/lib/mxe/src/
+        cd /usr/lib/mxe
+        make download-only-poppler
+        make build-only-poppler_i686-w64-mingw32.static
+

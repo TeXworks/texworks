@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019  Stefan Löffler
+	Copyright (C) 2019-2020  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -106,11 +106,13 @@ void TestLuaScripting::execute()
 //	QSharedPointer<Script> s3 = QSharedPointer<Script>(luaSI->newScript(QStringLiteral("script2.js")));
 
 	{
-		MockAPI api(s1.data());
+		MockTarget target;
+		MockAPI api(s1.data(), &target);
 		QVERIFY(s1->run(api) == false);
 	}
 	{
-		MockAPI api(s2.data());
+		MockTarget target;
+		MockAPI api(s2.data(), &target);
 
 		s2->setGlobal("TwNil", QVariant());
 		s2->setGlobal("TwBool", QVariant::fromValue(true));
@@ -154,7 +156,7 @@ void TestLuaScripting::execute()
 } // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
-  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+  Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
 QTEST_MAIN(UnitTest::TestLuaScripting)

@@ -1,0 +1,48 @@
+FROM ubuntu:trusty
+
+# Trusty comes with Qt 5.2.3, poppler 0.24.5
+# For CMake (3.5.1) and hunspell (1.3.2), we want to use even older versions
+# (3.1 and 1.2.9, respectively) than are packaged
+
+RUN apt-get update && apt-get install --no-install-recommends --assume-yes \
+	g++ \
+	git \
+	make \
+	qtbase5-dev \
+	qtdeclarative5-dev \
+	qtscript5-dev \
+	qttools5-dev \
+	qttools5-dev-tools \
+	wget \
+	zlib1g-dev \
+	libpoppler-qt5-dev \
+	libpoppler-private-dev \
+	poppler-data \
+	liblua5.2-dev \
+	gsfonts \
+	xvfb \
+&& apt-get clean
+
+ENV PATH="/opt/cmake/bin:${PATH}"
+
+RUN export CMAKE_VERSION=3.1.0 && \
+	wget -O /tmp/cmake.tar.gz https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz && \
+	tar -x -C /tmp -f /tmp/cmake.tar.gz && \
+	mv /tmp/cmake-${CMAKE_VERSION}-Linux-x86_64 /opt/cmake && \
+	rm /tmp/cmake.tar.gz
+
+RUN export HUNSPELL_VERSION=1.2.9 && \
+	wget -O /tmp/hunspell.tar.gz https://downloads.sourceforge.net/project/hunspell/Hunspell/${HUNSPELL_VERSION}/hunspell-${HUNSPELL_VERSION}.tar.gz && \
+	tar -x -C /tmp -f /tmp/hunspell.tar.gz && \
+	cd /tmp/hunspell-${HUNSPELL_VERSION} && \
+    ./configure --disable-dependency-tracking && \
+    make -j && \
+    sudo make install && \
+	rm -rf /tmp/hunspell.tar.gz /tmp/hunspell-${HUNSPELL_VERSION}
+
+COPY . /home/tw
+
+RUN mkdir /home/tw/build && cd /home/tw/build && \
+cmake -DTW_BUILD_ID='github' .. && \
+make -j && \
+xvfb-run ctest -V

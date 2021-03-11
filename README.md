@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.com/TeXworks/texworks.svg?branch=master)](https://travis-ci.com/TeXworks/texworks)
+[![CI](https://github.com/TeXworks/texworks/workflows/CI/badge.svg)](https://github.com/TeXworks/texworks/actions?query=workflow%3ACI)
+[![CD](https://github.com/TeXworks/texworks/workflows/CD/badge.svg)](https://github.com/TeXworks/texworks/actions?query=workflow%3ACD)
 [![Build status](https://ci.appveyor.com/api/projects/status/eb4e9108blt0pehr?svg=true)](https://ci.appveyor.com/project/stloeffler/texworks)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4e9f1a5159b4060a88dd72dc3803f54)](https://www.codacy.com/app/TeXworks/texworks?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TeXworks/texworks&amp;utm_campaign=Badge_Grade)
 
@@ -31,7 +32,7 @@ debug information), or file a bug report.
 License
 -------
 
-TeXworks is copyright (C) 2007-2020 by Jonathan Kew, Stefan Löffler, and Charlie
+TeXworks is copyright (C) 2007-2021 by Jonathan Kew, Stefan Löffler, and Charlie
 Sharpsteen. Distributed under the terms of the GNU General Public License,
 version 2 or (at your option) any later version.
 See the file COPYING for details.
@@ -42,46 +43,36 @@ modules/synctex/synctex_parser.c for license details.
 Building TeXworks
 -----------------
 
-Notes by Jonathan Kew, updated 2011-03-20, 2015-03-29, 2019-03-21 by Stefan
-Löffler
+Notes by Jonathan Kew, updated 2011-03-20, 2015-03-29, 2019-03-21, 2020-06-06 by
+Stefan Löffler
 
-To build TeXworks from source, you will need to install developer packages (or
-equivalent) for:
+To build TeXworks from source, you will need to install
 
--   Qt (5.0 or later)
-    <https://www.qt.io/download/>
+- CMake <https://cmake.org/>
 
--   Poppler (using the latest stable release is strongly recommended, although
-    versions as old as the 0.24 series should still work)
-    <https://poppler.freedesktop.org/>
+as well as developer packages (or equivalent) for:
 
--   Hunspell (release 1.2.8 or later is recommended; earlier 1.2.x releases may
-    be used, although support for some non-Latin-script languages may be
-    lacking)
-    <https://hunspell.github.io/>
+- Qt 5 <https://www.qt.io/download/>
+- Poppler <https://poppler.freedesktop.org/>
+- Hunspell <https://hunspell.github.io/>
 
 along with their dependencies (such as Freetype, fontconfig, zlib, etc.) If you
 also want to build the scripting plugins (optional), you additionally need
 development packages for Lua and/or Python. Details will depend on your
 platform. On Linux or similar systems, your package manager can probably provide
-all these.
+all these. On the Mac, required libraries can be obtained, e.g., using Homebrew.
+
+Using the latest stable versions of the dependencies is highly recommended,
+although TeXworks can be built with versions at least as old as CMake 3.1.0,
+Qt 5.2.3, poppler 0.24.5, and hunspell 1.2.9.
 
 Once everything is set up, create a folder for building (e.g., "build") and run
 CMake in it to create a Makefile or Xcode project. Finally, run make or use
 Xcode to build the application.
 
-The current TeXworks prototype has been successfully built with
--   Xcode (using gcc 4) on Mac OS X (built on 10.5, but should run on 10.4 or
-    later)
-
--   MinGW release 5.1.4 on Windows XP (also runs on Vista and Windows 7)
-
--   gcc 4 on GNU/Linux, various BSDs, etc.
-
-On the Mac, required libraries can be obtained, e.g., using Homebrew.
-
 Further tips on building TeXworks from source are available on some of the wiki
 pages:
+
 - <https://github.com/TeXworks/texworks/wiki/Building>
 - <https://github.com/TeXworks/texworks/wiki/Building-on-Windows-(MinGW)>
 - <https://github.com/TeXworks/texworks/wiki/Building-on-Mac-OS-X-(Homebrew)>

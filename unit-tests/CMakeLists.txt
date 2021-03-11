@@ -14,10 +14,17 @@ add_executable(test_Scripting
 	Scripting_test.h
 	MockScriptingAPI.h
 	"${CMAKE_SOURCE_DIR}/src/scripting/Script.cpp"
-	"${CMAKE_SOURCE_DIR}/src/scripting/JSScriptInterface.cpp"
-	"${CMAKE_SOURCE_DIR}/src/scripting/JSScript.cpp"
+	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScriptInterface.cpp"
+	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScript.cpp"
 	"${CMAKE_SOURCE_DIR}/src/Settings.cpp"
 )
+if (WITH_QTSCRIPT)
+	target_sources(test_Scripting
+		PRIVATE "${CMAKE_SOURCE_DIR}/src/scripting/JSScriptInterface.cpp"
+		PRIVATE "${CMAKE_SOURCE_DIR}/src/scripting/JSScript.cpp"
+	)
+	target_compile_definitions(test_Scripting PRIVATE WITH_QTSCRIPT)
+endif (WITH_QTSCRIPT)
 target_compile_options(test_Scripting PRIVATE ${WARNING_OPTIONS})
 target_link_libraries(test_Scripting ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Scripting COMMAND test_Scripting WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
@@ -40,23 +47,58 @@ IF ( LUA_FOUND AND WITH_LUA )
 ENDIF ()
 
 
-# LineNumberWidget
-add_executable(test_LineNumberWidget
-	LineNumberWidget_test.cpp
-	LineNumberWidget_test.h
+# UI
+add_executable(test_UI
+	UI_test.cpp
+	UI_test.h
+	SignalCounter.cpp
+	"${CMAKE_SOURCE_DIR}/src/ui/ClickableLabel.cpp"
+	"${CMAKE_SOURCE_DIR}/src/ui/ClosableTabWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
+	"${CMAKE_SOURCE_DIR}/src/ui/ScreenCalibrationWidget.cpp"
 )
-target_compile_options(test_LineNumberWidget PRIVATE ${WARNING_OPTIONS})
-target_link_libraries(test_LineNumberWidget ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
-add_test(NAME test_LineNumberWidget COMMAND test_LineNumberWidget WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
+target_compile_options(test_UI PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_UI ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_test(NAME test_UI COMMAND test_UI WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
-# FileVersionDatabase
-add_executable(test_FileVersionDatabase
-	FileVersionDatabase_test.cpp
-	FileVersionDatabase_test.h
+# Utils
+add_executable(test_Utils
+	Utils_test.cpp
+	Utils_test.h
+	SignalCounter.cpp
+	"${CMAKE_SOURCE_DIR}/src/utils/CommandlineParser.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/FileVersionDatabase.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/FullscreenManager.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/ResourcesLibrary.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/SystemCommand.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/TextCodecs.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/VersionInfo.cpp"
 )
-target_compile_options(test_FileVersionDatabase PRIVATE ${WARNING_OPTIONS})
-target_link_libraries(test_FileVersionDatabase ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
-add_test(NAME test_FileVersionDatabase COMMAND test_FileVersionDatabase WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
+
+target_compile_options(test_Utils PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_Utils ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_dependencies(test_Utils GitRev)
+add_test(NAME test_Utils COMMAND test_Utils WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
+
+if (APPLE)
+	target_sources(test_Utils PRIVATE "${CMAKE_SOURCE_DIR}/src/utils/OSVersionInfo_mac.mm")
+	target_link_libraries(test_Utils "-framework Foundation")
+endif (APPLE)
+
+# Document
+add_executable(test_Document
+	Document_test.cpp
+	Document_test.h
+	"${CMAKE_SOURCE_DIR}/src/document/Document.cpp"
+	"${CMAKE_SOURCE_DIR}/src/document/SpellChecker.cpp"
+	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.cpp"
+	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.h"
+	"${CMAKE_SOURCE_DIR}/src/document/TextDocument.cpp"
+	"${CMAKE_SOURCE_DIR}/src/TWSynchronizer.cpp"
+	"${CMAKE_SOURCE_DIR}/src/TWSynchronizer.h"
+	"${CMAKE_SOURCE_DIR}/src/TeXHighlighter.h"
+)
+target_compile_options(test_Document PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_Document QtPDF::qtpdf SyncTeX::synctex Hunspell::hunspell ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_test(NAME test_Document COMMAND test_Document WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 

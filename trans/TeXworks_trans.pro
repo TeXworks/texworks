@@ -2,12 +2,12 @@
 
 error("This file is not intended for building TeXworks. Please use CMake instead. See README.md for further instructions.")
 
+# INCLUDEPATH must be set so lupdate finds headers, namespace declarations, etc.
+INCLUDEPATH += ../src/
+
 SOURCES = \
   "../src/BibTeXFile.cpp" \
   "../src/CitationSelectDialog.cpp" \
-  "../src/ClickableLabel.cpp" \
-  "../src/ClosableTabWidget.cpp" \
-  "../src/CommandlineParser.cpp" \
   "../src/CompletingEdit.cpp" \
   "../src/ConfirmDelete.cpp" \
   "../src/Engine.cpp" \
@@ -17,37 +17,43 @@ SOURCES = \
   "../src/PDFDocumentWindow.cpp" \
   "../src/PrefsDialog.cpp" \
   "../src/ResourcesDialog.cpp" \
-  "../src/ScreenCalibrationWidget.cpp" \
   "../src/ScriptManagerWidget.cpp" \
   "../src/Settings.cpp" \
   "../src/TWApp.cpp" \
   "../src/TWScriptManager.cpp" \
   "../src/TWScriptableWindow.cpp" \
   "../src/TWSynchronizer.cpp" \
-  "../src/TWSystemCmd.cpp" \
-  "../src/TWTextCodecs.cpp" \
   "../src/TWUtils.cpp" \
   "../src/TeXDocks.cpp" \
   "../src/TeXDocumentWindow.cpp" \
   "../src/TeXHighlighter.cpp" \
   "../src/TemplateDialog.cpp" \
+  "../src/document/Document.cpp" \
   "../src/document/SpellChecker.cpp" \
   "../src/document/TeXDocument.cpp" \
   "../src/document/TextDocument.cpp" \
   "../src/main.cpp" \
+  "../src/scripting/ECMAScript.cpp" \
+  "../src/scripting/ECMAScriptInterface.cpp" \
   "../src/scripting/JSScript.cpp" \
   "../src/scripting/JSScriptInterface.cpp" \
   "../src/scripting/Script.cpp" \
   "../src/scripting/ScriptAPI.cpp" \
+  "../src/ui/ClickableLabel.cpp" \
+  "../src/ui/ClosableTabWidget.cpp" \
   "../src/ui/LineNumberWidget.cpp" \
-  "../src/utils/FileVersionDatabase.cpp"
+  "../src/ui/ScreenCalibrationWidget.cpp" \
+  "../src/utils/CommandlineParser.cpp" \
+  "../src/utils/FileVersionDatabase.cpp" \
+  "../src/utils/FullscreenManager.cpp" \
+  "../src/utils/ResourcesLibrary.cpp" \
+  "../src/utils/SystemCommand.cpp" \
+  "../src/utils/TextCodecs.cpp" \
+  "../src/utils/VersionInfo.cpp"
 
 HEADERS = \
   "../src/BibTeXFile.h" \
   "../src/CitationSelectDialog.h" \
-  "../src/ClickableLabel.h" \
-  "../src/ClosableTabWidget.h" \
-  "../src/CommandlineParser.h" \
   "../src/CompletingEdit.h" \
   "../src/ConfirmDelete.h" \
   "../src/DefaultBinaryPaths.h" \
@@ -60,15 +66,12 @@ HEADERS = \
   "../src/PDFDocumentWindow.h" \
   "../src/PrefsDialog.h" \
   "../src/ResourcesDialog.h" \
-  "../src/ScreenCalibrationWidget.h" \
   "../src/ScriptManagerWidget.h" \
   "../src/Settings.h" \
   "../src/TWApp.h" \
   "../src/TWScriptManager.h" \
   "../src/TWScriptableWindow.h" \
   "../src/TWSynchronizer.h" \
-  "../src/TWSystemCmd.h" \
-  "../src/TWTextCodecs.h" \
   "../src/TWUtils.h" \
   "../src/TWVersion.h" \
   "../src/TeXDocks.h" \
@@ -85,8 +88,17 @@ HEADERS = \
   "../src/scripting/ScriptAPI.h" \
   "../src/scripting/ScriptAPIInterface.h" \
   "../src/scripting/ScriptLanguageInterface.h" \
+  "../src/ui/ClickableLabel.h" \
+  "../src/ui/ClosableTabWidget.h" \
   "../src/ui/LineNumberWidget.h" \
-  "../src/utils/FileVersionDatabase.h"
+  "../src/ui/ScreenCalibrationWidget.h" \
+  "../src/utils/CommandlineParser.h" \
+  "../src/utils/FileVersionDatabase.h" \
+  "../src/utils/FullscreenManager.h" \
+  "../src/utils/ResourcesLibrary.h" \
+  "../src/utils/SystemCommand.h" \
+  "../src/utils/TextCodecs.h" \
+  "../src/utils/VersionInfo.h"
 
 FORMS = \
   "../src/CitationSelectDialog.ui" \
@@ -106,6 +118,7 @@ FORMS = \
   "../src/ToolConfig.ui"
 
 RESOURCES = \
+  "../build/src/TeXworks_trans.qrc" \
   "../res/resfiles.qrc" \
   "../res/resources.qrc"
 

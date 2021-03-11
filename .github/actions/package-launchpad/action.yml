@@ -1,0 +1,43 @@
+name: 'Package TeXworks for Launchpad'
+author: 'Stefan Löffler'
+description: ''
+
+inputs:
+  DEB_PASSPHRASE:
+    description: 'Passphrase to unlock the debian signing key'
+    required: true
+  DECRYPTION_KEY:
+    description: 'Passphrase to decrypt the debian signing key'
+    required: true
+
+outputs:
+  changes_files:
+    description: 'The paths to the .changes files produced'
+    value: ${{ steps.package.outputs.CHANGES }}
+
+runs:
+  using: composite
+  steps:
+    - run: |
+        echo "::group::Install dependencies"
+        sudo apt update && sudo apt install --assume-yes --no-install-recommends ubuntu-dev-tools debhelper dput
+        echo "::endgroup::"
+        echo "::group::Import signing keys"
+        mkdir -p "${HOME}/.gnupg"
+        chmod 700 "${HOME}/.gnupg"
+        echo '${{ inputs.DECRYPTION_KEY }}' | gpg --quiet --batch --yes --decrypt --passphrase-fd=0 ${{ github.action_path }}/launchpad/key.asc.gpg | gpg --batch --import
+        echo "::endgroup::"
+      shell: bash
+    - id: get-ubuntu-series
+      run: echo "::set-output name=SERIES::$(python3 ${{ github.action_path }}/get-ubuntu-series.py)"
+      shell: bash
+    - id: package
+      run: ${{ github.action_path }}/package.sh
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      env:
+        PREV_COMMIT: ${{ github.event.before }}
+        DEB_MAINTAINER_NAME: "Stefan Löffler"
+        DEB_MAINTAINER_EMAIL: "st.loeffler@gmail.com"
+        LAUNCHPAD_SERIES: ${{ steps.get-ubuntu-series.outputs.SERIES }}
+        DEB_PASSPHRASE: ${{ inputs.DEB_PASSPHRASE }}

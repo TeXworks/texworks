@@ -19,15 +19,7 @@ PDFViewer::PDFViewer(const QString & pdf_doc, QWidget *parent, Qt::WindowFlags f
   QtPDF::PDFDocumentWidget *docWidget = new QtPDF::PDFDocumentWidget(this);
   connect(this, SIGNAL(switchInterfaceLocale(QLocale)), docWidget, SLOT(switchInterfaceLocale(QLocale)));
 
-#ifdef USE_MUPDF
-  docWidget->setDefaultBackend(QString::fromLatin1("mupdf"));
-#elif USE_POPPLERQT
-  docWidget->setDefaultBackend(QString::fromLatin1("poppler-qt"));
-#else
-  #error At least one backend is required
-#endif
-
-  if (!pdf_doc.isEmpty() && docWidget)
+  if (!pdf_doc.isEmpty())
     docWidget->load(pdf_doc);
   docWidget->goFirst();
 
@@ -36,27 +28,27 @@ PDFViewer::PDFViewer(const QString & pdf_doc, QWidget *parent, Qt::WindowFlags f
   _search = new SearchLineEdit(this);
   _toolBar = new QToolBar(this);
 
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/document-open.png")), tr("Open..."), this, SLOT(open()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("document-open")), tr("Open..."), this, SLOT(open()));
   _toolBar->addSeparator();
 
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoomin.png")), tr("Zoom In"), docWidget, SLOT(zoomIn()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoomout.png")), tr("Zoom Out"), docWidget, SLOT(zoomOut()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoom-fitwidth.png")), tr("Fit to Width"), docWidget, SLOT(zoomFitWidth()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoom-fitwindow.png")), tr("Fit to Window"), docWidget, SLOT(zoomFitWindow()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("zoom-in")), tr("Zoom In"), docWidget, SLOT(zoomIn()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("zoom-out")), tr("Zoom Out"), docWidget, SLOT(zoomOut()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("zoom-fit-width")), tr("Fit to Width"), docWidget, SLOT(zoomFitWidth()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("zoom-fit-best")), tr("Fit to Window"), docWidget, SLOT(zoomFitWindow()));
 
   _toolBar->addSeparator();
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/pagemode-single.png")), tr("Single Page Mode"), docWidget, SLOT(setSinglePageMode()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/pagemode-continuous.png")), tr("One Column Continuous Page Mode"), docWidget, SLOT(setOneColContPageMode()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/pagemode-twocols.png")), tr("Two Columns Continuous Page Mode"), docWidget, SLOT(setTwoColContPageMode()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/pagemode-present.png")), tr("Presentation Mode"), docWidget, SLOT(setPresentationMode()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("view-pages-single")), tr("Single Page Mode"), docWidget, SLOT(setSinglePageMode()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("view-pages-continuous")), tr("One Column Continuous Page Mode"), docWidget, SLOT(setOneColContPageMode()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("view-pages-facing-continuous")), tr("Two Columns Continuous Page Mode"), docWidget, SLOT(setTwoColContPageMode()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("view-presentation")), tr("Presentation Mode"), docWidget, SLOT(setPresentationMode()));
   // TODO: fullscreen mode for presentations
 
   _toolBar->addSeparator();
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoom.png")), tr("Magnify"), docWidget, SLOT(setMouseModeMagnifyingGlass()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/hand.png")), tr("Pan"), docWidget, SLOT(setMouseModeMove()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/zoom-select.png")), tr("Marquee Zoom"), docWidget, SLOT(setMouseModeMarqueeZoom()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/measure.png")), tr("Measure"), docWidget, SLOT(setMouseModeMeasure()));
-  _toolBar->addAction(QIcon(QString::fromUtf8(":/QtPDF/icons/select-text.png")), tr("Select"), docWidget, SLOT(setMouseModeSelect()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("tool-magnifier")), tr("Magnify"), docWidget, SLOT(setMouseModeMagnifyingGlass()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("tool-pan")), tr("Pan"), docWidget, SLOT(setMouseModeMove()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("tool-zoom-select")), tr("Marquee Zoom"), docWidget, SLOT(setMouseModeMarqueeZoom()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("tool-measure")), tr("Measure"), docWidget, SLOT(setMouseModeMeasure()));
+  _toolBar->addAction(QIcon::fromTheme(QStringLiteral("tool-select-text")), tr("Select"), docWidget, SLOT(setMouseModeSelect()));
 
   _counter->setLastPage(docWidget->lastPage());
   connect(docWidget, SIGNAL(changedPage(int)), _counter, SLOT(setCurrentPage(int)));
@@ -104,7 +96,9 @@ void PDFViewer::open()
     return;
 
   QtPDF::PDFDocumentWidget * docWidget = qobject_cast<QtPDF::PDFDocumentWidget*>(centralWidget());
-  Q_ASSERT(docWidget != nullptr);
+  if (!docWidget) {
+    return;
+  }
   docWidget->load(pdf_doc);
 }
 

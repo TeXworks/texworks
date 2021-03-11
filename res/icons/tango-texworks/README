@@ -1,0 +1,29 @@
+Sources:
+========
+
+document-new:       Tango
+document-open:      Tango
+document-save:      Tango
+edit-copy:          Tango
+edit-cut:           Tango
+edit-find:          Tango
+edit-find-replace:  Tango
+edit-paste:         Tango
+edit-redo:          Tango
+edit-undo:          Tango
+format-indent-less: Tango
+format-indent-more: Tango
+go-down:            Tango
+go-first:           Tango
+go-last:            Tango
+go-next:            Tango
+go-previous:        Tango
+go-up:              Tango
+list-add:           Tango
+list-remove:        Tango
+preferences-system: Tango
+process-start:      Contributed by Tim Hoffmann
+process-stop:       Tango
+
+
+Tango icons are in the public domain and were obtained from https://github.com/Distrotech/tango-icon-theme

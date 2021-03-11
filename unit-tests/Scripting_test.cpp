@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019  Stefan Löffler
+	Copyright (C) 2019-2020  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -18,10 +18,16 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
+
 #include "Scripting_test.h"
-#include "scripting/JSScriptInterface.h"
-#include "scripting/JSScript.h"
+
 #include "MockScriptingAPI.h"
+#include "scripting/ECMAScript.h"
+#include "scripting/ECMAScriptInterface.h"
+#if WITH_QTSCRIPT
+#	include "scripting/JSScript.h"
+#	include "scripting/JSScriptInterface.h"
+#endif
 
 using namespace Tw::Scripting;
 
@@ -32,34 +38,57 @@ namespace UnitTest {
 
 void TestScripting::scriptLanguageName()
 {
+#if WITH_QTSCRIPT
 	Tw::Scripting::JSScriptInterface js;
 	QCOMPARE(js.scriptLanguageName(), QStringLiteral("QtScript"));
+#endif
+
+	Tw::Scripting::ECMAScriptInterface es;
+	QCOMPARE(es.scriptLanguageName(), QStringLiteral("ECMAScript"));
 }
 
 void TestScripting::scriptLanguageURL()
 {
+#if WITH_QTSCRIPT
 	Tw::Scripting::JSScriptInterface js;
 	QCOMPARE(js.scriptLanguageURL(), QStringLiteral("http://doc.qt.io/qt-5/qtscript-index.html"));
+#endif
+
+	Tw::Scripting::ECMAScriptInterface es;
+	QCOMPARE(es.scriptLanguageURL(), QStringLiteral("https://doc.qt.io/qt-5/qjsengine.html"));
 }
 
 void TestScripting::canHandleFile()
 {
-	Tw::Scripting::JSScriptInterface js;
 	QFileInfo fiNull;
+	QFileInfo fiEs(QStringLiteral("file.es"));
 	QFileInfo fiJs(QStringLiteral("file.js"));
 	QFileInfo fiPy(QStringLiteral("file.py"));
 	QFileInfo fiLua(QStringLiteral("file.lua"));
 	QFileInfo fiTex(QStringLiteral("file.tex"));
 
+#if WITH_QTSCRIPT
+	Tw::Scripting::JSScriptInterface js;
 	QVERIFY(js.canHandleFile(fiNull) == false);
+	QVERIFY(js.canHandleFile(fiEs) == false);
 	QVERIFY(js.canHandleFile(fiJs));
 	QVERIFY(js.canHandleFile(fiPy) == false);
 	QVERIFY(js.canHandleFile(fiLua) == false);
 	QVERIFY(js.canHandleFile(fiTex) == false);
+#endif
+
+	Tw::Scripting::ECMAScriptInterface es;
+	QVERIFY(es.canHandleFile(fiNull) == false);
+	QVERIFY(es.canHandleFile(fiEs));
+	QVERIFY(es.canHandleFile(fiJs));
+	QVERIFY(es.canHandleFile(fiPy) == false);
+	QVERIFY(es.canHandleFile(fiLua) == false);
+	QVERIFY(es.canHandleFile(fiTex) == false);
 }
 
 void TestScripting::isEnabled()
 {
+#if WITH_QTSCRIPT
 	JSScriptInterface jsi;
 	Script * js = jsi.newScript(QString());
 
@@ -68,31 +97,53 @@ void TestScripting::isEnabled()
 	QVERIFY(js->isEnabled() == false);
 	js->setEnabled(true);
 	QVERIFY(js->isEnabled());
+#endif
+
+	ECMAScriptInterface esi;
+	Script * es = esi.newScript(QString());
+
+	QVERIFY(es->isEnabled());
+	es->setEnabled(false);
+	QVERIFY(es->isEnabled() == false);
+	es->setEnabled(true);
+	QVERIFY(es->isEnabled());
 }
 
 void TestScripting::getScriptLanguagePlugin()
 {
+#if WITH_QTSCRIPT
 	JSScriptInterface jsi;
-
 	QCOMPARE(jsi.newScript(QString())->getScriptLanguagePlugin(), &jsi);
+#endif
+
+	ECMAScriptInterface esi;
+	QCOMPARE(esi.newScript(QString())->getScriptLanguagePlugin(), &esi);
 }
 
 void TestScripting::getFilename()
 {
-	JSScriptInterface jsi;
 	QString invalid = QStringLiteral("does-not-exist");
+#if WITH_QTSCRIPT
+	JSScriptInterface jsi;
 
 	QCOMPARE(jsi.newScript(QString())->getFilename(), QString());
 	QCOMPARE(jsi.newScript(invalid)->getFilename(), invalid);
+#endif
+
+	ECMAScriptInterface esi;
+
+	QCOMPARE(esi.newScript(QString())->getFilename(), QString());
+	QCOMPARE(esi.newScript(invalid)->getFilename(), invalid);
 }
 
 void TestScripting::globals()
 {
-	JSScriptInterface jsi;
-	QSharedPointer<Script> js = QSharedPointer<Script>(jsi.newScript(QString()));
-
 	QString key = QStringLiteral("myGlobal");
 	QVariant val(42.f);
+
+#if WITH_QTSCRIPT
+	JSScriptInterface jsi;
+	QSharedPointer<Script> js = QSharedPointer<Script>(jsi.newScript(QString()));
 
 	QVERIFY(js->hasGlobal(key) == false);
 	QCOMPARE(js->getGlobal(key), QVariant());
@@ -104,6 +155,21 @@ void TestScripting::globals()
 	QCOMPARE(js->getGlobal(key), val);
 	js->unsetGlobal(key);
 	QVERIFY(js->hasGlobal(key) == false);
+#endif
+
+	ECMAScriptInterface esi;
+	QSharedPointer<Script> es = QSharedPointer<Script>(esi.newScript(QString()));
+
+	QVERIFY(es->hasGlobal(key) == false);
+	QCOMPARE(es->getGlobal(key), QVariant());
+	QVERIFY(es->hasGlobal(key) == false);
+	es->unsetGlobal(key);
+	QVERIFY(es->hasGlobal(key) == false);
+	es->setGlobal(key, val);
+	QVERIFY(es->hasGlobal(key));
+	QCOMPARE(es->getGlobal(key), val);
+	es->unsetGlobal(key);
+	QVERIFY(es->hasGlobal(key) == false);
 }
 
 void TestScripting::parseHeader_data()
@@ -119,9 +185,10 @@ void TestScripting::parseHeader_data()
 	QTest::addColumn<QString>("context");
 	QTest::addColumn<QKeySequence>("keySequence");
 
+#if WITH_QTSCRIPT
 	JSScriptInterface jsi;
 
-	QTest::newRow("invalid") << QSharedPointer<Script>(jsi.newScript(QString()))
+	QTest::newRow("invalid (JS)") << QSharedPointer<Script>(jsi.newScript(QString()))
 							 << false
 							 << Script::ScriptType::ScriptUnknown
 							 << QString()
@@ -131,7 +198,7 @@ void TestScripting::parseHeader_data()
 							 << QString()
 							 << QString()
 							 << QKeySequence();
-	QTest::newRow("script1.js") << QSharedPointer<Script>(jsi.newScript(QStringLiteral("script1.js")))
+	QTest::newRow("script1.js (JS)") << QSharedPointer<Script>(jsi.newScript(QStringLiteral("script1.js")))
 								<< true
 								<< Script::ScriptType::ScriptStandalone
 								<< QStringLiteral("Tw.insertText test")
@@ -141,7 +208,41 @@ void TestScripting::parseHeader_data()
 								<< QString()
 								<< QStringLiteral("TeXDocument")
 								<< QKeySequence(QStringLiteral("Ctrl+Alt+Shift+I"));
-	QTest::newRow("script2.js") << QSharedPointer<Script>(jsi.newScript(QStringLiteral("script2.js")))
+	QTest::newRow("script2.js (JS)") << QSharedPointer<Script>(jsi.newScript(QStringLiteral("script2.js")))
+								<< false
+								<< Script::ScriptType::ScriptUnknown
+								<< QStringLiteral("Exception test")
+								<< QString()
+								<< QStringLiteral(u"Stefan Löffler")
+								<< QStringLiteral("0.0.1")
+								<< QString()
+								<< QString()
+								<< QKeySequence();
+#endif
+
+	ECMAScriptInterface esi;
+
+	QTest::newRow("invalid (ECMA)") << QSharedPointer<Script>(esi.newScript(QString()))
+							 << false
+							 << Script::ScriptType::ScriptUnknown
+							 << QString()
+							 << QString()
+							 << QString()
+							 << QString()
+							 << QString()
+							 << QString()
+							 << QKeySequence();
+	QTest::newRow("script1.js (ECMA)") << QSharedPointer<Script>(esi.newScript(QStringLiteral("script1.js")))
+								<< true
+								<< Script::ScriptType::ScriptStandalone
+								<< QStringLiteral("Tw.insertText test")
+								<< QStringLiteral(u"This is a unicode string 🤩")
+								<< QStringLiteral(u"Stefan Löffler")
+								<< QStringLiteral("0.0.1")
+								<< QString()
+								<< QStringLiteral("TeXDocument")
+								<< QKeySequence(QStringLiteral("Ctrl+Alt+Shift+I"));
+	QTest::newRow("script2.js (ECMA)") << QSharedPointer<Script>(esi.newScript(QStringLiteral("script2.js")))
 								<< false
 								<< Script::ScriptType::ScriptUnknown
 								<< QStringLiteral("Exception test")
@@ -180,8 +281,9 @@ void TestScripting::parseHeader()
 
 void TestScripting::mocks()
 {
-	Script * s = JSScriptInterface().newScript(QString());
-	MockAPI api(s);
+	Script * s = ECMAScriptInterface().newScript(QString());
+	MockTarget target;
+	MockAPI api(s, &target);
 
 	QCOMPARE(api.self(), &api);
 	QCOMPARE(api.GetApp(), &api);
@@ -238,7 +340,8 @@ void TestScripting::mocks()
 	QCOMPARE(api.createUI(QString()), static_cast<QWidget*>(nullptr));
 	QCOMPARE(api.findChildWidget(nullptr, QString()), static_cast<QWidget*>(nullptr));
 	QVERIFY(api.makeConnection(nullptr, QString(), nullptr, QString()) == false);
-	QCOMPARE(api.getDictionaryList(), {});
+	QMap<QString, QVariant> emptyDictList;
+	QCOMPARE(api.getDictionaryList(), emptyDictList);
 	QCOMPARE(api.getEngineList(), {});
 	QVERIFY(api.mayExecuteSystemCommand(QString(), nullptr) == false);
 	QVERIFY(api.mayWriteFile(QString(), nullptr) == false);
@@ -249,6 +352,7 @@ void TestScripting::mocks()
 
 void TestScripting::execute()
 {
+#if WITH_QTSCRIPT
 	JSScriptInterface jsi;
 
 	QSharedPointer<Script> js1 = QSharedPointer<Script>(jsi.newScript(QStringLiteral("does-not-exist")));
@@ -256,18 +360,50 @@ void TestScripting::execute()
 	QSharedPointer<Script> js3 = QSharedPointer<Script>(jsi.newScript(QStringLiteral("script2.js")));
 
 	{
-		MockAPI api(js1.data());
+		MockTarget target;
+		MockAPI api(js1.data(), &target);
 		QVERIFY(js1->run(api) == false);
 	}
 	{
-		MockAPI api(js2.data());
+		MockTarget target;
+		MockAPI api(js2.data(), &target);
 		QVERIFY(js2->run(api));
 		QCOMPARE(qobject_cast<MockTarget*>(api.GetTarget())->text, QStringLiteral("It works!"));
 		QCOMPARE(api.GetResult(), QVariant(QVariantList({1, 2, 3})));
 	}
 	{
-		MockAPI api(js3.data());
+		MockTarget target;
+		MockAPI api(js3.data(), &target);
 		QVERIFY(js3->run(api) == false);
+		QCOMPARE(api.GetResult(), QVariant(QStringLiteral("an exception")));
+	}
+#endif
+
+	ECMAScriptInterface esi;
+
+	QSharedPointer<Script> es1 = QSharedPointer<Script>(esi.newScript(QStringLiteral("does-not-exist")));
+	QSharedPointer<Script> es2 = QSharedPointer<Script>(esi.newScript(QStringLiteral("script1.js")));
+	QSharedPointer<Script> es3 = QSharedPointer<Script>(esi.newScript(QStringLiteral("script2.js")));
+
+	{
+		MockTarget target;
+		MockAPI api(es1.data(), &target);
+		QVERIFY(es1->run(api) == false);
+	}
+	{
+		MockTarget target;
+		MockAPI api(es2.data(), &target);
+		QVERIFY(es2->run(api));
+		QCOMPARE(qobject_cast<MockTarget*>(api.GetTarget())->text, QStringLiteral("It works!"));
+		QCOMPARE(api.GetResult(), QVariant(QVariantList({1, 2, 3})));
+	}
+	{
+		MockTarget target;
+		MockAPI api(es3.data(), &target);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+		QEXPECT_FAIL("", "Script exceptions are not handled correctly until Qt6", Continue);
+#endif
+		QVERIFY(es3->run(api) == false);
 		QCOMPARE(api.GetResult(), QVariant(QStringLiteral("an exception")));
 	}
 }
@@ -275,7 +411,7 @@ void TestScripting::execute()
 } // namespace UnitTest
 
 #if defined(STATIC_QT5) && defined(Q_OS_WIN)
-  Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
+  Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin)
 #endif
 
 QTEST_MAIN(UnitTest::TestScripting)

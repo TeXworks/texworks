@@ -6,6 +6,7 @@ set -e
 cd "${TRAVIS_BUILD_DIR}"
 
 . ci/travis-ci/defs.sh
+. ci/travis-ci/travis-config.sh
 
 if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
 	print_warning "Not packaging pull-requests for deployment"
@@ -18,11 +19,11 @@ fi
 
 print_headline "Packaging ${TARGET_OS}/qt${QT} for deployment"
 
-POPPLERDATA_VERSION="0.4.9"
+POPPLERDATA_VERSION="0.4.10"
 POPPLERDATA_SUBDIR="poppler-data-${POPPLERDATA_VERSION}"
 POPPLERDATA_FILE="poppler-data-${POPPLERDATA_VERSION}.tar.gz"
 POPPLERDATA_URL="https://poppler.freedesktop.org/${POPPLERDATA_FILE}"
-POPPLERDATA_SHA256="1f9c7e7de9ecd0db6ab287349e31bf815ca108a5a175cf906a90163bdbe32012"
+POPPLERDATA_SHA256="6e2fcef66ec8c44625f94292ccf8af9f1d918b410d5aa69c274ce67387967b30"
 
 # Gather information
 

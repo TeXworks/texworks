@@ -1,0 +1,44 @@
+name: 'Package TeXworks for Windows'
+author: 'Stefan Löffler'
+description: ''
+
+inputs:
+  builddir:
+    description: 'Directory the program was built in (default: build)'
+    required: false
+    default: build
+
+outputs:
+  file:
+    description: 'The filename of the packaged artifact (relative to builddir)'
+    value: ${{ steps.info.outputs.file }}
+  version:
+    description: 'The version of the packaged artifact (e.g., 0.7)'
+    value: ${{ steps.info.outputs.version }}
+  fullversion:
+    description: 'The full version of the packaged artifact (e.g., 0.7-202011160643-git_14dcc2c)'
+    value: ${{ steps.info.outputs.fullversion }}
+
+runs:
+  using: composite
+  steps:
+    - name: Assemble package
+      shell: wsl-bash {0}
+      run: cpack --verbose
+      working-directory: ${{ inputs.builddir }}
+
+    - name: Info
+      shell: wsl-bash {0}
+      id: info
+      working-directory: ${{ inputs.builddir }}
+      run: |
+        FILENAME=$(find . -maxdepth 1 -name 'TeXworks-win-*.zip')
+        VERSION=$(echo "$FILENAME" | sed -e 's/^\.\/TeXworks-win-\([^-]*\)-.*\.zip$/\1/')
+        FULLVERSION=$(echo "$FILENAME" | sed -e 's/^\.\/TeXworks-win-\(.*\)\.zip$/\1/')
+        echo "MD5"
+        md5sum "$FILENAME"
+        echo "SHA256"
+        sha256sum "$FILENAME"
+        echo "::set-output name=version::${VERSION}"
+        echo "::set-output name=fullversion::${FULLVERSION}"
+        echo "::set-output name=file::${FILENAME}"

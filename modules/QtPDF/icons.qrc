@@ -1,7 +1,8 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-  <qresource prefix="QtPDF">
-    <file>icons/document-open.png</file>
-    <file>icons/logo.png</file>
+  <qresource>
+    <file>icons/tango-qtpdf/actions/32x32/document-open.png</file>
+    <file>icons/tango-qtpdf/apps/512x512/QtPDF.png</file>
+    <file>icons/tango-qtpdf/actions/32x32@2/document-open.png</file>
   </qresource>
 </RCC>

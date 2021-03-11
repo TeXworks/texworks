@@ -1,0 +1,151 @@
+name: CD
+on:
+  - push
+  - pull_request
+
+jobs:
+  ubuntu:
+    name: Ubuntu (Launchpad)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # fetch the entire history so we can create the changelog
+
+    - name: Package for Launchpad
+      id: package
+      uses: ./.github/actions/package-launchpad
+      with:
+        DEB_PASSPHRASE: ${{ secrets.DEB_PASSPHRASE }}
+        DECRYPTION_KEY: ${{ secrets.DECRYPTION_KEY }}
+
+    - name: Deploy to Launchpad
+      uses: ./.github/actions/deploy-launchpad
+      with:
+        changes_files: ${{ steps.package.outputs.changes_files }}
+        devel-repo: "ppa:texworks/ppa"
+        stable-repo: "ppa:texworks/stable"
+
+################################################################################
+
+  win-artifactory:
+    name: Windows (Artifactory)
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup WSL
+      uses: Vampire/setup-wsl@v1
+
+    - name: Install dependencies
+      uses: ./.github/actions/setup-windows
+
+    - name: Configure
+      shell: wsl-bash {0}
+      # ../release is where Inno Setup looks for distribution files
+      run: |
+        mkdir build && cd build
+        /usr/lib/mxe/usr/bin/i686-w64-mingw32.static-cmake -DTW_BUILD_ID='github' .. \
+          -DCMAKE_INSTALL_PREFIX="../release" \
+          -DPLATFORM_DEPENDENCIES='freetype;harfbuzz;freetype_too;bz2;iphlpapi;ssl;crypto;crypt32;ws2_32' \
+          -DPoppler_ADDITIONAL_DEPENDENCIES='freetype;harfbuzz;freetype_too;glib-2.0;intl;iconv;ws2_32;winmm;tiff;webp;jpeg;openjp2;png;lcms2;lzma;bz2;pcre16;wtsapi32' \
+          -DTEXWORKS_ADDITIONAL_LIBS='freetype;harfbuzz;freetype_too;bz2;wtsapi32;opengl32;imm32;shlwapi;dwmapi;uxtheme' \
+          -Dgp_tool='none'
+
+    - name: Build
+      shell: wsl-bash {0}
+      run: make VERBOSE=1 && make VERBOSE=1 install
+      working-directory: build
+
+    - name: Prepare testing
+      shell: wsl-bash {0}
+      run: |
+        echo "::group::Fixup CTest files"
+        SRC=$(pwd)
+        DST=$(echo "${{ github.workspace }}" | tr '\\' '/')
+        cd build
+        for FILE in $(find . -name CTestTestfile.cmake); do
+          echo "Fixing $FILE"
+          sed -ie "s|${SRC}|${DST}|g" "$FILE"
+        done
+        echo "::endgroup::"
+
+    - name: Test
+      run: ctest -V
+      working-directory: build
+      env:
+        QT_FORCE_STDERR_LOGGING: 1
+
+    - name: Package
+      uses: ./.github/actions/package-windows
+      id: package
+
+    - name: Deploy to Artifactory
+      if: github.event_name == 'push'
+      uses: ./.github/actions/deploy-artifactory
+      with:
+          file: build/${{ steps.package.outputs.file }}
+          baseurl: https://texworks.jfrog.io
+          repo: windows-latest
+          remotePath: ${{ steps.package.outputs.version }}
+          username: st.loeffler@gmail.com
+          key: ${{ secrets.jfrog_key }}
+
+    - name: Build installer
+      run: ISCC texworks-setup-script.iss
+      working-directory: win32
+
+    - name: Upload installer artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: installer-win
+        path: win32/Output/*.exe
+
+################################################################################
+
+  macosx-artifactory:
+    name: Mac OS X (Artifactory)
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        # /usr/local/bin/2to3 is symlinked to the native python2 installation
+        # but prevents the homebrew install from succeeding
+        rm -f /usr/local/bin/2to3
+        brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
+        brew install hunspell poppler lua qt5
+
+    - name: Configure
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5"
+
+    - name: Build
+      run: make -j
+      working-directory: build
+
+    - name: Test
+      run: QT_QPA_PLATFORM_PLUGIN_PATH="${Qt5_DIR}/plugins/platforms" ctest -V
+      working-directory: build
+
+    - name: Package
+      id: package
+      uses: ./.github/actions/package-macos
+
+    - name: Deploy to Artifactory
+      if: github.event_name == 'push'
+      uses: ./.github/actions/deploy-artifactory
+      with:
+        file: build/${{ steps.package.outputs.file }}
+        baseurl: https://texworks.jfrog.io
+        repo: macos-latest
+        remotePath: ${{ steps.package.outputs.version }}
+        username: st.loeffler@gmail.com
+        key: ${{ secrets.jfrog_key }}

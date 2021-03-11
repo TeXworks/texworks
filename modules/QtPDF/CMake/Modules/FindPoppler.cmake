@@ -1,6 +1,6 @@
 # - Try to find Poppler and its components
 #
-# Valid components are: cpp glib qt5
+# Valid components are: cpp glib qt5 qt6
 #
 # Once done this will define
 #
@@ -114,7 +114,14 @@ foreach (cmp IN LISTS Poppler_FIND_COMPONENTS)
   )
 
   # Find include directory
-  if ("${cmp}" STREQUAL qt5)
+  if ("${cmp}" STREQUAL qt6)
+    set(${pkg}_header poppler-qt6.h)
+    # NB: find_package(Qt6) changes pkg in our scope, so back it up and restore
+    # it afterwards
+    set(_pkg "${pkg}")
+    find_package(Qt6 REQUIRED COMPONENTS Core Gui Xml)
+    set(pkg "${_pkg}")
+  elseif ("${cmp}" STREQUAL qt5)
     set(${pkg}_header poppler-qt5.h)
     find_package(Qt5 REQUIRED COMPONENTS Core Gui Xml)
   else ()
@@ -150,7 +157,11 @@ foreach (cmp IN LISTS Poppler_FIND_COMPONENTS)
     endif()
   endif ()
 
-  find_package_handle_standard_args(${label} REQUIRED_VARS ${label}_LIBRARY ${label}_INCLUDE_DIR VERSION_VAR ${label}_VERSION_STRING)
+  if (CMAKE_VERSION VERSION_LESS "3.17")
+    find_package_handle_standard_args(${label} FOUND_VAR ${label}_FOUND REQUIRED_VARS ${label}_LIBRARY ${label}_INCLUDE_DIR VERSION_VAR ${label}_VERSION_STRING)
+  else ()
+    find_package_handle_standard_args(${label} FOUND_VAR ${label}_FOUND REQUIRED_VARS ${label}_LIBRARY ${label}_INCLUDE_DIR VERSION_VAR ${label}_VERSION_STRING NAME_MISMATCHED)
+  endif ()
 
   if (${label}_FOUND)
     set(${label}_INCLUDE_DIRS "${${label}_INCLUDE_DIR}" "${Poppler_INCLUDE_DIR}")
@@ -178,7 +189,7 @@ endforeach ()
 # Finish up
 # ---------
 
-find_package_handle_standard_args(Poppler REQUIRED_VARS Poppler_LIBRARY VERSION_VAR Poppler_VERSION_STRING HANDLE_COMPONENTS)
+find_package_handle_standard_args(Poppler FOUND_VAR Poppler_FOUND REQUIRED_VARS Poppler_LIBRARY VERSION_VAR Poppler_VERSION_STRING HANDLE_COMPONENTS)
 
 if (Poppler_FOUND)
   set(Poppler_INCLUDE_DIRS "${Poppler_INCLUDE_DIR}")

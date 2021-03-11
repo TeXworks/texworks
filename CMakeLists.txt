@@ -6,24 +6,24 @@
 #   TeXworks
 #   ├── <a href="CMakeLists.html">CMakeLists.txt</a>
 #   ├── src
-#   │   └── <a href="src/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── <a href="src/CMakeLists.html">CMakeLists.txt</a>
 #   ├── modules
-#   │   ├── <a href="modules/CMakeLists.html">CMakeLists.txt</a>
-#   │   ├── synctex
-#   │   │   └── <a href="modules/synctex/CMakeLists.html">CMakeLists.txt</a>
-#   │   └── QtPDF (documented separately)
+#   │   ├── <a href="modules/CMakeLists.html">CMakeLists.txt</a>
+#   │   ├── synctex
+#   │   │   └── <a href="modules/synctex/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── QtPDF (documented separately)
 #   ├── plugins-src
-#   │   ├── TWLuaPlugin
-#   │   │   └── <a href="plugins-src/TWLuaPlugin/CMakeLists.html">CMakeLists.txt</a>
-#   │   └── TWPythonPlugin
-#   │       └── <a href="plugins-src/TWPythonPlugin/CMakeLists.html">CMakeLists.txt</a>
+#   │   ├── TWLuaPlugin
+#   │   │   └── <a href="plugins-src/TWLuaPlugin/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── TWPythonPlugin
+#   │       └── <a href="plugins-src/TWPythonPlugin/CMakeLists.html">CMakeLists.txt</a>
 #   ├── unit-tests
-#   │   └── <a href="unit-tests/CMakeLists.html">CMakeLists.txt</a>
+#   │   └── <a href="unit-tests/CMakeLists.html">CMakeLists.txt</a>
 #   └── CMake
-#       └── packaging
-#           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.txt</a>
-#           └── mac
-#               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.cmake.in</a>
+#       └── packaging
+#           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.txt</a>
+#           └── mac
+#               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.cmake.in</a>
 # </pre>
 #
 # Using CMake as a buildsystem offers some nice advantages:
@@ -73,6 +73,11 @@ if(POLICY CMP0058)
   cmake_policy(SET CMP0058 NEW)
 endif()
 
+# Prefer newer OpenGL libraries over legacy ones
+if (POLICY CMP0072)
+  cmake_policy(SET CMP0072 NEW)
+endif ()
+
 # Silence warning about option() treating variables differently on the first run
 if(POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
@@ -96,18 +101,18 @@ IF(WIN32 AND MINGW)
   SET(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> -O coff <DEFINES> <SOURCE> <OBJECT>")
 ENDIF()
 
-if (MSVC)
-	set(WARNING_OPTIONS /W4)
-else ()
-	set(WARNING_OPTIONS -Wall -Wpedantic -Wextra -Wconversion -Wold-style-cast -Woverloaded-virtual -Wzero-as-null-pointer-constant)
-endif ()
-
 
 # Determine Version Numbers
 # -------------------------
 
 # The values recovered here are used in the filenames of packaged builds and
 # influence parts of the application such as the "About" dialog.
+
+#include(TeXworksVersion)
+#
+#GetTeXworksVersion()
+#UpdateGitRevInfo()
+#GetGitRevInfo()
 
 # Recover canonical (x.y.z) version number from `src/TWVersion.h`.
 FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/TWVersion.h TeXworks_VER_MAJOR REGEX "VER_MAJOR")
@@ -119,21 +124,13 @@ STRING(REGEX MATCH "([0-9]+)" TeXworks_VER_PATCH ${TeXworks_VER_PATCH})
 SET(TeXworks_VERSION ${TeXworks_VER_MAJOR}.${TeXworks_VER_MINOR}.${TeXworks_VER_PATCH})
 
 # Make sure we have up-to-date git commit infos
-IF ( NOT CMAKE_CROSSCOMPILING )
-	IF ( WIN32 )
-		EXECUTE_PROCESS(COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.bat WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-		ADD_CUSTOM_TARGET(GitRev ALL COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.bat WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMENT "Update git commit info")
-	ELSE ( WIN32 )
-		EXECUTE_PROCESS(COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-		ADD_CUSTOM_TARGET(GitRev ALL COMMAND ${CMAKE_SOURCE_DIR}/getGitRevInfo.sh WORKING_DIRECTORY ${CMAKE_SOURCE_DIR} COMMENT "Update git commit info")
-	ENDIF ( WIN32 )
-ENDIF ( NOT CMAKE_CROSSCOMPILING)
-MESSAGE( STATUS "Git commit info updated" )
+execute_process(COMMAND "${CMAKE_COMMAND}" "-DOUTPUT_DIR=${CMAKE_CURRENT_BINARY_DIR}/src" -P "${PROJECT_SOURCE_DIR}/CMake/Modules/getGitRevInfo.cmake" WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
+add_custom_target(GitRev ALL "${CMAKE_COMMAND}" "-DOUTPUT_DIR=${CMAKE_CURRENT_BINARY_DIR}/src" -P "${PROJECT_SOURCE_DIR}/CMake/Modules/getGitRevInfo.cmake" WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}" COMMENT "Update git commit info")
 
 # Recover git commit info from `src/GitRev.h`.
-FILE(STRINGS ${PROJECT_SOURCE_DIR}/src/GitRev.h TeXworks_GIT_INFO)
+FILE(STRINGS ${CMAKE_CURRENT_BINARY_DIR}/src/GitRev.h TeXworks_GIT_INFO)
 LIST(GET TeXworks_GIT_INFO 1 TeXworks_GIT_COMMIT)
-STRING(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+)\"" "\\1" TeXworks_GIT_HASH "${TeXworks_GIT_COMMIT}")
+STRING(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+\\*?)\"" "\\1" TeXworks_GIT_HASH "${TeXworks_GIT_COMMIT}")
 LIST(GET TeXworks_GIT_INFO 2 TeXworks_GIT_COMMIT)
 STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
 
@@ -169,6 +166,7 @@ IF (WITH_COVERAGE)
     MESSAGE(WARNING "Coverage support is intended to be used with Debug builds and testing enabled")
   ENDIF ()
   INCLUDE(CodeCoverage)
+  set(COVERAGE_COMPILER_FLAGS "${COVERAGE_COMPILER_FLAGS} -fno-inline")
   APPEND_COVERAGE_COMPILER_FLAGS()
   IF (UNIX)
     SET(COVERAGE_LCOV_EXCLUDES '/usr/*')
@@ -239,35 +237,67 @@ use_cxx11()
 # Dependency Configuration
 # ========================
 
-# Check for Qt5
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Script ScriptTools Xml LinguistTools)
-set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::ScriptTools Qt5::Script Qt5::Xml)
+if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
+	# Check for Qt6
+	find_package(Qt6 REQUIRED COMPONENTS Core Core5Compat Widgets Gui UiTools Concurrent Xml LinguistTools Qml)
+	set(QT_LIBRARIES Qt6::Core Qt6::Core5Compat Qt6::Widgets Qt6::Gui Qt6::UiTools Qt6::Concurrent Qt6::Xml Qt6::Qml)
 
-if (UNIX AND NOT APPLE)
-  find_package(Qt5 REQUIRED COMPONENTS DBus)
-  list(APPEND QT_LIBRARIES Qt5::DBus)
+	if (UNIX AND NOT APPLE)
+	  find_package(Qt6 REQUIRED COMPONENTS DBus)
+	  list(APPEND QT_LIBRARIES Qt6::DBus)
+	endif ()
+
+	if (WITH_TESTS)
+	  find_package(Qt6 OPTIONAL_COMPONENTS Test QUIET)
+	  if (NOT Qt6Test_FOUND)
+		set(WITH_TESTS OFF)
+	  else ()
+		list(APPEND QT_LIBRARIES Qt6::Test)
+	  endif ()
+	endif ()
+
+	if (WIN32 AND NOT BUILD_SHARED_LIBS)
+	  find_package(Qt6WindowsPlatformSupport)
+	  list(APPEND QT_LIBRARIES Qt6::WindowsPlatformSupport)
+	endif ()
+
+	set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")
+	set(QT_VERSION_MINOR "${Qt6_VERSION_MINOR}")
+	set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
+else ()
+	# Check for Qt5
+	find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml OPTIONAL_COMPONENTS Script ScriptTools)
+	set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::Xml Qt5::Qml)
+
+	if (Qt5Script_FOUND AND Qt5ScriptTools_FOUND)
+		list(APPEND QT_LIBRARIES Qt5::ScriptTools Qt5::Script)
+		set(WITH_QTSCRIPT ON)
+	endif()
+
+	if (UNIX AND NOT APPLE)
+	  find_package(Qt5 REQUIRED COMPONENTS DBus)
+	  list(APPEND QT_LIBRARIES Qt5::DBus)
+	endif ()
+
+	if (WITH_TESTS)
+	  find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
+	  if (NOT Qt5Test_FOUND)
+		set(WITH_TESTS OFF)
+	  else ()
+		list(APPEND QT_LIBRARIES Qt5::Test)
+	  endif ()
+	endif ()
+
+	if (WIN32 AND NOT BUILD_SHARED_LIBS)
+	  find_package(Qt5WindowsPlatformSupport)
+	  list(APPEND QT_LIBRARIES Qt5::WindowsPlatformSupport)
+	endif ()
+
+	set(QT_VERSION_MAJOR "${Qt5_VERSION_MAJOR}")
+	set(QT_VERSION_MINOR "${Qt5_VERSION_MINOR}")
+	set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
+	set(WITH_QTSCRIPT ON)
 endif ()
-
-if (WITH_TESTS)
-  find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
-  if (NOT Qt5Test_FOUND)
-    set(WITH_TESTS OFF)
-  else ()
-    list(APPEND QT_LIBRARIES Qt5::Test)
-  endif ()
-endif ()
-
-if (WIN32 AND NOT BUILD_SHARED_LIBS)
-  find_package(Qt5WindowsPlatformSupport)
-  list(APPEND QT_LIBRARIES Qt5::WindowsPlatformSupport)
-endif ()
-
-# Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
-# etc. which is used here.
-string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
-string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
-string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
-
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
 # to include the correct Qt headers (as QTVERSION is not defined before any Qt
@@ -328,23 +358,22 @@ ENDIF ()
 # Update Header Templates
 # -----------------------
 
-# Some header files contain components that must be dynamically generated. For
-# example, `getDefaultBinPaths.sh` is a script that tries to figure out the
-# appropriate path to TeX binaries on UNIX-like systems.
-IF ( UNIX AND NOT CMAKE_CROSSCOMPILING )
-  IF ( NOT EXISTS ${TeXworks_SOURCE_DIR}/src/DefaultBinaryPaths.h )
-    MESSAGE(STATUS "Generating DefaultBinaryPaths.h")
-
-    # FIXME: Make getDefaultBinPaths.sh cross-compilation aware
-    EXECUTE_PROCESS(
-      COMMAND ${TeXworks_SOURCE_DIR}/getDefaultBinPaths.sh
-      WORKING_DIRECTORY ${TeXworks_SOURCE_DIR}
-    )
-  ENDIF ()
-ENDIF ()
+include(GenerateDefaultBinPaths)
+GenerateDefaultBinPaths()
 
 # Building
 # ========
+
+if (MSVC)
+	set(WARNING_OPTIONS /W4)
+else ()
+	set(WARNING_OPTIONS -Wall -Wpedantic -Wextra -Wconversion -Wold-style-cast -Woverloaded-virtual)
+	if (NOT "${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}" VERSION_LESS "5.6.0")
+		# Old Qt versions were heavily using 0 instead of nullptr, giving lots
+		# of false positives
+		list(APPEND WARNING_OPTIONS -Wzero-as-null-pointer-constant)
+	endif ()
+endif ()
 
 # Build modules
 ADD_SUBDIRECTORY(modules)
@@ -431,20 +460,15 @@ SET(CPACK_PACKAGE_VERSION_PATCH ${TeXworks_VER_PATCH})
 SET(CPACK_PACKAGE_VERSION ${TeXworks_VERSION})
 
 SET(CPACK_PACKAGE_NAME ${PROJECT_NAME})
-SET(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}.${CPACK_PACKAGE_VERSION}-${TeXworks_GIT_HASH}")
 
 # Configure Drag N' Drop installer.
 IF ( APPLE )
   SET(MAC_PACK_BITS "${CMAKE_SOURCE_DIR}/CMake/packaging/mac")
   SET(CPACK_GENERATOR DragNDrop)
   SET( CPACK_DMG_BACKGROUND_IMAGE "${MAC_PACK_BITS}/texworks_dmg_background.png" )
-
   # Configure an AppleScript for applying a nice window layout to Drag N' Drop disk
   # image.
-  CONFIGURE_FILE( ${MAC_PACK_BITS}/set_dmg_layout.scpt.in
-    ${PROJECT_BINARY_DIR}/set_dmg_layout.scpt
-    @ONLY
-  )
+  set(CPACK_DMG_DS_STORE_SETUP_SCRIPT "${MAC_PACK_BITS}/DMGSetup.scpt")
 ENDIF ()
 
 INCLUDE(CPack)
@@ -478,18 +502,37 @@ MACRO(CONFIG_YESNO what enabled)
   CONFIG_INFO("${what}" "${enabled_string}")
 ENDMACRO()
 
+macro(CONFIG_VERSION lib version)
+  CONFIG_INFO("  ${lib}" "${version}")
+endmacro()
+
 # Print out configuration summary.
-MESSAGE("TeXworks has been configured:\n")
+MESSAGE("TeXworks has been configured (CMake ${CMAKE_VERSION}, ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}):\n")
 
-CONFIG_INFO("Version" ${TeXworks_VERSION})
-CONFIG_INFO("Git Commit" "${TeXworks_GIT_HASH} (${TeXworks_GIT_DATE})")
+message("  Version info")
+CONFIG_VERSION("${PROJECT_NAME}" "${TeXworks_VERSION} (${TeXworks_GIT_HASH}, ${TeXworks_GIT_DATE})")
+# Hunspell does not have a reliable way to determine its version
+CONFIG_YESNO("  Hunspell" "${HUNSPELL_FOUND}")
+IF ( WITH_LUA )
+  CONFIG_VERSION("Lua" "${LUA_VERSION_STRING}")
+ENDIF()
+if (WITH_PYTHON)
+  CONFIG_VERSION("Python" "${PYTHON_VERSION_STRING}")
+endif()
+CONFIG_VERSION("Qt" ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH})
+CONFIG_VERSION("SyncTeX" "${SYNCTEX_VERSION_STRING}")
+CONFIG_VERSION("zlib" "${ZLIB_VERSION_STRING}")
+message("")
+
+message("  Scripting")
+CONFIG_YESNO("  ECMA scripting" ON)
+CONFIG_YESNO("  QtScript scripting" WITH_QTSCRIPT)
+CONFIG_YESNO("  Lua scripting plugin" LUA_FOUND)
+CONFIG_YESNO("  Python scripting plugin" PYTHONLIBS_FOUND)
+message("")
+
 CONFIG_INFO("Build ID" ${TW_BUILD_ID})
-CONFIG_INFO("Qt version" ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH})
 CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
-MESSAGE("")
-
-CONFIG_YESNO("Lua scripting plugin" LUA_FOUND)
-CONFIG_YESNO("Python scripting plugin" PYTHONLIBS_FOUND)
 IF( APPLE )
   CONFIG_YESNO("  OS X system python" USE_SYSTEM_PYTHON)
 ENDIF()

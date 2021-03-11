@@ -1,0 +1,30 @@
+Sources:
+========
+
+document-open:                Tango (https://commons.wikimedia.org/w/index.php?title=File:Document-open.svg&oldid=57073679)
+QtPDF:                        Hand-made using FreeSerif font
+status-locked:                Tango (https://commons.wikimedia.org/w/index.php?title=File:Emblem-readonly.svg&oldid=57074301)
+tool-magnifier:               Tango (https://commons.wikimedia.org/w/index.php?title=File:System-search.svg&oldid=383825475)
+tool-magnifier-cursor:        Derived from zoom-in
+tool-measure:                 Tango (https://commons.wikimedia.org/w/index.php?title=File:Measure.svg&oldid=8397207)
+tool-pan:                     Derived from Qt (https://github.com/qt/qttools/blob/dev/src/designer/src/components/formeditor/images/cursors/openhand.png)
+tool-pan-active:              Derived from Qt (https://github.com/qt/qttools/blob/dev/src/designer/src/components/formeditor/images/cursors/closedhand.png)
+tool-select-text:             Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:Format-text-normal.svg&oldid=46717347)
+tool-zoom-select:             Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:System-search.svg&oldid=383825475)
+view-pages-continuous:        Derived from CodeTangoSet (https://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+view-pages-facing-continuous: Derived from CodeTangoSet (https://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+view-pages-single:            Derived from CodeTangoSet (https://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+view-presentation:            Tango (https://commons.wikimedia.org/w/index.php?title=File:X-office-presentation.svg&oldid=57074316)
+zoom-fit-best:                Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764) and CodeTangoSet (https://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+zoom-fit-content-width:       Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764) and CodeTangoSet (https://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+zoom-fit-width:               Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764) and CodeTangoSet (https://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+zoom-in:                      Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:View-zoom-in.svg&oldid=383825483)
+zoom-in-cursor:               Derived from zoom-in (darkened by #303030)
+zoom-out:                     Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:View-zoom-out.svg&oldid=383825484)
+zoom-out-cursor:              Derived from zoom-out (darkened by #303030)
+zoom-original:                Derived from Tango (https://commons.wikimedia.org/w/index.php?title=File:Window-new.svg&oldid=57073764) and CodeTangoSet (https://commons.wikimedia.org/w/index.php?title=File:Text-x-python.svg&oldid=44796516)
+
+
+Qt icons are under both the GPLv3 and LGPLv2.1
+Tango icons are in the public domain (some unofficial ones are CC-BY-SA - see the linked webpages)
+CodeTangoSet icons are under the GPLv2+

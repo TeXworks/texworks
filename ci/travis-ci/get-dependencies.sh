@@ -7,6 +7,9 @@ cd "${TRAVIS_BUILD_DIR}"
 
 . ci/travis-ci/defs.sh
 
+# Create empty config file
+touch ci/travis-ci/travis-config.sh
+
 print_headline "Getting dependencies for building for ${TARGET_OS}/qt${QT} on ${TRAVIS_OS_NAME}"
 
 if [ "${TARGET_OS}" = "linux" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
@@ -23,8 +26,8 @@ elif [ "${TARGET_OS}" = "win" -a "${TRAVIS_OS_NAME}" = "linux" ]; then
 	print_info "Make MXE directory writable"
 	echo_and_run "sudo chmod -R a+w ${MXEDIR}"
 
-	echo "MXEDIR=\"${MXEDIR}\"" >> ci/travis-ci/defs.sh
-	echo "MXETARGET=\"${MXETARGET}\"" >> ci/travis-ci/defs.sh
+	echo "MXEDIR=\"${MXEDIR}\"" >> ci/travis-ci/travis-config.sh
+	echo "MXETARGET=\"${MXETARGET}\"" >> ci/travis-ci/travis-config.sh
 
 	print_info "Exporting CC = ${MXETARGET}-gcc"
 	export CC="${MXETARGET}-gcc"

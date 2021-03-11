@@ -1,3 +1,35 @@
+Release 0.6.6 (TL'21) [March 2021]
+	* Add support for macOS 11 Big Sur
+	* Add support for HiDPI screens (e.g., Retina screens)
+	* Make the text cursor width customizable
+	* Add support for environment variables in paths to typesetting tools
+	* Add support for custom shortcuts for quickly changing typesetting tools
+	* Pre-select *.pdf when the open dialog is called from the preview
+	* Only reload a file if its content changed (this improves support for
+	  network shares, cloud services, etc.)
+	* Add support for Qt's new Javascript engine
+
+	* Fix some crashes
+	* Fix some potential memory leaks
+	* Fix refreshing of the PDF preview on Windows
+	* Fix opening links to PDFs specified with relative paths
+	* Fix the context menu in the PDF preview
+	* Fix File > Close in the PDF preview
+	* Fix <Esc> switching the PDF to fullscreen mode on first press
+	* Fix resizing of the columns in the template dialog
+	* Fix running some typesetting tools on macOS (by adding their path to $PATH)
+	* Fix macOS installer styling
+	* Work around vanishing menu items on macOS
+	* Fix the disappearance of several text encodings
+	* Move resources to (OS dependent) standard locations
+
+	* Update translations
+	* Update libraries for pre-built binaries
+	* Modernize and restructure the code to improve quality, stability,
+	  maintainability, and the possibilities for future enhancements
+	* Improve automatic building, testing, and packaging
+	* Initial support for Qt6
+
 Release 0.6.5 (TL'20) [March 2020]
 	* Fix text selection handling when moving the mouse
 	* Fix auto-reloading of TeX documents that were changed outside TeXworks
@@ -9,7 +41,7 @@ Release 0.6.4 [March 2020]
     * Make shortcuts for autocompletion configurable
     * Make "Auto-Follow Focus" configurable in the preferences
     * Make editor line spacing customizable
-    * Make console output accessible by keyboard; among other thigs, this makes
+    * Make console output accessible by keyboard; among other things, this makes
       the console work with screen readers
     * Migrate to a more powerful regular expressions engine (e.g. for finding
       and replacing)

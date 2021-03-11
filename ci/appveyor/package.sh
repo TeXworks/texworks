@@ -37,11 +37,6 @@ print_info "Resolving DLL Dependencies"
 python "${APPVEYOR_BUILD_FOLDER}/ci/appveyor/resolve-dlls.py" "${APPVEYOR_BUILD_FOLDER}/artifact/TeXworks.exe"
 python "${APPVEYOR_BUILD_FOLDER}/ci/appveyor/resolve-dlls.py" "${APPVEYOR_BUILD_FOLDER}/artifact/libTWLuaPlugin.dll"
 
-# Copy poppler data
-cp -r share "${APPVEYOR_BUILD_FOLDER}/artifact/"
-cp -r "${APPVEYOR_BUILD_FOLDER}/win32/fonts" "${APPVEYOR_BUILD_FOLDER}/artifact/share/"
-
-
 # Package archive
 cd "${APPVEYOR_BUILD_FOLDER}/artifact"
 ARCHIVE="TeXworks-win-${VERSION_NAME}.zip"

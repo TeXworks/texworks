@@ -11,8 +11,10 @@
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
  * more details.
  */
-#include <QtGui/QtGui>
+
 #include "PDFDocumentWidget.h"
+
+#include <QtGui/QtGui>
 
 class PageCounter;
 class ZoomTracker;
@@ -27,7 +29,7 @@ class PDFViewer : public QMainWindow {
   QToolBar * _toolBar;
 
 public:
-  PDFViewer(const QString & pdf_doc = QString(), QWidget * parent = Q_NULLPTR, Qt::WindowFlags flags = Q_NULLPTR);
+  PDFViewer(const QString & pdf_doc = QString(), QWidget * parent = Q_NULLPTR, Qt::WindowFlags flags = {});
 
 public slots:
   void open();
@@ -38,7 +40,7 @@ private slots:
   void syncFromPdf(const int page, const QPointF pos);
   void searchProgressChanged(int percent, int occurrences);
   void documentChanged(const QWeakPointer<QtPDF::Backend::Document> newDoc);
-  
+
 #ifdef DEBUG
   // FIXME: Remove this
   void setGermanLocale() { emit switchInterfaceLocale(QLocale(QLocale::German)); }

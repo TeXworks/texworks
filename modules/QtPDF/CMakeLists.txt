@@ -23,6 +23,11 @@ if(POLICY CMP0058)
   cmake_policy(SET CMP0058 NEW)
 endif()
 
+# Prefer newer OpenGL libraries over legacy ones
+if (POLICY CMP0072)
+  cmake_policy(SET CMP0072 NEW)
+endif ()
+
 # Silence warning about option() treating variables differently on the first run
 if(POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
@@ -54,7 +59,10 @@ ENDIF ()
 OPTION(BUILD_SHARED_LIBS "Build shared library" ON)
 
 # ...with the viewer program...
-OPTION(QTPDF_VIEWER "Build PDF viewer application" ON)
+if (NOT DEFINED QTPDF_VIEWER)
+  set(QTPDF_VIEWER ON)
+endif (NOT DEFINED QTPDF_VIEWER)
+OPTION(QTPDF_VIEWER "Build PDF viewer application" ${QTPDF_VIEWER})
 
 # ...with tests...
 OPTION(WITH_TESTS "Build tests" ON)
@@ -80,24 +88,66 @@ set (CMAKE_CXX_STANDARD 11)
 # Core Components
 # ---------------
 
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
+FIND_PACKAGE(ZLIB REQUIRED)
 
-if (WITH_TESTS)
-  find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
-  if (NOT Qt5Test_FOUND)
-    set(WITH_TESTS OFF)
+if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
+  find_package(Qt6 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
+
+  if (WITH_TESTS)
+    find_package(Qt6 OPTIONAL_COMPONENTS Test QUIET)
+    if (NOT Qt6Test_FOUND)
+      set(WITH_TESTS OFF)
+    endif()
   endif()
-endif()
 
-if (WIN32 AND NOT BUILD_SHARED_LIBS)
-  find_package(Qt5WindowsPlatformSupport)
+  if (WIN32 AND NOT BUILD_SHARED_LIBS)
+    find_package(Qt6WindowsPlatformSupport)
+  endif ()
+
+  # Note: Qt6 only sets Qt6_VERSION, etc., but not QT_VERSION_MAJOR,
+  # etc. which is used here.
+  set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")
+  set(QT_VERSION_MINOR "${Qt6_VERSION_MINOR}")
+  set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
+
+  SET(QTPDF_LIBS
+    ${QT_PLATFORM_LIBRARIES}
+    Qt6::Core Qt6::Widgets Qt6::Concurrent Qt6::Core Qt6::Xml
+    ZLIB::ZLIB
+  )
+  SET(QTPDF_TEST_LIBS
+    Qt6::Test
+  )
+else ()
+  find_package(Qt5 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
+
+  if (WITH_TESTS)
+    find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
+    if (NOT Qt5Test_FOUND)
+    set(WITH_TESTS OFF)
+    endif()
+  endif()
+
+  if (WIN32 AND NOT BUILD_SHARED_LIBS)
+    find_package(Qt5WindowsPlatformSupport)
+  endif ()
+
+  # Note: Qt5 only sets Qt5_VERSION, etc., but not QT_VERSION_MAJOR,
+  # etc. which is used here.
+  set(QT_VERSION_MAJOR "${Qt5_VERSION_MAJOR}")
+  set(QT_VERSION_MINOR "${Qt5_VERSION_MINOR}")
+  set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
+
+  SET(QTPDF_LIBS
+    ${QT_PLATFORM_LIBRARIES}
+    Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml
+    ZLIB::ZLIB
+  )
+  SET(QTPDF_TEST_LIBS
+    ${QT_PLATFORM_LIBRARIES}
+    Qt5::Test
+  )
 endif ()
-
-# Note: Qt5 only sets Qt5Widgets_VERSION, etc., but not QT_VERSION_MAJOR,
-# etc. which is used here.
-string(REGEX REPLACE "^([0-9]+).*$" "\\1" QT_VERSION_MAJOR "${Qt5Widgets_VERSION}")
-string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_MINOR  "${Qt5Widgets_VERSION}")
-string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${Qt5Widgets_VERSION}")
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
 # to include the correct Qt headers (as QTVERSION is not defined before any Qt
@@ -105,29 +155,20 @@ string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1" QT_VERSION_PATCH "${
 ADD_DEFINITIONS(-DQT_VERSION_MAJOR=${QT_VERSION_MAJOR})
 
 
-FIND_PACKAGE(ZLIB REQUIRED)
-
-SET(QTPDF_LIBS
-  ${QT_PLATFORM_LIBRARIES}
-  Qt5::Core Qt5::Widgets Qt5::Concurrent Qt5::Core Qt5::Xml
-  ZLIB::ZLIB
-)
-
-
 # Backend Components
 # ------------------
 IF( WITH_POPPLERQT )
-  FIND_PACKAGE(Poppler REQUIRED COMPONENTS qt5)
+  FIND_PACKAGE(Poppler REQUIRED COMPONENTS qt${QT_VERSION_MAJOR})
 
   # As in FindPoppler.cmake, it is important to list poppler after Qt to avoid
   # confusion with dependencies when using statically linked libraries
-  SET(QTPDF_LIBS ${QTPDF_LIBS} Poppler::poppler-qt5)
+  SET(QTPDF_LIBS ${QTPDF_LIBS} Poppler::poppler-qt${QT_VERSION_MAJOR})
 
   # Check if Poppler provides certain features (as poppler does not reliably
   # expose its version number, there is no easy way to check for these at
   # compile-time)
   include(CheckCXXSourceCompiles)
-  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt5)
+  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR} Qt${QT_VERSION_MAJOR}::Core)
 
   # Page::SearchFlags were added in 0.31
   CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { double x; Poppler::Document::load(QString())->page(0)->search(QString(), x, x, x, x, Poppler::Page::NextResult, Poppler::Page::IgnoreCase); return 0; }" POPPLER_HAS_SEARCH_FLAGS)
@@ -140,6 +181,12 @@ IF( WITH_POPPLERQT )
   if (POPPLER_HAS_DURATION_REAL)
     add_definitions(-DPOPPLER_HAS_DURATION_REAL)
   endif (POPPLER_HAS_DURATION_REAL)
+
+  # Document::outline() was added in 0.74
+  CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { Poppler::Document::load(QString())->outline(); return 0; }" POPPLER_HAS_OUTLINE)
+  if (POPPLER_HAS_OUTLINE)
+    add_definitions(-DPOPPLER_HAS_OUTLINE)
+  endif (POPPLER_HAS_OUTLINE)
 ENDIF()
 
 IF( WITH_MUPDF )
@@ -210,6 +257,9 @@ SET(QTPDF_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentWidget.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontDescriptor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageTile.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFToC.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFTransitions.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFActions.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFAnnotations.cpp
@@ -221,6 +271,9 @@ SET(QTPDF_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentWidget.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontDescriptor.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageTile.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFToC.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFTransitions.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFActions.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFAnnotations.h
@@ -241,7 +294,7 @@ IF( WITH_POPPLERQT )
   if (POPPLER_HAS_XPDF)
     set(QTPDF_FLAGS "${QTPDF_FLAGS} -DHAVE_POPPLER_XPDF_HEADERS")
 
-    set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt5)
+    set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR})
 
     # GlobalParamsIniter was introduced in 0.85
     CHECK_CXX_SOURCE_COMPILES("#include <GlobalParams.h>\nint main() { GlobalParamsIniter::setCustomDataDir(\"\"); return 0; }" POPPLER_HAS_GLOBALPARAMSINITER)
@@ -280,8 +333,21 @@ ADD_LIBRARY(qtpdf ${QTPDF_LIB_TYPE}
 # Create translations
 include(TranslationMacros)
 file(GLOB TRANSLATIONS_SOURCES trans/*.ts)
-target_add_qt_translations(qtpdf PRO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro" TS_FILES ${TRANSLATIONS_SOURCES})
+target_add_qt_translations(qtpdf TS_FILES ${TRANSLATIONS_SOURCES} INCLUDEPATH "../src/")
 
+get_target_property(lupdatePath Qt${QT_VERSION_MAJOR}::lupdate LOCATION)
+get_target_property(_sources qtpdf SOURCES)
+add_custom_target(${PROJECT_NAME}_UpdateTranslations COMMAND "${CMAKE_COMMAND}"
+  "-DOUTPUTFILE=\"${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro\""
+  "-DPROJECT_NAME=\"${PROJECT_NAME}\""
+  "-DQt_LUPDATE_EXECUTABLE=\"${lupdatePath}\""
+  "-DFILES=\"${_sources};${TRANSLATIONS_SOURCES}\""
+  -P "${PROJECT_SOURCE_DIR}/CMake/Modules/UpdateTranslations.cmake"
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+if (NOT TARGET UpdateTranslations)
+  add_custom_target(UpdateTranslations)
+endif (NOT TARGET UpdateTranslations)
+add_dependencies(UpdateTranslations ${PROJECT_NAME}_UpdateTranslations)
 
 TARGET_LINK_LIBRARIES(qtpdf ${QTPDF_LIBS})
 
@@ -293,7 +359,12 @@ SET_TARGET_PROPERTIES(qtpdf PROPERTIES
 if (MSVC)
   target_compile_options(qtpdf PRIVATE /W4)
 else ()
-  target_compile_options(qtpdf PRIVATE -Wall -Wpedantic -Wextra -Wconversion -Wold-style-cast -Woverloaded-virtual -Wzero-as-null-pointer-constant)
+  target_compile_options(qtpdf PRIVATE -Wall -Wpedantic -Wextra -Wconversion -Wold-style-cast -Woverloaded-virtual)
+  if (NOT "${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}" VERSION_LESS "5.6.0")
+    # Old Qt versions were heavily using 0 instead of nullptr, giving lots
+    # of false positives
+    target_compile_options(qtpdf PRIVATE -Wzero-as-null-pointer-constant)
+  endif ()
 endif ()
 
 if (NOT TARGET QtPDF::qtpdf)
@@ -369,9 +440,9 @@ IF ( WITH_TESTS )
       ${QTPDFTEST_HDRS}
     )
     SET_TARGET_PROPERTIES(test_poppler-qt${QT_VERSION_MAJOR} PROPERTIES
-      COMPILE_FLAGS "-DUSE_POPPLERQT ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
+      COMPILE_FLAGS "-DUSE_POPPLERQT ${Qt${QT_VERSION_MAJOR}Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
-    target_link_libraries(test_poppler-qt${QT_VERSION_MAJOR} Qt5::Test qtpdf)
+    target_link_libraries(test_poppler-qt${QT_VERSION_MAJOR} ${QTPDF_TEST_LIBS} qtpdf)
     ADD_TEST(NAME test_poppler-qt${QT_VERSION_MAJOR} COMMAND test_poppler-qt${QT_VERSION_MAJOR} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
   IF( WITH_MUPDF )
@@ -380,9 +451,9 @@ IF ( WITH_TESTS )
       ${QTPDFTEST_HDRS}
     )
     SET_TARGET_PROPERTIES(test_mupdf PROPERTIES
-      COMPILE_FLAGS "-DUSE_MUPDF ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}"
+      COMPILE_FLAGS "-DUSE_MUPDF ${Qt${QT_VERSION_MAJOR}Widgets_EXECUTABLE_COMPILE_FLAGS}"
     )
-    target_link_libraries(test_mupdf Qt5::Test qtpdf)
+    target_link_libraries(test_mupdf ${QTPDF_TEST_LIBS} qtpdf)
     ADD_TEST(NAME test_mupdf COMMAND test_mupdf WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/unit-tests)
   ENDIF()
 ENDIF( WITH_TESTS )
@@ -420,14 +491,23 @@ MACRO(CONFIG_YESNO what enabled)
   CONFIG_INFO("${what}" "${enabled_string}")
 ENDMACRO()
 
-# Print out configuration summary.
-MESSAGE("${PROJECT_NAME} has been configured:\n")
+macro(CONFIG_VERSION lib version)
+  CONFIG_INFO("  ${lib}" "${version}")
+endmacro()
 
-CONFIG_INFO("Version" ${PROJECT_VERSION})
-CONFIG_INFO("Qt version" "${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}")
-CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
+# Print out configuration summary.
+MESSAGE("${PROJECT_NAME} has been configured (CMake ${CMAKE_VERSION}, ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}):\n")
+
+message("  Version info:")
+CONFIG_VERSION("${PROJECT_NAME}" ${PROJECT_VERSION})
+if (WITH_POPPLERQT)
+  CONFIG_VERSION("Poppler" "${Poppler_VERSION_STRING}")
+endif ()
+CONFIG_VERSION("Qt" "${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH}")
+CONFIG_VERSION("zlib" "${ZLIB_VERSION_STRING}")
 message("")
 
+CONFIG_INFO("Compiler optimization" ${CMAKE_BUILD_TYPE})
 CONFIG_YESNO("Poppler-Qt backend" WITH_POPPLERQT)
 CONFIG_YESNO("MuPDF backend" WITH_MUPDF)
 CONFIG_YESNO("Shared library" BUILD_SHARED_LIBS)

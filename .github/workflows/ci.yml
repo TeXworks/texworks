@@ -1,0 +1,144 @@
+name: CI
+on:
+  - push
+  - pull_request
+
+jobs:
+  build-linux-legacy:
+    name: Linux (legacy)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: docker build -f .github/workflows/Dockerfile.legacy .
+
+################################################################################
+
+  build-linux-qt6:
+    name: Linux (Qt6)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build
+      # Use unconfined `docker run` instead of (confined) `docker build` as
+      # the latter blocks faccessat2 calls required by the latest pacman
+      run: docker run --security-opt seccomp=unconfined --volume $(pwd):/home/tw archlinux /bin/sh -c "/home/tw/.github/workflows/build.arch-qt6"
+#     run: docker build -f .github/workflows/Dockerfile.arch-qt6 .
+
+################################################################################
+
+  coverage-linux:
+    name: Coverage (Linux)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt update && sudo apt install --assume-yes --no-install-recommends qtbase5-dev qtdeclarative5-dev qtscript5-dev qttools5-dev qttools5-dev-tools zlib1g-dev libhunspell-dev libpoppler-qt5-dev libpoppler-private-dev liblua5.3-dev xvfb fonts-urw-base35 poppler-data lcov
+
+    - name: Configure
+      run: cmake -B build -DCMAKE_BUILD_TYPE="Debug" -DWITH_COVERAGE=On .
+
+    - name: Build
+      run: cmake --build build
+
+    - name: Test
+      working-directory: build
+      run: |
+        echo "::group::Initialization"
+        lcov --zerocounters --directory .
+        lcov --capture --initial --directory . --output-file "coverage.base"
+        echo "::endgroup::"
+        echo "::group::Run tests"
+        xvfb-run ctest -V
+        echo "::endgroup::"
+        echo "::group::Collect data"
+        lcov --capture --directory . --output-file "coverage.info"
+        lcov --add-tracefile "coverage.base" --add-tracefile "coverage.info" --output-file "coverage.info"
+        lcov --remove "coverage.info" '/usr/*' --output-file "coverage.info"
+        echo "::endgroup::"
+        echo "::group::Info"
+        lcov --list coverage.info #debug info
+        echo "::endgroup::"
+        echo "::group::Upload to Codecov"
+        bash <(curl -s https://codecov.io/bash) || echo "::warning::Codecov did not collect coverage reports"
+        echo "::endgroup::"
+
+################################################################################
+
+  build-win-msys:
+    name: Windows (MSYS)
+    runs-on: windows-latest
+    if: false
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+    - name: Configure Git
+      run: git config --global core.autocrlf input
+      shell: bash
+
+    - name: Setup MSYS
+      uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: mingw-w64-x86_64-cmake git make mingw-w64-x86_64-gcc mingw-w64-x86_64-hunspell mingw-w64-x86_64-lua mingw-w64-x86_64-poppler mingw-w64-x86_64-qt5
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure
+      run: cmake -G 'MSYS Makefiles' -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi'
+
+    - name: Build
+      run: make -j
+      working-directory: build
+
+    - name: Test
+      run: ctest -V
+      working-directory: build
+      env:
+        QT_FORCE_STDERR_LOGGING: 1
+
+################################################################################
+
+  build-macosx-macports:
+    name: Mac OS X (MacPorts)
+    runs-on: macos-latest
+    if: false
+    strategy:
+      matrix:
+        include:
+        - macports-version: 2.6.2
+          macports-platform: 10.15-Catalina
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install MacPorts
+      run: |
+        wget https://github.com/macports/macports-base/releases/download/v${{ matrix.macports-version }}/MacPorts-${{ matrix.macports-version }}-${{ matrix.macports-platform }}.pkg
+        sudo /usr/sbin/installer -pkg MacPorts-${{ matrix.macports-version }}-${{ matrix.macports-platform }}.pkg -target /
+        echo "::add-path::/opt/local/bin:/opt/local/sbin"
+
+    - name: Install Dependencies
+      run: sudo port selfupdate && sudo port install hunspell lua poppler-qt5 qt5-qtbase qt5-qtdeclarative qt5-qtscript qt5-qttools
+
+    - name: Configure
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE}
+
+    - name: Build
+      run: make -j
+      working-directory: build
+
+    - name: Test
+      run: ctest -V
+      working-directory: build
+
