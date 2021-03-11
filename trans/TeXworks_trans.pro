@@ -2,6 +2,9 @@
 
 error("This file is not intended for building TeXworks. Please use CMake instead. See README.md for further instructions.")
 
+# INCLUDEPATH must be set so lupdate finds headers, namespace declarations, etc.
+INCLUDEPATH += ../src/
+
 SOURCES = \
   "../src/BibTeXFile.cpp" \
   "../src/CitationSelectDialog.cpp" \
