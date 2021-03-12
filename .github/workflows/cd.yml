@@ -125,7 +125,7 @@ jobs:
         brew install hunspell poppler lua qt5
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5"
+      run: MACOSX_DEPLOYMENT_TARGET=10.14 cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5"
 
     - name: Build
       run: make -j
