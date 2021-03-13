@@ -111,8 +111,6 @@ PDFDocumentView::~PDFDocumentView()
 // ---------
 void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
 {
-  // FIXME: Make setScene(QGraphicsScene*) (from parent class) invisible to the
-  // outside world
   Super::setScene(a_scene.data());
 
   // disconnect us from the old scene (if any)

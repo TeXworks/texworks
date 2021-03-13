@@ -1724,7 +1724,6 @@ void TeXDocumentWindow::encodingPopup(const QPoint loc)
 			}
 			clearFileWatcher(); // stop watching until next save or reload
 			loadFile(textDoc()->getFileInfo(), false, true, true, codec);
-			; // FIXME
 		}
 		else if (result == BOMAction) {
 			utf8BOM = BOMAction->isChecked();
