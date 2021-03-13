@@ -259,7 +259,11 @@ QMap<QString, QString> BibTeXFile::strings() const
 
 	for (const Entry & e : _entries) {
 		if (e.type() == Entry::STRING) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
 			rv.unite(e._fields);
+#else
+			rv.insert(e._fields);
+#endif
 		}
 	}
 	return rv;
