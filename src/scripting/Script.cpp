@@ -310,8 +310,9 @@ Script::MethodResult Script::doCallMethod(QObject * obj, const QString& name,
 				genericArgs.append(QGenericArgument(strTypeName, &myNullPtr));
 				continue;
 			}
-			// \TODO	handle failure during conversion
-			else { }
+			else {
+				// \TODO	handle failure during conversion
+			}
 
 			// Note: This line is a hack!
 			// QVariant::data() is undocumented; QGenericArgument should not be

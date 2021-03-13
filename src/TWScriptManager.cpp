@@ -188,7 +188,8 @@ void TWScriptManager::reloadScriptsInList(TWScriptList * list, QStringList & pro
 			processed << s->getFilename();
 		}
 		else {
-		} // should never happen
+			 // should never happen
+		}
 	}
 }
 
