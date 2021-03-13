@@ -28,6 +28,7 @@ class TestBibTeXFile : public QObject
 private slots:
   void load();
   void numEntries();
+  void strings();
   void entry_type();
   void entry_typeString();
   void entry_key();

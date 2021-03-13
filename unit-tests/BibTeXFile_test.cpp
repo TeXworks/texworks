@@ -36,6 +36,13 @@ void TestBibTeXFile::numEntries()
   QCOMPARE(b.numEntries(), static_cast<unsigned int>(1));
 }
 
+void TestBibTeXFile::strings()
+{
+	const QMap<QString, QString> expected{{QStringLiteral("Tw"), QStringLiteral("\"TeXworks\"")}};
+	BibTeXFile b("bibtex-1.bib");
+	QCOMPARE(b.strings(), expected);
+}
+
 void TestBibTeXFile::entry_type()
 {
   BibTeXFile b("bibtex-1.bib");
