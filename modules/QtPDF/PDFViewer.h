@@ -28,6 +28,9 @@ class PDFViewer : public QMainWindow {
   SearchLineEdit * _search;
   QToolBar * _toolBar;
 
+  static QTranslator * _translator;
+  static QString _translatorLanguage;
+
 public:
   PDFViewer(const QString & pdf_doc = QString(), QWidget * parent = Q_NULLPTR, Qt::WindowFlags flags = {});
 
@@ -42,12 +45,10 @@ private slots:
   void documentChanged(const QWeakPointer<QtPDF::Backend::Document> newDoc);
 
 #ifdef DEBUG
-  // FIXME: Remove this
-  void setGermanLocale() { emit switchInterfaceLocale(QLocale(QLocale::German)); }
-  void setEnglishLocale() { emit switchInterfaceLocale(QLocale(QLocale::C)); }
+  // TODO: Make this more general or remove it altogether
+  void setGermanLocale() { switchInterfaceLocale(QLocale(QLocale::German)); }
+  void setEnglishLocale() { switchInterfaceLocale(QLocale(QLocale::C)); }
 #endif
-
-signals:
   void switchInterfaceLocale(const QLocale & newLocale);
 };
 

@@ -193,7 +193,6 @@ protected slots:
   void goToPage(const PDFPageGraphicsItem * page, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
   void searchResultReady(int index);
   void searchProgressValueChanged(int progressValue);
-  void switchInterfaceLocale(const QLocale & newLocale);
   void reinitializeFromScene();
   void notifyTextSelectionChanged();
 
@@ -208,9 +207,6 @@ private:
   QMap<uint, DocumentTool::AbstractTool::Type> _toolAccessors;
 
   QStack<PDFDestination> _oldViewRects;
-
-  static QTranslator * _translator;
-  static QString _translatorLanguage;
 
   // Never try to set a vanilla QGraphicsScene, always use a PDFGraphicsScene.
   void setScene(QGraphicsScene *scene);

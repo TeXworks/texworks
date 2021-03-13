@@ -26,6 +26,13 @@ static void initResources()
 
 namespace QtPDF {
 
+void trStrings() {
+  // The language and translator are currently not used but are accessed here so
+  // they show up in the .ts files.
+  Q_UNUSED(QT_TRANSLATE_NOOP("QtPDF", "[language name]"))
+  Q_UNUSED(QT_TRANSLATE_NOOP("QtPDF", "[translator's name/email]"))
+}
+
 // In static builds, we need to explicitly initialize the resources
 // (translations).
 // NOTE: In shared builds, this doesn't seem to hurt.
@@ -48,8 +55,6 @@ static bool isPageItem(const QGraphicsItem *item) { return ( item->type() == PDF
 
 // PDFDocumentView
 // ===============
-QTranslator * PDFDocumentView::_translator = nullptr;
-QString PDFDocumentView::_translatorLanguage;
 
 // This class descends from `QGraphicsView` and is responsible for controlling
 // and displaying the contents of a `Document` using a `QGraphicsScene`.
@@ -57,10 +62,6 @@ PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
   Super(parent)
 {
   initResources();
-  // FIXME: Allow to initialize with a specific language (in case the
-  // application uses a custom locale and switchInterfaceLocale() has not been
-  // called, yet (e.g., this is the first instance of PDFDocumentView that is
-  // created))
   setBackgroundRole(QPalette::Dark);
   setAlignment(Qt::AlignCenter);
   setFocusPolicy(Qt::StrongFocus);
@@ -1236,38 +1237,6 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
       // All other link types are currently not supported
       break;
   }
-}
-
-void PDFDocumentView::switchInterfaceLocale(const QLocale & newLocale)
-{
-  // TODO: Allow for a custom directory for .qm files (i.e., one in the
-  // filesystem, instead of the embedded resources)
-  // Avoid (re-)installing the same translator multiple times (e.g., if several
-  // PDFDocumentView objects are used in the same application simultaneously
-  if (_translatorLanguage == newLocale.name())
-    return;
-
-  // Remove the old translator (if any)
-  if (_translator) {
-    QCoreApplication::removeTranslator(_translator);
-    _translator->deleteLater();
-    _translator = nullptr;
-  }
-
-  _translatorLanguage = newLocale.name();
-
-  _translator = new QTranslator();
-  if (_translator->load(QString::fromUtf8("QtPDF_%1").arg(newLocale.name()), QString::fromUtf8(":/resfiles/translations")))
-    QCoreApplication::installTranslator(_translator);
-  else {
-    _translator->deleteLater();
-    _translator = nullptr;
-  }
-
-  // The language and translator are currently not used but are accessed here so
-  // they show up in the .ts files.
-  QString lang = QString::fromUtf8(QT_TRANSLATE_NOOP("QtPDF", "[language name]"));
-  QString translator = QString::fromUtf8(QT_TRANSLATE_NOOP("QtPDF", "[translator's name/email]"));
 }
 
 void PDFDocumentView::reinitializeFromScene()
