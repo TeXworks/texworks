@@ -124,7 +124,7 @@ void TestLuaScripting::execute()
 
 		if (!s2->run(api)) {
 			qDebug() << api.GetResult().toString();
-			QFAIL("An error occured during Lua execution");
+			QFAIL("An error occurred during Lua execution");
 		}
 
 		QCOMPARE(qobject_cast<MockTarget*>(api.GetTarget())->text, QStringLiteral("It works!"));

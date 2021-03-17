@@ -165,7 +165,7 @@ public:
 	 * \param	result	variable to receive the result of the script execution;
 	 * 					in the case of an error, this typically contains an
 	 * 					error description
-	 * \return	\c true on success, \c false if an error occured
+	 * \return	\c true on success, \c false if an error occurred
 	 */
 	bool run(Tw::Scripting::ScriptAPIInterface & api);
 

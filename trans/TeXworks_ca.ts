@@ -322,7 +322,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1028"/>
-        <source>You are in the process of opening the URL %1. Opening unknown or untrusted web adresses can be a security risk.
+        <source>You are in the process of opening the URL %1. Opening unknown or untrusted web addresses can be a security risk.
 Do you want to continue?</source>
         <translation>Està obrint l&apos;enllaç %1. Accedir a adreces web desconegudes o de poca confiança pot comportar un risc de seguretat.
 Vol continuar?</translation>
@@ -2125,7 +2125,7 @@ Vol que l&apos;aturi ara?</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1103"/>
-        <source>A problem occured while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
+        <source>A problem occurred while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
  -) Turn syntax highlighting off and on
  -) Turn line numbers off and on
  -) Resize the window
