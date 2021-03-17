@@ -4086,7 +4086,7 @@ Kies een andere bestandsnaam.</translation>
         <translation>Kan URL niet tonen</translation>
     </message>
     <message>
-        <source>Frame load interruped by policy change</source>
+        <source>Frame load interrupted by policy change</source>
         <translation>Laden van het frame onderbroken door een policywijziging</translation>
     </message>
     <message>

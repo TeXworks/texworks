@@ -59,7 +59,7 @@ protected:
 	 *
 	 * \param	tw	the TW interface object, exposed to the script as the TW global
 	 *
-	 * \return	\c true on success, \c false if an error occured
+	 * \return	\c true on success, \c false if an error occurred
 	 */
 	bool execute(ScriptAPIInterface *tw) const override;
 
