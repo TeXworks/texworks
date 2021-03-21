@@ -237,10 +237,22 @@
 			izvorno kodo in PDF-jem ter razširljivost s skriptami.
 		</p>
 	</description>
+
+	<categories>
+		<category>Office</category>
+		<category>Publishing</category>
+		<category>TextEditor</category>
+		<category>Viewer</category>
+		<category>Qt</category>
+	</categories>
+
 	<screenshots>
-		<screenshot type="default" width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</screenshot>
+		<screenshot type="default">
+			<image width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</image>
+		</screenshot>
 	</screenshots>
 	<url type="homepage">http://www.tug.org/texworks/</url>
+	<url type="help">https://github.com/TeXworks/manual</url>
 	<url type="bugtracker">https://github.com/TeXworks/texworks/issues</url>
 	<url type="translate">https://github.com/TeXworks/texworks/wiki/Translating</url>
 	<update_contact>texworks@tug.org</update_contact>
