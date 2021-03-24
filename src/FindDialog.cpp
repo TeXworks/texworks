@@ -431,23 +431,11 @@ SearchResults::SearchResults(QWidget* parent)
 
 void SearchResults::goToSource()
 {
-	QList<QTableWidgetSelectionRange> ranges = table->selectedRanges();
-	if (ranges.count() == 0)
-		return;
-	int row = ranges.first().topRow();
-	QString fileName;
-	QTableWidgetItem* item = table->item(row, 0);
-	if (!item)
-		return;
-	fileName = item->toolTip();
-
-	if (!fileName.isEmpty()) {
-		QWidget *theDoc = TeXDocumentWindow::openDocument(fileName);
-		if (theDoc) {
-			QTextEdit *editor = theDoc->findChild<QTextEdit*>(QString::fromLatin1("textEdit"));
-			if (editor)
-				editor->setFocus();
-		}
+	TeXDocumentWindow * theDoc = showSelectedEntry();
+	if (theDoc) {
+		QTextEdit * editor = theDoc->findChild<QTextEdit*>(QString::fromLatin1("textEdit"));
+		if (editor)
+			editor->setFocus();
 	}
 }
 
@@ -553,10 +541,10 @@ void SearchResults::presentResults(const QString& searchText,
 	resultsWindow->show();
 }
 
-void SearchResults::showEntry(QTableWidgetItem * item)
+TeXDocumentWindow * SearchResults::showEntry(QTableWidgetItem * item)
 {
 	if (!item)
-		return;
+		return nullptr;
 	int row = item->row();
 	item = table->item(row, 0);
 	QString fileName = item->toolTip();
@@ -568,19 +556,18 @@ void SearchResults::showEntry(QTableWidgetItem * item)
 	int selEnd = item->text().toInt();
 
 	if (!fileName.isEmpty())
-		TeXDocumentWindow::openDocument(fileName, false, true, lineNo, selStart, selEnd);
+		return TeXDocumentWindow::openDocument(fileName, false, true, lineNo, selStart, selEnd);
+	return nullptr;
 }
 
-void SearchResults::showSelectedEntry()
+TeXDocumentWindow * SearchResults::showSelectedEntry()
 {
 	QList<QTableWidgetSelectionRange> ranges = table->selectedRanges();
 	if (ranges.count() == 0)
-		return;
+		return nullptr;
 	int row = ranges.first().topRow();
 	QTableWidgetItem* item = table->item(row, 0);
-	if (!item)
-		return;
-	showEntry(item);
+	return showEntry(item);
 }
 
 PDFFindDialog::PDFFindDialog(PDFDocumentWindow *document)

@@ -156,8 +156,8 @@ public:
 	explicit SearchResults(QWidget * parent);
 
 private slots:
-	void showSelectedEntry();
-	void showEntry(QTableWidgetItem * item);
+	TeXDocumentWindow * showSelectedEntry();
+	TeXDocumentWindow * showEntry(QTableWidgetItem * item);
 	void goToSource();
 	void goToSourceAndClose();
 };
