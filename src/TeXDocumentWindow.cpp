@@ -1104,6 +1104,9 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 			}
 		}
 
+		// Reset the line spacing as setPlainText() clears all text formatting
+		setLineSpacing(m_lineSpacing);
+
 		QApplication::restoreOverrideCursor();
 	}
 
@@ -2193,6 +2196,8 @@ void TeXDocumentWindow::setLineSpacing(qreal percent)
 		return;
 
 	Q_ASSERT(textDoc() != nullptr);
+
+	m_lineSpacing = percent;
 
 	QTextBlockFormat fmt;
 	fmt.setLineHeight(percent, QTextBlockFormat::ProportionalHeight);
