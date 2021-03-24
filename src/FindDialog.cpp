@@ -468,7 +468,16 @@ void SearchResults::presentResults(const QString& searchText,
 	resultsWindow->table->setRowCount(results.count());
 	int i = 0;
 	foreach (const SearchResult &result, results) {
-		QTableWidgetItem *item = new QTableWidgetItem(QFileInfo(result.doc->fileName()).fileName());
+		QTableWidgetItem * item = new QTableWidgetItem();
+		if (result.doc->untitled()) {
+			item->setText(QFileInfo(result.doc->fileName()).fileName() + QStringLiteral("*"));
+			QFont f = item->font();
+			f.setItalic(true);
+			item->setFont(f);
+		}
+		else {
+			item->setText(QFileInfo(result.doc->fileName()).fileName());
+		}
 		item->setToolTip(result.doc->fileName());
 		item->setData(Qt::UserRole, QVariant::fromValue(QPointer<TeXDocumentWindow>(result.doc)));
 		resultsWindow->table->setItem(i, 0, item);
