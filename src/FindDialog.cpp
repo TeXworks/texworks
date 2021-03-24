@@ -28,6 +28,7 @@
 #include <QFileInfo>
 #include <QHeaderView>
 #include <QKeyEvent>
+#include <QPointer>
 #include <QPushButton>
 #include <QShortcut>
 #include <QTableWidget>
@@ -469,6 +470,7 @@ void SearchResults::presentResults(const QString& searchText,
 	foreach (const SearchResult &result, results) {
 		QTableWidgetItem *item = new QTableWidgetItem(QFileInfo(result.doc->fileName()).fileName());
 		item->setToolTip(result.doc->fileName());
+		item->setData(Qt::UserRole, QVariant::fromValue(QPointer<TeXDocumentWindow>(result.doc)));
 		resultsWindow->table->setItem(i, 0, item);
 		resultsWindow->table->setItem(i, 1, new QTableWidgetItem(QString::number(result.lineNo)));
 		resultsWindow->table->setItem(i, 2, new QTableWidgetItem(QString::number(result.selStart)));
@@ -548,6 +550,7 @@ TeXDocumentWindow * SearchResults::showEntry(QTableWidgetItem * item)
 	int row = item->row();
 	item = table->item(row, 0);
 	QString fileName = item->toolTip();
+	QPointer<TeXDocumentWindow> texDoc = item->data(Qt::UserRole).value< QPointer<TeXDocumentWindow> >();
 	item = table->item(row, 1);
 	int lineNo = item->text().toInt();
 	item = table->item(row, 2);
@@ -555,6 +558,15 @@ TeXDocumentWindow * SearchResults::showEntry(QTableWidgetItem * item)
 	item = table->item(row, 3);
 	int selEnd = item->text().toInt();
 
+	if (texDoc) {
+		texDoc->show();
+		texDoc->raise();
+		if (texDoc->isMinimized()) {
+			texDoc->showNormal();
+		}
+		texDoc->goToLine(lineNo, selStart, selEnd);
+		return texDoc;
+	}
 	if (!fileName.isEmpty())
 		return TeXDocumentWindow::openDocument(fileName, false, true, lineNo, selStart, selEnd);
 	return nullptr;

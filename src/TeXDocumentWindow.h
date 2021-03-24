@@ -107,6 +107,7 @@ public:
 	PDFDocumentWindow* pdfDocument()
 		{ return pdfDoc; }
 
+	void goToLine(int lineNo, int selStart = -1, int selEnd = -1);
 	void goToTag(int index);
 
 	bool isModified() const { return textEdit->document()->isModified(); }
@@ -243,7 +244,6 @@ private:
 	void executeAfterTypesetHooks();
 	void showConsole();
 	void hideConsole();
-	void goToLine(int lineNo, int selStart = -1, int selEnd = -1);
 	void updateTypesettingAction();
 	void findRootFilePath();
 	const QString& getRootFilePath();

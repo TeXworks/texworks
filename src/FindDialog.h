@@ -124,11 +124,12 @@ private:
 
 class SearchResult {
 public:
-	SearchResult(const TeXDocumentWindow* texdoc, int line, int start, int end)
+	SearchResult(TeXDocumentWindow * texdoc, int line, int start, int end)
 		: doc(texdoc), lineNo(line), selStart(start), selEnd(end)
 		{ }
 
-	const TeXDocumentWindow* doc;
+	// NB: doc cannot be a const * as we need to store it in a QVariant<QPointer>
+	TeXDocumentWindow* doc;
 	int lineNo;
 	int selStart;
 	int selEnd;
