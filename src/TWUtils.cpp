@@ -327,8 +327,10 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 
 		actions[i]->setText(QDir::toNativeSeparators(labelList[i]));
 		actions[i]->setData(fileList[i]);
+		actions[i]->setToolTip(QDir::toNativeSeparators(fileList[i]));
 		actions[i]->setVisible(true);
 	}
+	menu->setToolTipsVisible(true);
 
 	if (numRecentFiles > 0)
 		menu->insertSeparator(clearAction);
