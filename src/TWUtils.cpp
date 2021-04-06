@@ -250,15 +250,17 @@ QStringList TWUtils::constructUniqueFileLabels(const QStringList & fileList)
 {
 	QStringList labelList;
 
-	Q_FOREACH (QString file, fileList)
+	for (const QString & file : fileList) {
 		labelList.append(strippedName(file));
+	}
 
 	// Make label list unique, i.e. while labels are not unique, add
 	// directory components
 	for (unsigned int dirComponents = 1; ; ++dirComponents) {
 		QList<bool> isDuplicate;
-		Q_FOREACH(QString label, labelList)
+		for (const QString & label : labelList) {
 			isDuplicate.append(labelList.count(label) > 1);
+		}
 		if (!isDuplicate.contains(true))
 			break;
 
