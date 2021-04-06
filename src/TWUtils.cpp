@@ -239,6 +239,13 @@ QString TWUtils::strippedName(const QString &fullFileName, const unsigned int di
 {
 	QDir dir(QFileInfo(fullFileName).dir());
 	for (unsigned int i = 0; i < dirComponents; ++i) {
+		if (dir.exists() && QDir(dir.canonicalPath()).isRoot()) {
+			// If we moved up to the root directory, there is no point in going
+			// any further; particularly on Windows, going further may produce
+			// invalid paths (such as C:\.. which make no sense and can result
+			// in infinite loops in constructUniqueFileLabels()
+			return fullFileName;
+		}
 		// NB: dir.cdUp() would be more logical, but fails if the resulting
 		// path does not exist
 		dir.setPath(dir.path() + QString::fromLatin1("/.."));
