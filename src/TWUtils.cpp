@@ -263,7 +263,8 @@ QStringList TWUtils::constructUniqueFileLabels(const QStringList & fileList)
 
 	// Make label list unique, i.e. while labels are not unique, add
 	// directory components
-	for (unsigned int dirComponents = 1; ; ++dirComponents) {
+	bool done{false};
+	for (unsigned int dirComponents = 1; !done; ++dirComponents) {
 		QList<bool> isDuplicate;
 		for (const QString & label : labelList) {
 			isDuplicate.append(labelList.count(label) > 1);
@@ -271,10 +272,15 @@ QStringList TWUtils::constructUniqueFileLabels(const QStringList & fileList)
 		if (!isDuplicate.contains(true))
 			break;
 
+		done = true;
 		for (int i = 0; i < labelList.size(); ++i) {
 			if (!isDuplicate[i])
 				continue;
-			labelList[i] = strippedName(fileList[i], dirComponents);
+			const QString newName = strippedName(fileList[i], dirComponents);
+			if (labelList[i] != newName) {
+				labelList[i] = newName;
+				done = false;
+			}
 		}
 	}
 	return labelList;
