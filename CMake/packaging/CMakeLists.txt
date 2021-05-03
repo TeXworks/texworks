@@ -76,4 +76,14 @@ elseif (APPLE)
 		BUILD_COMMAND ""
 		INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_directory . ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app/Contents/texworks-help/TeXworks-manual
 	)
+
+	ExternalProject_Add(urw35-fonts
+		URL https://mirrors.ctan.org/fonts/urw/base35.zip
+		BUILD_IN_SOURCE TRUE
+		CONFIGURE_COMMAND ""
+		BUILD_COMMAND ""
+		INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app/Contents/share/fonts
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different pfb/ucrb8a.pfb pfb/ucrbo8a.pfb pfb/ucrr8a.pfb pfb/ucrro8a.pfb pfb/uhvb8a.pfb pfb/uhvbo8a.pfb pfb/uhvr8a.pfb pfb/uhvro8a.pfb pfb/usyr.pfb pfb/utmb8a.pfb pfb/utmbi8a.pfb pfb/utmr8a.pfb pfb/utmri8a.pfb pfb/uzdr.pfb ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app/Contents/share/fonts
+	)
+	file(COPY "${CMAKE_SOURCE_DIR}/CMake/packaging/mac/fonts.conf" DESTINATION ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app/Contents/etc/fonts)
 endif ()

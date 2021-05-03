@@ -25,7 +25,6 @@
 #include <memory>
 #endif
 
-
 // Comparison operator for QSizeF needed to use QSizeF as keys in a QMap
 // NB: Must be in the global namespace
 inline bool operator<(const QSizeF & a, const QSizeF & b) {
@@ -1060,7 +1059,18 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
 } // namespace Backend
 
 QSharedPointer<Backend::Document> PopplerQtBackend::newDocument(const QString & fileName) {
-#if defined(HAVE_POPPLER_XPDF_HEADERS) && defined(Q_OS_DARWIN)
+#if defined Q_OS_DARWIN
+  // Use bundled fonts.conf (if it exists and the user has not overriden
+  // FONTCONFIG_PATH
+  if (!qEnvironmentVariableIsSet("FONTCONFIG_PATH")) {
+    QDir confPath{QCoreApplication::applicationDirPath()};
+    if (confPath.cd("../etc/fonts")) {
+      if (confPath.exists("fonts.conf")) {
+        qputenv("FONTCONFIG_PATH", confPath.path().toLocal8Bit());
+      }
+    }
+  }
+#if defined(HAVE_POPPLER_XPDF_HEADERS)
   static bool globalParamsInitialized = false;
   if (!globalParamsInitialized) {
     globalParamsInitialized = true;
@@ -1084,7 +1094,8 @@ QSharedPointer<Backend::Document> PopplerQtBackend::newDocument(const QString & 
       }
     #endif // defined(POPPLER_HAS_GLOBALPARAMSINITER)
   }
-#endif // defined(HAVE_POPPLER_XPDF_HEADERS) && defined(Q_OS_DARWIN)
+#endif // defined(HAVE_POPPLER_XPDF_HEADERS)
+#endif // defined(Q_OS_DARWIN)
   return QSharedPointer<Backend::Document>(new Backend::PopplerQt::Document(fileName));
 }
 

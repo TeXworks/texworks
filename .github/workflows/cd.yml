@@ -111,28 +111,29 @@ jobs:
   macosx-artifactory:
     name: Mac OS X (Artifactory)
     runs-on: macos-latest
+    env:
+      MACOSX_DEPLOYMENT_TARGET: 10.14
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        modules: qtscript
+
     - name: Install Dependencies
-      run: |
-        # /usr/local/bin/2to3 is symlinked to the native python2 installation
-        # but prevents the homebrew install from succeeding
-        rm -f /usr/local/bin/2to3
-        brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
-        brew install hunspell poppler lua qt5
+      uses: ./.github/actions/setup-macos
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5"
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_WORKSPACE}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
 
     - name: Build
-      run: make -j
-      working-directory: build
+      run: cmake --build build -j
 
     - name: Test
-      run: QT_QPA_PLATFORM_PLUGIN_PATH="${Qt5_DIR}/plugins/platforms" ctest -V
+      run: ctest -V
       working-directory: build
 
     - name: Package
