@@ -101,6 +101,11 @@ IF(WIN32 AND MINGW)
   SET(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> -O coff <DEFINES> <SOURCE> <OBJECT>")
 ENDIF()
 
+if (MSVC)
+	add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+	add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+endif (MSVC)
+
 
 # Determine Version Numbers
 # -------------------------

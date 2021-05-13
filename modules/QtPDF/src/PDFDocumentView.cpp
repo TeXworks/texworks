@@ -776,7 +776,7 @@ void PDFDocumentView::setMagnifierSize(const int size)
 
 void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* = Backend::Search_CaseInsensitive */)
 {
-  if ( not _pdf_scene )
+  if (!_pdf_scene)
     return;
 
   // If `searchText` is the same as for the last search, focus on the next
@@ -830,7 +830,7 @@ void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* =
 
 void PDFDocumentView::nextSearchResult()
 {
-  if ( not _pdf_scene || _searchResults.empty() )
+  if (!_pdf_scene || _searchResults.empty())
     return;
 
   // Note: _currentSearchResult is initially -1 if no result is selected
@@ -864,7 +864,7 @@ void PDFDocumentView::nextSearchResult()
 
 void PDFDocumentView::previousSearchResult()
 {
-  if ( not _pdf_scene || _searchResults.empty() )
+  if (!_pdf_scene || _searchResults.empty())
     return;
 
   if (_currentSearchResult >= 0 && _searchResults[_currentSearchResult])
@@ -897,7 +897,7 @@ void PDFDocumentView::previousSearchResult()
 
 void PDFDocumentView::clearSearchResults()
 {
-  if ( not _pdf_scene || _searchResults.empty() )
+  if (!_pdf_scene || _searchResults.empty())
     return;
 
   foreach( QGraphicsItem *item, _searchResults )
@@ -2233,7 +2233,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
   // If this is the first time this `PDFPageGraphicsItem` has come into view,
   // `_linksLoaded` will be `false`. We then load all of the links on the page.
-  if ( not _linksLoaded )
+  if (!_linksLoaded)
   {
     page->asyncLoadLinks(this);
     _linksLoaded = true;
@@ -2611,7 +2611,7 @@ void PDFLinkGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
   // Check that this link was "activated" (mouse press occurred within the link
   // bounding box) and that the mouse release also occurred within the bounding
   // box.
-  if ( (not _activated) || (not contains(event->pos())) )
+  if (!_activated || !contains(event->pos()))
   {
     _activated = false;
     Super::mouseReleaseEvent(event);

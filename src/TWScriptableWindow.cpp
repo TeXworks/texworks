@@ -145,7 +145,7 @@ TWScriptableWindow::runScript(QObject* script, Tw::Scripting::Script::ScriptType
 	bool success = sm->runScript(script, this, result, scriptType);
 
 	if (success) {
-		if (!result.isNull() and !result.toString().isEmpty()) {
+		if (!result.isNull() && !result.toString().isEmpty()) {
 			if (scriptType == Tw::Scripting::Script::ScriptHook)
 				statusBar()->showMessage(tr("Script \"%1\": %2").arg(s->getTitle(), result.toString()), kStatusMessageDuration);
 			else

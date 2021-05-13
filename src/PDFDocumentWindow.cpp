@@ -978,10 +978,11 @@ void PDFDocumentWindow::searchResultHighlighted(const int pageNum, const QList<Q
 		// coordinates (i.e., (0,0) in the upper left). Hence we need to convert
 		// the coordinates
 		QList<QPolygonF> region;
-		foreach (QPolygonF pdfPolygon, pdfRegion) {
+		foreach (const QPolygonF & pdfPolygon, pdfRegion) {
 			QPolygonF polygon;
-			foreach (QPointF p, pdfPolygon)
+			foreach (const QPointF & p, pdfPolygon) {
 				polygon << QPointF(p.x(), page->pageSizeF().height() - p.y());
+			}
 			region << polygon;
 		}
 

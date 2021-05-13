@@ -1,7 +1,36 @@
-From 10fbe110cc191b147e543092d53ebff49b5a88ff Mon Sep 17 00:00:00 2001
+From acf128fb8870ffede3da5c86260857f592f1f095 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Sun, 5 Nov 2017 20:53:42 +0100
+Subject: [PATCH 1/2] Only check for Type1 fonts in custom directory if path is
+ non-NULL
+
+Otherwise, programs using poppler may crash
+Proposed upstream at https://bugs.freedesktop.org/show_bug.cgi?id=49037
+---
+ poppler/GlobalParamsWin.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/poppler/GlobalParamsWin.cc b/poppler/GlobalParamsWin.cc
+index d4eb5871..2056df18 100644
+--- a/poppler/GlobalParamsWin.cc
++++ b/poppler/GlobalParamsWin.cc
+@@ -382,7 +382,7 @@ void GlobalParams::setupBaseFonts(const char *dir)
+ 
+         GooString *fontName = new GooString(displayFontTab[i].name);
+ 
+-        if (dir) {
++        if (dir && displayFontTab[i].t1FileName) {
+             GooString *fontPath = appendToPath(new GooString(dir), displayFontTab[i].t1FileName);
+             if (FileExists(fontPath->c_str()) || FileExists(replaceSuffix(fontPath, ".pfb", ".pfa")->c_str())) {
+                 addFontFile(fontName, fontPath);
+-- 
+2.31.1
+
+
+From bd766857f74b5cf133c7b480af481d58029ae57d Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Mon, 6 Nov 2017 06:59:37 +0100
-Subject: [PATCH] Use a custom font directory on Windows
+Subject: [PATCH 2/2] Use a custom font directory on Windows
 
 Uses the share/fonts directory alongside the application/poppler library
 ---
@@ -10,10 +39,10 @@ Uses the share/fonts directory alongside the application/poppler library
  2 files changed, 32 insertions(+), 2 deletions(-)
 
 diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
-index eab1d724..bb27cde3 100644
+index 01975901..d3569abb 100644
 --- a/poppler/GlobalParams.cc
 +++ b/poppler/GlobalParams.cc
-@@ -152,6 +152,36 @@ static const char *get_poppler_datadir(void)
+@@ -150,6 +150,36 @@ static const char *get_poppler_datadir(void)
  #    undef POPPLER_DATADIR
  #    define POPPLER_DATADIR get_poppler_datadir()
  
@@ -50,7 +79,7 @@ index eab1d724..bb27cde3 100644
  #endif
  
  //------------------------------------------------------------------------
-@@ -847,7 +877,7 @@ GooString *GlobalParams::findFontFile(const GooString *fontName)
+@@ -845,7 +875,7 @@ GooString *GlobalParams::findFontFile(const GooString *fontName)
  {
      GooString *path = nullptr;
  
@@ -73,5 +102,5 @@ index 2056df18..c0f760e8 100644
      // TODO: base14Name should be changed?
      // In the system using FontConfig, findSystemFontFile() uses
 -- 
-2.27.0
+2.31.1
 

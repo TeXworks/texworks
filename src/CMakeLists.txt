@@ -243,7 +243,12 @@ target_LINK_LIBRARIES(TeXworks QtPDF::qtpdf ${TeXworks_LIBS} )
 
 # Disallow automatic casts from char* to QString (enforcing the use of tr() or
 # explicitly specifying the string encoding)
-target_compile_definitions(TeXworks PRIVATE QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_BYTEARRAY QT_STRICT_ITERATORS)
+target_compile_definitions(TeXworks PRIVATE QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_BYTEARRAY)
+if (NOT MSVC)
+	# Set QT_STRICT_ITERATORS everywhere except for MSVC (QTBUG-78112)
+	target_compile_definitions(TeXworks PRIVATE QT_STRICT_ITERATORS)
+endif (NOT MSVC)
+
 target_compile_definitions(TeXworks PRIVATE TW_BUILD_ID="${TW_BUILD_ID}")
 
 function (target_add_path_define target name path)

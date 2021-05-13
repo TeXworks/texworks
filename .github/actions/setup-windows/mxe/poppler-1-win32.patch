@@ -2,36 +2,6 @@ This file is part of MXE. See LICENSE.md for licensing information.
 
 Contains ad hoc patches for cross building.
 
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From 7c826351321995d2b5d8efa63dac47c95036fe2e Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
-Date: Sun, 5 Nov 2017 20:53:42 +0100
-Subject: [PATCH 1/4] Only check for Type1 fonts in custom directory if path is
- non-NULL
-
-Otherwise, programs using poppler may crash
-Proposed upstream at https://bugs.freedesktop.org/show_bug.cgi?id=49037
----
- poppler/GlobalParamsWin.cc | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/poppler/GlobalParamsWin.cc b/poppler/GlobalParamsWin.cc
-index d4eb5871..2056df18 100644
---- a/poppler/GlobalParamsWin.cc
-+++ b/poppler/GlobalParamsWin.cc
-@@ -382,7 +382,7 @@ void GlobalParams::setupBaseFonts(const char *dir)
- 
-         GooString *fontName = new GooString(displayFontTab[i].name);
- 
--        if (dir) {
-+        if (dir && displayFontTab[i].t1FileName) {
-             GooString *fontPath = appendToPath(new GooString(dir), displayFontTab[i].t1FileName);
-             if (FileExists(fontPath->c_str()) || FileExists(replaceSuffix(fontPath, ".pfb", ".pfa")->c_str())) {
-                 addFontFile(fontName, fontPath);
--- 
-2.27.0
-
-
 From f9f4d3702a76b6fc4d83bf683575006db1abbdec Mon Sep 17 00:00:00 2001
 From: darealshinji <djcj@gmx.de>
 Date: Thu, 14 Jul 2016 13:21:26 +0200

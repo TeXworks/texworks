@@ -168,13 +168,21 @@ void TestUtils::SystemCommand_wait()
 
 	QVERIFY(spy.isValid());
 
+#ifdef Q_OS_WINDOWS
+	cmd.start(QStringLiteral("cmd"), QStringList{QStringLiteral("/C"), QStringLiteral("echo OK")});
+#else
 	cmd.start(QStringLiteral("echo"), QStringList{QStringLiteral("OK")});
+#endif
 	QVERIFY(cmd.waitForStarted());
 	QVERIFY(cmd.waitForFinished());
 
 	spy.clear();
 
+#ifdef Q_OS_WINDOWS
+	cmd.start(QStringLiteral("cmd"), QStringList{QStringLiteral("/C"), QStringLiteral("echo OK")});
+#else
 	cmd.start(QStringLiteral("echo"), QStringList{QStringLiteral("OK")});
+#endif
 	QVERIFY(spy.wait());
 	QVERIFY(cmd.waitForStarted());
 	QVERIFY(cmd.waitForFinished());
@@ -188,9 +196,13 @@ void TestUtils::SystemCommand_getResult_data()
 	QTest::addColumn<bool>("runInBackground");
 	QTest::addColumn<bool>("success");
 	QTest::addColumn<QString>("output");
-
+#ifdef Q_OS_WINDOWS
+	QString progOK{QStringLiteral("cmd")};
+	QStringList progOKArgs{QStringLiteral("/C"), QStringLiteral("echo OK")};
+#else
 	QString progOK{QStringLiteral("echo")};
 	QStringList progOKArgs{QStringLiteral("OK")};
+#endif
 	QString progInvalid{QStringLiteral("invalid-command")};
 	QStringList progInvalidArgs{};
 	QString outputQuiet;
