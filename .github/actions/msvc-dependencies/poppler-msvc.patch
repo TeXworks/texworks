@@ -1,0 +1,24 @@
+From 0333d9684ef0035d065cdb6b1e80781672a49b41 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Thu, 13 May 2021 10:13:40 +0200
+Subject: [PATCH] Fix building with MSVC and libjpeg
+
+---
+ goo/JpegWriter.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/goo/JpegWriter.cc b/goo/JpegWriter.cc
+index e5a4a3f2..325bb021 100644
+--- a/goo/JpegWriter.cc
++++ b/goo/JpegWriter.cc
+@@ -18,6 +18,7 @@
+ #include "JpegWriter.h"
+ 
+ #ifdef ENABLE_LIBJPEG
++#include "goo/gfile.h"
+ 
+ extern "C" {
+ #    include <jpeglib.h>
+-- 
+2.31.1
+
