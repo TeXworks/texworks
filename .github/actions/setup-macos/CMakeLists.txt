@@ -1,5 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
-# 3.6 is required for GIT_SHALLOW
+cmake_minimum_required(VERSION 3.1)
 
 project(TeXworksDependencyInstall)
 
@@ -24,17 +23,16 @@ endmacro(ADD_GH_GROUP)
 
 
 ExternalProject_Add(libpng
-	GIT_REPOSITORY git://git.code.sf.net/p/libpng/code
-	GIT_TAG v1.6.37
+	URL "https://download.sourceforge.net/libpng/libpng-1.6.37.tar.xz"
+	URL_HASH SHA256=505e70834d35383537b6491e7ae8641f1a4bed1876dbfe361201fc80868d88ca
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
 ADD_GH_GROUP(libpng)
 
 # TODO: harfbuzz?
 ExternalProject_Add(freetype
-	GIT_REPOSITORY https://gitlab.freedesktop.org/freetype/freetype.git
-	GIT_TAG VER-2-10-4
-	GIT_SHALLOW TRUE
+	URL https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.xz
+	URL_HASH SHA256=86a854d8905b19698bbc8f23b860bc104246ce4854dcea8e3b0fb21284f75784
 	CMAKE_ARGS ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=TRUE
 	PATCH_COMMAND patch --forward -p1 < ${CMAKE_CURRENT_LIST_DIR}/freetype-bz2.patch
 	DEPENDS libpng
@@ -51,9 +49,8 @@ ExternalProject_Add(gettext
 ADD_GH_GROUP(gettext)
 
 ExternalProject_Add(hunspell
-	GIT_REPOSITORY https://github.com/hunspell/hunspell.git
-	GIT_TAG v1.7.0
-	GIT_SHALLOW TRUE
+	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.0.tar.gz"
+	URL_HASH SHA256=bb27b86eb910a8285407cf3ca33b62643a02798cf2eef468c0a74f6c3ee6bc8a
 	CONFIGURE_COMMAND autoreconf -vfi && ${CONFIGURE_ENV} CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS}
 	BUILD_IN_SOURCE TRUE
 	DEPENDS gettext
@@ -80,27 +77,24 @@ ADD_GH_GROUP(libjpeg)
 
 # jbig? Lzma?
 ExternalProject_Add(libtiff
-	GIT_REPOSITORY https://gitlab.com/libtiff/libtiff.git
-	GIT_TAG v4.3.0
-	GIT_SHALLOW TRUE
+	URL "https://download.osgeo.org/libtiff/tiff-4.3.0.tar.gz"
+	URL_HASH SHA256=0e46e5acb087ce7d1ac53cf4f56a09b221537fc86dfc5daaad1c2e89e1b37ac8
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libjpeg
 )
 ADD_GH_GROUP(libtiff)
 
 ExternalProject_Add(libopenjpeg
-	GIT_REPOSITORY https://github.com/uclouvain/openjpeg.git
-	GIT_TAG v2.4.0
-	GIT_SHALLOW TRUE
+	URL https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.4.0.tar.gz
+	URL_HASH SHA256=8702ba68b442657f11aaeb2b338443ca8d5fb95b0d845757968a7be31ef7f16d
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libtiff
 )
 ADD_GH_GROUP(libopenjpeg)
 
 ExternalProject_Add(lcms2
-	GIT_REPOSITORY https://github.com/mm2/Little-CMS.git
-	GIT_TAG lcms2.12
-	GIT_SHALLOW TRUE
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.12.tar.gz"
+	URL_HASH SHA256=e90e77e43be35ec149d39f1ee7fe1c50c73309773a55b13839090f7138fbdcde
 	CONFIGURE_COMMAND ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS} --with-tiff="${CMAKE_INSTALL_PREFIX}" --with-jpeg="${CMAKE_INSTALL_PREFIX}"
 	BUILD_IN_SOURCE TRUE
 	DEPENDS libtiff libjpeg
@@ -109,9 +103,8 @@ ADD_GH_GROUP(lcms2)
 
 # cairo?
 ExternalProject_Add(poppler
-	GIT_REPOSITORY https://anongit.freedesktop.org/git/poppler/poppler.git
-	GIT_TAG poppler-21.04.0
-	GIT_SHALLOW TRUE
+	URL "https://poppler.freedesktop.org/poppler-21.05.0.tar.xz"
+	URL_HASH SHA256=dafd537b680fad1215bc40fc53d1f38e8449d7c185bc60d5a89e1d26c90dbd8c
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )
@@ -124,7 +117,7 @@ ExternalProject_Add(poppler-data
 ADD_GH_GROUP(poppler-data)
 
 ExternalProject_Add(lua
-	URL http://www.lua.org/ftp/lua-5.4.3.tar.gz
+	URL "https://www.lua.org/ftp/lua-5.4.3.tar.gz"
 	URL_HASH SHA1=1dda2ef23a9828492b4595c0197766de6e784bc7
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND make MYCFLAGS="-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET}"
@@ -132,3 +125,4 @@ ExternalProject_Add(lua
 	INSTALL_COMMAND make install INSTALL_TOP="${CMAKE_INSTALL_PREFIX}"
 )
 ADD_GH_GROUP(lua)
+

@@ -17,6 +17,7 @@ ExternalProject_Add(lua
 
 ExternalProject_Add(hunspell
 	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.0.tar.gz"
+	URL_HASH SHA256=bb27b86eb910a8285407cf3ca33b62643a02798cf2eef468c0a74f6c3ee6bc8a
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND msbuild msvc\\libhunspell.vcxproj ${MSBUILD_ARGS} /p:Configuration=Release_dll
 	BUILD_IN_SOURCE TRUE
@@ -64,8 +65,8 @@ ExternalProject_Add(libtiff
 )
 
 ExternalProject_Add(lcms2
-	URL "https://download.sourceforge.net/lcms/lcms2-2.12.tar.gz"
-	URL_HASH SHA256=18663985e864100455ac3e507625c438c3710354d85e5cbb7cd4043e11fe10f5
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.12.tar.gz"
+	URL_HASH SHA256=e90e77e43be35ec149d39f1ee7fe1c50c73309773a55b13839090f7138fbdcde
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND MSBUILD Projects\\VC2019\\lcms2_DLL ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
