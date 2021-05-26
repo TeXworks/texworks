@@ -6,37 +6,37 @@
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="14"/>
         <source>Select Citations</source>
-        <translation type="unfinished"></translation>
+        <translation>选择引用</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="20"/>
         <source>Filter...</source>
-        <translation type="unfinished"></translation>
+        <translation>过滤...</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="203"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>类型</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="204"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>作者</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="205"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>标题</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="206"/>
         <source>Year</source>
-        <translation type="unfinished"></translation>
+        <translation>年份</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.cpp" line="207"/>
         <source>Journal</source>
-        <translation type="unfinished"></translation>
+        <translation>期刊</translation>
     </message>
 </context>
 <context>
@@ -44,7 +44,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="15"/>
         <source>Next Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>下一个补全</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="18"/>
@@ -55,7 +55,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="23"/>
         <source>Previous Completion</source>
-        <translation type="unfinished"></translation>
+        <translation>上一个补全</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
@@ -748,12 +748,12 @@
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="722"/>
         <source>Go to previous view</source>
-        <translation type="unfinished"></translation>
+        <translation>转到预览视图</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="725"/>
         <source>Alt+Left</source>
-        <translation type="unfinished">Alt+Left</translation>
+        <translation>Alt+Left</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="757"/>
@@ -778,7 +778,7 @@
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1153"/>
         <source>Go to Page</source>
-        <translation type="unfinished">跳至页码</translation>
+        <translation>跳至页码</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1154"/>
@@ -788,70 +788,70 @@
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1028"/>
         <source>Open URL</source>
-        <translation type="unfinished">打开 URL</translation>
+        <translation>打开 URL</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1028"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web addresses can be a security risk.
 Do you want to continue?</source>
-        <translation type="unfinished">您正在打开 URL %1。打开未知或不受信任的网址会有安全风险。
+        <translation>您正在打开 URL %1。打开未知或不受信任的网址会有安全风险。
 您要继续吗？</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1090"/>
         <source>Custom...</source>
-        <translation type="unfinished">自定义...</translation>
+        <translation>自定义...</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1165"/>
         <source>Set Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>设置缩放</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1165"/>
         <source>Zoom level:</source>
-        <translation type="unfinished"></translation>
+        <translation>缩放等级：</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="736"/>
         <location filename="../src/PDFDocumentWindow.ui" line="739"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished"></translation>
+        <translation>适合内容宽度</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="742"/>
         <source>Ctrl+4</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="228"/>
         <source>Ctrl+=</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+=</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1093"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>200%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1096"/>
         <source>150%</source>
-        <translation type="unfinished"></translation>
+        <translation>150%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1101"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>100%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1105"/>
         <source>75%</source>
-        <translation type="unfinished"></translation>
+        <translation>75%</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1108"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>50%</translation>
     </message>
 </context>
 <context>
@@ -923,7 +923,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.cpp" line="546"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="345"/>
@@ -1006,7 +1006,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <translation type="unfinished">行距：</translation>
+        <translation>行距：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="315"/>
@@ -1036,12 +1036,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>光标宽度：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
         <source>Enable auto-follow focus</source>
-        <translation type="unfinished">启用自动跟踪焦点</translation>
+        <translation>启用自动跟踪焦点</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="654"/>
@@ -1257,7 +1257,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="72"/>
         <source>Toolbar buttons:</source>
-        <translation>工具栏图标</translation>
+        <translation>工具栏图标：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="141"/>
@@ -1287,35 +1287,35 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="836"/>
         <source>Synchronization Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>同步分辨率</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="842"/>
         <source>Source &gt; Preview:</source>
-        <translation type="unfinished">源文件 &gt; 预览：</translation>
+        <translation>源文件 &gt; 预览：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="856"/>
         <location filename="../src/PrefsDialog.ui" line="888"/>
         <source>Highlight Character</source>
-        <translation type="unfinished"></translation>
+        <translation>高亮字符</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="861"/>
         <location filename="../src/PrefsDialog.ui" line="893"/>
         <source>Highlight Word</source>
-        <translation type="unfinished"></translation>
+        <translation>高亮单词</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="866"/>
         <location filename="../src/PrefsDialog.ui" line="898"/>
         <source>Highlight Line</source>
-        <translation type="unfinished"></translation>
+        <translation>高亮行</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="874"/>
         <source>Preview &gt; Source:</source>
-        <translation type="unfinished">预览 &gt; 源文件：</translation>
+        <translation>预览 &gt; 源文件：</translation>
     </message>
 </context>
 <context>
@@ -1527,62 +1527,62 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="14"/>
         <source>Manage Scripts</source>
-        <translation type="unfinished">管理脚本</translation>
+        <translation>管理脚本</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="34"/>
         <source>Standalone Scripts</source>
-        <translation type="unfinished">独立脚本</translation>
+        <translation>独立脚本</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.ui" line="53"/>
         <source>Hook Scripts</source>
-        <translation type="unfinished">钩子脚本</translation>
+        <translation>钩子脚本</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="191"/>
         <source>Name: </source>
-        <translation type="unfinished">名称：</translation>
+        <translation>名称：</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="192"/>
         <source>Context: </source>
-        <translation type="unfinished">上下文：</translation>
+        <translation>上下文：</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="193"/>
         <source>Description: </source>
-        <translation type="unfinished">描述：</translation>
+        <translation>描述：</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="194"/>
         <source>Author: </source>
-        <translation type="unfinished">作者：</translation>
+        <translation>作者：</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="195"/>
         <source>Version: </source>
-        <translation type="unfinished">版本：</translation>
+        <translation>版本：</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="196"/>
         <source>Shortcut: </source>
-        <translation type="unfinished">快捷键：</translation>
+        <translation>快捷键：</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="197"/>
         <source>File: </source>
-        <translation type="unfinished">文件：</translation>
+        <translation>文件：</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="205"/>
         <source>Language: </source>
-        <translation type="unfinished">语言：</translation>
+        <translation>语言：</translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="209"/>
         <source>Hook: </source>
-        <translation type="unfinished">钩子：</translation>
+        <translation>钩子：</translation>
     </message>
 </context>
 <context>
@@ -1809,7 +1809,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/TWApp.cpp" line="350"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation>&lt;br&gt;版本 %1 (%2) [r.%3, %4] </translation>
+        <translation>&lt;br&gt;版本 %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="352"/>
@@ -1835,17 +1835,17 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/main.cpp" line="56"/>
         <source>Display this message</source>
-        <translation type="unfinished">显示此消息</translation>
+        <translation>显示此消息</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="57"/>
         <source>Open the following file at the given position (line or page)</source>
-        <translation type="unfinished">打开下列文件的给定位置 (行或页)</translation>
+        <translation>在给定位置打开下列文件（行或页）</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="58"/>
         <source>Display version information</source>
-        <translation type="unfinished">显示版本信息</translation>
+        <translation>显示版本信息</translation>
     </message>
 </context>
 <context>
@@ -1854,48 +1854,48 @@ Do you want to continue?</source>
         <location filename="../src/TWScriptableWindow.cpp" line="150"/>
         <location filename="../src/TWScriptableWindow.cpp" line="158"/>
         <source>Script &quot;%1&quot;: %2</source>
-        <translation type="unfinished">脚本“%1”：%2</translation>
+        <translation>脚本“%1”：%2</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="152"/>
         <source>Script result</source>
-        <translation type="unfinished">脚本执行结果</translation>
+        <translation>脚本执行结果</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="157"/>
         <source>unknown error</source>
-        <translation type="unfinished">未知错误</translation>
+        <translation>未知错误</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="158"/>
         <source>Script error</source>
-        <translation type="unfinished">脚本错误</translation>
+        <translation>脚本错误</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="179"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
-        <translation type="unfinished">脚本可用于添加新的命令到 %1，以及扩展或修改程序行为。</translation>
+        <translation>脚本可用于添加新的命令到 %1，以及扩展或修改程序行为。</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="182"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
-        <translation type="unfinished">关于创建和使用脚本的更多信息，参见 %1&lt;/p&gt;</translation>
+        <translation>关于创建和使用脚本的更多信息，参见 %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="184"/>
         <source>Scripting languages currently available in this copy of %1:</source>
-        <translation type="unfinished">当前 %1 副本中支持的脚本语言：</translation>
+        <translation>当前 %1 副本中支持的脚本语言：</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="199"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
-        <translation type="unfinished">（已在首选项中停用）</translation>
+        <translation>（已在首选项中停用）</translation>
     </message>
     <message>
         <location filename="../src/TWScriptableWindow.cpp" line="203"/>
         <source>About Scripts</source>
-        <translation type="unfinished">关于脚本</translation>
+        <translation>关于脚本</translation>
     </message>
 </context>
 <context>
@@ -2862,12 +2862,12 @@ We are sorry for the inconvenience.</source>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="1118"/>
         <source>Insert Citations...</source>
-        <translation type="unfinished"></translation>
+        <translation>插入引用...</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="1121"/>
         <source>Ctrl+Shift+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="539"/>
@@ -2919,7 +2919,7 @@ We are sorry for the inconvenience.</source>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1979"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
-        <translation type="unfinished"></translation>
+        <translation>未找到 &apos;%!TEX bibfile&apos; 行</translation>
     </message>
 </context>
 <context>
@@ -3015,38 +3015,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">内部错误</translation>
+        <translation>内部错误</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">未能执行系统命令：%1 </translation>
+        <translation>执行系统命令失败：%1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">系统命令运行错误：%1</translation>
+        <translation>系统命令运行错误：%1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">已禁止执行系统命令（见＜首选项＞）</translation>
+        <translation>已禁止执行系统命令（参见首选项）</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">“%1”无法打开。</translation>
+        <translation>“%1”无法打开。</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">禁止读取所有文件（见首选项）</translation>
+        <translation>已禁止读取所有文件（参见首选项）</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">无法打开文件“%1”进行读取</translation>
+        <translation>无法打开文件“%1”进行读取</translation>
     </message>
 </context>
 <context>
@@ -3062,7 +3062,7 @@ Use the context menu to change the units.</source>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished">dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
@@ -3079,14 +3079,14 @@ Use the context menu to change the units.</source>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>厘米</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>英寸</translation>
     </message>
 </context>
 <context>
@@ -3094,12 +3094,12 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">错误：失败返回值为 %1</translation>
+        <translation>错误：失败返回值为 %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">错误：退出返回值为 %1</translation>
+        <translation>错误：退出返回值为 %1</translation>
     </message>
 </context>
 </TS>
