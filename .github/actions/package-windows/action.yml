@@ -30,11 +30,10 @@ runs:
     - name: Info
       shell: wsl-bash {0}
       id: info
-      working-directory: ${{ inputs.builddir }}
       run: |
-        FILENAME=$(find . -maxdepth 1 -name 'TeXworks-win-*.zip')
-        VERSION=$(echo "$FILENAME" | sed -e 's/^\.\/TeXworks-win-\([^-]*\)-.*\.zip$/\1/')
-        FULLVERSION=$(echo "$FILENAME" | sed -e 's/^\.\/TeXworks-win-\(.*\)\.zip$/\1/')
+        FILENAME=$(find ${{ inputs.builddir }} -maxdepth 1 -name 'TeXworks-win-*.zip')
+        VERSION=$(basename "$FILENAME" | sed -e 's/^TeXworks-win-\([^-]*\)-.*\.zip$/\1/')
+        FULLVERSION=$(basename "$FILENAME" | sed -e 's/^TeXworks-win-\(.*\)\.zip$/\1/')
         echo "MD5"
         md5sum "$FILENAME"
         echo "SHA256"

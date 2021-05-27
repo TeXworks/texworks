@@ -31,8 +31,8 @@ jobs:
 
 ################################################################################
 
-  win-artifactory:
-    name: Windows (Artifactory)
+  win:
+    name: Windows
     runs-on: windows-latest
 
     steps:
@@ -85,16 +85,11 @@ jobs:
       uses: ./.github/actions/package-windows
       id: package
 
-    - name: Deploy to Artifactory
-      if: github.event_name == 'push'
-      uses: ./.github/actions/deploy-artifactory
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
-          file: build/${{ steps.package.outputs.file }}
-          baseurl: https://texworks.jfrog.io
-          repo: windows-latest
-          remotePath: ${{ steps.package.outputs.version }}
-          username: st.loeffler@gmail.com
-          key: ${{ secrets.jfrog_key }}
+        name: TeXworks-Windows
+        path: ${{ steps.package.outputs.file }}
 
     - name: Build installer
       run: ISCC texworks-setup-script.iss
@@ -103,13 +98,24 @@ jobs:
     - name: Upload installer artifact
       uses: actions/upload-artifact@v2
       with:
-        name: installer-win
+        name: TeXworks-Windows-Setup
         path: win32/Output/*.exe
+
+    - name: Deploy to Artifactory
+      if: github.event_name == 'push'
+      uses: ./.github/actions/deploy-artifactory
+      with:
+          file: ${{ steps.package.outputs.file }}
+          baseurl: https://texworks.jfrog.io
+          repo: windows-latest
+          remotePath: ${{ steps.package.outputs.version }}
+          username: st.loeffler@gmail.com
+          key: ${{ secrets.jfrog_key }}
 
 ################################################################################
 
-  macosx-artifactory:
-    name: Mac OS X (Artifactory)
+  macosx:
+    name: Mac OS X
     runs-on: macos-latest
     env:
       MACOSX_DEPLOYMENT_TARGET: 10.14
@@ -140,11 +146,17 @@ jobs:
       id: package
       uses: ./.github/actions/package-macos
 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: TeXworks-macOS
+        path: ${{ steps.package.outputs.file }}
+
     - name: Deploy to Artifactory
       if: github.event_name == 'push'
       uses: ./.github/actions/deploy-artifactory
       with:
-        file: build/${{ steps.package.outputs.file }}
+        file: ${{ steps.package.outputs.file }}
         baseurl: https://texworks.jfrog.io
         repo: macos-latest
         remotePath: ${{ steps.package.outputs.version }}
