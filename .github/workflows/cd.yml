@@ -1,7 +1,9 @@
 name: CD
 on:
-  - push
-  - pull_request
+  push:
+  pull_request:
+  schedule:
+    - cron: '42 2 1 * *'
 
 jobs:
   ubuntu:
