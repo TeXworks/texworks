@@ -390,7 +390,10 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
 		}
-		QObject::connect(selWin, &SelWinAction::triggered, texDoc, &TeXDocumentWindow::selectWindow);
+		// Don't use a direct connection as triggered has a boolean argument
+		// (checked) which would get forwarded to selectWindow's "activate",
+		// which doesn't make sense.
+		QObject::connect(selWin, &SelWinAction::triggered, texDoc, [texDoc](){ texDoc->selectWindow(); });
 		menu->addAction(selWin);
 	}
 
