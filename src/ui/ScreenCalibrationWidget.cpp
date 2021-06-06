@@ -183,7 +183,7 @@ void ScreenCalibrationWidget::paintEvent(QPaintEvent * event)
 	QPainter painter(this);
 
 	// Draw ruler
-	painter.fillRect(_rulerRect, Qt::white);
+	painter.fillRect(_rulerRect, palette().color(QPalette::Base));
 	painter.drawRect(_rulerRect);
 	painter.setClipRect(_rulerRect);
 
