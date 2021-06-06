@@ -720,6 +720,9 @@
        </item>
        <item row="1" column="0" colspan="2">
         <layout class="QFormLayout">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::ExpandingFieldsGrow</enum>
+         </property>
          <property name="leftMargin">
           <number>3</number>
          </property>

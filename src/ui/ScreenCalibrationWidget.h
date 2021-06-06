@@ -40,6 +40,8 @@ public:
 
 	double dpi() const;
 
+	QSize minimumSizeHint() const override;
+
 public slots:
 	void setDpi(const double dpi);
 	void setUnit(const int unitIdx);

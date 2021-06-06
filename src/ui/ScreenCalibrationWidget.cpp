@@ -34,6 +34,7 @@ ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget * parent)
 	: QWidget(parent)
 	, _contextMenuActionGroup(this)
 {
+	setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 	_sbDPI = new QDoubleSpinBox(this);
 	_sbDPI->setRange(0, 9999);
 	_sbDPI->setValue(physicalDpiX());
@@ -71,7 +72,6 @@ void ScreenCalibrationWidget::recalculateSizes()
 	_hSpace = style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing);
 	if (_hSpace < 0)
 		_hSpace = style()->layoutSpacing(QSizePolicy::SpinBox, QSizePolicy::DefaultType, Qt::Horizontal);
-	setMinimumHeight(static_cast<int>(_paperTickHeight) + qRound(0.2 * fontMetrics().lineSpacing()));
 }
 
 void ScreenCalibrationWidget::retranslate()
@@ -146,6 +146,14 @@ double ScreenCalibrationWidget::dpi() const
 {
 	Q_ASSERT(_sbDPI);
 	return _sbDPI->value();
+}
+
+QSize ScreenCalibrationWidget::minimumSizeHint() const
+{
+	Q_ASSERT(_sbDPI);
+
+	const int vSpace = qRound(0.2 * fontMetrics().lineSpacing());
+	return {100 + _hSpace + _sbDPI->minimumSizeHint().width(), qMax(_sbDPI->minimumSizeHint().height(), _paperTickHeight + vSpace)};
 }
 
 void ScreenCalibrationWidget::setDpi(const double dpi)
