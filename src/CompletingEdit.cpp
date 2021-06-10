@@ -806,6 +806,11 @@ void CompletingEdit::maybeSmartenQuote(int offset)
 		replacement = iter.value().first;
 	}
 	else {
+		// If the quotes are directly preceded by a \, leave them as is as they
+		// are likely part of a command such as an umlaut (e.g., \"a).
+		if (text[offset - 1] == QChar::fromLatin1('\\'))
+			return;
+
 		if (text[offset - 1].isSpace())
 			replacement = iter.value().first;
 
