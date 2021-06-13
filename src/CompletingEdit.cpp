@@ -1368,8 +1368,12 @@ bool CompletingEdit::event(QEvent *e)
 	}
 	// Alternatively, we could use QEvent::ApplicationPaletteChange if we'd
 	// derive the colors from the application's palette
-	if (e->type() == QEvent::PaletteChange)
+	if (e->type() == QEvent::PaletteChange) {
 		updateColors();
+		// reset the extra selections so they (highlight current line & auto-
+		// completion) actually use the updated colors right away)
+		resetExtraSelections();
+	}
 	if (e->type() == QEvent::ShortcutOverride) {
 		auto ke = reinterpret_cast<QKeyEvent*>(e);
 		QKeySequence seq(static_cast<int>(ke->modifiers()) | ke->key());
