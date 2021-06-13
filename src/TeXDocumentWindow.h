@@ -240,7 +240,7 @@ private:
 	bool openPdfIfAvailable(bool show);
 	void replaceSelection(const QString& newText);
 	void doHardWrap(int mode, int lineWidth, bool rewrap);
-	QTextCursor doSearch(QTextDocument *theDoc, const QString& searchText, const QRegularExpression *regex,
+	QTextCursor doSearch(const QString& searchText, const QRegularExpression *regex,
 						 QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
 	int doReplaceAll(const QString& searchText, QRegularExpression* regex, const QString& replacement,
 						QTextDocument::FindFlags flags, int rangeStart = -1, int rangeEnd = -1);
@@ -257,7 +257,7 @@ private:
 
 	QString selectedText() { return textCursor().selectedText().replace(QChar(QChar::ParagraphSeparator), QChar::fromLatin1('\n')); }
 	QString consoleText() { return textEdit_console->toPlainText(); }
-	QString text() { return textEdit->toPlainText(); }
+	QString text() { return textEdit->text(); }
 
 	Tw::Document::TeXDocument * _texDoc;
 	PDFDocumentWindow * pdfDoc{nullptr};

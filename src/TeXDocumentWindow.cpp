@@ -1053,7 +1053,7 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 
 	if (fileContents.isNull())
 		return;
-	bool identicalContent{fileContents == textEdit->toPlainText()};
+	bool identicalContent{fileContents == textEdit->text()};
 
 	// Only re-set the content if it has actually changed. Setting the content
 	// has many side effects, e.g., destroying the undo/redo stack.
@@ -1096,7 +1096,11 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 				// (also a rehighlight). Note that layouting only works sensibly
 				// once show() was called, or else there is no valid widget geometry
 				// to act as bounding box.
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
 				doc->setPlainText(doc->toPlainText());
+#else
+				doc->setPlainText(doc->toRawText());
+#endif
 				QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 			}
 			if (tries >= 10) {
@@ -1406,15 +1410,15 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 		}
 	}
 
-	QString theText = textEdit->toPlainText();
+	QString theText = textEdit->text();
 	switch (lineEndings & kLineEnd_Mask) {
 		case kLineEnd_CR:
-		    theText.replace(QChar::fromLatin1('\n'), QChar::fromLatin1('\r'));
+			theText.replace(QChar::fromLatin1('\n'), QChar::fromLatin1('\r'));
 			break;
 		case kLineEnd_LF:
 			break;
 		case kLineEnd_CRLF:
-		    theText.replace(QChar::fromLatin1('\n'), QLatin1String("\r\n"));
+			theText.replace(QChar::fromLatin1('\n'), QLatin1String("\r\n"));
 			break;
 	}
 
@@ -1939,7 +1943,7 @@ void TeXDocumentWindow::setWindowModified(bool modified)
 
 void TeXDocumentWindow::balanceDelimiters()
 {
-	const QString text = textEdit->toPlainText();
+	const QString text = textEdit->text();
 	QTextCursor cursor = textEdit->textCursor();
 	int openPos = TWUtils::findOpeningDelim(text, cursor.selectionStart());
 	if (openPos >= 0 && openPos < text.length() - 1) {
@@ -2310,7 +2314,7 @@ void TeXDocumentWindow::doFindAgain(bool fromDialog)
 			int rangeStart = 0;
 			int rangeEnd = curs.position();
 			while (true) {
-				curs = doSearch(theDoc->textDoc(), searchText, regex, flags, rangeStart, rangeEnd);
+				curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
 				if (curs.isNull())
 					break;
 				int blockStart = curs.block().position();
@@ -2350,26 +2354,26 @@ void TeXDocumentWindow::doFindAgain(bool fromDialog)
 		if (settings.value(QString::fromLatin1("searchSelection")).toBool() && curs.hasSelection()) {
 			int rangeStart = curs.selectionStart();
 			int rangeEnd = curs.selectionEnd();
-			curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+			curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
 		}
 		else {
 			if ((flags & QTextDocument::FindBackward) != 0) {
 				int rangeStart = 0;
 				int rangeEnd = curs.selectionStart();
-				curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+				curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
 				if (curs.isNull() && settings.value(QString::fromLatin1("searchWrap")).toBool()) {
 					curs = QTextCursor(textEdit->document());
 					curs.movePosition(QTextCursor::End);
-					curs = doSearch(textEdit->document(), searchText, regex, flags, 0, curs.position());
+					curs = doSearch(searchText, regex, flags, 0, curs.position());
 				}
 			}
 			else {
 				int rangeStart = curs.selectionEnd();
 				curs.movePosition(QTextCursor::End);
 				int rangeEnd = curs.position();
-				curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+				curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
 				if (curs.isNull() && settings.value(QString::fromLatin1("searchWrap")).toBool())
-					curs = doSearch(textEdit->document(), searchText, regex, flags, 0, rangeEnd);
+					curs = doSearch(searchText, regex, flags, 0, rangeEnd);
 			}
 		}
 
@@ -2475,7 +2479,7 @@ void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 	}
 
 	if (mode == ReplaceDialog::ReplaceOne) {
-		QTextCursor curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+		QTextCursor curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
 		if (curs.isNull() && searchWrap) {
 			// If we haven't found anything and wrapping is enabled, try again
 			// with a "wrapped" search range
@@ -2488,7 +2492,7 @@ void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 				rangeEnd = rangeStart;
 				rangeStart = 0;
 			}
-			curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+			curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
 		}
 		if (curs.isNull()) {
 			qApp->beep();
@@ -2498,8 +2502,7 @@ void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 			// do replacement
 			QString target;
 			if (regex)
-				target = textEdit->document()->toPlainText()
-							.mid(curs.selectionStart(), curs.selectionEnd() - curs.selectionStart()).replace(*regex, replacement);
+				target = textEdit->text().mid(curs.selectionStart(), curs.selectionEnd() - curs.selectionStart()).replace(*regex, replacement);
 			else
 				target = replacement;
 			curs.insertText(target);
@@ -2545,7 +2548,7 @@ int TeXDocumentWindow::doReplaceAll(const QString& searchText, QRegularExpressio
 	int replacements = 0;
 	bool first = true;
 	while (true) {
-		QTextCursor curs = doSearch(textEdit->document(), searchText, regex, flags, rangeStart, rangeEnd);
+		QTextCursor curs = doSearch(searchText, regex, flags, rangeStart, rangeEnd);
 		if (curs.isNull()) {
 			if (!first)
 				searchRange.endEditBlock();
@@ -2558,7 +2561,7 @@ int TeXDocumentWindow::doReplaceAll(const QString& searchText, QRegularExpressio
 		QString target;
 		int oldLen = curs.selectionEnd() - curs.selectionStart();
 		if (regex)
-			target = textEdit->document()->toPlainText().mid(curs.selectionStart(), oldLen).replace(*regex, replacement);
+			target = textEdit->text().mid(curs.selectionStart(), oldLen).replace(*regex, replacement);
 		else
 			target = replacement;
 		int newLen = target.length();
@@ -2580,10 +2583,11 @@ int TeXDocumentWindow::doReplaceAll(const QString& searchText, QRegularExpressio
 	return replacements;
 }
 
-QTextCursor TeXDocumentWindow::doSearch(QTextDocument *theDoc, const QString& searchText, const QRegularExpression * regex, QTextDocument::FindFlags flags, int s, int e)
+QTextCursor TeXDocumentWindow::doSearch(const QString& searchText, const QRegularExpression * regex, QTextDocument::FindFlags flags, int s, int e)
 {
 	QTextCursor curs;
-	const QString& docText = theDoc->toPlainText();
+	QTextDocument * theDoc = textEdit->document();
+	const QString& docText = textEdit->text();
 
 	if ((flags & QTextDocument::FindBackward) != 0) {
 		if (regex) {
@@ -2607,7 +2611,7 @@ QTextCursor TeXDocumentWindow::doSearch(QTextDocument *theDoc, const QString& se
 #endif
 			}
 			if (offset >= s) {
-				curs = QTextCursor(theDoc);
+				curs = QTextCursor(textEdit->document());
 				curs.setPosition(m.capturedStart());
 				curs.setPosition(m.capturedEnd(), QTextCursor::KeepAnchor);
 			}

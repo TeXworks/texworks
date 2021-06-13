@@ -1282,6 +1282,38 @@ bool CompletingEdit::getLineNumbersVisible() const
 	return lineNumberArea->isVisible();
 }
 
+QString CompletingEdit::text() const
+{
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
+	return toPlainText();
+#else
+	if (document() == nullptr) {
+		return {};
+	}
+	// Raw text leaves certain unicode characters intact, most notably
+	// non-breaking spaces
+	QString rv{document()->toRawText()};
+
+	// Modeled after QTextDocument::toPlainText()
+	QChar *uc = rv.data();
+	QChar *e = uc + rv.size();
+
+	for ( ; uc != e; ++uc) {
+		switch (uc->unicode()) {
+			case 0xfdd0: // QTextBeginningOfFrame
+			case 0xfdd1: // QTextEndOfFrame
+			case QChar::ParagraphSeparator:
+			case QChar::LineSeparator:
+				*uc = QLatin1Char('\n');
+				break;
+			default:
+				;
+		}
+	}
+	return rv;
+#endif
+}
+
 void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
 {
 	if (lineNumberArea->isVisible()) {
