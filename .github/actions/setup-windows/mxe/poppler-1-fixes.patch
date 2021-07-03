@@ -1,0 +1,93 @@
+This file is part of MXE. See LICENSE.md for licensing information.
+
+Contains ad hoc patches for cross building.
+
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Sun, 5 Nov 2017 20:53:42 +0100
+Subject: [PATCH 1/4] Only check for Type1 fonts in custom directory if path is
+ non-NULL
+
+Otherwise, programs using poppler may crash
+Proposed upstream at https://bugs.freedesktop.org/show_bug.cgi?id=49037
+
+diff --git a/poppler/GlobalParamsWin.cc b/poppler/GlobalParamsWin.cc
+index 1111111..2222222 100644
+--- a/poppler/GlobalParamsWin.cc
++++ b/poppler/GlobalParamsWin.cc
+@@ -382,7 +382,7 @@ void GlobalParams::setupBaseFonts(const char *dir)
+ 
+         GooString *fontName = new GooString(displayFontTab[i].name);
+ 
+-        if (dir) {
++        if (dir && displayFontTab[i].t1FileName) {
+             GooString *fontPath = appendToPath(new GooString(dir), displayFontTab[i].t1FileName);
+             if (FileExists(fontPath->c_str()) || FileExists(replaceSuffix(fontPath, ".pfb", ".pfa")->c_str())) {
+                 addFontFile(fontName, fontPath);
+
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Sat, 26 Jun 2021 19:49:25 +0200
+Subject: [PATCH 2/4] Fix static builds
+
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1111111..2222222 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -77,7 +77,7 @@ option(USE_FLOAT "Use single precision arithmetic in the Splash backend" OFF)
+ option(BUILD_SHARED_LIBS "Build poppler as a shared library" ON)
+ option(RUN_GPERF_IF_PRESENT "Run gperf if it is found" ON)
+ if(WIN32)
+-  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ON)
++  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ${BUILD_SHARED_LIBS})
+ else()
+   set(ENABLE_RELOCATABLE OFF)
+ endif()
+
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Boris Nagaev <bnagaev@gmail.com>
+Date: Wed, 27 Jul 2016 10:29:52 +0200
+Subject: [PATCH 3/4] do not try to use mman.h (package mman-win32)
+
+fix https://github.com/mxe/mxe/issues/1455
+
+diff --git a/poppler/CairoFontEngine.cc b/poppler/CairoFontEngine.cc
+index 1111111..2222222 100755
+--- a/poppler/CairoFontEngine.cc
++++ b/poppler/CairoFontEngine.cc
+@@ -53,13 +53,6 @@
+ #include "Gfx.h"
+ #include "Page.h"
+ 
+-#if defined(HAVE_FCNTL_H) && defined(HAVE_SYS_MMAN_H) && defined(HAVE_SYS_STAT_H)
+-#    include <fcntl.h>
+-#    include <sys/stat.h>
+-#    include <sys/mman.h>
+-#    define CAN_CHECK_OPEN_FACES 1
+-#endif
+-
+ //------------------------------------------------------------------------
+ // CairoFont
+ //------------------------------------------------------------------------
+
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Thu, 4 Feb 2021 20:44:30 +0100
+Subject: [PATCH 4/4] Fix static linking for libopenjpeg >= 2.4
+
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1111111..2222222 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -265,6 +265,9 @@ else()
+   message(FATAL_ERROR "Invalid ENABLE_LIBOPENJPEG value: ${ENABLE_LIBOPENJPEG}")
+ endif()
+ set(ENABLE_LIBOPENJPEG "${WITH_OPENJPEG}")
++if(ENABLE_LIBOPENJPEG AND NOT BUILD_SHARED_LIBS)
++  add_definitions(-DOPJ_STATIC)
++endif()
+ if(ENABLE_CMS STREQUAL "lcms2")
+   find_package(LCMS2)
+   set(USE_CMS ${LCMS2_FOUND})

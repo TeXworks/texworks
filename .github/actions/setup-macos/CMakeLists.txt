@@ -103,8 +103,8 @@ ADD_GH_GROUP(lcms2)
 
 # cairo?
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-21.05.0.tar.xz"
-	URL_HASH SHA256=dafd537b680fad1215bc40fc53d1f38e8449d7c185bc60d5a89e1d26c90dbd8c
+	URL "https://poppler.freedesktop.org/poppler-21.07.0.tar.xz"
+	URL_HASH SHA256=e26ab29f68065de4d6562f0a3e2b5435a83ca92be573b99a1c81998fa286a4d4
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )
