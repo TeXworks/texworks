@@ -22,3 +22,26 @@ index e5a4a3f2..325bb021 100644
 -- 
 2.31.1
 
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Sun, 5 Nov 2017 20:53:42 +0100
+Subject: [PATCH 1/4] Only check for Type1 fonts in custom directory if path is
+ non-NULL
+
+Otherwise, programs using poppler may crash
+Proposed upstream at https://bugs.freedesktop.org/show_bug.cgi?id=49037
+
+diff --git a/poppler/GlobalParamsWin.cc b/poppler/GlobalParamsWin.cc
+index 1111111..2222222 100644
+--- a/poppler/GlobalParamsWin.cc
++++ b/poppler/GlobalParamsWin.cc
+@@ -382,7 +382,7 @@ void GlobalParams::setupBaseFonts(const char *dir)
+ 
+         GooString *fontName = new GooString(displayFontTab[i].name);
+ 
+-        if (dir) {
++        if (dir && displayFontTab[i].t1FileName) {
+             GooString *fontPath = appendToPath(new GooString(dir), displayFontTab[i].t1FileName);
+             if (FileExists(fontPath->c_str()) || FileExists(replaceSuffix(fontPath, ".pfb", ".pfa")->c_str())) {
+                 addFontFile(fontName, fontPath);
+
