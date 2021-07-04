@@ -95,8 +95,8 @@ ExternalProject_Add(freetype
 ExternalProject_Add(poppler
 	URL "https://poppler.freedesktop.org/poppler-21.07.0.tar.xz"
 	URL_HASH SHA256=e26ab29f68065de4d6562f0a3e2b5435a83ca92be573b99a1c81998fa286a4d4
-	PATCH_COMMAND git apply --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
-		COMMAND git apply --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/../setup-windows/mxe/poppler-2-custom_fonts_dir.patch
+	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
+		COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/../setup-windows/mxe/poppler-2-custom_fonts_dir.patch
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DBUILD_MANUAL_TESTS=FALSE -DBUILD_QT5_TESTS=FALSE
 	DEPENDS freetype lcms2 libjpeg libpng libtiff
 )
