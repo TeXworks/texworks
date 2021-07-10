@@ -5,9 +5,9 @@ Contains ad hoc patches for cross building.
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Mon, 6 Nov 2017 06:59:37 +0100
-Subject: [PATCH 1/1] Use a custom font directory on Windows
+Subject: [PATCH 1/2] Use a custom font directory on Windows
 
-Uses the share/fonts directory alongside the application/poppler library
+Uses the share/fonts directory alongside the application
 
 diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
 index 1111111..2222222 100644
@@ -28,7 +28,7 @@ index 1111111..2222222 100644
 +  if (beenhere)
 +    return retval;
 +
-+  if (!GetModuleFileName (hmodule, (CHAR *) retval, sizeof(retval) - 20))
++  if (!GetModuleFileName (NULL, (CHAR *) retval, sizeof(retval) - 20))
 +    return POPPLER_DATADIR;
 +
 +  p = _mbsrchr ((unsigned char *) retval, '\\');
@@ -72,3 +72,25 @@ index 1111111..2222222 100644
  
      // TODO: base14Name should be changed?
      // In the system using FontConfig, findSystemFontFile() uses
+
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Sat, 10 Jul 2021 21:13:51 +0200
+Subject: [PATCH 2/2] Use share/poppler alongside the application
+
+rather than alongside the library (which may be different in case of a
+dll)
+
+diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
+index 1111111..2222222 100644
+--- a/poppler/GlobalParams.cc
++++ b/poppler/GlobalParams.cc
+@@ -130,7 +130,7 @@ static const char *get_poppler_datadir(void)
+     if (beenhere)
+         return retval;
+ 
+-    if (!GetModuleFileNameA(hmodule, (CHAR *)retval, sizeof(retval) - 20))
++    if (!GetModuleFileNameA(NULL, (CHAR *)retval, sizeof(retval) - 20))
+         return POPPLER_DATADIR;
+ 
+     p = _mbsrchr((unsigned char *)retval, '\\');
