@@ -1015,6 +1015,9 @@ void PDFDocumentWindow::setDefaultScale() {
 		case 4:
 		    pdfWidget->setZoomLevel(settings.value(QString::fromLatin1("previewScale"), kDefault_PreviewScale).toFloat() / 100.);
 			break;
+		case 5:
+			pdfWidget->zoomFitContentWidth();
+			break;
 		default:
 			pdfWidget->zoom100();
 			break;

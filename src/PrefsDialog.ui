@@ -683,6 +683,13 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QRadioButton" name="fitContentWidth">
+              <property name="text">
+               <string>Fit to Content Width</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item row="1" column="0">
@@ -1274,6 +1281,7 @@
   <tabstop>actualSize</tabstop>
   <tabstop>fitWidth</tabstop>
   <tabstop>fitWindow</tabstop>
+  <tabstop>fitContentWidth</tabstop>
   <tabstop>fixedScale</tabstop>
   <tabstop>scale</tabstop>
   <tabstop>smallMag</tabstop>

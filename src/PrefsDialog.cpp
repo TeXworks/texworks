@@ -347,6 +347,9 @@ void PrefsDialog::restoreDefaults()
 				case 4:
 					fixedScale->setChecked(true);
 					break;
+				case 5:
+					fitContentWidth->setChecked(true);
+					break;
 			}
 			scale->setValue(kDefault_PreviewScale);
 			switch (kDefault_PDFPageMode) {
@@ -607,6 +610,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		case 4:
 			dlg.fixedScale->setChecked(true);
 			break;
+		case 5:
+			dlg.fitContentWidth->setChecked(true);
+			break;
 	}
 	dlg.scale->setValue(settings.value(QString::fromLatin1("previewScale"), kDefault_PreviewScale).toInt());
 	switch (settings.value(QString::fromLatin1("pdfPageMode"), kDefault_PDFPageMode).toInt()) {
@@ -781,6 +787,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			scaleOption = 3;
 		else if (dlg.fixedScale->isChecked())
 			scaleOption = 4;
+		else if (dlg.fitContentWidth->isChecked())
+			scaleOption = 5;
 		int scale = dlg.scale->value();
 		settings.setValue(QString::fromLatin1("scaleOption"), scaleOption);
 		settings.setValue(QString::fromLatin1("previewScale"), scale);
