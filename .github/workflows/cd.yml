@@ -103,16 +103,16 @@ jobs:
         name: TeXworks-Windows-Setup
         path: win32/Output/*.exe
 
-    - name: Deploy to Artifactory
-      if: github.event_name == 'push'
-      uses: ./.github/actions/deploy-artifactory
-      with:
-          file: ${{ steps.package.outputs.file }}
-          baseurl: https://texworks.jfrog.io
-          repo: windows-latest
-          remotePath: ${{ steps.package.outputs.version }}
-          username: st.loeffler@gmail.com
-          key: ${{ secrets.jfrog_key }}
+#    - name: Deploy to Artifactory
+#      if: github.event_name == 'push'
+#      uses: ./.github/actions/deploy-artifactory
+#      with:
+#          file: ${{ steps.package.outputs.file }}
+#          baseurl: https://texworks.jfrog.io
+#          repo: windows-latest
+#          remotePath: ${{ steps.package.outputs.version }}
+#          username: st.loeffler@gmail.com
+#          key: ${{ secrets.jfrog_key }}
 
 ################################################################################
 
@@ -154,13 +154,13 @@ jobs:
         name: TeXworks-macOS
         path: ${{ steps.package.outputs.file }}
 
-    - name: Deploy to Artifactory
-      if: github.event_name == 'push'
-      uses: ./.github/actions/deploy-artifactory
-      with:
-        file: ${{ steps.package.outputs.file }}
-        baseurl: https://texworks.jfrog.io
-        repo: macos-latest
-        remotePath: ${{ steps.package.outputs.version }}
-        username: st.loeffler@gmail.com
-        key: ${{ secrets.jfrog_key }}
+#    - name: Deploy to Artifactory
+#      if: github.event_name == 'push'
+#      uses: ./.github/actions/deploy-artifactory
+#      with:
+#        file: ${{ steps.package.outputs.file }}
+#        baseurl: https://texworks.jfrog.io
+#        repo: macos-latest
+#        remotePath: ${{ steps.package.outputs.version }}
+#        username: st.loeffler@gmail.com
+#        key: ${{ secrets.jfrog_key }}
