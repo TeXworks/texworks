@@ -113,6 +113,7 @@ ADD_GH_GROUP(poppler)
 ExternalProject_Add(poppler-data
 	URL https://poppler.freedesktop.org/poppler-data-0.4.10.tar.gz
 	URL_HASH SHA256=6e2fcef66ec8c44625f94292ccf8af9f1d918b410d5aa69c274ce67387967b30
+	CMAKE_ARGS ${CMAKE_ARGS}
 )
 ADD_GH_GROUP(poppler-data)
 
