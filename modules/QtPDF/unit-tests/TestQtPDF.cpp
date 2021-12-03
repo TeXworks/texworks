@@ -123,7 +123,7 @@ public:
   GenericPage(GenericDocument * parent, int at, QSharedPointer<QReadWriteLock> docLock);
   QSizeF pageSizeF() const override { return {}; }
   QList<QSharedPointer<QtPDF::Annotation::Link> > loadLinks() override { return {}; }
-  QList<QtPDF::Backend::SearchResult> search(const QString &searchText, const QtPDF::Backend::SearchFlags &flags) override {
+  QList<QtPDF::Backend::SearchResult> search(const QString &searchText, const QtPDF::Backend::SearchFlags &flags) const override {
     Q_UNUSED(searchText) Q_UNUSED(flags) return {};
   }
   QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) const override {
