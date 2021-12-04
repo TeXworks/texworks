@@ -131,11 +131,29 @@ jobs:
       with:
         modules: qtscript
 
-    - name: Install Dependencies
-      uses: ./.github/actions/setup-macos
+    - name: Install Homebrew dependencies
+      shell: bash
+      run: |
+        brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
+        brew uninstall --ignore-dependencies brotli fontconfig freetype libjpeg libpng libtiff webp zstd
+        brew install automake libtool pkg-config
+
+    - name: Cache dependencies
+      id: cache-dependencies
+      uses: actions/cache@v2
+      with:
+        key: twdeps-${{ runner.os }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
+        path: ${{ runner.temp }}/tw-deps
+
+    - name: Build dependencies
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        cmake -S ".github/actions/setup-macos" -B ".github/actions/setup-macos/build" -DCMAKE_INSTALL_PREFIX=${RUNNER_TEMP}/tw-deps
+        PKG_CONFIG_PATH=${RUNNER_TEMP}/tw-deps/lib/pkgconfig cmake --build ".github/actions/setup-macos/build" -v
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_WORKSPACE}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_TEMP}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
 
     - name: Build
       run: cmake --build build -j
