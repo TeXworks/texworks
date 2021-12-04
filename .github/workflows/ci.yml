@@ -97,8 +97,7 @@ jobs:
       run: cmake -G 'MSYS Makefiles' -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi'
 
     - name: Build
-      run: make -j
-      working-directory: build
+      run: cmake --build build -j
 
     - name: Test
       run: ctest -V
