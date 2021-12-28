@@ -127,6 +127,8 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       with:
+        # Latest Qt5 release [https://download.qt.io/official_releases/qt/]
+        version: 5.15.2
         modules: qtscript
 
     - name: Install Homebrew dependencies
