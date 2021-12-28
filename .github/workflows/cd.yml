@@ -118,7 +118,8 @@ jobs:
     name: Mac OS X
     runs-on: macos-latest
     env:
-      MACOSX_DEPLOYMENT_TARGET: 10.14
+      # min. macOS version supported by Qt 5.15.2 [https://doc.qt.io/qt-5/macos.html]
+      MACOSX_DEPLOYMENT_TARGET: 10.13
 
     steps:
     - name: Checkout
