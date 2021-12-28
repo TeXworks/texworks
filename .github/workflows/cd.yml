@@ -140,7 +140,7 @@ jobs:
       id: cache-dependencies
       uses: actions/cache@v2
       with:
-        key: twdeps-${{ runner.os }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
+        key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
         path: ${{ runner.temp }}/tw-deps
 
     - name: Build dependencies
