@@ -886,19 +886,11 @@ void PDFDocumentWindow::contextMenuEvent(QContextMenuEvent *event)
 		menu.addSeparator();
 	}
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
-	menu.addAction(tr("Zoom In"), pdfWidget, SLOT(zoomIn()));
-	menu.addAction(tr("Zoom Out"), pdfWidget, SLOT(zoomOut()));
-	menu.addAction(tr("Actual Size"), pdfWidget, SLOT(zoom100()));
-	menu.addAction(tr("Fit to Width"), pdfWidget, SLOT(zoomFitWidth()));
-	menu.addAction(tr("Fit to Window"), pdfWidget, SLOT(zoomFitWindow()));
-#else
-	menu.addAction(tr("Zoom In"), pdfWidget, [=]() { pdfWidget->zoomIn(); });
-	menu.addAction(tr("Zoom Out"), pdfWidget, [=]() { pdfWidget->zoomOut(); });
-	menu.addAction(tr("Actual Size"), pdfWidget, &QtPDF::PDFDocumentWidget::zoom100);
-	menu.addAction(tr("Fit to Width"), pdfWidget, &QtPDF::PDFDocumentWidget::zoomFitWidth);
-	menu.addAction(tr("Fit to Window"), pdfWidget, &QtPDF::PDFDocumentWidget::zoomFitWindow);
-#endif
+	menu.addAction(actionZoom_In);
+	menu.addAction(actionZoom_Out);
+	menu.addAction(actionActual_Size);
+	menu.addAction(actionFit_to_Width);
+	menu.addAction(actionFit_to_Window);
 
 	menu.exec(event->globalPos());
 }
