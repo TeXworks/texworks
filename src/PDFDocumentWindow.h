@@ -157,6 +157,7 @@ private:
 
 	Tw::UI::ClickableLabel *pageLabel;
 	Tw::UI::ClickableLabel *scaleLabel;
+	QMenu * scaleContextMenu{nullptr};
 	QList<QAction*> recentFileActions;
 	Tw::Utils::FullscreenManager * _fullScreenManager;
 	QSignalMapper pageModeSignalMapper;

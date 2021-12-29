@@ -1080,36 +1080,34 @@ void PDFDocumentWindow::print()
 
 void PDFDocumentWindow::showScaleContextMenu(const QPoint pos)
 {
-	static QMenu * contextMenu = nullptr;
-
-	if (!contextMenu) {
-		contextMenu = new QMenu(this);
-		static QSignalMapper * contextMenuMapper = new QSignalMapper(this);
+	if (!scaleContextMenu) {
+		scaleContextMenu = new QMenu(this);
+		QSignalMapper * contextMenuMapper = new QSignalMapper(scaleContextMenu);
 		QAction * a{nullptr};
 
-		contextMenu->addAction(actionFit_to_Width);
-		contextMenu->addAction(actionFit_to_Window);
-		contextMenu->addSeparator();
+		scaleContextMenu->addAction(actionFit_to_Width);
+		scaleContextMenu->addAction(actionFit_to_Window);
+		scaleContextMenu->addSeparator();
 
-		a = contextMenu->addAction(tr("Custom..."));
+		a = scaleContextMenu->addAction(tr("Custom..."));
 		connect(a, &QAction::triggered, this, &PDFDocumentWindow::doScaleDialog);
 
-		a = contextMenu->addAction(tr("200%"));
+		a = scaleContextMenu->addAction(tr("200%"));
 		connect(a, &QAction::triggered, contextMenuMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 		contextMenuMapper->setMapping(a, QString::fromLatin1("2"));
-		a = contextMenu->addAction(tr("150%"));
+		a = scaleContextMenu->addAction(tr("150%"));
 		connect(a, &QAction::triggered, contextMenuMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 		contextMenuMapper->setMapping(a, QString::fromLatin1("1.5"));
 		// "100%" corresponds to "Actual Size", but we keep the numeric value
 		// here for consistency
-		a = contextMenu->addAction(tr("100%"));
+		a = scaleContextMenu->addAction(tr("100%"));
 		a->setShortcut(actionActual_Size->shortcut());
 		connect(a, &QAction::triggered, contextMenuMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 		contextMenuMapper->setMapping(a, QString::fromLatin1("1"));
-		a = contextMenu->addAction(tr("75%"));
+		a = scaleContextMenu->addAction(tr("75%"));
 		connect(a, &QAction::triggered, contextMenuMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 		contextMenuMapper->setMapping(a, QString::fromLatin1(".75"));
-		a = contextMenu->addAction(tr("50%"));
+		a = scaleContextMenu->addAction(tr("50%"));
 		connect(a, &QAction::triggered, contextMenuMapper, static_cast<void (QSignalMapper::*)()>(&QSignalMapper::map));
 		contextMenuMapper->setMapping(a, QString::fromLatin1(".5"));
 
@@ -1120,7 +1118,7 @@ void PDFDocumentWindow::showScaleContextMenu(const QPoint pos)
 #endif
 	}
 
-	contextMenu->popup(scaleLabel->mapToGlobal(pos));
+	scaleContextMenu->popup(scaleLabel->mapToGlobal(pos));
 }
 
 void PDFDocumentWindow::setScaleFromContextMenu(const QString & strZoom)
