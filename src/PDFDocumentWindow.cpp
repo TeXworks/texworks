@@ -891,6 +891,7 @@ void PDFDocumentWindow::contextMenuEvent(QContextMenuEvent *event)
 	menu.addAction(actionActual_Size);
 	menu.addAction(actionFit_to_Width);
 	menu.addAction(actionFit_to_Window);
+	menu.addAction(actionFit_to_Content_Width);
 
 	menu.exec(event->globalPos());
 }
@@ -1079,6 +1080,7 @@ void PDFDocumentWindow::showScaleContextMenu(const QPoint pos)
 
 		scaleContextMenu->addAction(actionFit_to_Width);
 		scaleContextMenu->addAction(actionFit_to_Window);
+		scaleContextMenu->addAction(actionFit_to_Content_Width);
 		scaleContextMenu->addSeparator();
 
 		a = scaleContextMenu->addAction(tr("Custom..."));
