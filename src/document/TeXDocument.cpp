@@ -45,7 +45,7 @@ void TeXDocument::parseModeLines()
 {
 	QMap<QString, QString> newModeLines;
 
-	QRegularExpression re(QStringLiteral(u"%\\s*!TEX\\s+(?:TS-)?(\\w+)\\s*=\\s*([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
+	QRegularExpression re(QStringLiteral(u"%(?:\\^\\^A)?\\s*!TEX\\s+(?:TS-)?(\\w+)\\s*=\\s*([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
 
 	QTextCursor curs(this);
 	// (begin|end)EditBlock() is a workaround for QTBUG-24718 that causes

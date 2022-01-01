@@ -261,7 +261,7 @@ void TestDocument::modelines()
 	// Double set
 	changed.swap(removed);
 	modelines.insert(QStringLiteral("key"), QStringLiteral("value1"));
-	cur.insertText(QStringLiteral("%!TEX key=value\n%!TEX key=value1\n"));
+	cur.insertText(QStringLiteral("%!TEX key=value\n%^^A!TEX key=value1\n"));
 	QCOMPARE(spy.count(), 1);
 	QCOMPARE(spy[0][0].toStringList(), changed);
 	QCOMPARE(spy[0][1].toStringList(), removed);
