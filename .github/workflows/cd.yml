@@ -120,8 +120,10 @@ jobs:
     name: Mac OS X
     runs-on: macos-latest
     env:
-      # min. macOS version supported by Qt 5.15.2 [https://doc.qt.io/qt-5/macos.html]
-      MACOSX_DEPLOYMENT_TARGET: 10.13
+      # Qt 5.15.2 supports macOS >= 10.13 [https://doc.qt.io/qt-5/macos.html]
+      # poppler >= 22.01.0 uses std::filesystem, which seems to only be (fully)
+      # supported on macOS 10.15 and up
+      MACOSX_DEPLOYMENT_TARGET: 10.15
 
     steps:
     - name: Checkout

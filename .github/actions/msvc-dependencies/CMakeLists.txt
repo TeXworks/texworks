@@ -5,7 +5,7 @@ project(tw-deps)
 include(ExternalProject)
 include(GNUInstallDirs)
 
-set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
+set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=RELEASE)
 set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(Platform) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
 
 ExternalProject_Add(lua
@@ -47,8 +47,8 @@ ExternalProject_Add(libpng
 )
 
 ExternalProject_Add(libjpeg
-	URL "https://ijg.org/files/jpegsrc.v9d.tar.gz"
-	URL_HASH SHA256=6c434a3be59f8f62425b2e3c077e785c9ce30ee5874ea1c270e843f273ba71ee
+	URL https://ijg.org/files/jpegsrc.v9e.tar.gz
+	URL_HASH SHA256=4077d6a6a75aeb01884f708919d25934c93305e49f7e3f36db9129320e6f4f3d
 	CONFIGURE_COMMAND NMAKE /f makefile.vs setupcopy-v16
 	BUILD_COMMAND MSBUILD jpeg.sln ${MSBUILD_ARGS}
 	INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_LIBDIR}
@@ -86,17 +86,16 @@ ExternalProject_Add(libopenjpeg
 )
 
 ExternalProject_Add(freetype
-	URL https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.xz
-	URL_HASH SHA256=86a854d8905b19698bbc8f23b860bc104246ce4854dcea8e3b0fb21284f75784
+	URL https://download.savannah.gnu.org/releases/freetype/freetype-2.11.1.tar.xz
+	URL_HASH SHA256=3333ae7cfda88429c97a7ae63b7d01ab398076c3b67182e960e5684050f2c5c8
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libpng
 )
 
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-21.07.0.tar.xz"
-	URL_HASH SHA256=e26ab29f68065de4d6562f0a3e2b5435a83ca92be573b99a1c81998fa286a4d4
+	URL "https://poppler.freedesktop.org/poppler-22.01.0.tar.xz"
+	URL_HASH SHA256=7d3493056b5b86413e5c693c2cae02c5c06cd8e618d14c2c31e2c84b67b2313e
 	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
-		COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/../setup-windows/mxe/poppler-2-custom_dirs.patch
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DBUILD_MANUAL_TESTS=FALSE -DBUILD_QT5_TESTS=FALSE
 	DEPENDS freetype lcms2 libjpeg libpng libtiff
 )

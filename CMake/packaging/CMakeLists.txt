@@ -19,8 +19,8 @@ ENDIF ()
 # executing during `make install` rather than `make` or `cmake`.
 INSTALL(SCRIPT ${PROJECT_BINARY_DIR}/CPackPackagingTasks.cmake)
 
-set(POPPLERDATA_URL https://poppler.freedesktop.org/poppler-data-0.4.10.tar.gz)
-set(POPPLERDATA_SHA256 6e2fcef66ec8c44625f94292ccf8af9f1d918b410d5aa69c274ce67387967b30)
+set(POPPLERDATA_URL https://poppler.freedesktop.org/poppler-data-0.4.11.tar.gz)
+set(POPPLERDATA_SHA256 2cec05cd1bb03af98a8b06a1e22f6e6e1a65b1e2f3816cb3069bb0874825f08c)
 
 set(MANUAL_HTML_URL https://github.com/TeXworks/manual/releases/download/2021-03-08/TeXworks-manual-html-20210308173322-7d24168.zip)
 set(MANUAL_HTML_SHA256 b3fea63be210367f24d2d0a70c8e272f107edc4f53e241ec19c61e63eee99569)

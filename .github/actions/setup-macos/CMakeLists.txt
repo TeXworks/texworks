@@ -31,10 +31,9 @@ ADD_GH_GROUP(libpng)
 
 # TODO: harfbuzz?
 ExternalProject_Add(freetype
-	URL https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.xz
-	URL_HASH SHA256=86a854d8905b19698bbc8f23b860bc104246ce4854dcea8e3b0fb21284f75784
+	URL https://download.savannah.gnu.org/releases/freetype/freetype-2.11.1.tar.xz
+	URL_HASH SHA256=3333ae7cfda88429c97a7ae63b7d01ab398076c3b67182e960e5684050f2c5c8
 	CMAKE_ARGS ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=TRUE
-	PATCH_COMMAND patch --forward -p1 < ${CMAKE_CURRENT_LIST_DIR}/freetype-bz2.patch
 	DEPENDS libpng
 )
 ADD_GH_GROUP(freetype)
@@ -57,6 +56,7 @@ ExternalProject_Add(hunspell
 )
 ADD_GH_GROUP(hunspell)
 
+# fontconfig 2.13.94 is broken (configure.ac doesn't determine/handle default fonts correctly)
 ExternalProject_Add(fontconfig
 	URL https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.93.tar.xz
 	URL_HASH SHA256=ea968631eadc5739bc7c8856cef5c77da812d1f67b763f5e51b57b8026c1a0a0
@@ -68,8 +68,8 @@ ExternalProject_Add(fontconfig
 ADD_GH_GROUP(fontconfig)
 
 ExternalProject_Add(libjpeg
-	URL https://ijg.org/files/jpegsrc.v9d.tar.gz
-	URL_HASH SHA256=6c434a3be59f8f62425b2e3c077e785c9ce30ee5874ea1c270e843f273ba71ee
+	URL https://ijg.org/files/jpegsrc.v9e.tar.gz
+	URL_HASH SHA256=4077d6a6a75aeb01884f708919d25934c93305e49f7e3f36db9129320e6f4f3d
 	CONFIGURE_COMMAND ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS}
 	BUILD_IN_SOURCE TRUE
 )
@@ -103,16 +103,16 @@ ADD_GH_GROUP(lcms2)
 
 # cairo?
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-21.07.0.tar.xz"
-	URL_HASH SHA256=e26ab29f68065de4d6562f0a3e2b5435a83ca92be573b99a1c81998fa286a4d4
+	URL "https://poppler.freedesktop.org/poppler-22.01.0.tar.xz"
+	URL_HASH SHA256=7d3493056b5b86413e5c693c2cae02c5c06cd8e618d14c2c31e2c84b67b2313e
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )
 ADD_GH_GROUP(poppler)
 
 ExternalProject_Add(poppler-data
-	URL https://poppler.freedesktop.org/poppler-data-0.4.10.tar.gz
-	URL_HASH SHA256=6e2fcef66ec8c44625f94292ccf8af9f1d918b410d5aa69c274ce67387967b30
+	URL https://poppler.freedesktop.org/poppler-data-0.4.11.tar.gz
+	URL_HASH SHA256=2cec05cd1bb03af98a8b06a1e22f6e6e1a65b1e2f3816cb3069bb0874825f08c
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
 ADD_GH_GROUP(poppler-data)
