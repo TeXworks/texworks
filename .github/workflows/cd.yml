@@ -43,6 +43,8 @@ jobs:
 
     - name: Setup WSL
       uses: Vampire/setup-wsl@v1
+      with:
+        distribution: Ubuntu-20.04
 
     - name: Install dependencies
       uses: ./.github/actions/setup-windows
