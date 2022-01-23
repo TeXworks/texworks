@@ -8,7 +8,9 @@ runs:
     - name: Install MXE
       shell: wsl-bash {0}
       run: |
-        sudo apt install --assume-yes --no-install-recommends cmake git libgdk-pixbuf2.0-dev lzip make patch python wget xz-utils zip
+        sudo sed -ie 's/main$/main universe/' /etc/apt/sources.list
+        sudo apt update
+        sudo apt install --assume-yes --no-install-recommends cmake git libgdk-pixbuf2.0-dev lzip make patch python-is-python3 wget xz-utils zip
         wget -O /tmp/mxe-texworks.tar.xz https://github.com/stloeffler/mxe/releases/latest/download/mxe-texworks.tar.xz
         sudo mkdir -p /usr/lib/mxe
         tar -C /usr/lib/mxe --xz -xf /tmp/mxe-texworks.tar.xz
