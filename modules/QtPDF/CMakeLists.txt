@@ -182,6 +182,12 @@ IF( WITH_POPPLERQT )
     add_definitions(-DPOPPLER_HAS_DURATION_REAL)
   endif (POPPLER_HAS_DURATION_REAL)
 
+  # Runtime version information was added in 0.73
+  CHECK_CXX_SOURCE_COMPILES("#include <poppler-version.h>\nint main () { return Poppler::Version::major(); }" POPPLER_HAS_RUNTIME_VERSION)
+  if (POPPLER_HAS_RUNTIME_VERSION)
+    add_definitions(-DPOPPLER_HAS_RUNTIME_VERSION)
+  endif (POPPLER_HAS_RUNTIME_VERSION)
+
   # Document::outline() was added in 0.74
   CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { Poppler::Document::load(QString())->outline(); return 0; }" POPPLER_HAS_OUTLINE)
   if (POPPLER_HAS_OUTLINE)
