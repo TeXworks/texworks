@@ -119,11 +119,21 @@ jobs:
   macosx:
     name: Mac OS X
     runs-on: macos-latest
+    strategy:
+      matrix:
+        macVersion: [10.15, 10.12]
+        include:
+            # Latest Qt5 release [https://download.qt.io/official_releases/qt/]
+            # Qt 5.15.2 supports macOS >= 10.13 [https://doc.qt.io/qt-5/macos.html]
+            # poppler >= 22.01.0 uses std::filesystem, which seems to only be (fully)
+            # supported on macOS 10.15 and up
+          - macVersion: 10.15
+            qtVersion: 5.15.2
+            # Qt 5.12 supports macOS >= 10.12 [https://doc.qt.io/qt-5.12/macos.html]
+          - macVersion: 10.12
+            qtVersion: 5.12.12
     env:
-      # Qt 5.15.2 supports macOS >= 10.13 [https://doc.qt.io/qt-5/macos.html]
-      # poppler >= 22.01.0 uses std::filesystem, which seems to only be (fully)
-      # supported on macOS 10.15 and up
-      MACOSX_DEPLOYMENT_TARGET: 10.15
+      MACOSX_DEPLOYMENT_TARGET: ${{ matrix.macVersion }}
 
     steps:
     - name: Checkout
@@ -132,8 +142,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       with:
-        # Latest Qt5 release [https://download.qt.io/official_releases/qt/]
-        version: 5.15.2
+        version: ${{ matrix.qtVersion }}
         modules: qtscript
 
     - name: Install Homebrew dependencies
