@@ -49,6 +49,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   utils/ResourcesLibrary.cpp
                   utils/SystemCommand.cpp
                   utils/TextCodecs.cpp
+                  utils/TypesetManager.cpp
                   utils/VersionInfo.cpp
                   )
 
@@ -96,6 +97,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   utils/ResourcesLibrary.h
                   utils/SystemCommand.h
                   utils/TextCodecs.h
+                  utils/TypesetManager.h
                   utils/VersionInfo.h
                   )
 

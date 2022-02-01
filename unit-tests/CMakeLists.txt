@@ -72,6 +72,7 @@ add_executable(test_Utils
 	"${CMAKE_SOURCE_DIR}/src/utils/ResourcesLibrary.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/SystemCommand.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/TextCodecs.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/TypesetManager.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/VersionInfo.cpp"
 )
 
