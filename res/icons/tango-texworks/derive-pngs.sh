@@ -19,14 +19,14 @@ for SVG in **/scalable/*.svg; do
 	DIR="${CATEGORY}/${SIZE}x${SIZE}"
 	mkdir -p "${DIR}"
 	if [ ! -f "${DIR}/${ICON}.png" -o "${SVG}" -nt "${DIR}/${ICON}.png" ]; then
-		inkscape --export-png "${DIR}/${ICON}.png" --export-width=${SIZE} --export-height=${SIZE} ${EXPORTAREA} --without-gui "${SVG}"
+		inkscape --export-filename "${DIR}/${ICON}.png" --export-width=${SIZE} --export-height=${SIZE} ${EXPORTAREA} "${SVG}"
 	fi
 
 	if [ "${SIZE2}" -gt 0 ]; then
 		DIR="${CATEGORY}/${SIZE}x${SIZE}@2"
 		mkdir -p "${DIR}"
 		if [ ! -f "${DIR}/${ICON}.png" -o "${SVG}" -nt "${DIR}/${ICON}.png" ]; then
-			inkscape --export-png "${DIR}/${ICON}.png" --export-width=${SIZE2} --export-height=${SIZE2} ${EXPORTAREA} --without-gui "${SVG}"
+			inkscape --export-filename "${DIR}/${ICON}.png" --export-width=${SIZE2} --export-height=${SIZE2} ${EXPORTAREA} "${SVG}"
 		fi
 	fi
 done

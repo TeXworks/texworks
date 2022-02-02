@@ -326,6 +326,9 @@ void PDFDocumentWindow::init()
 	_fullScreenManager->addShortcut(actionFull_Screen, SLOT(toggleFullScreen()));
 	connect(_fullScreenManager, &Tw::Utils::FullscreenManager::fullscreenChanged, actionFull_Screen, &QAction::setChecked);
 	connect(_fullScreenManager, &Tw::Utils::FullscreenManager::fullscreenChanged, this, &PDFDocumentWindow::maybeZoomToWindow, Qt::QueuedConnection);
+
+	connect(&(TWApp::instance()->typesetManager()), &Tw::Utils::TypesetManager::typesettingStarted, this, &PDFDocumentWindow::updateTypesettingAction);
+	connect(&(TWApp::instance()->typesetManager()), &Tw::Utils::TypesetManager::typesettingStopped, this, &PDFDocumentWindow::updateTypesettingAction);
 }
 
 void PDFDocumentWindow::changeEvent(QEvent *event)
@@ -728,8 +731,11 @@ void PDFDocumentWindow::retypeset()
 
 void PDFDocumentWindow::interrupt()
 {
-	if (sourceDocList.count() > 0)
-		sourceDocList.first()->interrupt();
+	Q_FOREACH(TeXDocumentWindow * win, sourceDocList) {
+		if (win->isTypesetting()) {
+			win->interrupt();
+		}
+	}
 }
 
 void PDFDocumentWindow::goToSource()
@@ -816,17 +822,24 @@ void PDFDocumentWindow::enableTypesetAction(bool enabled)
 	actionTypeset->setEnabled(enabled);
 }
 
-void PDFDocumentWindow::updateTypesettingAction(bool processRunning)
+void PDFDocumentWindow::updateTypesettingAction()
 {
-	if (processRunning) {
-		disconnect(actionTypeset, &QAction::triggered, this, &PDFDocumentWindow::retypeset);
+	const bool isSourceTypesetting = [&]() {
+		Q_FOREACH(TeXDocumentWindow * const win, sourceDocList) {
+			if (win->isTypesetting()) {
+				return true;
+			}
+		}
+		return false;
+	}();
+
+	disconnect(actionTypeset, &QAction::triggered, this, nullptr);
+	if (isSourceTypesetting) {
 		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
 		actionTypeset->setText(tr("Abort typesetting"));
 		connect(actionTypeset, &QAction::triggered, this, &PDFDocumentWindow::interrupt);
-		enableTypesetAction(true);
 	}
 	else {
-		disconnect(actionTypeset, &QAction::triggered, this, &PDFDocumentWindow::interrupt);
 		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-start")));
 		actionTypeset->setText(tr("Typeset"));
 		connect(actionTypeset, &QAction::triggered, this, &PDFDocumentWindow::retypeset);

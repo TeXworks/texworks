@@ -77,7 +77,6 @@ public:
 	void setResolution(const double res);
 	void resetMagnifier();
 	void enableTypesetAction(bool enabled);
-	void updateTypesettingAction(bool processRunning);
 	void linkToSource(TeXDocumentWindow *texDoc);
 	bool hasSyncData() const { return _synchronizer != nullptr; }
 
@@ -112,6 +111,7 @@ public slots:
 	void clearSyncHighlight();
 	void clearSearchResultHighlight();
 	void copySelectedTextToClipboard();
+	void updateTypesettingAction();
 
 private slots:
 	void changedDocument(const QWeakPointer<QtPDF::Backend::Document> & newDoc);

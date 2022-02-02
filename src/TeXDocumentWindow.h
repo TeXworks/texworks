@@ -114,6 +114,8 @@ public:
 	bool isModified() const { return textEdit->document()->isModified(); }
 	void setModified(const bool m = true) { textEdit->document()->setModified(m); }
 
+	bool isTypesetting() const;
+
 	qreal lineSpacing() const { return m_lineSpacing; }
 
 	Q_PROPERTY(int cursorPosition READ cursorPosition STORED false)
@@ -149,6 +151,7 @@ protected:
 public slots:
 	void typeset();
 	void interrupt();
+	void goToTypesettingWindow();
 	void newFile();
 	void newFromTemplate();
 	void open();

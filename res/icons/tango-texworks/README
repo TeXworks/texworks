@@ -15,6 +15,7 @@ format-indent-less: Tango
 format-indent-more: Tango
 go-down:            Tango
 go-first:           Tango
+go-jump:            Tango
 go-last:            Tango
 go-next:            Tango
 go-previous:        Tango

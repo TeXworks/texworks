@@ -226,6 +226,9 @@ void TeXDocumentWindow::init()
 	connect(TWApp::instance(), &TWApp::hideFloatersExcept, this, &TeXDocumentWindow::hideFloatersUnlessThis);
 	connect(this, &TeXDocumentWindow::activatedWindow, TWApp::instance(), &TWApp::activatedWindow);
 
+	connect(&(TWApp::instance()->typesetManager()), &Tw::Utils::TypesetManager::typesettingStarted, this, &TeXDocumentWindow::updateTypesettingAction);
+	connect(&(TWApp::instance()->typesetManager()), &Tw::Utils::TypesetManager::typesettingStopped, this, &TeXDocumentWindow::updateTypesettingAction);
+
 	connect(actionStack, &QAction::triggered, TWApp::instance(), &TWApp::stackWindows);
 	connect(actionTile, &QAction::triggered, TWApp::instance(), &TWApp::tileWindows);
 	connect(actionSide_by_Side, &QAction::triggered, this, &TeXDocumentWindow::sideBySide);
@@ -2740,6 +2743,14 @@ void TeXDocumentWindow::typeset()
 		return;
 	}
 
+	if (!TWApp::instance()->typesetManager().startTypesetting(fileInfo.canonicalFilePath(), this)) {
+		statusBar()->showMessage(tr("%1 is already being processed").arg(rootFilePath), kStatusMessageDuration);
+		updateTypesettingAction();
+		return;
+	}
+	// NB: TypesetManager::startTypesetting implicitly calls
+	// updateTypesettingAction() via signal-slot-connections
+
 	QString pdfName;
 	if (getPreviewFileName(pdfName))
 		oldPdfTime = QFileInfo(pdfName).lastModified();
@@ -2752,8 +2763,6 @@ void TeXDocumentWindow::typeset()
 		pdfDoc->widget()->setWatchForDocumentChangesOnDisk(false);
 
 	process = e.run(fileInfo, this);
-
-	updateTypesettingAction();
 
 	if (process) {
 		textEdit_console->clear();
@@ -2786,6 +2795,8 @@ void TeXDocumentWindow::typeset()
 		if (pdfDoc && pdfDoc->widget())
 			pdfDoc->widget()->setWatchForDocumentChangesOnDisk(true);
 
+		TWApp::instance()->typesetManager().stopTypesetting(this);
+
 		QMessageBox msgBox(QMessageBox::Critical, tr("Unable to execute %1").arg(e.name()),
 		                      QLatin1String("<p>") + tr("The program \"%1\" was not found.").arg(e.program()) + QLatin1String("</p>") +
 #if defined(Q_OS_WIN)
@@ -2814,26 +2825,50 @@ void TeXDocumentWindow::interrupt()
 		// Start watching for changes in the pdf (again)
 		if (pdfDoc && pdfDoc->widget())
 			pdfDoc->widget()->setWatchForDocumentChangesOnDisk(true);
+
+		// Don't notify the TypesetManager that typesetting was stopped; this is
+		// delegated to processError() which will be called after process->kill()
+		// and which takes care of resetting the process before notifying the
+		// TypesetManager. This ensures that subsequent calls to isTypesetting()
+		// return the correct value
+	}
+}
+
+void TeXDocumentWindow::goToTypesettingWindow()
+{
+	TeXDocumentWindow * owner = qobject_cast<TeXDocumentWindow*>(TWApp::instance()->typesetManager().getOwnerForRootFile(getRootFilePath()));
+	if (owner) {
+		owner->raise();
+		owner->activateWindow();
 	}
 }
 
 void TeXDocumentWindow::updateTypesettingAction()
 {
-	if (!process) {
-		disconnect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::interrupt);
-		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-start")));
-		actionTypeset->setText(tr("Typeset"));
-		connect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::typeset);
-		if (pdfDoc)
-			pdfDoc->updateTypesettingAction(false);
-	}
-	else {
-		disconnect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::typeset);
+	TeXDocumentWindow * owner = qobject_cast<TeXDocumentWindow*>(TWApp::instance()->typesetManager().getOwnerForRootFile(getRootFilePath()));
+
+	disconnect(actionTypeset, &QAction::triggered, this, nullptr);
+	if (isTypesetting()) {
+		// We are currently running a typesetting process
+		// The button should allow the user to stop it
 		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
 		actionTypeset->setText(tr("Abort typesetting"));
 		connect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::interrupt);
-		if (pdfDoc)
-			pdfDoc->updateTypesettingAction(true);
+	}
+	else if (owner != nullptr) {
+		// Someone else is typesetting "our" (root) document
+		// The button should take the user to the window from which the process
+		// was run
+		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("go-jump")));
+		actionTypeset->setText(tr("Go to typesetting"));
+		connect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::goToTypesettingWindow);
+	}
+	else {
+		// No process is currently running (for "our" root document)
+		// The button should allow the user to start one
+		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-start")));
+		actionTypeset->setText(tr("Typeset"));
+		connect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::typeset);
 	}
 }
 
@@ -2857,11 +2892,12 @@ void TeXDocumentWindow::processError(QProcess::ProcessError /*error*/)
 	process->deleteLater();
 	process = nullptr;
 	inputLine->hide();
-	updateTypesettingAction();
 
 	// Start watching for changes in the pdf (again)
 	if (pdfDoc && pdfDoc->widget())
 		pdfDoc->widget()->setWatchForDocumentChangesOnDisk(true);
+
+	TWApp::instance()->typesetManager().stopTypesetting(this);
 }
 
 void TeXDocumentWindow::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
@@ -2923,7 +2959,8 @@ void TeXDocumentWindow::processFinished(int exitCode, QProcess::ExitStatus exitS
 	if (process)
 		process->deleteLater();
 	process = nullptr;
-	updateTypesettingAction();
+
+	TWApp::instance()->typesetManager().stopTypesetting(this);
 }
 
 void TeXDocumentWindow::executeAfterTypesetHooks()
@@ -3118,6 +3155,11 @@ void TeXDocumentWindow::goToTag(int index)
 		textEdit->setTextCursor(_texDoc->getTags()[index].cursor);
 		textEdit->setFocus(Qt::OtherFocusReason);
 	}
+}
+
+bool TeXDocumentWindow::isTypesetting() const
+{
+	return (process != nullptr || TWApp::instance()->typesetManager().getOwnerForRootFile(rootFilePath) == this);
 }
 
 void TeXDocumentWindow::removeAuxFiles()
