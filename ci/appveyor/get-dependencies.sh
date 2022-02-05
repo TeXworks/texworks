@@ -40,4 +40,4 @@ print_info "Extracting hunspell"
 7z x "${hunspell_ARCHIVE}" -so | 7z x -si -ttar
 print_info "Building hunspell"
 cd "${hunspell_DIRNAME}"
-autoreconf -i && ./configure && make -j && make install
+autoreconf --install --force && ./configure && make -j && make install
