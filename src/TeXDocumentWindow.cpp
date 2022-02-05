@@ -22,7 +22,6 @@
 #include "TeXDocumentWindow.h"
 
 #include "CitationSelectDialog.h"
-#include "ConfirmDelete.h"
 #include "DefaultPrefs.h"
 #include "Engine.h"
 #include "FindDialog.h"
@@ -36,6 +35,7 @@
 #include "TemplateDialog.h"
 #include "scripting/ScriptAPI.h"
 #include "ui/ClickableLabel.h"
+#include "ui/RemoveAuxFilesDialog.h"
 
 #include <QAbstractButton>
 #include <QAbstractItemView>
@@ -3181,7 +3181,7 @@ void TeXDocumentWindow::removeAuxFiles()
 	dir.setNameFilters(filterList);
 	QStringList auxFileList = dir.entryList(QDir::Files | QDir::CaseSensitive, QDir::Name);
 	if (auxFileList.count() > 0)
-		ConfirmDelete::doConfirmDelete(dir, auxFileList);
+		Tw::UI::RemoveAuxFilesDialog::doConfirmDelete(dir, auxFileList);
 	else
 		(void)QMessageBox::information(this, tr("No files found"),
 									   tr("No auxiliary files associated with this document at the moment."));

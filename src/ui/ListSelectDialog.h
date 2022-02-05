@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2008-2020  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2008-2022  Stefan Löffler, Jonathan Kew, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,33 +19,41 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#ifndef ConfirmDelete_H
-#define ConfirmDelete_H
+#ifndef ListSelectDialog_H
+#define ListSelectDialog_H
 
-#include "ui_ConfirmDelete.h"
+#include "ui_ListSelectDialog.h"
 
 #include <QDialog>
-#include <QDir>
 #include <QStringList>
 
-class ConfirmDelete : public QDialog, private Ui::ConfirmDelete
+namespace Tw {
+namespace UI {
+
+class ListSelectDialog : public QDialog, protected Ui::ListSelectDialog
 {
 	Q_OBJECT
 
 public:
-	ConfirmDelete(QWidget *parent = nullptr);
-	~ConfirmDelete() override = default;
+	ListSelectDialog(QWidget * parent = nullptr);
 
-	static void doConfirmDelete(const QDir& dir, const QStringList& fileList);
+	void clearItems();
+	void addItems(const QStringList & labels);
+	QStringList checkedItems() const;
 
-private slots:
-	void doSelectAll();
-	void doSelectNone();
-	void doToggleSelection();
-	void setDeleteButtonEnabledStatus();
+	QString listLabel() const;
+	void setListLabel(const QString & newPrompt);
 
-private:
-	void init();
+signals:
+	void itemChanged(QListWidgetItem *);
+
+protected slots:
+	void checkAll();
+	void uncheckAll();
+	void toggleCheckState();
 };
+
+} // namespace UI
+} // namespace Tw
 
 #endif
