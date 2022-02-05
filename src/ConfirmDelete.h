@@ -42,7 +42,6 @@ private slots:
 	void doSelectAll();
 	void doSelectNone();
 	void doToggleSelection();
-	void doToggleItemSelection(QListWidgetItem * item);
 	void setDeleteButtonEnabledStatus();
 
 private:

@@ -39,7 +39,6 @@ void ConfirmDelete::init()
 	connect(selectAll, &QPushButton::clicked, this, &ConfirmDelete::doSelectAll);
 	connect(selectNone, &QPushButton::clicked, this, &ConfirmDelete::doSelectNone);
 	connect(toggleSelection, &QPushButton::clicked, this, &ConfirmDelete::doToggleSelection);
-	connect(listWidget, &QListWidget::itemClicked, this, &ConfirmDelete::doToggleItemSelection);
 	connect(listWidget, &QListWidget::itemClicked, this, &ConfirmDelete::setDeleteButtonEnabledStatus);
 }
 
@@ -90,13 +89,6 @@ void ConfirmDelete::doToggleSelection()
 		listWidget->item(i)->setCheckState(checked == Qt::Unchecked ? Qt::Checked : Qt::Unchecked);
 	}
 	setDeleteButtonEnabledStatus();
-}
-
-void ConfirmDelete::doToggleItemSelection(QListWidgetItem * item)
-{
-	if (!item)
-		return;
-	item->setCheckState(item->checkState() == Qt::Unchecked ? Qt::Checked : Qt::Unchecked);
 }
 
 void ConfirmDelete::setDeleteButtonEnabledStatus()
