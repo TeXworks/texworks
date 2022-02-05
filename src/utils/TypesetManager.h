@@ -50,6 +50,7 @@ public slots:
 	// Returns true if it is safe to start typesetting, false if typesetting
 	// should not be started (e.g. because another owner is already typesetting
 	// the specified root file)
+	// The root file should always be a canonical file path
 	bool startTypesetting(const QString & rootFile, QObject * const owner);
 	void stopTypesetting(QObject * const owner);
 

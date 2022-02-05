@@ -228,6 +228,8 @@ void TeXDocumentWindow::init()
 
 	connect(&(TWApp::instance()->typesetManager()), &Tw::Utils::TypesetManager::typesettingStarted, this, &TeXDocumentWindow::updateTypesettingAction);
 	connect(&(TWApp::instance()->typesetManager()), &Tw::Utils::TypesetManager::typesettingStopped, this, &TeXDocumentWindow::updateTypesettingAction);
+	connect(&(TWApp::instance()->typesetManager()), &Tw::Utils::TypesetManager::typesettingStarted, this, &TeXDocumentWindow::conditionallyEnableRemoveAuxFiles);
+	connect(&(TWApp::instance()->typesetManager()), &Tw::Utils::TypesetManager::typesettingStopped, this, &TeXDocumentWindow::conditionallyEnableRemoveAuxFiles);
 
 	connect(actionStack, &QAction::triggered, TWApp::instance(), &TWApp::stackWindows);
 	connect(actionTile, &QAction::triggered, TWApp::instance(), &TWApp::tileWindows);
@@ -604,7 +606,7 @@ void TeXDocumentWindow::newFromTemplate()
 void TeXDocumentWindow::makeUntitled()
 {
 	setCurrentFile({});
-	actionRemove_Aux_Files->setEnabled(false);
+	conditionallyEnableRemoveAuxFiles();
 }
 
 void TeXDocumentWindow::open()
@@ -1530,7 +1532,7 @@ void TeXDocumentWindow::setCurrentFile(const QFileInfo & fileInfo)
 	//: Format for the window title (ex. "file.tex[*] - TeXworks")
 	setWindowTitle(tr("%1[*] - %2").arg(textDoc()->getFileInfo().fileName(), tr(TEXWORKS_NAME)));
 
-	actionRemove_Aux_Files->setEnabled(!untitled());
+	conditionallyEnableRemoveAuxFiles();
 
 	TWApp::instance()->updateWindowMenus();
 }
@@ -2870,6 +2872,24 @@ void TeXDocumentWindow::updateTypesettingAction()
 		actionTypeset->setText(tr("Typeset"));
 		connect(actionTypeset, &QAction::triggered, this, &TeXDocumentWindow::typeset);
 	}
+}
+
+void TeXDocumentWindow::conditionallyEnableRemoveAuxFiles()
+{
+	// In the following cases, we want to disable "Remove Aux Files"
+	// 1) There cannot be any aux files (as there is no root file; i.e., the
+	//    file has never been saved)
+	// 2) A typesetting process is running for "our" root file which may be
+	//    accessing the aux files
+	const bool enable = [&](){
+		QFileInfo rootFileInfo{getRootFilePath()};
+		if (!rootFileInfo.exists())
+			return false;
+		if (TWApp::instance()->typesetManager().isFileBeingTypeset(rootFileInfo.canonicalFilePath()))
+			return false;
+		return true;
+	}();
+	actionRemove_Aux_Files->setEnabled(enable);
 }
 
 void TeXDocumentWindow::processStandardOutput()

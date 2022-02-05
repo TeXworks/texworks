@@ -251,6 +251,7 @@ private:
 	void showConsole();
 	void hideConsole();
 	void updateTypesettingAction();
+	void conditionallyEnableRemoveAuxFiles();
 	void findRootFilePath();
 	const QString& getRootFilePath();
 	void maybeCenterSelection(int oldScrollValue = -1);
