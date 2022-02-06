@@ -365,6 +365,9 @@ void PrefsDialog::restoreDefaults()
 				break;
 			}
 
+			pdfRulerUnits->setCurrentIndex(kDefault_PreviewRulerUnits);
+			pdfRulerShow->setChecked(kDefault_PreviewRulerShow);
+
 			resolution->setDpi(QApplication::screens().first()->physicalDotsPerInch());
 
 			switch (TWSynchronizer::kDefault_Resolution_ToTeX) {
@@ -628,6 +631,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			break;
 	}
 
+	dlg.pdfRulerUnits->setCurrentIndex(settings.value(QStringLiteral("pdfRulerUnits"), kDefault_PreviewRulerUnits).toInt());
+	dlg.pdfRulerShow->setChecked(settings.value(QStringLiteral("pdfRulerShow"), kDefault_PreviewRulerShow).toBool());
+
 	double oldResolution = settings.value(QString::fromLatin1("previewResolution"), QApplication::screens().first()->physicalDotsPerInch()).toDouble();
 	dlg.resolution->setDpi(oldResolution);
 
@@ -803,6 +809,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			    settings.setValue(QString::fromLatin1("pdfPageMode"), QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous);
 				break;
 		}
+
+		settings.setValue(QStringLiteral("pdfRulerUnits"), dlg.pdfRulerUnits->currentIndex());
+		settings.setValue(QStringLiteral("pdfRulerShow"), dlg.pdfRulerShow->isChecked());
 
 		double resolution = dlg.resolution->dpi();
 		if (resolution != oldResolution) {

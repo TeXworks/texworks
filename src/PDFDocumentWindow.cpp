@@ -211,6 +211,7 @@ void PDFDocumentWindow::init()
 	connect(actionZoom_In, &QAction::triggered, pdfWidget, [=]() { pdfWidget->zoomIn(); });
 	connect(actionZoom_Out, &QAction::triggered, pdfWidget, [=]() { pdfWidget->zoomOut(); });
 	connect(actionFull_Screen, &QAction::triggered, this, &PDFDocumentWindow::toggleFullScreen);
+	connect(actionRuler, &QAction::toggled, pdfWidget, &QtPDF::PDFDocumentView::showRuler);
 	connect(pdfWidget, &QtPDF::PDFDocumentWidget::contextClick, this, &PDFDocumentWindow::syncClick);
 	pageModeSignalMapper.setMapping(actionPageMode_Single, QtPDF::PDFDocumentView::PageMode_SinglePage);
 	pageModeSignalMapper.setMapping(actionPageMode_Continuous, QtPDF::PDFDocumentView::PageMode_OneColumnContinuous);
@@ -301,6 +302,15 @@ void PDFDocumentWindow::init()
 			setPageMode(kDefault_PDFPageMode);
 			break;
 	}
+
+	const int pdfRulerUnits = settings.value(QStringLiteral("pdfRulerUnits"), kDefault_PreviewRulerUnits).toInt();
+	switch (pdfRulerUnits) {
+		case 0: pdfWidget->ruler()->setUnits(QtPDF::PDFRuler::CM); break;
+		case 1: pdfWidget->ruler()->setUnits(QtPDF::PDFRuler::IN); break;
+		case 2: pdfWidget->ruler()->setUnits(QtPDF::PDFRuler::BP); break;
+	}
+	actionRuler->setChecked(settings.value(QStringLiteral("pdfRulerShow"), kDefault_PreviewRulerShow).toBool());
+
 	resetMagnifier();
 
 	if (settings.contains(QString::fromLatin1("previewResolution"))) {

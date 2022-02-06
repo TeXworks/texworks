@@ -44,6 +44,8 @@ const bool kDefault_CircularMagnifier = true;
 const int kDefault_PreviewScaleOption = 1;
 const int kDefault_PreviewScale = 200;
 const QtPDF::PDFDocumentView::PageMode kDefault_PDFPageMode = QtPDF::PDFDocumentView::PageMode_OneColumnContinuous;
+const bool kDefault_PreviewRulerShow = false;
+const int kDefault_PreviewRulerUnits = QtPDF::PDFRuler::CM;
 
 const int kPDFWindowStateVersion = 1;
 
