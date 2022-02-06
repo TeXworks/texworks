@@ -16,6 +16,7 @@
 
 #include "PDFBackend.h"
 #include "PDFDocumentTools.h"
+#include "PDFRuler.h"
 
 #include <QtWidgets>
 #include <memory>
@@ -48,6 +49,7 @@ class PDFDocumentView : public QGraphicsView {
   int _currentSearchResult{-1};
   QBrush _searchResultHighlightBrush;
   QBrush _currentSearchResultHighlightBrush;
+  PDFRuler _ruler{this};
   bool _useGrayScale{false};
 
   friend class DocumentTool::AbstractTool;
@@ -96,6 +98,9 @@ public:
   void setCurrentSearchResultHighlightBrush(const QBrush & brush);
 
   bool canGoPrevViewRects() const { return !_oldViewRects.empty(); }
+
+  bool isRulerVisible() const { return _ruler.isVisibleTo(this); }
+  PDFRuler * ruler() { return &_ruler; }
 
 public slots:
   void goPrev();
@@ -146,6 +151,8 @@ public slots:
   void armTool(const DocumentTool::AbstractTool::Type toolType);
   void disarmTool();
 
+  void showRuler(const bool show = true);
+
 signals:
   void changedPage(int pageNum);
   void changedZoom(qreal zoomLevel);
@@ -173,6 +180,7 @@ protected:
   void mouseReleaseEvent(QMouseEvent * event) override;
   void wheelEvent(QWheelEvent * event) override;
   void changeEvent(QEvent * event) override;
+  void resizeEvent(QResizeEvent * event) override;
 
   // Maybe this will become public later on
   // Ownership of tool is transferred to PDFDocumentView

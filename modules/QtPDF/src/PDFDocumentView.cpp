@@ -99,6 +99,8 @@ PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
 
   connect(&_searchResultWatcher, &QFutureWatcher< QList<Backend::SearchResult> >::resultReadyAt, this, &PDFDocumentView::searchResultReady);
   connect(&_searchResultWatcher, &QFutureWatcher< QList<Backend::SearchResult> >::progressValueChanged, this, &PDFDocumentView::searchProgressValueChanged);
+
+  showRuler(false);
 }
 
 PDFDocumentView::~PDFDocumentView()
@@ -1333,6 +1335,8 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
 
   if (_armedTool)
     _armedTool->paintEvent(event);
+
+  _ruler.update();
 }
 
 void PDFDocumentView::keyPressEvent(QKeyEvent *event)
@@ -1525,6 +1529,12 @@ void PDFDocumentView::changeEvent(QEvent * event)
   Super::changeEvent(event);
 }
 
+void PDFDocumentView::resizeEvent(QResizeEvent * event)
+{
+  _ruler.resize(size());
+  Super::resizeEvent(event);
+}
+
 void PDFDocumentView::armTool(const DocumentTool::AbstractTool::Type toolType)
 {
   armTool(getToolByType(toolType));
@@ -1547,6 +1557,18 @@ void PDFDocumentView::disarmTool()
     return;
   _armedTool->disarm();
   _armedTool = nullptr;
+}
+
+void PDFDocumentView::showRuler(const bool show)
+{
+  if (show) {
+    _ruler.show();
+    setViewportMargins(PDFRuler::rulerSize, PDFRuler::rulerSize, 0, 0);
+  }
+  else {
+    _ruler.hide();
+    setViewportMargins(0, 0, 0, 0);
+  }
 }
 
 
