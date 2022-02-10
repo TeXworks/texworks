@@ -470,8 +470,8 @@ public:
   QWeakPointer<Backend::Document> document();
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
-  QGraphicsItem* pageAt(const int idx);
-  QGraphicsItem* pageAt(const QPointF &pt);
+  QGraphicsItem* pageAt(const int idx) const;
+  QGraphicsItem* pageAt(const QPointF &pt) const;
   int pageNumAt(const QPolygonF &polygon);
   int pageNumAt(const QPointF &pt);
   int pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const;

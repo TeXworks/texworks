@@ -1926,7 +1926,7 @@ QList<QGraphicsItem*> PDFDocumentScene::pages(const QPolygonF &polygon)
 
 // Convenience function to avoid moving the complete list of pages around
 // between functions if only one page is needed
-QGraphicsItem* PDFDocumentScene::pageAt(const int idx)
+QGraphicsItem* PDFDocumentScene::pageAt(const int idx) const
 {
   if (idx < 0 || idx >= _pages.size())
     return nullptr;
@@ -1936,7 +1936,7 @@ QGraphicsItem* PDFDocumentScene::pageAt(const int idx)
 // Overloaded method that returns all page objects at a given point. First,
 // `items` is used to grab all items at the point. This list is then filtered by
 // item type so that it contains only references to `PDFPageGraphicsItem` objects.
-QGraphicsItem* PDFDocumentScene::pageAt(const QPointF &pt)
+QGraphicsItem* PDFDocumentScene::pageAt(const QPointF &pt) const
 {
   QList<QGraphicsItem*> pageList = items(pt);
   QtConcurrent::blockingFilter(pageList, isPageItem);
