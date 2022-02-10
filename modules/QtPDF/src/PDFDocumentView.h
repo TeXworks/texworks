@@ -161,6 +161,8 @@ signals:
   // has changed (e.g., if it was unlocked)
   void changedDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc);
 
+  void updated();
+
   void searchProgressChanged(int percent, int occurrences);
   void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
   void textSelectionChanged(const bool isTextSelected);

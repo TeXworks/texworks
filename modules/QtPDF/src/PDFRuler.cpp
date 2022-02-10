@@ -33,6 +33,7 @@ QString PDFRuler::translatedUnitLabel(const Units &unit)
 PDFRuler::PDFRuler(PDFDocumentView *parent)
   : QWidget(parent)
 {
+  connect(parent, &PDFDocumentView::updated, this, static_cast<void (PDFRuler::*)()>(&PDFRuler::update));
   m_unitActions.insert(CM, new QAction(translatedUnitLabel(CM), this));
   m_unitActions.insert(IN, new QAction(translatedUnitLabel(IN), this));
   m_unitActions.insert(BP, new QAction(translatedUnitLabel(BP), this));

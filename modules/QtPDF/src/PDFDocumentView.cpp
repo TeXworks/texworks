@@ -1336,7 +1336,7 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   if (_armedTool)
     _armedTool->paintEvent(event);
 
-  _ruler.update();
+  emit updated();
 }
 
 void PDFDocumentView::keyPressEvent(QKeyEvent *event)
