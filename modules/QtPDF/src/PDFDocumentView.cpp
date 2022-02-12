@@ -14,6 +14,7 @@
 
 #include "PaperSizes.h"
 #include "PDFDocumentView.h"
+#include "PDFGuideline.h"
 
 #include <QtConcurrent>
 
@@ -101,6 +102,24 @@ PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
   connect(&_searchResultWatcher, &QFutureWatcher< QList<Backend::SearchResult> >::progressValueChanged, this, &PDFDocumentView::searchProgressValueChanged);
 
   showRuler(false);
+  connect(&_ruler, &PDFRuler::dragStart, this, [this](QPoint pos, Qt::Edge origin) {
+    const Qt::Orientation orientation = [](Qt::Edge origin) {
+      switch (origin) {
+        case Qt::TopEdge:
+        case Qt::BottomEdge:
+          return Qt::Horizontal;
+        case Qt::LeftEdge:
+        case Qt::RightEdge:
+          return Qt::Vertical;
+      }
+    }(origin);
+    PDFGuideline * line = new PDFGuideline(this, pos, orientation);
+    connect(&_ruler, &PDFRuler::dragMove, line, &PDFGuideline::dragMove);
+    connect(&_ruler, &PDFRuler::dragStop, line, [this,line](const QPoint p){
+      disconnect(&_ruler, nullptr, line, nullptr);
+      line->dragStop(p);
+    });
+  });
 }
 
 PDFDocumentView::~PDFDocumentView()
@@ -1614,6 +1633,7 @@ void PDFDocumentMagnifierView::prepareToShow()
   // Ensure we have enough padding at the border that we can display the
   // magnifier even beyond the edge
   setSceneRect(_parent_view->sceneRect().adjusted(-width() / _zoomLevel, -height() / _zoomLevel, width() / _zoomLevel, height() / _zoomLevel));
+  raise();
 }
 
 void PDFDocumentMagnifierView::setZoomFactor(const qreal zoomFactor)

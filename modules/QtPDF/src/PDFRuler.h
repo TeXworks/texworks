@@ -37,16 +37,27 @@ public:
   Units units() const { return m_Unit; }
   void setUnits(const Units & newUnit);
 
+signals:
+  void dragStart(QPoint point, Qt::Edge origin);
+  void dragMove(QPoint point);
+  void dragStop(QPoint point);
+
 protected:
   void contextMenuEvent(QContextMenuEvent * event) override;
   void paintEvent(QPaintEvent * event) override;
   void resizeEvent(QResizeEvent * event) override;
+  void mousePressEvent(QMouseEvent * event) override;
+  void mouseMoveEvent(QMouseEvent * event) override;
+  void mouseReleaseEvent(QMouseEvent * event) override;
 
 private:
   Units m_Unit{CM};
   QMenu m_contextMenu{this};
   QActionGroup * m_contextMenuActionGroup{new QActionGroup(this)};
   QMap<Units, QAction*> m_unitActions;
+
+  QPoint m_mouseDownPt;
+  bool m_isDragging{false};
 };
 
 } // namespace QtPDF

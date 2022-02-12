@@ -194,4 +194,52 @@ void PDFRuler::resizeEvent(QResizeEvent * event)
   QWidget::resizeEvent(event);
 }
 
+void PDFRuler::mousePressEvent(QMouseEvent * event)
+{
+  QWidget::mousePressEvent(event);
+  if (event->isAccepted())
+    return;
+  if (event->buttons() == Qt::LeftButton) {
+    m_mouseDownPt = event->pos();
+    event->accept();
+  }
+}
+
+void PDFRuler::mouseMoveEvent(QMouseEvent * event)
+{
+  QWidget::mouseMoveEvent(event);
+  if (event->isAccepted())
+    return;
+  if (event->buttons() == Qt::LeftButton) {
+    if (!m_isDragging) {
+      const bool draggedFarEnough = (event->pos() - m_mouseDownPt).manhattanLength() >= QApplication::startDragDistance();
+      if (draggedFarEnough) {
+        const bool startedAtTop = QRect(QPoint(rulerSize, 0), QPoint(width(), rulerSize)).contains(m_mouseDownPt);
+        const bool startedAtLeft = QRect(QPoint(0, rulerSize), QPoint(rulerSize, height())).contains(m_mouseDownPt);
+
+        if (startedAtTop || startedAtLeft) {
+          m_isDragging = true;
+          emit dragStart(event->pos(), (startedAtTop ? Qt::TopEdge : Qt::LeftEdge));
+        }
+      }
+    }
+    else {
+      emit dragMove(event->pos());
+    }
+    event->accept();
+  }
+}
+
+void PDFRuler::mouseReleaseEvent(QMouseEvent * event)
+{
+  QWidget::mouseReleaseEvent(event);
+  if (event->isAccepted())
+    return;
+  if (m_isDragging && event->button() == Qt::LeftButton) {
+    m_isDragging = false;
+    emit dragStop(event->pos());
+    event->accept();
+  }
+}
+
 } // namespace QtPDF
