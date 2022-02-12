@@ -17,6 +17,7 @@
 #include "PDFDocumentView.h"
 
 #include <QPainter>
+#include <QTransform>
 
 namespace QtPDF {
 
