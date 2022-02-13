@@ -29,7 +29,7 @@ class PDFRuler : public QWidget
 public:
   constexpr static unsigned int rulerSize = 20;
 
-  enum Units { CM, IN, BP };
+  enum Units { Centimeters, Inches, Bigpoints };
   static QString translatedUnitLabel(const Units & unit);
 
   PDFRuler(PDFDocumentView * parent);
@@ -51,7 +51,7 @@ protected:
   void mouseReleaseEvent(QMouseEvent * event) override;
 
 private:
-  Units m_Unit{CM};
+  Units m_Unit{Centimeters};
   QMenu m_contextMenu{this};
   QActionGroup * m_contextMenuActionGroup{new QActionGroup(this)};
   QMap<Units, QAction*> m_unitActions;

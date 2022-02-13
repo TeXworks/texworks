@@ -305,9 +305,9 @@ void PDFDocumentWindow::init()
 
 	const int pdfRulerUnits = settings.value(QStringLiteral("pdfRulerUnits"), kDefault_PreviewRulerUnits).toInt();
 	switch (pdfRulerUnits) {
-		case 0: pdfWidget->ruler()->setUnits(QtPDF::PDFRuler::CM); break;
-		case 1: pdfWidget->ruler()->setUnits(QtPDF::PDFRuler::IN); break;
-		case 2: pdfWidget->ruler()->setUnits(QtPDF::PDFRuler::BP); break;
+		case 0: pdfWidget->ruler()->setUnits(QtPDF::PDFRuler::Centimeters); break;
+		case 1: pdfWidget->ruler()->setUnits(QtPDF::PDFRuler::Inches); break;
+		case 2: pdfWidget->ruler()->setUnits(QtPDF::PDFRuler::Bigpoints); break;
 	}
 	actionRuler->setChecked(settings.value(QStringLiteral("pdfRulerShow"), kDefault_PreviewRulerShow).toBool());
 

@@ -112,6 +112,7 @@ PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
         case Qt::RightEdge:
           return Qt::Vertical;
       }
+      return Qt::Horizontal;
     }(origin);
     PDFGuideline * line = new PDFGuideline(this, pos, orientation);
     connect(&_ruler, &PDFRuler::dragMove, line, &PDFGuideline::dragMove);

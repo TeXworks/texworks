@@ -24,9 +24,9 @@ namespace QtPDF {
 QString PDFRuler::translatedUnitLabel(const Units &unit)
 {
   switch(unit) {
-    case CM: return tr("cm");
-    case IN: return tr("in");
-    case BP: return tr("bp");
+    case Centimeters: return tr("cm");
+    case Inches: return tr("in");
+    case Bigpoints: return tr("bp");
   }
   return {};
 }
@@ -35,9 +35,9 @@ PDFRuler::PDFRuler(PDFDocumentView *parent)
   : QWidget(parent)
 {
   connect(parent, &PDFDocumentView::updated, this, static_cast<void (PDFRuler::*)()>(&PDFRuler::update));
-  m_unitActions.insert(CM, new QAction(translatedUnitLabel(CM), this));
-  m_unitActions.insert(IN, new QAction(translatedUnitLabel(IN), this));
-  m_unitActions.insert(BP, new QAction(translatedUnitLabel(BP), this));
+  m_unitActions.insert(Centimeters, new QAction(translatedUnitLabel(Centimeters), this));
+  m_unitActions.insert(Inches, new QAction(translatedUnitLabel(Inches), this));
+  m_unitActions.insert(Bigpoints, new QAction(translatedUnitLabel(Bigpoints), this));
 
   Q_FOREACH(const Units & unit, m_unitActions.keys()) {
     QAction * const action = m_unitActions.value(unit);
@@ -99,9 +99,9 @@ void PDFRuler::paintEvent(QPaintEvent * event)
 
   const QTransform px2phys = [](const QTransform & px2pt, const Units & u) {
     switch (u) {
-      case IN: return px2pt * QTransform::fromScale(1. / 72., 1. / 72.);
-      case CM: return px2pt * QTransform::fromScale(2.54 / 72., 2.54 / 72.);
-      case BP: return px2pt;
+      case Inches: return px2pt * QTransform::fromScale(1. / 72., 1. / 72.);
+      case Centimeters: return px2pt * QTransform::fromScale(2.54 / 72., 2.54 / 72.);
+      case Bigpoints: return px2pt;
     }
     return px2pt;
   }(px2pt, units());
