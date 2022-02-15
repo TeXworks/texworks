@@ -84,7 +84,7 @@ void PDFRuler::paintEvent(QPaintEvent * event)
 
   // Get rect in PDF coordinates (bp) and in pixels
   const QRectF pdfPageRect = page->pointScale().inverted().mapRect(QRectF(QPointF(0, 0), page->pageSizeF()));
-  const QRectF pageRect = docView->mapFromScene(page->mapToScene(QRectF(QPoint(0, 0), page->pageSizeF()))).boundingRect().translated(rulerSize, rulerSize);
+  const QRectF pageRect = docView->mapFromScene(page->mapToScene(QRectF(QPoint(0, 0), page->pageSizeF()))).boundingRect().translated(rulerSize + 1, rulerSize + 1);
 
   // Calculate transforms from px to physical units and back
   const QTransform px2pt = QTransform::fromTranslate(-pageRect.left(), -pageRect.top()) * \
