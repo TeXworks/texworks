@@ -28,11 +28,12 @@ class PDFGuideline : public QWidget
 
   PDFDocumentView * m_parent{nullptr};
   int m_pageIdx{-1};
-  QPointF m_originPage;
-  QPoint m_originWin;
+  qreal m_posPage;
+  int m_posWin;
   Qt::Orientation m_orientation{Qt::Horizontal};
 
 public:
+  PDFGuideline(PDFDocumentView * parent, const int posWin, const Qt::Orientation orientation);
   PDFGuideline(PDFDocumentView * parent, const QPoint posWin, const Qt::Orientation orientation);
 
   void updatePosition();
@@ -40,10 +41,12 @@ public:
   void dragMove(const QPoint pos);
   void dragStop(const QPoint pos);
 
-  QPoint originWin() const { return m_originWin; }
-  QPointF originPage() const { return m_originPage; }
-  void setOriginWin(QPoint pt);
-  void setOriginPage(QPointF pt);
+  int posWin() const { return m_posWin; }
+  qreal posPage() const { return m_posPage; }
+  void setPosWin(const int pos);
+  void setPosWin(const QPoint pt);
+  void setPosPage(const qreal pos);
+  void setPosPage(const QPointF pt);
 
 protected:
   void paintEvent(QPaintEvent * event) override;
@@ -52,8 +55,8 @@ protected:
 
   void moveAndResize();
 
-  QPoint mapFromPage(const QPointF pt) const;
-  QPointF mapToPage(const QPoint pt) const;
+  int mapFromPage(const qreal pos) const;
+  qreal mapToPage(const int pos) const;
   QRect viewContentRect() const;
 };
 

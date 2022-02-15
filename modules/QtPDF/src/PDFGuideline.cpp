@@ -17,7 +17,7 @@
 
 namespace QtPDF {
 
-PDFGuideline::PDFGuideline(PDFDocumentView * parent, const QPoint posWin, const Qt::Orientation orientation)
+PDFGuideline::PDFGuideline(PDFDocumentView * parent, const int posWin, const Qt::Orientation orientation)
   : QWidget(parent), m_parent(parent), m_orientation(orientation)
 {
   if (parent) {
@@ -31,22 +31,26 @@ PDFGuideline::PDFGuideline(PDFDocumentView * parent, const QPoint posWin, const 
       setCursor(Qt::SplitHCursor);
       break;
   }
-  setOriginWin(posWin);
+  setPosWin(posWin);
   connect(m_parent, &PDFDocumentView::updated, this, &PDFGuideline::updatePosition);
   show();
 }
+
+PDFGuideline::PDFGuideline(PDFDocumentView * parent, const QPoint posWin, const Qt::Orientation orientation)
+  : PDFGuideline(parent, (orientation == Qt::Horizontal ? posWin.y() : posWin.x()), orientation)
+{}
 
 void PDFGuideline::updatePosition()
 {
   if (!m_parent)
     return;
 
-  setOriginPage(m_originPage);
+  setPosPage(m_posPage);
 }
 
 void PDFGuideline::dragMove(const QPoint pos)
 {
-  setOriginWin(pos);
+  setPosWin(pos);
 }
 
 void PDFGuideline::dragStop(const QPoint pos)
@@ -56,27 +60,43 @@ void PDFGuideline::dragStop(const QPoint pos)
 
   const QRect contentsRect = viewContentRect();
 
-  setOriginWin(pos);
+  setPosWin(pos);
 
   // If the guide line was dragged back to the ruler (or out of the window),
   // delete the guide
-  if ((m_orientation == Qt::Horizontal && m_originWin.y() < contentsRect.top()) ||
-      (m_orientation == Qt::Vertical && m_originWin.x() < contentsRect.left()))
+  if ((m_orientation == Qt::Horizontal && m_posWin < contentsRect.top()) ||
+      (m_orientation == Qt::Vertical && m_posWin < contentsRect.left()))
     deleteLater();
 }
 
-void PDFGuideline::setOriginWin(QPoint pt)
+void PDFGuideline::setPosWin(const int pos)
 {
-  m_originWin = pt;
-  m_originPage = mapToPage(pt);
+  m_posWin = pos;
+  m_posPage = mapToPage(pos);
   moveAndResize();
 }
 
-void PDFGuideline::setOriginPage(QPointF pt)
+void PDFGuideline::setPosWin(const QPoint pt)
 {
-  m_originPage = pt;
-  m_originWin = mapFromPage(pt);
+  switch(m_orientation) {
+    case Qt::Horizontal: setPosWin(pt.y()); break;
+    case Qt::Vertical: setPosWin(pt.x()); break;
+  }
+}
+
+void PDFGuideline::setPosPage(const qreal pos)
+{
+  m_posPage = pos;
+  m_posWin = mapFromPage(pos);
   moveAndResize();
+}
+
+void PDFGuideline::setPosPage(const QPointF pt)
+{
+  switch(m_orientation) {
+    case Qt::Horizontal: setPosPage(pt.y()); break;
+    case Qt::Vertical: setPosPage(pt.x()); break;
+  }
 }
 
 void PDFGuideline::paintEvent(QPaintEvent * event)
@@ -94,11 +114,11 @@ void PDFGuideline::paintEvent(QPaintEvent * event)
   // back down)
   switch (m_orientation) {
     case Qt::Horizontal:
-      if (m_originWin.y() >= contentRect.top())
+      if (m_posWin >= contentRect.top())
         painter.drawLine(0, padding, width(), padding);
       break;
     case Qt::Vertical:
-      if (m_originWin.x() >= contentRect.left())
+      if (m_posWin >= contentRect.left())
         painter.drawLine(padding, 0, padding, height());
       break;
   }
@@ -136,17 +156,17 @@ void PDFGuideline::moveAndResize()
   QRect newGeometry;
   switch (m_orientation) {
     case Qt::Horizontal:
-      newGeometry = QRect(contentsRect.left(), m_originWin.y() - padding, contentsRect.width(), 2 * padding + 1);
+      newGeometry = QRect(contentsRect.left(), m_posWin - padding, contentsRect.width(), 2 * padding + 1);
       break;
     case Qt::Vertical:
-      newGeometry = QRect(m_originWin.x() - padding, contentsRect.top(), 2 * padding + 1, contentsRect.height());
+      newGeometry = QRect(m_posWin - padding, contentsRect.top(), 2 * padding + 1, contentsRect.height());
       break;
   }
   if (newGeometry != geometry())
     setGeometry(newGeometry);
 }
 
-QPoint PDFGuideline::mapFromPage(const QPointF pt) const
+int PDFGuideline::mapFromPage(const qreal pos) const
 {
   if (!m_parent)
     return {};
@@ -160,11 +180,17 @@ QPoint PDFGuideline::mapFromPage(const QPointF pt) const
   if (!page)
     return {};
 
-  const QPoint ptViewport = m_parent->mapFromScene(page->mapToScene(pt));
-  return m_parent->mapFromGlobal(viewport->mapToGlobal(ptViewport));
+  const QPoint ptViewport = m_parent->mapFromScene(page->mapToScene(QPointF(pos, pos)));
+  switch (m_orientation) {
+    case Qt::Horizontal:
+      return m_parent->mapFromGlobal(viewport->mapToGlobal(ptViewport)).y();
+    case Qt::Vertical:
+      return m_parent->mapFromGlobal(viewport->mapToGlobal(ptViewport)).x();
+  }
+  return 0;
 }
 
-QPointF PDFGuideline::mapToPage(const QPoint pt) const
+qreal PDFGuideline::mapToPage(const int pos) const
 {
   if (!m_parent)
     return {};
@@ -178,8 +204,14 @@ QPointF PDFGuideline::mapToPage(const QPoint pt) const
   if (!page)
     return {};
 
-  const QPoint ptViewport = viewport->mapFromGlobal(m_parent->mapToGlobal(pt));
-  return page->mapFromScene(m_parent->mapToScene(ptViewport));
+  const QPoint ptViewport = viewport->mapFromGlobal(m_parent->mapToGlobal(QPoint(pos, pos)));
+  switch (m_orientation) {
+    case Qt::Horizontal:
+      return page->mapFromScene(m_parent->mapToScene(ptViewport)).y();
+    case Qt::Vertical:
+      return page->mapFromScene(m_parent->mapToScene(ptViewport)).x();
+  }
+  return 0;
 }
 
 QRect PDFGuideline::viewContentRect() const
