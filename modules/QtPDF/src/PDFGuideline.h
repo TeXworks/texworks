@@ -32,6 +32,9 @@ class PDFGuideline : public QWidget
   int m_posWin;
   Qt::Orientation m_orientation{Qt::Horizontal};
 
+  bool m_isDragging{false};
+  QPoint m_mouseDownPos;
+
 public:
   PDFGuideline(PDFDocumentView * parent, const int posWin, const Qt::Orientation orientation);
   PDFGuideline(PDFDocumentView * parent, const QPoint posWin, const Qt::Orientation orientation);
@@ -53,6 +56,7 @@ public:
 
 protected:
   void paintEvent(QPaintEvent * event) override;
+  void mousePressEvent(QMouseEvent * event) override;
   void mouseMoveEvent(QMouseEvent * event) override;
   void mouseReleaseEvent(QMouseEvent * event) override;
   void mouseDoubleClickEvent(QMouseEvent * event) override;

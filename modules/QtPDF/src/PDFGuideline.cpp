@@ -131,6 +131,15 @@ void PDFGuideline::paintEvent(QPaintEvent * event)
   }
 }
 
+void PDFGuideline::mousePressEvent(QMouseEvent * event)
+{
+  QWidget::mousePressEvent(event);
+
+  if (event->button() != Qt::LeftButton)
+    return;
+  m_mouseDownPos = event->pos();
+}
+
 void PDFGuideline::mouseMoveEvent(QMouseEvent *event)
 {
   QWidget::mouseMoveEvent(event);
@@ -142,8 +151,13 @@ void PDFGuideline::mouseMoveEvent(QMouseEvent *event)
   if (!m_parent)
     return;
 
-  dragMove(m_parent->mapFromGlobal(event->globalPos()));
-  event->accept();
+  if (!m_isDragging && (m_mouseDownPos - event->pos()).manhattanLength() >= QApplication::startDragDistance())
+    m_isDragging = true;
+
+  if (m_isDragging) {
+    dragMove(m_parent->mapFromGlobal(event->globalPos()));
+    event->accept();
+  }
 }
 
 void PDFGuideline::mouseReleaseEvent(QMouseEvent *event)
@@ -153,8 +167,11 @@ void PDFGuideline::mouseReleaseEvent(QMouseEvent *event)
   if (event->button() != Qt::LeftButton)
     return;
 
-  dragStop(m_parent->mapFromGlobal(event->globalPos()));
-  event->accept();
+  if (m_isDragging) {
+    m_isDragging = false;
+    dragStop(m_parent->mapFromGlobal(event->globalPos()));
+    event->accept();
+  }
 }
 
 void PDFGuideline::mouseDoubleClickEvent(QMouseEvent *event)
