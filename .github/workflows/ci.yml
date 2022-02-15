@@ -126,7 +126,7 @@ jobs:
         cmake --build "${{ runner.workspace }}/tw-deps-build" --config Release
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' -DCMAKE_PREFIX_PATH="${{ runner.workspace }}/tw-deps"
+      run: cmake -B build -DTW_BUILD_ID='github' -DCMAKE_PREFIX_PATH="${{ runner.workspace }}/tw-deps" -Dgp_tool='none'
 
     - name: Build
       run: cmake --build build --config Release
