@@ -13,6 +13,7 @@
  */
 #include "PDFGuideline.h"
 
+#include "GuidelineEditDialog.h"
 #include "PDFDocumentView.h"
 
 namespace QtPDF {
@@ -99,6 +100,12 @@ void PDFGuideline::setPosPage(const QPointF pt)
   }
 }
 
+void PDFGuideline::setPage(const int page)
+{
+  m_pageIdx = page;
+  setPosPage(m_posPage);
+}
+
 void PDFGuideline::paintEvent(QPaintEvent * event)
 {
   Q_UNUSED(event);
@@ -148,6 +155,24 @@ void PDFGuideline::mouseReleaseEvent(QMouseEvent *event)
 
   dragStop(m_parent->mapFromGlobal(event->globalPos()));
   event->accept();
+}
+
+void PDFGuideline::mouseDoubleClickEvent(QMouseEvent *event)
+{
+  Q_UNUSED(event)
+
+  GuidelineEditDialog dlg(this);
+
+  QSharedPointer<const Backend::Document> doc = m_parent->document().toStrongRef();
+
+  dlg.setNumPages(doc->numPages());
+  dlg.setGuidelinePage(page() + 1);
+  dlg.setGuidelinePos(Physical::Length(posPage(), Physical::Length::Bigpoints));
+
+  if (dlg.exec() == QDialog::Accepted) {
+    setPage(dlg.guidelinePage() - 1);
+    setPosPage(dlg.guidelinePos().val(Physical::Length::Bigpoints));
+  }
 }
 
 void PDFGuideline::moveAndResize()

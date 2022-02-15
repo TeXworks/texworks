@@ -48,10 +48,14 @@ public:
   void setPosPage(const qreal pos);
   void setPosPage(const QPointF pt);
 
+  int page() const { return m_pageIdx; }
+  void setPage(const int page);
+
 protected:
   void paintEvent(QPaintEvent * event) override;
   void mouseMoveEvent(QMouseEvent * event) override;
   void mouseReleaseEvent(QMouseEvent * event) override;
+  void mouseDoubleClickEvent(QMouseEvent * event) override;
 
   void moveAndResize();
 
