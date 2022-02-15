@@ -180,12 +180,15 @@ int PDFGuideline::mapFromPage(const qreal pos) const
   if (!page)
     return {};
 
-  const QPoint ptViewport = m_parent->mapFromScene(page->mapToScene(QPointF(pos, pos)));
+  const QTransform upsideDown = QTransform::fromTranslate(0, page->pageSizeF().height()).scale(1, -1);
+  const QPointF ptPageItem = upsideDown.map(page->mapFromPage(QPointF(pos, pos)));
+  const QPoint ptViewport = m_parent->mapFromScene(page->mapToScene(ptPageItem));
+  const QPoint ptWin = m_parent->mapFromGlobal(viewport->mapToGlobal(ptViewport));
   switch (m_orientation) {
     case Qt::Horizontal:
-      return m_parent->mapFromGlobal(viewport->mapToGlobal(ptViewport)).y();
+      return ptWin.y();
     case Qt::Vertical:
-      return m_parent->mapFromGlobal(viewport->mapToGlobal(ptViewport)).x();
+      return ptWin.x();
   }
   return 0;
 }
@@ -204,12 +207,16 @@ qreal PDFGuideline::mapToPage(const int pos) const
   if (!page)
     return {};
 
+  const QTransform upsideDown = QTransform::fromTranslate(0, page->pageSizeF().height()).scale(1, -1);
   const QPoint ptViewport = viewport->mapFromGlobal(m_parent->mapToGlobal(QPoint(pos, pos)));
+  const QPointF ptPageItem = page->mapFromScene(m_parent->mapToScene(ptViewport));
+  const QPointF ptPage = page->mapToPage(upsideDown.map(ptPageItem));
+
   switch (m_orientation) {
     case Qt::Horizontal:
-      return page->mapFromScene(m_parent->mapToScene(ptViewport)).y();
+      return ptPage.y();
     case Qt::Vertical:
-      return page->mapFromScene(m_parent->mapToScene(ptViewport)).x();
+      return ptPage.x();
   }
   return 0;
 }
