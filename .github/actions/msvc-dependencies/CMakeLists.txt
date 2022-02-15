@@ -9,8 +9,8 @@ set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE
 set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(Platform) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
 
 ExternalProject_Add(lua
-	URL "https://www.lua.org/ftp/lua-5.4.3.tar.gz"
-	URL_HASH SHA1=1dda2ef23a9828492b4595c0197766de6e784bc7
+	URL "https://www.lua.org/ftp/lua-5.4.4.tar.gz"
+	URL_HASH SHA256=164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61
 	PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_LIST_DIR}/lua.cmake <SOURCE_DIR>/CMakeLists.txt
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
@@ -65,8 +65,8 @@ ExternalProject_Add(libtiff
 )
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.12.tar.gz"
-	URL_HASH SHA256=e90e77e43be35ec149d39f1ee7fe1c50c73309773a55b13839090f7138fbdcde
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.13.1.tar.gz"
+	URL_HASH SHA256=6f84c942ecde1b4852b5a051894502ac8c98d010acb3400dec958c6db1bc94ef
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND MSBUILD Projects\\VC2019\\lcms2_DLL ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
@@ -93,8 +93,8 @@ ExternalProject_Add(freetype
 )
 
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-22.01.0.tar.xz"
-	URL_HASH SHA256=7d3493056b5b86413e5c693c2cae02c5c06cd8e618d14c2c31e2c84b67b2313e
+	URL "https://poppler.freedesktop.org/poppler-22.02.0.tar.xz"
+	URL_HASH SHA256=e390c8b806f6c9f0e35c8462033e0a738bb2460ebd660bdb8b6dca01556193e1
 	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DBUILD_MANUAL_TESTS=FALSE -DBUILD_QT5_TESTS=FALSE
 	DEPENDS freetype lcms2 libjpeg libpng libtiff

@@ -56,10 +56,9 @@ ExternalProject_Add(hunspell
 )
 ADD_GH_GROUP(hunspell)
 
-# fontconfig 2.13.94 is broken (configure.ac doesn't determine/handle default fonts correctly)
 ExternalProject_Add(fontconfig
-	URL https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.93.tar.xz
-	URL_HASH SHA256=ea968631eadc5739bc7c8856cef5c77da812d1f67b763f5e51b57b8026c1a0a0
+	URL https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.96.tar.xz
+	URL_HASH SHA256=d816a920384aa91bc0ebf20c3b51c59c2153fdf65de0b5564bf9e8473443d637
 	CONFIGURE_COMMAND ${CONFIGURE_ENV} CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS} --with-add-fonts=${_font_dirs} --disable-docs
 	BUILD_IN_SOURCE TRUE
 	INSTALL_COMMAND make install RUN_FC_CACHE_TEST=false
@@ -93,8 +92,8 @@ ExternalProject_Add(libopenjpeg
 ADD_GH_GROUP(libopenjpeg)
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.12.tar.gz"
-	URL_HASH SHA256=e90e77e43be35ec149d39f1ee7fe1c50c73309773a55b13839090f7138fbdcde
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.13.1.tar.gz"
+	URL_HASH SHA256=6f84c942ecde1b4852b5a051894502ac8c98d010acb3400dec958c6db1bc94ef
 	CONFIGURE_COMMAND ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS} --with-tiff="${CMAKE_INSTALL_PREFIX}" --with-jpeg="${CMAKE_INSTALL_PREFIX}"
 	BUILD_IN_SOURCE TRUE
 	DEPENDS libtiff libjpeg
@@ -111,8 +110,8 @@ ExternalProject_Add(poppler
 )
 else ()
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-22.01.0.tar.xz"
-	URL_HASH SHA256=7d3493056b5b86413e5c693c2cae02c5c06cd8e618d14c2c31e2c84b67b2313e
+	URL "https://poppler.freedesktop.org/poppler-22.02.0.tar.xz"
+	URL_HASH SHA256=e390c8b806f6c9f0e35c8462033e0a738bb2460ebd660bdb8b6dca01556193e1
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )
@@ -127,8 +126,8 @@ ExternalProject_Add(poppler-data
 ADD_GH_GROUP(poppler-data)
 
 ExternalProject_Add(lua
-	URL "https://www.lua.org/ftp/lua-5.4.3.tar.gz"
-	URL_HASH SHA1=1dda2ef23a9828492b4595c0197766de6e784bc7
+	URL "https://www.lua.org/ftp/lua-5.4.4.tar.gz"
+	URL_HASH SHA256=164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND make MYCFLAGS="-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET}"
 	BUILD_IN_SOURCE TRUE
