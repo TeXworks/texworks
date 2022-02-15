@@ -168,6 +168,8 @@ private slots:
   void transitions();
 
   void pageTile();
+
+  void physicalLength();
 };
 
 } // namespace UnitTest

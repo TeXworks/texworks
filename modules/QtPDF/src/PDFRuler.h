@@ -15,6 +15,8 @@
 #ifndef PDFRuler_H
 #define PDFRuler_H
 
+#include "PhysicalUnits.h"
+
 #include <QAction>
 #include <QMenu>
 #include <QWidget>
@@ -29,13 +31,10 @@ class PDFRuler : public QWidget
 public:
   constexpr static unsigned int rulerSize = 20;
 
-  enum Units { Centimeters, Inches, Bigpoints };
-  static QString translatedUnitLabel(const Units & unit);
-
   PDFRuler(PDFDocumentView * parent);
 
-  Units units() const { return m_Unit; }
-  void setUnits(const Units & newUnit);
+  Physical::Length::Unit unit() const { return m_Unit; }
+  void setUnit(const Physical::Length::Unit & newUnit);
 
 signals:
   void dragStart(QPoint point, Qt::Edge origin);
@@ -51,10 +50,10 @@ protected:
   void mouseReleaseEvent(QMouseEvent * event) override;
 
 private:
-  Units m_Unit{Centimeters};
+  Physical::Length::Unit m_Unit{Physical::Length::Centimeters};
   QMenu m_contextMenu{this};
   QActionGroup * m_contextMenuActionGroup{new QActionGroup(this)};
-  QMap<Units, QAction*> m_unitActions;
+  QVector<QAction*> m_unitActions;
 
   QPoint m_mouseDownPt;
   bool m_isDragging{false};

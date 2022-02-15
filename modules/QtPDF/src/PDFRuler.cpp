@@ -19,43 +19,37 @@
 #include <QPainter>
 #include <QTransform>
 
-namespace QtPDF {
+Q_DECLARE_METATYPE(QtPDF::Physical::Length::Unit)
 
-QString PDFRuler::translatedUnitLabel(const Units &unit)
-{
-  switch(unit) {
-    case Centimeters: return tr("cm");
-    case Inches: return tr("in");
-    case Bigpoints: return tr("bp");
-  }
-  return {};
-}
+namespace QtPDF {
 
 PDFRuler::PDFRuler(PDFDocumentView *parent)
   : QWidget(parent)
 {
   connect(parent, &PDFDocumentView::updated, this, static_cast<void (PDFRuler::*)()>(&PDFRuler::update));
-  m_unitActions.insert(Centimeters, new QAction(translatedUnitLabel(Centimeters), this));
-  m_unitActions.insert(Inches, new QAction(translatedUnitLabel(Inches), this));
-  m_unitActions.insert(Bigpoints, new QAction(translatedUnitLabel(Bigpoints), this));
 
-  Q_FOREACH(const Units & unit, m_unitActions.keys()) {
-    QAction * const action = m_unitActions.value(unit);
+  auto createUnitAction = [&](const Physical::Length::Unit u) {
+    QAction * action = new QAction(QString::fromUtf8(Physical::Length::unitSymbol(u)), this);
+    action->setData(u);
     action->setCheckable(true);
-    action->setChecked(unit == units());
-    connect(action, &QAction::triggered, this, [this, unit]() { setUnits(unit); });
+    action->setChecked(u == unit());
+    connect(action, &QAction::triggered, this, [this, u]() { setUnit(u); });
     m_contextMenu.addAction(action);
     m_contextMenuActionGroup->addAction(action);
-  }
+    return action;
+  };
+  m_unitActions.append(createUnitAction(Physical::Length::Centimeters));
+  m_unitActions.append(createUnitAction(Physical::Length::Inches));
+  m_unitActions.append(createUnitAction(Physical::Length::Bigpoints));
 }
 
-void PDFRuler::setUnits(const Units &newUnit)
+void PDFRuler::setUnit(const Physical::Length::Unit & newUnit)
 {
   if (m_Unit == newUnit)
     return;
   m_Unit = newUnit;
-  Q_FOREACH(const Units & u, m_unitActions.keys()) {
-    QAction * const a = m_unitActions.value(u);
+  Q_FOREACH(QAction * const a, m_unitActions) {
+    Physical::Length::Unit u = a->data().value<Physical::Length::Unit>();
     a->setChecked(u == newUnit);
   }
   update();
@@ -97,14 +91,8 @@ void PDFRuler::paintEvent(QPaintEvent * event)
       QTransform::fromScale(pdfPageRect.width() / pageRect.width(), pdfPageRect.height() / pageRect.height()) * \
       QTransform::fromTranslate(pdfPageRect.left(), pdfPageRect.top());
 
-  const QTransform px2phys = [](const QTransform & px2pt, const Units & u) {
-    switch (u) {
-      case Inches: return px2pt * QTransform::fromScale(1. / 72., 1. / 72.);
-      case Centimeters: return px2pt * QTransform::fromScale(2.54 / 72., 2.54 / 72.);
-      case Bigpoints: return px2pt;
-    }
-    return px2pt;
-  }(px2pt, units());
+  const double pt2physFactor = Physical::Length::convert(1, Physical::Length::Bigpoints, unit());
+  const QTransform px2phys = px2pt * QTransform::fromScale(pt2physFactor, pt2physFactor);
   const QTransform phys2px = px2phys.inverted();
 
   // Get the viewing rect in physical coordinates
@@ -115,7 +103,7 @@ void PDFRuler::paintEvent(QPaintEvent * event)
   painter.setFont(font);
 
   // Draw unit label
-  const QString unitLabel = translatedUnitLabel(units());
+  const QString unitLabel = QString::fromUtf8(Physical::Length::unitSymbol(unit()));
   painter.drawText(QRectF(0, 0, rulerSize, rulerSize), Qt::AlignCenter, unitLabel);
 
   const auto calcMajorInterval = [](const qreal physSpacing) {

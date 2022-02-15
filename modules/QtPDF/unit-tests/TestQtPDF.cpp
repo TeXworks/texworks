@@ -20,6 +20,7 @@
 */
 #include "TestQtPDF.h"
 #include "PaperSizes.h"
+#include "PhysicalUnits.h"
 
 #ifdef USE_MUPDF
   typedef QtPDF::MuPDFBackend Backend;
@@ -1890,6 +1891,23 @@ void TestQtPDF::pageTile()
 #ifdef DEBUG
   QCOMPARE(static_cast<QString>(tiles[0]), QStringLiteral("p0,1x1,r0|0x1|1"));
 #endif
+}
+
+void TestQtPDF::physicalLength()
+{
+  using namespace QtPDF::Physical;
+  Length l1(1, Length::Inches);
+
+  QCOMPARE(l1.val(Length::Bigpoints), 72.);
+  QCOMPARE(l1.val(Length::Inches), 1.);
+  QCOMPARE(l1.val(Length::Centimeters), 2.54);
+
+  l1.setVal(144., Length::Bigpoints);
+  QCOMPARE(l1.val(Length::Bigpoints), 144.);
+  QCOMPARE(l1.val(Length::Inches), 2.);
+  QCOMPARE(l1.val(Length::Centimeters), 2 * 2.54);
+
+  QCOMPARE(Length::convert(1, Length::Centimeters, Length::Inches), 1. / 2.54);
 }
 
 } // namespace UnitTest
