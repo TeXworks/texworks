@@ -52,8 +52,9 @@ endfunction (GenerateDefaultBinPaths)
 # x86_64-linuxmusl/
 # x86_64-solaris/
 function (addTeXLiveDefaultBinPaths pathVar)
-	set(yearMin 2016)
-	set(yearMax 2026)
+	string(TIMESTAMP yearCur "%Y" UTC)
+	math(EXPR yearMin "${yearCur} - 5")
+	math(EXPR yearMax "${yearCur} + 5")
 	if (WIN32)
 		set(_path "c:/w32tex/bin")
 		foreach(year RANGE ${yearMin} ${yearMax})
