@@ -115,18 +115,24 @@ void PDFGuideline::paintEvent(QPaintEvent * event)
   painter.setPen(QPen(Qt::blue, 0));
   QRect contentRect = viewContentRect();
 
+  const QTransform bp2px = m_parent->ruler()->pagePx2Bp(page()).inverted();
+
   // NB: Only draw the line if it is over the viewport, not if it over the ruler
   // (hiding the widget when the line is over the ruler is not an option as
   // hiding it while dragging ends the drag, so the line could not be dragged
   // back down)
   switch (m_orientation) {
     case Qt::Horizontal:
-      if (m_posWin >= contentRect.top())
-        painter.drawLine(0, padding, width(), padding);
+      if (m_posWin >= contentRect.top()) {
+        const qreal y = bp2px.map(QPointF(0, m_posPage)).y() - geometry().top();
+        painter.drawLine(0, y, width(), y);
+      }
       break;
     case Qt::Vertical:
-      if (m_posWin >= contentRect.left())
-        painter.drawLine(padding, 0, padding, height());
+      if (m_posWin >= contentRect.left()) {
+        const qreal x = bp2px.map(QPointF(m_posPage, 0)).x() - geometry().left();
+        painter.drawLine(x, 0, x, height());
+      }
       break;
   }
 }

@@ -28,6 +28,7 @@ class PDFDocumentView;
 class PDFRuler : public QWidget
 {
   Q_OBJECT
+  friend class PDFGuideline;
 public:
   constexpr static unsigned int rulerSize = 20;
 
@@ -48,6 +49,10 @@ protected:
   void mousePressEvent(QMouseEvent * event) override;
   void mouseMoveEvent(QMouseEvent * event) override;
   void mouseReleaseEvent(QMouseEvent * event) override;
+
+  QRectF pageRectPx(const int pageIdx) const;
+  QRectF pageRectBp(const int pageIdx) const;
+  QTransform pagePx2Bp(const int pageIdx) const;
 
 private:
   Physical::Length::Unit m_Unit{Physical::Length::Centimeters};

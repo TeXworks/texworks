@@ -75,22 +75,12 @@ void PDFRuler::paintEvent(QPaintEvent * event)
   PDFDocumentView * docView = qobject_cast<PDFDocumentView*>(parent());
   if (!docView)
     return;
-  PDFDocumentScene * scene = qobject_cast<PDFDocumentScene*>(docView->scene());
-  if (!scene)
-    return;
-  PDFPageGraphicsItem * page = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(docView->currentPage()));
-  if (!page)
-    return;
 
-  // Get rect in PDF coordinates (bp) and in pixels
-  const QRectF pdfPageRect = page->pointScale().inverted().mapRect(QRectF(QPointF(0, 0), page->pageSizeF()));
-  const QRectF pageRect = docView->mapFromScene(page->mapToScene(QRectF(QPoint(0, 0), page->pageSizeF()))).boundingRect().translated(rulerSize + 1, rulerSize + 1);
+  // Get rect in pixels
+  const QRectF pageRect = pageRectPx(docView->currentPage());
 
   // Calculate transforms from px to physical units and back
-  const QTransform px2pt = QTransform::fromTranslate(-pageRect.left(), -pageRect.top()) * \
-      QTransform::fromScale(pdfPageRect.width() / pageRect.width(), pdfPageRect.height() / pageRect.height()) * \
-      QTransform::fromTranslate(pdfPageRect.left(), pdfPageRect.top());
-
+  const QTransform px2pt = pagePx2Bp(docView->currentPage());
   const double pt2physFactor = Physical::Length::convert(1, Physical::Length::Bigpoints, unit());
   const QTransform px2phys = px2pt * QTransform::fromScale(pt2physFactor, pt2physFactor);
   const QTransform phys2px = px2phys.inverted();
@@ -229,6 +219,47 @@ void PDFRuler::mouseReleaseEvent(QMouseEvent * event)
     emit dragStop(event->pos());
     event->accept();
   }
+}
+
+QRectF PDFRuler::pageRectPx(const int pageIdx) const
+{
+  // Obtain pointer to the view and the page object
+  PDFDocumentView * docView = qobject_cast<PDFDocumentView*>(parent());
+  if (!docView)
+    return {};
+  PDFDocumentScene * scene = qobject_cast<PDFDocumentScene*>(docView->scene());
+  if (!scene)
+    return {};
+  PDFPageGraphicsItem * page = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(pageIdx));
+  if (!page)
+    return {};
+
+  return docView->mapFromScene(page->mapToScene(QRectF(QPointF(0, 0), page->pageSizeF()))).boundingRect().translated(rulerSize + 1, rulerSize + 1);
+}
+
+QRectF PDFRuler::pageRectBp(const int pageIdx) const
+{
+  // Obtain pointer to the view and the page object
+  PDFDocumentView * docView = qobject_cast<PDFDocumentView*>(parent());
+  if (!docView)
+    return {};
+  PDFDocumentScene * scene = qobject_cast<PDFDocumentScene*>(docView->scene());
+  if (!scene)
+    return {};
+  PDFPageGraphicsItem * page = dynamic_cast<PDFPageGraphicsItem*>(scene->pageAt(pageIdx));
+  if (!page)
+    return {};
+
+  return page->pointScale().inverted().mapRect(QRectF(QPointF(0, 0), page->pageSizeF()));
+}
+
+QTransform PDFRuler::pagePx2Bp(const int pageIdx) const
+{
+  const QRectF pageRect = pageRectPx(pageIdx);
+  const QRectF pdfPageRect = pageRectBp(pageIdx);
+  return QTransform::fromTranslate(-pageRect.left(), -pageRect.top()) * \
+      QTransform::fromScale(pdfPageRect.width() / pageRect.width(), pdfPageRect.height() / pageRect.height()) * \
+      QTransform::fromTranslate(pdfPageRect.left(), pdfPageRect.top());
 }
 
 } // namespace QtPDF
