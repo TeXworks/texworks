@@ -109,54 +109,6 @@
     </message>
 </context>
 <context>
-    <name>ConfirmDelete</name>
-    <message>
-        <source>Delete</source>
-        <translation type="vanished">Slett</translation>
-    </message>
-    <message>
-        <source>Unable to delete</source>
-        <translation type="vanished">Klarte ikkje sletta</translation>
-    </message>
-    <message>
-        <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="vanished">Kan ikkje sletta alle tilleggsfilene. Kontroller om du har skriveløyve til dei.</translation>
-    </message>
-    <message>
-        <source>Confirm file deletion</source>
-        <translation type="vanished">Stadfest sletting</translation>
-    </message>
-    <message>
-        <source>Auxiliary files to be deleted:</source>
-        <translation type="vanished">Tilleggsfiler som skal slettast:</translation>
-    </message>
-    <message>
-        <source>Select All</source>
-        <translation type="vanished">Merk alle</translation>
-    </message>
-    <message>
-        <source>Select None</source>
-        <translation type="vanished">Merk ingen</translation>
-    </message>
-    <message>
-        <source>Toggle</source>
-        <translation type="vanished">På/av</translation>
-    </message>
-</context>
-<context>
-    <name>ECMAScript</name>
-    <message>
-        <source>
-
-Stack trace:
-</source>
-        <translation type="vanished">
-
-Stabelspor:
-</translation>
-    </message>
-</context>
-<context>
     <name>FindDialog</name>
     <message>
         <location filename="../src/Find.ui" line="23"/>
@@ -258,22 +210,23 @@ Stabelspor:
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>Merk element</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Merking av filer som skal fjernast.</translatorcomment>
+        <translation>Merk alle</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Merk ingen</translation>
+        <translation>Merk ingen</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">På/av</translation>
+        <translation>Merk/avmerk</translation>
     </message>
 </context>
 <context>
@@ -620,12 +573,12 @@ Stabelspor:
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="615"/>
         <source>Place on Left</source>
-        <translation>Plasser til venstre</translation>
+        <translation>Legg til venstre</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="620"/>
         <source>Place on Right</source>
-        <translation>Plasser til høgre</translation>
+        <translation>Legg til høgre</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="625"/>
@@ -774,7 +727,7 @@ Stabelspor:
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjal</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -1092,7 +1045,7 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">Tilpass til innhaldsbreidd</translation>
+        <translation>Tilpass til innhaldsbreidd</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="700"/>
@@ -1220,27 +1173,27 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjal:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">tommar</translation>
+        <translation>tommar</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">Vis</translation>
+        <translation>Vis</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1150"/>
@@ -1533,73 +1486,6 @@ Er du sikker på at du vil halda fram?</translation>
         <location filename="../src/ResourcesDialog.cpp" line="43"/>
         <source>Registry (%1)</source>
         <translation>Register (%1)</translation>
-    </message>
-</context>
-<context>
-    <name>ScreenCalibrationWidget</name>
-    <message>
-        <source>Drag the ruler or change the value to match real world lengths.
-Common paper sizes are marked as well (you may need to resize the dialog window to see them).
-Use the context menu to change the units.</source>
-        <translation type="vanished">Dra linjalen eller endra verdien slik at han svarar til fysisk lengd.
-Vanlege papirstorleikar er òg markerte. (Det kan vera du må endra storleiken på vindauget for å sjå dei).
-Bruk kontekstmenyen for å endra einingane.</translation>
-    </message>
-    <message>
-        <source> dpi</source>
-        <extracomment>dots per inch</extracomment>
-        <translation type="vanished"> p.p.t.</translation>
-    </message>
-    <message>
-        <source>DIN A4</source>
-        <translation type="vanished">A4</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translatorcomment>skip-rule: unormert
-</translatorcomment>
-        <translation type="vanished">Letter</translation>
-    </message>
-    <message>
-        <source>cm</source>
-        <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="vanished">cm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="vanished">tommar</translation>
-    </message>
-</context>
-<context>
-    <name>ScriptAPI</name>
-    <message>
-        <source>Internal error</source>
-        <translation type="vanished">Intern feil</translation>
-    </message>
-    <message>
-        <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Klarte ikkje køyra systemkommando: %1</translation>
-    </message>
-    <message>
-        <source>Error executing system command: %1</source>
-        <translation type="vanished">Feil ved køyring av systemkommando: %1</translation>
-    </message>
-    <message>
-        <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">Klarte ikkje opna «%1».</translation>
-    </message>
-    <message>
-        <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Lesing av alle filer er slått av (sjå innstillingane)</translation>
-    </message>
-    <message>
-        <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Klarte ikkje opna fila «%1» for lesing</translation>
     </message>
 </context>
 <context>
@@ -2165,7 +2051,7 @@ Vil du lagra endringane?</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 er alt under handsaming</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2175,7 +2061,7 @@ Vil du lagra endringane?</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Gå til kompilering</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
@@ -2545,7 +2431,7 @@ Vil du lagra endringane?</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="836"/>
         <source>Go to Preview</source>
-        <translation>Gå til førehandsvising</translation>
+        <translation>Gå til førehandsvisinga</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="839"/>
@@ -2616,12 +2502,12 @@ Vil du lagra endringane?</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="931"/>
         <source>Place on Left</source>
-        <translation>Plasser til venstre</translation>
+        <translation>Legg til venstre</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="936"/>
         <source>Place on Right</source>
-        <translation>Plasser til høgre</translation>
+        <translation>Legg til høgre</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="963"/>
@@ -2862,7 +2748,7 @@ Do you want to stop it now?</source>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3050"/>
         <source>Show Console Output</source>
-        <translation>Vis resultatpanel</translation>
+        <translation>Vis resultatpanelet</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="861"/>
@@ -3107,7 +2993,7 @@ Do you want to discard your current changes, and reload the file from disk with 
 
 Stack trace:
 </source>
-        <translation type="unfinished">
+        <translation>
 
 Stabelspor:
 </translation>
@@ -3118,38 +3004,38 @@ Stabelspor:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Intern feil</translation>
+        <translation>Intern feil</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Klarte ikkje køyra systemkommando: %1</translation>
+        <translation>Klarte ikkje køyra systemkommando: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Feil ved køyring av systemkommando: %1</translation>
+        <translation>Feil ved køyring av systemkommando: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
+        <translation>Køyring av systemkommandoar er slått av (sjå innstillingane)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">Klarte ikkje opna «%1».</translation>
+        <translation>Klarte ikkje opna «%1».</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Lesing av alle filer er slått av (sjå innstillingane)</translation>
+        <translation>Lesing av alle filer er slått av (sjå innstillingane)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Klarte ikkje opna fila «%1» for lesing</translation>
+        <translation>Klarte ikkje opna fila «%1» for lesing</translation>
     </message>
 </context>
 <context>
@@ -3157,27 +3043,27 @@ Stabelspor:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Stadfest sletting</translation>
+        <translation>Stadfest sletting</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Tilleggsfiler som skal slettast:</translation>
+        <translation>Tilleggsfiler som skal slettast:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Slett</translation>
+        <translation>Slett</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">Klarte ikkje sletta</translation>
+        <translation>Klarte ikkje sletta</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">Kan ikkje sletta alle tilleggsfilene. Kontroller om du har skriveløyve til dei.</translation>
+        <translation>Kan ikkje sletta alle tilleggsfilene. Kontroller at du har skriveløyve til dei.</translation>
     </message>
 </context>
 <context>
@@ -3187,39 +3073,40 @@ Stabelspor:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Dra linjalen eller endra verdien slik at han svarar til fysisk lengd.
-Vanlege papirstorleikar er òg markerte. (Det kan vera du må endra storleiken på vindauget for å sjå dei).
+        <translation>Dra linjalen eller endra verdien slik at han svarar til fysisk lengd.
+Vanlege papirstorleikar er òg markerte.
+(Det kan vera du må endra storleiken på vindauget for å sjå dei.)
 Bruk kontekstmenyen for å endra einingane.</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> p.p.t.</translation>
+        <translation> p.p.t.</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">A4</translation>
+        <translation>A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">tommar</translation>
+        <translation>tommar</translation>
     </message>
 </context>
 <context>

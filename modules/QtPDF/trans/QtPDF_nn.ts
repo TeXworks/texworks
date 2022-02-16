@@ -6,32 +6,32 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translation type="unfinished"></translation>
+        <translation>Rediger hjelpelinje&#xa0;…</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
         <source>Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Side:</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="36"/>
         <source>Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Posisjon:</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="53"/>
         <source>cm</source>
-        <translation type="unfinished"></translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="58"/>
         <source>in</source>
-        <translation type="unfinished">tommar</translation>
+        <translation>tommar</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="63"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
 </context>
 <context>
