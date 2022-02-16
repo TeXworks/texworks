@@ -50,7 +50,7 @@
         <location filename="../src/CompletingEdit.ui" line="18"/>
         <source>Tab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="23"/>
@@ -61,29 +61,29 @@
         <location filename="../src/CompletingEdit.ui" line="26"/>
         <source>Shift+Backtab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Shift+Backtab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="31"/>
         <source>Next Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>下一个补全占位符</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
         <source>Ctrl+Tab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="39"/>
         <source>Previous Completion Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>上一个补全占位符</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="42"/>
         <source>Ctrl+Shift+Backtab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+Backtab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="47"/>
@@ -95,7 +95,7 @@
         <location filename="../src/CompletingEdit.ui" line="50"/>
         <source>Ctrl+Shift+J</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+J</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.cpp" line="1133"/>
@@ -245,22 +245,22 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>选择项</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">选择所有</translation>
+        <translation>选择所有</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">清除选择</translation>
+        <translation>清除选择</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">切换选择状态</translation>
+        <translation>切换选择状态</translation>
     </message>
 </context>
 <context>
@@ -763,7 +763,7 @@
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>标尺</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -1081,7 +1081,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">适合内容宽度</translation>
+        <translation>适合内容宽度</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="700"/>
@@ -1302,27 +1302,27 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>标尺：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">厘米</translation>
+        <translation>厘米</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">英寸</translation>
+        <translation>英寸</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">显示</translation>
+        <translation>显示</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -1716,7 +1716,7 @@ Do you want to continue?</source>
         <location filename="../src/TWApp.cpp" line="314"/>
         <location filename="../src/TWApp.cpp" line="337"/>
         <source>About </source>
-        <translation>关于</translation>
+        <translation>关于 </translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="242"/>
@@ -2164,7 +2164,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 已在处理</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2174,7 +2174,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>转到排版</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
@@ -2923,48 +2923,48 @@ We are sorry for the inconvenience.</source>
         <location filename="../src/TeXDocumentWindow.cpp" line="544"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="547"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
-        <translation type="unfinished">%1 (%2)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1660"/>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation>换行</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1663"/>
         <source>CRLF</source>
-        <translation type="unfinished"></translation>
+        <translation>回车换行</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1666"/>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation>回车</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1670"/>
         <source>*</source>
-        <translation type="unfinished"></translation>
+        <translation>*</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1677"/>
         <source>LF (Unix, Mac OS X)</source>
-        <translation type="unfinished"></translation>
+        <translation>换行（Unix, Mac OS X）</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1678"/>
         <source>CRLF (Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>回车换行（Windows）</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1679"/>
         <source>CR (Mac Classic)</source>
-        <translation type="unfinished"></translation>
+        <translation>回车（Mac 经典）</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1990"/>
@@ -3057,7 +3057,10 @@ We are sorry for the inconvenience.</source>
 
 Stack trace:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+栈追踪：
+</translation>
     </message>
 </context>
 <context>
@@ -3104,27 +3107,27 @@ Stack trace:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">确认要删除的文件</translation>
+        <translation>确认文件删除</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">要删除的辅助文件：</translation>
+        <translation>要删除的辅助文件：</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">删除</translation>
+        <translation>删除</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">无法删除</translation>
+        <translation>无法删除</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">有些辅助文件无法移除。可能因为您没有足够的权限删除它们。</translation>
+        <translation>有些辅助文件无法移除。可能因为您没有足够的权限删除它们。</translation>
     </message>
 </context>
 <context>
@@ -3134,7 +3137,9 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished"></translation>
+        <translation>拖动标尺或改变值以匹配真实世界的长度。
+已标出常见的纸张尺寸（您可能需要改变对话框大小以进行查看）。
+使用上下文菜单来改变单位。</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
@@ -3145,12 +3150,12 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>信纸</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>

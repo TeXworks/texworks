@@ -6,32 +6,32 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translation type="unfinished"></translation>
+        <translation>编辑指引…</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
         <source>Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>页面：</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="36"/>
         <source>Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>位置：</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="53"/>
         <source>cm</source>
-        <translation type="unfinished"></translation>
+        <translation>厘米</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="58"/>
         <source>in</source>
-        <translation type="unfinished"></translation>
+        <translation>英寸</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="63"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
 </context>
 <context>
@@ -740,13 +740,13 @@
         <location filename="../src/PaperSizes.cpp" line="201"/>
         <source>mm</source>
         <extracomment>Length unit: millimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>毫米</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="207"/>
         <source>in</source>
         <extracomment>Length unit: inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>英寸</translation>
     </message>
 </context>
 <context>
@@ -981,13 +981,13 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3292"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>来源</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3300"/>
         <location filename="../src/PDFDocumentView.cpp" line="3395"/>
         <source>Permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>权限</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3349"/>
@@ -996,7 +996,7 @@
         <location filename="../src/PDFDocumentView.cpp" line="3374"/>
         <location filename="../src/PDFDocumentView.cpp" line="3379"/>
         <source>Allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>允许</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3351"/>
@@ -1015,32 +1015,32 @@
         <location filename="../src/PDFDocumentView.cpp" line="3389"/>
         <location filename="../src/PDFDocumentView.cpp" line="3390"/>
         <source>Denied</source>
-        <translation type="unfinished"></translation>
+        <translation>拒绝</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3360"/>
         <source>Assembling only</source>
-        <translation type="unfinished"></translation>
+        <translation>仅组装</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3361"/>
         <source>Insert, rotate, or delete pages and create bookmarks or thumbnail images</source>
-        <translation type="unfinished"></translation>
+        <translation>插入、旋转或删除页面以及创建书签或缩略图</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3369"/>
         <source>Accessibility support only</source>
-        <translation type="unfinished"></translation>
+        <translation>仅可访问性支持</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3397"/>
         <source>Printing:</source>
-        <translation type="unfinished"></translation>
+        <translation>打印：</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3398"/>
         <source>Modifications:</source>
-        <translation type="unfinished"></translation>
+        <translation>修改：</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3399"/>
@@ -1050,7 +1050,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3400"/>
         <source>Annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>标注：</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3401"/>
@@ -1061,7 +1061,7 @@
         <location filename="../src/PDFDocumentView.cpp" line="3409"/>
         <location filename="../src/PDFDocumentView.cpp" line="3501"/>
         <source>Annotations</source>
-        <translation type="unfinished"></translation>
+        <translation>标注</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3502"/>
@@ -1116,12 +1116,12 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3178"/>
         <source>Page size:</source>
-        <translation type="unfinished"></translation>
+        <translation>页面尺寸：</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3179"/>
         <source>File size:</source>
-        <translation type="unfinished"></translation>
+        <translation>文件大小：</translation>
     </message>
 </context>
 </TS>
