@@ -246,22 +246,22 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle Elemente</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle markieren</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Keine markieren</translation>
+        <translation>Keine markieren</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">Invertieren</translation>
+        <translation>Invertieren</translation>
     </message>
 </context>
 <context>
@@ -685,7 +685,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineal</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -1166,7 +1166,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">An Inhaltsbreite anpassen</translation>
+        <translation>An Inhaltsbreite anpassen</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="748"/>
@@ -1191,27 +1191,27 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineal:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">in</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">Zeige</translation>
+        <translation>Anzeigen</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -2308,7 +2308,7 @@ Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodier
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 wird bereits verarbeitet</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2348,7 +2348,7 @@ Wollen Sie diese Änderungen verwerfen und die Datei unter Verwendung der Kodier
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Gehe zum Textsatz</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
@@ -3148,27 +3148,27 @@ Stacktrace:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Löschen bestätigen</translation>
+        <translation>Löschen bestätigen</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Zu löschende Hilfsdateien:</translation>
+        <translation>Zu löschende Hilfsdateien:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">Löschen fehlgeschlagen</translation>
+        <translation>Löschen fehlgeschlagen</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">Einige der Hilfsdateien konnten nicht gelöscht werden. Vielleicht haben Sie nicht die nötige Berechtigung, um sie zu löschen.</translation>
+        <translation>Einige der Hilfsdateien konnten nicht gelöscht werden. Vielleicht haben Sie nicht die nötige Berechtigung, um sie zu löschen.</translation>
     </message>
 </context>
 <context>
