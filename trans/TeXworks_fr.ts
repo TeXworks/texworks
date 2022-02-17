@@ -245,22 +245,22 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner des items</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">Tout sélectionner</translation>
+        <translation>Tout sélectionner</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Ne sélectionner aucun</translation>
+        <translation>Ne sélectionner aucun</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">Inverser</translation>
+        <translation>Inverser</translation>
     </message>
 </context>
 <context>
@@ -699,7 +699,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Règle</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -1163,7 +1163,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">Ajuster à la Largeur du Contenu</translation>
+        <translation>Ajuster à la Largeur du Contenu</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="748"/>
@@ -1188,27 +1188,27 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Règle :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">in (pouces)</translation>
+        <translation>in (pouces)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp (point)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Montrer</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -2895,7 +2895,7 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 est déjà en train d&apos;être traîté</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2805"/>
@@ -2930,7 +2930,7 @@ Voulez-vous abandonner vos changements actuels et recharger le fichier à partir
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Aller à la composiiton</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2908"/>
@@ -3149,27 +3149,27 @@ Trace de la pile :
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Confirmer la suppression du fichier</translation>
+        <translation>Confirmer la suppression du fichier</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Fichiers auxiliaires à supprimer :</translation>
+        <translation>Fichiers auxiliaires à supprimer :</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">Incapable de  supprimer</translation>
+        <translation>Incapable de supprimer</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">Certains fichiers auxiliaires n&apos;ont pû être supprimés. Peut-être n&apos;avez vous pas la permission pour les supprimer.</translation>
+        <translation>Certains fichiers auxiliaires n&apos;ont pas pu être supprimés. Peut-être n&apos;avez vous pas la permission pour les supprimer.</translation>
     </message>
 </context>
 <context>

@@ -6,32 +6,32 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translation type="unfinished"></translation>
+        <translation>Editer le guide...</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
         <source>Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Page :</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="36"/>
         <source>Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Position :</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="53"/>
         <source>cm</source>
-        <translation type="unfinished"></translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="58"/>
         <source>in</source>
-        <translation type="unfinished"></translation>
+        <translation>in (pouces)</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="63"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp (point)</translation>
     </message>
 </context>
 <context>
@@ -39,162 +39,162 @@
     <message>
         <location filename="../src/PaperSizes.cpp" line="24"/>
         <source>Beamer 16:10</source>
-        <translation type="unfinished"></translation>
+        <translation>Beamer 16:10</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="25"/>
         <source>Beamer 16:9</source>
-        <translation type="unfinished"></translation>
+        <translation>Beamer 16:9</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="26"/>
         <source>Beamer 14:9</source>
-        <translation type="unfinished"></translation>
+        <translation>Beamer 14:9</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="27"/>
         <source>Beamer 1.41:1</source>
-        <translation type="unfinished"></translation>
+        <translation>Beamer 1.41:1</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="28"/>
         <source>Beamer 5:4</source>
-        <translation type="unfinished"></translation>
+        <translation>Beamer 5:4</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="29"/>
         <source>Beamer 4:3</source>
-        <translation type="unfinished"></translation>
+        <translation>Beamer 4:3</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="30"/>
         <source>Beamer 3:2</source>
-        <translation type="unfinished"></translation>
+        <translation>Beamer 3:2</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="33"/>
         <source>Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Écran</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="36"/>
         <source>DIN 4A0</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN 4A0</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="37"/>
         <source>DIN 2A0</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN 2A0</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="38"/>
         <source>DIN A0</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A0</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="39"/>
         <source>DIN A1</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A1</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="40"/>
         <source>DIN A2</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A2</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="41"/>
         <source>DIN A3</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A3</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="42"/>
         <source>DIN A4</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="43"/>
         <source>DIN A5</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A5</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="44"/>
         <source>DIN A6</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A6</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="45"/>
         <source>DIN A7</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A7</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="46"/>
         <source>DIN A8</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A8</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="47"/>
         <source>DIN A9</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A9</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="48"/>
         <source>DIN A10</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN A10</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="49"/>
         <source>DIN B0</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN B0</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="50"/>
         <source>DIN B1</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN B1</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="51"/>
         <source>DIN B2</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN B2</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="52"/>
         <source>DIN B3</source>
-        <translation type="unfinished"></translation>
+        <translation>BIN B3</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="53"/>
         <source>DIN B4</source>
-        <translation type="unfinished"></translation>
+        <translation>DIN B4</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="54"/>
         <source>DIN B5</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DIN B5</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="55"/>
         <source>DIN B6</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DIN B6</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="56"/>
         <source>DIN B7</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DIN B7</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="57"/>
         <source>DIN B8</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DIN B8</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="58"/>
         <source>DIN B9</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DIN B9</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="59"/>
         <source>DIN B10</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DIN B10</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="60"/>
@@ -669,7 +669,7 @@
     <message>
         <location filename="../src/PaperSizes.cpp" line="155"/>
         <source>Half Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Demi Letter</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="156"/>
@@ -740,13 +740,13 @@
         <location filename="../src/PaperSizes.cpp" line="201"/>
         <source>mm</source>
         <extracomment>Length unit: millimeters</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="207"/>
         <source>in</source>
         <extracomment>Length unit: inches</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>in (pouce)</translation>
     </message>
 </context>
 <context>
