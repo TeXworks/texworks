@@ -121,7 +121,7 @@ void PDFRuler::paintEvent(QPaintEvent * event)
       const qreal xPhys = xMin + i * dxMinor;
       const qreal x = phys2px.map(QPointF(xPhys, 0)).x();
       if (i % nMinor == 0) {
-        const QString label = QString::number(xPhys);
+        const QString label = QStringLiteral("%L1").arg(xPhys);
         painter.drawLine(QPointF(x, .7 * rulerSize), QPointF(x, rulerSize));
         QRectF boundingRect = painter.boundingRect(QRectF(QPointF(x, 0), QSizeF(0, rulerSize / 2)), alignment, label);
         painter.drawText(boundingRect, alignment, label);
@@ -150,7 +150,7 @@ void PDFRuler::paintEvent(QPaintEvent * event)
       if (y < rulerSize)
         continue;
       if (i % nMinor == 0) {
-        const QString label = QString::number(yPhys);
+        const QString label = QStringLiteral("%L1").arg(yPhys);
         painter.drawLine(QPointF(-y, .7 * rulerSize), QPointF(-y, rulerSize));
         QRectF boundingRect = painter.boundingRect(QRectF(QPointF(-y, 0), QSizeF(0, rulerSize / 2)), alignment, label);
         painter.drawText(boundingRect, alignment, label);
