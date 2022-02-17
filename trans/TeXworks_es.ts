@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="14"/>
         <source>Select Citations</source>
-        <translation>Seleccionar referencias</translation>
+        <translation>Selección de referencias</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="20"/>
@@ -159,7 +159,7 @@
     <message>
         <location filename="../src/Find.ui" line="69"/>
         <source>&amp;Wrap around</source>
-        <translation>&amp;Buscar en todo el documento</translation>
+        <translation>&amp;En todo el documento</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="76"/>
@@ -169,7 +169,7 @@
     <message>
         <location filename="../src/Find.ui" line="83"/>
         <source>Search within &amp;selection</source>
-        <translation>Buscar en la parte &amp;seleccionada</translation>
+        <translation>En la parte &amp;seleccionada</translation>
     </message>
     <message>
         <location filename="../src/Find.ui" line="90"/>
@@ -217,12 +217,12 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="35"/>
         <source>Wrap lines to:</source>
-        <translation>Ajuste de líneas:</translation>
+        <translation>Ajuste líneas:</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="44"/>
         <source>Current window size</source>
-        <translation>Tamaño de la ventana actual</translation>
+        <translation>A la ventana actual</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="51"/>
@@ -245,22 +245,23 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar puntos</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">Seleccionar todo</translation>
+        <translation>Seleccionar todo</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Deshacer selección</translation>
+        <translatorcomment>No seleccionar</translatorcomment>
+        <translation>Deshacer selección</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">Invertir selección</translation>
+        <translation>Cambiar selección</translation>
     </message>
 </context>
 <context>
@@ -763,7 +764,7 @@
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Regla</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -974,7 +975,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="102"/>
         <source>Show text as well as icons</source>
-        <translation>Mostrar texto e iconos</translation>
+        <translation>Exhibir texto e iconos</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="114"/>
@@ -1096,7 +1097,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">Ajustar al ancho del contenido</translation>
+        <translation>Ajustar al ancho del contenido</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="700"/>
@@ -1308,27 +1309,27 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Regla:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished"></translation>
+        <translation>in</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">Mostrar</translation>
+        <translation>Exhibir</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -2251,7 +2252,7 @@ Use &quot;Archivo -&gt; Recuperar versión guardada&quot; manualmente cuando el 
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 se está compilando</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2266,7 +2267,7 @@ Use &quot;Archivo -&gt; Recuperar versión guardada&quot; manualmente cuando el 
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Volver al documento</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
@@ -2602,7 +2603,7 @@ Use &quot;Archivo -&gt; Recuperar versión guardada&quot; manualmente cuando el 
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="748"/>
         <source>Comment</source>
-        <translation>Incluir comentarios</translation>
+        <translation>Poner comentarios</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="751"/>
@@ -2902,7 +2903,7 @@ o &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; en su sistema pa
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2811"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
-        <translation>Si ya cuenta con una distribución TeX debidamente instalada, puede que falte indicarle a TeXworks, mediante Editar -&gt; Preferencias -&gt; Compilación, donde localizarla exactamente.</translation>
+        <translation>Si ya cuenta con una distribución TeX debidamente instalada, puede que falte indicarle a TeXworks, mediante Editar -&gt; Preferencias -&gt; Compilación, la ruta correspondiente.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2816"/>
@@ -3024,12 +3025,12 @@ Ofrecemos disculpas por las molestias ocasionadas.</translation>
     <message>
         <location filename="../src/TemplateDialog.ui" line="13"/>
         <source>New File using Template</source>
-        <translation>Nuevo documento a partir de Plantilla</translation>
+        <translation>Nuevo documento con Plantilla</translation>
     </message>
     <message>
         <location filename="../src/TemplateDialog.ui" line="25"/>
         <source>Choose template for the new document:</source>
-        <translation>Seleccionar Plantilla para el nuevo documento:</translation>
+        <translation>Seleccionar Plantilla:</translation>
     </message>
 </context>
 <context>
@@ -3138,7 +3139,7 @@ Volcado de pila:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation>El archivo &quot;%1&quot; no puede abrirse para lectura</translation>
+        <translation>El archivo &quot;%1&quot; no se puede abrir para lectura</translation>
     </message>
 </context>
 <context>
@@ -3146,27 +3147,27 @@ Volcado de pila:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Confirmar eliminación del archivo</translation>
+        <translation>Confirmar eliminación del archivo</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Archivos auxiliares que se van a eliminar:</translation>
+        <translation>Archivos auxiliares que se van a eliminar:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Eliminar</translation>
+        <translation>Eliminar</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">Imposible eliminar</translation>
+        <translation>No se pueden eliminar</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">Algunos archivos auxiliares no se puedieron eliminar. Probablemente no cuenta con los permisos necesarios.</translation>
+        <translation>Algunos archivos auxiliares no se puedieron eliminar. Probablemente no cuenta con los permisos necesarios.</translation>
     </message>
 </context>
 <context>

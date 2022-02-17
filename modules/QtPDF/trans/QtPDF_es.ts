@@ -6,32 +6,34 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translation type="unfinished"></translation>
+        <translation>Guía para editar...</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
         <source>Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Página:</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="36"/>
         <source>Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Posición:</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="53"/>
         <source>cm</source>
-        <translation type="unfinished"></translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="58"/>
         <source>in</source>
-        <translation type="unfinished">in</translation>
+        <translatorcomment>in</translatorcomment>
+        <translation>in</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="63"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>bp</translatorcomment>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -674,12 +676,12 @@
     <message>
         <location filename="../src/PaperSizes.cpp" line="156"/>
         <source>Government Letter</source>
-        <translation>Government Letter</translation>
+        <translation>Carta oficial</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="157"/>
         <source>Government Legal</source>
-        <translation>Government Legal</translation>
+        <translation>Legal ofcial</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="158"/>
@@ -759,7 +761,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="34"/>
         <source>[translator&apos;s name/email]</source>
-        <translation>Luis Montgomery Antelo/monty.luis@gmail.com</translation>
+        <translation>Luis Montgomery/monty.luis@gmail.com</translation>
     </message>
 </context>
 <context>
@@ -777,7 +779,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2029"/>
         <source>Please enter the password to unlock the PDF</source>
-        <translation>Por favor, introduzca la contraseña para desbloquear el PDF</translation>
+        <translation>Introduzca la contraseña para desbloquear el PDF</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2045"/>
@@ -792,7 +794,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2051"/>
         <source>This document is locked. You need a password to open it.</source>
-        <translation>Este documento está bloqueado. Necesita una contraseña para abrirlo.</translation>
+        <translation>Documento bloqueado. Se requiere contraseña para abrirlo.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2052"/>
