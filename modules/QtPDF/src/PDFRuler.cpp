@@ -244,7 +244,10 @@ QRectF PDFRuler::pageRectPx(const int pageIdx) const
   if (!page)
     return {};
 
-  return docView->mapFromScene(page->mapToScene(QRectF(QPointF(0, 0), page->pageSizeF()))).boundingRect().translated(rulerSize + 1, rulerSize + 1);
+  const QRectF rv = docView->mapFromScene(page->mapToScene(QRectF(QPointF(0, 0), page->pageSizeF()))).boundingRect();
+  if (!isVisible())
+    return rv;
+  return rv.translated(rulerSize + 1, rulerSize + 1);
 }
 
 QRectF PDFRuler::pageRectBp(const int pageIdx) const
