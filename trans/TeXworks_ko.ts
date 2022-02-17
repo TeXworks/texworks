@@ -245,22 +245,22 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>항목 선택</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">모두 선택</translation>
+        <translation>모두 선택</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">선택 해제</translation>
+        <translation>선택 해제</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">맞바꾸기</translation>
+        <translation>맞바꾸기</translation>
     </message>
 </context>
 <context>
@@ -763,7 +763,7 @@
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>줄자</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -1080,7 +1080,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">본문 너비에 맞추기</translation>
+        <translation>본문 너비에 맞추기</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="700"/>
@@ -1302,27 +1302,27 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>줄자:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">보기</translation>
+        <translation>보기</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -1355,7 +1355,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="921"/>
         <source>Preview &gt; Source:</source>
-        <translation>미리보기 &gt; 소스 :</translation>
+        <translation>미리보기 &gt; 소스:</translation>
     </message>
 </context>
 <context>
@@ -2178,7 +2178,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1은 이미 처리되고 있습니다</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2188,7 +2188,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>조판 창으로 가기</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
@@ -3123,27 +3123,27 @@ Stack trace:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">파일 삭제 확인</translation>
+        <translation>파일 삭제 확인</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">삭제할 부수파일:</translation>
+        <translation>삭제할 부수파일:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">삭제</translation>
+        <translation>삭제</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">삭제할 수 없음</translation>
+        <translation>삭제할 수 없음</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">일부 부수파일을 삭제할 수 없습니다. 권한을 확인하세요.</translation>
+        <translation>일부 부수파일을 삭제할 수 없습니다. 권한을 확인하세요.</translation>
     </message>
 </context>
 <context>
