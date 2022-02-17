@@ -6,32 +6,32 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translation type="unfinished"></translation>
+        <translation>Posició d&apos;edició...</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
         <source>Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pàgina:</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="36"/>
         <source>Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Posició:</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="53"/>
         <source>cm</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="58"/>
         <source>in</source>
-        <translation type="unfinished"></translation>
+        <translation>in (polsades)</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="63"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1065,7 +1065,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3361"/>
         <source>Insert, rotate, or delete pages and create bookmarks or thumbnail images</source>
-        <translation>Inserir, rotar o eliminar pàgines i crear marcadors o miniatures </translation>
+        <translation>Inserir, rotar o eliminar pàgines i crear marcadors o miniatures</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3369"/>

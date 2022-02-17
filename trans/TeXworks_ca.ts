@@ -253,22 +253,22 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona ítems</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona&apos;ls tots</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Desmarca&apos;ls tots</translation>
+        <translation>Desmarca&apos;ls tots</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">Intercanvia selecció</translation>
+        <translation>Intercanvia selecció</translation>
     </message>
 </context>
 <context>
@@ -357,7 +357,7 @@ Vol continuar?</translation>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1087"/>
         <source> (remember to close it again to avoid access problems)</source>
-        <translation>Recordi tancar-lo per evitar problemes d&apos;accés</translation>
+        <translation> (recordi tancar-lo per evitar problemes d&apos;accés)</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="1109"/>
@@ -723,7 +723,7 @@ Vol continuar?</translation>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Regla</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -807,7 +807,7 @@ Vol continuar?</translation>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="597"/>
         <source>Go to TeXworks home page</source>
-        <translation>Ves a la pàgina d&apos;inici de TeXworks </translation>
+        <translation>Ves a la pàgina d&apos;inici de TeXworks</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="602"/>
@@ -1116,7 +1116,7 @@ Vol continuar?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">Ajusta a amplada de continguts</translation>
+        <translation>Ajusta a amplada de continguts</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="700"/>
@@ -1182,27 +1182,27 @@ Vol continuar?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Regla:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">in (polsades)</translation>
+        <translation>in (polsades)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">Mostra</translation>
+        <translation>Mostra</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -1275,7 +1275,8 @@ Vol continuar?</translation>
 </source>
         <translation>&lt;p&gt;&lt;strong&gt;Mai:&lt;/strong&gt; Mai amaguis la sortida de consola deprés de la composició.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automàticament:&lt;/strong&gt; Amaga el panell de sortida de consola després d&apos;una composició amb éxit, però sols si estava amagada prèviament.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;En cas d&apos;èxit:&lt;/strong&gt; Amaga el panell de sortida de consola després d&apos;una composició amb éxit, amb independència del seu estat anterior.&lt;/p&gt;</translation>
+&lt;p&gt;&lt;strong&gt;En cas d&apos;èxit:&lt;/strong&gt; Amaga el panell de sortida de consola després d&apos;una composició amb éxit, amb independència del seu estat anterior.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1173"/>
@@ -1621,7 +1622,7 @@ Usi el menú de context per canviar les unitats.</translation>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="191"/>
         <source>Name: </source>
-        <translation>Nom:</translation>
+        <translation>Nom: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="192"/>
@@ -1646,7 +1647,7 @@ Usi el menú de context per canviar les unitats.</translation>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="196"/>
         <source>Shortcut: </source>
-        <translation>Drecera:</translation>
+        <translation>Drecera: </translation>
     </message>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="197"/>
@@ -1661,7 +1662,7 @@ Usi el menú de context per canviar les unitats.</translation>
     <message>
         <location filename="../src/ScriptManagerWidget.cpp" line="209"/>
         <source>Hook: </source>
-        <translation>Ganxo:</translation>
+        <translation>Ganxo: </translation>
     </message>
 </context>
 <context>
@@ -1766,7 +1767,7 @@ Usi el menú de context per canviar les unitats.</translation>
         <location filename="../src/TWApp.cpp" line="314"/>
         <location filename="../src/TWApp.cpp" line="337"/>
         <source>About </source>
-        <translation>Quant a</translation>
+        <translation>Quant a </translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="242"/>
@@ -2384,7 +2385,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 està en processament</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2424,7 +2425,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Ves a compilació</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3050"/>
@@ -2439,7 +2440,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3127"/>
         <source>Engine &quot;%1&quot; not defined</source>
-        <translation>No s&apos;ha definit el mecanisme de procés &quot;%1&quot; </translation>
+        <translation>No s&apos;ha definit el mecanisme de procés &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3206"/>
@@ -2670,7 +2671,7 @@ Vol descartar el canvis actuals i recuperar el fitxer del disc amb la codificaci
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="632"/>
         <source>Find Again</source>
-        <translation>Torna a cercar </translation>
+        <translation>Torna a cercar</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="635"/>
@@ -3143,7 +3144,7 @@ Pila de traces:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation>La lectura de tots els fitxers està desactivada (miri Preferències) </translation>
+        <translation>La lectura de tots els fitxers està desactivada (miri Preferències)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
@@ -3156,27 +3157,27 @@ Pila de traces:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Comfirmau la supressió del fitxer</translation>
+        <translation>Comfirmau la supressió del fitxer</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Fitxers auxiliars a suprimir:</translation>
+        <translation>Fitxers auxiliars a suprimir:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Suprimeix</translation>
+        <translation>Suprimeix</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">No puc suprimir</translation>
+        <translation>No puc suprimir</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">No puc suprimir alguns dels fitxers auxiliars. Pot ser no teniu permís per suprimir-los.</translation>
+        <translation>No puc suprimir alguns dels fitxers auxiliars. Pot ser no teniu permís per suprimir-los.</translation>
     </message>
 </context>
 <context>
