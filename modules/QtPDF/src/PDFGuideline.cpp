@@ -125,13 +125,13 @@ void PDFGuideline::paintEvent(QPaintEvent * event)
     case Qt::Horizontal:
       if (m_posWin >= contentRect.top()) {
         const qreal y = bp2px.map(QPointF(0, m_posPage)).y() - geometry().top();
-        painter.drawLine(0, y, width(), y);
+        painter.drawLine(QPointF(0, y), QPointF(width(), y));
       }
       break;
     case Qt::Vertical:
       if (m_posWin >= contentRect.left()) {
         const qreal x = bp2px.map(QPointF(m_posPage, 0)).x() - geometry().left();
-        painter.drawLine(x, 0, x, height());
+        painter.drawLine(QPointF(x, 0), QPointF(x, height()));
       }
       break;
   }
