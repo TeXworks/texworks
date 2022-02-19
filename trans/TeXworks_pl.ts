@@ -245,22 +245,22 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz pozycje</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">Zaznacz wszystko</translation>
+        <translation>Zaznacz wszystko</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Nie zaznaczaj nic</translation>
+        <translation>Nie zaznaczaj nic</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">Przełącz</translation>
+        <translation>Przełącz</translation>
     </message>
 </context>
 <context>
@@ -811,7 +811,7 @@ Czy chcesz kontynuować?</translation>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Linijka</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -1066,7 +1066,7 @@ Czy chcesz kontynuować?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation>Szerokość kursora</translation>
+        <translation>Szerokość kursora:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="591"/>
@@ -1077,6 +1077,7 @@ Czy chcesz kontynuować?</translation>
         <location filename="../src/PrefsDialog.ui" line="618"/>
         <source>Enable auto-follow focus</source>
         <translation>Zezwól na podążanie za kursorem</translation>
+
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="643"/>
@@ -1111,7 +1112,7 @@ Czy chcesz kontynuować?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">Dopasuj do zawrtości</translation>
+        <translation>Dopasuj do zawrtości</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="700"/>
@@ -1177,27 +1178,27 @@ Czy chcesz kontynuować?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linijka:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">cale</translation>
+        <translation>cale</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">Pokaż</translation>
+        <translation>Pokaż</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -2354,7 +2355,7 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 jest właśnie przetwarzany</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2394,7 +2395,7 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Przejdź do składu</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3050"/>
@@ -3109,7 +3110,10 @@ Czy chcesz zrezygnować ze wszystkich wprowadzonych zmian i załadować ponownie
 
 Stack trace:
 </source>
-        <translation>\n\nŚlad stosu\n</translation>
+        <translation>
+
+Ślad stosu:
+</translation>
     </message>
 </context>
 <context>
@@ -3156,27 +3160,27 @@ Stack trace:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Potwierdź kasowanie plików</translation>
+        <translation>Potwierdź kasowanie plików</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Pliki pomocnicze do skasowania:</translation>
+        <translation>Pliki pomocnicze do skasowania:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Skasuj</translation>
+        <translation>Skasuj</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">Nie mogę skasować</translation>
+        <translation>Nie mogę skasować</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">Niektóre z plików pomocniczych nie mogą być skasowane. Prawdopodobnie nie masz uprawnień aby je skasować.</translation>
+        <translation>Niektóre z plików pomocniczych nie mogą być skasowane. Prawdopodobnie nie masz uprawnień aby je skasować.</translation>
     </message>
 </context>
 <context>

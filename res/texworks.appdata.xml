@@ -203,6 +203,24 @@
 			TeXworks støttar blant anna innebygd PDF-vising, synkronisering mellom TeX-filer
 			og PDF-resultat og moglegheit for utvidingar via eit eige skriptgrensesnitt.
 		</p>
+		<p xml:lang="pl">
+			TeXworks to środowisko do tworzenia dokumentów opartych na TeXu (LaTeX, ConTeXt,
+			itp) wyposażone w edytor zgodny z TeXem, używający kodowania Unicode,
+			zintegrowany z przeglądarką PDF, z prostym i jasnym interfejsem przyjaznym
+			zwłaszcza dla  przypadkowych i nie-technicznych użytkowników.
+		</p>
+		<p xml:lang="pl">
+			TeXworks jest inspirowany wielokrotnie nagradzanym programem TeXShop Dicka Kocha
+			dla systemu Mac OS X, który sprawił, że wysokiej jakości skład tekstów z
+			wykorzystaniem TeXa stał się dostępny dla szerszej społeczności użytkowników,
+			bez technicznego doświadczenia.. Celem TeXworks jest dostarczenie podobnie
+			zintegrowanego, łatwego w użyciu środowiska dla użytkowników na innych
+			platformach, zwłaszcza GNU/Linux i Windows.
+		</p>
+		<p xml:lang="pl">
+			TeXworks oferuje, między innymi, zintegrowany podgląd PDF, synchronizację między
+			plikami TeX a wyjściem PDF oraz rozszerzalny interfejs skryptów.
+		</p>
 		<p xml:lang="ru">
 			TeXworks — это среда для подготовки документов в TeX (LaTeX, ConTeXt и др.) формате,
 			состоящая из редактора, поддерживающего Unicode и встроенного просмотра PDF документов
