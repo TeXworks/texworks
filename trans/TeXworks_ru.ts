@@ -264,22 +264,24 @@ Stack trace:
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Не ясно без контекста, что именно здесь выбирается.
+</translatorcomment>
+        <translation>Выбрать элементы</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">Выделить всё</translation>
+        <translation>Выбрать всё</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Снять выделение</translation>
+        <translation>Снять выделение</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">Переключить</translation>
+        <translation>Переключить</translation>
     </message>
 </context>
 <context>
@@ -784,7 +786,7 @@ Stack trace:
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Линейка</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -1120,7 +1122,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">По ширине текста</translation>
+        <translation>По ширине текста</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="700"/>
@@ -1166,27 +1168,28 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Линейка</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">см</translation>
+        <translation>см</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">дюйм</translation>
+        <translation>дюйм</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Устоявшего обозначения нет</translatorcomment>
+        <translation>бп</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">Показать</translation>
+        <translation>Показать</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="957"/>
@@ -2335,7 +2338,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 уже верстается</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2375,7 +2378,7 @@ Do you want to discard your current changes, and reload the file from disk with 
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейти к верстаемому</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
@@ -3134,9 +3137,10 @@ We are sorry for the inconvenience.</source>
 
 Stack trace:
 </source>
-        <translation type="unfinished">
+        <translation>
 
-Трассировка стека</translation>
+Трассировка стека:
+</translation>
     </message>
 </context>
 <context>
@@ -3144,38 +3148,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Внутренняя ошибка</translation>
+        <translation>Внутренняя ошибка</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Не удалось выполнить системную команду: %1</translation>
+        <translation>Не удалось выполнить системную команду: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Ошибка при выполнении системной команды: %1</translation>
+        <translation>Ошибка при выполнении системной команды: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Запуск системных команд отключён (см. Настройки)</translation>
+        <translation>Запуск системных команд отключён (см. Настройки)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">Невозможно открыть «%1».</translation>
+        <translation>Невозможно открыть «%1».</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Доступ на чтение всех файлов отключён (см. Настройка)</translation>
+        <translation>Доступ на чтение всех файлов отключён (см. Настройка)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Невозможно открыть файл «%1» для чтения</translation>
+        <translation>Невозможно открыть файл «%1» для чтения</translation>
     </message>
 </context>
 <context>
@@ -3183,27 +3187,27 @@ Stack trace:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Подтвердите удаление</translation>
+        <translation>Подтвердите удаление</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Удаляемые вспомогательные файлы:</translation>
+        <translation>Удаляемые вспомогательные файлы:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">Невозможно удалить</translation>
+        <translation>Невозможно удалить</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">Некоторые вспомогательные файлы невозможно удалить. Возможно у вас нет прав на удаление.</translation>
+        <translation>Некоторые вспомогательные файлы невозможно удалить. Возможно у вас нет прав на удаление.</translation>
     </message>
 </context>
 <context>
@@ -3213,7 +3217,7 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Передвиньте линейку или измените значение, чтобы задать масштаб.
+        <translation>Передвиньте линейку или измените значение, чтобы задать масштаб.
 Общепринятые размеры страниц также указаны на линейке (чтобы их увидеть измените размер окна).
 Используйте контекстное меню чтобы изменить единицы измерения.</translation>
     </message>
@@ -3221,31 +3225,32 @@ Use the context menu to change the units.</source>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> дпи</translation>
+        <translatorcomment>Нет общепринятого обозначения</translatorcomment>
+        <translation> дпи</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">Размер A4</translation>
+        <translation>Размер A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Размер Letter</translation>
+        <translation>Размер Letter</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">см</translation>
+        <translation>см</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">дюйм</translation>
+        <translation>дюйм</translation>
     </message>
 </context>
 <context>
