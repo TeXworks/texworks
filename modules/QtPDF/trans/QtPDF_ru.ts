@@ -6,8 +6,7 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translatorcomment>Без контекста не понятно, что за guideline, в интерфейсе не удалось найти соот. пункт.</translatorcomment>
-        <translation>Изменить настройки...</translation>
+        <translation>Изменить направляющие...</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
