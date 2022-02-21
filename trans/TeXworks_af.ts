@@ -245,22 +245,22 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>Selekteer items</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">Selekteer alles</translation>
+        <translation>Selekteer alles</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Selekteer niks</translation>
+        <translation>Selekteer niks</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">Verwissel</translation>
+        <translation>Verwissel</translation>
     </message>
 </context>
 <context>
@@ -700,7 +700,7 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Liniaal</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -790,7 +790,7 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="592"/>
         <source>Select Text</source>
-        <translation>Kies teks</translation>
+        <translation>Selekteer teks</translation>
     </message>
     <message>
         <source>Select Image</source>
@@ -1179,7 +1179,7 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">Pas tot Inhoudswydte</translation>
+        <translation>Pas tot Inhoudswydte</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="748"/>
@@ -1204,27 +1204,27 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liniaal:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">duim</translation>
+        <translation>duim</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Wys</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -2369,7 +2369,7 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 word reeds geprosesseer</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2803"/>
@@ -2409,7 +2409,7 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Gaan na lettersetproses</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3050"/>
@@ -3146,27 +3146,27 @@ Stapelspoor:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Bevestig lêerskrapping</translation>
+        <translation>Bevestig lêerskrapping</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Hulplêers wat geskrap gaan word:</translation>
+        <translation>Hulplêers wat geskrap gaan word:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Skrap</translation>
+        <translation>Skrap</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">Kan nie skrap nie</translation>
+        <translation>Kan nie skrap nie</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">Sommige van die hulplêers kan nie verwyder word nie. Miskien het jy nie toestemming om hulle te skrap nie.</translation>
+        <translation>Sommige van die hulplêers kan nie verwyder word nie. Miskien het jy nie toestemming om hulle te skrap nie.</translation>
     </message>
 </context>
 <context>
