@@ -258,22 +258,22 @@ Stack trace:
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>項目を選択</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">全て選択</translation>
+        <translation>全て選択</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">選択解除</translation>
+        <translation>選択解除</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">切り替え</translation>
+        <translation>切り替え</translation>
     </message>
 </context>
 <context>
@@ -776,7 +776,7 @@ Stack trace:
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>ルーラー</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -1108,7 +1108,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">文書の幅に合わせる</translation>
+        <translation>文書の幅に合わせる</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="700"/>
@@ -1314,27 +1314,27 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>ルーラー:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">表示</translation>
+        <translation>表示</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -2209,7 +2209,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1はすでに処理済みです</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2229,7 +2229,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>タイプセットメニューへ</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
@@ -3105,7 +3105,7 @@ We are sorry for the inconvenience.</source>
 
 Stack trace:
 </source>
-        <translation type="unfinished">
+        <translation>
 
 スタックトレース: 
 </translation>
@@ -3116,38 +3116,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">内部エラー</translation>
+        <translation>内部エラー</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">システムコマンド %1 を実行できませんでした</translation>
+        <translation>システムコマンド %1 を実行できませんでした</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">システムコマンド %1 の実行時エラー</translation>
+        <translation>システムコマンド %1 の実行時エラー</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">システムコマンドの実行は許可されていません (設定を確認してください)</translation>
+        <translation>システムコマンドの実行は許可されていません (設定を確認してください)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; が開けません</translation>
+        <translation>&quot;%1&quot; が開けません</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">全てのファイルの読み込み許可がありません (設定を確認してください)</translation>
+        <translation>全てのファイルの読み込み許可がありません (設定を確認してください)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">ファイル &quot;%1&quot; を読み込むことができません</translation>
+        <translation>ファイル &quot;%1&quot; を読み込むことができません</translation>
     </message>
 </context>
 <context>
@@ -3155,27 +3155,27 @@ Stack trace:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">ファイルを削除してもよろしいですか？</translation>
+        <translation>ファイルを削除してもよろしいですか？</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">補助ファイルは削除されました:</translation>
+        <translation>補助ファイルは削除されました:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">削除</translation>
+        <translation>削除</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">削除できません</translation>
+        <translation>削除できません</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">いくつかの補助ファイルが削除できませんでした。権限を確認してください。</translation>
+        <translation>いくつかの補助ファイルが削除できませんでした。権限を確認してください。</translation>
     </message>
 </context>
 <context>
@@ -3185,7 +3185,7 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">実際の長さと合うようにルーラーをドラッグするか、値を入力してください。
+        <translation>実際の長さと合うようにルーラーをドラッグするか、値を入力してください。
 一般的な用紙サイズはあらかじめ設定済みです（確認するにはダイアログウィンドウのサイズを変更しなければならないかもしれません）。
 長さの単位はコンテキストメニューで変更可能です。</translation>
     </message>
@@ -3193,31 +3193,31 @@ Use the context menu to change the units.</source>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">A4</translation>
+        <translation>A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">レター</translation>
+        <translation>レター</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
 </context>
 <context>
