@@ -1,3 +1,41 @@
+Release 0.6.7 (TL'22) [February 2022]
+	* Add a ruler with draggable guidelines to the PDF previewer
+	* Improve preservation of Unicode characters during loading/saving
+	* Prevent concurrent typesetting in multi-file sources
+	* Disable "Remove Aux Files" during typesetting
+	* Add full paths as tool tips in the "Open Recent" menu
+	* Use native separators (/ or \) in the recent files menu
+	* Add "Fit to Content Width" to the PDF preview zoom context menu and to the
+	  scaling preferences
+	* Improve support for dark themes (changing the syntax highlighting color
+	  palette; fixing the color of the current line when changing OS color
+	  schemes; fixing the background color of the screen calibration widget for
+	  dark themes)
+	* Improve interoperability with docstrip by adding support for
+	  "%^^A ! TeX..." magic comments
+
+	* Fix crash when using the PDF preview zoom context menu
+	* Fix search results for unsaved .tex documents
+	* Fix linespacing when (re-)loading a document
+	* Fix hang when recent files are on (inaccessible) network drives
+	* Fix bugs when populating the recent files menu
+	* Fix focus when switching windows from the "Windows" menu
+	* Fix filtering in the citation select dialog
+	* Fix parsing BiBTeX @STRING entries
+	* Fix toggling of items in the "Remove Aux Files" dialog
+	* Fix quotes smartening after \
+	* Fix display of ScreenCalibrationWidget on macOS
+
+	* Update translations
+	* Update libraries for pre-built binaries
+	* Modernize and restructure the code to improve quality, stability,
+	  maintainability, and the possibilities for future enhancements
+	* Improve automatic building, testing, and packaging
+	* Automatically build pre-compiled binaries for macOS >= 10.12 and >= 10.15
+	* Improve the look and feel of the pre-compiled macOS binaries
+	* Improve texworks.appdata.xml
+	* Add "Keywords" to texworks.desktop
+
 Release 0.6.6 (TL'21) [March 2021]
 	* Add support for macOS 11 Big Sur
 	* Add support for HiDPI screens (e.g., Retina screens)
