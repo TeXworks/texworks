@@ -246,22 +246,22 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecionar itens</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">Selecionar Tudo</translation>
+        <translation>Selecionar Tudo</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Remover Seleções</translation>
+        <translation>Remover Seleções</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">Inverter</translation>
+        <translation>Inverter</translation>
     </message>
 </context>
 <context>
@@ -764,7 +764,7 @@
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Régua</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -934,7 +934,8 @@ Você quer continuar?</translation>
         <location filename="../src/PrefsDialog.cpp" line="552"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished">%1 (%2)</translation>
+        <translatorcomment>Língua (%1) e País (%2) para a tradução do TeXworks (ex. &quot;Português (Brasil)&quot;)</translatorcomment>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="345"/>
@@ -1062,7 +1063,8 @@ Você quer continuar?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>&quot;Width&quot; significa &quot;largura&quot;, mas aqui se refere à espessura do cursor na linha de texto.</translatorcomment>
+        <translation>Espessura do cursor</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
@@ -1097,7 +1099,7 @@ Você quer continuar?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">Ajustar à Largura do Conteúdo</translation>
+        <translation>Ajustar à Largura do Conteúdo</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="700"/>
@@ -1303,27 +1305,27 @@ Você quer continuar?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Régua:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">pol</translation>
+        <translation>pol</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">Exibir</translation>
+        <translation>Exibir</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="883"/>
@@ -1356,7 +1358,7 @@ Você quer continuar?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="921"/>
         <source>Preview &gt; Source:</source>
-        <translation type="unfinished">Visualização &gt; Fonte:</translation>
+        <translation>Visualização &gt; Fonte:</translation>
     </message>
     <message>
         <source> (%1)</source>
@@ -1657,7 +1659,7 @@ Use o menu de contexto para mudar as unidades.</translation>
         <location filename="../src/ScriptManagerWidget.cpp" line="209"/>
         <source>Hook: </source>
         <translatorcomment>This translation is quite fuzzy, I&apos;ll have to use TeXworks carefully to find out where this applies</translatorcomment>
-        <translation type="unfinished">Gancho: </translation>
+        <translation>Gancho: </translation>
     </message>
 </context>
 <context>
@@ -2208,7 +2210,7 @@ Se você continuar, eles serão substituídos por códigos-padrão. Em vez disso
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 já está em processamento</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
@@ -2228,7 +2230,7 @@ Se você continuar, eles serão substituídos por códigos-padrão. Em vez disso
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir para a compilação</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2908"/>
@@ -3107,7 +3109,10 @@ Lamentamos a inconveniência.</translation>
 
 Stack trace:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Stack trace:
+</translation>
     </message>
 </context>
 <context>
@@ -3115,38 +3120,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Erro interno</translation>
+        <translation>Erro interno</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="240"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Falhou ao executar o comando de sistema %1</translation>
+        <translation>Falhou ao executar o comando de sistema: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="249"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Erro ao executar o comando de sistema %1</translation>
+        <translation>Erro ao executar o comando de sistema: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="266"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="288"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Desabilitada a execução de comandos de sistema (ver Preferências)</translation>
+        <translation>Desabilitada a execução de comandos de sistema (ver Preferências)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="284"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">&quot;%1&quot; não pôde ser aberto.</translation>
+        <translation>&quot;%1&quot; não pôde ser aberto.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="330"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Desabilitada a leitura de qualquer arquivo (ver Preferências)</translation>
+        <translation>Desabilitada leitura de arquivos (ver Preferências)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">O arquivo &quot;%1&quot; não pôde ser aberto para leitura</translation>
+        <translation>O arquivo &quot;%1&quot; não pôde ser aberto para leitura</translation>
     </message>
 </context>
 <context>
@@ -3154,27 +3159,27 @@ Stack trace:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Confirme o apagamento do arquivo</translation>
+        <translation>Confirme apagar o arquivo</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Arquivos auxiliares que serão apagados:</translation>
+        <translation>Arquivos auxiliares a apagar:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Apagar</translation>
+        <translation>Apagar</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">Impossível apagar</translation>
+        <translation>Impossível apagar</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">Alguns dos arquivos auxiliares não puderam ser removidos. Talvez você não tenha permissão para apagá-los.</translation>
+        <translation>Alguns dos arquivos auxiliares não puderam ser removidos. Talvez você não tenha permissão de apagá-los.</translation>
     </message>
 </context>
 <context>
@@ -3184,39 +3189,42 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Arraste a régua ou mude o valor para corresponder a medidas reais.
-Tamanhos comuns de papel estão marcados também (você pode precisar redimensionar a caixa de diálogo para vê-los).
+        <translation>Arraste a régua ou mude o valor para corresponder a medidas reais.
+Tamanhos comuns de papel estão marcados também (você pode ter de redimensionar a caixa de diálogo para vê-los).
 Use o menu de contexto para mudar as unidades.</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> ppp</translation>
+        <translation> ppp</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">ISO A4</translation>
+        <translatorcomment>DIN A4 é o mesmo formato ISO A4.</translatorcomment>
+        <translation>ISO A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Carta</translation>
+        <translation>Carta</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translatorcomment>isto se refere à unidade de medida centímetro</translatorcomment>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">pol</translation>
+        <translatorcomment>isto se refere à unidade de medida polegadas</translatorcomment>
+        <translation>pol</translation>
     </message>
 </context>
 <context>
@@ -3224,12 +3232,12 @@ Use o menu de contexto para mudar as unidades.</translation>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">ERRO: código de falha %1</translation>
+        <translation>ERRO: código de falha %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">ERRO: código de saída %1</translation>
+        <translation>ERRO: código de saída %1</translation>
     </message>
 </context>
 </TS>
