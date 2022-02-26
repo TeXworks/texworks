@@ -12,7 +12,6 @@
 set(TEXWORKS_SRCS BibTeXFile.cpp
                   CitationSelectDialog.cpp
                   CompletingEdit.cpp
-                  ConfirmDelete.cpp
                   Engine.cpp
                   FindDialog.cpp
                   HardWrapDialog.cpp
@@ -42,6 +41,8 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   ui/ClickableLabel.cpp
                   ui/ClosableTabWidget.cpp
                   ui/LineNumberWidget.cpp
+                  ui/ListSelectDialog.cpp
+                  ui/RemoveAuxFilesDialog.cpp
                   ui/ScreenCalibrationWidget.cpp
                   utils/CommandlineParser.cpp
                   utils/FileVersionDatabase.cpp
@@ -49,13 +50,13 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   utils/ResourcesLibrary.cpp
                   utils/SystemCommand.cpp
                   utils/TextCodecs.cpp
+                  utils/TypesetManager.cpp
                   utils/VersionInfo.cpp
                   )
 
 set(TEXWORKS_HDRS BibTeXFile.h
                   CitationSelectDialog.h
                   CompletingEdit.h
-                  ConfirmDelete.h
                   DefaultBinaryPaths.h
                   DefaultPrefs.h
                   Engine.h
@@ -89,6 +90,8 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   ui/ClickableLabel.h
                   ui/ClosableTabWidget.h
                   ui/LineNumberWidget.h
+                  ui/ListSelectDialog.h
+                  ui/RemoveAuxFilesDialog.h
                   ui/ScreenCalibrationWidget.h
                   utils/CommandlineParser.h
                   utils/FileVersionDatabase.h
@@ -96,6 +99,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   utils/ResourcesLibrary.h
                   utils/SystemCommand.h
                   utils/TextCodecs.h
+                  utils/TypesetManager.h
                   utils/VersionInfo.h
                   )
 
@@ -116,7 +120,6 @@ endif (WITH_QTSCRIPT)
 
 set(TEXWORKS_UIS CitationSelectDialog.ui
                  CompletingEdit.ui
-                 ConfirmDelete.ui
                  Find.ui
                  HardWrapDialog.ui
                  PDFDocumentWindow.ui
@@ -128,7 +131,9 @@ set(TEXWORKS_UIS CitationSelectDialog.ui
                  SearchResults.ui
                  TemplateDialog.ui
                  TeXDocumentWindow.ui
-                 ToolConfig.ui)
+                 ToolConfig.ui
+                 ui/ListSelectDialog.ui
+                 )
 
 set(TEXWORKS_RCS ${TeXworks_SOURCE_DIR}/res/resfiles.qrc
                  ${TeXworks_SOURCE_DIR}/res/resources.qrc)
@@ -137,6 +142,9 @@ FILE(GLOB TEXWORKS_TRANS_TS   "${TeXworks_SOURCE_DIR}/trans/*.ts")
 FILE(GLOB QT_TRANS_QM         "${TeXworks_SOURCE_DIR}/trans/qt/*.qm")
 
 IF ( WIN32 )
+  if (NOT MSVC)
+    set(CREATE_MANIFEST TRUE)
+  endif (NOT MSVC)
   configure_file(${TeXworks_SOURCE_DIR}/res/TeXworks.rc TeXworks.rc)
   list(APPEND TEXWORKS_SRCS ${CMAKE_CURRENT_BINARY_DIR}/TeXworks.rc)
 ENDIF ( WIN32 )
@@ -243,7 +251,12 @@ target_LINK_LIBRARIES(TeXworks QtPDF::qtpdf ${TeXworks_LIBS} )
 
 # Disallow automatic casts from char* to QString (enforcing the use of tr() or
 # explicitly specifying the string encoding)
-target_compile_definitions(TeXworks PRIVATE QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_BYTEARRAY QT_STRICT_ITERATORS)
+target_compile_definitions(TeXworks PRIVATE QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_BYTEARRAY)
+if (NOT MSVC)
+	# Set QT_STRICT_ITERATORS everywhere except for MSVC (QTBUG-78112)
+	target_compile_definitions(TeXworks PRIVATE QT_STRICT_ITERATORS)
+endif (NOT MSVC)
+
 target_compile_definitions(TeXworks PRIVATE TW_BUILD_ID="${TW_BUILD_ID}")
 
 function (target_add_path_define target name path)

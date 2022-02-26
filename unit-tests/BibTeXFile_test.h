@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2018-2019  Stefan Löffler
+	Copyright (C) 2018-2021  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@ class TestBibTeXFile : public QObject
 private slots:
   void load();
   void numEntries();
+  void strings();
   void entry_type();
   void entry_typeString();
   void entry_key();

@@ -97,14 +97,84 @@ jobs:
       run: cmake -G 'MSYS Makefiles' -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi'
 
     - name: Build
-      run: make -j
-      working-directory: build
+      run: cmake --build build -j
 
     - name: Test
       run: ctest -V
       working-directory: build
       env:
         QT_FORCE_STDERR_LOGGING: 1
+
+################################################################################
+
+  build-win-msvc:
+    name: Windows (MSVC)
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        modules: qtscript
+
+    - name: Install dependencies
+      run: |
+        cmake -B "${{ runner.workspace }}/tw-deps-build" -S "${{ github.workspace }}/.github/actions/msvc-dependencies" -DCMAKE_INSTALL_PREFIX="${{ runner.workspace }}/tw-deps"
+        cmake --build "${{ runner.workspace }}/tw-deps-build" --config Release
+
+    - name: Configure
+      run: cmake -B build -DTW_BUILD_ID='github' -DCMAKE_PREFIX_PATH="${{ runner.workspace }}/tw-deps" -Dgp_tool='none'
+
+    - name: Build
+      run: cmake --build build --config Release
+
+    - name: Prepare for testing
+      run: |
+        cmake -E copy_directory build/share build/Release/share
+        cd "${{ runner.workspace }}/tw-deps/bin"
+        cmake -E copy lcms2.dll libhunspell.dll libpng16.dll openjp2.dll poppler-qt5.dll zlib.dll "${{ github.workspace }}/build/Release/"
+
+    - name: Test
+      run: ctest -V -C Release
+      working-directory: build
+      env:
+        QT_FORCE_STDERR_LOGGING: 1
+
+################################################################################
+
+  macosx-homebrew:
+    name: Mac OS X (Homebrew)
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: |
+        # /usr/local/bin/2to3 is symlinked to the native python2 installation
+        # but prevents the homebrew install from succeeding
+        rm -f /usr/local/bin/2to3
+        brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
+        brew install hunspell poppler lua qt5
+
+    - name: Configure
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5"
+
+    - name: Build
+      run: make -j
+      working-directory: build
+
+    - name: Test
+      run: QT_QPA_PLATFORM_PLUGIN_PATH="${Qt5_DIR}/plugins/platforms" ctest -V
+      working-directory: build
+
+    - name: Package
+      id: package
+      uses: ./.github/actions/package-macos
 
 ################################################################################
 

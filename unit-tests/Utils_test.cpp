@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2021  Stefan Löffler
+	Copyright (C) 2019-2022  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #include "utils/ResourcesLibrary.h"
 #include "utils/SystemCommand.h"
 #include "utils/TextCodecs.h"
+#include "utils/TypesetManager.h"
 
 #include <QMenuBar>
 #include <QMouseEvent>
@@ -168,13 +169,21 @@ void TestUtils::SystemCommand_wait()
 
 	QVERIFY(spy.isValid());
 
+#ifdef Q_OS_WINDOWS
+	cmd.start(QStringLiteral("cmd"), QStringList{QStringLiteral("/C"), QStringLiteral("echo OK")});
+#else
 	cmd.start(QStringLiteral("echo"), QStringList{QStringLiteral("OK")});
+#endif
 	QVERIFY(cmd.waitForStarted());
 	QVERIFY(cmd.waitForFinished());
 
 	spy.clear();
 
+#ifdef Q_OS_WINDOWS
+	cmd.start(QStringLiteral("cmd"), QStringList{QStringLiteral("/C"), QStringLiteral("echo OK")});
+#else
 	cmd.start(QStringLiteral("echo"), QStringList{QStringLiteral("OK")});
+#endif
 	QVERIFY(spy.wait());
 	QVERIFY(cmd.waitForStarted());
 	QVERIFY(cmd.waitForFinished());
@@ -188,9 +197,13 @@ void TestUtils::SystemCommand_getResult_data()
 	QTest::addColumn<bool>("runInBackground");
 	QTest::addColumn<bool>("success");
 	QTest::addColumn<QString>("output");
-
+#ifdef Q_OS_WINDOWS
+	QString progOK{QStringLiteral("cmd")};
+	QStringList progOKArgs{QStringLiteral("/C"), QStringLiteral("echo OK")};
+#else
 	QString progOK{QStringLiteral("echo")};
 	QStringList progOKArgs{QStringLiteral("OK")};
+#endif
 	QString progInvalid{QStringLiteral("invalid-command")};
 	QStringList progInvalidArgs{};
 	QString outputQuiet;
@@ -621,6 +634,124 @@ void TestUtils::ResourcesLibrary_portableLibPath()
 	QCOMPARE(Tw::Utils::ResourcesLibrary::getPortableLibPath(), curDir);
 	Tw::Utils::ResourcesLibrary::setPortableLibPath(invalidDir);
 	QCOMPARE(Tw::Utils::ResourcesLibrary::getPortableLibPath(), invalidDir);
+}
+
+void TestUtils::TypesetManager()
+{
+	Tw::Utils::TypesetManager tm;
+	QString empty;
+	QString fileA{QStringLiteral("a")};
+	QString fileB{QStringLiteral("b")};
+	QObject owner;
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QSignalSpy started(&tm, SIGNAL(typesettingStarted(QString)));
+	QSignalSpy stopped(&tm, SIGNAL(typesettingStopped(QString)));
+#else
+	QSignalSpy started(&tm, &Tw::Utils::TypesetManager::typesettingStarted);
+	QSignalSpy stopped(&tm, &Tw::Utils::TypesetManager::typesettingStopped);
+#endif
+
+	QVERIFY(started.isValid());
+	QVERIFY(stopped.isValid());
+
+	// 1) no process running
+	QVERIFY(tm.getOwnerForRootFile(empty) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(empty), false);
+	QVERIFY(tm.getOwnerForRootFile(fileA) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(fileA), false);
+	QVERIFY(tm.getOwnerForRootFile(fileB) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(fileB), false);
+
+	// 2a) start process
+	QCOMPARE(started.count(), 0);
+	QCOMPARE(stopped.count(), 0);
+	QCOMPARE(tm.startTypesetting(fileA, &owner), true);
+	QCOMPARE(started.count(), 1);
+	QCOMPARE(started.takeFirst().at(0).toString(), fileA);
+	QCOMPARE(stopped.count(), 0);
+
+	// 2b) one process running
+	QVERIFY(tm.getOwnerForRootFile(empty) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(empty), false);
+	QVERIFY(tm.getOwnerForRootFile(fileA) == &owner);
+	QCOMPARE(tm.isFileBeingTypeset(fileA), true);
+	QVERIFY(tm.getOwnerForRootFile(fileB) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(fileB), false);
+
+	// 2c) Can't start again
+	QCOMPARE(started.count(), 0);
+	QCOMPARE(stopped.count(), 0);
+	QCOMPARE(tm.startTypesetting(fileA, &owner), false);
+	QCOMPARE(started.count(), 0);
+	QCOMPARE(stopped.count(), 0);
+
+	// 2d) Can't start with invalid file
+	QCOMPARE(tm.startTypesetting(empty, &owner), false);
+	QCOMPARE(started.count(), 0);
+	QCOMPARE(stopped.count(), 0);
+
+	// 2e) Can't start with invalid window
+	QCOMPARE(tm.startTypesetting(fileB, nullptr), false);
+	QCOMPARE(started.count(), 0);
+	QCOMPARE(stopped.count(), 0);
+
+	// 2f) still one process running
+	QVERIFY(tm.getOwnerForRootFile(empty) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(empty), false);
+	QVERIFY(tm.getOwnerForRootFile(fileA) == &owner);
+	QCOMPARE(tm.isFileBeingTypeset(fileA), true);
+	QVERIFY(tm.getOwnerForRootFile(fileB) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(fileB), false);
+
+	// 3a) Start second process but destroy window
+	{
+		QObject owner2;
+		QCOMPARE(started.count(), 0);
+		QCOMPARE(stopped.count(), 0);
+		QCOMPARE(tm.startTypesetting(fileB, &owner2), true);
+		QCOMPARE(started.count(), 1);
+		QCOMPARE(started.takeFirst().at(0).toString(), fileB);
+		QCOMPARE(stopped.count(), 0);
+
+		// two processes running
+		QVERIFY(tm.getOwnerForRootFile(empty) == nullptr);
+		QCOMPARE(tm.isFileBeingTypeset(empty), false);
+		QVERIFY(tm.getOwnerForRootFile(fileA) == &owner);
+		QCOMPARE(tm.isFileBeingTypeset(fileA), true);
+		QVERIFY(tm.getOwnerForRootFile(fileB) == &owner2);
+		QCOMPARE(tm.isFileBeingTypeset(fileB), true);
+
+		// 3b) destroying the typesetting window (at the end of the scope) should stop
+		QCOMPARE(started.count(), 0);
+		QCOMPARE(stopped.count(), 0);
+	}
+	QCOMPARE(started.count(), 0);
+	QCOMPARE(stopped.count(), 1);
+	QCOMPARE(stopped.takeFirst().at(0).toString(), fileB);
+
+	// 3c) one process running
+	QVERIFY(tm.getOwnerForRootFile(empty) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(empty), false);
+	QVERIFY(tm.getOwnerForRootFile(fileA) == &owner);
+	QCOMPARE(tm.isFileBeingTypeset(fileA), true);
+	QVERIFY(tm.getOwnerForRootFile(fileB) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(fileB), false);
+
+	// 4a) stop process
+	QCOMPARE(started.count(), 0);
+	QCOMPARE(stopped.count(), 0);
+	tm.stopTypesetting(&owner);
+	QCOMPARE(started.count(), 0);
+	QCOMPARE(stopped.count(), 1);
+	QCOMPARE(stopped.takeFirst().at(0).toString(), fileA);
+
+	// 3b) no process running
+	QVERIFY(tm.getOwnerForRootFile(empty) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(empty), false);
+	QVERIFY(tm.getOwnerForRootFile(fileA) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(fileA), false);
+	QVERIFY(tm.getOwnerForRootFile(fileB) == nullptr);
+	QCOMPARE(tm.isFileBeingTypeset(fileB), false);
 }
 
 #ifdef Q_OS_DARWIN

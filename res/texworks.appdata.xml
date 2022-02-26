@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014-2021 Stefan Löffler <st.loeffler@gmail.com> -->
+<!-- Copyright 2014-2022 Stefan Löffler <st.loeffler@gmail.com> -->
 <component type="desktop-application">
 	<id>org.tug.texworks.desktop</id>
 	<metadata_license>CC0-1.0</metadata_license>
@@ -203,21 +203,39 @@
 			TeXworks støttar blant anna innebygd PDF-vising, synkronisering mellom TeX-filer
 			og PDF-resultat og moglegheit for utvidingar via eit eige skriptgrensesnitt.
 		</p>
+		<p xml:lang="pl">
+			TeXworks to środowisko do tworzenia dokumentów opartych na TeXu (LaTeX, ConTeXt,
+			itp) wyposażone w edytor zgodny z TeXem, używający kodowania Unicode,
+			zintegrowany z przeglądarką PDF, z prostym i jasnym interfejsem przyjaznym
+			zwłaszcza dla  przypadkowych i nie-technicznych użytkowników.
+		</p>
+		<p xml:lang="pl">
+			TeXworks jest inspirowany wielokrotnie nagradzanym programem TeXShop Dicka Kocha
+			dla systemu Mac OS X, który sprawił, że wysokiej jakości skład tekstów z
+			wykorzystaniem TeXa stał się dostępny dla szerszej społeczności użytkowników,
+			bez technicznego doświadczenia.. Celem TeXworks jest dostarczenie podobnie
+			zintegrowanego, łatwego w użyciu środowiska dla użytkowników na innych
+			platformach, zwłaszcza GNU/Linux i Windows.
+		</p>
+		<p xml:lang="pl">
+			TeXworks oferuje, między innymi, zintegrowany podgląd PDF, synchronizację między
+			plikami TeX a wyjściem PDF oraz rozszerzalny interfejs skryptów.
+		</p>
 		<p xml:lang="ru">
 			TeXworks — это среда для подготовки документов в TeX (LaTeX, ConTeXt и др.) формате,
 			состоящая из редактора, поддерживающего Unicode и встроенного просмотра PDF документов
 			соединённые в простом и понятном интерфейсе.
 		</p>
 		<p xml:lang="ru">
-			При своём создании TeXworks взял на основу популярную программу TeXShop для Mac OS X,
-			разрабатываемую Диком Кохом, которая дала большому числу пользователей без лишних
-			усилий получать высококлассные документы используя TeX. Цель TeXworks — предоставить
-			те же возможности простого и интегрированного окружения для пользователей на других
+			При создании TeXworks была взята за основу популярная программа TeXShop для Mac OS X,
+			разрабатываемая Диком Кохом, дающая большому числу пользователей без лишних усилий
+			получать высококлассные документы используя TeX. Цель TeXworks — предоставить те же
+			возможности простого и интегрированного окружения для пользователей на других
 			платформах, в особенности GNU/Linux и Windows.
 		</p>
 		<p xml:lang="ru">
-			Среди прочего в TeXworks имеется встроенный просмотр PDF, синхронизация между
-			исходными TeX файлами и PDF выводом, и возможности для расширения с помощью сценариев.
+			Для этих целей в TeXworks есть встроенный просмотр PDF, синхронизация между исходными
+			TeX файлами и PDF выводом, и возможности расширения функциональности с помощью сценариев.
 		</p>
 		<p xml:lang="sl">
 			TeXworks je program za pripravo TeX-ovih dokumentov (vključno z LaTeX-om, ConTeXt-om, itd.).
@@ -237,10 +255,22 @@
 			izvorno kodo in PDF-jem ter razširljivost s skriptami.
 		</p>
 	</description>
+
+	<categories>
+		<category>Office</category>
+		<category>Publishing</category>
+		<category>TextEditor</category>
+		<category>Viewer</category>
+		<category>Qt</category>
+	</categories>
+
 	<screenshots>
-		<screenshot type="default" width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</screenshot>
+		<screenshot type="default">
+			<image width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</image>
+		</screenshot>
 	</screenshots>
 	<url type="homepage">http://www.tug.org/texworks/</url>
+	<url type="help">https://github.com/TeXworks/manual</url>
 	<url type="bugtracker">https://github.com/TeXworks/texworks/issues</url>
 	<url type="translate">https://github.com/TeXworks/texworks/wiki/Translating</url>
 	<update_contact>texworks@tug.org</update_contact>
@@ -253,6 +283,7 @@
 	<content_rating type="oars-1.0" />
 
 	<releases>
+		<release version="0.6.7" date="2022-02-26" />
 		<release version="0.6.6" date="2021-03-11" />
 		<release version="0.6.5" date="2020-03-25" />
 		<release version="0.6.4" date="2020-03-15" />

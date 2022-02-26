@@ -1,6 +1,6 @@
 /*
   This is part of TeXworks, an environment for working with TeX documents
-  Copyright (C) 2013-2021  Stefan Löffler
+  Copyright (C) 2013-2022  Stefan Löffler
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 */
 #include "TestQtPDF.h"
 #include "PaperSizes.h"
+#include "PhysicalUnits.h"
 
 #ifdef USE_MUPDF
   typedef QtPDF::MuPDFBackend Backend;
@@ -123,7 +124,7 @@ public:
   GenericPage(GenericDocument * parent, int at, QSharedPointer<QReadWriteLock> docLock);
   QSizeF pageSizeF() const override { return {}; }
   QList<QSharedPointer<QtPDF::Annotation::Link> > loadLinks() override { return {}; }
-  QList<QtPDF::Backend::SearchResult> search(const QString &searchText, const QtPDF::Backend::SearchFlags &flags) override {
+  QList<QtPDF::Backend::SearchResult> search(const QString &searchText, const QtPDF::Backend::SearchFlags &flags) const override {
     Q_UNUSED(searchText) Q_UNUSED(flags) return {};
   }
   QImage renderToImage(double xres, double yres, QRect render_box = QRect(), bool cache = false) const override {
@@ -1890,6 +1891,23 @@ void TestQtPDF::pageTile()
 #ifdef DEBUG
   QCOMPARE(static_cast<QString>(tiles[0]), QStringLiteral("p0,1x1,r0|0x1|1"));
 #endif
+}
+
+void TestQtPDF::physicalLength()
+{
+  using namespace QtPDF::Physical;
+  Length l1(1, Length::Inches);
+
+  QCOMPARE(l1.val(Length::Bigpoints), 72.);
+  QCOMPARE(l1.val(Length::Inches), 1.);
+  QCOMPARE(l1.val(Length::Centimeters), 2.54);
+
+  l1.setVal(144., Length::Bigpoints);
+  QCOMPARE(l1.val(Length::Bigpoints), 144.);
+  QCOMPARE(l1.val(Length::Inches), 2.);
+  QCOMPARE(l1.val(Length::Centimeters), 2 * 2.54);
+
+  QCOMPARE(Length::convert(1, Length::Centimeters, Length::Inches), 1. / 2.54);
 }
 
 } // namespace UnitTest

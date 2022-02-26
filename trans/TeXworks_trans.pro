@@ -9,7 +9,6 @@ SOURCES = \
   "../src/BibTeXFile.cpp" \
   "../src/CitationSelectDialog.cpp" \
   "../src/CompletingEdit.cpp" \
-  "../src/ConfirmDelete.cpp" \
   "../src/Engine.cpp" \
   "../src/FindDialog.cpp" \
   "../src/HardWrapDialog.cpp" \
@@ -42,6 +41,8 @@ SOURCES = \
   "../src/ui/ClickableLabel.cpp" \
   "../src/ui/ClosableTabWidget.cpp" \
   "../src/ui/LineNumberWidget.cpp" \
+  "../src/ui/ListSelectDialog.cpp" \
+  "../src/ui/RemoveAuxFilesDialog.cpp" \
   "../src/ui/ScreenCalibrationWidget.cpp" \
   "../src/utils/CommandlineParser.cpp" \
   "../src/utils/FileVersionDatabase.cpp" \
@@ -49,13 +50,13 @@ SOURCES = \
   "../src/utils/ResourcesLibrary.cpp" \
   "../src/utils/SystemCommand.cpp" \
   "../src/utils/TextCodecs.cpp" \
+  "../src/utils/TypesetManager.cpp" \
   "../src/utils/VersionInfo.cpp"
 
 HEADERS = \
   "../src/BibTeXFile.h" \
   "../src/CitationSelectDialog.h" \
   "../src/CompletingEdit.h" \
-  "../src/ConfirmDelete.h" \
   "../src/DefaultBinaryPaths.h" \
   "../src/DefaultPrefs.h" \
   "../src/Engine.h" \
@@ -91,6 +92,8 @@ HEADERS = \
   "../src/ui/ClickableLabel.h" \
   "../src/ui/ClosableTabWidget.h" \
   "../src/ui/LineNumberWidget.h" \
+  "../src/ui/ListSelectDialog.h" \
+  "../src/ui/RemoveAuxFilesDialog.h" \
   "../src/ui/ScreenCalibrationWidget.h" \
   "../src/utils/CommandlineParser.h" \
   "../src/utils/FileVersionDatabase.h" \
@@ -98,12 +101,12 @@ HEADERS = \
   "../src/utils/ResourcesLibrary.h" \
   "../src/utils/SystemCommand.h" \
   "../src/utils/TextCodecs.h" \
+  "../src/utils/TypesetManager.h" \
   "../src/utils/VersionInfo.h"
 
 FORMS = \
   "../src/CitationSelectDialog.ui" \
   "../src/CompletingEdit.ui" \
-  "../src/ConfirmDelete.ui" \
   "../src/Find.ui" \
   "../src/HardWrapDialog.ui" \
   "../src/PDFDocumentWindow.ui" \
@@ -115,7 +118,8 @@ FORMS = \
   "../src/SearchResults.ui" \
   "../src/TeXDocumentWindow.ui" \
   "../src/TemplateDialog.ui" \
-  "../src/ToolConfig.ui"
+  "../src/ToolConfig.ui" \
+  "../src/ui/ListSelectDialog.ui"
 
 RESOURCES = \
   "../build/src/TeXworks_trans.qrc" \

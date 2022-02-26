@@ -72,6 +72,7 @@ add_executable(test_Utils
 	"${CMAKE_SOURCE_DIR}/src/utils/ResourcesLibrary.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/SystemCommand.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/TextCodecs.cpp"
+	"${CMAKE_SOURCE_DIR}/src/utils/TypesetManager.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/VersionInfo.cpp"
 )
 
@@ -99,6 +100,12 @@ add_executable(test_Document
 	"${CMAKE_SOURCE_DIR}/src/TeXHighlighter.h"
 )
 target_compile_options(test_Document PRIVATE ${WARNING_OPTIONS})
+if (WITH_POPPLERQT)
+	target_compile_definitions(test_Document PRIVATE WITH_POPPLERQT)
+	if (POPPLER_HAS_RUNTIME_VERSION)
+		target_compile_definitions(test_Document PRIVATE POPPLER_HAS_RUNTIME_VERSION)
+	endif (POPPLER_HAS_RUNTIME_VERSION)
+endif (WITH_POPPLERQT)
 target_link_libraries(test_Document QtPDF::qtpdf SyncTeX::synctex Hunspell::hunspell ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Document COMMAND test_Document WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 

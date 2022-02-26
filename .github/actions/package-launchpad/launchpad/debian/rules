@@ -25,16 +25,16 @@ build-indep :
 build-arch: build-stamp
 
 # Build architecture-dependent files
-build-stamp: configure-stamp  
+build-stamp: configure-stamp
 	dh_testdir
 	cd build && $(MAKE) VERBOSE=1 && xvfb-run ctest -V
 	touch $@
 
-clean: 
+clean:
 	dh_testdir
 	dh_testroot
 	rm -rf build build-stamp configure-stamp
-	dh_clean 
+	dh_clean
 
 # Build architecture-independent packages
 binary-indep:
@@ -67,7 +67,7 @@ binary-arch: build-stamp
 
 	cd build && $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
 
-	dh_installchangelogs 
+	dh_installchangelogs
 	dh_installdocs
 	dh_install
 	dh_installman
@@ -82,5 +82,3 @@ binary-arch: build-stamp
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
-
-

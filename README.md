@@ -1,7 +1,7 @@
-[![CI](https://github.com/TeXworks/texworks/workflows/CI/badge.svg)](https://github.com/TeXworks/texworks/actions?query=workflow%3ACI)
 [![CD](https://github.com/TeXworks/texworks/workflows/CD/badge.svg)](https://github.com/TeXworks/texworks/actions?query=workflow%3ACD)
-[![Build status](https://ci.appveyor.com/api/projects/status/eb4e9108blt0pehr?svg=true)](https://ci.appveyor.com/project/stloeffler/texworks)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b4e9f1a5159b4060a88dd72dc3803f54)](https://www.codacy.com/app/TeXworks/texworks?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TeXworks/texworks&amp;utm_campaign=Badge_Grade)
+[![CI](https://github.com/TeXworks/texworks/workflows/CI/badge.svg)](https://github.com/TeXworks/texworks/actions?query=workflow%3ACI)
+[![Appveyor](https://ci.appveyor.com/api/projects/status/eb4e9108blt0pehr?svg=true)](https://ci.appveyor.com/project/stloeffler/texworks)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/22d3db26f8a542f08d8da056e6779020)](https://www.codacy.com/gh/TeXworks/texworks/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TeXworks/texworks&amp;utm_campaign=Badge_Grade)
 
 About TeXworks
 ==============
@@ -32,7 +32,7 @@ debug information), or file a bug report.
 License
 -------
 
-TeXworks is copyright (C) 2007-2021 by Jonathan Kew, Stefan Löffler, and Charlie
+TeXworks is copyright (C) 2007-2022 by Jonathan Kew, Stefan Löffler, and Charlie
 Sharpsteen. Distributed under the terms of the GNU General Public License,
 version 2 or (at your option) any later version.
 See the file COPYING for details.

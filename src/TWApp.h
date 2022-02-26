@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2021  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2022  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -21,6 +21,8 @@
 
 #ifndef TWApp_H
 #define TWApp_H
+
+#include "utils/TypesetManager.h"
 
 #include <QAction>
 #include <QApplication>
@@ -102,6 +104,8 @@ public:
 	static TWApp *instance();
 
 	static QStringList getTranslationList();
+
+	Tw::Utils::TypesetManager & typesetManager() { return m_typesetManager; }
 
 	TWScriptManager* getScriptManager() { return scriptManager; }
 
@@ -250,6 +254,8 @@ private:
 	TWScriptManager *scriptManager;
 
 	QHash<QString, QVariant> m_globals;
+
+	Tw::Utils::TypesetManager m_typesetManager{this};
 
 	static TWApp *theAppInstance;
 };

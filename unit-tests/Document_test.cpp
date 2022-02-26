@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2020  Stefan Löffler
+	Copyright (C) 2020-2022  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -33,6 +33,14 @@
 #include <QSignalSpy>
 #include <limits>
 
+#if WITH_POPPLERQT
+#if POPPLER_HAS_RUNTIME_VERSION
+#include <poppler-version.h>
+#else
+#include <poppler-config.h>
+#endif
+#endif
+
 Q_DECLARE_METATYPE(QSharedPointer<TWSyncTeXSynchronizer>)
 Q_DECLARE_METATYPE(TWSynchronizer::TeXSyncPoint)
 Q_DECLARE_METATYPE(TWSynchronizer::PDFSyncPoint)
@@ -56,6 +64,62 @@ char * toString(const TWSyncTeXSynchronizer::PDFSyncPoint & p) {
 	QDebug(&rectStr) << qSetRealNumberPrecision(20) << p.rects;
 	return QTest::toString(QStringLiteral("PDFSyncPoint(%0 @ %1, %2)").arg(p.filename).arg(p.page).arg(rectStr));
 }
+
+#if WITH_POPPLERQT
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
+// QVersionNumber was introduced in 5.6.0; for compatibility with older versions
+// this class provides a rudimentary implementation if necessary
+class VersionNumber {
+	QVector<int> m_segments;
+public:
+	VersionNumber() = default;
+	VersionNumber(int maj, int min, int mic) { m_segments << maj << min << mic; }
+	static VersionNumber fromString(const QString & string) {
+		VersionNumber rv;
+		Q_FOREACH(const QString & s, string.split(QChar('.'))) {
+			bool ok;
+			int i = s.toInt(&ok);
+			if (!ok) return {};
+			rv.m_segments.append(i);
+		}
+		return rv;
+	}
+	static int compare(const VersionNumber & v1, const VersionNumber & v2) {
+		for (int i = 0; i < qMax(v1.m_segments.size(), v2.m_segments.size()); ++i) {
+			int a = (i < v1.m_segments.size() ? v1.m_segments[i] : 0);
+			int b = (i < v2.m_segments.size() ? v2.m_segments[i] : 0);
+			if (a < b)
+				return -1;
+			else if (a > b)
+				return 1;
+		}
+		return 0;
+	}
+	bool operator==(const VersionNumber & rhs) const { return compare(*this, rhs) == 0; }
+	bool operator!=(const VersionNumber & rhs) const { return compare(*this, rhs) != 0; }
+	bool operator<(const VersionNumber & rhs) const { return compare(*this, rhs) < 0; }
+	bool operator<=(const VersionNumber & rhs) const { return compare(*this, rhs) <= 0; }
+	bool operator>(const VersionNumber & rhs) const { return compare(*this, rhs) > 0; }
+	bool operator>=(const VersionNumber & rhs) const { return compare(*this, rhs) >= 0; }
+};
+#else
+using VersionNumber = QVersionNumber;
+#endif
+
+VersionNumber popplerBuildVersion() {
+	return VersionNumber::fromString(POPPLER_VERSION);
+}
+
+VersionNumber popplerRuntimeVersion() {
+#if POPPLER_HAS_RUNTIME_VERSION
+	return {static_cast<int>(Poppler::Version::major()), static_cast<int>(Poppler::Version::minor()), static_cast<int>(Poppler::Version::micro())};
+#else
+	return popplerBuildVersion();
+#endif
+}
+#endif // WITH_POPPLERQT
+
 
 namespace Tw {
 namespace Utils {
@@ -261,7 +325,7 @@ void TestDocument::modelines()
 	// Double set
 	changed.swap(removed);
 	modelines.insert(QStringLiteral("key"), QStringLiteral("value1"));
-	cur.insertText(QStringLiteral("%!TEX key=value\n%!TEX key=value1\n"));
+	cur.insertText(QStringLiteral("%!TEX key=value\n%^^A!TEX key=value1\n"));
 	QCOMPARE(spy.count(), 1);
 	QCOMPARE(spy[0][0].toStringList(), changed);
 	QCOMPARE(spy[0][1].toStringList(), removed);
@@ -676,8 +740,16 @@ void TestDocument::Synchronizer_syncFromTeX()
 	QFETCH(TWSynchronizer::TeXSyncPoint, texPoint);
 	QFETCH(TWSynchronizer::PDFSyncPoint, pdfPoint);
 
-	QEXPECT_FAIL("complex-footnote inside (word)", "Complex footnotes don't always work yet", Continue);
-	QEXPECT_FAIL("complex-footnote inside (char)", "Complex footnotes don't always work yet", Continue);
+#if WITH_POPPLERQT
+	if (QtPDF::Backend::Document::defaultBackend() == QStringLiteral("poppler-qt")) {
+		QEXPECT_FAIL("complex-footnote inside (word)", "Complex footnotes don't always work yet", Continue);
+		QEXPECT_FAIL("complex-footnote inside (char)", "Complex footnotes don't always work yet", Continue);
+		if (popplerRuntimeVersion() >= VersionNumber(22, 1, 0)) {
+			QEXPECT_FAIL("complex-footnote before (word)", "Complex footnotes don't always work yet (poppler >= 22.01.0)", Continue);
+			QEXPECT_FAIL("complex-footnote before (char)", "Complex footnotes don't always work yet (poppler >= 22.01.0)", Continue);
+		}
+	}
+#endif
 	QCOMPARE(synchronizer->syncFromTeX(texPoint, resolution), pdfPoint);
 }
 

@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2020  Stefan Löffler
+	Copyright (C) 2019-2021  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -124,7 +124,7 @@ void TestLuaScripting::execute()
 
 		if (!s2->run(api)) {
 			qDebug() << api.GetResult().toString();
-			QFAIL("An error occured during Lua execution");
+			QFAIL("An error occurred during Lua execution");
 		}
 
 		QCOMPARE(qobject_cast<MockTarget*>(api.GetTarget())->text, QStringLiteral("It works!"));

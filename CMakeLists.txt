@@ -101,6 +101,11 @@ IF(WIN32 AND MINGW)
   SET(CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> -O coff <DEFINES> <SOURCE> <OBJECT>")
 ENDIF()
 
+if (MSVC)
+	add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+	add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+endif (MSVC)
+
 
 # Determine Version Numbers
 # -------------------------
@@ -438,13 +443,11 @@ ENDIF (WITH_TESTS)
 #    file.
 
 # Gather all libraries related to Qt plugins used by TeXworks so that they can
-# be bundled into packages.
-if (WIN32)
-  get_target_property(QT_QPLATFORM_PLUGIN_RELEASE Qt5::QWindowsIntegrationPlugin LOCATION_Release)
-elseif (APPLE)
-  get_target_property(QT_QPLATFORM_PLUGIN_RELEASE Qt5::QCocoaIntegrationPlugin LOCATION_Release)
-endif ()
-SET(QT_PLUGINS "${QT_QPLATFORM_PLUGIN_RELEASE}")
+# be bundled into packages. (Required on APPLE for a consistent macOS look&feel)
+foreach (_target ${Qt5Gui_PLUGINS} ${Qt5Widgets_PLUGINS})
+	get_target_property(_path ${_target} LOCATION_Release)
+	list(APPEND QT_PLUGINS ${_path})
+endforeach()
 
 # The file `CMake/packaging/CMakeLists.txt` controls the execution of tasks
 # specific to preparing binaries for packaging on a given platform. This script

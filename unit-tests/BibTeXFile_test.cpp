@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2018-2020  Stefan Löffler
+	Copyright (C) 2018-2021  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -34,6 +34,13 @@ void TestBibTeXFile::numEntries()
 {
   BibTeXFile b("bibtex-1.bib");
   QCOMPARE(b.numEntries(), static_cast<unsigned int>(1));
+}
+
+void TestBibTeXFile::strings()
+{
+	const QMap<QString, QString> expected{{QStringLiteral("Tw"), QStringLiteral("\"TeXworks\"")}};
+	BibTeXFile b("bibtex-1.bib");
+	QCOMPARE(b.strings(), expected);
 }
 
 void TestBibTeXFile::entry_type()

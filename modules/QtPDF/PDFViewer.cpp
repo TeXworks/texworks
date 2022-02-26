@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2013-2020  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2013-2021  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -12,6 +12,9 @@
  * more details.
  */
 #include "PDFViewer.h"
+
+QTranslator * PDFViewer::_translator = nullptr;
+QString PDFViewer::_translatorLanguage;
 
 PDFViewer::PDFViewer(const QString & pdf_doc, QWidget *parent, Qt::WindowFlags flags) :
   QMainWindow(parent, flags)
@@ -61,7 +64,7 @@ PDFViewer::PDFViewer(const QString & pdf_doc, QWidget *parent, Qt::WindowFlags f
 
   _toolBar->addSeparator();
 #ifdef DEBUG
-  // FIXME: Remove this
+  // TODO: Make this more general or remove it altogether
   _toolBar->addAction(QString::fromUtf8("en"), this, SLOT(setEnglishLocale()));
   _toolBar->addAction(QString::fromUtf8("de"), this, SLOT(setGermanLocale()));
   _toolBar->addSeparator();
@@ -134,6 +137,31 @@ void PDFViewer::openPdf(QString filename, QtPDF::PDFDestination destination, boo
 void PDFViewer::syncFromPdf(const int page, const QPointF pos)
 {
   qDebug() << "Invoke SyncTeX from page" << (page + 1) << "at" << pos;
+}
+
+void PDFViewer::switchInterfaceLocale(const QLocale & newLocale)
+{
+  // TODO: Allow for a custom directory for .qm files (i.e., one in the
+  // filesystem, instead of the embedded resources)
+  if (_translatorLanguage == newLocale.name())
+    return;
+
+  // Remove the old translator (if any)
+  if (_translator) {
+    QCoreApplication::removeTranslator(_translator);
+    _translator->deleteLater();
+    _translator = nullptr;
+  }
+
+  _translatorLanguage = newLocale.name();
+
+  _translator = new QTranslator();
+  if (_translator->load(QString::fromUtf8("QtPDF_%1").arg(newLocale.name()), QString::fromUtf8(":/resfiles/translations")))
+    QCoreApplication::installTranslator(_translator);
+  else {
+    _translator->deleteLater();
+    _translator = nullptr;
+  }
 }
 
 

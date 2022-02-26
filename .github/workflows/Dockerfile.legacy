@@ -32,7 +32,7 @@ RUN export CMAKE_VERSION=3.1.0 && \
 	rm /tmp/cmake.tar.gz
 
 RUN export HUNSPELL_VERSION=1.2.9 && \
-	wget -O /tmp/hunspell.tar.gz https://downloads.sourceforge.net/project/hunspell/Hunspell/${HUNSPELL_VERSION}/hunspell-${HUNSPELL_VERSION}.tar.gz && \
+	wget --no-check-certificate -O /tmp/hunspell.tar.gz https://downloads.sourceforge.net/project/hunspell/Hunspell/${HUNSPELL_VERSION}/hunspell-${HUNSPELL_VERSION}.tar.gz && \
 	tar -x -C /tmp -f /tmp/hunspell.tar.gz && \
 	cd /tmp/hunspell-${HUNSPELL_VERSION} && \
     ./configure --disable-dependency-tracking && \
