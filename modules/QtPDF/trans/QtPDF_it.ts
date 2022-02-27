@@ -649,7 +649,7 @@
     <message>
         <location filename="../src/PaperSizes.cpp" line="151"/>
         <source>Legal</source>
-        <translation></translation>
+        <translation>Legale</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="152"/>
@@ -659,27 +659,27 @@
     <message>
         <location filename="../src/PaperSizes.cpp" line="153"/>
         <source>Ledger</source>
-        <translation></translation>
+        <translation>Finanziario</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="154"/>
         <source>Junior Legal</source>
-        <translation></translation>
+        <translation>Junior Legale</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="155"/>
         <source>Half Letter</source>
-        <translation></translation>
+        <translation>Mezza lettera</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="156"/>
         <source>Government Letter</source>
-        <translation></translation>
+        <translation>Lettera governativa</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="157"/>
         <source>Government Legal</source>
-        <translation></translation>
+        <translation>Legale governativa</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="158"/>
@@ -740,13 +740,13 @@
         <location filename="../src/PaperSizes.cpp" line="201"/>
         <source>mm</source>
         <extracomment>Length unit: millimeters</extracomment>
-        <translation></translation>
+        <translation>Unità di lunghezza: millimetro</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="207"/>
         <source>in</source>
         <extracomment>Length unit: inches</extracomment>
-        <translation></translation>
+        <translation>Unità di lunghezza: pollici</translation>
     </message>
 </context>
 <context>
@@ -759,7 +759,8 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="34"/>
         <source>[translator&apos;s name/email]</source>
-        <translation>trebestie@gmail.com</translation>
+        <translation>trebestie@g<translation>
+        <translation>albano_battistella@hotmail.com</translation>
     </message>
 </context>
 <context>
@@ -1087,31 +1088,31 @@
         <location filename="../src/PDFDocumentView.cpp" line="3077"/>
         <source>B</source>
         <extracomment>File size: bytes</extracomment>
-        <translation></translation>
+        <translation>Dimensione del file: byte</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3079"/>
         <source>kB</source>
         <extracomment>File size: kilobytes</extracomment>
-        <translation></translation>
+        <translation>Dimensione del file: kilobyte</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3081"/>
         <source>MB</source>
         <extracomment>File size: megabytes</extracomment>
-        <translation></translation>
+        <translation>Dimensione del file: megabyte</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3083"/>
         <source>GB</source>
         <extracomment>File size: gigabytes</extracomment>
-        <translation></translation>
+        <translation>Dimensione file: gigabyte</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3085"/>
         <source>TB</source>
         <extracomment>File size: terabytes</extracomment>
-        <translation></translation>
+        <translation>Dimensione del file: terabyte</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3178"/>
