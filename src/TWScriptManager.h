@@ -51,8 +51,9 @@ private:
 	// scripts and subfolders are stored as children of the QObject
 };
 
-class TWScriptManager
+class TWScriptManager : public QObject
 {
+	Q_OBJECT
 public:
 	TWScriptManager();
 	virtual ~TWScriptManager() = default;

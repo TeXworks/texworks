@@ -38,6 +38,8 @@
 #include <QTextCodec>
 #include <QVariant>
 
+#include <memory>
+
 class Engine;
 class TWScriptManager;
 
@@ -244,9 +246,9 @@ private:
 
 	QTextCodec *defaultCodec;
 
-	QStringList *binaryPaths;
-	QStringList *defaultBinPaths;
-	QList<Engine> *engineList;
+	std::unique_ptr<QStringList> binaryPaths;
+	std::unique_ptr<QStringList> defaultBinPaths;
+	std::unique_ptr< QList<Engine> > engineList;
 	int defaultEngineIndex;
 
 	QList<QTranslator*> translators;

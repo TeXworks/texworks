@@ -113,9 +113,6 @@ TWApp::TWApp(int &argc, char **argv)
 	: QApplication(argc, argv)
 	, recentFilesLimit(kDefaultMaxRecentFiles)
 	, defaultCodec(nullptr)
-	, binaryPaths(nullptr)
-	, defaultBinPaths(nullptr)
-	, engineList(nullptr)
 	, defaultEngineIndex(0)
 	, scriptManager(nullptr)
 {
@@ -174,7 +171,7 @@ void TWApp::init()
 			}
 		}
 		if (portable.contains(QString::fromLatin1("defaultbinpaths"))) {
-			defaultBinPaths = new QStringList;
+			defaultBinPaths = std::unique_ptr<QStringList>(new QStringList);
 			*defaultBinPaths = portable.value(QString::fromLatin1("defaultbinpaths")).toString().split(QString::fromLatin1(PATH_LIST_SEP), SkipEmptyParts);
 		}
 	}
@@ -845,7 +842,7 @@ void TWApp::setDefaultPaths()
 
 	QDir appDir(applicationDirPath());
 	if (!binaryPaths)
-		binaryPaths = new QStringList;
+		binaryPaths = std::unique_ptr<QStringList>(new QStringList);
 	else
 		binaryPaths->clear();
 	if (defaultBinPaths)
@@ -889,7 +886,7 @@ void TWApp::setDefaultPaths()
 const QStringList TWApp::getPrefsBinaryPaths()
 {
 	if (!binaryPaths) {
-		binaryPaths = new QStringList;
+		binaryPaths = std::unique_ptr<QStringList>(new QStringList);
 		Tw::Settings settings;
 		if (settings.contains(QString::fromLatin1("binaryPaths")))
 			*binaryPaths = settings.value(QString::fromLatin1("binaryPaths")).toStringList();
@@ -902,7 +899,7 @@ const QStringList TWApp::getPrefsBinaryPaths()
 void TWApp::setBinaryPaths(const QStringList& paths)
 {
 	if (!binaryPaths)
-		binaryPaths = new QStringList;
+		binaryPaths = std::unique_ptr<QStringList>(new QStringList);
 	*binaryPaths = paths;
 	Tw::Settings settings;
 	settings.setValue(QString::fromLatin1("binaryPaths"), paths);
@@ -911,7 +908,7 @@ void TWApp::setBinaryPaths(const QStringList& paths)
 void TWApp::setDefaultEngineList()
 {
 	if (!engineList)
-		engineList = new QList<Engine>;
+		engineList = std::unique_ptr< QList<Engine> >(new QList<Engine>);
 	else
 		engineList->clear();
 	*engineList
@@ -935,7 +932,7 @@ void TWApp::setDefaultEngineList()
 const QList<Engine> TWApp::getEngineList()
 {
 	if (!engineList) {
-		engineList = new QList<Engine>;
+		engineList = std::unique_ptr< QList<Engine> >(new QList<Engine>);
 		bool foundList = false;
 		// check for old engine list in Preferences
 		Tw::Settings settings;
@@ -1004,7 +1001,7 @@ void TWApp::saveEngineList()
 void TWApp::setEngineList(const QList<Engine>& engines)
 {
 	if (!engineList)
-		engineList = new QList<Engine>;
+		engineList = std::unique_ptr< QList<Engine> >(new QList<Engine>);
 	*engineList = engines;
 	saveEngineList();
 	Tw::Settings settings;

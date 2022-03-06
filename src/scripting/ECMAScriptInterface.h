@@ -34,7 +34,7 @@ class ECMAScriptInterface : public QObject, public ScriptLanguageInterface
 	Q_INTERFACES(Tw::Scripting::ScriptLanguageInterface)
 
 public:
-	ECMAScriptInterface() = default;
+	ECMAScriptInterface(QObject * parent) : QObject(parent) { }
 	~ECMAScriptInterface() override = default;
 
 	Script* newScript(const QString& fileName) override;

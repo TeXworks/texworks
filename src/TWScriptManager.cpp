@@ -80,9 +80,9 @@ void TWScriptManager::loadPlugins()
 {
 	// the JSScript interface isn't really a plugin, but provides the same interface
 #if WITH_QTSCRIPT
-	scriptLanguages += new Tw::Scripting::JSScriptInterface();
+	scriptLanguages += new Tw::Scripting::JSScriptInterface(this);
 #endif
-	scriptLanguages += new Tw::Scripting::ECMAScriptInterface();
+	scriptLanguages += new Tw::Scripting::ECMAScriptInterface(this);
 
 	// get any static plugins
 	foreach (QObject *plugin, QPluginLoader::staticInstances()) {

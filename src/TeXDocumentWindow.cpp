@@ -547,7 +547,7 @@ void TeXDocumentWindow::reloadSpellcheckerMenu()
 					label = tr("%1 (%2)").arg(QLocale::languageToString(loc.language()), dict);
 			}
 
-			QAction * act = new QAction(label, nullptr);
+			QAction * act = new QAction(label, menuSpelling);
 			act->setCheckable(true);
 			if (!oldSelected.isEmpty() && label == oldSelected)
 				act->setChecked(true);

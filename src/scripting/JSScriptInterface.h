@@ -36,7 +36,7 @@ class JSScriptInterface : public QObject, public ScriptLanguageInterface
 	Q_INTERFACES(Tw::Scripting::ScriptLanguageInterface)
 
 public:
-	JSScriptInterface() = default;
+	JSScriptInterface(QObject * parent) : QObject(parent) { }
 	~JSScriptInterface() override = default;
 
 	Script* newScript(const QString& fileName) override;
