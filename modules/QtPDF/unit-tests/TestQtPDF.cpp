@@ -1208,7 +1208,7 @@ void TestQtPDF::ToCItem()
   QtPDF::Backend::PDFToCItem ti, def, act;
   QString label(QStringLiteral("label"));
 
-  act.setAction(new QtPDF::PDFGotoAction(QtPDF::PDFDestination(0)));
+  act.setAction(std::unique_ptr<QtPDF::PDFAction>(new QtPDF::PDFGotoAction(QtPDF::PDFDestination(0))));
 
   // Defaults
   QCOMPARE(ti.label(), QString());
@@ -1252,7 +1252,7 @@ void TestQtPDF::ToCItem()
   QVERIFY(ti == def);
 
   QtPDF::PDFGotoAction actGoto1 = QtPDF::PDFGotoAction(QtPDF::PDFDestination(1));
-  ti.setAction(new QtPDF::PDFGotoAction(actGoto1));
+  ti.setAction(std::unique_ptr<QtPDF::PDFAction>(new QtPDF::PDFGotoAction(actGoto1)));
   QVERIFY(ti.action() != nullptr);
   QCOMPARE(*ti.action(), dynamic_cast<const QtPDF::PDFAction&>(actGoto1));
   QVERIFY(!(ti == def));
