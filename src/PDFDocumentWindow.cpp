@@ -116,6 +116,11 @@ PDFDocumentWindow::PDFDocumentWindow(const QString &fileName, TeXDocumentWindow 
 
 PDFDocumentWindow::~PDFDocumentWindow()
 {
+	// Disconnect from windowListChanged notifications to avoid getting the
+	// signal after our TeXDocumentWindow is destroyed (but before the base
+	// QObject is destroyed, in which case the system wouldn't know what to do
+	// with the signal)
+	disconnect(TWApp::instance(), &TWApp::windowListChanged, this, nullptr);
 	docList.removeAll(this);
 #if defined(Q_OS_DARWIN)
 	// Work around QTBUG-17941
