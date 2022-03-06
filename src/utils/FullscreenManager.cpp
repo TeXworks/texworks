@@ -30,7 +30,8 @@ namespace Tw {
 namespace Utils {
 
 FullscreenManager::FullscreenManager(QMainWindow * parent)
-	: _parent(parent)
+	: QObject(parent)
+	, _parent(parent)
 {
 	if (parent) {
 		QShortcut * esc = new QShortcut(QKeySequence(Qt::Key_Escape), parent);

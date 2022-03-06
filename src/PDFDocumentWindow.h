@@ -80,7 +80,7 @@ public:
 	void resetMagnifier();
 	void enableTypesetAction(bool enabled);
 	void linkToSource(TeXDocumentWindow *texDoc);
-	bool hasSyncData() const { return _synchronizer != nullptr; }
+	bool hasSyncData() const { return static_cast<bool>(_synchronizer); }
 
 	QtPDF::PDFDocumentWidget * widget() { return pdfWidget; }
 
@@ -174,7 +174,7 @@ private:
 
 	static QList<PDFDocumentWindow*> docList;
 
-	TWSyncTeXSynchronizer * _synchronizer;
+	std::unique_ptr<TWSyncTeXSynchronizer> _synchronizer;
 };
 
 #endif
