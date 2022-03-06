@@ -91,7 +91,7 @@ class Page: public Backend::Page
   friend class Document;
 
   typedef Backend::Page Super;
-  QSharedPointer< ::Poppler::Page > _poppler_page;
+  std::unique_ptr< ::Poppler::Page > _poppler_page;
   QList< QSharedPointer<Annotation::AbstractAnnotation> > _annotations;
   QList< QSharedPointer<Annotation::Link> > _links;
   bool _annotationsLoaded{false};

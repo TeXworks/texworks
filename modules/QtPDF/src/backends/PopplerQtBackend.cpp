@@ -49,7 +49,7 @@ PDFDestination toPDFDestination(const ::Poppler::Document * doc, const ::Poppler
   // comply with the pdf specs---so we have to convert them back
   qreal w = 1., h = 1.;
   if (doc) {
-    ::Poppler::Page * p = doc->page(dest.pageNumber() - 1);
+    std::unique_ptr<::Poppler::Page> p{doc->page(dest.pageNumber() - 1)};
     if (p) {
       w = p->pageSizeF().width();
       h = p->pageSizeF().height();
@@ -265,7 +265,8 @@ void Document::parseDocument()
   // Get the most often used page size
   QMap<QSizeF, int> pageSizes;
   for (int i = 0; i < _numPages; ++i) {
-    QSizeF ps = _poppler_doc->page(i)->pageSizeF();
+    const std::unique_ptr<::Poppler::Page> page{_poppler_doc->page(i)};
+    QSizeF ps = page->pageSizeF();
     if (pageSizes.contains(ps)) ++pageSizes[ps];
     else pageSizes[ps] = 1;
   }
@@ -535,7 +536,7 @@ bool Document::unlock(const QString password)
 Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
   Super(parent, at, docLock)
 {
-  _poppler_page = QSharedPointer< ::Poppler::Page >(dynamic_cast<Document *>(_parent)->_poppler_doc->page(at));
+  _poppler_page = std::unique_ptr< ::Poppler::Page >(dynamic_cast<Document *>(_parent)->_poppler_doc->page(at));
   loadTransitionData();
 }
 
@@ -872,7 +873,7 @@ QList<SearchResult> Page::search(const QString & searchText, const SearchFlags &
 void Page::loadTransitionData()
 {
   QWriteLocker pageLocker(&_pageLock);
-  Q_ASSERT(!_poppler_page.isNull());
+  Q_ASSERT(_poppler_page);
   // Transition
   ::Poppler::PageTransition * poppler_trans = _poppler_page->transition();
   if (poppler_trans) {
