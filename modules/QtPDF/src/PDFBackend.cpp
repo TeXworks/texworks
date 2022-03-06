@@ -591,8 +591,6 @@ Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
   _n(at),
   _docLock(docLock)
 {
-  Q_ASSERT(_pageLock);
-
 #ifdef DEBUG
 //  qDebug() << "Page::Page(" << parent << ", " << at << ")";
 #endif
@@ -619,11 +617,11 @@ Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
   }
 }
 
-int Page::pageNum() const { QReadLocker pageLocker(_pageLock); return _n; }
+int Page::pageNum() const { QReadLocker pageLocker(&_pageLock); return _n; }
 
 void Page::detachFromParent()
 {
-  QWriteLocker pageLocker(_pageLock);
+  QWriteLocker pageLocker(&_pageLock);
   _parent = nullptr;
 }
 
@@ -677,7 +675,7 @@ QRectF Page::getContentBoundingBox() const
 QSharedPointer<QImage> Page::getCachedImage(double xres, double yres, QRect render_box /* = QRect() */, PDFPageCache::TileStatus * status /* = nullptr */)
 {
   QReadLocker docLocker(_docLock.data());
-  QReadLocker pageLocker(_pageLock);
+  QReadLocker pageLocker(&_pageLock);
   if (!_parent) {
     if (status)
       *status = PDFPageCache::UNKNOWN;
@@ -692,7 +690,7 @@ QSharedPointer<QImage> Page::getCachedImage(double xres, double yres, QRect rend
 void Page::asyncRenderToImage(QObject *listener, double xres, double yres, QRect render_box, bool cache)
 {
   QReadLocker docLocker(_docLock.data());
-  QReadLocker pageLocker(_pageLock);
+  QReadLocker pageLocker(&_pageLock);
   if (!_parent)
     return;
   _parent->processingThread().addPageProcessingRequest(new PageProcessingRenderPageRequest(this, listener, xres, yres, render_box, cache));
@@ -707,7 +705,7 @@ bool higherResolutionThan(const PDFPageTile & t1, const PDFPageTile & t2)
 QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres, const double yres, QRect render_box /* = QRect() */)
 {
   QReadLocker docLocker(_docLock.data());
-  QReadLocker pageLocker(_pageLock);
+  QReadLocker pageLocker(&_pageLock);
 
   // If the render_box is empty, use the whole page
   if (render_box.isNull())
@@ -810,7 +808,7 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
 void Page::asyncLoadLinks(QObject *listener)
 {
   QReadLocker docLocker(_docLock.data());
-  QReadLocker pageLocker(_pageLock);
+  QReadLocker pageLocker(&_pageLock);
   if (!_parent)
     return;
   _parent->processingThread().addPageProcessingRequest(new PageProcessingLoadLinksRequest(this, listener));

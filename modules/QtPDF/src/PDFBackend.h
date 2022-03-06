@@ -454,7 +454,7 @@ protected:
   Document *_parent{nullptr};
   const int _n{-1};
   Transition::AbstractTransition * _transition{nullptr};
-  QReadWriteLock * _pageLock{new QReadWriteLock(QReadWriteLock::Recursive)};
+  mutable QReadWriteLock _pageLock{QReadWriteLock::Recursive};
   const QSharedPointer<QReadWriteLock> _docLock;
 
   // Getter for derived classes (that are not friends of Document)
@@ -484,11 +484,11 @@ public:
 
   virtual ~Page() = default;
 
-  Document * document() { QReadLocker pageLocker(_pageLock); return _parent; }
+  Document * document() { QReadLocker pageLocker(&_pageLock); return _parent; }
   int pageNum() const;
   virtual QSizeF pageSizeF() const = 0;
   virtual QRectF getContentBoundingBox() const;
-  Transition::AbstractTransition * transition() const { QReadLocker pageLocker(_pageLock); return _transition; }
+  Transition::AbstractTransition * transition() const { QReadLocker pageLocker(&_pageLock); return _transition; }
 
   virtual QList< QSharedPointer<Annotation::Link> > loadLinks() = 0;
   // Uses doc-read-lock and page-read-lock.

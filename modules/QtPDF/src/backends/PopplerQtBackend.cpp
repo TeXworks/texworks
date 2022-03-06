@@ -541,7 +541,7 @@ Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
 
 Page::~Page()
 {
-  QWriteLocker pageLocker(_pageLock);
+  QWriteLocker pageLocker(&_pageLock);
 }
 
 // TODO: Does this operation require obtaining the Poppler document mutex? If
@@ -549,7 +549,7 @@ Page::~Page()
 // initialization.
 QSizeF Page::pageSizeF() const
 {
-  QReadLocker pageLocker(_pageLock);
+  QReadLocker pageLocker(&_pageLock);
 
   Q_ASSERT(_poppler_page != nullptr);
   return _poppler_page->pageSizeF();
@@ -558,7 +558,7 @@ QSizeF Page::pageSizeF() const
 QImage Page::renderToImage(double xres, double yres, QRect render_box, bool cache) const
 {
   QReadLocker docLocker(_docLock.data());
-  QReadLocker pageLocker(_pageLock);
+  QReadLocker pageLocker(&_pageLock);
   if (!_parent)
     return QImage();
 
@@ -590,14 +590,14 @@ QImage Page::renderToImage(double xres, double yres, QRect render_box, bool cach
 QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
 {
   {
-    QReadLocker pageLocker(_pageLock);
+    QReadLocker pageLocker(&_pageLock);
 
     if (_linksLoaded || !_parent)
       return _links;
   }
 
   QReadLocker docLocker(_docLock.data());
-  QWriteLocker pageLocker(_pageLock);
+  QWriteLocker pageLocker(&_pageLock);
 
   // Check if the links were loaded in another thread in the meantime
   if (_linksLoaded || !_parent)
@@ -699,14 +699,14 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
 QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
 {
   {
-    QReadLocker pageLocker(_pageLock);
+    QReadLocker pageLocker(&_pageLock);
 
     if (_annotationsLoaded)
       return _annotations;
   }
 
   QReadLocker docLocker(_docLock.data());
-  QWriteLocker pageLocker(_pageLock);
+  QWriteLocker pageLocker(&_pageLock);
   // Check if the annotations were loaded in another thread in the meantime
   if (_annotationsLoaded || !_poppler_page || !_parent)
     return _annotations;
@@ -813,7 +813,7 @@ QList<SearchResult> Page::search(const QString & searchText, const SearchFlags &
 #endif
 
   QReadLocker docLocker(_docLock.data());
-  QReadLocker pageLocker(_pageLock);
+  QReadLocker pageLocker(&_pageLock);
   if (!_parent)
     return results;
 
@@ -840,7 +840,7 @@ QList<SearchResult> Page::search(const QString & searchText, const SearchFlags &
 
 void Page::loadTransitionData()
 {
-  QWriteLocker pageLocker(_pageLock);
+  QWriteLocker pageLocker(&_pageLock);
   Q_ASSERT(!_poppler_page.isNull());
   // Transition
   ::Poppler::PageTransition * poppler_trans = _poppler_page->transition();
@@ -927,7 +927,7 @@ void Page::loadTransitionData()
 
 QList< Backend::Page::Box > Page::boxes() const
 {
-  QReadLocker pageLocker(_pageLock);
+  QReadLocker pageLocker(&_pageLock);
   Q_ASSERT(_poppler_page != nullptr);
   QList< Backend::Page::Box > retVal;
 
@@ -948,7 +948,7 @@ QList< Backend::Page::Box > Page::boxes() const
 
 QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes /* = nullptr */, QMap<int, QRectF> * charBoxes /* = nullptr */, const bool onlyFullyEnclosed /* = false */) const
 {
-  QReadLocker pageLocker(_pageLock);
+  QReadLocker pageLocker(&_pageLock);
   Q_ASSERT(_poppler_page != nullptr);
   // Using the bounding rects of the selection polygons is almost
   // certainly wrong! However, poppler-qt4 doesn't offer any alternative AFAICS
