@@ -176,7 +176,7 @@ void Document::reload()
 
   {
     QMutexLocker l(_poppler_docLock);
-    _poppler_doc = QSharedPointer< ::Poppler::Document >(::Poppler::Document::load(_fileName));
+    _poppler_doc = std::unique_ptr<::Poppler::Document>(::Poppler::Document::load(_fileName));
   }
 
   // TODO: possibly unlock the new document again if it was previously unlocked
@@ -327,7 +327,7 @@ QWeakPointer<Backend::Page> Document::page(int at)
 PDFDestination Document::resolveDestination(const PDFDestination & namedDestination) const
 {
   QReadLocker docLocker(_docLock.data());
-  Q_ASSERT(!_poppler_doc.isNull());
+  Q_ASSERT(_poppler_doc);
 
   // If namedDestination is not a named destination at all, simply return a copy
   if (namedDestination.isExplicit())
@@ -338,7 +338,7 @@ PDFDestination Document::resolveDestination(const PDFDestination & namedDestinat
   std::unique_ptr<::Poppler::LinkDestination> dest{_poppler_doc->linkDestination(namedDestination.destinationName())};
   if (!dest || dest->pageNumber() < 1)
     return PDFDestination();
-  return toPDFDestination(_poppler_doc.data(), *dest);
+  return toPDFDestination(_poppler_doc.get(), *dest);
 }
 
 #if POPPLER_HAS_OUTLINE
@@ -351,7 +351,7 @@ void Document::recursiveConvertToC(QList<PDFToCItem> & items, const QVector<Popp
 
     PDFGotoAction * action = nullptr;
     if (popplerItem.destination())
-      action = new PDFGotoAction(toPDFDestination(_poppler_doc.data(), *(popplerItem.destination())));
+      action = new PDFGotoAction(toPDFDestination(_poppler_doc.get(), *(popplerItem.destination())));
 
     if (action && !popplerItem.externalFileName().isEmpty()) {
       // Open external links in new window by default (since poppler doesn't
@@ -379,7 +379,7 @@ void Document::recursiveConvertToC(QList<PDFToCItem> & items, QDomNode node) con
     PDFGotoAction * action = nullptr;
     QString val = attributes.namedItem(QString::fromUtf8("Destination")).nodeValue();
     if (!val.isEmpty())
-      action = new PDFGotoAction(toPDFDestination(_poppler_doc.data(), ::Poppler::LinkDestination(val)));
+      action = new PDFGotoAction(toPDFDestination(_poppler_doc.get(), ::Poppler::LinkDestination(val)));
     else {
       val = attributes.namedItem(QString::fromUtf8("DestinationName")).nodeValue();
       if (!val.isEmpty())
@@ -677,7 +677,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
       case ::Poppler::Link::Goto:
         {
           ::Poppler::LinkGoto * popplerGoto = dynamic_cast< ::Poppler::LinkGoto *>(popplerLink.get());
-          PDFGotoAction * action = new PDFGotoAction(toPDFDestination(dynamic_cast<Document *>(_parent)->_poppler_doc.data(), popplerGoto->destination()));
+          PDFGotoAction * action = new PDFGotoAction(toPDFDestination(dynamic_cast<Document *>(_parent)->_poppler_doc.get(), popplerGoto->destination()));
           if (popplerGoto->isExternal()) {
             // TODO: Verify that ::Poppler::LinkGoto only refers to pdf files
             // (for other file types we would need PDFLaunchAction)

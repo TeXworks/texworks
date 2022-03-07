@@ -43,7 +43,7 @@ class Document: public Backend::Document
   typedef Backend::Document Super;
   friend class Page;
 
-  QSharedPointer< ::Poppler::Document > _poppler_doc;
+  std::unique_ptr<::Poppler::Document> _poppler_doc;
 
 #if POPPLER_HAS_OUTLINE
   void recursiveConvertToC(QList<PDFToCItem> & items, const QVector<Poppler::OutlineItem> & popplerItems) const;
