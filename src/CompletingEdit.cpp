@@ -97,10 +97,10 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	// Ctrl+Tab is mapped to Command+Tab on the Mac, which is the standard key
 	// sequence for switching applications. Hence that combination is changed to
 	// Alt+Tab on the Mac
-	if (actionNext_Completion_Placeholder->shortcut() == QKeySequence(Qt::CTRL + Qt::Key_Tab))
-		actionNext_Completion_Placeholder->setShortcut(QKeySequence(Qt::ALT + Qt::Key_Tab));
-	if (actionPrevious_Completion_Placeholder->shortcut() == QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_Tab))
-		actionPrevious_Completion_Placeholder->setShortcut(QKeySequence(Qt::ALT + Qt::SHIFT + Qt::Key_Tab));
+	if (actionNext_Completion_Placeholder->shortcut() == QKeySequence(Qt::CTRL | Qt::Key_Tab))
+		actionNext_Completion_Placeholder->setShortcut(QKeySequence(Qt::ALT | Qt::Key_Tab));
+	if (actionPrevious_Completion_Placeholder->shortcut() == QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_Tab))
+		actionPrevious_Completion_Placeholder->setShortcut(QKeySequence(Qt::ALT | Qt::SHIFT | Qt::Key_Tab));
 #endif
 
 	cursorPositionChangedSlot();

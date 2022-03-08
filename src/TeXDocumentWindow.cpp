@@ -617,11 +617,7 @@ void TeXDocumentWindow::makeUntitled()
 void TeXDocumentWindow::open()
 {
 	QFileDialog::Options options = QFileDialog::DontResolveSymlinks;
-#if defined(Q_OS_DARWIN)
-		/* use a sheet if we're calling Open from an empty, untitled, untouched window; otherwise use a separate dialog */
-	if (!(untitled() && textEdit->document()->isEmpty() && !isWindowModified()))
-		options = QFileDialog::DontUseSheet;
-#elif defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
 	if(TWApp::GetWindowsVersion() < 0x06000000) options |= QFileDialog::DontUseNativeDialog;
 #endif
 	Tw::Settings settings;
