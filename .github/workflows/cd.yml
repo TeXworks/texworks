@@ -123,15 +123,19 @@ jobs:
       matrix:
         macVersion: [10.15, 10.12]
         include:
-            # Latest Qt5 release [https://download.qt.io/official_releases/qt/]
-            # Qt 5.15.2 supports macOS >= 10.13 [https://doc.qt.io/qt-5/macos.html]
+            # Latest Qt6 release [https://download.qt.io/official_releases/qt/]
+            # Qt 6.2 supports macOS >= 10.14 [https://doc.qt.io/qt-6/macos.html]
             # poppler >= 22.01.0 uses std::filesystem, which seems to only be (fully)
             # supported on macOS 10.15 and up
           - macVersion: 10.15
-            qtVersion: 5.15.2
+            qtVersionMajor: 6
+            qtVersion: 6.2.3
+            qtModules: qt5compat
             # Qt 5.12 supports macOS >= 10.12 [https://doc.qt.io/qt-5.12/macos.html]
           - macVersion: 10.12
+            qtVersionMajor: 5
             qtVersion: 5.12.12
+            qtModules: qtscript
     env:
       MACOSX_DEPLOYMENT_TARGET: ${{ matrix.macVersion }}
 
@@ -143,7 +147,7 @@ jobs:
       uses: jurplel/install-qt-action@v2
       with:
         version: ${{ matrix.qtVersion }}
-        modules: qtscript
+        modules: ${{ matrix.qtModules }}
 
     - name: Install Homebrew dependencies
       shell: bash
@@ -156,18 +160,18 @@ jobs:
       id: cache-dependencies
       uses: actions/cache@v2
       with:
-        key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
+        key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-qt${{ matrix.qtVersion }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
         path: ${{ runner.temp }}/tw-deps
 
     - name: Build dependencies
       if: steps.cache-dependencies.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        cmake -S ".github/actions/setup-macos" -B ".github/actions/setup-macos/build" -DCMAKE_INSTALL_PREFIX=${RUNNER_TEMP}/tw-deps
+        cmake -S ".github/actions/setup-macos" -B ".github/actions/setup-macos/build" -DCMAKE_INSTALL_PREFIX=${RUNNER_TEMP}/tw-deps -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }}
         PKG_CONFIG_PATH=${RUNNER_TEMP}/tw-deps/lib/pkgconfig cmake --build ".github/actions/setup-macos/build" -v
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_TEMP}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_TEMP}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }} -DQT_PLUGIN_PATH=${QT_PLUGIN_PATH}
 
     - name: Build
       run: cmake --build build -j

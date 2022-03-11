@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.1)
 
 project(TeXworksDependencyInstall)
 
-find_package(Qt5 REQUIRED COMPONENTS Widgets)
+if (NOT QT_DEFAULT_MAJOR_VERSION)
+	set(QT_DEFAULT_MAJOR_VERSION 5)
+endif (NOT QT_DEFAULT_MAJOR_VERSION)
+
+find_package(Qt${QT_DEFAULT_MAJOR_VERSION} REQUIRED COMPONENTS Widgets)
 
 # Adapted from https://github.com/Homebrew/homebrew-core/blob/e2c833d326c45d9aaf4e26af6dd8b2f31564dc04/Formula/fontconfig.rb
 file(GLOB _font_dirs /System/Library/Assets*/com_apple_MobileAsset_Font*)
