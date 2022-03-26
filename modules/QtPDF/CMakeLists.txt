@@ -164,7 +164,7 @@ IF( WITH_POPPLERQT )
   # expose its version number, there is no easy way to check for these at
   # compile-time)
   include(CheckCXXSourceCompiles)
-  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR} Qt${QT_VERSION_MAJOR}::Core)
+  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR} Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
 
   # Page::SearchFlags were added in 0.31
   CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { double x; Poppler::Document::load(QString())->page(0)->search(QString(), x, x, x, x, Poppler::Page::NextResult, Poppler::Page::IgnoreCase); return 0; }" POPPLER_HAS_SEARCH_FLAGS)
