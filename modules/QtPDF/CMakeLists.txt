@@ -100,10 +100,6 @@ if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
     endif()
   endif()
 
-  if (WIN32 AND NOT BUILD_SHARED_LIBS)
-    find_package(Qt6WindowsPlatformSupport)
-  endif ()
-
   # Note: Qt6 only sets Qt6_VERSION, etc., but not QT_VERSION_MAJOR,
   # etc. which is used here.
   set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")

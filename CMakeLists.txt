@@ -261,10 +261,6 @@ if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
 	  endif ()
 	endif ()
 
-	if (WIN32 AND NOT BUILD_SHARED_LIBS)
-	  find_package(Qt6WindowsPlatformSupport)
-	  list(APPEND QT_LIBRARIES Qt6::WindowsPlatformSupport)
-	endif ()
 	if (APPLE)
 		# Inspired by https://github.com/MaximAlien/macdeployqt/blob/bc9c0ba199f323a42e3f1cc04d4b66e3e59ac995/macdeployqt/shared.cpp
 		if (QT_PLUGIN_PATH)
