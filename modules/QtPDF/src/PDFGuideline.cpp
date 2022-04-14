@@ -191,6 +191,7 @@ void PDFGuideline::mouseDoubleClickEvent(QMouseEvent *event)
   dlg.setNumPages(doc->numPages());
   dlg.setGuidelinePage(page() + 1);
   dlg.setGuidelinePos(Physical::Length(posPage(), Physical::Length::Bigpoints));
+  dlg.setUnit(m_parent->ruler()->unit());
 
   if (dlg.exec() == QDialog::Accepted) {
     setPage(dlg.guidelinePage() - 1);
