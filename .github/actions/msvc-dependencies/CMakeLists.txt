@@ -34,7 +34,7 @@ ExternalProject_Add(hunspell
 )
 
 ExternalProject_Add(zlib
-	URL "http://zlib.net/zlib-1.2.11.tar.xz"
+	URL "https://sourceforge.net/projects/libpng/files/zlib/1.2.11/zlib-1.2.11.tar.xz/download"
 	URL_HASH SHA256=4ff941449631ace0d4d203e3483be9dbc9da454084111f97ea0a2114e19bf066
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
