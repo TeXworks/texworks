@@ -1,3 +1,5 @@
+set -e # Exit on error
+
 mkdir -p /home/tw/build-arch-qt6 && cd /home/tw/build-arch-qt6
 
 pacman --noconfirm -Syu \
