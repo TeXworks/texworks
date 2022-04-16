@@ -185,7 +185,11 @@ TWScriptableWindow::doAboutScripts()
 	aboutText += QLatin1String("</p><ul>");
 	foreach (const QObject * plugin,
 			 TWApp::instance()->getScriptManager()->languages()) {
+#if QT_VERSION < QT_VERSION_CHECK(6, 3, 0)
 		const Tw::Scripting::ScriptLanguageInterface * i = qobject_cast<Tw::Scripting::ScriptLanguageInterface*>(plugin);
+#else
+		const Tw::Scripting::ScriptLanguageInterface * i = qobject_cast<const Tw::Scripting::ScriptLanguageInterface*>(plugin);
+#endif
 		if(!i) continue;
 		const bool isPlugin = (
 #if WITH_QTSCRIPT
