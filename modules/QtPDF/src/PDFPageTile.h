@@ -15,6 +15,7 @@
 #ifndef PDFPageTile_H
 #define PDFPageTile_H
 
+#include <QHash>
 #include <QRect>
 
 #ifdef DEBUG
@@ -55,7 +56,7 @@ public:
 };
 
 // ### Cache for Rendered Images
-uint qHash(const PDFPageTile &tile) noexcept;
+decltype(::qHash(0)) qHash(const PDFPageTile &tile) noexcept;
 
 } // namespace Backend
 

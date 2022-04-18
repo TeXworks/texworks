@@ -68,11 +68,11 @@ PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
   setFocusPolicy(Qt::StrongFocus);
 
   QColor fillColor(Qt::darkYellow);
-  fillColor.setAlphaF(0.3);
+  fillColor.setAlphaF(0.3f);
   _searchResultHighlightBrush = QBrush(fillColor);
 
   fillColor = QColor(Qt::yellow);
-  fillColor.setAlphaF(0.6);
+  fillColor.setAlphaF(0.6f);
   _currentSearchResultHighlightBrush = QBrush(fillColor);
 
   // If _currentPage is not set to -1, the compiler may default to 0. In that
@@ -1975,14 +1975,14 @@ int PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
   QList<QGraphicsItem*> p(pages(polygon));
   if (p.isEmpty())
     return -1;
-  return _pages.indexOf(p.first());
+  return static_cast<int>(_pages.indexOf(p.first()));
 }
 
 // This is a convenience function for returning the page number of the first
 // page item at a given point. If no page is in the specified area, -1 is returned.
 int PDFDocumentScene::pageNumAt(const QPointF &pt)
 {
-  return _pages.indexOf(pageAt(pt));
+  return static_cast<int>(_pages.indexOf(pageAt(pt)));
 }
 
 int PDFDocumentScene::pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const
@@ -2363,7 +2363,7 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
 
     // Each tile is rendered at TILE_SIZE pixels, which may be scaled (e.g. on
     // high-dpi screens) and displayed at an effective size
-    int effectiveTileSize = TILE_SIZE / painter->device()->devicePixelRatio();
+    int effectiveTileSize = static_cast<int>(TILE_SIZE / painter->device()->devicePixelRatio());
 
     int imin = (visibleRect.left() - pageRect.left()) / effectiveTileSize;
     int imax = (visibleRect.right() - pageRect.left());

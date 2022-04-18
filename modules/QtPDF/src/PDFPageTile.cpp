@@ -14,7 +14,6 @@
 
 #include "PDFPageTile.h"
 
-#include <QHash>
 #include <QPair>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
@@ -79,11 +78,12 @@ PDFPageTile::operator QString() const
 #endif
 
 // ### Cache for Rendered Images
-uint qHash(const PDFPageTile &tile) noexcept
+decltype(::qHash(0)) qHash(const PDFPageTile &tile) noexcept
 {
-  uint h1 = ::qHash(QPair<uint, uint>(::qHash(tile.xres), ::qHash(tile.yres)));
-  uint h2 = ::qHash(QPair<uint,int>(::qHash(tile.render_box), tile.page_num));
-  return ::qHash(QPair<uint, uint>(h1, h2));
+  using HashType = decltype(::qHash(0));
+  HashType h1 = ::qHash(QPair<HashType, HashType>(::qHash(tile.xres), ::qHash(tile.yres)));
+  HashType h2 = ::qHash(QPair<HashType, int>(::qHash(tile.render_box), tile.page_num));
+  return ::qHash(QPair<HashType, HashType>(h1, h2));
 }
 
 } // namespace Backend

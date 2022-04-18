@@ -1874,8 +1874,8 @@ void TestQtPDF::pageTile()
     for (int j = i + 1; j < tiles.size(); ++j) {
       auto t1 = tiles[i];
       auto t2 = tiles[j];
-      uint h1{qHash(t1)};
-      uint h2{qHash(t2)};
+      auto h1 = qHash(t1);
+      auto h2 = qHash(t2);
 
       QVERIFY(t1 == t1);
       QVERIFY(t2 == t2);
