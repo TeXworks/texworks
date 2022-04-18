@@ -45,7 +45,7 @@ public:
 	QString getModeLineValue(const QString & key) const { return _modelines.value(key); }
 
 	// find a "word", in TeX terms, returning whether it's a natural-language word or a control seq, punctuation, etc
-	static bool findNextWord(const QString & text, int index, int & start, int & end);
+	static bool findNextWord(const QString & text, const QString::size_type index, QString::size_type & start, QString::size_type & end);
 
 signals:
 	void modelinesChanged(QStringList changedKeys, QStringList removedKeys);

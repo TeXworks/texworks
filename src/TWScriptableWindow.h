@@ -69,7 +69,7 @@ protected:
 						QAction* showScriptsFolderAction);
 
 	int addScriptsToMenu(QMenu *menu, TWScriptList *scripts);
-	void removeScriptsFromMenu(QMenu *menu, int startIndex = 0);
+	void removeScriptsFromMenu(QMenu *menu, QList<QAction*>::size_type startIndex = 0);
 
 	void showFloaters();
 
@@ -78,7 +78,7 @@ protected:
 private:
 	QMenu * scriptsMenu{nullptr};
 	QSignalMapper * scriptMapper{nullptr};
-	int staticScriptMenuItemCount{0};
+	QList<QAction*>::size_type staticScriptMenuItemCount{0};
 
 	QList<QWidget*> latentVisibleWidgets;
 };

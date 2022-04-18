@@ -145,7 +145,7 @@ CitationModel::CitationModel(QObject * parent /* = nullptr */)
 int CitationModel::rowCount(const QModelIndex &parent /* = QModelIndex() */) const
 {
 	if (parent.isValid()) return 0;
-	return _entries.size();
+	return static_cast<int>(_entries.size());
 }
 
 //virtual

@@ -59,7 +59,7 @@ public:
 	QObject* GetScript() override { return _script; }
 	QVariant& GetResult() override { return _result; }
 	void SetResult(const QVariant& rval) override { _result = rval; }
-	int strlen(const QString& str) const override { return str.length(); }
+	int strlen(const QString& str) const override { return static_cast<int>(str.length()); }
 	QString platform() const override { return QString(); }
 	int getQtVersion() const override { return QT_VERSION; }
 	QMap<QString, QVariant> system(const QString& cmdline, bool waitForResult = true) override {

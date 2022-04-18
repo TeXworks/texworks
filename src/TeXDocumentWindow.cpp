@@ -2126,7 +2126,7 @@ void TeXDocumentWindow::doHardWrap(int mode, int lineWidth, bool rewrap)
 	QString newText;
 
 	while (!oldText.isEmpty()) {
-		int eol = oldText.indexOf(QChar::ParagraphSeparator);
+		QString::size_type eol = oldText.indexOf(QChar::ParagraphSeparator);
 		if (eol == -1)
 			eol = oldText.length();
 		else
@@ -2158,11 +2158,11 @@ void TeXDocumentWindow::doHardWrap(int mode, int lineWidth, bool rewrap)
 			continue;
 		}
 
-		int curLength = 0;
+		QString::size_type curLength = 0;
 		while (!line.isEmpty()) {
 			QRegularExpressionMatch breakMatch = breakPattern.match(line);
-			int breakPoint = breakMatch.capturedStart();
-			int matchLen = breakMatch.capturedLength();
+			QString::size_type breakPoint = breakMatch.capturedStart();
+			QString::size_type matchLen = breakMatch.capturedLength();
 			if (breakPoint == -1) {
 				breakPoint = line.length();
 				matchLen = 0;
@@ -2601,7 +2601,7 @@ QTextCursor TeXDocumentWindow::doSearch(const QString& searchText, const QRegula
 			// curs = theDoc->find(*regex, e, flags);
 			QRegularExpressionMatch m;
 #if QT_VERSION >= 0x050500
-			int offset = docText.lastIndexOf(*regex, e, &m);
+			QString::size_type offset = docText.lastIndexOf(*regex, e, &m);
 #else
 			int offset = docText.lastIndexOf(*regex, e);
 			if (offset >= 0)

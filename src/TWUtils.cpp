@@ -322,7 +322,7 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 	// Generate label list (list of filenames without directory components)
 	labelList = constructUniqueFileLabels(fileList);
 
-	int numRecentFiles = fileList.size();
+	QStringList::size_type numRecentFiles = fileList.size();
 
 	foreach(QAction * sep, menu->actions()) {
 		if (sep->isSeparator())
@@ -342,7 +342,7 @@ void TWUtils::updateRecentFileActions(QObject *parent, QList<QAction*> &actions,
 		delete act;
 	}
 
-	for (int i = 0; i < numRecentFiles; ++i) {
+	for (QStringList::size_type i = 0; i < numRecentFiles; ++i) {
 		// a "&" inside a menu label is considered a mnemonic, thus, we need to escape them
 		labelList[i].replace(QString::fromLatin1("&"), QString::fromLatin1("&&"));
 
@@ -553,7 +553,7 @@ void TWUtils::sideBySide(QWidget *window1, QWidget *window2)
 
 void TWUtils::tileWindowsInRect(const QWidgetList& windows, const QRect& bounds)
 {
-	int numWindows = windows.count();
+	QWidgetList::size_type numWindows = windows.count();
 	int rows = 1, cols = 1;
 	while (rows * cols < numWindows)
 		if (rows == cols)
@@ -764,9 +764,9 @@ void TWUtils::readConfig()
 		setDefaultFilters();
 }
 
-int TWUtils::balanceDelim(const QString& text, int pos, QChar delim, int direction)
+QString::size_type TWUtils::balanceDelim(const QString& text, QString::size_type pos, QChar delim, int direction)
 {
-	int len = text.length();
+	QString::size_type len = text.length();
 	QChar c;
 	while ((c = text[pos]) != delim) {
 		if (!openerMatching(c).isNull())
@@ -782,7 +782,7 @@ int TWUtils::balanceDelim(const QString& text, int pos, QChar delim, int directi
 	return pos;
 }
 
-int TWUtils::findOpeningDelim(const QString& text, int pos)
+QString::size_type TWUtils::findOpeningDelim(const QString& text, QString::size_type pos)
 	// find the first opening delimiter before offset /pos/
 {
 	while (--pos >= 0) {

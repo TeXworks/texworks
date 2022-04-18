@@ -60,7 +60,7 @@ void TemplateDialog::init()
 		TeXHighlighter * highlighter = new TeXHighlighter(texDoc);
 		// For now, we use "LaTeX" highlighting for all files (which is probably
 		// reasonable in most/typical cases)
-		int idx = TeXHighlighter::syntaxOptions().indexOf(QStringLiteral("LaTeX"));
+		int idx = static_cast<int>(TeXHighlighter::syntaxOptions().indexOf(QStringLiteral("LaTeX")));
 		if (idx >= 0)
 			highlighter->setActiveIndex(idx);
 	}

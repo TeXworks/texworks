@@ -353,8 +353,8 @@ void TestDocument::modelines()
 void TestDocument::findNextWord_data()
 {
 	QTest::addColumn<QString>("text");
-	QTest::addColumn<int>("expectedStart");
-	QTest::addColumn<int>("expectedEnd");
+	QTest::addColumn<QString::size_type>("expectedStart");
+	QTest::addColumn<QString::size_type>("expectedEnd");
 	QTest::addColumn<bool>("returnValue");
 
 	/*
@@ -382,12 +382,12 @@ a  testcase's word \command \comm@nd \cmd123 $ \[ öÄéàßÇα \@a'quote'
 void TestDocument::findNextWord()
 {
 	QFETCH(QString, text);
-	QFETCH(int, expectedStart);
-	QFETCH(int, expectedEnd);
+	QFETCH(QString::size_type, expectedStart);
+	QFETCH(QString::size_type, expectedEnd);
 	QFETCH(bool, returnValue);
 
-	for (int index = expectedStart; index < qMax(expectedStart + 1, expectedEnd); ++index) {
-		int start{std::numeric_limits<int>::min()}, end{std::numeric_limits<int>::min()};
+	for (QString::size_type index = expectedStart; index < qMax(expectedStart + 1, expectedEnd); ++index) {
+		QString::size_type start{std::numeric_limits<QString::size_type>::min()}, end{std::numeric_limits<QString::size_type>::min()};
 
 		// Note that ' is currently not considered a word-forming character
 		// See 33402c4, https://tug.org/pipermail/texworks/2009q2/000639.html,

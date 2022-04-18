@@ -64,7 +64,7 @@ void ScriptAPI::SetResult(const QVariant& rval)
 
 int ScriptAPI::strlen(const QString& str) const
 {
-	return str.length();
+	return static_cast<int>(str.length());
 }
 
 QString ScriptAPI::platform() const

@@ -174,7 +174,7 @@ private:
 	};
 	static QList<IndentMode> *indentModes;
 	int autoIndentMode{-1};
-	int prefixLength{0};
+	QString::size_type prefixLength{0};
 
 	static void loadSmartQuotesModes();
 

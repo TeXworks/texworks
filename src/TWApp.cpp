@@ -854,17 +854,20 @@ void TWApp::setDefaultPaths()
 		binaryPaths->append(appDir.absolutePath());
 #endif
 	QString envPath = QString::fromLocal8Bit(getenv("PATH"));
-	if (!envPath.isEmpty())
-		foreach (const QString& s, envPath.split(QString::fromLatin1(PATH_LIST_SEP), SkipEmptyParts))
-		if (!binaryPaths->contains(s))
-			binaryPaths->append(s);
+	if (!envPath.isEmpty()) {
+		foreach (const QString& s, envPath.split(QString::fromLatin1(PATH_LIST_SEP), SkipEmptyParts)) {
+			if (!binaryPaths->contains(s)) {
+				binaryPaths->append(s);
+			}
+		}
+	}
 	if (!defaultBinPaths) {
 		foreach (const QString& s, QString::fromUtf8(DEFAULT_BIN_PATHS).split(QString::fromLatin1(PATH_LIST_SEP), SkipEmptyParts)) {
 			if (!binaryPaths->contains(s))
 				binaryPaths->append(s);
 		}
 	}
-	for (int i = binaryPaths->count() - 1; i >= 0; --i) {
+	for (auto i = binaryPaths->count() - 1; i >= 0; --i) {
 		// Note: Only replace the environmental variables for testing directory
 		// existance but do not alter the binaryPaths themselves. Those might
 		// get stored, e.g., in the preferences and we want to keep

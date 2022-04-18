@@ -77,13 +77,13 @@ TWScriptableWindow::updateScriptsMenu()
 }
 
 void
-TWScriptableWindow::removeScriptsFromMenu(QMenu *menu, int startIndex /* = 0 */)
+TWScriptableWindow::removeScriptsFromMenu(QMenu *menu, QList<QAction*>::size_type startIndex /* = 0 */)
 {
 	if (!menu)
 		return;
 
 	QList<QAction*> actions = menu->actions();
-	for (int i = startIndex; i < actions.count(); ++i) {
+	for (auto i = startIndex; i < actions.count(); ++i) {
 		// if this is a popup menu, make sure all its children are destroyed
 		// first, or else old QActions may still be floating around somewhere
 		if (actions[i]->menu())

@@ -79,8 +79,8 @@ public:
 	static QChar openerMatching(QChar c);
 	static void readConfig();
 
-	static int balanceDelim(const QString& text, int pos, QChar delim, int direction);
-	static int findOpeningDelim(const QString& text, int pos);
+	static QString::size_type balanceDelim(const QString& text, QString::size_type pos, QChar delim, int direction);
+	static QString::size_type findOpeningDelim(const QString& text, QString::size_type pos);
 
 	static const QString& includeTextCommand();
 	static const QString& includePdfCommand();

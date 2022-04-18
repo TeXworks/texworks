@@ -201,15 +201,15 @@ void CompletingEdit::updateColors()
 	palette().color(QPalette::Active, QPalette::Base).getRgbF(&bgR, &bgG, &bgB);
 	palette().color(QPalette::Active, QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
 
-	currentCompletionFormat->setBackground(QColor::fromRgbF(.75 * bgR + .25 * fgR, .75 * bgG + .25 * fgG, .75 * bgB + .25 * fgB));
+	currentCompletionFormat->setBackground(QColor::fromRgbF(.75f * bgR + .25f * fgR, .75f * bgG + .25f * fgG, .75f * bgB + .25f * fgB));
 	braceMatchingFormat->setBackground(QColor("orange"));
 
-	currentLineFormat->setBackground(QColor::fromRgbF(.9 * bgR + .1 * fgR, .9 * bgG + .1 * fgG, .9 * bgB + .1 * fgB));
+	currentLineFormat->setBackground(QColor::fromRgbF(.9f * bgR + .1f * fgR, .9f * bgG + .1f * fgG, .9f * bgB + .1f * fgB));
 	currentLineFormat->setProperty(QTextFormat::FullWidthSelection, true);
 
 	palette().color(QPalette::Window).getRgbF(&bgR, &bgG, &bgB);
 	palette().color(QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
-	lineNumberArea->setBgColor(QColor::fromRgbF(0.75 * bgR + 0.25 * fgR, 0.75 * bgG + 0.25 * fgG, 0.75 * bgB + 0.25 * fgB));
+	lineNumberArea->setBgColor(QColor::fromRgbF(0.75f * bgR + 0.25f * fgR, 0.75f * bgG + 0.25f * fgG, 0.75f * bgB + 0.25f * fgB));
 }
 
 CompletingEdit::~CompletingEdit()
@@ -464,7 +464,7 @@ bool CompletingEdit::selectWord(QTextCursor& cursor)
 	if (text.length() < 1) // empty line
 		return false;
 
-	int start{0}, end{0};
+	QString::size_type start{0}, end{0};
 	bool result = Tw::Document::TeXDocument::findNextWord(text, cursor.selectionStart() - block.position(), start, end);
 	cursor.setPosition(block.position() + start);
 	cursor.setPosition(block.position() + end, QTextCursor::KeepAnchor);
@@ -506,14 +506,14 @@ QTextCursor CompletingEdit::wordSelectionForPos(const QPoint& mousePos)
 		QChar curChr = plainText[cursorPos];
 		QChar c;
 		if (!(c = TWUtils::closerMatching(curChr)).isNull()) {
-			int balancePos = TWUtils::balanceDelim(plainText, cursorPos + 1, c, 1);
+			auto balancePos = TWUtils::balanceDelim(plainText, cursorPos + 1, c, 1);
 			if (balancePos < 0)
 				QApplication::beep();
 			else
 				cursor.setPosition(balancePos + 1, QTextCursor::KeepAnchor);
 		}
 		else if (!(c = TWUtils::openerMatching(curChr)).isNull()) {
-			int balancePos = TWUtils::balanceDelim(plainText, cursorPos - 1, c, -1);
+			auto balancePos = TWUtils::balanceDelim(plainText, cursorPos - 1, c, -1);
 			if (balancePos < 0)
 				QApplication::beep();
 			else {
