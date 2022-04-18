@@ -36,6 +36,7 @@ endif()
 SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_AUTOMOC TRUE)
 SET(CMAKE_AUTORCC TRUE)
+SET(CMAKE_AUTOUIC TRUE)
 
 # Always add the current source and binary directories to the header include
 # path when compiling.
