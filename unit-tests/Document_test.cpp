@@ -352,9 +352,11 @@ void TestDocument::modelines()
 
 void TestDocument::findNextWord_data()
 {
+	using ST = QString::size_type;
+
 	QTest::addColumn<QString>("text");
-	QTest::addColumn<QString::size_type>("expectedStart");
-	QTest::addColumn<QString::size_type>("expectedEnd");
+	QTest::addColumn<ST>("expectedStart");
+	QTest::addColumn<ST>("expectedEnd");
 	QTest::addColumn<bool>("returnValue");
 
 	/*
@@ -362,21 +364,21 @@ a  testcase's word \command \comm@nd \cmd123 $ \[ öÄéàßÇα \@a'quote'
 	 */
 	QString s = QStringLiteral("a\t testcase's word \\command \\comm@nd \\cmd123 $ \\[ öÄéàßÇα \\@a'quote'");
 
-	QTest::newRow("empty") << QString() << 42 << 42 << false;
-	QTest::newRow("beyond-end") << s << 123 << 123 << false;
-	QTest::newRow("single-char") << s << 0 << 1 << true;
-	QTest::newRow("white-space") << s << 1 << 3 << false;
-	QTest::newRow("word-with-apostrophe") << s << 3 << 13 << true;
-	QTest::newRow("backslash") << s << 19 << 27 << false;
-	QTest::newRow("command") << s << 19 << 27 << false;
-	QTest::newRow("@") << s << 28 << 36 << false;
-	QTest::newRow("@-command") << s << 28 << 36 << false;
-	QTest::newRow("digit") << s << 41 << 44 << false;
-	QTest::newRow("command-digit") << s << 37 << 41 << false;
-	QTest::newRow("single-glyph") << s << 45 << 46 << false;
-	QTest::newRow("command-glyph") << s << 47 << 49 << false;
-	QTest::newRow("non-ascii") << s << 50 << 57 << true;
-	QTest::newRow("command-apostrophe") << s << 58 << 61 << false;
+	QTest::newRow("empty") << QString() << ST{42} << ST{42} << false;
+	QTest::newRow("beyond-end") << s << ST{123} << ST{123} << false;
+	QTest::newRow("single-char") << s << ST{0} << ST{1} << true;
+	QTest::newRow("white-space") << s << ST{1} << ST{3} << false;
+	QTest::newRow("word-with-apostrophe") << s << ST{3} << ST{13} << true;
+	QTest::newRow("backslash") << s << ST{19} << ST{27} << false;
+	QTest::newRow("command") << s << ST{19} << ST{27} << false;
+	QTest::newRow("@") << s << ST{28} << ST{36} << false;
+	QTest::newRow("@-command") << s << ST{28} << ST{36} << false;
+	QTest::newRow("digit") << s << ST{41} << ST{44} << false;
+	QTest::newRow("command-digit") << s << ST{37} << ST{41} << false;
+	QTest::newRow("single-glyph") << s << ST{45} << ST{46} << false;
+	QTest::newRow("command-glyph") << s << ST{47} << ST{49} << false;
+	QTest::newRow("non-ascii") << s << ST{50} << ST{57} << true;
+	QTest::newRow("command-apostrophe") << s << ST{58} << ST{61} << false;
 }
 
 void TestDocument::findNextWord()
