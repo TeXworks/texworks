@@ -142,13 +142,12 @@ void convertAnnotation(Annotation::AbstractAnnotation * dest, const ::Poppler::A
 // Document Class
 // ==============
 Document::Document(const QString & fileName):
-  Super(fileName),
-  _poppler_doc(::Poppler::Document::load(fileName))
+  Super(fileName)
 {
 #ifdef DEBUG
 //  qDebug() << "PopplerQt::Document::Document(" << fileName << ")";
 #endif
-  parseDocument();
+  load(fileName);
 }
 
 Document::~Document()
@@ -159,6 +158,28 @@ Document::~Document()
   clearPages();
   delete _poppler_docLock;
 }
+
+bool Document::load(const QString & filename)
+{
+  bool success{true};
+  QFile pdf(filename);
+  if (pdf.open(QIODevice::ReadOnly)) {
+    QMutexLocker l(_poppler_docLock);
+    // Load the file into memory and then initialize _poppler_doc from memory to
+    // ensure the data is available even while the pdf file gets modified (e.g.,
+    // during typesetting)
+    _poppler_doc = std::unique_ptr<::Poppler::Document>(::Poppler::Document::loadFromData(pdf.readAll()));
+    pdf.close();
+  }
+  else {
+    _poppler_doc.reset();
+    success = false;
+  }
+  // "Parse the document" even if loading failed to reset internal data
+  parseDocument();
+  return success;
+}
+
 
 void Document::reload()
 {
@@ -174,15 +195,10 @@ void Document::reload()
   clearPages();
   _pageCache.markOutdated();
 
-  {
-    QMutexLocker l(_poppler_docLock);
-    _poppler_doc = std::unique_ptr<::Poppler::Document>(::Poppler::Document::load(_fileName));
-  }
+  load(_fileName);
 
   // TODO: possibly unlock the new document again if it was previously unlocked
   // and the password is still the same
-
-  parseDocument();
 }
 
 void Document::parseDocument()
