@@ -526,6 +526,24 @@ QList<PDFFontInfo> Document::fonts() const
   return _fonts;
 }
 
+QColor Document::paperColor() const
+{
+  if (!_poppler_doc) {
+    return Backend::Document::paperColor();
+  }
+  QMutexLocker l(_poppler_docLock);
+  return _poppler_doc->paperColor();
+}
+
+void Document::setPaperColor(const QColor &color)
+{
+  if (!_poppler_doc) {
+    return;
+  }
+  QMutexLocker l(_poppler_docLock);
+  _poppler_doc->setPaperColor(color);
+}
+
 bool Document::unlock(const QString password)
 {
   QWriteLocker docLocker(_docLock.data());

@@ -411,6 +411,9 @@ public:
   QMap<QString, QString> metaDataOther() const { QReadLocker docLocker(_docLock.data()); return _meta_other; }
   // </metadata>
 
+  virtual QColor paperColor() const { return Qt::white; }
+  virtual void setPaperColor(const QColor & color) { Q_UNUSED(color); }
+
   // Searches the entire document for the given string and returns a list of
   // boxes that contain that text.
   //
