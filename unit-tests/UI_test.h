@@ -44,6 +44,8 @@ private slots:
 
 	void ClosableTabWidget_signals();
 	void ClosableTabWidget_resizeEvent();
+
+	void ColorButton_color();
 };
 
 } // namespace UnitTest
