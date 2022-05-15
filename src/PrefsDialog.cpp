@@ -365,6 +365,8 @@ void PrefsDialog::restoreDefaults()
 				break;
 			}
 
+			pdfPaperColor->setColor(kDefault_PaperColor);
+
 			pdfRulerUnits->setCurrentIndex(kDefault_PreviewRulerUnits);
 			pdfRulerShow->setChecked(kDefault_PreviewRulerShow);
 
@@ -631,6 +633,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			break;
 	}
 
+	dlg.pdfPaperColor->setColor(settings.value(QStringLiteral("pdfPaperColor"), QVariant::fromValue<QColor>(kDefault_PaperColor)).value<QColor>());
+
 	dlg.pdfRulerUnits->setCurrentIndex(settings.value(QStringLiteral("pdfRulerUnits"), kDefault_PreviewRulerUnits).toInt());
 	dlg.pdfRulerShow->setChecked(settings.value(QStringLiteral("pdfRulerShow"), kDefault_PreviewRulerShow).toBool());
 
@@ -809,6 +813,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			    settings.setValue(QString::fromLatin1("pdfPageMode"), QtPDF::PDFDocumentView::PageMode_TwoColumnContinuous);
 				break;
 		}
+
+		settings.setValue(QStringLiteral("pdfPaperColor"), dlg.pdfPaperColor->color());
 
 		settings.setValue(QStringLiteral("pdfRulerUnits"), dlg.pdfRulerUnits->currentIndex());
 		settings.setValue(QStringLiteral("pdfRulerShow"), dlg.pdfRulerShow->isChecked());

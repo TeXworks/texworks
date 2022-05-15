@@ -46,6 +46,7 @@ const int kDefault_PreviewScale = 200;
 const QtPDF::PDFDocumentView::PageMode kDefault_PDFPageMode = QtPDF::PDFDocumentView::PageMode_OneColumnContinuous;
 const bool kDefault_PreviewRulerShow = false;
 const int kDefault_PreviewRulerUnits = QtPDF::Physical::Length::Centimeters;
+const QColor kDefault_PaperColor = Qt::white;
 
 const int kPDFWindowStateVersion = 1;
 

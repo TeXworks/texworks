@@ -470,6 +470,11 @@ void PDFDocumentWindow::reload()
 
 	clearSyncHighlight();
 	if (pdfWidget->load(curFile)) {
+		QSharedPointer<QtPDF::Backend::Document> doc = pdfWidget->document().toStrongRef();
+		if (doc) {
+			Tw::Settings settings;
+			doc->setPaperColor(settings.value(QStringLiteral("pdfPaperColor"), QVariant::fromValue<QColor>(kDefault_PaperColor)).value<QColor>());
+		}
 		loadSyncData();
 		emit reloaded();
 	}
