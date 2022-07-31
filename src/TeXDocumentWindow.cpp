@@ -881,10 +881,21 @@ bool TeXDocumentWindow::saveFilesHavingRoot(const QString& aRootFile)
 	return true;
 }
 
-const QString& TeXDocumentWindow::getRootFilePath()
+QString TeXDocumentWindow::getRootFilePath() const
 {
-	findRootFilePath();
-	return rootFilePath;
+	if (untitled()) {
+		return {};
+	}
+
+	if (textDoc()->hasModeLine(QStringLiteral("root"))) {
+		QString rootName = textDoc()->getModeLineValue(QStringLiteral("root")).trimmed();
+		QFileInfo rootFileInfo(textDoc()->getFileInfo().dir(), rootName);
+		if (rootFileInfo.exists())
+			return rootFileInfo.canonicalFilePath();
+		else
+			return rootFileInfo.filePath();
+	}
+	return textDoc()->absoluteFilePath();
 }
 
 void TeXDocumentWindow::revert()
@@ -1352,7 +1363,7 @@ void TeXDocumentWindow::reloadIfChangedOnDisk()
 // get expected name of the Preview file, and return whether it exists
 bool TeXDocumentWindow::getPreviewFileName(QString &pdfName)
 {
-	findRootFilePath();
+	const QString & rootFilePath = getRootFilePath();
 	if (rootFilePath.isEmpty())
 		return false;
 	QFileInfo fi(rootFilePath);
@@ -2730,7 +2741,7 @@ void TeXDocumentWindow::typeset()
 		}
 	}
 
-	findRootFilePath();
+	const QString & rootFilePath = getRootFilePath();
 	if (!saveFilesHavingRoot(rootFilePath))
 		return;
 
@@ -3151,25 +3162,6 @@ void TeXDocumentWindow::handleModelineChange(QStringList changedKeys, QStringLis
 	}
 }
 
-void TeXDocumentWindow::findRootFilePath()
-{
-	if (untitled()) {
-		rootFilePath.clear();
-		return;
-	}
-
-	if (textDoc()->hasModeLine(QStringLiteral("root"))) {
-		QString rootName = textDoc()->getModeLineValue(QStringLiteral("root")).trimmed();
-		QFileInfo rootFileInfo(textDoc()->getFileInfo().dir(), rootName);
-		if (rootFileInfo.exists())
-			rootFilePath = rootFileInfo.canonicalFilePath();
-		else
-			rootFilePath = rootFileInfo.filePath();
-	}
-	else
-		rootFilePath = textDoc()->absoluteFilePath();
-}
-
 void TeXDocumentWindow::goToTag(int index)
 {
 	if (_texDoc && index < _texDoc->getTags().count()) {
@@ -3180,12 +3172,12 @@ void TeXDocumentWindow::goToTag(int index)
 
 bool TeXDocumentWindow::isTypesetting() const
 {
-	return (process != nullptr || TWApp::instance()->typesetManager().getOwnerForRootFile(rootFilePath) == this);
+	return (process != nullptr || TWApp::instance()->typesetManager().getOwnerForRootFile(getRootFilePath()) == this);
 }
 
 void TeXDocumentWindow::removeAuxFiles()
 {
-	findRootFilePath();
+	const QString & rootFilePath = getRootFilePath();
 	if (rootFilePath.isEmpty())
 		return;
 
