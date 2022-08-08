@@ -873,29 +873,12 @@ bool TeXDocumentWindow::maybeSave()
 bool TeXDocumentWindow::saveFilesHavingRoot(const QString& aRootFile)
 {
 	foreach (TeXDocumentWindow* doc, docList) {
-		if (doc->getRootFilePath() == aRootFile) {
+		if (doc->textDoc() && doc->textDoc()->getRootFilePath() == aRootFile) {
 			if (doc->textEdit->document()->isModified() && !doc->save())
 				return false;
 		}
 	}
 	return true;
-}
-
-QString TeXDocumentWindow::getRootFilePath() const
-{
-	if (untitled()) {
-		return {};
-	}
-
-	if (textDoc()->hasModeLine(QStringLiteral("root"))) {
-		QString rootName = textDoc()->getModeLineValue(QStringLiteral("root")).trimmed();
-		QFileInfo rootFileInfo(textDoc()->getFileInfo().dir(), rootName);
-		if (rootFileInfo.exists())
-			return rootFileInfo.canonicalFilePath();
-		else
-			return rootFileInfo.filePath();
-	}
-	return textDoc()->absoluteFilePath();
 }
 
 void TeXDocumentWindow::revert()
@@ -1363,7 +1346,7 @@ void TeXDocumentWindow::reloadIfChangedOnDisk()
 // get expected name of the Preview file, and return whether it exists
 bool TeXDocumentWindow::getPreviewFileName(QString &pdfName)
 {
-	const QString & rootFilePath = getRootFilePath();
+	const QString & rootFilePath = textDoc()->getRootFilePath();
 	if (rootFilePath.isEmpty())
 		return false;
 	QFileInfo fi(rootFilePath);
@@ -2741,7 +2724,7 @@ void TeXDocumentWindow::typeset()
 		}
 	}
 
-	const QString & rootFilePath = getRootFilePath();
+	const QString & rootFilePath = textDoc()->getRootFilePath();
 	if (!saveFilesHavingRoot(rootFilePath))
 		return;
 
@@ -2850,7 +2833,7 @@ void TeXDocumentWindow::interrupt()
 
 void TeXDocumentWindow::goToTypesettingWindow()
 {
-	TeXDocumentWindow * owner = qobject_cast<TeXDocumentWindow*>(TWApp::instance()->typesetManager().getOwnerForRootFile(getRootFilePath()));
+	TeXDocumentWindow * owner = qobject_cast<TeXDocumentWindow*>(TWApp::instance()->typesetManager().getOwnerForRootFile(textDoc()->getRootFilePath()));
 	if (owner) {
 		owner->raise();
 		owner->activateWindow();
@@ -2859,7 +2842,7 @@ void TeXDocumentWindow::goToTypesettingWindow()
 
 void TeXDocumentWindow::updateTypesettingAction()
 {
-	TeXDocumentWindow * owner = qobject_cast<TeXDocumentWindow*>(TWApp::instance()->typesetManager().getOwnerForRootFile(getRootFilePath()));
+	TeXDocumentWindow * owner = qobject_cast<TeXDocumentWindow*>(TWApp::instance()->typesetManager().getOwnerForRootFile(textDoc()->getRootFilePath()));
 
 	disconnect(actionTypeset, &QAction::triggered, this, nullptr);
 	if (isTypesetting()) {
@@ -2894,7 +2877,7 @@ void TeXDocumentWindow::conditionallyEnableRemoveAuxFiles()
 	// 2) A typesetting process is running for "our" root file which may be
 	//    accessing the aux files
 	const bool enable = [&](){
-		QFileInfo rootFileInfo{getRootFilePath()};
+		QFileInfo rootFileInfo{textDoc()->getRootFilePath()};
 		if (!rootFileInfo.exists())
 			return false;
 		if (TWApp::instance()->typesetManager().isFileBeingTypeset(rootFileInfo.canonicalFilePath()))
@@ -3036,7 +3019,7 @@ void TeXDocumentWindow::anchorClicked(const QUrl& url)
 		if (url.hasFragment()) {
 			line = url.fragment().toInt();
 		}
-		TeXDocumentWindow * target = openDocument(QFileInfo(getRootFilePath()).absoluteDir().filePath(url.path()), true, true, line);
+		TeXDocumentWindow * target = openDocument(QFileInfo(textDoc()->getRootFilePath()).absoluteDir().filePath(url.path()), true, true, line);
 		if (target)
 			target->textEdit->setFocus(Qt::OtherFocusReason);
 	}
@@ -3172,12 +3155,12 @@ void TeXDocumentWindow::goToTag(int index)
 
 bool TeXDocumentWindow::isTypesetting() const
 {
-	return (process != nullptr || TWApp::instance()->typesetManager().getOwnerForRootFile(getRootFilePath()) == this);
+	return (process != nullptr || TWApp::instance()->typesetManager().getOwnerForRootFile(textDoc()->getRootFilePath()) == this);
 }
 
 void TeXDocumentWindow::removeAuxFiles()
 {
-	const QString & rootFilePath = getRootFilePath();
+	const QString & rootFilePath = textDoc()->getRootFilePath();
 	if (rootFilePath.isEmpty())
 		return;
 

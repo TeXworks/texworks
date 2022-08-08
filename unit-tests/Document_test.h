@@ -19,6 +19,8 @@
 	see <http://www.tug.org/texworks/>.
 */
 
+#include <QTemporaryDir>
+
 #include <QtTest/QtTest>
 
 namespace UnitTest {
@@ -26,6 +28,8 @@ namespace UnitTest {
 class TestDocument : public QObject
 {
 	Q_OBJECT
+
+	QTemporaryDir m_tempDir;
 private slots:
 	void isPDFfile_data();
 	void isPDFfile();
@@ -57,6 +61,9 @@ private slots:
 	void Synchronizer_syncFromTeX();
 	void Synchronizer_syncFromPDF_data();
 	void Synchronizer_syncFromPDF();
+
+	void rootFile_data();
+	void rootFile();
 };
 
 } // namespace UnitTest

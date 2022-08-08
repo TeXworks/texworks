@@ -252,7 +252,7 @@ private:
 	void hideConsole();
 	void updateTypesettingAction();
 	void conditionallyEnableRemoveAuxFiles();
-	QString getRootFilePath() const;
+	QString getRootFilePath() const { return textDoc()->getRootFilePath(); }
 	void maybeCenterSelection(int oldScrollValue = -1);
 	void presentResults(const QList<SearchResult>& results);
 	void showLineEndingSetting();
