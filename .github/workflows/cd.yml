@@ -153,7 +153,7 @@ jobs:
       shell: bash
       run: |
         brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
-        brew uninstall --ignore-dependencies brotli fontconfig freetype libjpeg libpng libtiff webp zstd
+        brew uninstall --ignore-dependencies brotli fontconfig freetype libjpeg libpng libtiff little-cms2 openjpeg webp zstd
         brew install automake libtool pkg-config
 
     - name: Cache dependencies
