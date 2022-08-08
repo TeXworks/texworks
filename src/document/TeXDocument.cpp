@@ -95,10 +95,7 @@ QString TeXDocument::getRootFilePath() const
 	if (hasModeLine(QStringLiteral("root"))) {
 		const QString rootName{getModeLineValue(QStringLiteral("root")).trimmed()};
 		const QFileInfo rootFileInfo{getFileInfo().dir(), rootName};
-		if (rootFileInfo.exists())
-			return rootFileInfo.canonicalFilePath();
-		else
-			return rootFileInfo.filePath();
+		return rootFileInfo.absoluteFilePath();
 	}
 
 	return absoluteFilePath();
