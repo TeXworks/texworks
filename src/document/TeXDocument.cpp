@@ -88,16 +88,15 @@ void TeXDocument::parseModeLines()
 
 QString TeXDocument::getRootFilePath() const
 {
-	if (!isStoredInFilesystem()) {
-		return {};
-	}
-
 	if (hasModeLine(QStringLiteral("root"))) {
 		const QString rootName{getModeLineValue(QStringLiteral("root")).trimmed()};
 		const QFileInfo rootFileInfo{getFileInfo().dir(), rootName};
 		return rootFileInfo.absoluteFilePath();
 	}
 
+	if (!isStoredInFilesystem()) {
+		return {};
+	}
 	return absoluteFilePath();
 }
 

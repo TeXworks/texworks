@@ -1009,10 +1009,6 @@ void TestDocument::rootFile()
 	QFETCH(QString, rootPath);
 
 	QVERIFY(!doc.isNull());
-	QEXPECT_FAIL("ram-modline-valid", "Root file set via modline in unsaved document not handled yet", Continue);
-	QEXPECT_FAIL("ram-modline-invalid", "Root file set via modline in unsaved document not handled yet", Continue);
-	QEXPECT_FAIL("ram-modline-valid-symlink", "Root file set via modline in unsaved document not handled yet", Continue);
-	QEXPECT_FAIL("ram-modline-invalid-symlink", "Root file set via modline in unsaved document not handled yet", Continue);
 	QCOMPARE(doc->getRootFilePath(), rootPath);
 }
 
