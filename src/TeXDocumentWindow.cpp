@@ -697,6 +697,13 @@ void TeXDocumentWindow::closeEvent(QCloseEvent *event)
 			return;
 		}
 		interrupt();
+		// Wait for the process to actually finish (and be destroyed) as this
+		// might try to access, e.g., the log window (which could be destroyed
+		// at any time once the close event goes through and this
+		// TeXDocumentWindow is started to be destroyed)
+		if (process) {
+			process->waitForFinished();
+		}
 	}
 
 	if (maybeSave()) {
