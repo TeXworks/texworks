@@ -2740,7 +2740,7 @@ void TeXDocumentWindow::typeset()
 		return;
 	}
 
-	if (!TWApp::instance()->typesetManager().startTypesetting(fileInfo.canonicalFilePath(), this)) {
+	if (!TWApp::instance()->typesetManager().startTypesetting(rootFilePath, this)) {
 		statusBar()->showMessage(tr("%1 is already being processed").arg(rootFilePath), kStatusMessageDuration);
 		updateTypesettingAction();
 		return;
