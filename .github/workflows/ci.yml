@@ -174,10 +174,6 @@ jobs:
       run: ctest -V
       working-directory: build
 
-    - name: Package
-      id: package
-      uses: ./.github/actions/package-macos
-
 ################################################################################
 
   build-macosx-macports:
