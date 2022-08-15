@@ -1156,8 +1156,8 @@ QSharedPointer<Backend::Document> PopplerQtBackend::newDocument(const QString & 
   // FONTCONFIG_PATH
   if (!qEnvironmentVariableIsSet("FONTCONFIG_PATH")) {
     QDir confPath{QCoreApplication::applicationDirPath()};
-    if (confPath.cd("../etc/fonts")) {
-      if (confPath.exists("fonts.conf")) {
+    if (confPath.cd(QStringLiteral("../etc/fonts"))) {
+      if (confPath.exists(QStringLiteral("fonts.conf"))) {
         qputenv("FONTCONFIG_PATH", confPath.path().toLocal8Bit());
       }
     }
