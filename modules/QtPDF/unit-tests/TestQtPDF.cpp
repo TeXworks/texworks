@@ -268,6 +268,7 @@ void TestQtPDF::loadDocs()
     _docs[QString::fromLatin1("metadata")] = backend.newDocument(QString::fromLatin1("metadata.pdf"));
     _docs[QString::fromLatin1("page-rotation")] = backend.newDocument(QString::fromLatin1("page-rotation.pdf"));
     _docs[QString::fromLatin1("annotations")] = backend.newDocument(QString::fromLatin1("annotations.pdf"));
+    _docs[QString::fromLatin1("jpg")] = backend.newDocument(QStringLiteral("jpg.pdf"));
   }
 }
 
@@ -1398,6 +1399,7 @@ void TestQtPDF::page_renderToImage_data()
   QTest::newRow("base14-fonts-ZapfDingbats") << base14Doc << 0 << "base14-fonts-1.png" << QRect(200, 1468, 840, 30) << 150.;
   newDocTest("base14-fonts") << 0 << "base14-fonts-1.png" << QRect() << 15.;
   newDocTest("poppler-data") << 0 << "poppler-data-1.png" << QRect() << 3.;
+  newDocTest("jpg") << 0 << "jpg.png" << QRect() << 15.;
 }
 
 void TestQtPDF::page_renderToImage()
