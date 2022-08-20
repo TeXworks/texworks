@@ -135,7 +135,7 @@ jobs:
       run: |
         cmake -E copy_directory build/share build/Release/share
         cd "${{ runner.workspace }}/tw-deps/bin"
-        cmake -E copy lcms2.dll libhunspell.dll libpng16.dll openjp2.dll poppler-qt5.dll zlib.dll "${{ github.workspace }}/build/Release/"
+        cmake -E copy freetype.dll lcms2.dll libhunspell.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt5.dll tiff.dll zlib1.dll "${{ github.workspace }}/build/Release/"
 
     - name: Test
       run: ctest -V -C Release

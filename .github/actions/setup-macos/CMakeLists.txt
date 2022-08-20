@@ -35,8 +35,8 @@ ADD_GH_GROUP(libpng)
 
 # TODO: harfbuzz?
 ExternalProject_Add(freetype
-	URL https://download.savannah.gnu.org/releases/freetype/freetype-2.11.1.tar.xz
-	URL_HASH SHA256=3333ae7cfda88429c97a7ae63b7d01ab398076c3b67182e960e5684050f2c5c8
+	URL https://download.savannah.gnu.org/releases/freetype/freetype-2.12.1.tar.xz
+	URL_HASH SHA256=4766f20157cc4cf0cd292f80bf917f92d1c439b243ac3018debf6b9140c41a7f
 	CMAKE_ARGS ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=TRUE
 	DEPENDS libpng
 )
@@ -61,8 +61,8 @@ ExternalProject_Add(hunspell
 ADD_GH_GROUP(hunspell)
 
 ExternalProject_Add(fontconfig
-	URL https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.96.tar.xz
-	URL_HASH SHA256=d816a920384aa91bc0ebf20c3b51c59c2153fdf65de0b5564bf9e8473443d637
+	URL https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.0.tar.xz
+	URL_HASH SHA256=dcbeb84c9c74bbfdb133d535fe1c7bedc9f2221a8daf3914b984c44c520e9bac
 	CONFIGURE_COMMAND ${CONFIGURE_ENV} CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS} --with-add-fonts=${_font_dirs} --disable-docs
 	BUILD_IN_SOURCE TRUE
 	INSTALL_COMMAND make install RUN_FC_CACHE_TEST=false
@@ -80,17 +80,17 @@ ADD_GH_GROUP(libjpeg)
 
 # jbig? Lzma?
 ExternalProject_Add(libtiff
-	URL "https://download.osgeo.org/libtiff/tiff-4.3.0.tar.gz"
-	URL_HASH SHA256=0e46e5acb087ce7d1ac53cf4f56a09b221537fc86dfc5daaad1c2e89e1b37ac8
+	URL "https://download.osgeo.org/libtiff/tiff-4.4.0.tar.gz"
+	URL_HASH SHA256=917223b37538959aca3b790d2d73aa6e626b688e02dcda272aec24c2f498abed
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libjpeg
 )
 ADD_GH_GROUP(libtiff)
 
 ExternalProject_Add(libopenjpeg
-	URL https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.4.0.tar.gz
-	URL_HASH SHA256=8702ba68b442657f11aaeb2b338443ca8d5fb95b0d845757968a7be31ef7f16d
-	CMAKE_ARGS ${CMAKE_ARGS}
+	URL https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.0.tar.gz
+	URL_HASH SHA256=0333806d6adecc6f7a91243b2b839ff4d2053823634d4f6ed7a59bc87409122a
+	CMAKE_ARGS ${CMAKE_ARGS} -DBUILD_CODEC=OFF
 	DEPENDS libtiff
 )
 ADD_GH_GROUP(libopenjpeg)
@@ -114,9 +114,9 @@ ExternalProject_Add(poppler
 )
 else ()
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-22.02.0.tar.xz"
-	URL_HASH SHA256=e390c8b806f6c9f0e35c8462033e0a738bb2460ebd660bdb8b6dca01556193e1
-	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_GLIB=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE
+	URL "https://poppler.freedesktop.org/poppler-22.08.0.tar.xz"
+	URL_HASH SHA256=b493328721402f25cb7523f9cdc2f7d7c59f45ad999bde75c63c90604db0f20b
+	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_GLIB=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DRUN_GPERF_IF_PRESENT=FALSE
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )
 endif ()
