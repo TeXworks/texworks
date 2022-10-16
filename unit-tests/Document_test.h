@@ -54,8 +54,8 @@ private slots:
 	void SpellChecker_ignoreWord();
 
 	void Synchronizer_isValid();
-	void syncTeXFilename();
-	void pdfFilename();
+	void Synchronizer_syncTeXFilename();
+	void Synchronizer_pdfFilename();
 
 	void Synchronizer_syncFromTeX_data();
 	void Synchronizer_syncFromTeX();

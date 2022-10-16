@@ -499,7 +499,7 @@ void TestDocument::Synchronizer_isValid()
 	QCOMPARE(invalid.isValid(), false);
 }
 
-void TestDocument::syncTeXFilename()
+void TestDocument::Synchronizer_syncTeXFilename()
 {
 	TWSyncTeXSynchronizer valid(QStringLiteral("sync.pdf"), nullptr, nullptr);
 	TWSyncTeXSynchronizer invalid(QStringLiteral("does-not-exist"), nullptr, nullptr);
@@ -508,7 +508,7 @@ void TestDocument::syncTeXFilename()
 	QCOMPARE(invalid.syncTeXFilename(), QString());
 }
 
-void TestDocument::pdfFilename()
+void TestDocument::Synchronizer_pdfFilename()
 {
 	const QString pdfFilename(QStringLiteral("sync.pdf"));
 	TWSyncTeXSynchronizer valid(pdfFilename, nullptr, nullptr);
