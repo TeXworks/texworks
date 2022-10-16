@@ -534,6 +534,7 @@ void PDFDocumentWindow::reload()
 	else {
 		statusBar()->showMessage(tr("Failed to load file \"%1\"; perhaps it is not a valid PDF document.").arg(TWUtils::strippedName(curFile)));
 	}
+	updateTypesettingAction();
 	QApplication::restoreOverrideCursor();
 }
 
@@ -902,17 +903,23 @@ void PDFDocumentWindow::updateTypesettingAction()
 		}
 		return false;
 	}();
+	const bool canTypeset = [&]() {
+		return !getMainSourceFilename().isEmpty();
+	}();
+
 
 	disconnect(actionTypeset, &QAction::triggered, this, nullptr);
 	if (isSourceTypesetting) {
 		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
 		actionTypeset->setText(tr("Abort typesetting"));
 		connect(actionTypeset, &QAction::triggered, this, &PDFDocumentWindow::interrupt);
+		enableTypesetAction(true);
 	}
 	else {
 		actionTypeset->setIcon(QIcon::fromTheme(QStringLiteral("process-start")));
 		actionTypeset->setText(tr("Typeset"));
 		connect(actionTypeset, &QAction::triggered, this, &PDFDocumentWindow::retypeset);
+		enableTypesetAction(canTypeset);
 	}
 }
 
