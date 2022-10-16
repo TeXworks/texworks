@@ -150,6 +150,9 @@ private:
 	void loadSyncData();
 	void saveRecentFileInfo();
 
+	QString getMainSourceFilename() const;
+	TeXDocumentWindow * getFirstTeXDocumentWindow(const bool openIfNecessary);
+
 	QString curFile;
 
 	QtPDF::PDFDocumentWidget *pdfWidget;
