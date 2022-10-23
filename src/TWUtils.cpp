@@ -233,7 +233,7 @@ QString TWUtils::chooseDefaultFilter(const QString & filename, const QStringList
 	QString extension = QFileInfo(filename).completeSuffix();
 
 	if (extension.isEmpty())
-		return filters[0];
+		return filters.last();
 
 	foreach (QString filter, filters) {
 		// return filter if it corresponds to the given extension
