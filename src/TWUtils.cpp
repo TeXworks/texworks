@@ -212,7 +212,19 @@ void TWUtils::setDefaultFilters()
 	*filters << QObject::tr("Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)");
 	*filters << QObject::tr("Text files (*.txt)");
 	*filters << QObject::tr("PDF documents (*.pdf)");
-	*filters << QObject::tr("All files") + QLatin1String(" (*)"); // this must not be "*.*", which causes an extension ".*" to be added on some systems
+#ifdef Q_OS_WIN
+	// It seems (contrary to documentation) that on Windows, this has to be
+	// *.* to allow saving files with non-standard extensions (though *.* still
+	// does not allow to save without any extension at all, see below)
+	const QString allFilesFilter = QStringLiteral("*.*");
+//	const QString allFilesFilter = QStringLiteral("*");
+#else
+	// On other systems, *.* might require a . in the filename, which would
+	// preclude filenames without extension. In line with the documentation, *
+	// should be used in those cases
+	const QString allFilesFilter = QStringLiteral("*");
+#endif
+	*filters << QObject::tr("All files") + QStringLiteral(" (%1)").arg(allFilesFilter);
 }
 
 /*static*/
