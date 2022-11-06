@@ -873,10 +873,13 @@ void PDFDocumentView::nextSearchResult()
     return;
 
   highlightPath->setBrush(_currentSearchResultHighlightBrush);
-  centerOn(highlightPath);
 
   PDFPageGraphicsItem * pageItem = dynamic_cast<PDFPageGraphicsItem *>(highlightPath->parentItem());
   if (pageItem) {
+    const QRectF bb = pageItem->mapRectFromItem(highlightPath, highlightPath->boundingRect());
+    const QRectF pdfRect = QRectF(pageItem->mapToPage(bb.topLeft()), pageItem->mapToPage(bb.bottomRight()));
+    goToPage(pageItem, pdfRect, false);
+
     QSharedPointer<Backend::Page> page = pageItem->page().toStrongRef();
     // FIXME: shape subpath coordinates seem to be in upside down pdf coordinates. We should find a better place to construct the proper transform (e.g., in PDFPageGraphicsItem)
     if (page)
@@ -906,10 +909,13 @@ void PDFDocumentView::previousSearchResult()
     return;
 
   highlightPath->setBrush(_currentSearchResultHighlightBrush);
-  centerOn(highlightPath);
 
   PDFPageGraphicsItem * pageItem = dynamic_cast<PDFPageGraphicsItem *>(highlightPath->parentItem());
   if (pageItem) {
+    const QRectF bb = pageItem->mapRectFromItem(highlightPath, highlightPath->boundingRect());
+    const QRectF pdfRect = QRectF(pageItem->mapToPage(bb.topLeft()), pageItem->mapToPage(bb.bottomRight()));
+    goToPage(pageItem, pdfRect, false);
+
     QSharedPointer<Backend::Page> page = pageItem->page().toStrongRef();
     // FIXME: shape subpath coordinates seem to be in upside down pdf coordinates. We should find a better place to construct the proper transform (e.g., in PDFPageGraphicsItem)
     if (page)
