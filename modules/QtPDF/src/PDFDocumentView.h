@@ -44,6 +44,7 @@ class PDFDocumentView : public QGraphicsView {
   int _currentPage{-1}, _lastPage{-1};
 
   QString _searchString;
+  Backend::SearchFlags _searchFlags;
   QList<QGraphicsItem *> _searchResults;
   QFutureWatcher< QList<Backend::SearchResult> > _searchResultWatcher;
   int _currentSearchResult{-1};

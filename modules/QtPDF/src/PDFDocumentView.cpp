@@ -811,8 +811,7 @@ void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* =
   // change the search text in that case (e.g., to something meaningless and
   // then back again to abort the previous search and restart at the new
   // location).
-  if (searchText == _searchString) {
-    // FIXME: If flags changed we need to do a full search!
+  if (searchText == _searchString && flags == _searchFlags) {
     nextSearchResult();
     return;
   }
@@ -846,6 +845,7 @@ void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* =
 
   _currentSearchResult = -1;
   _searchString = searchText;
+  _searchFlags = flags;
   _searchResultWatcher.setFuture(QtConcurrent::mapped(requests, Backend::Page::executeSearch));
 }
 
