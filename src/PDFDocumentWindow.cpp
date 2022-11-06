@@ -154,7 +154,13 @@ void PDFDocumentWindow::init()
 	connect(pdfWidget, &QtPDF::PDFDocumentWidget::changedPage, this, &PDFDocumentWindow::updateStatusBar);
 	connect(pdfWidget, &QtPDF::PDFDocumentWidget::changedZoom, this, &PDFDocumentWindow::updateStatusBar);
 	connect(pdfWidget, &QtPDF::PDFDocumentWidget::changedDocument, this, &PDFDocumentWindow::changedDocument);
-	connect(pdfWidget, &QtPDF::PDFDocumentWidget::searchResultHighlighted, this, &PDFDocumentWindow::searchResultHighlighted);
+	// NB: Using a queued connection ensures the signal has to pass through the
+	// event loop. If searching effectively blocks the GUI for a while (e.g., by
+	// spawning too many threads), this ensures that the highlighting processing
+	// (including clearing the highlighting after kPDFHighlightDuration) only
+	// starts when the GUI is responsive (i.e., the highlight is actually
+	// displayed)
+	connect(pdfWidget, &QtPDF::PDFDocumentWidget::searchResultHighlighted, this, &PDFDocumentWindow::searchResultHighlighted, Qt::QueuedConnection);
 	connect(pdfWidget, &QtPDF::PDFDocumentWidget::changedPageMode, this, &PDFDocumentWindow::updatePageMode);
 	connect(pdfWidget, &QtPDF::PDFDocumentWidget::requestOpenPdf, this, &PDFDocumentWindow::maybeOpenPdf);
 	connect(pdfWidget, &QtPDF::PDFDocumentWidget::requestOpenUrl, this, &PDFDocumentWindow::maybeOpenUrl);
