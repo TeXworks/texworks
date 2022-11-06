@@ -817,8 +817,6 @@ void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* =
     return;
   }
 
-  clearSearchResults();
-
   // Construct a list of requests that can be passed to QtConcurrent::mapped()
   QList<Backend::SearchRequest> requests;
   for (int i = _currentPage; i < _lastPage; ++i) {
@@ -844,6 +842,7 @@ void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* =
     _searchResultWatcher.cancel();
     _searchResultWatcher.waitForFinished();
   }
+  clearSearchResults();
 
   _currentSearchResult = -1;
   _searchString = searchText;
