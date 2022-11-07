@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0 # fetch the entire history so we can create the changelog
 
@@ -39,7 +39,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup WSL
       uses: Vampire/setup-wsl@v1
@@ -88,7 +88,7 @@ jobs:
       id: package
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: TeXworks-Windows
         path: ${{ steps.package.outputs.file }}
@@ -98,7 +98,7 @@ jobs:
       working-directory: win32
 
     - name: Upload installer artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: TeXworks-Windows-Setup
         path: win32/Output/*.exe
@@ -142,10 +142,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install Qt
-      uses: jurplel/install-qt-action@v2
+      uses: jurplel/install-qt-action@v3
       with:
         version: ${{ matrix.qtVersion }}
         modules: ${{ matrix.qtModules }}
@@ -159,7 +159,7 @@ jobs:
 
     - name: Cache dependencies
       id: cache-dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-qt${{ matrix.qtVersion }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
         path: ${{ runner.temp }}/tw-deps
@@ -186,7 +186,7 @@ jobs:
       uses: ./.github/actions/package-macos
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: TeXworks-macOS
         path: ${{ steps.package.outputs.file }}
