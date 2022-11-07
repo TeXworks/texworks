@@ -38,6 +38,6 @@ runs:
         md5sum "$FILENAME"
         echo "SHA256"
         sha256sum "$FILENAME"
-        echo "::set-output name=version::${VERSION}"
-        echo "::set-output name=fullversion::${FULLVERSION}"
-        echo "::set-output name=file::${FILENAME}"
+        echo "version=${VERSION}" >> $GITHUB_OUTPUT
+        echo "fullversion=${FULLVERSION}" >> $GITHUB_OUTPUT
+        echo "file=${FILENAME}" >> $GITHUB_OUTPUT

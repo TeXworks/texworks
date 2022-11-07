@@ -29,7 +29,7 @@ runs:
         echo "::endgroup::"
       shell: bash
     - id: get-ubuntu-series
-      run: echo "::set-output name=SERIES::$(python3 ${{ github.action_path }}/get-ubuntu-series.py)"
+      run: echo "SERIES=$(python3 ${{ github.action_path }}/get-ubuntu-series.py)" >> $GITHUB_OUTPUT
       shell: bash
     - id: package
       run: ${{ github.action_path }}/package.sh
