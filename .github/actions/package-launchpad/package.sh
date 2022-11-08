@@ -124,6 +124,6 @@ for SERIES in ${LAUNCHPAD_SERIES}; do
 	echo "::endgroup::"
 done
 
-echo "CHANGES=${OUTPUT_FILES}" >> $GITHUB_OUTPUT
+echo "CHANGES=${OUTPUT_FILES}" >> "${GITHUB_OUTPUT}"
 
 echo "Packaging completed"
