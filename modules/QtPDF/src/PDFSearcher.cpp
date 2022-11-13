@@ -169,7 +169,7 @@ void QtPDF::PDFSearcher::run()
     if (isInterruptionRequested()) {
       break;
     }
-    const auto page{doc->page(pageIndex).toStrongRef()};
+    const QSharedPointer<QtPDF::Backend::Page> page{doc->page(pageIndex).toStrongRef()};
     if (!page) {
       continue;
     }
