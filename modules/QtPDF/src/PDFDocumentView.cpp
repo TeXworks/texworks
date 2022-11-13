@@ -98,8 +98,8 @@ PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
   // in turn sets up other variables such as _toolAccessors
   setMouseMode(MouseMode_MagnifyingGlass);
 
-  connect(&_searchResultWatcher, &QFutureWatcher< QList<Backend::SearchResult> >::resultReadyAt, this, &PDFDocumentView::searchResultReady);
-  connect(&_searchResultWatcher, &QFutureWatcher< QList<Backend::SearchResult> >::progressValueChanged, this, &PDFDocumentView::searchProgressValueChanged);
+  connect(&_searcher, &PDFSearcher::resultReady, this, &PDFDocumentView::searchResultReady);
+  connect(&_searcher, &PDFSearcher::progressValueChanged, this, &PDFDocumentView::searchProgressValueChanged);
 
   showRuler(false);
   connect(&_ruler, &PDFRuler::dragStart, this, [this](QPoint pos, Qt::Edge origin) {
@@ -125,8 +125,7 @@ PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
 
 PDFDocumentView::~PDFDocumentView()
 {
-  if (!_searchResultWatcher.isFinished())
-    _searchResultWatcher.cancel();
+  _searcher.ensureStopped();
 }
 
 // Accessors
@@ -811,42 +810,21 @@ void PDFDocumentView::search(QString searchText, Backend::SearchFlags flags /* =
   // change the search text in that case (e.g., to something meaningless and
   // then back again to abort the previous search and restart at the new
   // location).
-  if (searchText == _searchString && flags == _searchFlags) {
+  if (searchText == _searcher.searchString() && flags == _searcher.searchFlags()) {
     nextSearchResult();
     return;
   }
 
-  // Construct a list of requests that can be passed to QtConcurrent::mapped()
-  QList<Backend::SearchRequest> requests;
-  for (int i = _currentPage; i < _lastPage; ++i) {
-    Backend::SearchRequest request;
-    request.doc = _pdf_scene->document();
-    request.pageNum = i;
-    request.searchString = searchText;
-    request.flags = flags;
-    requests << request;
-  }
-  for (int i = 0; i < _currentPage; ++i) {
-    Backend::SearchRequest request;
-    request.doc = _pdf_scene->document();
-    request.pageNum = i;
-    request.searchString = searchText;
-    request.flags = flags;
-    requests << request;
-  }
+  _searcher.ensureStopped();
 
-  // If another search is still running, cancel it---after all, the user wants
-  // to perform a new search
-  if (!_searchResultWatcher.isFinished()) {
-    _searchResultWatcher.cancel();
-    _searchResultWatcher.waitForFinished();
-  }
   clearSearchResults();
-
   _currentSearchResult = -1;
-  _searchString = searchText;
-  _searchFlags = flags;
-  _searchResultWatcher.setFuture(QtConcurrent::mapped(requests, Backend::Page::executeSearch));
+
+  _searcher.setSearchString(searchText);
+  _searcher.setSearchFlags(flags);
+  _searcher.setDocument(document());
+  _searcher.setStartPage(currentPage());
+  _searcher.start();
 }
 
 void PDFDocumentView::nextSearchResult()
@@ -953,11 +931,13 @@ void PDFDocumentView::setCurrentSearchResultHighlightBrush(const QBrush & brush)
 
 // Protected Slots
 // --------------
-void PDFDocumentView::searchResultReady(int index)
+void PDFDocumentView::searchResultReady(int pageIndex)
 {
+  const auto & result = _searcher.resultAt(pageIndex);
   // Convert the search result to highlight boxes
-  foreach( Backend::SearchResult result, _searchResultWatcher.future().resultAt(index) )
+  foreach(Backend::SearchResult result, result) {
     _searchResults << addHighlightPath(result.pageNum, result.bbox, _searchResultHighlightBrush);
+  }
 
   // If this is the first result that becomes available in a new search, center
   // on the first result
@@ -966,7 +946,7 @@ void PDFDocumentView::searchResultReady(int index)
 
   // Inform the rest of the world of our progress (in %, and how many
   // occurrences were found so far).
-  emit searchProgressChanged(100 * (_searchResultWatcher.progressValue() - _searchResultWatcher.progressMinimum()) / (_searchResultWatcher.progressMaximum() - _searchResultWatcher.progressMinimum()), _searchResults.count());
+  emit searchProgressChanged(100 * (_searcher.progressValue() - _searcher.progressMinimum()) / (_searcher.progressMaximum() - _searcher.progressMinimum()), _searchResults.count());
 }
 
 void PDFDocumentView::searchProgressValueChanged(int progressValue)
@@ -982,10 +962,10 @@ void PDFDocumentView::searchProgressValueChanged(int progressValue)
   // of the progress when no matches are found, whereas searchResultReady is
   // primarily intended for informing the user of the progress when matches are
   // found.
-  if (_searchResultWatcher.progressMaximum() == _searchResultWatcher.progressMinimum())
+  if (_searcher.progressMaximum() == _searcher.progressMinimum())
     emit searchProgressChanged(100, _searchResults.count());
   else
-    emit searchProgressChanged(100 * (progressValue - _searchResultWatcher.progressMinimum()) / (_searchResultWatcher.progressMaximum() - _searchResultWatcher.progressMinimum()), _searchResults.count());
+    emit searchProgressChanged(100 * (progressValue - _searcher.progressMinimum()) / (_searcher.progressMaximum() - _searcher.progressMinimum()), _searchResults.count());
 }
 
 void PDFDocumentView::maybeUpdateSceneRect() {
@@ -1287,14 +1267,13 @@ void PDFDocumentView::reinitializeFromScene()
   if (selectTool)
     selectTool->pageDestroyed();
   // Ensure (old) search data is destroyed as well
-  if (!_searchResultWatcher.isFinished())
-    _searchResultWatcher.cancel();
-  _searchResults.clear();
-  _currentSearchResult = -1;
+  _searcher.ensureStopped();
   // Also reset _searchString. Otherwise the next search for the same string
   // will assume the search has already been run (without results as
   // _searchResults is empty) and won't run it again on the new scene data.
-  _searchString = QString();
+  _searcher.setSearchString(QString());
+  _searchResults.clear();
+  _currentSearchResult = -1;
 }
 
 void PDFDocumentView::notifyTextSelectionChanged()
