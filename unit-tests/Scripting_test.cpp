@@ -27,6 +27,8 @@
 #	include "scripting/JSScriptInterface.h"
 #endif
 
+#include <memory>
+
 using namespace Tw::Scripting;
 
 Q_DECLARE_METATYPE(QSharedPointer<Script>)
