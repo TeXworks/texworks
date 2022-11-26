@@ -22,10 +22,8 @@
 #include "Scripting_test.h"
 
 #include "MockScriptingAPI.h"
-#include "scripting/ECMAScript.h"
 #include "scripting/ECMAScriptInterface.h"
 #if WITH_QTSCRIPT
-#	include "scripting/JSScript.h"
 #	include "scripting/JSScriptInterface.h"
 #endif
 
@@ -90,7 +88,7 @@ void TestScripting::isEnabled()
 {
 #if WITH_QTSCRIPT
 	JSScriptInterface jsi(this);
-	Script * js = jsi.newScript(QString());
+	std::unique_ptr<Script> js{jsi.newScript(QString())};
 
 	QVERIFY(js->isEnabled());
 	js->setEnabled(false);
@@ -100,7 +98,7 @@ void TestScripting::isEnabled()
 #endif
 
 	ECMAScriptInterface esi(this);
-	Script * es = esi.newScript(QString());
+	std::unique_ptr<Script> es{esi.newScript(QString())};
 
 	QVERIFY(es->isEnabled());
 	es->setEnabled(false);
@@ -113,11 +111,11 @@ void TestScripting::getScriptLanguagePlugin()
 {
 #if WITH_QTSCRIPT
 	JSScriptInterface jsi(this);
-	QCOMPARE(jsi.newScript(QString())->getScriptLanguagePlugin(), &jsi);
+	QCOMPARE(std::unique_ptr<Script>(jsi.newScript(QString()))->getScriptLanguagePlugin(), &jsi);
 #endif
 
 	ECMAScriptInterface esi(this);
-	QCOMPARE(esi.newScript(QString())->getScriptLanguagePlugin(), &esi);
+	QCOMPARE(std::unique_ptr<Script>(esi.newScript(QString()))->getScriptLanguagePlugin(), &esi);
 }
 
 void TestScripting::getFilename()
@@ -126,14 +124,14 @@ void TestScripting::getFilename()
 #if WITH_QTSCRIPT
 	JSScriptInterface jsi(this);
 
-	QCOMPARE(jsi.newScript(QString())->getFilename(), QString());
-	QCOMPARE(jsi.newScript(invalid)->getFilename(), invalid);
+	QCOMPARE(std::unique_ptr<Script>(jsi.newScript(QString()))->getFilename(), QString());
+	QCOMPARE(std::unique_ptr<Script>(jsi.newScript(invalid))->getFilename(), invalid);
 #endif
 
 	ECMAScriptInterface esi(this);
 
-	QCOMPARE(esi.newScript(QString())->getFilename(), QString());
-	QCOMPARE(esi.newScript(invalid)->getFilename(), invalid);
+	QCOMPARE(std::unique_ptr<Script>(esi.newScript(QString()))->getFilename(), QString());
+	QCOMPARE(std::unique_ptr<Script>(esi.newScript(invalid))->getFilename(), invalid);
 }
 
 void TestScripting::globals()

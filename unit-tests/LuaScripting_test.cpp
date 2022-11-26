@@ -19,7 +19,6 @@
 	see <http://www.tug.org/texworks/>.
 */
 #include "LuaScripting_test.h"
-#include "../plugins-src/TWLuaPlugin/LuaScript.h"
 #include "MockScriptingAPI.h"
 
 using namespace Tw::Scripting;

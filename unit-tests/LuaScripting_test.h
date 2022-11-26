@@ -20,7 +20,7 @@
 */
 #include <QtTest/QtTest>
 
-#include "../plugins-src/TWLuaPlugin/LuaScriptInterface.h"
+#include "scripting/ScriptLanguageInterface.h"
 
 namespace UnitTest {
 
