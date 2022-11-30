@@ -36,6 +36,7 @@
 #include "scripting/ScriptAPI.h"
 #include "ui/ClickableLabel.h"
 #include "ui/RemoveAuxFilesDialog.h"
+#include "utils/CmdKeyFilter.h"
 
 #include <QAbstractButton>
 #include <QAbstractItemView>
@@ -251,7 +252,7 @@ void TeXDocumentWindow::init()
 	connect(menuEdit, &QMenu::aboutToShow, this, &TeXDocumentWindow::editMenuAboutToShow);
 
 #if defined(Q_OS_DARWIN)
-	textEdit->installEventFilter(CmdKeyFilter::filter());
+	textEdit->installEventFilter(Tw::Utils::CmdKeyFilter::filter());
 #endif
 
 	connect(inputLine, &QLineEdit::returnPressed, this, &TeXDocumentWindow::acceptInputLine);

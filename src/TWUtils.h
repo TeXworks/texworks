@@ -118,21 +118,4 @@ public:
 	SelWinAction(QObject *parent, const QString & fileName, const QString &label);
 };
 
-// filter used to stop Command-keys getting inserted into edit text items
-// (only used on Mac OS X)
-class CmdKeyFilter: public QObject
-{
-	Q_OBJECT
-
-public:
-	static CmdKeyFilter *filter();
-
-protected:
-	bool eventFilter(QObject *obj, QEvent *event) override;
-
-private:
-	static CmdKeyFilter *filterObj;
-};
-
-
 #endif

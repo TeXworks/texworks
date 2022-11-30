@@ -852,35 +852,3 @@ SelWinAction::SelWinAction(QObject *parent, const QString &fileName, const QStri
 	setText(label);
 	setData(fileName);
 }
-
-// on OS X only, the singleton CmdKeyFilter object is attached to all TeXDocument editor widgets
-// to stop Command-keys getting inserted into edit text items
-
-CmdKeyFilter *CmdKeyFilter::filterObj = nullptr;
-
-CmdKeyFilter *CmdKeyFilter::filter()
-{
-	if (!filterObj)
-		filterObj = new CmdKeyFilter;
-	return filterObj;
-}
-
-bool CmdKeyFilter::eventFilter(QObject *obj, QEvent *event)
-{
-#if defined(Q_OS_DARWIN)
-	if (event->type() == QEvent::KeyPress) {
-		QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-		if ((keyEvent->modifiers() & Qt::ControlModifier) != 0) {
-			if (keyEvent->key() <= 0x0ff
-				&& keyEvent->key() != Qt::Key_Z
-				&& keyEvent->key() != Qt::Key_X
-				&& keyEvent->key() != Qt::Key_C
-				&& keyEvent->key() != Qt::Key_V
-				&& keyEvent->key() != Qt::Key_A)
-				return true;
-		}
-	}
-#endif
-	return QObject::eventFilter(obj, event);
-}
-
