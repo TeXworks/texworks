@@ -49,7 +49,7 @@ class GithubPackage(Package):
 	def __init__(self, name, githubProject, tagFormat = 'v{}', versionRegex = '([0-9.]+[0-9])'):
 		Package.__init__(self, name,
 			pkgListUrl = 'https://github.com/{}/releases'.format(githubProject),
-			pkgRegex = tagFormat.format(versionRegex) + r'\.tar\.gz',
+			pkgRegex = r'/releases/expanded_assets/' + tagFormat.format(versionRegex),
 			downloadUrl = 'https://github.com/{}/archive/refs/tags/{}.tar.gz'.format(githubProject, tagFormat),
 			versionRegex = versionRegex)
 
