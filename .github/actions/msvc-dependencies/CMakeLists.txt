@@ -16,8 +16,8 @@ ExternalProject_Add(lua
 )
 
 ExternalProject_Add(hunspell
-	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.0.tar.gz"
-	URL_HASH SHA256=bb27b86eb910a8285407cf3ca33b62643a02798cf2eef468c0a74f6c3ee6bc8a
+	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.1.tar.gz"
+	URL_HASH SHA256=6e3557624c608b3e6525b8bd277706db4f5a857c28fdb3cfa8d0d2b67776da8a
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND msbuild msvc\\libhunspell.vcxproj ${MSBUILD_ARGS} /p:Configuration=Release_dll
 	BUILD_IN_SOURCE TRUE
@@ -34,14 +34,14 @@ ExternalProject_Add(hunspell
 )
 
 ExternalProject_Add(zlib
-	URL "https://github.com/madler/zlib/archive/refs/tags/v1.2.12.tar.gz"
-	URL_HASH SHA256=d8688496ea40fb61787500e863cc63c9afcbc524468cedeb478068924eb54932
+	URL "https://github.com/madler/zlib/archive/refs/tags/v1.2.13.tar.gz"
+	URL_HASH SHA256=1525952a0a567581792613a9723333d7f8cc20b87a81f920fb8bc7e3f2251428
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
 
 ExternalProject_Add(libpng
-	URL "https://download.sourceforge.net/libpng/libpng-1.6.37.tar.xz"
-	URL_HASH SHA256=505e70834d35383537b6491e7ae8641f1a4bed1876dbfe361201fc80868d88ca
+	URL "https://download.sourceforge.net/libpng/libpng-1.6.38.tar.xz"
+	URL_HASH SHA256=b3683e8b8111ebf6f1ac004ebb6b0c975cd310ec469d98364388e9cedbfa68be
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS zlib
 )
@@ -65,8 +65,8 @@ ExternalProject_Add(libtiff
 )
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.13.1.tar.gz"
-	URL_HASH SHA256=6f84c942ecde1b4852b5a051894502ac8c98d010acb3400dec958c6db1bc94ef
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.14.tar.gz"
+	URL_HASH SHA256=05869269f14e589b0b6d05a76f510c68c67fabb304904d16c6bd818abec80a83
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND MSBUILD Projects\\VC2019\\lcms2_DLL ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
@@ -93,8 +93,8 @@ ExternalProject_Add(freetype
 )
 
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-22.08.0.tar.xz"
-	URL_HASH SHA256=b493328721402f25cb7523f9cdc2f7d7c59f45ad999bde75c63c90604db0f20b
+	URL "https://poppler.freedesktop.org/poppler-22.12.0.tar.xz"
+	URL_HASH SHA256=d9aa9cacdfbd0f8e98fc2b3bb008e645597ed480685757c3e7bc74b4278d15c0
 	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DBUILD_MANUAL_TESTS=FALSE -DBUILD_QT5_TESTS=FALSE -DWITH_NSS3=FALSE
 	DEPENDS freetype lcms2 libjpeg libpng libtiff

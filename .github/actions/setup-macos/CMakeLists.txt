@@ -27,8 +27,8 @@ endmacro(ADD_GH_GROUP)
 
 
 ExternalProject_Add(libpng
-	URL "https://download.sourceforge.net/libpng/libpng-1.6.37.tar.xz"
-	URL_HASH SHA256=505e70834d35383537b6491e7ae8641f1a4bed1876dbfe361201fc80868d88ca
+	URL "https://download.sourceforge.net/libpng/libpng-1.6.38.tar.xz"
+	URL_HASH SHA256=b3683e8b8111ebf6f1ac004ebb6b0c975cd310ec469d98364388e9cedbfa68be
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
 ADD_GH_GROUP(libpng)
@@ -44,16 +44,16 @@ ADD_GH_GROUP(freetype)
 
 # Modeled after https://github.com/Homebrew/homebrew-core/blob/72ca636/Formula/gettext.rb
 ExternalProject_Add(gettext
-	URL https://ftp.gnu.org/gnu/gettext/gettext-0.21.tar.xz
-	URL_HASH SHA256=d20fcbb537e02dcf1383197ba05bd0734ef7bf5db06bdb241eb69b7d16b73192
+	URL "https://ftp.gnu.org/gnu/gettext/gettext-0.21.1.tar.xz"
+	URL_HASH SHA256=50dbc8f39797950aa2c98e939947c527e5ac9ebd2c1b99dd7b06ba33a6767ae6
 	CONFIGURE_COMMAND ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS} --disable-dependency-tracking --disable-silent-rules --disable-debug --with-included-glib --with-included-libcroco --with-included-libunistring --with-included-libxml --with-included-gettext --disable-java --disable-csharp --without-git --without-cvs --without-xz
 	BUILD_IN_SOURCE TRUE
 )
 ADD_GH_GROUP(gettext)
 
 ExternalProject_Add(hunspell
-	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.0.tar.gz"
-	URL_HASH SHA256=bb27b86eb910a8285407cf3ca33b62643a02798cf2eef468c0a74f6c3ee6bc8a
+	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.1.tar.gz"
+	URL_HASH SHA256=6e3557624c608b3e6525b8bd277706db4f5a857c28fdb3cfa8d0d2b67776da8a
 	CONFIGURE_COMMAND autoreconf -vfi && ${CONFIGURE_ENV} CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS}
 	BUILD_IN_SOURCE TRUE
 	DEPENDS gettext
@@ -61,8 +61,8 @@ ExternalProject_Add(hunspell
 ADD_GH_GROUP(hunspell)
 
 ExternalProject_Add(fontconfig
-	URL https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.0.tar.xz
-	URL_HASH SHA256=dcbeb84c9c74bbfdb133d535fe1c7bedc9f2221a8daf3914b984c44c520e9bac
+	URL "https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.1.tar.xz"
+	URL_HASH SHA256=298e883f6e11d2c5e6d53c8a8394de58d563902cfab934e6be12fb5a5f361ef0
 	CONFIGURE_COMMAND ${CONFIGURE_ENV} CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS} --with-add-fonts=${_font_dirs} --disable-docs
 	BUILD_IN_SOURCE TRUE
 	INSTALL_COMMAND make install RUN_FC_CACHE_TEST=false
@@ -96,8 +96,8 @@ ExternalProject_Add(libopenjpeg
 ADD_GH_GROUP(libopenjpeg)
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.13.1.tar.gz"
-	URL_HASH SHA256=6f84c942ecde1b4852b5a051894502ac8c98d010acb3400dec958c6db1bc94ef
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.14.tar.gz"
+	URL_HASH SHA256=05869269f14e589b0b6d05a76f510c68c67fabb304904d16c6bd818abec80a83
 	CONFIGURE_COMMAND ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS} --with-tiff="${CMAKE_INSTALL_PREFIX}" --with-jpeg="${CMAKE_INSTALL_PREFIX}"
 	BUILD_IN_SOURCE TRUE
 	DEPENDS libtiff libjpeg
@@ -114,8 +114,8 @@ ExternalProject_Add(poppler
 )
 else ()
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-22.08.0.tar.xz"
-	URL_HASH SHA256=b493328721402f25cb7523f9cdc2f7d7c59f45ad999bde75c63c90604db0f20b
+	URL "https://poppler.freedesktop.org/poppler-22.12.0.tar.xz"
+	URL_HASH SHA256=d9aa9cacdfbd0f8e98fc2b3bb008e645597ed480685757c3e7bc74b4278d15c0
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_GLIB=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DRUN_GPERF_IF_PRESENT=FALSE
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )
