@@ -21,6 +21,8 @@
 
 #include "CmdKeyFilter.h"
 
+#include <QKeyEvent>
+
 namespace Tw {
 
 namespace Utils {
