@@ -26,6 +26,7 @@
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "TeXDocumentWindow.h"
+#include "ui/SelWinAction.h"
 
 #include <QCloseEvent>
 #include <QDesktopServices>
@@ -406,7 +407,7 @@ void PDFDocumentWindow::updateWindowMenu()
 	// well to uniquely identify the current file among all others open in
 	// TeXworks
 	Q_FOREACH(QAction * action, menuWindow->actions()) {
-		SelWinAction * selWinAction = qobject_cast<SelWinAction*>(action);
+		Tw::UI::SelWinAction * selWinAction = qobject_cast<Tw::UI::SelWinAction*>(action);
 		// If this is not an action related to an open window, skip it
 		if (!selWinAction)
 			continue;

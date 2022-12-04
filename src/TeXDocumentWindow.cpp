@@ -36,6 +36,7 @@
 #include "scripting/ScriptAPI.h"
 #include "ui/ClickableLabel.h"
 #include "ui/RemoveAuxFilesDialog.h"
+#include "ui/SelWinAction.h"
 #include "utils/CmdKeyFilter.h"
 
 #include <QAbstractButton>
@@ -1581,7 +1582,7 @@ void TeXDocumentWindow::updateWindowMenu()
 	// well to uniquely identify the current file among all others open in
 	// TeXworks
 	Q_FOREACH(QAction * action, menuWindow->actions()) {
-		SelWinAction * selWinAction = qobject_cast<SelWinAction*>(action);
+		Tw::UI::SelWinAction * selWinAction = qobject_cast<Tw::UI::SelWinAction*>(action);
 		// If this is not an action related to an open window, skip it
 		if (!selWinAction)
 			continue;

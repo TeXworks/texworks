@@ -45,6 +45,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   ui/ListSelectDialog.cpp
                   ui/RemoveAuxFilesDialog.cpp
                   ui/ScreenCalibrationWidget.cpp
+                  ui/SelWinAction.cpp
                   utils/CmdKeyFilter.cpp
                   utils/CommandlineParser.cpp
                   utils/FileVersionDatabase.cpp
@@ -96,6 +97,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   ui/ListSelectDialog.h
                   ui/RemoveAuxFilesDialog.h
                   ui/ScreenCalibrationWidget.h
+                  ui/SelWinAction.h
                   utils/CmdKeyFilter.cpp
                   utils/CommandlineParser.h
                   utils/FileVersionDatabase.h

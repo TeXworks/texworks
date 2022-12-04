@@ -109,13 +109,4 @@ private:
 	static QString sCleanupPatterns;
 };
 
-// this special QAction class is used in Window menus, so that it's easy to recognize the dynamically-created items
-class SelWinAction : public QAction
-{
-	Q_OBJECT
-
-public:
-	SelWinAction(QObject *parent, const QString & fileName, const QString &label);
-};
-
 #endif

@@ -27,6 +27,7 @@
 #include "TWApp.h"
 #include "TeXDocumentWindow.h"
 #include "utils/FileVersionDatabase.h"
+#include "ui/SelWinAction.h"
 #include "utils/ResourcesLibrary.h"
 #include "utils/VersionInfo.h"
 
@@ -376,7 +377,7 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	// shorten the menu by removing everything from the first "selectWindow" action onwards
 	QList<QAction*> actions = menu->actions();
 	for (QList<QAction*>::iterator i = actions.begin(); i != actions.end(); ++i) {
-		SelWinAction *selWin = qobject_cast<SelWinAction*>(*i);
+		Tw::UI::SelWinAction *selWin = qobject_cast<Tw::UI::SelWinAction*>(*i);
 		if (selWin)
 			menu->removeAction(*i);
 	}
@@ -398,7 +399,7 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 		if (first && !menu->actions().isEmpty())
 			menu->addSeparator();
 		first = false;
-		SelWinAction *selWin = new SelWinAction(menu, fileList[i], labelList[i]);
+		Tw::UI::SelWinAction *selWin = new Tw::UI::SelWinAction(menu, fileList[i], labelList[i]);
 		if (texDoc->isModified()) {
 			QFont f(selWin->font());
 			f.setItalic(true);
@@ -411,7 +412,7 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 		// Don't use a direct connection as triggered has a boolean argument
 		// (checked) which would get forwarded to selectWindow's "activate",
 		// which doesn't make sense.
-		QObject::connect(selWin, &SelWinAction::triggered, texDoc, [texDoc](){ texDoc->selectWindow(); });
+		QObject::connect(selWin, &Tw::UI::SelWinAction::triggered, texDoc, [texDoc](){ texDoc->selectWindow(); });
 		menu->addAction(selWin);
 	}
 
@@ -431,12 +432,12 @@ void TWUtils::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 		if (first && !menu->actions().isEmpty())
 			menu->addSeparator();
 		first = false;
-		SelWinAction *selWin = new SelWinAction(menu, fileList[i], labelList[i]);
+		Tw::UI::SelWinAction *selWin = new Tw::UI::SelWinAction(menu, fileList[i], labelList[i]);
 		if (pdfDoc == qobject_cast<PDFDocumentWindow*>(window)) {
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
 		}
-		QObject::connect(selWin, &SelWinAction::triggered, pdfDoc, &PDFDocumentWindow::selectWindow);
+		QObject::connect(selWin, &Tw::UI::SelWinAction::triggered, pdfDoc, &PDFDocumentWindow::selectWindow);
 		menu->addAction(selWin);
 	}
 }
@@ -842,13 +843,4 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 
 	if (deleteMap)
 		delete map;
-}
-
-// action subclass used for dynamic window-selection items in the Window menu
-
-SelWinAction::SelWinAction(QObject *parent, const QString &fileName, const QString &label)
-	: QAction(parent)
-{
-	setText(label);
-	setData(fileName);
 }
