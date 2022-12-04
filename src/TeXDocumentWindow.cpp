@@ -251,7 +251,8 @@ void TeXDocumentWindow::init()
 
 	connect(menuEdit, &QMenu::aboutToShow, this, &TeXDocumentWindow::editMenuAboutToShow);
 
-#if defined(Q_OS_DARWIN)
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	// Work around QTBUG-36281
 	textEdit->installEventFilter(Tw::Utils::CmdKeyFilter::filter());
 #endif
 
