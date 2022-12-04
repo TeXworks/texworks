@@ -21,15 +21,12 @@
 
 #include "TWUtils.h"
 
-#include "GitRev.h"
 #include "PDFDocumentWindow.h"
 #include "Settings.h"
 #include "TWApp.h"
 #include "TeXDocumentWindow.h"
-#include "utils/FileVersionDatabase.h"
 #include "ui/SelWinAction.h"
 #include "utils/ResourcesLibrary.h"
-#include "utils/VersionInfo.h"
 
 #include <QAction>
 #include <QCompleter>
