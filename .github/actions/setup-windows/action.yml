@@ -2,6 +2,11 @@ name: 'Set up build environment for TeXworks for Windows'
 author: 'Stefan Löffler'
 description: ''
 
+inputs:
+  qt:
+    description: 'Qt major version to install (e.g., 5 or 6)'
+    required: true
+
 runs:
   using: composite
   steps:
@@ -11,7 +16,7 @@ runs:
         sudo sed -ie 's/main$/main universe/' /etc/apt/sources.list
         sudo apt update
         sudo apt install --assume-yes --no-install-recommends cmake git libgdk-pixbuf2.0-dev lzip make patch python-is-python3 wget xz-utils zip
-        wget -O /tmp/mxe-texworks.tar.xz https://github.com/stloeffler/mxe/releases/latest/download/mxe-texworks.tar.xz
+        wget -O /tmp/mxe-texworks.tar.xz https://github.com/stloeffler/mxe/releases/latest/download/mxe-texworks-qt${{ inputs.qt }}.tar.xz
         sudo mkdir -p /usr/lib/mxe
         tar -C /usr/lib/mxe --xz -xf /tmp/mxe-texworks.tar.xz
         sudo chmod --recursive a+w /usr/lib/mxe

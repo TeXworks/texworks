@@ -48,6 +48,8 @@ jobs:
 
     - name: Install dependencies
       uses: ./.github/actions/setup-windows
+      with:
+        qt: 5
 
     - name: Configure
       shell: wsl-bash {0}
