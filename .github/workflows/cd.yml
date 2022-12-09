@@ -36,6 +36,20 @@ jobs:
   win:
     name: Windows
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        winVersion: [7, 10]
+        include:
+            # Latest Qt6 release [https://download.qt.io/official_releases/qt/]
+            # Qt 6.2 supports Windows >= 10 [https://doc.qt.io/qt-6/windows.html]
+          - winVersion: 10
+            qtVersionMajor: 6
+            additionalLibs: 'zstd'
+            # Qt 5.15 supports Windows >= 7 [https://doc.qt.io/qt-5/windows.html]
+          - winVersion: 7
+            qtVersionMajor: 5
+            additionalLibs: ''
 
     steps:
     - name: Checkout
@@ -49,16 +63,24 @@ jobs:
     - name: Install dependencies
       uses: ./.github/actions/setup-windows
       with:
-        qt: 5
+        qt: ${{ matrix.qtVersionMajor }}
+
+    - name: Strip libraries
+      shell: wsl-bash {0}
+      if: matrix.qtVersionMajor == 6
+      run: |
+        # Work around https://github.com/microsoft/WSL/issues/3023
+        strip --remove-section=.note.ABI-tag /usr/lib/mxe/usr/x86_64-pc-linux-gnu/qt6/lib/*.so.*
 
     - name: Configure
       shell: wsl-bash {0}
       # ./release is where Inno Setup looks for distribution files
       run: |
         /usr/lib/mxe/usr/bin/i686-w64-mingw32.static-cmake -B build -DTW_BUILD_ID='github' \
+          -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }} \
           -DCMAKE_INSTALL_PREFIX="./release" \
           -DPLATFORM_DEPENDENCIES='freetype;harfbuzz;freetype_too;bz2;iphlpapi;ssl;crypto;crypt32;ws2_32' \
-          -DPoppler_ADDITIONAL_DEPENDENCIES='freetype;harfbuzz;freetype_too;glib-2.0;intl;iconv;ws2_32;winmm;tiff;webp;jpeg;openjp2;png;lcms2;lzma;bz2;pcre16;wtsapi32' \
+          -DPoppler_ADDITIONAL_DEPENDENCIES='freetype;harfbuzz;freetype_too;glib-2.0;intl;iconv;ws2_32;winmm;tiff;webp;jpeg;openjp2;png;lcms2;lzma;bz2;pcre16;wtsapi32;${{ matrix.additionalLibs }}' \
           -DTEXWORKS_ADDITIONAL_LIBS='freetype;harfbuzz;freetype_too;bz2;wtsapi32;opengl32;imm32;shlwapi;dwmapi;uxtheme' \
           -Dgp_tool='none'
 
@@ -92,7 +114,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: TeXworks-Windows
+        name: TeXworks-Windows${{ matrix.winVersion }}
         path: ${{ steps.package.outputs.file }}
 
     - name: Build installer
@@ -102,7 +124,7 @@ jobs:
     - name: Upload installer artifact
       uses: actions/upload-artifact@v3
       with:
-        name: TeXworks-Windows-Setup
+        name: TeXworks-Windows${{ matrix.winVersion }}-Setup
         path: win32/Output/*.exe
 
 #    - name: Deploy to Artifactory
