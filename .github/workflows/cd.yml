@@ -190,7 +190,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: TeXworks-macOS
+        name: TeXworks-macOS${{ matrix.macVersion }}
         path: ${{ steps.package.outputs.file }}
 
 #    - name: Deploy to Artifactory
