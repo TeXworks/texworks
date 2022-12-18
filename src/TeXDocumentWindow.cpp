@@ -38,6 +38,7 @@
 #include "ui/RemoveAuxFilesDialog.h"
 #include "ui/SelWinAction.h"
 #include "utils/CmdKeyFilter.h"
+#include "utils/WindowManager.h"
 
 #include <QAbstractButton>
 #include <QAbstractItemView>
@@ -407,7 +408,7 @@ void TeXDocumentWindow::init()
 	menuShow->addAction(toolBar_edit->toggleViewAction());
 	menuShow->addSeparator();
 
-	TWUtils::zoomToHalfScreen(this);
+	Tw::Utils::WindowManager::zoomToHalfScreen(this);
 
 	QDockWidget *dw = new TagsDock(this);
 	dw->hide();
@@ -1576,7 +1577,7 @@ void TeXDocumentWindow::updateRecentFileActions()
 
 void TeXDocumentWindow::updateWindowMenu()
 {
-	TWUtils::updateWindowMenu(this, menuWindow);
+	Tw::Utils::WindowManager::updateWindowMenu(this, menuWindow);
 
 	// If the window list changed, we might want to update our window title as
 	// well to uniquely identify the current file among all others open in
@@ -1765,7 +1766,7 @@ void TeXDocumentWindow::encodingPopup(const QPoint loc)
 void TeXDocumentWindow::sideBySide()
 {
 	if (pdfDoc) {
-		TWUtils::sideBySide(this, pdfDoc);
+		Tw::Utils::WindowManager::sideBySide(this, pdfDoc);
 		pdfDoc->selectWindow(false);
 		selectWindow();
 	}

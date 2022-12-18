@@ -36,6 +36,7 @@
 #include "utils/SystemCommand.h"
 #include "utils/TextCodecs.h"
 #include "utils/VersionInfo.h"
+#include "utils/WindowManager.h"
 
 #include <QAction>
 #include <QDesktopServices>
@@ -789,12 +790,12 @@ void TWApp::updateWindowMenus()
 
 void TWApp::stackWindows()
 {
-	arrangeWindows(TWUtils::stackWindowsInRect);
+	arrangeWindows(Tw::Utils::WindowManager::stackWindowsInRect);
 }
 
 void TWApp::tileWindows()
 {
-	arrangeWindows(TWUtils::tileWindowsInRect);
+	arrangeWindows(Tw::Utils::WindowManager::tileWindowsInRect);
 }
 
 void TWApp::arrangeWindows(WindowArrangementFunction func)

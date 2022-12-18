@@ -32,6 +32,7 @@
 #endif
 #include "scripting/ScriptAPI.h"
 #include "scripting/ScriptLanguageInterface.h"
+#include "utils/WindowManager.h"
 
 #include <QAction>
 #include <QDockWidget>
@@ -243,12 +244,12 @@ void TWScriptableWindow::showFloaters()
 
 void TWScriptableWindow::placeOnLeft()
 {
-	TWUtils::zoomToHalfScreen(this, false);
+	Tw::Utils::WindowManager::zoomToHalfScreen(this, false);
 }
 
 void TWScriptableWindow::placeOnRight()
 {
-	TWUtils::zoomToHalfScreen(this, true);
+	Tw::Utils::WindowManager::zoomToHalfScreen(this, true);
 }
 
 void TWScriptableWindow::selectWindow(bool activate)

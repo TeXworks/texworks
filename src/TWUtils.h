@@ -56,23 +56,6 @@ public:
 	// perform the updates to a menu; used by the documents to update their own menus
 	static void updateRecentFileActions(QObject *parent, QList<QAction*> &actions, QMenu *menu, QAction * clearAction);
 
-	// update the SelWinActions in a menu, used by the documents
-	static void updateWindowMenu(QWidget *window, QMenu *menu);
-
-	// return just the filename from a full pathname, suitable for UI display
-	static QString strippedName(const QString &fullFileName, const unsigned int dirComponents = 0);
-
-	// return a list of file labels suitable for UI display that uniquely
-	// describe the given filenames
-	static QStringList constructUniqueFileLabels(const QStringList & fileList);
-
-	static void tileWindowsInRect(const QWidgetList& windows, const QRect& bounds);
-	static void stackWindowsInRect(const QWidgetList& windows, const QRect& bounds);
-
-	static void zoomToScreen(QWidget *window);
-	static void zoomToHalfScreen(QWidget *window, bool rhs = false);
-	static void sideBySide(QWidget *window1, QWidget *window2);
-	static void ensureOnScreen(QWidget *window);
 	static void applyToolbarOptions(QMainWindow *theWindow, int iconSize, bool showText);
 
 	static QChar closerMatching(QChar c);

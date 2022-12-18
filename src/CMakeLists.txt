@@ -55,6 +55,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   utils/TextCodecs.cpp
                   utils/TypesetManager.cpp
                   utils/VersionInfo.cpp
+                  utils/WindowManager.cpp
                   )
 
 set(TEXWORKS_HDRS BibTeXFile.h
@@ -107,6 +108,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   utils/TextCodecs.h
                   utils/TypesetManager.h
                   utils/VersionInfo.h
+                  utils/WindowManager.h
                   )
 
 if (WIN32)
