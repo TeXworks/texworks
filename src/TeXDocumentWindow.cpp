@@ -36,7 +36,6 @@
 #include "scripting/ScriptAPI.h"
 #include "ui/ClickableLabel.h"
 #include "ui/RemoveAuxFilesDialog.h"
-#include "ui/SelWinAction.h"
 #include "utils/CmdKeyFilter.h"
 #include "utils/WindowManager.h"
 

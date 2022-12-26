@@ -26,7 +26,6 @@
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "TeXDocumentWindow.h"
-#include "ui/SelWinAction.h"
 #include "utils/WindowManager.h"
 
 #include <QCloseEvent>

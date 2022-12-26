@@ -24,7 +24,6 @@
 
 #include "PDFDocumentWindow.h"
 #include "TeXDocumentWindow.h"
-#include "ui/SelWinAction.h"
 #include "Settings.h"
 
 #include <QDir>
@@ -34,6 +33,19 @@ namespace {
 
 static QList< std::pair<TeXDocumentWindow*, QString> > texFileLabels;
 static QList< std::pair<PDFDocumentWindow*, QString> > pdfFileLabels;
+
+// this special QAction class is used in Window menus, so that it's easy to recognize the dynamically-created items
+class SelWinAction : public QAction
+{
+	Q_OBJECT
+public:
+	SelWinAction(QObject *parent, const QString & fileName, const QString &label)
+		: QAction(parent)
+	{
+		setText(label);
+		setData(fileName);
+	}
+};
 
 }
 
@@ -152,7 +164,7 @@ void WindowManager::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	// shorten the menu by removing everything from the first "selectWindow" action onwards
 	QList<QAction*> actions = menu->actions();
 	for (QList<QAction*>::iterator i = actions.begin(); i != actions.end(); ++i) {
-		Tw::UI::SelWinAction *selWin = qobject_cast<Tw::UI::SelWinAction*>(*i);
+		SelWinAction *selWin = qobject_cast<SelWinAction*>(*i);
 		if (selWin)
 			menu->removeAction(*i);
 	}
@@ -172,7 +184,7 @@ void WindowManager::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 			menu->addSeparator();
 			first = false;
 		}
-		Tw::UI::SelWinAction *selWin = new Tw::UI::SelWinAction(menu, texDoc->fileName(), label);
+		SelWinAction *selWin = new SelWinAction(menu, texDoc->fileName(), label);
 		if (texDoc->isModified()) {
 			QFont f(selWin->font());
 			f.setItalic(true);
@@ -185,7 +197,7 @@ void WindowManager::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 		// Don't use a direct connection as triggered has a boolean argument
 		// (checked) which would get forwarded to selectWindow's "activate",
 		// which doesn't make sense.
-		QObject::connect(selWin, &Tw::UI::SelWinAction::triggered, texDoc, [texDoc](){ texDoc->selectWindow(); });
+		QObject::connect(selWin, &SelWinAction::triggered, texDoc, [texDoc](){ texDoc->selectWindow(); });
 		menu->addAction(selWin);
 	}
 
@@ -202,12 +214,12 @@ void WindowManager::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 			menu->addSeparator();
 			first = false;
 		}
-		Tw::UI::SelWinAction *selWin = new Tw::UI::SelWinAction(menu, pdfDoc->fileName(), label);
+		SelWinAction *selWin = new SelWinAction(menu, pdfDoc->fileName(), label);
 		if (pdfDoc == qobject_cast<PDFDocumentWindow*>(window)) {
 			selWin->setCheckable(true);
 			selWin->setChecked(true);
 		}
-		QObject::connect(selWin, &Tw::UI::SelWinAction::triggered, pdfDoc, &PDFDocumentWindow::selectWindow);
+		QObject::connect(selWin, &SelWinAction::triggered, pdfDoc, &PDFDocumentWindow::selectWindow);
 		menu->addAction(selWin);
 	}
 }
@@ -403,3 +415,5 @@ void WindowManager::stackWindowsInRect(const QWidgetList& windows, const QRect& 
 } // namespace Utils
 
 } // namespace Tw
+
+#include "WindowManager.moc"

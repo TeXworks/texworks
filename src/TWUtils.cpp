@@ -25,7 +25,6 @@
 #include "Settings.h"
 #include "TWApp.h"
 #include "TeXDocumentWindow.h"
-#include "ui/SelWinAction.h"
 #include "utils/ResourcesLibrary.h"
 #include "utils/WindowManager.h"
 
