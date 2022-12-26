@@ -49,6 +49,8 @@ public:
 	// describe the given filenames
 	static QStringList constructUniqueFileLabels(const QStringList & fileList);
 
+	static QString uniqueLabelForFile(const QString & filename);
+
 	static void tileWindowsInRect(const QWidgetList& windows, const QRect& bounds);
 	static void stackWindowsInRect(const QWidgetList& windows, const QRect& bounds);
 

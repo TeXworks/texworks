@@ -128,6 +128,25 @@ QStringList WindowManager::constructUniqueFileLabels(const QStringList & fileLis
 	return labelList;
 }
 
+QString WindowManager::uniqueLabelForFile(const QString &filename)
+{
+	for (const auto & p : texFileLabels) {
+		const TeXDocumentWindow * doc = p.first;
+		const QString & label = p.second;
+		if (doc && doc->fileName() == filename) {
+			return label;
+		}
+	}
+	for (const auto & p : pdfFileLabels) {
+		const PDFDocumentWindow * doc = p.first;
+		const QString & label = p.second;
+		if (doc && doc->fileName() == filename) {
+			return label;
+		}
+	}
+	return {};
+}
+
 void WindowManager::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 {
 	// shorten the menu by removing everything from the first "selectWindow" action onwards
