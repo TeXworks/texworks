@@ -28,6 +28,14 @@
 #include "Settings.h"
 
 #include <QDir>
+#include <utility>
+
+namespace {
+
+static QList< std::pair<TeXDocumentWindow*, QString> > texFileLabels;
+static QList< std::pair<PDFDocumentWindow*, QString> > pdfFileLabels;
+
+}
 
 namespace Tw {
 
@@ -55,6 +63,36 @@ QString WindowManager::strippedName(const QString &fullFileName, const unsigned 
 		dir.setPath(QDir::cleanPath(dir.path() + QString::fromLatin1("/..")));
 	}
 	return dir.relativeFilePath(fullFileName);
+}
+
+void WindowManager::updateWindowList(const QList<TeXDocumentWindow*> & texDocs, const QList<PDFDocumentWindow*> & pdfDocs)
+{
+	{
+		QStringList fileNames;
+
+		for(TeXDocumentWindow * doc : texDocs) {
+			fileNames.append(doc->fileName());
+		}
+		const QStringList fileLabels = constructUniqueFileLabels(fileNames);
+
+		texFileLabels.clear();
+		for (int i = 0; i < fileNames.size(); ++i) {
+			texFileLabels.push_back(std::make_pair(texDocs[i], fileLabels[i]));
+		}
+	}
+	{
+		QStringList fileNames;
+
+		for(PDFDocumentWindow * doc : pdfDocs) {
+			fileNames.append(doc->fileName());
+		}
+		const QStringList fileLabels = constructUniqueFileLabels(fileNames);
+
+		pdfFileLabels.clear();
+		for (int i = 0; i < fileNames.size(); ++i) {
+			pdfFileLabels.push_back(std::make_pair(pdfDocs[i], fileLabels[i]));
+		}
+	}
 }
 
 QStringList WindowManager::constructUniqueFileLabels(const QStringList & fileList)
@@ -102,22 +140,20 @@ void WindowManager::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 	while (!menu->actions().isEmpty() && menu->actions().last()->isSeparator())
 		menu->removeAction(menu->actions().last());
 
-	QList<TeXDocumentWindow *> texDocList;
-	QStringList fileList, labelList;
-	Q_FOREACH(TeXDocumentWindow * texDoc, TeXDocumentWindow::documentList()) {
-		texDocList.append(texDoc);
-		fileList.append(texDoc->fileName());
-	}
-	labelList = constructUniqueFileLabels(fileList);
-
 	// append an item for each TeXDocument
 	bool first = true;
-	for (int i = 0; i < texDocList.size(); ++i) {
-		TeXDocumentWindow * texDoc = texDocList[i];
-		if (first && !menu->actions().isEmpty())
+	for (const auto & p : texFileLabels) {
+		TeXDocumentWindow * texDoc = p.first;
+		const QString & label = p.second;
+
+		if (!texDoc) {
+			continue;
+		}
+		if (first && !menu->actions().isEmpty()) {
 			menu->addSeparator();
-		first = false;
-		Tw::UI::SelWinAction *selWin = new Tw::UI::SelWinAction(menu, fileList[i], labelList[i]);
+			first = false;
+		}
+		Tw::UI::SelWinAction *selWin = new Tw::UI::SelWinAction(menu, texDoc->fileName(), label);
 		if (texDoc->isModified()) {
 			QFont f(selWin->font());
 			f.setItalic(true);
@@ -134,23 +170,20 @@ void WindowManager::updateWindowMenu(QWidget *window, QMenu *menu) /* static */
 		menu->addAction(selWin);
 	}
 
-	QList<PDFDocumentWindow *> pdfDocList;
-	fileList.clear();
-	labelList.clear();
-	Q_FOREACH(PDFDocumentWindow * pdfDoc, PDFDocumentWindow::documentList()) {
-		pdfDocList.append(pdfDoc);
-		fileList.append(pdfDoc->fileName());
-	}
-	labelList = constructUniqueFileLabels(fileList);
-
 	// append an item for each PDFDocument
 	first = true;
-	for (int i = 0; i < pdfDocList.size(); ++i) {
-		PDFDocumentWindow * pdfDoc = pdfDocList[i];
-		if (first && !menu->actions().isEmpty())
+	for (const auto & p : pdfFileLabels) {
+		PDFDocumentWindow * pdfDoc = p.first;
+		const QString & label = p.second;
+
+		if (!pdfDoc) {
+			continue;
+		}
+		if (first && !menu->actions().isEmpty()) {
 			menu->addSeparator();
-		first = false;
-		Tw::UI::SelWinAction *selWin = new Tw::UI::SelWinAction(menu, fileList[i], labelList[i]);
+			first = false;
+		}
+		Tw::UI::SelWinAction *selWin = new Tw::UI::SelWinAction(menu, pdfDoc->fileName(), label);
 		if (pdfDoc == qobject_cast<PDFDocumentWindow*>(window)) {
 			selWin->setCheckable(true);
 			selWin->setChecked(true);

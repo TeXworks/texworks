@@ -785,6 +785,7 @@ void TWApp::updateRecentFileActions()
 
 void TWApp::updateWindowMenus()
 {
+	Tw::Utils::WindowManager::updateWindowList(TeXDocumentWindow::documentList(), PDFDocumentWindow::documentList());
 	emit windowListChanged();
 }
 

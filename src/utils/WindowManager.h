@@ -26,6 +26,9 @@
 #include <QString>
 #include <QWidget>
 
+class TeXDocumentWindow;
+class PDFDocumentWindow;
+
 namespace Tw {
 
 namespace Utils {
@@ -35,6 +38,9 @@ class WindowManager
 public:
 	// return just the filename from a full pathname, suitable for UI display
 	static QString strippedName(const QString &fullFileName, const unsigned int dirComponents = 0);
+
+	// update the internal list of open windows (and their unique labels)
+	static void updateWindowList(const QList<TeXDocumentWindow*> & texDocs, const QList<PDFDocumentWindow*> & pdfDocs);
 
 	// update the SelWinActions in a menu, used by the documents
 	static void updateWindowMenu(QWidget *window, QMenu *menu);
