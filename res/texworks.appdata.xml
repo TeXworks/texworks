@@ -266,10 +266,11 @@
 
 	<screenshots>
 		<screenshot type="default">
-			<image width="1280" height="800">http://www.tug.org/texworks/img/texworks-linux.png</image>
+			<image width="1280" height="800">https://www.tug.org/texworks/img/texworks-linux.png</image>
+			<caption>The TeXworks source and preview windows</caption>
 		</screenshot>
 	</screenshots>
-	<url type="homepage">http://www.tug.org/texworks/</url>
+	<url type="homepage">https://www.tug.org/texworks/</url>
 	<url type="help">https://github.com/TeXworks/manual</url>
 	<url type="bugtracker">https://github.com/TeXworks/texworks/issues</url>
 	<url type="translate">https://github.com/TeXworks/texworks/wiki/Translating</url>
@@ -279,7 +280,6 @@
 		<binary>texworks</binary>
 	</provides>
 	<launchable type="desktop-id">texworks.desktop</launchable>
-	<translation type="qt" />
 	<content_rating type="oars-1.0" />
 
 	<releases>
