@@ -33,6 +33,24 @@ jobs:
 
 ################################################################################
 
+  appimage:
+    name: Linux/AppImage
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Build
+      run: DOCKER_BUILDKIT=1 docker build -f ./.github/workflows/Dockerfile.appimage-debian -o out .
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: TeXworks-AppImage
+        path: out/TeXworks-*.AppImage
+
+################################################################################
+
   win:
     name: Windows
     runs-on: windows-latest
