@@ -160,10 +160,12 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        # /usr/local/bin/2to3 is symlinked to the native python2 installation
-        # but prevents the homebrew install from succeeding
-        rm -f /usr/local/bin/2to3
-        brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
+        # /usr/local/bin/2to3 and some other programs, as well as versioned
+        # variants (e.g. 2to3-3.11) are symlinked to the native python
+        # installation but prevent the homebrew install from succeeding
+        # So we remove them
+        cd /usr/local/bin && rm -f 2to3* idle* pydoc* python*
+        brew update > /tmp/brew_update.log || { echo "::error::Updating homebrew failed"; cat /tmp/brew_update.log; exit 1; }
         brew install hunspell poppler-qt5 lua qt@5
         # As poppler-qt5 conflicts with poppler, we need to force-link it
         brew link --force poppler-qt5
