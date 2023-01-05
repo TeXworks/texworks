@@ -38,6 +38,8 @@ public:
 	static QString versionString();
 	static QString buildIdString();
 
+	static QString fullVersionString();
+
 	// return the version of Tw (0xMMNNPP)
 	static int getVersion();
 

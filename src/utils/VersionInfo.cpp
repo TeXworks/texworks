@@ -28,6 +28,8 @@
 #include "../src/GitRev.h"
 #include "TWVersion.h"
 
+#include <QLocale>
+
 #ifndef TW_BUILD_ID
 #define TW_BUILD_ID unknown build
 #endif
@@ -72,6 +74,14 @@ QString VersionInfo::versionString()
 QString VersionInfo::buildIdString()
 {
 	return QStringLiteral(TW_BUILD_ID_STR);
+}
+
+QString VersionInfo::fullVersionString()
+{
+	if (isGitInfoAvailable()) {
+		return QStringLiteral("%1 (%2) [r.%3, %4]").arg(versionString(), buildIdString(), gitCommitHash(), QLocale::system().toString(Tw::Utils::VersionInfo::gitCommitDate().toLocalTime(), QLocale::ShortFormat));
+	}
+	return QStringLiteral("%1 (%2)").arg(versionString(), buildIdString());
 }
 
 // static
