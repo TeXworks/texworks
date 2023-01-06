@@ -69,8 +69,6 @@ extern QString GetMacOSVersionString();
 
 #define SETUP_FILE_NAME "texworks-setup.ini"
 
-const int kDefaultMaxRecentFiles = 20;
-
 TWApp *TWApp::theAppInstance = nullptr;
 
 const QEvent::Type TWDocumentOpenEvent::type = static_cast<QEvent::Type>(QEvent::registerEventType());
@@ -112,10 +110,6 @@ QString replaceEnvironmentVariables(const QString & s)
 
 TWApp::TWApp(int &argc, char **argv)
 	: QApplication(argc, argv)
-	, recentFilesLimit(kDefaultMaxRecentFiles)
-	, defaultCodec(nullptr)
-	, defaultEngineIndex(0)
-	, scriptManager(nullptr)
 {
 	init();
 }
