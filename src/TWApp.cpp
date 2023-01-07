@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2021  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2023  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@
 #include "TemplateDialog.h"
 #include "document/SpellChecker.h"
 #include "scripting/ScriptAPI.h"
+#include "utils/CommandlineParser.h"
 #include "utils/ResourcesLibrary.h"
 #include "utils/SystemCommand.h"
 #include "utils/TextCodecs.h"
@@ -112,6 +113,25 @@ TWApp::TWApp(int &argc, char **argv)
 	: QApplication(argc, argv)
 {
 	init();
+	CommandLineData cld = processCommandLine();
+	if (!cld.shouldContinue) {
+		return;
+	}
+	if (!ensureSingleInstance(cld)) {
+		return;
+	}
+	// If a document is opened during the startup of Tw, the QApplication
+	// may not be properly initialized yet. Therefore, defer the opening to
+	// the event loop.
+	for (const auto & fileToOpen : cld.filesToOpen) {
+		QCoreApplication::postEvent(this, new TWDocumentOpenEvent(fileToOpen.filename, fileToOpen.position));
+	}
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QTimer::singleShot(1, this, SLOT(launchAction()));
+#else
+	QTimer::singleShot(1, this, &TWApp::launchAction);
+#endif
 }
 
 TWApp::~TWApp()
@@ -246,6 +266,88 @@ void TWApp::init()
 
 	connect(this, &TWApp::updatedTranslators, this, &TWApp::changeLanguage);
 	changeLanguage();
+#endif
+}
+
+TWApp::CommandLineData TWApp::processCommandLine()
+{
+	CommandLineData retVal;
+	Tw::Utils::CommandlineParser clp;
+	clp.registerSwitch(QString::fromLatin1("help"), tr("Display this message"), QString::fromLatin1("?"));
+	clp.registerOption(QString::fromLatin1("position"), tr("Open the following file at the given position (line or page)"), QString::fromLatin1("p"));
+	clp.registerSwitch(QString::fromLatin1("version"), tr("Display version information"), QString::fromLatin1("v"));
+
+	if (clp.parse()) {
+		int i{-1}, numArgs{0};
+		while ((i = clp.getNextArgument()) >= 0) {
+			++numArgs;
+			int j = clp.getPrevOption(QString::fromLatin1("position"), i);
+			int pos = -1;
+			if (j >= 0) {
+				pos = clp.at(j).value.toInt();
+				clp.at(j).processed = true;
+			}
+			Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(i);
+			item.processed = true;
+
+			retVal.filesToOpen.push_back({item.value.toString(), pos});
+		}
+		if ((i = clp.getNextSwitch(QString::fromLatin1("version"))) >= 0) {
+			if (numArgs == 0) {
+				retVal.shouldContinue = false;
+				exitLater(0);
+			}
+			clp.at(i).processed = true;
+			QTextStream strm(stdout);
+			strm << "TeXworks " << Tw::Utils::VersionInfo::fullVersionString() << "\n\n";
+			strm << QString::fromUtf8("\
+Copyright (C) %1  %2\n\
+License GPLv2+: GNU GPL (version 2 or later) <http://gnu.org/licenses/gpl.html>\n\
+This is free software: you are free to change and redistribute it.\n\
+There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLatin1("2007-2022"), QString::fromUtf8("Jonathan Kew, Stefan Löffler, Charlie Sharpsteen"));
+			strm.flush();
+		}
+		if ((i = clp.getNextSwitch(QString::fromLatin1("help"))) >= 0) {
+			if (numArgs == 0) {
+				retVal.shouldContinue = false;
+				exitLater(0);
+			}
+			clp.at(i).processed = true;
+			QTextStream strm(stdout);
+			clp.printUsage(strm);
+		}
+	}
+	return retVal;
+}
+
+bool TWApp::ensureSingleInstance(const CommandLineData &cld)
+{
+	if (!m_IPC.isFirstInstance()) {
+		m_IPC.sendBringToFront();
+		for(const CommandLineData::fileToOpenStruct & fileToOpen : cld.filesToOpen) {
+			QFileInfo fi(fileToOpen.filename);
+			if (!fi.exists())
+				continue;
+			m_IPC.sendOpenFile(fi.absoluteFilePath(), fileToOpen.position);
+		}
+		exitLater(0);
+		return false;
+	}
+	QObject::connect(&m_IPC, &Tw::InterProcessCommunicator::receivedBringToFront, this, &TWApp::bringToFront);
+	QObject::connect(&m_IPC, &Tw::InterProcessCommunicator::receivedOpenFile, this, &TWApp::openFile);
+	return true;
+}
+
+void TWApp::exitLater(int retCode) const
+{
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QTimer * t = new QTimer();
+	t->setSingleShot(true);
+	connect(t, &QTimer::timeout, [&]() { this->exit(retCode); });
+	connect(t, &QTimer::timeout, t, &QTimer::deleteLater);
+	t->start(0);
+#else
+	QTimer::singleShot(0, this, [&]() { this->exit(retCode); });
 #endif
 }
 

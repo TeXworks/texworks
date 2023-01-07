@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2022  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2023  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 #ifndef TWApp_H
 #define TWApp_H
 
+#include "InterProcessCommunicator.h"
 #include "utils/TypesetManager.h"
 
 #include <QAction>
@@ -239,7 +240,19 @@ protected:
 	bool event(QEvent *) override;
 
 private:
+	struct CommandLineData {
+		struct fileToOpenStruct {
+			QString filename;
+			int position;
+		};
+		bool shouldContinue{true};
+		std::vector<fileToOpenStruct> filesToOpen;
+	};
+
 	void init();
+	CommandLineData processCommandLine();
+	bool ensureSingleInstance(const CommandLineData & cld);
+	void exitLater(int retCode) const;
 
 	void arrangeWindows(WindowArrangementFunction func);
 
@@ -261,6 +274,7 @@ private:
 	Tw::Utils::TypesetManager m_typesetManager{this};
 
 	static TWApp *theAppInstance;
+	Tw::InterProcessCommunicator m_IPC;
 };
 
 inline TWApp *TWApp::instance()
