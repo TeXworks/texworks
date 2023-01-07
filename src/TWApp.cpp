@@ -338,7 +338,7 @@ bool TWApp::ensureSingleInstance(const CommandLineData &cld)
 	return true;
 }
 
-void TWApp::exitLater(int retCode) const
+void TWApp::exitLater(int retCode)
 {
 #if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QTimer * t = new QTimer();
