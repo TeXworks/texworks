@@ -77,16 +77,18 @@ with open('../.github/actions/setup-macos/CMakeLists.txt') as fin:
 	macos = fin.read()
 with open('../CMake/packaging/CMakeLists.txt') as fin:
 	packaging = fin.read()
+with open('../.github/workflows/Dockerfile.appimage-debian') as fin:
+	appimage = fin.read()
 
 # Print header
 maxNameLen = max([len(n) for n in pkgs])
-print('{{:{len}s}}  MSVC   macOS    pkg'.format(len = maxNameLen).format(''))
+print('{{:{len}s}}  MSVC    macOS     pkg     appImg'.format(len = maxNameLen).format(''))
 
 # Print version information for each package and each CMake file
 for name in pkgs:
+	print('{{:{len}s}}'.format(len = maxNameLen).format(name), end = '', flush = True)
 	url = pkgs[name].getLatestDownloadUrl()
-	print('{{:{len}s}}'.format(len = maxNameLen).format(name), end = '')
-	for haystack in [msvc, macos, packaging]:
+	for haystack in [msvc, macos, packaging, appimage]:
 		# Note: if the package name does not appear in the CMake file, the
 		# package likely isn't used. This is a bit flaky in both directions
 		# (a package "lcms2" might only be referenced by url
@@ -95,10 +97,10 @@ for name in pkgs:
 		# be erroneously recognized as well).
 		# For the most part, it happens to work sufficiently, though.
 		if not name in haystack:
-			print(u' {:^5s} '.format('---'), end = '')
+			print(u' {:^6s} '.format('---'), end = '')
 		elif url in haystack:
-			print(u'\u001b[32m {:^5s} \u001b[0m'.format('OK'), end = '')
+			print(u'\u001b[32m {:^6s} \u001b[0m'.format('OK'), end = '')
 		else:
-			print(u'\u001b[93;1m {:^5s} \u001b[0m'.format('check'), end = '')
+			print(u'\u001b[93;1m {:^6s} \u001b[0m'.format('check'), end = '')
 		print(' ', end = '')
 	print(' {:7s} {}'.format(pkgs[name].getLatestVersion(), url))
