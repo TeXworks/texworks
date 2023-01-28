@@ -200,7 +200,7 @@ jobs:
         # Update Homebrew
         brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
         # Install needed dependencies
-        brew install automake libtool pkg-config
+        brew install automake cmake libtool pkg-config
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
