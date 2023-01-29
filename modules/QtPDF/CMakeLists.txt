@@ -272,6 +272,7 @@ SET(QTPDF_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFAnnotations.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFGuideline.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PaperSizes.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageCache.cpp
 )
 
 SET(QTPDF_HDRS
@@ -290,6 +291,7 @@ SET(QTPDF_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFAnnotations.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFGuideline.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PaperSizes.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageCache.h
 )
 
 # FIXME: Is -fPIC required/appropriate for all situations/platforms?

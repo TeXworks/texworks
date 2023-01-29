@@ -16,24 +16,19 @@
 
 #include "PDFAnnotations.h"
 #include "PDFFontDescriptor.h"
-#include "PDFPageTile.h"
+#include "PDFPageCache.h"
 #include "PDFToC.h"
 #include "PDFTransitions.h"
 
-#include <QCache>
 #include <QEvent>
 #include <QFileInfo>
 #include <QImage>
-#include <QMap>
 #include <QMutex>
 #include <QReadLocker>
-#include <QReadWriteLock>
-#include <QSharedPointer>
 #include <QStack>
 #include <QThread>
 #include <QWaitCondition>
 #include <QWeakPointer>
-#include <QWriteLocker>
 
 namespace QtPDF {
 
@@ -99,50 +94,6 @@ protected:
   FontType _fontType{FontType_Type1};
   CIDFontType _CIDType{CIDFont_None};
   FontProgramType _fontProgramType{ProgramType_None};
-};
-
-// This class is thread-safe
-class PDFPageCache : protected QCache<PDFPageTile, QSharedPointer<QImage> >
-{
-  typedef QCache<PDFPageTile, QSharedPointer<QImage> > Super;
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-  using size_type = int;
-#else
-  using size_type = qsizetype;
-#endif
-public:
-  enum TileStatus { UNKNOWN, PLACEHOLDER, CURRENT, OUTDATED };
-
-  PDFPageCache() = default;
-  virtual ~PDFPageCache() = default;
-
-  // Note: Each image has a cost of 1
-  size_type maxSize() const { return maxCost(); }
-  void setMaxSize(const size_type num) { setMaxCost(num); }
-
-  // Returns the image under the key `tile` or nullptr if it doesn't exist
-  QSharedPointer<QImage> getImage(const PDFPageTile & tile) const;
-  TileStatus getStatus(const PDFPageTile & tile) const;
-  // Returns the pointer to the image in the cache under they key `tile` after
-  // the insertion. If overwrite == true, this will always be image, otherwise
-  // it can be different
-  QSharedPointer<QImage> setImage(const PDFPageTile & tile, QImage * image, const TileStatus status, const bool overwrite = true);
-
-
-  void lock() const { _lock.lockForRead(); }
-  void unlock() const { _lock.unlock(); }
-
-  void clear() { QWriteLocker l(&_lock); Super::clear(); _tileStatus.clear(); }
-  // Mark all tiles outdated
-  void markOutdated();
-
-  QList<PDFPageTile> tiles() const { return keys(); }
-protected:
-  mutable QReadWriteLock _lock;
-  // Map to keep track of the current status of tiles; note that the status
-  // information is not deleted when the QCache scraps images to save memory.
-  QMap<PDFPageTile, TileStatus> _tileStatus;
 };
 
 class PageProcessingRequest : public QObject
