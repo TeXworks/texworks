@@ -173,7 +173,7 @@ jobs:
             # supported on macOS 10.15 and up
           - macVersion: 10.15
             qtVersionMajor: 6
-            qtVersion: 6.2.3
+            qtVersion: 6.2.6
             qtModules: qt5compat
             # Qt 5.12 supports macOS >= 10.12 [https://doc.qt.io/qt-5.12/macos.html]
           - macVersion: 10.12

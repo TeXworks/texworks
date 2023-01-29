@@ -27,8 +27,8 @@ endmacro(ADD_GH_GROUP)
 
 
 ExternalProject_Add(libpng
-	URL "https://download.sourceforge.net/libpng/libpng-1.6.38.tar.xz"
-	URL_HASH SHA256=b3683e8b8111ebf6f1ac004ebb6b0c975cd310ec469d98364388e9cedbfa68be
+	URL "https://download.sourceforge.net/libpng/libpng-1.6.39.tar.xz"
+	URL_HASH SHA256=1f4696ce70b4ee5f85f1e1623dc1229b210029fa4b7aee573df3e2ba7b036937
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
 ADD_GH_GROUP(libpng)
@@ -52,8 +52,8 @@ ExternalProject_Add(gettext
 ADD_GH_GROUP(gettext)
 
 ExternalProject_Add(hunspell
-	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.1.tar.gz"
-	URL_HASH SHA256=6e3557624c608b3e6525b8bd277706db4f5a857c28fdb3cfa8d0d2b67776da8a
+	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.2.tar.gz"
+	URL_HASH SHA256=69fa312d3586c988789266eaf7ffc9861d9f6396c31fc930a014d551b59bbd6e
 	CONFIGURE_COMMAND autoreconf -vfi && ${CONFIGURE_ENV} CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS}
 	BUILD_IN_SOURCE TRUE
 	DEPENDS gettext
@@ -61,8 +61,8 @@ ExternalProject_Add(hunspell
 ADD_GH_GROUP(hunspell)
 
 ExternalProject_Add(fontconfig
-	URL "https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.1.tar.xz"
-	URL_HASH SHA256=298e883f6e11d2c5e6d53c8a8394de58d563902cfab934e6be12fb5a5f361ef0
+	URL "https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.2.tar.xz"
+	URL_HASH SHA256=dba695b57bce15023d2ceedef82062c2b925e51f5d4cc4aef736cf13f60a468b
 	CONFIGURE_COMMAND ${CONFIGURE_ENV} CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS} --with-add-fonts=${_font_dirs} --disable-docs
 	BUILD_IN_SOURCE TRUE
 	INSTALL_COMMAND make install RUN_FC_CACHE_TEST=false
@@ -80,8 +80,8 @@ ADD_GH_GROUP(libjpeg)
 
 # jbig? Lzma? Deflate?
 ExternalProject_Add(libtiff
-	URL "https://download.osgeo.org/libtiff/tiff-4.4.0.tar.gz"
-	URL_HASH SHA256=917223b37538959aca3b790d2d73aa6e626b688e02dcda272aec24c2f498abed
+	URL "https://download.osgeo.org/libtiff/tiff-4.5.0.tar.gz"
+	URL_HASH SHA256=c7a1d9296649233979fa3eacffef3fa024d73d05d589cb622727b5b08c423464
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libjpeg
 )
@@ -114,8 +114,8 @@ ExternalProject_Add(poppler
 )
 else ()
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-22.12.0.tar.xz"
-	URL_HASH SHA256=d9aa9cacdfbd0f8e98fc2b3bb008e645597ed480685757c3e7bc74b4278d15c0
+	URL "https://poppler.freedesktop.org/poppler-23.01.0.tar.xz"
+	URL_HASH SHA256=fae9b88d3d5033117d38477b79220cfd0d8e252c278ec870ab1832501741fd94
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_GLIB=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DRUN_GPERF_IF_PRESENT=FALSE
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )

@@ -15,10 +15,11 @@
 
 FROM debian:10 as build-stage
 
-ARG CMAKE_VERSION=3.25.1
-ARG QT_VERSION=6.4.1
-ARG POPPLER_VERSION=22.12.0
-ARG HUNSPELL_VERSION=1.7.1
+ARG CMAKE_VERSION=3.25.2
+# Qt open-source LTS version
+ARG QT_VERSION=6.2.4
+ARG POPPLER_VERSION=23.01.0
+ARG HUNSPELL_VERSION=1.7.2
 
 # file is required by appimagetool
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install --no-install-recommends --assume-yes \
@@ -92,7 +93,7 @@ RUN cd /opt && \
 	make install
 
 # Install Qt
-# aqt list-qt linux desktop --modules 6.4.1 gcc_64
+# aqt list-qt linux desktop --modules 6.2.4 gcc_64
 RUN pip3 install aqtinstall && \
 	aqt install-qt linux desktop ${QT_VERSION} --modules qt5compat -O /opt/qt
 

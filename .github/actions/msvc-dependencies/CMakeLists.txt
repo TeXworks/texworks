@@ -16,8 +16,8 @@ ExternalProject_Add(lua
 )
 
 ExternalProject_Add(hunspell
-	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.1.tar.gz"
-	URL_HASH SHA256=6e3557624c608b3e6525b8bd277706db4f5a857c28fdb3cfa8d0d2b67776da8a
+	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.2.tar.gz"
+	URL_HASH SHA256=69fa312d3586c988789266eaf7ffc9861d9f6396c31fc930a014d551b59bbd6e
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND msbuild msvc\\libhunspell.vcxproj ${MSBUILD_ARGS} /p:Configuration=Release_dll
 	BUILD_IN_SOURCE TRUE
@@ -40,8 +40,8 @@ ExternalProject_Add(zlib
 )
 
 ExternalProject_Add(libpng
-	URL "https://download.sourceforge.net/libpng/libpng-1.6.38.tar.xz"
-	URL_HASH SHA256=b3683e8b8111ebf6f1ac004ebb6b0c975cd310ec469d98364388e9cedbfa68be
+	URL "https://download.sourceforge.net/libpng/libpng-1.6.39.tar.xz"
+	URL_HASH SHA256=1f4696ce70b4ee5f85f1e1623dc1229b210029fa4b7aee573df3e2ba7b036937
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS zlib
 )
@@ -58,8 +58,8 @@ ExternalProject_Add(libjpeg
 )
 
 ExternalProject_Add(libtiff
-	URL "https://download.osgeo.org/libtiff/tiff-4.4.0.tar.gz"
-	URL_HASH SHA256=917223b37538959aca3b790d2d73aa6e626b688e02dcda272aec24c2f498abed
+	URL "https://download.osgeo.org/libtiff/tiff-4.5.0.tar.gz"
+	URL_HASH SHA256=c7a1d9296649233979fa3eacffef3fa024d73d05d589cb622727b5b08c423464
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libjpeg
 )
@@ -93,8 +93,8 @@ ExternalProject_Add(freetype
 )
 
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-22.12.0.tar.xz"
-	URL_HASH SHA256=d9aa9cacdfbd0f8e98fc2b3bb008e645597ed480685757c3e7bc74b4278d15c0
+	URL "https://poppler.freedesktop.org/poppler-23.01.0.tar.xz"
+	URL_HASH SHA256=fae9b88d3d5033117d38477b79220cfd0d8e252c278ec870ab1832501741fd94
 	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DBUILD_MANUAL_TESTS=FALSE -DBUILD_QT5_TESTS=FALSE -DWITH_NSS3=FALSE
 	DEPENDS freetype lcms2 libjpeg libpng libtiff
