@@ -389,7 +389,7 @@ Document::Document(QString fileName):
   //
   // NOTE: The application seems to exceed 1 GB---usage plateaus at around 2GB. No idea why. Perhaps freed
   // blocks are not garbage collected?? Perhaps my math is off??
-  _pageCache.setMaxSize(1024 * 1024 * 1024);
+  _pageCache.setMaxCost(1024 * 1024 * 1024);
 }
 
 // FIXME: Consider porting Document to a PIMPL design in which we could just

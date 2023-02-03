@@ -32,7 +32,7 @@ namespace Backend {
 // This class is thread-safe
 class PDFPageCache : protected QCache<PDFPageTile, QSharedPointer<QImage> >
 {
-  typedef QCache<PDFPageTile, QSharedPointer<QImage> > Super;
+  using Super = QCache<PDFPageTile, QSharedPointer<QImage> >;
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   using size_type = int;
@@ -42,12 +42,8 @@ class PDFPageCache : protected QCache<PDFPageTile, QSharedPointer<QImage> >
 public:
   enum TileStatus { UNKNOWN, PLACEHOLDER, CURRENT, OUTDATED };
 
-  PDFPageCache() = default;
-  virtual ~PDFPageCache() = default;
-
-  // Note: Each image has a cost of 1
-  size_type maxSize() const { return maxCost(); }
-  void setMaxSize(const size_type num) { setMaxCost(num); }
+  using Super::maxCost;
+  using Super::setMaxCost;
 
   // Returns the image under the key `tile` or nullptr if it doesn't exist
   QSharedPointer<QImage> getImage(const PDFPageTile & tile) const;
