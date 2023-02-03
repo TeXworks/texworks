@@ -22,9 +22,8 @@ namespace Backend {
 
 QSharedPointer<QImage> PDFPageCache::getImage(const PDFPageTile & tile) const
 {
-  _lock.lockForRead();
+  QReadLocker locker(&_lock);
   QSharedPointer<QImage> * retVal = m_cache.object(tile);
-  _lock.unlock();
   if (retVal)
     return *retVal;
   return QSharedPointer<QImage>();
@@ -33,16 +32,15 @@ QSharedPointer<QImage> PDFPageCache::getImage(const PDFPageTile & tile) const
 PDFPageCache::TileStatus PDFPageCache::getStatus(const PDFPageTile & tile) const
 {
   PDFPageCache::TileStatus retVal = UNKNOWN;
-  _lock.lockForRead();
+  QReadLocker locker(&_lock);
   if (_tileStatus.contains(tile))
     retVal = _tileStatus[tile];
-  _lock.unlock();
   return retVal;
 }
 
 QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage * image, const TileStatus status, const bool overwrite /* = true */)
 {
-  _lock.lockForWrite();
+  QWriteLocker locker(&_lock);
   QSharedPointer<QImage> retVal;
   if (m_cache.contains(tile))
     retVal = *(m_cache.object(tile));
@@ -79,7 +77,6 @@ QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage *
     }
     _tileStatus.insert(tile, status);
   }
-  _lock.unlock();
   return retVal;
 }
 
