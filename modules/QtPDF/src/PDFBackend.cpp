@@ -609,7 +609,7 @@ QSharedPointer<QImage> Page::getCachedImage(double xres, double yres, QRect rend
       *status = PDFPageCache::UNKNOWN;
     return QSharedPointer<QImage>();
   }
-  PDFPageTile tile(xres, yres, render_box, _n);
+  const PDFPageTile tile(xres, yres, render_box, _parent, _n);
   if (status)
     *status = _parent->pageCache().getStatus(tile);
   return _parent->pageCache().getImage(tile);
@@ -658,7 +658,7 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
 
     if (retVal && status == PDFPageCache::OUTDATED) {
       // If we have an outdated image, use that as a placeholder
-      _parent->pageCache().setImage(PDFPageTile(xres, yres, render_box, _n), retVal, PDFPageCache::PLACEHOLDER, false);
+      _parent->pageCache().setImage(PDFPageTile(xres, yres, render_box, _parent, _n), retVal, PDFPageCache::PLACEHOLDER, false);
     }
     else {
       // otherwise construct a dummy image
@@ -723,7 +723,7 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
       // Note: In the meantime the asynchronous rendering could have finished and
       // insert the final image in the cache---we must handle that case and delete
       // our temporary image
-      retVal = _parent->pageCache().setImage(PDFPageTile(xres, yres, render_box, _n), tmpImg, PDFPageCache::PLACEHOLDER, false);
+      retVal = _parent->pageCache().setImage(PDFPageTile(xres, yres, render_box, _parent, _n), tmpImg, PDFPageCache::PLACEHOLDER, false);
     }
     return retVal;
   }

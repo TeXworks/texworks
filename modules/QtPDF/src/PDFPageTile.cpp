@@ -15,6 +15,8 @@
 #include "PDFPageTile.h"
 
 #include <QPair>
+#include <QByteArray>
+#include <QDataStream>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
 
@@ -80,10 +82,10 @@ PDFPageTile::operator QString() const
 // ### Cache for Rendered Images
 decltype(::qHash(0)) qHash(const PDFPageTile &tile) noexcept
 {
-  using HashType = decltype(::qHash(0));
-  HashType h1 = ::qHash(QPair<HashType, HashType>(::qHash(tile.xres), ::qHash(tile.yres)));
-  HashType h2 = ::qHash(QPair<HashType, int>(::qHash(tile.render_box), tile.page_num));
-  return ::qHash(QPair<HashType, HashType>(h1, h2));
+  QByteArray ba;
+  QDataStream strm{&ba, QIODevice::WriteOnly};
+  strm << tile.xres << tile.yres << tile.render_box << reinterpret_cast<quint64>(tile.doc) << tile.page_num;
+  return ::qHash(ba);
 }
 
 } // namespace Backend

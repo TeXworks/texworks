@@ -26,6 +26,8 @@ namespace QtPDF {
 
 namespace Backend {
 
+class Document;
+
 class PDFPageTile
 {
 public:
@@ -33,19 +35,21 @@ public:
   // We may want an application-wide cache instead of a document-specific cache
   // to keep memory usage down. This may require an additional piece of
   // information---the document that the page belongs to.
-  PDFPageTile(double xres, double yres, QRect render_box, int page_num):
+  PDFPageTile(double xres, double yres, QRect render_box, const Document * doc, int page_num):
     xres(xres), yres(yres),
     render_box(render_box),
+    doc(doc),
     page_num(page_num)
   {}
 
   double xres, yres;
   QRect render_box;
+  const Document * doc;
   int page_num;
 
   bool operator==(const PDFPageTile &other) const
   {
-    return (xres == other.xres && yres == other.yres && render_box == other.render_box && page_num == other.page_num);
+    return (xres == other.xres && yres == other.yres && render_box == other.render_box && doc == other.doc && page_num == other.page_num);
   }
 
   bool operator <(const PDFPageTile &other) const;

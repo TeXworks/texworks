@@ -1863,14 +1863,17 @@ void TestQtPDF::pageTile()
 {
   QList<QtPDF::Backend::PDFPageTile> tiles;
 
-  tiles.append({1., 1., QRect(0, 0, 1, 1), 0});
-  tiles.append({2., 1., QRect(0, 0, 1, 1), 0});
-  tiles.append({1., 3., QRect(0, 0, 1, 1), 0});
-  tiles.append({1., 1., QRect(4, 0, 1, 1), 0});
-  tiles.append({1., 1., QRect(0, 5, 1, 1), 0});
-  tiles.append({1., 1., QRect(0, 0, 6, 1), 0});
-  tiles.append({1., 1., QRect(0, 0, 1, 7), 0});
-  tiles.append({1., 1., QRect(0, 0, 1, 1), 8});
+  const QtPDF::Backend::Document * doc1 = _docs[QStringLiteral("page-rotation")].data();
+  const QtPDF::Backend::Document * doc2 = _docs[QStringLiteral("base14-fonts")].data();
+  tiles.append({1., 1., QRect(0, 0, 1, 1), doc1, 0});
+  tiles.append({2., 1., QRect(0, 0, 1, 1), doc1, 0});
+  tiles.append({1., 3., QRect(0, 0, 1, 1), doc1, 0});
+  tiles.append({1., 1., QRect(4, 0, 1, 1), doc1, 0});
+  tiles.append({1., 1., QRect(0, 5, 1, 1), doc1, 0});
+  tiles.append({1., 1., QRect(0, 0, 6, 1), doc1, 0});
+  tiles.append({1., 1., QRect(0, 0, 1, 7), doc1, 0});
+  tiles.append({1., 1., QRect(0, 0, 1, 1), doc1, 8});
+  tiles.append({1., 1., QRect(0, 0, 1, 1), doc2, 0});
 
   for (int i = 0; i < tiles.size(); ++i) {
     for (int j = i + 1; j < tiles.size(); ++j) {
