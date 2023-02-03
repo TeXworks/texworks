@@ -30,10 +30,8 @@ namespace QtPDF {
 namespace Backend {
 
 // This class is thread-safe
-class PDFPageCache : protected QCache<PDFPageTile, QSharedPointer<QImage> >
+class PDFPageCache
 {
-  using Super = QCache<PDFPageTile, QSharedPointer<QImage> >;
-
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   using size_type = int;
 #else
@@ -42,8 +40,8 @@ class PDFPageCache : protected QCache<PDFPageTile, QSharedPointer<QImage> >
 public:
   enum TileStatus { UNKNOWN, PLACEHOLDER, CURRENT, OUTDATED };
 
-  using Super::maxCost;
-  using Super::setMaxCost;
+  size_type maxCost() const { return m_cache.maxCost(); }
+  void setMaxCost(const size_type cost) { m_cache.setMaxCost(cost); }
 
   // Returns the image under the key `tile` or nullptr if it doesn't exist
   QSharedPointer<QImage> getImage(const PDFPageTile & tile) const;
@@ -56,16 +54,17 @@ public:
   void lock() const { _lock.lockForRead(); }
   void unlock() const { _lock.unlock(); }
 
-  void clear() { QWriteLocker l(&_lock); Super::clear(); _tileStatus.clear(); }
+  void clear() { QWriteLocker l(&_lock); m_cache.clear(); _tileStatus.clear(); }
   // Mark all tiles outdated
   void markOutdated();
 
-  QList<PDFPageTile> tiles() const { return keys(); }
+  QList<PDFPageTile> tiles() const { return m_cache.keys(); }
 protected:
   mutable QReadWriteLock _lock;
   // Map to keep track of the current status of tiles; note that the status
   // information is not deleted when the QCache scraps images to save memory.
   QMap<PDFPageTile, TileStatus> _tileStatus;
+  QCache<PDFPageTile, QSharedPointer<QImage> > m_cache;
 };
 
 } // namespace Backend

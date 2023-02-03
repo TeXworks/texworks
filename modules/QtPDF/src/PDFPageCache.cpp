@@ -23,7 +23,7 @@ namespace Backend {
 QSharedPointer<QImage> PDFPageCache::getImage(const PDFPageTile & tile) const
 {
   _lock.lockForRead();
-  QSharedPointer<QImage> * retVal = object(tile);
+  QSharedPointer<QImage> * retVal = m_cache.object(tile);
   _lock.unlock();
   if (retVal)
     return *retVal;
@@ -44,19 +44,19 @@ QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage *
 {
   _lock.lockForWrite();
   QSharedPointer<QImage> retVal;
-  if (contains(tile))
-    retVal = *object(tile);
+  if (m_cache.contains(tile))
+    retVal = *(m_cache.object(tile));
   // If the key is not in the cache yet add it. Otherwise overwrite the cached
   // image but leave the pointer intact as that can be held/used elsewhere
   if (!retVal) {
     QSharedPointer<QImage> * toInsert = new QSharedPointer<QImage>(image);
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
-    insert(tile, toInsert, (image ? image->byteCount() : 0));
+    m_cache.insert(tile, toInsert, (image ? image->byteCount() : 0));
 #else
     // No image (1024x124x4 bytes by default) should ever come even close to the
     // 2 GB mark corresponding to INT_MAX; note that Document::Document() sets
     // the cache's max-size to 1 GB total
-    insert(tile, toInsert, (image ? static_cast<int>(image->sizeInBytes()) : 0));
+    m_cache.insert(tile, toInsert, (image ? static_cast<int>(image->sizeInBytes()) : 0));
 #endif
     _tileStatus.insert(tile, status);
     retVal = *toInsert;
@@ -74,7 +74,7 @@ QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage *
       *retVal = *image;
     else {
       QSharedPointer<QImage> * toInsert = new QSharedPointer<QImage>;
-      insert(tile, toInsert, 0);
+      m_cache.insert(tile, toInsert, 0);
       retVal = *toInsert;
     }
     _tileStatus.insert(tile, status);
