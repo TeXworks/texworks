@@ -17,6 +17,7 @@
 #include <QPair>
 #include <QByteArray>
 #include <QDataStream>
+#include <QIODevice>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 3, 0)
 
