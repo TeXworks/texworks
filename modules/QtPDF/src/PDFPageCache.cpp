@@ -23,69 +23,64 @@ namespace Backend {
 QSharedPointer<QImage> PDFPageCache::getImage(const PDFPageTile & tile) const
 {
   QReadLocker locker(&_lock);
-  QSharedPointer<QImage> * retVal = m_cache.object(tile);
-  if (retVal)
-    return *retVal;
-  return QSharedPointer<QImage>();
+  CachedTileData * data = m_cache.object(tile);
+  if (data) {
+    return data->image;
+  }
+  return {};
 }
 
 PDFPageCache::TileStatus PDFPageCache::getStatus(const PDFPageTile & tile) const
 {
-  PDFPageCache::TileStatus retVal = UNKNOWN;
   QReadLocker locker(&_lock);
-  if (_tileStatus.contains(tile))
-    retVal = _tileStatus[tile];
-  return retVal;
+  CachedTileData * data = m_cache.object(tile);
+  if (data) {
+    return data->status;
+  }
+  return UNKNOWN;
 }
 
 QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QSharedPointer<QImage> image, const TileStatus status, const bool overwrite /* = true */)
 {
   QWriteLocker locker(&_lock);
-  QSharedPointer<QImage> retVal;
-  if (m_cache.contains(tile))
-    retVal = *(m_cache.object(tile));
-  // If the key is not in the cache yet add it. Otherwise overwrite the cached
-  // image but leave the pointer intact as that can be held/used elsewhere
-  if (!retVal) {
-    QSharedPointer<QImage> * toInsert = new QSharedPointer<QImage>(image);
+
+  auto insert = [this](const PDFPageTile & tile, QSharedPointer<QImage> image, const TileStatus status) {
+    CachedTileData * data = new CachedTileData{image, status};
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
-    m_cache.insert(tile, toInsert, (image ? image->byteCount() : 0));
+    m_cache.insert(tile, data, (image ? image->byteCount() : 0));
 #else
     // No image (1024x124x4 bytes by default) should ever come even close to the
     // 2 GB mark corresponding to INT_MAX; note that Document::Document() sets
     // the cache's max-size to 1 GB total
-    m_cache.insert(tile, toInsert, (image ? static_cast<int>(image->sizeInBytes()) : 0));
+    m_cache.insert(tile, data, (image ? static_cast<int>(image->sizeInBytes()) : 0));
 #endif
-    _tileStatus.insert(tile, status);
-    retVal = *toInsert;
+  };
+
+  CachedTileData * data = m_cache.object(tile);
+  if (!data) {
+    insert(tile, image, status);
+    return image;
   }
-  else if (retVal.data() == image) {
+  if (data->image == image) {
     // Trying to overwrite an image with itself - just update the status
-    _tileStatus.insert(tile, status);
+    data->status = status;
+    return data->image;
   }
-  else if (overwrite) {
-    // TODO: overwriting an image with a different one can change its size (and
-    // therefore its cost in the cache). There doesn't seem to be a method to
-    // hande that in QCache, though, and since we only use one tile size this
-    // shouldn't pose a problem.
-    if (image)
-      *retVal = *image;
-    else {
-      QSharedPointer<QImage> * toInsert = new QSharedPointer<QImage>;
-      m_cache.insert(tile, toInsert, 0);
-      retVal = *toInsert;
-    }
-    _tileStatus.insert(tile, status);
+  if (overwrite) {
+    insert(tile, image, status);
+    return image;
   }
-  return retVal;
+  return data->image;
 }
 
 void PDFPageCache::markOutdated()
 {
   QWriteLocker l(&_lock);
-  QMap<PDFPageTile, TileStatus>::iterator it;
-  for (it = _tileStatus.begin(); it != _tileStatus.end(); ++it)
-    it.value() = OUTDATED;
+
+  const auto keys = m_cache.keys();
+  for (const PDFPageTile & tile : keys) {
+    m_cache[tile]->status = OUTDATED;
+  }
 }
 
 } // namespace Backend

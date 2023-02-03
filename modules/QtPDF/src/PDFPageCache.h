@@ -54,17 +54,19 @@ public:
   void lock() const { _lock.lockForRead(); }
   void unlock() const { _lock.unlock(); }
 
-  void clear() { QWriteLocker l(&_lock); m_cache.clear(); _tileStatus.clear(); }
+  void clear() { QWriteLocker l(&_lock); m_cache.clear(); }
   // Mark all tiles outdated
   void markOutdated();
 
   QList<PDFPageTile> tiles() const { return m_cache.keys(); }
 protected:
+  struct CachedTileData {
+    QSharedPointer<QImage> image;
+    TileStatus status;
+  };
+
   mutable QReadWriteLock _lock;
-  // Map to keep track of the current status of tiles; note that the status
-  // information is not deleted when the QCache scraps images to save memory.
-  QMap<PDFPageTile, TileStatus> _tileStatus;
-  QCache<PDFPageTile, QSharedPointer<QImage> > m_cache;
+  QCache<PDFPageTile, CachedTileData> m_cache;
 };
 
 } // namespace Backend
