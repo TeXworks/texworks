@@ -613,10 +613,8 @@ QImage Page::renderToImage(double xres, double yres, QRect render_box, bool cach
   }
 
   if( cache ) {
-    PDFPageTile key(xres, yres, render_box, _n);
-    QImage * img = new QImage(renderedPage.copy());
-    if (img != _parent->pageCache().setImage(key, img, PDFPageCache::CURRENT))
-      delete img;
+    const PDFPageTile key(xres, yres, render_box, _n);
+    _parent->pageCache().setImage(key, QSharedPointer<QImage>(new QImage(renderedPage.copy())), PDFPageCache::CURRENT);
   }
 
   return renderedPage;

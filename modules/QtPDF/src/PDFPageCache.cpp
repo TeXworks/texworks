@@ -38,7 +38,7 @@ PDFPageCache::TileStatus PDFPageCache::getStatus(const PDFPageTile & tile) const
   return retVal;
 }
 
-QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QImage * image, const TileStatus status, const bool overwrite /* = true */)
+QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QSharedPointer<QImage> image, const TileStatus status, const bool overwrite /* = true */)
 {
   QWriteLocker locker(&_lock);
   QSharedPointer<QImage> retVal;

@@ -658,12 +658,12 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
 
     if (retVal && status == PDFPageCache::OUTDATED) {
       // If we have an outdated image, use that as a placeholder
-      _parent->pageCache().setImage(PDFPageTile(xres, yres, render_box, _n), retVal.data(), PDFPageCache::PLACEHOLDER, false);
+      _parent->pageCache().setImage(PDFPageTile(xres, yres, render_box, _n), retVal, PDFPageCache::PLACEHOLDER, false);
     }
     else {
       // otherwise construct a dummy image
-      QImage * tmpImg = new QImage(render_box.width(), render_box.height(), QImage::Format_ARGB32);
-      QPainter p(tmpImg);
+      QSharedPointer<QImage> tmpImg{new QImage(render_box.width(), render_box.height(), QImage::Format_ARGB32)};
+      QPainter p(tmpImg.data());
       p.fillRect(tmpImg->rect(), *pageDummyBrush);
 
       // Look through the cache to find tiles we can reuse (by scaling) for our
@@ -724,8 +724,6 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
       // insert the final image in the cache---we must handle that case and delete
       // our temporary image
       retVal = _parent->pageCache().setImage(PDFPageTile(xres, yres, render_box, _n), tmpImg, PDFPageCache::PLACEHOLDER, false);
-      if (retVal != tmpImg)
-        delete tmpImg;
     }
     return retVal;
   }

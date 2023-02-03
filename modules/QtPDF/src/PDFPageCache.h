@@ -49,7 +49,7 @@ public:
   // Returns the pointer to the image in the cache under the key `tile` after
   // the insertion. If overwrite == true, this will always be image, otherwise
   // it can be different
-  QSharedPointer<QImage> setImage(const PDFPageTile & tile, QImage * image, const TileStatus status, const bool overwrite = true);
+  QSharedPointer<QImage> setImage(const PDFPageTile & tile, QSharedPointer<QImage> image, const TileStatus status, const bool overwrite = true);
 
   void lock() const { _lock.lockForRead(); }
   void unlock() const { _lock.unlock(); }
