@@ -48,11 +48,13 @@ QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QSharedP
     CachedTileData * data = new CachedTileData{image, status};
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     m_cache.insert(tile, data, (image ? image->byteCount() : 0));
-#else
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     // No image (1024x124x4 bytes by default) should ever come even close to the
     // 2 GB mark corresponding to INT_MAX; note that Document::Document() sets
     // the cache's max-size to 1 GB total
     m_cache.insert(tile, data, (image ? static_cast<int>(image->sizeInBytes()) : 0));
+#else
+    m_cache.insert(tile, data, (image ? image->sizeInBytes() : 0));
 #endif
   };
 
