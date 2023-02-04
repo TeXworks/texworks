@@ -2386,9 +2386,6 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
         }
 
         renderedPage = page->getTileImage(this, _dpiX * scaleFactor * painter->device()->devicePixelRatio(), _dpiY * scaleFactor * painter->device()->devicePixelRatio(), renderTile);
-        // we don't want a finished render thread to change our image while we
-        // draw it
-        page->document()->pageCache().lock();
         // renderedPage as returned from getTileImage _should_ always be valid
         if ( renderedPage ) {
           if (useGrayScale) {
@@ -2405,7 +2402,6 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
             painter->drawImage(displayTile.topLeft(), img);
           }
         }
-        page->document()->pageCache().unlock();
 #ifdef DEBUG
         painter->drawRect(displayTile);
 #endif

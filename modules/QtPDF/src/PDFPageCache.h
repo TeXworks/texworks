@@ -51,9 +51,6 @@ public:
   // it can be different
   QSharedPointer<QImage> setImage(const PDFPageTile & tile, QSharedPointer<QImage> image, const TileStatus status, const bool overwrite = true);
 
-  void lock() const { _lock.lockForRead(); }
-  void unlock() const { _lock.unlock(); }
-
   void clear() { QWriteLocker l(&_lock); m_cache.clear(); }
   void removeDocumentTiles(const Document *doc);
   // Mark all tiles outdated
