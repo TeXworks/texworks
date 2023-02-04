@@ -40,8 +40,8 @@ class PDFPageCache
 public:
   enum TileStatus { UNKNOWN, PLACEHOLDER, CURRENT, OUTDATED };
 
-  size_type maxCost() const { return m_cache.maxCost(); }
-  void setMaxCost(const size_type cost) { m_cache.setMaxCost(cost); }
+  size_type maxCost() const { QReadLocker locker(&_lock); return m_cache.maxCost(); }
+  void setMaxCost(const size_type cost) { QWriteLocker locker(&_lock); m_cache.setMaxCost(cost); }
 
   // Returns the image under the key `tile` or nullptr if it doesn't exist
   QSharedPointer<QImage> getImage(const PDFPageTile & tile) const;
@@ -56,7 +56,7 @@ public:
   // Mark all tiles outdated
   void markOutdated(const Document *doc);
 
-  QList<PDFPageTile> tiles() const { return m_cache.keys(); }
+  QList<PDFPageTile> tiles() const { QReadLocker locker(&_lock); return m_cache.keys(); }
 protected:
   struct CachedTileData {
     QSharedPointer<QImage> image;
