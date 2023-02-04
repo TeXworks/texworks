@@ -55,6 +55,7 @@ public:
   void unlock() const { _lock.unlock(); }
 
   void clear() { QWriteLocker l(&_lock); m_cache.clear(); }
+  void removeDocumentTiles(const Document *doc);
   // Mark all tiles outdated
   void markOutdated(const Document *doc);
 

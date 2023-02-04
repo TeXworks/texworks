@@ -384,7 +384,7 @@ protected:
 
   int _numPages{-1};
   PDFPageProcessingThread _processingThread;
-  PDFPageCache _pageCache;
+  static PDFPageCache _pageCache;
   QVector< QSharedPointer<Page> > _pages;
   Permissions _permissions;
 

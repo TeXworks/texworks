@@ -375,6 +375,9 @@ PageProcessingLoadLinksRequest::operator QString() const
 //
 // This class is thread-safe. Data access is governed by the QReadWriteLock
 // _docLock.
+
+PDFPageCache Document::_pageCache;
+
 Document::Document(QString fileName):
   _fileName(fileName)
 {
@@ -421,6 +424,7 @@ Document::~Document()
 //  qDebug() << "Document::~Document()";
 #endif
   clearPages();
+  _pageCache.removeDocumentTiles(this);
 }
 
 int Document::numPages() const { QReadLocker docLocker(_docLock.data()); return _numPages; }

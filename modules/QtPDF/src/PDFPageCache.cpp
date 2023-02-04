@@ -73,6 +73,18 @@ QSharedPointer<QImage> PDFPageCache::setImage(const PDFPageTile & tile, QSharedP
   return data->image;
 }
 
+void PDFPageCache::removeDocumentTiles(const Document *doc)
+{
+  QWriteLocker l(&_lock);
+
+  const auto keys = m_cache.keys();
+  for (const PDFPageTile & tile : keys) {
+    if (tile.doc == doc) {
+      m_cache.remove(tile);
+    }
+  }
+}
+
 void PDFPageCache::markOutdated(const Document * doc)
 {
   QWriteLocker l(&_lock);
