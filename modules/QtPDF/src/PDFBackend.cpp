@@ -673,7 +673,7 @@ QSharedPointer<QImage> Page::getTileImage(QObject * listener, const double xres,
       if (_parent) {
         QList<PDFPageTile> tiles = _parent->pageCache().tiles();
         for (QList<PDFPageTile>::iterator it = tiles.begin(); it != tiles.end(); ) {
-          if (it->page_num != pageNum()) {
+          if (it->doc != _parent || it->page_num != pageNum()) {
             it = tiles.erase(it);
             continue;
           }

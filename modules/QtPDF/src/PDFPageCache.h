@@ -56,7 +56,7 @@ public:
 
   void clear() { QWriteLocker l(&_lock); m_cache.clear(); }
   // Mark all tiles outdated
-  void markOutdated();
+  void markOutdated(const Document *doc);
 
   QList<PDFPageTile> tiles() const { return m_cache.keys(); }
 protected:

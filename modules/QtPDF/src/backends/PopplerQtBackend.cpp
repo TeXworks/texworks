@@ -193,7 +193,7 @@ void Document::reload()
   QWriteLocker docLocker(_docLock.data());
 
   clearPages();
-  _pageCache.markOutdated();
+  _pageCache.markOutdated(this);
 
   load(_fileName);
 
