@@ -422,7 +422,6 @@ Document::~Document()
 
 int Document::numPages() const { QReadLocker docLocker(_docLock.data()); return _numPages; }
 PDFPageProcessingThread &Document::processingThread() { QReadLocker docLocker(_docLock.data()); return _processingThread; }
-PDFPageCache &Document::pageCache() { return _pageCache; }
 
 QWeakPointer<Page> Document::page(int at)
 {

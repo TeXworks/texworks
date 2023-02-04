@@ -314,7 +314,7 @@ public:
   QString fileName() const { QReadLocker docLocker(_docLock.data()); return _fileName; }
   // Uses doc-read-lock
   PDFPageProcessingThread& processingThread();
-  PDFPageCache& pageCache();
+  static PDFPageCache& pageCache() { return _pageCache; }
 
   // Uses doc-read-lock and may use doc-write-lock
   // NB: no const variant exists as we may need to create a new Page (if it was
