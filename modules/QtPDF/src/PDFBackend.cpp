@@ -386,13 +386,6 @@ Document::Document(QString fileName):
 #ifdef DEBUG
 //  qDebug() << "Document::Document(" << fileName << ")";
 #endif
-
-  // Set cache for rendered pages to be 1GB. This is enough for 256 RGBA tiles
-  // (1024 x 1024 pixels x 4 bytes per pixel).
-  //
-  // NOTE: The application seems to exceed 1 GB---usage plateaus at around 2GB. No idea why. Perhaps freed
-  // blocks are not garbage collected?? Perhaps my math is off??
-  _pageCache.setMaxCost(1024 * 1024 * 1024);
 }
 
 // FIXME: Consider porting Document to a PIMPL design in which we could just

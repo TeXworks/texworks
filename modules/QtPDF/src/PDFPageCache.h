@@ -64,7 +64,10 @@ protected:
   };
 
   mutable QReadWriteLock _lock;
-  QCache<PDFPageTile, CachedTileData> m_cache;
+
+  // Set cache for rendered pages to be 1GB. This is enough for 256 RGBA tiles
+  // (1024 x 1024 pixels x 4 bytes per pixel).
+  QCache<PDFPageTile, CachedTileData> m_cache{1024 * 1024 * 1024};
 };
 
 } // namespace Backend
