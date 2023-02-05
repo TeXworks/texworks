@@ -263,6 +263,7 @@ SET(QTPDF_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontDescriptor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageProcessingThread.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageTile.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFRuler.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFSearcher.cpp
@@ -283,6 +284,7 @@ SET(QTPDF_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontDescriptor.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontInfo.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageProcessingThread.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageTile.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFRuler.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFSearcher.h
