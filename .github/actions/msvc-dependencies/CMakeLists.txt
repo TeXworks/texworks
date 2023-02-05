@@ -93,8 +93,8 @@ ExternalProject_Add(freetype
 )
 
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-23.01.0.tar.xz"
-	URL_HASH SHA256=fae9b88d3d5033117d38477b79220cfd0d8e252c278ec870ab1832501741fd94
+	URL "https://poppler.freedesktop.org/poppler-23.02.0.tar.xz"
+	URL_HASH SHA256=3315dda270fe2b35cf1f41d275948c39652fa863b90de0766f6b293d9a558fc9
 	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DBUILD_MANUAL_TESTS=FALSE -DBUILD_QT5_TESTS=FALSE -DWITH_NSS3=FALSE
 	DEPENDS freetype lcms2 libjpeg libpng libtiff

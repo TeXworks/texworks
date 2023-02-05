@@ -114,17 +114,20 @@ ExternalProject_Add(poppler
 )
 else ()
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-23.01.0.tar.xz"
-	URL_HASH SHA256=fae9b88d3d5033117d38477b79220cfd0d8e252c278ec870ab1832501741fd94
+	URL "https://poppler.freedesktop.org/poppler-23.02.0.tar.xz"
+	URL_HASH SHA256=3315dda270fe2b35cf1f41d275948c39652fa863b90de0766f6b293d9a558fc9
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_GLIB=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DRUN_GPERF_IF_PRESENT=FALSE
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )
 endif ()
 ADD_GH_GROUP(poppler)
 
+# Need to install poppler-data (system-wide) so the test-cases succeed
+# (NB: poppler-data is downloaded and installed separately during packaging,
+# but only in the TeXworks.app directory, which doesn't help the tests)
 ExternalProject_Add(poppler-data
-	URL https://poppler.freedesktop.org/poppler-data-0.4.11.tar.gz
-	URL_HASH SHA256=2cec05cd1bb03af98a8b06a1e22f6e6e1a65b1e2f3816cb3069bb0874825f08c
+	URL https://poppler.freedesktop.org/poppler-data-0.4.12.tar.gz
+	URL_HASH SHA256=c835b640a40ce357e1b83666aabd95edffa24ddddd49b8daff63adb851cdab74
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
 ADD_GH_GROUP(poppler-data)
