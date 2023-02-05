@@ -80,7 +80,7 @@ PDFPageTile::operator QString() const
 }
 #endif
 
-// ### Cache for Rendered Images
+// Overlad qHash so PDFPageTile can be used, e.g., in a QMap or QCache
 decltype(::qHash(0)) qHash(const PDFPageTile &tile) noexcept
 {
   QByteArray ba;
