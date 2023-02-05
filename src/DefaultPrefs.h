@@ -45,5 +45,6 @@ const bool kDefault_AllowScriptFileWriting = false;
 const bool kDefault_EnableScriptingPlugins = false;
 const bool kDefault_AllowSystemCommands = false;
 const bool kDefault_ScriptDebugger = false;
+const int kDefault_PDFPageCacheSizeMiB = 1024;
 
 #endif // !defined(DefaultPrefs_H)

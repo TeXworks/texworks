@@ -372,6 +372,8 @@ void PrefsDialog::restoreDefaults()
 
 			resolution->setDpi(QApplication::screens().first()->physicalDotsPerInch());
 
+			pdfPageCacheSizeMiB->setValue(kDefault_PDFPageCacheSizeMiB);
+
 			switch (TWSynchronizer::kDefault_Resolution_ToTeX) {
 				case TWSynchronizer::CharacterResolution:
 					cbSyncToTeX->setCurrentIndex(0);
@@ -641,6 +643,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	double oldResolution = settings.value(QString::fromLatin1("previewResolution"), QApplication::screens().first()->physicalDotsPerInch()).toDouble();
 	dlg.resolution->setDpi(oldResolution);
 
+	const int oldPDFPageCacheSize = settings.value(QStringLiteral("pdfPageCacheSizeMiB"), kDefault_PDFPageCacheSizeMiB).toInt();
+	dlg.pdfPageCacheSizeMiB->setValue(oldPDFPageCacheSize);
+
 	int oldSyncToTeX = settings.value(QString::fromLatin1("syncResolutionToTeX"), TWSynchronizer::kDefault_Resolution_ToTeX).toInt();
 	dlg.cbSyncToTeX->setCurrentIndex(oldSyncToTeX);
 
@@ -828,6 +833,10 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 					thePdfDoc->setResolution(resolution);
 			}
 		}
+
+		const int pdfPageCacheSize = dlg.pdfPageCacheSizeMiB->value();
+		settings.setValue(QStringLiteral("pdfPageCacheSizeMiB"), pdfPageCacheSize);
+		QtPDF::Backend::Document::pageCache().setMaxCost(pdfPageCacheSize * 1024 * 1024);
 
 		int syncToTeX = dlg.cbSyncToTeX->currentIndex();
 		if (syncToTeX != oldSyncToTeX)

@@ -216,6 +216,8 @@ void TWApp::init()
 	if (!defaultCodec)
 		defaultCodec = QTextCodec::codecForName("UTF-8");
 
+	QtPDF::Backend::Document::pageCache().setMaxCost(settings.value(QStringLiteral("pdfPageCacheSizeMiB"), kDefault_PDFPageCacheSizeMiB).toInt() * 1024 * 1024);
+
 	TWUtils::readConfig();
 
 	scriptManager = new TWScriptManager;

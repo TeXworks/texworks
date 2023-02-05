@@ -835,6 +835,38 @@
          <item row="3" column="1">
           <widget class="Tw::UI::ScreenCalibrationWidget" name="resolution" native="true"/>
          </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_20">
+           <property name="text">
+            <string>Render Cache</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QSpinBox" name="pdfPageCacheSizeMiB">
+           <property name="buttonSymbols">
+            <enum>QAbstractSpinBox::PlusMinus</enum>
+           </property>
+           <property name="correctionMode">
+            <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+           </property>
+           <property name="suffix">
+            <string> MB</string>
+           </property>
+           <property name="minimum">
+            <number>64</number>
+           </property>
+           <property name="maximum">
+            <number>2000</number>
+           </property>
+           <property name="singleStep">
+            <number>16</number>
+           </property>
+           <property name="value">
+            <number>1024</number>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item row="3" column="0">
@@ -1346,6 +1378,7 @@
   <tabstop>circularMag</tabstop>
   <tabstop>pdfPageMode</tabstop>
   <tabstop>resolution</tabstop>
+  <tabstop>pdfPageCacheSizeMiB</tabstop>
   <tabstop>binPathList</tabstop>
   <tabstop>pathUp</tabstop>
   <tabstop>pathDown</tabstop>
