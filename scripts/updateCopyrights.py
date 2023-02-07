@@ -129,7 +129,7 @@ def manual_update_notice():
     """Reminder for places where the copyright information must be updated manually"""
     print("")
     print("Don't forget to manually update the copyright information in the following files:")
-    for f in ["README.md", "res/texworks.appdata.xml", "res/TeXworks.plist.in", "res/texworks.1", "res/TeXworks.rc", "src/main.cpp", "src/TWApp.cpp", ".github/actions/package-launchpad/launchpad/debian/copyright", "win32/README.win", "CMake/Modules/COPYING-CMAKE-MODULES"]:
+    for f in ["README.md", "res/texworks.appdata.xml", "res/TeXworks.plist.in", "res/texworks.1", "res/TeXworks.rc", "src/TWApp.cpp", ".github/actions/package-launchpad/launchpad/debian/copyright", "win32/README.win", "CMake/Modules/COPYING-CMAKE-MODULES"]:
     	print("   {0}".format(f))
 
 def main():
