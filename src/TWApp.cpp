@@ -496,13 +496,21 @@ QString TWApp::GetWindowsVersionString()
 	else
 		GetSystemInfo(&si);
 
+	// See https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-osversioninfoexa
+	// and https://en.wikipedia.org/wiki/List_of_Microsoft_Windows_versions
 	if ( VER_PLATFORM_WIN32_NT == osvi.dwPlatformId && osvi.dwMajorVersion > 4 ) {
 		if ( osvi.dwMajorVersion == 10 ) {
 			if ( osvi.dwMinorVersion == 0 ) {
-				if ( osvi.wProductType == VER_NT_WORKSTATION )
-					result = QLatin1String("10");
+				if ( osvi.wProductType == VER_NT_WORKSTATION ) {
+					if (osvi.dwBuildNumber >= 22000)
+						result = QLatin1String("11");
+					else
+						result = QLatin1String("10");
+				}
 				else {
-					if (osvi.dwBuildNumber >= 17623)
+					if (osvi.dwBuildNumber >= 20348)
+						result = QLatin1String("Server 2022");
+					else if (osvi.dwBuildNumber >= 17763)
 						result = QLatin1String("Server 2019");
 					else
 						result = QLatin1String("Server 2016");
