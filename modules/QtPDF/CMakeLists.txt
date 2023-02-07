@@ -257,7 +257,6 @@ ENDIF()
 # -------
 SET(QTPDF_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/GuidelineEditDialog.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/GuidelineEditDialog.ui
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentView.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentWidget.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.cpp
@@ -295,6 +294,10 @@ SET(QTPDF_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFGuideline.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PaperSizes.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageCache.h
+)
+
+SET(QTPDF_UIS
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/GuidelineEditDialog.ui
 )
 
 # FIXME: Is -fPIC required/appropriate for all situations/platforms?
@@ -351,14 +354,13 @@ ADD_LIBRARY(qtpdf ${QTPDF_LIB_TYPE}
 include(TranslationMacros)
 file(GLOB TRANSLATIONS_SOURCES trans/*.ts)
 target_add_qt_translations(qtpdf TS_FILES ${TRANSLATIONS_SOURCES} INCLUDEPATH "../src/")
-
 get_target_property(lupdatePath Qt${QT_VERSION_MAJOR}::lupdate LOCATION)
 get_target_property(_sources qtpdf SOURCES)
 add_custom_target(${PROJECT_NAME}_UpdateTranslations COMMAND "${CMAKE_COMMAND}"
   "-DOUTPUTFILE=\"${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro\""
   "-DPROJECT_NAME=\"${PROJECT_NAME}\""
   "-DQt_LUPDATE_EXECUTABLE=\"${lupdatePath}\""
-  "-DFILES=\"${_sources};${TRANSLATIONS_SOURCES}\""
+  "-DFILES=\"${_sources};${QTPDF_UIS};${TRANSLATIONS_SOURCES}\""
   -P "${PROJECT_SOURCE_DIR}/CMake/Modules/UpdateTranslations.cmake"
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 if (NOT TARGET UpdateTranslations)

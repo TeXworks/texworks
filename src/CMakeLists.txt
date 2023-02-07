@@ -238,7 +238,7 @@ add_custom_target(${PROJECT_NAME}_UpdateTranslations COMMAND "${CMAKE_COMMAND}"
   "-DOUTPUTFILE=\"${CMAKE_SOURCE_DIR}/trans/${PROJECT_NAME}_trans.pro\""
   "-DPROJECT_NAME=\"${PROJECT_NAME}\""
   "-DQt_LUPDATE_EXECUTABLE=\"${lupdatePath}\""
-  "-DFILES=\"${_sources};${TEXWORKS_TRANS_TS}\""
+  "-DFILES=\"${_sources};${TEXWORKS_UIS};${TEXWORKS_TRANS_TS}\""
   "-DINCLUDEPATH=\"../src/\""
   -P "${PROJECT_SOURCE_DIR}/modules/QtPDF/CMake/Modules/UpdateTranslations.cmake"
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
