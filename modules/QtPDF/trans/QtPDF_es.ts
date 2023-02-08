@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translation>Guía para editar...</translation>
+        <translation>Guía para edición...</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
@@ -32,8 +32,7 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="63"/>
         <source>bp</source>
-        <translatorcomment>bp</translatorcomment>
-        <translation></translation>
+        <translation>bp</translation>
     </message>
 </context>
 <context>
@@ -779,7 +778,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2013"/>
         <source>Please enter the password to unlock the PDF</source>
-        <translation>Introduzca la contraseña para desbloquear el PDF</translation>
+        <translation>Contraseña para desbloquear el PDF</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2029"/>
@@ -794,7 +793,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2035"/>
         <source>This document is locked. You need a password to open it.</source>
-        <translation>Documento bloqueado. Se requiere contraseña para abrirlo.</translation>
+        <translation>Documento bloqueado. Use contraseña para abrirlo.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2036"/>
@@ -1003,7 +1002,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3331"/>
         <source>Low resolution only</source>
-        <translation>Sólo baja resolución</translation>
+        <translation>Solo baja resolución</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3334"/>
@@ -1022,17 +1021,17 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3340"/>
         <source>Assembling only</source>
-        <translation>Sólo montaje</translation>
+        <translation>Solo montaje</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3341"/>
         <source>Insert, rotate, or delete pages and create bookmarks or thumbnail images</source>
-        <translation>Insertar, rotar o borrar páginas y crear marcadores o imágenes miniatura</translation>
+        <translation>Insertar, rotar o borrar páginas, y crear marcadores o imágenes miniatura</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3349"/>
         <source>Accessibility support only</source>
-        <translation>Sólo con facilidad de acceso</translation>
+        <translation>Solo con permisos de acceso</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3377"/>

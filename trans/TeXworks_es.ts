@@ -1143,7 +1143,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
         <source>Render Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>Caché del render:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="999"/>
@@ -1314,7 +1314,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Color del papel:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="790"/>
@@ -1345,7 +1345,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation> MB</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1793,7 +1793,7 @@ Utilice el menú contextual para modificar las unidades.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="445"/>
         <source>&lt;br&gt;Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versión %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="448"/>
@@ -2632,7 +2632,7 @@ Use &quot;Archivo -&gt; Recuperar versión guardada&quot; manualmente cuando el 
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="759"/>
         <source>Uncomment</source>
-        <translation>Borrar comentarios</translation>
+        <translation>Quitar comentarios</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="762"/>
