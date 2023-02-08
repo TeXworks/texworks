@@ -23,9 +23,3 @@ target_link_libraries(SyncTeX ZLIB::ZLIB)
 if (WIN32)
 	target_link_libraries(SyncTeX shlwapi)
 endif()
-
-# SyncTeX uses vasprintf which is not in POSIX; thus gcc prints a warning unless
-# _GNU_SOURCE is defined. Other compilers seem to be fine.
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  target_compile_definitions(SyncTeX PRIVATE _GNU_SOURCE)
-endif()
