@@ -1132,6 +1132,11 @@ Wil jy voortgaan?</translation>
         <translation>%</translation>
     </message>
     <message>
+        <location filename="../src/PrefsDialog.ui" line="837"/>
+        <source>Render Cache:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/PrefsDialog.ui" line="884"/>
         <source>Magnifying glass</source>
         <translation>Vergrootglas</translation>
@@ -1230,11 +1235,6 @@ Wil jy voortgaan?</translation>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
         <translation>Wys</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="837"/>
-        <source>Render Cache</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="850"/>
@@ -1826,28 +1826,28 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <translation>Geen toegang tot &quot;%1&quot; nie; is jou blaaier of eposprogram nie dalk verkeerd ingestel nie?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="739"/>
+        <location filename="../src/TWApp.cpp" line="747"/>
         <source>Unable to create window</source>
         <translation>Kan nie venster skep nie</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="740"/>
+        <location filename="../src/TWApp.cpp" line="748"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Iets ernstigs is fout: %1 kon geen dokumentvenster skep nie. Die program sluit nou.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="792"/>
-        <location filename="../src/TWApp.cpp" line="807"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
+        <location filename="../src/TWApp.cpp" line="815"/>
         <source>Open File</source>
         <translation>Maak lêer oop</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="979"/>
+        <location filename="../src/TWApp.cpp" line="987"/>
         <source>No default binary directory found</source>
         <translation>Geen verstekvakkie vir programme is gevind nie</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="980"/>
+        <location filename="../src/TWApp.cpp" line="988"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Geeneen van die gedefinieerde vakkies vir TeX-verwante programme is gevind nie. &lt;p&gt;&lt;small&gt;Om &apos;n proses te kan uitvoer moet jy die programbevattende vakkie(s) in jou TeX-distribusie instel in die Lettersetgedeelte van die Voorkeure.&lt;/small&gt;</translation>
     </message>
@@ -1905,17 +1905,17 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <translation>&lt;a href=&quot;mailto:jhsh@sun.ac.za&quot;&gt;Jannie Hofmeyr&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1309"/>
+        <location filename="../src/TWApp.cpp" line="1317"/>
         <source>Unable to find help file.</source>
         <translation>Kan nie helplêer vind nie.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1428"/>
+        <location filename="../src/TWApp.cpp" line="1436"/>
         <source>Permission request</source>
         <translation>Permissie versoek</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1429"/>
+        <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Die skrip &quot;%1&quot; probeer om die lêer &quot;%2&quot; oop te maak sonder voldoende permissies. Wil jy die lêer oopmaak?</translation>
     </message>

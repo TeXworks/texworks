@@ -1140,6 +1140,11 @@ Do you want to continue?</source>
         <translation> %</translation>
     </message>
     <message>
+        <location filename="../src/PrefsDialog.ui" line="837"/>
+        <source>Render Cache:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/PrefsDialog.ui" line="884"/>
         <source>Magnifying glass</source>
         <translation>Povečevalno steklo</translation>
@@ -1221,11 +1226,6 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
         <translation type="unfinished">Pokaži</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="837"/>
-        <source>Render Cache</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="850"/>
@@ -1917,43 +1917,43 @@ Uporabite kontekstni meni za spremembo enot.</translation>
         <translation>Ni mogoče dostopati do &quot;%1&quot;; morda brskalnik ali aplikacija za el. pošto nista prav skonfigurirana?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="739"/>
+        <location filename="../src/TWApp.cpp" line="747"/>
         <source>Unable to create window</source>
         <translation>Ni mogoče ustvariti okna</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="740"/>
+        <location filename="../src/TWApp.cpp" line="748"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Nekaj je hudo narobe; aplikacija %1 ni mogla ustvariti okna z dokumentom, zato se bo končala.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="792"/>
-        <location filename="../src/TWApp.cpp" line="807"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
+        <location filename="../src/TWApp.cpp" line="815"/>
         <source>Open File</source>
         <translation>Odpri datoteko</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="979"/>
+        <location filename="../src/TWApp.cpp" line="987"/>
         <source>No default binary directory found</source>
         <translation>Nobeden od privzetih direktorijev s programi ni bil najden</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="980"/>
+        <location filename="../src/TWApp.cpp" line="988"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Nobeden od predefiniranih direktorijev s TeX-ovimi programi ni bil najden.&lt;p&gt;&lt;small&gt;Da bi lahko poganjali katerikoli program, boste najprej morali nastaviti direktorij(e), kjer se nahajajo programi vaše TeX distribucije (glejte Nastavitve/Stavljenje).&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1309"/>
+        <location filename="../src/TWApp.cpp" line="1317"/>
         <source>Unable to find help file.</source>
         <translation type="unfinished">Pomoči ni bilo mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1428"/>
+        <location filename="../src/TWApp.cpp" line="1436"/>
         <source>Permission request</source>
         <translation type="unfinished">Dovoljene za odpiranje</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1429"/>
+        <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Skripta &quot;%1&quot; nima pravic za odpiranje datoteke &quot;%2&quot;. Želite datoteko vseeno odpreti?</translation>
     </message>

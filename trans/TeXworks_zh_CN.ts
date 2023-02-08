@@ -1095,6 +1095,11 @@ Do you want to continue?</source>
         <translation>%</translation>
     </message>
     <message>
+        <location filename="../src/PrefsDialog.ui" line="837"/>
+        <source>Render Cache:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/PrefsDialog.ui" line="884"/>
         <source>Magnifying glass</source>
         <translation>放大镜</translation>
@@ -1328,11 +1333,6 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
         <translation>显示</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="837"/>
-        <source>Render Cache</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="850"/>
@@ -1817,43 +1817,43 @@ Do you want to continue?</source>
         <translation>无法访问“%1”；或许您的浏览器或邮件客户端程序没有设置正确？</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="739"/>
+        <location filename="../src/TWApp.cpp" line="747"/>
         <source>Unable to create window</source>
         <translation>无法创建窗口</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="740"/>
+        <location filename="../src/TWApp.cpp" line="748"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>有什么地方出错了；%1 无法创建文档窗口。程序现在将会退出。</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="792"/>
-        <location filename="../src/TWApp.cpp" line="807"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
+        <location filename="../src/TWApp.cpp" line="815"/>
         <source>Open File</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="979"/>
+        <location filename="../src/TWApp.cpp" line="987"/>
         <source>No default binary directory found</source>
         <translation>没有找到默认的可执行程序（bin）目录</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="980"/>
+        <location filename="../src/TWApp.cpp" line="988"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>没有找到 TeX 相关程序所在的预定义目录。&lt;p&gt;&lt;small&gt;为了运行任何处理程序，您需要在＜首选项＞对话框的＜排版＞选项卡中设定 TeX 系统的二进制程序目录 (bin)。&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1309"/>
+        <location filename="../src/TWApp.cpp" line="1317"/>
         <source>Unable to find help file.</source>
         <translation>无法找到帮助文件。</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1428"/>
+        <location filename="../src/TWApp.cpp" line="1436"/>
         <source>Permission request</source>
         <translation>请求权限</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1429"/>
+        <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>脚本“%1”试图打开未授权文件“%2”。您想打开此文件吗？</translation>
     </message>

@@ -1178,6 +1178,11 @@ Vuoi continuare?</translation>
         <translation>Modo virgolette:</translation>
     </message>
     <message>
+        <location filename="../src/PrefsDialog.ui" line="837"/>
+        <source>Render Cache:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/PrefsDialog.ui" line="1251"/>
         <source>Scripts</source>
         <translation>Script</translation>
@@ -1330,11 +1335,6 @@ Vuoi continuare?</translation>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
         <translation>Mostra</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="837"/>
-        <source>Render Cache</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="850"/>
@@ -1786,28 +1786,28 @@ Usa il menù constestuale per cambiare le unità.</translation>
         <translation>Impossibile accedere a &quot;%1&quot;; forse il tuo browser o il tuo programma di posta non sono configurati correttamente?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="739"/>
+        <location filename="../src/TWApp.cpp" line="747"/>
         <source>Unable to create window</source>
         <translation>Impossibile creare la finestra</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="740"/>
+        <location filename="../src/TWApp.cpp" line="748"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Qualcosa non va; %1 non è riuscito a creare una finestra documento. L&apos;applicazione si chiuderà.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="792"/>
-        <location filename="../src/TWApp.cpp" line="807"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
+        <location filename="../src/TWApp.cpp" line="815"/>
         <source>Open File</source>
         <translation>Apri file</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="979"/>
+        <location filename="../src/TWApp.cpp" line="987"/>
         <source>No default binary directory found</source>
         <translation>Directory programmi non trovata</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="980"/>
+        <location filename="../src/TWApp.cpp" line="988"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Non è stato possibile trovare nessuna delle directory predefinite per i programmi relativi a Tex.&lt;p&gt;&lt;small&gt;Per lanciare qualsiasi processo devi definire la(e) directory dove risiede la tua distribuzione Tex utilizzando la scheda Typesetting delle Preferenze.&lt;/small&gt;</translation>
     </message>
@@ -1872,17 +1872,17 @@ Usa il menù constestuale per cambiare le unità.</translation>
         <translation>trebestie@gmail.com</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1309"/>
+        <location filename="../src/TWApp.cpp" line="1317"/>
         <source>Unable to find help file.</source>
         <translation>Guida non disponibile.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1428"/>
+        <location filename="../src/TWApp.cpp" line="1436"/>
         <source>Permission request</source>
         <translation>Richiesta permesso</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1429"/>
+        <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Lo script &quot;%1&quot; sta cercando di aprire il file &quot;%2&quot; senza sufficienti permessi. Vuoi aprire il file?</translation>
     </message>

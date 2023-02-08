@@ -1206,11 +1206,6 @@ Do you want to continue?</source>
         <translation type="unfinished">نمایش</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="837"/>
-        <source>Render Cache</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
@@ -1339,6 +1334,11 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="772"/>
         <source>Two Page Continuous</source>
         <translation>دو برگ پیوسته</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="837"/>
+        <source>Render Cache:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1817,43 +1817,43 @@ Do you want to continue?</source>
         <translation>ناتوان در دسترسی به &quot;%1&quot;؛ شاید مرورگر و نرم‌افزار کاربردی ایمیل شما به‌درستی ساماندهی نشده است؟</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="739"/>
+        <location filename="../src/TWApp.cpp" line="747"/>
         <source>Unable to create window</source>
         <translation>ناتوان در ساختن پنجره</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="740"/>
+        <location filename="../src/TWApp.cpp" line="748"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>چیزی به‌شدت غلت است، %1 نتوانست پنجرهٔ نوشتار را بسازد. نرم‌افزار کاربردی بیرون می‌رود.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="792"/>
-        <location filename="../src/TWApp.cpp" line="807"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
+        <location filename="../src/TWApp.cpp" line="815"/>
         <source>Open File</source>
         <translation>گشودن پرونده</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="979"/>
+        <location filename="../src/TWApp.cpp" line="987"/>
         <source>No default binary directory found</source>
         <translation>پوشهٔ باینری پیش‌نشان یافته نشد</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="980"/>
+        <location filename="../src/TWApp.cpp" line="988"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>هیچ‌کدام از پوشه‌های شناسایی شده برای برنامه‌های درپیوند با تک پیدا نمی‌شوند. &lt;p&gt;&lt;small&gt;برای کاربست هر پردازشی، باید پوشه‌های باینری پخشایش تک خود را از گزینهٔ حروف‌چینی از گفتگوی ساماندهی‌ها ساماندهی کنید.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1309"/>
+        <location filename="../src/TWApp.cpp" line="1317"/>
         <source>Unable to find help file.</source>
         <translation>پروندهٔ کمکی یافت نشد.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1428"/>
+        <location filename="../src/TWApp.cpp" line="1436"/>
         <source>Permission request</source>
         <translation>درخواست پروانه</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1429"/>
+        <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>سند &quot;%1&quot;در حال گشودن پروندهٔ &quot;%2&quot; بدون پروانهٔ کافی است. آیا می‌خواهید پرونده را باز کنید؟</translation>
     </message>

@@ -1189,6 +1189,11 @@ Do you want to continue?</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../src/PrefsDialog.ui" line="837"/>
+        <source>Render Cache:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/PrefsDialog.ui" line="1251"/>
         <source>Scripts</source>
         <translation>スクリプト</translation>
@@ -1340,11 +1345,6 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
         <translation>表示</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="837"/>
-        <source>Render Cache</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="850"/>
@@ -1859,43 +1859,43 @@ Use the context menu to change the units.</source>
         <translation>&quot;%1&quot;にアクセスできませんでした。ブラウザの設定を確認してください</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="739"/>
+        <location filename="../src/TWApp.cpp" line="747"/>
         <source>Unable to create window</source>
         <translation>ウィンドウを作成することができません</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="740"/>
+        <location filename="../src/TWApp.cpp" line="748"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>%1は文書ウィンドウを作成できませんでした。何か設定が誤っているかもしれません。TeXworksは終了します</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="792"/>
-        <location filename="../src/TWApp.cpp" line="807"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
+        <location filename="../src/TWApp.cpp" line="815"/>
         <source>Open File</source>
         <translation>ファイルを開く</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="979"/>
+        <location filename="../src/TWApp.cpp" line="987"/>
         <source>No default binary directory found</source>
         <translation>バイナリディレクトリが見つかりませんでした</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="980"/>
+        <location filename="../src/TWApp.cpp" line="988"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>TeX関連プログラムがインストールされたディレクトリが見つかりません。&lt;p&gt;&lt;small&gt;プロセスを起動するためには、お使いのTeXディストリビューションに合わせたディレクトリ設定を[設定]-[タイプセット]ダイアログでおこなっておく必要があります&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1309"/>
+        <location filename="../src/TWApp.cpp" line="1317"/>
         <source>Unable to find help file.</source>
         <translation>ヘルプファイルが見つかりません</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1428"/>
+        <location filename="../src/TWApp.cpp" line="1436"/>
         <source>Permission request</source>
         <translation>アクセス権の要求</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1429"/>
+        <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>スクリプト &quot;%1&quot; はファイル &quot;%2&quot; を開くことができませんでした。アクセス権を確認してください。ファイルを開きますか?</translation>
     </message>

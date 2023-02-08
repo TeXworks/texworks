@@ -1182,6 +1182,11 @@ Do you want to continue?</source>
         <translation>Akıllı Tırnak işaretleri kipi:</translation>
     </message>
     <message>
+        <location filename="../src/PrefsDialog.ui" line="837"/>
+        <source>Render Cache:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/PrefsDialog.ui" line="1251"/>
         <source>Scripts</source>
         <translation>Eklentiler</translation>
@@ -1334,11 +1339,6 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
         <translation type="unfinished">Göster</translation>
-    </message>
-    <message>
-        <location filename="../src/PrefsDialog.ui" line="837"/>
-        <source>Render Cache</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="850"/>
@@ -1854,43 +1854,43 @@ Birimleri değiştirmek için menüyü kullanın.</translation>
         <translation>&quot;%1&quot; erişilemiyor; belki web tarayıcınız veya e-posta uygulamanız uygun şekilde ayarlanmamıştır?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="739"/>
+        <location filename="../src/TWApp.cpp" line="747"/>
         <source>Unable to create window</source>
         <translation>Pencere oluşturulamıyor</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="740"/>
+        <location filename="../src/TWApp.cpp" line="748"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Bir şeyler fena halde yanlış; %1 bir belge penceresi oluşturamadı. Uygulama şimdi sonlandırılacak.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="792"/>
-        <location filename="../src/TWApp.cpp" line="807"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
+        <location filename="../src/TWApp.cpp" line="815"/>
         <source>Open File</source>
         <translation>Dosya Aç</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="979"/>
+        <location filename="../src/TWApp.cpp" line="987"/>
         <source>No default binary directory found</source>
         <translation>Hiçbir öntanımlı ikili dizini bulunamadı</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="980"/>
+        <location filename="../src/TWApp.cpp" line="988"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>TeX ile ilgili programlar için önceden tanımlanmış dizinlerin hiçbiri bulunamadı.&lt;p&gt;&lt;small&gt;Bir işlem çalıştırmak için Tercihler penceresindeki Dizgi sekmesinde TeX dağıtımınız için ikililer dizini (veya dizinleri) ayarlamanız gerekecek.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1309"/>
+        <location filename="../src/TWApp.cpp" line="1317"/>
         <source>Unable to find help file.</source>
         <translation>Yardım dosyası bulunamıyor.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1428"/>
+        <location filename="../src/TWApp.cpp" line="1436"/>
         <source>Permission request</source>
         <translation>İzin isteği</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1429"/>
+        <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>&quot;%1&quot; eklentisi &quot;%2&quot; dosyasını yeterli izin olmadan açmaya çalışıyor. Dosyayı açmak istiyor musunuz?</translation>
     </message>

@@ -1201,11 +1201,6 @@ Er du sikker på at du vil halda fram?</translation>
         <translation>Vis</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="837"/>
-        <source>Render Cache</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
@@ -1304,6 +1299,11 @@ Er du sikker på at du vil halda fram?</translation>
         <location filename="../src/PrefsDialog.ui" line="772"/>
         <source>Two Page Continuous</source>
         <translation>To sider&#xa0;– samanhengande</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="837"/>
+        <source>Render Cache:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1743,28 +1743,28 @@ Er du sikker på at du vil halda fram?</translation>
         <translation>Fekk ikkje tilgang til «%1». Kontroller at nettlesaren eller e-postprogrammet er rett sett opp.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="739"/>
+        <location filename="../src/TWApp.cpp" line="747"/>
         <source>Unable to create window</source>
         <translation>Klarte ikkje oppretta vindauge</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="740"/>
+        <location filename="../src/TWApp.cpp" line="748"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Noko gjekk skikkeleg gale. %1 klarte ikkje oppretta dokumentvindauget. Programmet vert no avslutta.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="792"/>
-        <location filename="../src/TWApp.cpp" line="807"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
+        <location filename="../src/TWApp.cpp" line="815"/>
         <source>Open File</source>
         <translation>Opna fil</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="979"/>
+        <location filename="../src/TWApp.cpp" line="987"/>
         <source>No default binary directory found</source>
         <translation>Fann inga standardplassering for programfiler</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="980"/>
+        <location filename="../src/TWApp.cpp" line="988"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Fann ingen av dei standardplasseringane for TeX-programfiler.&lt;p&gt;&lt;small&gt;For å kunna kompilera filene, må du oppgje adressa/adressene til TeX-distribusjonen din under «Innstillingar&#xa0;→ Kompilering».&lt;/small&gt;</translation>
     </message>
@@ -1779,17 +1779,17 @@ Er du sikker på at du vil halda fram?</translation>
         <translation>&lt;p&gt;Distribuert under &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versjon 2 eller (om du ønskjer) ein seinare versjon.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1309"/>
+        <location filename="../src/TWApp.cpp" line="1317"/>
         <source>Unable to find help file.</source>
         <translation>Fann ikkje hjelpefila.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1428"/>
+        <location filename="../src/TWApp.cpp" line="1436"/>
         <source>Permission request</source>
         <translation>Tilgangsførespurnad</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1429"/>
+        <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Skriptet «%1» prøver å opna fila «%2», men har ikkje løyve til dette. Ønskjer du å opna fila?</translation>
     </message>
