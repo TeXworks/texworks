@@ -1121,7 +1121,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
         <source>Render Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>Render-Cache:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="884"/>
@@ -1196,7 +1196,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Papierfarbe:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="790"/>
@@ -1227,7 +1227,7 @@ Wollen Sie fortfahren?</translation>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation> MB</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1778,7 +1778,7 @@ Verwenden Sie das Kontextmenü, um die Längeneinheit zu ändern.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="445"/>
         <source>&lt;br&gt;Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Version %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="446"/>
