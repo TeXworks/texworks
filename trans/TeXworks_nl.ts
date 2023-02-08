@@ -1178,7 +1178,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
         <source>Render Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>Geef cache weer:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1251"/>
@@ -1307,7 +1307,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur papier:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="790"/>
@@ -1338,7 +1338,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1790,7 +1790,7 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="445"/>
         <source>&lt;br&gt;Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versie %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="457"/>
@@ -1866,7 +1866,7 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="453"/>
         <source>[translator&apos;s name/email]</source>
-        <translation type="unfinished">&lt;a href=&quot;mailto:taco@luatex.org&quot;&gt;Taco Hoekwater&lt;/a&gt; en &lt;a href=&quot;mailto:post@Knypstra.nl&quot;&gt;Sytse Knypstra&lt;/a&gt;</translation>
+        <translation>&lt;a href=&quot;mailto:taco@luatex.org&quot;&gt;Taco Hoekwater&lt;/a&gt; en &lt;a href=&quot;mailto:post@Knypstra.nl&quot;&gt;Sytse Knypstra&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="1317"/>
