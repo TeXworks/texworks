@@ -27,7 +27,7 @@ for PATCH in $(find "${APPVEYOR_BUILD_FOLDER}/.github/actions/setup-windows/mxe/
 	patch -p1 < "${PATCH}"
 done
 print_info "Building poppler"
-mkdir build && cd build && cmake -G"MSYS Makefiles" -DCMAKE_BUILD_TYPE="Release" -DBUILD_QT5_TESTS=OFF -DENABLE_CPP=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_RELOCATABLE=ON -DCMAKE_INSTALL_PREFIX="/mingw64" .. && make -j && make install
+mkdir build && cd build && cmake -G"MSYS Makefiles" -DCMAKE_BUILD_TYPE="Release" -DBUILD_QT6_TESTS=OFF -DENABLE_CPP=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_RELOCATABLE=ON -DCMAKE_INSTALL_PREFIX="/mingw64" .. && make -j && make install
 
 
 print_headline "Installing hunspell"
