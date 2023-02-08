@@ -3,8 +3,8 @@
 PKG             := poppler
 $(PKG)_WEBSITE  := https://poppler.freedesktop.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 22.12.0
-$(PKG)_CHECKSUM := d9aa9cacdfbd0f8e98fc2b3bb008e645597ed480685757c3e7bc74b4278d15c0
+$(PKG)_VERSION  := 23.02.0
+$(PKG)_CHECKSUM := 3315dda270fe2b35cf1f41d275948c39652fa863b90de0766f6b293d9a558fc9
 $(PKG)_SUBDIR   := poppler-$($(PKG)_VERSION)
 $(PKG)_FILE     := poppler-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://poppler.freedesktop.org/$($(PKG)_FILE)
@@ -17,6 +17,7 @@ endef
 define $(PKG)_BUILD
     # build and install the library
     cd '$(BUILD_DIR)' && $(TARGET)-cmake \
+        -DPOPPLER_REQUIRES="lcms2 freetype2 libjpeg libpng libopenjp2 libtiff-4" \
         -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
         -DBUILD_GTK_TESTS=OFF \
         -DBUILD_QT5_TESTS=OFF \
