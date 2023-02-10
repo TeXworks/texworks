@@ -286,7 +286,7 @@ Stack trace:
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="533"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>ファイル&quot;%1&quot;を読み込めません。正常なPDFファイルではないかもしれません</translation>
+        <translation>ファイル &quot;%1&quot; を読み込めません。正常なPDFファイルではないかもしれません</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="552"/>
@@ -1186,12 +1186,12 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="564"/>
         <source> px</source>
         <extracomment>cursor width unit</extracomment>
-        <translation></translation>
+        <translation> px</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
         <source>Render Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>キャッシュサイズ</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1251"/>
@@ -1319,7 +1319,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation>背景色</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="790"/>
@@ -1350,40 +1350,40 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation> MB</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
         <source>Synchronization Resolution</source>
-        <translation>解像度を同期する</translation>
+        <translation>同期時の強調範囲</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="931"/>
         <source>Source &gt; Preview:</source>
-        <translation>ソース &gt; プレビュー (#S)</translation>
+        <translation>ソース &gt; プレビュー</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="945"/>
         <location filename="../src/PrefsDialog.ui" line="977"/>
         <source>Highlight Character</source>
-        <translation>文字を強調する(#H)</translation>
+        <translation>文字を強調する</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="950"/>
         <location filename="../src/PrefsDialog.ui" line="982"/>
         <source>Highlight Word</source>
-        <translation>単語を強調する(#H)</translation>
+        <translation>単語を強調する</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="955"/>
         <location filename="../src/PrefsDialog.ui" line="987"/>
         <source>Highlight Line</source>
-        <translation>行を強調する(#H)</translation>
+        <translation>行を強調する</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="963"/>
         <source>Preview &gt; Source:</source>
-        <translation>プレビュー &gt; ソース(#P)</translation>
+        <translation>プレビュー &gt; ソース</translation>
     </message>
     <message>
         <source> (%1)</source>
@@ -1811,7 +1811,7 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/TWApp.cpp" line="445"/>
         <source>&lt;br&gt;Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;バージョン %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="448"/>
