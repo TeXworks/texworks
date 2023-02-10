@@ -21,6 +21,8 @@ runs:
         tar -C /usr/lib/mxe --xz -xf /tmp/mxe-texworks.tar.xz
         sudo chmod --recursive a+w /usr/lib/mxe
         rm -f "/usr/lib/mxe/usr/i686-w64-mingw32.static/share/cmake/mxe-conf.d/ccache.cmake"
+        # Work around https://gitlab.com/libtiff/libtiff/-/issues/528
+        sed -ie '/Libs.private\: -lwebp -lzstd -llzma -ljpeg -lz/d' /usr/lib/mxe/usr/i686-w64-mingw32.static/lib/pkgconfig/libtiff-4.pc
 
     - name: Build poppler
       shell: wsl-bash {0}
