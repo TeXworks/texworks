@@ -67,7 +67,7 @@ pkgs = dict([(p.name, p) for p in [
 	Package('lua', 'https://www.lua.org/ftp/', r'lua-[0-9.]+\.tar\.gz'),
 	Package('poppler', 'https://poppler.freedesktop.org/', r'poppler-[0-9.]+\.tar\.xz'),
 	Package('poppler-data', 'https://poppler.freedesktop.org/', r'poppler-data-[0-9.]+\.tar\.gz'),
-	Package('zlib', 'http://zlib.net/', r'zlib-[0-9.]+\.tar\.xz'),
+	Package('zlib', 'http://zlib.net/', r'zlib-[0-9.]+\.tar\.xz', 'https://github.com/madler/zlib/archive/refs/tags/v{}.tar.gz"'),
 ]])
 
 # Load CMake files for obtaining/building the dependencies
