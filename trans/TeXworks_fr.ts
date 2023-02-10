@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_BE">
+<TS version="2.0" language="fr_BE">
 <context>
     <name>CitationSelectDialog</name>
     <message>
@@ -112,35 +112,35 @@
     <name>ConfirmDelete</name>
     <message>
         <source>Delete</source>
-        <translation type="vanished">Supprimer</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <source>Unable to delete</source>
-        <translation type="vanished">Incapable de  supprimer</translation>
+        <translation>Incapable de  supprimer</translation>
     </message>
     <message>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="vanished">Certains fichiers auxiliaires n&apos;ont pû être supprimés. Peut-être n&apos;avez vous pas la permission pour les supprimer.</translation>
+        <translation>Certains fichiers auxiliaires n&apos;ont pû être supprimés. Peut-être n&apos;avez vous pas la permission pour les supprimer.</translation>
     </message>
     <message>
         <source>Confirm file deletion</source>
-        <translation type="vanished">Confirmer la suppression du fichier</translation>
+        <translation>Confirmer la suppression du fichier</translation>
     </message>
     <message>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="vanished">Fichiers auxiliaires à supprimer :</translation>
+        <translation>Fichiers auxiliaires à supprimer :</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation type="vanished">Tout sélectionner</translation>
+        <translation>Tout sélectionner</translation>
     </message>
     <message>
         <source>Select None</source>
-        <translation type="vanished">Ne sélectionner aucun</translation>
+        <translation>Ne sélectionner aucun</translation>
     </message>
     <message>
         <source>Toggle</source>
-        <translation type="vanished">Inverser</translation>
+        <translation>Inverser</translation>
     </message>
 </context>
 <context>
@@ -778,7 +778,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <source>Select Image</source>
-        <translation type="vanished">Sélection d&apos;image</translation>
+        <translation>Sélection d&apos;image</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="597"/>
@@ -932,7 +932,7 @@ Do you want to continue?</source>
     <message>
         <source> (%1)</source>
         <extracomment>Country suffix for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="vanished"> (%1)</translation>
+        <translation> (%1)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="345"/>
@@ -1118,7 +1118,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
         <source>Render Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cache du rendu :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="884"/>
@@ -1193,7 +1193,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur du papier :</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="790"/>
@@ -1224,7 +1224,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation> MB</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1550,63 +1550,63 @@ Do you want to continue?</source>
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="vanished">Glissez la règle ou changez la valeur pour correspondre à la longueur réelle des mots.
+        <translation>Glissez la règle ou changez la valeur pour correspondre à la longueur réelle des mots.
 Les dimensions usuelles du papier sont également indiquées (vous pourriez avoir besoin de redimensionner la fenêtre de dialogue pour les voir.)
 Utilisez le menu contextuel pour changer les unités.</translation>
     </message>
     <message>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="vanished"> dpi (points par pouce)</translation>
+        <translation> dpi (points par pouce)</translation>
     </message>
     <message>
         <source>DIN A4</source>
-        <translation type="vanished">DINA A4</translation>
+        <translation>DINA A4</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="vanished">letter</translation>
+        <translation>letter</translation>
     </message>
     <message>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="vanished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="vanished">in (pouces)</translation>
+        <translation>in (pouces)</translation>
     </message>
 </context>
 <context>
     <name>ScriptAPI</name>
     <message>
         <source>Internal error</source>
-        <translation type="vanished">Erreur interne</translation>
+        <translation>Erreur interne</translation>
     </message>
     <message>
         <source>Failed to execute system command: %1</source>
-        <translation type="vanished">Échec de l&apos;exécution de la commande système : %1</translation>
+        <translation>Échec de l&apos;exécution de la commande système : %1</translation>
     </message>
     <message>
         <source>Error executing system command: %1</source>
-        <translation type="vanished">Erreur lors de de l&apos;exécution de la commande système : %1</translation>
+        <translation>Erreur lors de de l&apos;exécution de la commande système : %1</translation>
     </message>
     <message>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="vanished">Exécution des commandes système inactivée (voir Préférences)</translation>
+        <translation>Exécution des commandes système inactivée (voir Préférences)</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="vanished">&quot;%1&quot; n&apos;a pu être ouvert.</translation>
+        <translation>&quot;%1&quot; n&apos;a pu être ouvert.</translation>
     </message>
     <message>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="vanished">Lecture de tous les fichiers inactivée (voir Préférences)</translation>
+        <translation>Lecture de tous les fichiers inactivée (voir Préférences)</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="vanished">Le fichier &quot;%1&quot; n&apos;a pu être ouvert en lecture</translation>
+        <translation>Le fichier &quot;%1&quot; n&apos;a pu être ouvert en lecture</translation>
     </message>
 </context>
 <context>
@@ -1778,11 +1778,11 @@ Utilisez le menu contextuel pour changer les unités.</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="vanished">&lt;br&gt;Version %1 (%2) [r.%3, %4]</translation>
+        <translation>&lt;br&gt;Version %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="vanished">&lt;br&gt; Version %1 (%2)</translation>
+        <translation>&lt;br&gt; Version %1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="446"/>
@@ -1885,7 +1885,7 @@ Utilisez le menu contextuel pour changer les unités.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="445"/>
         <source>&lt;br&gt;Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Version %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="448"/>
@@ -1992,11 +1992,11 @@ Utilisez le menu contextuel pour changer les unités.</translation>
     <name>TWSystemCmd</name>
     <message>
         <source>ERROR: failure code %1</source>
-        <translation type="vanished">ERREUR : échec de code %1</translation>
+        <translation>ERREUR : échec de code %1</translation>
     </message>
     <message>
         <source>ERROR: exit code %1</source>
-        <translation type="vanished">ERREUR : code de sortie %1</translation>
+        <translation>ERREUR : code de sortie %1</translation>
     </message>
 </context>
 <context>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_BE">
+<TS version="2.0" language="fr_BE">
 <context>
     <name>GuidelineEditDialog</name>
     <message>
@@ -169,502 +169,502 @@
     <message>
         <location filename="../src/PaperSizes.cpp" line="54"/>
         <source>DIN B5</source>
-        <translation type="unfinished">DIN B5</translation>
+        <translation>DIN B5</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="55"/>
         <source>DIN B6</source>
-        <translation type="unfinished">DIN B6</translation>
+        <translation>DIN B6</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="56"/>
         <source>DIN B7</source>
-        <translation type="unfinished">DIN B7</translation>
+        <translation>DIN B7</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="57"/>
         <source>DIN B8</source>
-        <translation type="unfinished">DIN B8</translation>
+        <translation>DIN B8</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="58"/>
         <source>DIN B9</source>
-        <translation type="unfinished">DIN B9</translation>
+        <translation>DIN B9</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="59"/>
         <source>DIN B10</source>
-        <translation type="unfinished">DIN B10</translation>
+        <translation>DIN B10</translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="60"/>
         <source>DIN C0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="61"/>
         <source>DIN C1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="62"/>
         <source>DIN C2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="63"/>
         <source>DIN C3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="64"/>
         <source>DIN C4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="65"/>
         <source>DIN C5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="66"/>
         <source>DIN C6</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="67"/>
         <source>DIN C7</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="68"/>
         <source>DIN C8</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="69"/>
         <source>DIN C9</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="70"/>
         <source>DIN C10</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="71"/>
         <source>DIN DL</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="72"/>
         <source>DIN DLE</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="73"/>
         <source>DIN C6/C5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="74"/>
         <source>DIN RA0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="75"/>
         <source>DIN RA1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="76"/>
         <source>DIN RA2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="77"/>
         <source>DIN RA3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="78"/>
         <source>DIN RA4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="79"/>
         <source>DIN SRA0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="80"/>
         <source>DIN SRA1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="81"/>
         <source>DIN SRA2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="82"/>
         <source>DIN SRA3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="83"/>
         <source>DIN SRA4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="84"/>
         <source>SIS D0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="85"/>
         <source>SIS D1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="86"/>
         <source>SIS D2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="87"/>
         <source>SIS D3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="88"/>
         <source>SIS D4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="89"/>
         <source>SIS D5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="90"/>
         <source>SIS D6</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="91"/>
         <source>SIS D7</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="92"/>
         <source>SIS D8</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="93"/>
         <source>SIS D9</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="94"/>
         <source>SIS E0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="95"/>
         <source>SIS E1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="96"/>
         <source>SIS E2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="97"/>
         <source>SIS E3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="98"/>
         <source>SIS E4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="99"/>
         <source>SIS E5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="100"/>
         <source>SIS E6</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="101"/>
         <source>SIS E7</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="102"/>
         <source>SIS E8</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="103"/>
         <source>SIS E9</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="104"/>
         <source>SIS F0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="105"/>
         <source>SIS F1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="106"/>
         <source>SIS F2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="107"/>
         <source>SIS F3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="108"/>
         <source>SIS F4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="109"/>
         <source>SIS F5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="110"/>
         <source>SIS F6</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="111"/>
         <source>SIS F7</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="112"/>
         <source>SIS F8</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="113"/>
         <source>SIS F9</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="114"/>
         <source>SIS G0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="115"/>
         <source>SIS G1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="116"/>
         <source>SIS G2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="117"/>
         <source>SIS G3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="118"/>
         <source>SIS G4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="119"/>
         <source>SIS G5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="120"/>
         <source>SIS G6</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="121"/>
         <source>SIS G7</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="122"/>
         <source>SIS G8</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="123"/>
         <source>SIS G9</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="124"/>
         <source>JIS B0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="125"/>
         <source>JIS B1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="126"/>
         <source>JIS B2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="127"/>
         <source>JIS B3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="128"/>
         <source>JIS B4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="129"/>
         <source>JIS B5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="130"/>
         <source>JIS B6</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="131"/>
         <source>JIS B7</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="132"/>
         <source>JIS B8</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="133"/>
         <source>JIS B9</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="134"/>
         <source>JIS B10</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="135"/>
         <source>JIS B11</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="136"/>
         <source>JIS B12</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="137"/>
         <source>JIS Shiroku ban 4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="138"/>
         <source>JIS Shiroku ban 5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="139"/>
         <source>JIS Shiroku ban 6</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="140"/>
         <source>JIS Kiku 4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="141"/>
         <source>JIS Kiku 5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="142"/>
         <source>SAC D0</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="143"/>
         <source>SAC D1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="144"/>
         <source>SAC D2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="145"/>
         <source>SAC D3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="146"/>
         <source>SAC D4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="147"/>
         <source>SAC D5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="148"/>
         <source>SAC D6</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="150"/>
         <source>Letter (ANSI A)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="151"/>
         <source>Legal</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="152"/>
         <source>Tabloid (ANSI B)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="153"/>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="154"/>
         <source>Junior Legal</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="155"/>
@@ -674,67 +674,67 @@
     <message>
         <location filename="../src/PaperSizes.cpp" line="156"/>
         <source>Government Letter</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="157"/>
         <source>Government Legal</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="158"/>
         <source>ANSI C</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="159"/>
         <source>ANSI D</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="160"/>
         <source>ANSI E</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="161"/>
         <source>Arch A</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="162"/>
         <source>Arch B</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="163"/>
         <source>Arch C</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="164"/>
         <source>Arch D</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="165"/>
         <source>Arch E1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="166"/>
         <source>Arch E</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="167"/>
         <source>Arch E2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="168"/>
         <source>Arch E3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PaperSizes.cpp" line="201"/>
