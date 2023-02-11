@@ -1173,7 +1173,7 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Papirfarge:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="790"/>
@@ -1204,7 +1204,8 @@ Er du sikker på at du vil halda fram?</translation>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Har sjekka at det er snakk om mebibyte (1024 × 1024 byte).</translatorcomment>
+        <translation> MiB</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1192"/>
@@ -1303,7 +1304,7 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
         <source>Render Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>Snøgglager for sideoppteikning:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1695,7 +1696,7 @@ Er du sikker på at du vil halda fram?</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="445"/>
         <source>&lt;br&gt;Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Versjon %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="448"/>
@@ -1792,14 +1793,6 @@ Er du sikker på at du vil halda fram?</translation>
         <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Skriptet «%1» prøver å opna fila «%2», men har ikkje løyve til dette. Ønskjer du å opna fila?</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation type="vanished">&lt;br&gt;Versjon %1 (%2) [r.%3, %4]</translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation type="vanished">&lt;br&gt;Versjon %1 (%2)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="399"/>
