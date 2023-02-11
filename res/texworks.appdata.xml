@@ -23,7 +23,7 @@
 	<summary xml:lang="nn">Eit enkelt miljø for redigering, sideombrekking og vising av TeX-dokument</summary>
 	<summary xml:lang="pl">Proste środowisko do edycji, składu oraz przeglądania dokumentów w TeXu</summary>
 	<summary xml:lang="pt_BR">TeXworks é um ambiente simples para editar, compilar e prever documentos TeX</summary>
-	<summary xml:lang="ru">TeXworks — это простая программа для редактирования, вёрстки и просмотра документов TeX</summary>
+	<summary xml:lang="ru">Простая программа для редактирования, вёрстки и просмотра документов TeX</summary>
 	<summary xml:lang="sl">Okolje za enostavno urejanje, stavljenje in predogled TeX-ovih dokumentov</summary>
 	<summary xml:lang="tr">TeXworks, TeX belgelerini düzenleme, dizme ve önizleme için basit bir ortamdır</summary>
 	<summary xml:lang="zh_CN">一个用于编辑、排版和预览 TeX 文档的简洁集成环境</summary>
@@ -254,14 +254,14 @@
 			соединённые в простом и понятном интерфейсе.
 		</p>
 		<p xml:lang="ru">
-			При создании TeXworks была взята за основу популярная программа TeXShop для Mac OS X,
-			разрабатываемая Диком Кохом, дающая большому числу пользователей без лишних усилий
-			получать высококлассные документы используя TeX. Цель TeXworks — предоставить те же
-			возможности простого и интегрированного окружения для пользователей на других
-			платформах, в особенности GNU/Linux и Windows.
+			На создание TeXworks сподвигла популярная на Mac OS X программа TeXShop, созданная
+			Диком Кохом, позволившая большому числу пользователей без лишних усилий получать
+			высококлассные документы используя TeX. Цель TeXworks — предоставить те же
+			возможности интегрированного и простого в использовании окружения для пользователей
+			других платформ, в особенности GNU/Linux и Windows.
 		</p>
 		<p xml:lang="ru">
-			Для этих целей в TeXworks есть встроенный просмотр PDF, синхронизация между исходными
+			Среди прочего в TeXworks есть встроенный просмотр PDF, синхронизация между исходными
 			TeX файлами и PDF выводом, и возможности расширения функциональности с помощью сценариев.
 		</p>
 		<p xml:lang="sl">

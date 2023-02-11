@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru">
+<TS version="2.1" language="ru_RU">
 <context>
     <name>GuidelineEditDialog</name>
     <message>
@@ -1096,25 +1096,25 @@
         <location filename="../src/PDFDocumentView.cpp" line="3059"/>
         <source>kB</source>
         <extracomment>File size: kilobytes</extracomment>
-        <translation>кБ</translation>
+        <translation>Кбайт</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3061"/>
         <source>MB</source>
         <extracomment>File size: megabytes</extracomment>
-        <translation>МБ</translation>
+        <translation>Мбайт</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3063"/>
         <source>GB</source>
         <extracomment>File size: gigabytes</extracomment>
-        <translation>ГБ</translation>
+        <translation>Гбайт</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3065"/>
         <source>TB</source>
         <extracomment>File size: terabytes</extracomment>
-        <translation>ТБ</translation>
+        <translation>Тбайт</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="3158"/>
