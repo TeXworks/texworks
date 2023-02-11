@@ -87,9 +87,9 @@ extern "C" {
 #	endif
 
 #	if defined(_MSC_VER)
-#		define ATTRIBUTE_FORMAT_PRINTF(STRING_INDEX, FIRST_TO_CHECK)
+#		define SYNCTEX_ATTRIBUTE_FORMAT_PRINTF(STRING_INDEX, FIRST_TO_CHECK) ATTRIBUTE_FORMAT_PRINTF(STRING_INDEX, FIRST_TO_CHECK)
 #	else
-#		define ATTRIBUTE_FORMAT_PRINTF(STRING_INDEX, FIRST_TO_CHECK) __attribute__((__format__ (__printf__, (STRING_INDEX), (FIRST_TO_CHECK))))
+#		define SYNCTEX_ATTRIBUTE_FORMAT_PRINTF(STRING_INDEX, FIRST_TO_CHECK) __attribute__((__format__ (__printf__, (STRING_INDEX), (FIRST_TO_CHECK))))
 #	endif
     
 /*  This custom malloc functions initializes to 0 the newly allocated memory.
