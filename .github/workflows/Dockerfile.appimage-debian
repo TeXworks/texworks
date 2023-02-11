@@ -3,7 +3,7 @@
 # Qt6 packages are built against glibc 2.28 [https://doc.qt.io/qt-6/supported-platforms.html#availability-of-packages]
 # This is the version bundled (among others) in Debian 10 [https://en.wikipedia.org/wiki/Glibc#Version_history]
 
-# Some linux distros featuring at least glibc 2.28:
+# Some linux distros featuring at least glibc 2.28 (see also https://repology.org/project/glibc/versions):
 # Debian 10+ [https://www.debian.org/releases/buster/amd64/release-notes/ch-whats-new.en.html#newdistro]
 # Fedora 29+ [https://fedoraproject.org/wiki/Changes/GLIBC228]
 # Arch (rolling)
