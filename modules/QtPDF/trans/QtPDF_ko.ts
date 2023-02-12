@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translation>가이드라인 편집...</translation>
+        <translation>안내선 수정...</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
@@ -759,7 +759,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="34"/>
         <source>[translator&apos;s name/email]</source>
-        <translation>Dohyun Kim&amp;lt;nomos@ktug.org&amp;gt;</translation>
+        <translation>Dohyun Kim&amp;lt;nomosnomos@gmail.com&amp;gt;</translation>
     </message>
 </context>
 <context>
