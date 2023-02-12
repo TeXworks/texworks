@@ -40,6 +40,8 @@ class Package:
 		if self.downloadUrl is None:
 			self.getVersions()
 			return self.pkgListUrl + self.pkgVersions[version]
+		if callable(self.downloadUrl):
+			return self.downloadUrl(version)
 		return self.downloadUrl.format(version)
 
 	def getLatestDownloadUrl(self):
@@ -56,7 +58,7 @@ class GithubPackage(Package):
 # Define all packages used by TeXworks (on Windows and/or macOS)
 pkgs = dict([(p.name, p) for p in [
 	Package('fontconfig', 'https://www.freedesktop.org/software/fontconfig/release/', r'fontconfig-[0-9.]+\.tar\.xz'),
-	Package('freetype', 'https://download.savannah.gnu.org/releases/freetype/', r'freetype-[0-9.]+\.tar\.xz'),
+	Package('freetype', 'https://download.savannah.gnu.org/releases/freetype/', r'freetype-[0-9.]+\.tar\.xz', lambda v: 'https://github.com/freetype/freetype/archive/refs/tags/VER-{}.tar.gz'.format(v.replace('.', '-'))),
 	Package('gettext', 'https://ftp.gnu.org/gnu/gettext/', r'gettext-[0-9.]+\.tar\.xz'),
 	GithubPackage('hunspell', 'hunspell/hunspell'),
 	GithubPackage('lcms2', 'mm2/Little-CMS', tagFormat = 'lcms{}'),

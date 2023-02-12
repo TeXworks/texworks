@@ -86,8 +86,8 @@ ExternalProject_Add(libopenjpeg
 )
 
 ExternalProject_Add(freetype
-	URL https://download.savannah.gnu.org/releases/freetype/freetype-2.13.0.tar.xz
-	URL_HASH SHA256=5ee23abd047636c24b2d43c6625dcafc66661d1aca64dec9e0d05df29592624c
+	URL https://github.com/freetype/freetype/archive/refs/tags/VER-2-13-0.tar.gz
+	URL_HASH SHA256=a683f1091aee95d2deaca9292d976f87415610b8ae1ea186abeebcb08e83ab12
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libpng
 )

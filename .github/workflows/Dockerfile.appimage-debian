@@ -16,7 +16,7 @@
 FROM debian:10 as build-stage
 
 ARG CMAKE_VERSION=3.25.2
-ARG FREETYPE_VERSION=2.12.1
+ARG FREETYPE_VERSION=2-13-0
 # Qt open-source LTS version
 ARG QT_VERSION=6.2.4
 ARG POPPLER_VERSION=23.02.0
@@ -102,10 +102,10 @@ RUN pip3 install aqtinstall && \
 # Build Freetype
 RUN \
 	cd /opt && \
-	wget https://download.savannah.gnu.org/releases/freetype/freetype-${FREETYPE_VERSION}.tar.xz && \
-	tar -xf freetype-${FREETYPE_VERSION}.tar.xz && \
-	mkdir freetype-${FREETYPE_VERSION}/build && \
-	cd freetype-${FREETYPE_VERSION}/build && \
+	wget -O freetype.tar.gz https://github.com/freetype/freetype/archive/refs/tags/VER-${FREETYPE_VERSION}.tar.gz && \
+	tar -xf freetype.tar.gz && \
+	mkdir freetype-VER-${FREETYPE_VERSION}/build && \
+	cd freetype-VER-${FREETYPE_VERSION}/build && \
 	${CMAKE} .. -DBUILD_SHARED_LIBS=ON && \
 	make && \
 	make install
