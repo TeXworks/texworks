@@ -1178,7 +1178,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
         <source>Render Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>캐시 크기:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1251"/>
@@ -1307,7 +1307,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation>배경색:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="790"/>
@@ -1338,7 +1338,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1780,7 +1780,7 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/TWApp.cpp" line="445"/>
         <source>&lt;br&gt;Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;버전 %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="448"/>
@@ -1815,7 +1815,7 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/TWApp.cpp" line="453"/>
         <source>[translator&apos;s name/email]</source>
-        <translation>Dohyun Kim&amp;lt;nomos@ktug.org&amp;gt;</translation>
+        <translation>Dohyun Kim&amp;lt;nomosnomos@gmail.com&amp;gt;</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="457"/>
