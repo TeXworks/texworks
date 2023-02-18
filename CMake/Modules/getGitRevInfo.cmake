@@ -21,7 +21,7 @@ endif()
 # Try to run git to obtain the last commit hash and date
 if (GIT_FOUND)
 	execute_process(COMMAND "${GIT_EXECUTABLE}" "--git-dir=.git" "show" "--no-patch" "--pretty=%h" RESULT_VARIABLE HASH_RESULT OUTPUT_VARIABLE NEW_HASH OUTPUT_STRIP_TRAILING_WHITESPACE)
-	execute_process(COMMAND "${GIT_EXECUTABLE}" "--git-dir=.git" "show" "--no-patch" "--pretty=%ci" RESULT_VARIABLE DATE_RESULT OUTPUT_VARIABLE NEW_DATE OUTPUT_STRIP_TRAILING_WHITESPACE)
+	execute_process(COMMAND "${GIT_EXECUTABLE}" "--git-dir=.git" "show" "--no-patch" "--pretty=%cI" RESULT_VARIABLE DATE_RESULT OUTPUT_VARIABLE NEW_DATE OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 	if (${HASH_RESULT} EQUAL 0 AND ${DATE_RESULT} EQUAL 0 AND NOT "${NEW_HASH}" STREQUAL "" AND NOT "${NEW_DATE}" STREQUAL "")
 		set(SUCCESS TRUE)
