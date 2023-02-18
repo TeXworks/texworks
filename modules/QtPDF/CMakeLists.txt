@@ -36,6 +36,7 @@ endif()
 SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_AUTOMOC TRUE)
 SET(CMAKE_AUTORCC TRUE)
+SET(CMAKE_AUTOUIC TRUE)
 
 # Always add the current source and binary directories to the header include
 # path when compiling.
@@ -83,7 +84,15 @@ OPTION(WITH_MUPDF "Build MuPDF backend" OFF)
 # directory contains scripts that locate project components such as Poppler.
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules)
 
-set (CMAKE_CXX_STANDARD 11)
+# Recent poppler versions require C++17 (supported since CMake 3.8).
+# When building on older systems with a compiler that doesn't support the
+# requested standard, CMake automatically uses the highest standard available
+# [https://cmake.org/cmake/help/latest/prop_tgt/CXX_STANDARD.html]
+if (${CMAKE_VERSION} VERSION_LESS "3.8.0")
+  set (CMAKE_CXX_STANDARD 14)
+else ()
+  set (CMAKE_CXX_STANDARD 17)
+endif()
 
 # Core Components
 # ---------------
@@ -99,10 +108,6 @@ if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
       set(WITH_TESTS OFF)
     endif()
   endif()
-
-  if (WIN32 AND NOT BUILD_SHARED_LIBS)
-    find_package(Qt6WindowsPlatformSupport)
-  endif ()
 
   # Note: Qt6 only sets Qt6_VERSION, etc., but not QT_VERSION_MAJOR,
   # etc. which is used here.
@@ -168,7 +173,7 @@ IF( WITH_POPPLERQT )
   # expose its version number, there is no easy way to check for these at
   # compile-time)
   include(CheckCXXSourceCompiles)
-  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR} Qt${QT_VERSION_MAJOR}::Core)
+  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR} Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
 
   # Page::SearchFlags were added in 0.31
   CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { double x; Poppler::Document::load(QString())->page(0)->search(QString(), x, x, x, x, Poppler::Page::NextResult, Poppler::Page::IgnoreCase); return 0; }" POPPLER_HAS_SEARCH_FLAGS)
@@ -260,20 +265,22 @@ ENDIF()
 # -------
 SET(QTPDF_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/GuidelineEditDialog.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/GuidelineEditDialog.ui
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentView.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentWidget.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontDescriptor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageProcessingThread.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageTile.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFRuler.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFSearcher.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFToC.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFTransitions.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFActions.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFAnnotations.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFGuideline.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PaperSizes.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageCache.cpp
 )
 
 SET(QTPDF_HDRS
@@ -283,14 +290,22 @@ SET(QTPDF_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontDescriptor.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontInfo.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageProcessingThread.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageTile.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFRuler.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFSearcher.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFToC.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFTransitions.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFActions.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFAnnotations.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFGuideline.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PaperSizes.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageCache.h
+)
+
+SET(QTPDF_UIS
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/GuidelineEditDialog.ui
 )
 
 # FIXME: Is -fPIC required/appropriate for all situations/platforms?
@@ -347,14 +362,13 @@ ADD_LIBRARY(qtpdf ${QTPDF_LIB_TYPE}
 include(TranslationMacros)
 file(GLOB TRANSLATIONS_SOURCES trans/*.ts)
 target_add_qt_translations(qtpdf TS_FILES ${TRANSLATIONS_SOURCES} INCLUDEPATH "../src/")
-
 get_target_property(lupdatePath Qt${QT_VERSION_MAJOR}::lupdate LOCATION)
 get_target_property(_sources qtpdf SOURCES)
 add_custom_target(${PROJECT_NAME}_UpdateTranslations COMMAND "${CMAKE_COMMAND}"
   "-DOUTPUTFILE=\"${CMAKE_CURRENT_SOURCE_DIR}/trans/QtPDF_trans.pro\""
   "-DPROJECT_NAME=\"${PROJECT_NAME}\""
   "-DQt_LUPDATE_EXECUTABLE=\"${lupdatePath}\""
-  "-DFILES=\"${_sources};${TRANSLATIONS_SOURCES}\""
+  "-DFILES=\"${_sources};${QTPDF_UIS};${TRANSLATIONS_SOURCES}\""
   -P "${PROJECT_SOURCE_DIR}/CMake/Modules/UpdateTranslations.cmake"
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 if (NOT TARGET UpdateTranslations)

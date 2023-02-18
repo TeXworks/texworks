@@ -54,6 +54,7 @@ add_executable(test_UI
 	SignalCounter.cpp
 	"${CMAKE_SOURCE_DIR}/src/ui/ClickableLabel.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ClosableTabWidget.cpp"
+	"${CMAKE_SOURCE_DIR}/src/ui/ColorButton.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ScreenCalibrationWidget.cpp"
 )

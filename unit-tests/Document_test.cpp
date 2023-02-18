@@ -352,9 +352,11 @@ void TestDocument::modelines()
 
 void TestDocument::findNextWord_data()
 {
+	using ST = QString::size_type;
+
 	QTest::addColumn<QString>("text");
-	QTest::addColumn<int>("expectedStart");
-	QTest::addColumn<int>("expectedEnd");
+	QTest::addColumn<ST>("expectedStart");
+	QTest::addColumn<ST>("expectedEnd");
 	QTest::addColumn<bool>("returnValue");
 
 	/*
@@ -362,32 +364,32 @@ a  testcase's word \command \comm@nd \cmd123 $ \[ öÄéàßÇα \@a'quote'
 	 */
 	QString s = QStringLiteral("a\t testcase's word \\command \\comm@nd \\cmd123 $ \\[ öÄéàßÇα \\@a'quote'");
 
-	QTest::newRow("empty") << QString() << 42 << 42 << false;
-	QTest::newRow("beyond-end") << s << 123 << 123 << false;
-	QTest::newRow("single-char") << s << 0 << 1 << true;
-	QTest::newRow("white-space") << s << 1 << 3 << false;
-	QTest::newRow("word-with-apostrophe") << s << 3 << 13 << true;
-	QTest::newRow("backslash") << s << 19 << 27 << false;
-	QTest::newRow("command") << s << 19 << 27 << false;
-	QTest::newRow("@") << s << 28 << 36 << false;
-	QTest::newRow("@-command") << s << 28 << 36 << false;
-	QTest::newRow("digit") << s << 41 << 44 << false;
-	QTest::newRow("command-digit") << s << 37 << 41 << false;
-	QTest::newRow("single-glyph") << s << 45 << 46 << false;
-	QTest::newRow("command-glyph") << s << 47 << 49 << false;
-	QTest::newRow("non-ascii") << s << 50 << 57 << true;
-	QTest::newRow("command-apostrophe") << s << 58 << 61 << false;
+	QTest::newRow("empty") << QString() << ST{42} << ST{42} << false;
+	QTest::newRow("beyond-end") << s << ST{123} << ST{123} << false;
+	QTest::newRow("single-char") << s << ST{0} << ST{1} << true;
+	QTest::newRow("white-space") << s << ST{1} << ST{3} << false;
+	QTest::newRow("word-with-apostrophe") << s << ST{3} << ST{13} << true;
+	QTest::newRow("backslash") << s << ST{19} << ST{27} << false;
+	QTest::newRow("command") << s << ST{19} << ST{27} << false;
+	QTest::newRow("@") << s << ST{28} << ST{36} << false;
+	QTest::newRow("@-command") << s << ST{28} << ST{36} << false;
+	QTest::newRow("digit") << s << ST{41} << ST{44} << false;
+	QTest::newRow("command-digit") << s << ST{37} << ST{41} << false;
+	QTest::newRow("single-glyph") << s << ST{45} << ST{46} << false;
+	QTest::newRow("command-glyph") << s << ST{47} << ST{49} << false;
+	QTest::newRow("non-ascii") << s << ST{50} << ST{57} << true;
+	QTest::newRow("command-apostrophe") << s << ST{58} << ST{61} << false;
 }
 
 void TestDocument::findNextWord()
 {
 	QFETCH(QString, text);
-	QFETCH(int, expectedStart);
-	QFETCH(int, expectedEnd);
+	QFETCH(QString::size_type, expectedStart);
+	QFETCH(QString::size_type, expectedEnd);
 	QFETCH(bool, returnValue);
 
-	for (int index = expectedStart; index < qMax(expectedStart + 1, expectedEnd); ++index) {
-		int start{std::numeric_limits<int>::min()}, end{std::numeric_limits<int>::min()};
+	for (QString::size_type index = expectedStart; index < qMax(expectedStart + 1, expectedEnd); ++index) {
+		QString::size_type start{std::numeric_limits<QString::size_type>::min()}, end{std::numeric_limits<QString::size_type>::min()};
 
 		// Note that ' is currently not considered a word-forming character
 		// See 33402c4, https://tug.org/pipermail/texworks/2009q2/000639.html,
@@ -497,7 +499,7 @@ void TestDocument::Synchronizer_isValid()
 	QCOMPARE(invalid.isValid(), false);
 }
 
-void TestDocument::syncTeXFilename()
+void TestDocument::Synchronizer_syncTeXFilename()
 {
 	TWSyncTeXSynchronizer valid(QStringLiteral("sync.pdf"), nullptr, nullptr);
 	TWSyncTeXSynchronizer invalid(QStringLiteral("does-not-exist"), nullptr, nullptr);
@@ -506,7 +508,7 @@ void TestDocument::syncTeXFilename()
 	QCOMPARE(invalid.syncTeXFilename(), QString());
 }
 
-void TestDocument::pdfFilename()
+void TestDocument::Synchronizer_pdfFilename()
 {
 	const QString pdfFilename(QStringLiteral("sync.pdf"));
 	TWSyncTeXSynchronizer valid(pdfFilename, nullptr, nullptr);
@@ -930,6 +932,84 @@ void TestDocument::Synchronizer_syncFromPDF()
 	QFETCH(TWSynchronizer::PDFSyncPoint, pdfPoint);
 
 	QCOMPARE(synchronizer->syncFromPDF(pdfPoint, resolution), texPoint);
+}
+
+void TestDocument::rootFile_data()
+{
+	QTest::addColumn<QSharedPointer<Tw::Document::TeXDocument>>("doc");
+	QTest::addColumn<QString>("rootPath");
+
+	auto createDoc = [](const QString & content) {
+		return QSharedPointer<Tw::Document::TeXDocument>(new Tw::Document::TeXDocument(content));
+	};
+
+	auto loadDoc = [](const QString & filename) {
+		QFile fin(filename);
+		if (!fin.open(QFile::ReadOnly)) {
+			return QSharedPointer<Tw::Document::TeXDocument>();
+		}
+		QSharedPointer<Tw::Document::TeXDocument> retVal(new Tw::Document::TeXDocument(QString::fromUtf8(fin.readAll())));
+		fin.close();
+		retVal->setFileInfo(QFileInfo(fin));
+		retVal->setStoredInFilesystem();
+		return retVal;
+	};
+
+	auto saveDoc = [](const QString & filename, const QString & content) {
+		QFile fout(filename);
+		if (!fout.open(QFile::WriteOnly)) {
+			return false;
+		}
+		fout.write(content.toUtf8());
+		fout.close();
+		return true;
+	};
+
+	const QString syncFilename = QFileInfo("sync.tex").absoluteFilePath();
+	const QString doesNotExistFilename = QFileInfo("does-not-exist").absoluteFilePath();
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
+	const QString symlinkFilename = QDir(m_tempDir.path()).absoluteFilePath(QStringLiteral("symlink.tex"));
+	const QString brokenSymlinkFilename = QDir(m_tempDir.path()).absoluteFilePath(QStringLiteral("broken-symlink.tex"));
+	const QString validSymlinkRootFilename = QDir(m_tempDir.path()).absoluteFilePath(QStringLiteral("a.tex"));
+	const QString invalidSymlinkRootFilename = QDir(m_tempDir.path()).absoluteFilePath(QStringLiteral("b.tex"));
+#else
+	const QString symlinkFilename = m_tempDir.filePath(QStringLiteral("symlink.tex"));
+	const QString brokenSymlinkFilename = m_tempDir.filePath(QStringLiteral("broken-symlink.tex"));
+	const QString validSymlinkRootFilename = m_tempDir.filePath(QStringLiteral("a.tex"));
+	const QString invalidSymlinkRootFilename = m_tempDir.filePath(QStringLiteral("b.tex"));
+#endif
+
+	QTest::newRow("ram-self") << createDoc(QString()) << QString();
+	QTest::newRow("ram-modline-valid") << createDoc(QStringLiteral("%!TeX root=sync.tex\n")) << syncFilename;
+	QTest::newRow("ram-modline-invalid") << createDoc(QStringLiteral("%!TeX root=does-not-exist\n")) << doesNotExistFilename;
+
+	QTest::newRow("disk-self") << loadDoc("sync.tex") << syncFilename;
+
+	if (m_tempDir.isValid()) {
+		qDebug() << "Creating temp files in" << m_tempDir.path();
+
+		// Set up dummy data
+		QFile::link(syncFilename, symlinkFilename);
+		QFile::link(QStringLiteral("does-not-exist"), brokenSymlinkFilename);
+		saveDoc(validSymlinkRootFilename, QStringLiteral("%!TeX root=symlink.tex\n"));
+		saveDoc(invalidSymlinkRootFilename, QStringLiteral("%!TeX root=broken-symlink.tex\n"));
+
+		QTest::newRow("disk-symlink-self") << loadDoc(symlinkFilename) << symlinkFilename;
+		QTest::newRow("disk-modline-valid-symlink") << loadDoc(validSymlinkRootFilename) << symlinkFilename;
+		QTest::newRow("disk-modline-invalid-symlink") << loadDoc(invalidSymlinkRootFilename) << brokenSymlinkFilename;
+
+		QTest::newRow("ram-modline-valid-symlink") << createDoc(QStringLiteral("%!TeX root=%1\n").arg(symlinkFilename)) << symlinkFilename;
+		QTest::newRow("ram-modline-invalid-symlink") << createDoc(QStringLiteral("%!TeX root=%1\n").arg(brokenSymlinkFilename)) << brokenSymlinkFilename;
+	}
+}
+
+void TestDocument::rootFile()
+{
+	QFETCH(QSharedPointer<Tw::Document::TeXDocument>, doc);
+	QFETCH(QString, rootPath);
+
+	QVERIFY(!doc.isNull());
+	QCOMPARE(doc->getRootFilePath(), rootPath);
 }
 
 } // namespace UnitTest

@@ -16,7 +16,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Configure
-	mkdir --parents build && cd build && cmake .. -DTW_BUILD_ID='launchpad' -DCMAKE_INSTALL_PREFIX='/usr' -DCMAKE_BUILD_TYPE="RelWithDebInfo" && cd ..
+	mkdir --parents build && cd build && cmake .. -DTW_BUILD_ID='launchpad' -DCMAKE_INSTALL_PREFIX='/usr' -DCMAKE_BUILD_TYPE="RelWithDebInfo" -DQT_DEFAULT_MAJOR_VERSION=6 && cd ..
 	touch $@
 
 # Build architecture-independent files
@@ -66,6 +66,10 @@ binary-arch: build-stamp
 	dh_testroot
 
 	cd build && $(MAKE) install DESTDIR=$(CURDIR)/debian/tmp
+	# Remove the copy of the GPL in line with the Debian policy manual 12.5 as
+	# it is available system-wide and need not be included in each package
+	# [https://www.debian.org/doc/debian-policy/ch-docs.html#copyright-information]
+	rm -f $(CURDIR)/debian/tmp/usr/share/doc/texworks/COPYING
 
 	dh_installchangelogs
 	dh_installdocs

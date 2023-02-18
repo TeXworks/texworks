@@ -2,6 +2,7 @@ name: CI
 on:
   - push
   - pull_request
+  - workflow_dispatch
 
 jobs:
   build-linux-legacy:
@@ -9,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Build
       run: docker build -f .github/workflows/Dockerfile.legacy .
@@ -21,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Build
       # Use unconfined `docker run` instead of (confined) `docker build` as
@@ -36,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install dependencies
       run: sudo apt update && sudo apt install --assume-yes --no-install-recommends qtbase5-dev qtdeclarative5-dev qtscript5-dev qttools5-dev qttools5-dev-tools zlib1g-dev libhunspell-dev libpoppler-qt5-dev libpoppler-private-dev liblua5.3-dev xvfb fonts-urw-base35 poppler-data lcov
@@ -91,7 +92,7 @@ jobs:
         install: mingw-w64-x86_64-cmake git make mingw-w64-x86_64-gcc mingw-w64-x86_64-hunspell mingw-w64-x86_64-lua mingw-w64-x86_64-poppler mingw-w64-x86_64-qt5
 
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Configure
       run: cmake -G 'MSYS Makefiles' -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi'
@@ -113,12 +114,17 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install Qt
-      uses: jurplel/install-qt-action@v2
+      uses: jurplel/install-qt-action@v3
       with:
         modules: qtscript
+
+      # Strawberry perl comes with all sorts of libraries (without headers) that
+      # can wreak havoc when building some of the dependencies
+    - name: Remove Strawberry Perl
+      run: rm -r -fo C:/Strawberry
 
     - name: Install dependencies
       run: |
@@ -135,7 +141,7 @@ jobs:
       run: |
         cmake -E copy_directory build/share build/Release/share
         cd "${{ runner.workspace }}/tw-deps/bin"
-        cmake -E copy lcms2.dll libhunspell.dll libpng16.dll openjp2.dll poppler-qt5.dll zlib.dll "${{ github.workspace }}/build/Release/"
+        cmake -E copy freetype.dll lcms2.dll libhunspell.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt5.dll tiff.dll zlib1.dll "${{ github.workspace }}/build/Release/"
 
     - name: Test
       run: ctest -V -C Release
@@ -151,15 +157,19 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install Dependencies
       run: |
-        # /usr/local/bin/2to3 is symlinked to the native python2 installation
-        # but prevents the homebrew install from succeeding
-        rm -f /usr/local/bin/2to3
-        brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
-        brew install hunspell poppler lua qt5
+        # /usr/local/bin/2to3 and some other programs, as well as versioned
+        # variants (e.g. 2to3-3.11) are symlinked to the native python
+        # installation but prevent the homebrew install from succeeding
+        # So we remove them
+        cd /usr/local/bin && rm -f 2to3* idle* pydoc* python*
+        brew update > /tmp/brew_update.log || { echo "::error::Updating homebrew failed"; cat /tmp/brew_update.log; exit 1; }
+        brew install hunspell poppler-qt5 lua qt@5
+        # As poppler-qt5 conflicts with poppler, we need to force-link it
+        brew link --force poppler-qt5
 
     - name: Configure
       run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5"
@@ -169,12 +179,8 @@ jobs:
       working-directory: build
 
     - name: Test
-      run: QT_QPA_PLATFORM_PLUGIN_PATH="${Qt5_DIR}/plugins/platforms" ctest -V
+      run: ctest -V
       working-directory: build
-
-    - name: Package
-      id: package
-      uses: ./.github/actions/package-macos
 
 ################################################################################
 
@@ -190,7 +196,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install MacPorts
       run: |

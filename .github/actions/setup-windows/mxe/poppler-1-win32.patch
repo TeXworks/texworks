@@ -2,121 +2,37 @@ This file is part of MXE. See LICENSE.md for licensing information.
 
 Contains ad hoc patches for cross building.
 
-From 6f2e2fde31825a8cd3256fc918e8b48d7a050be2 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
-Date: Mon, 21 Feb 2022 23:03:21 +0000
-Subject: [PATCH] Fix poppler_localdir for relocatable Windows builds
+Date: Sat, 26 Jun 2021 19:49:25 +0200
+Subject: [PATCH 1/3] Fix static builds
 
-It was working by pure change, since sizeof(retval) is either 4 or 8 so sizeof(retval)-20 is a negative number and that wrapped to a huge number when cast to unsigned so we were lucky it did not overflow the given char *
----
- poppler/GlobalParams.cc | 54 ++++++++++++++++++++---------------------
- 1 file changed, 26 insertions(+), 28 deletions(-)
-
-diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
-index 8082a571..f09cef5d 100644
---- a/poppler/GlobalParams.cc
-+++ b/poppler/GlobalParams.cc
-@@ -122,38 +122,38 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
- }
- }
- 
--static void get_poppler_localdir(char *retval, const char *suffix)
-+static std::string get_poppler_localdir(const std::string &suffix)
- {
--    unsigned char *p;
-+    const std::string binSuffix("\\bin");
-+    std::string retval(MAX_PATH, '\0');
- 
--    if (!GetModuleFileNameA(hmodule, (CHAR *)retval, sizeof(retval) - 20)) {
--        strcpy(retval, POPPLER_DATADIR);
--        return;
-+    if (!GetModuleFileNameA(hmodule, retval.data(), retval.size())) {
-+        return POPPLER_DATADIR;
-     }
- 
--    p = _mbsrchr((unsigned char *)retval, '\\');
--    *p = '\0';
--    p = _mbsrchr((unsigned char *)retval, '\\');
--    if (p) {
--        if (stricmp((const char *)(p + 1), "bin") == 0)
--            *p = '\0';
-+    const std::string::size_type p = retval.rfind('\\');
-+    if (p != std::string::npos) {
-+        retval.erase(p);
-+        if (retval.size() > binSuffix.size() && stricmp(retval.substr(p - binSuffix.size()).c_str(), binSuffix.c_str()) == 0) {
-+            retval.erase(p - binSuffix.size());
-+        }
-     }
--    strcat(retval, suffix);
-+    retval += suffix;
-+    retval.shrink_to_fit();
-+    return retval;
- }
- 
- static const char *get_poppler_datadir(void)
- {
--    static char retval[MAX_PATH];
-+    static std::string retval;
-     static bool beenhere = false;
- 
--    if (beenhere)
--        return retval;
--
--    get_poppler_localdir(retval, "\\share\\poppler");
--
--    beenhere = true;
-+    if (!beenhere) {
-+        retval = get_poppler_localdir("\\share\\poppler");
-+        beenhere = true;
-+    }
- 
--    return retval;
-+    return retval.c_str();
- }
- 
- #    undef POPPLER_DATADIR
-@@ -161,17 +161,15 @@ static const char *get_poppler_datadir(void)
- 
- static const char *get_poppler_fontsdir(void)
- {
--    static char retval[MAX_PATH];
-+    static std::string retval;
-     static bool beenhere = false;
- 
--    if (beenhere)
--        return retval;
--
--    get_poppler_localdir(retval, "\\share\\fonts");
--
--    beenhere = true;
-+    if (!beenhere) {
-+        retval = get_poppler_localdir("\\share\\fonts");
-+        beenhere = true;
-+    }
- 
--    return retval;
-+    return retval.c_str();
- }
- #    undef POPPLER_FONTSDIR
- #    define POPPLER_FONTSDIR get_poppler_fontsdir()
--- 
-2.32.0
-
-
-From cbbf3edac2534f8c257c956830804ff1b3765792 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
-Date: Thu, 4 Feb 2021 20:44:30 +0100
-Subject: [PATCH 3/3] Fix static linking for libopenjpeg >= 2.4
-
----
- CMakeLists.txt | 3 +++
- 1 file changed, 3 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 9a0dcb15..87e00ac8 100644
+index 1111111..2222222 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -285,6 +285,9 @@ else()
+@@ -83,7 +83,7 @@ option(USE_FLOAT "Use single precision arithmetic in the Splash backend" OFF)
+ option(BUILD_SHARED_LIBS "Build poppler as a shared library" ON)
+ option(RUN_GPERF_IF_PRESENT "Run gperf if it is found" ON)
+ if(WIN32)
+-  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ON)
++  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ${BUILD_SHARED_LIBS})
+ else()
+   set(ENABLE_RELOCATABLE OFF)
+ endif()
+
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
+Date: Thu, 4 Feb 2021 20:44:30 +0100
+Subject: [PATCH 2/3] Fix static linking for libopenjpeg >= 2.4
+
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1111111..2222222 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -314,6 +314,9 @@ else()
    message(FATAL_ERROR "Invalid ENABLE_LIBOPENJPEG value: ${ENABLE_LIBOPENJPEG}")
  endif()
  set(ENABLE_LIBOPENJPEG "${WITH_OPENJPEG}")
@@ -126,6 +42,24 @@ index 9a0dcb15..87e00ac8 100644
  if(ENABLE_CMS STREQUAL "lcms2")
    find_package(LCMS2)
    set(USE_CMS ${LCMS2_FOUND})
--- 
-2.32.0
 
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: brodieG <brodieG@users.noreply.github.com>
+Date: Sat, 5 Nov 2022 14:08:43 +0000
+Subject: [PATCH 3/3] Allow setting PC requires for C Lib
+
+POPPLER_REQUIRES should be set through the .mk file, although
+ideally this would all be done through the cmake files (and
+even better POPPLER would be configured for EXPORT).
+
+diff --git a/poppler.pc.cmake b/poppler.pc.cmake
+index 1111111..2222222 100644
+--- a/poppler.pc.cmake
++++ b/poppler.pc.cmake
+@@ -6,5 +6,6 @@ Name: poppler
+ Description: PDF rendering library
+ Version: @POPPLER_VERSION@
+ 
++Requires.private: @POPPLER_REQUIRES@
+ Libs: -L${libdir} -lpoppler
+ Cflags: -I${includedir}/poppler

@@ -12,8 +12,11 @@ SOURCES = \
   "../src/PDFDocumentWidget.cpp" \
   "../src/PDFFontDescriptor.cpp" \
   "../src/PDFGuideline.cpp" \
+  "../src/PDFPageCache.cpp" \
+  "../src/PDFPageProcessingThread.cpp" \
   "../src/PDFPageTile.cpp" \
   "../src/PDFRuler.cpp" \
+  "../src/PDFSearcher.cpp" \
   "../src/PDFToC.cpp" \
   "../src/PDFTransitions.cpp" \
   "../src/PaperSizes.cpp" \
@@ -28,9 +31,13 @@ HEADERS = \
   "../src/PDFDocumentView.h" \
   "../src/PDFDocumentWidget.h" \
   "../src/PDFFontDescriptor.h" \
+  "../src/PDFFontInfo.h" \
   "../src/PDFGuideline.h" \
+  "../src/PDFPageCache.h" \
+  "../src/PDFPageProcessingThread.h" \
   "../src/PDFPageTile.h" \
   "../src/PDFRuler.h" \
+  "../src/PDFSearcher.h" \
   "../src/PDFToC.h" \
   "../src/PDFTransitions.h" \
   "../src/PaperSizes.h" \

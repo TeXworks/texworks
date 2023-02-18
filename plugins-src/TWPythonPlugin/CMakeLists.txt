@@ -7,7 +7,16 @@ IF (NOT ${BUILD_SHARED_PLUGINS})
 ENDIF()
 
 if (BUILD_SHARED_PLUGINS)
-  # For shared builds, we pull in scripting/Script.cpp so all references can be resolved
+  # For shared builds, we pull in scripting/Script.cpp so all references can be
+  # resolved
+  # This seems to be needed particularly when building dlls with MinGW on
+  # Windows (as is done in the Appveyor CI build) as the dll linking stage
+  # requires all symbols to be resolved
+  # NB: This can lead to spurious "one definition rule (odr) violation" messages
+  # with some sanitizers
+  # TODO: Figure out of setting ENABLE_EXPORTS=TRUE on the TeXworks target and
+  # subsequent linking to the TeXworks target can help "resolve" symbols by
+  # telling the linker they can be found in the host program loading the dll
   set(TWSCRIPT_SRC "../../src/scripting/Script.cpp")
 else ()
   # For static builds, scripting/Script.cpp is already included in the main app, so we

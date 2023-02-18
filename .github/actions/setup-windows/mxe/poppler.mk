@@ -3,12 +3,12 @@
 PKG             := poppler
 $(PKG)_WEBSITE  := https://poppler.freedesktop.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 22.02.0
-$(PKG)_CHECKSUM := e390c8b806f6c9f0e35c8462033e0a738bb2460ebd660bdb8b6dca01556193e1
+$(PKG)_VERSION  := 23.02.0
+$(PKG)_CHECKSUM := 3315dda270fe2b35cf1f41d275948c39652fa863b90de0766f6b293d9a558fc9
 $(PKG)_SUBDIR   := poppler-$($(PKG)_VERSION)
 $(PKG)_FILE     := poppler-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://poppler.freedesktop.org/$($(PKG)_FILE)
-$(PKG)_DEPS     := cc cairo curl freetype glib jpeg lcms libpng libwebp openjpeg qtbase tiff zlib
+$(PKG)_DEPS     := cc boost cairo curl freetype glib jpeg lcms libpng libwebp openjpeg qt6-qtbase qtbase tiff zlib
 
 define $(PKG)_UPDATE
     $(call GET_LATEST_VERSION, https://poppler.freedesktop.org/releases.html, poppler-)
@@ -17,6 +17,7 @@ endef
 define $(PKG)_BUILD
     # build and install the library
     cd '$(BUILD_DIR)' && $(TARGET)-cmake \
+        -DPOPPLER_REQUIRES="lcms2 freetype2 libjpeg libpng libopenjp2 libtiff-4" \
         -DENABLE_UNSTABLE_API_ABI_HEADERS=ON \
         -DBUILD_GTK_TESTS=OFF \
         -DBUILD_QT5_TESTS=OFF \
@@ -30,6 +31,7 @@ define $(PKG)_BUILD
         -DENABLE_GOBJECT_INTROSPECTION=OFF \
         -DENABLE_GTK_DOC=OFF \
         -DENABLE_QT5=ON \
+        -DENABLE_QT6=ON \
         -DENABLE_LIBOPENJPEG=openjpeg2 \
         -DENABLE_CMS=lcms2 \
         -DENABLE_DCTDECODER=libjpeg \
@@ -51,5 +53,5 @@ define $(PKG)_BUILD
     '$(TARGET)-g++' \
         -W -Wall -Werror -ansi -pedantic -std=c++11 \
         '$(TEST_FILE)' -o '$(PREFIX)/$(TARGET)/bin/test-$(PKG).exe' \
-        `'$(TARGET)-pkg-config' poppler-cpp libjpeg libtiff-4 libpng libopenjp2 --cflags --libs` -liconv
+        `'$(TARGET)-pkg-config' poppler-cpp freetype2 libjpeg libtiff-4 libpng libopenjp2 --cflags --libs` -liconv
 endef

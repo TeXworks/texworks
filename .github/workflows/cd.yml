@@ -4,6 +4,7 @@ on:
   pull_request:
   schedule:
     - cron: '42 2 1 * *'
+  workflow_dispatch:
 
 jobs:
   ubuntu:
@@ -13,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0 # fetch the entire history so we can create the changelog
 
@@ -33,30 +34,72 @@ jobs:
 
 ################################################################################
 
+  appimage:
+    name: Linux/AppImage
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Build
+      run: DOCKER_BUILDKIT=1 docker build -f ./.github/workflows/Dockerfile.appimage-debian -o out .
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: TeXworks-AppImage
+        path: out/TeXworks-*.AppImage
+
+################################################################################
+
   win:
     name: Windows
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        winVersion: [7, 10]
+        include:
+            # Latest Qt6 release [https://download.qt.io/official_releases/qt/]
+            # Qt 6.2 supports Windows >= 10 [https://doc.qt.io/qt-6/windows.html]
+          - winVersion: 10
+            qtVersionMajor: 6
+            additionalLibs: 'zstd;z'
+            # Qt 5.15 supports Windows >= 7 [https://doc.qt.io/qt-5/windows.html]
+          - winVersion: 7
+            qtVersionMajor: 5
+            additionalLibs: ''
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup WSL
-      uses: Vampire/setup-wsl@v1
+      uses: Vampire/setup-wsl@v2
       with:
-        distribution: Ubuntu-20.04
+        distribution: Ubuntu-22.04
 
     - name: Install dependencies
       uses: ./.github/actions/setup-windows
+      with:
+        qt: ${{ matrix.qtVersionMajor }}
+
+    - name: Strip libraries
+      shell: wsl-bash {0}
+      if: matrix.qtVersionMajor == 6
+      run: |
+        # Work around https://github.com/microsoft/WSL/issues/3023
+        strip --remove-section=.note.ABI-tag /usr/lib/mxe/usr/x86_64-pc-linux-gnu/qt6/lib/*.so.*
 
     - name: Configure
       shell: wsl-bash {0}
       # ./release is where Inno Setup looks for distribution files
       run: |
         /usr/lib/mxe/usr/bin/i686-w64-mingw32.static-cmake -B build -DTW_BUILD_ID='github' \
+          -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }} \
           -DCMAKE_INSTALL_PREFIX="./release" \
-          -DPLATFORM_DEPENDENCIES='freetype;harfbuzz;freetype_too;bz2;iphlpapi;ssl;crypto;crypt32;ws2_32' \
-          -DPoppler_ADDITIONAL_DEPENDENCIES='freetype;harfbuzz;freetype_too;glib-2.0;intl;iconv;ws2_32;winmm;tiff;webp;jpeg;openjp2;png;lcms2;lzma;bz2;pcre16;wtsapi32' \
+          -DPLATFORM_DEPENDENCIES='freetype;harfbuzz;freetype_too;bz2;iphlpapi;ssl;crypto;crypt32;ws2_32;sharpyuv' \
+          -DPoppler_ADDITIONAL_DEPENDENCIES='freetype;harfbuzz;freetype_too;glib-2.0;intl;iconv;ws2_32;winmm;tiff;webp;jpeg;openjp2;png;lcms2;lzma;bz2;pcre16;wtsapi32;sharpyuv;${{ matrix.additionalLibs }}' \
           -DTEXWORKS_ADDITIONAL_LIBS='freetype;harfbuzz;freetype_too;bz2;wtsapi32;opengl32;imm32;shlwapi;dwmapi;uxtheme' \
           -Dgp_tool='none'
 
@@ -88,9 +131,9 @@ jobs:
       id: package
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        name: TeXworks-Windows
+        name: TeXworks-Windows${{ matrix.winVersion }}
         path: ${{ steps.package.outputs.file }}
 
     - name: Build installer
@@ -98,9 +141,9 @@ jobs:
       working-directory: win32
 
     - name: Upload installer artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        name: TeXworks-Windows-Setup
+        name: TeXworks-Windows${{ matrix.winVersion }}-Setup
         path: win32/Output/*.exe
 
 #    - name: Deploy to Artifactory
@@ -120,54 +163,69 @@ jobs:
     name: Mac OS X
     runs-on: macos-latest
     strategy:
+      fail-fast: false
       matrix:
         macVersion: [10.15, 10.12]
         include:
-            # Latest Qt5 release [https://download.qt.io/official_releases/qt/]
-            # Qt 5.15.2 supports macOS >= 10.13 [https://doc.qt.io/qt-5/macos.html]
+            # Latest open-source LTS Qt6 release [https://download.qt.io/official_releases/qt/]
+            # Qt 6.2 supports macOS >= 10.14 [https://doc.qt.io/qt-6/macos.html]
             # poppler >= 22.01.0 uses std::filesystem, which seems to only be (fully)
             # supported on macOS 10.15 and up
           - macVersion: 10.15
-            qtVersion: 5.15.2
+            qtVersionMajor: 6
+            qtVersion: 6.2.4
+            qtModules: qt5compat
             # Qt 5.12 supports macOS >= 10.12 [https://doc.qt.io/qt-5.12/macos.html]
           - macVersion: 10.12
+            qtVersionMajor: 5
             qtVersion: 5.12.12
+            qtModules: qtscript
     env:
       MACOSX_DEPLOYMENT_TARGET: ${{ matrix.macVersion }}
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v2
-      with:
-        version: ${{ matrix.qtVersion }}
-        modules: qtscript
+      # Mono seems to provide some (potentially incompatible) headers that CMake
+      # might pick up on instead of ours
+    - name: Uninstall Mono
+      run: sudo /bin/sh -c "$(curl -fsSL https://github.com/gurza/cli-toolbox/raw/master/dotnet/mono-uninstall.sh)"
 
-    - name: Install Homebrew dependencies
+    - name: Install clean Homebrew dependencies
       shell: bash
       run: |
+        # Uninstall all packages
+        brew remove --force $(brew list --formula)
+        brew remove --cask --force $(brew list)
+        # Update Homebrew
         brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
-        brew uninstall --ignore-dependencies brotli fontconfig freetype libjpeg libpng libtiff webp zstd
-        brew install automake libtool pkg-config
+        # Install needed dependencies
+        brew install automake cmake libtool pkg-config
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: ${{ matrix.qtVersion }}
+        modules: ${{ matrix.qtModules }}
+
 
     - name: Cache dependencies
       id: cache-dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
-        key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
+        key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-qt${{ matrix.qtVersion }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
         path: ${{ runner.temp }}/tw-deps
 
     - name: Build dependencies
       if: steps.cache-dependencies.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        cmake -S ".github/actions/setup-macos" -B ".github/actions/setup-macos/build" -DCMAKE_INSTALL_PREFIX=${RUNNER_TEMP}/tw-deps
-        PKG_CONFIG_PATH=${RUNNER_TEMP}/tw-deps/lib/pkgconfig cmake --build ".github/actions/setup-macos/build" -v
+        cmake -S ".github/actions/setup-macos" -B ".github/actions/setup-macos/build" -DCMAKE_INSTALL_PREFIX="${RUNNER_TEMP}/tw-deps" -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }}
+        PATH="${RUNNER_TEMP}/tw-deps/bin:$PATH" PKG_CONFIG_PATH=${RUNNER_TEMP}/tw-deps/lib/pkgconfig cmake --build ".github/actions/setup-macos/build" -v
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_TEMP}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_TEMP}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }} -DQT_PLUGIN_PATH=${QT_PLUGIN_PATH}
 
     - name: Build
       run: cmake --build build -j
@@ -181,9 +239,9 @@ jobs:
       uses: ./.github/actions/package-macos
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        name: TeXworks-macOS
+        name: TeXworks-macOS${{ matrix.macVersion }}
         path: ${{ steps.package.outputs.file }}
 
 #    - name: Deploy to Artifactory

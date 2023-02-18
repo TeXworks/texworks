@@ -271,34 +271,34 @@
         <translation>Son Açılanı Aç</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="473"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="533"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
         <translation>&quot;%1&quot; dosyası açılamadı; belki geçerli bir PDF belgesi değildir.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="495"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="552"/>
         <source>No SyncTeX data available</source>
         <translation>Kullanılabilir SyncTeX verisi yok</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="497"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="554"/>
         <source>SyncTeX: &quot;%1&quot;</source>
         <translation>SyncTeX: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="406"/>
-        <location filename="../src/PDFDocumentWindow.cpp" line="710"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="408"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="767"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.pdf[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="728"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="785"/>
         <source>page %1 of %2</source>
         <translation>sayfa %1/%2</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="733"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="790"/>
         <source>%1%</source>
         <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
         <translation>%​%1</translation>
@@ -340,7 +340,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="484"/>
-        <location filename="../src/PDFDocumentWindow.cpp" line="854"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="918"/>
         <source>Typeset</source>
         <translation>Diz</translation>
     </message>
@@ -403,7 +403,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="273"/>
-        <location filename="../src/PDFDocumentWindow.cpp" line="228"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="239"/>
         <source>Ctrl++</source>
         <translation>Ctrl++</translation>
     </message>
@@ -705,7 +705,7 @@
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="699"/>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1090"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1155"/>
         <source>Print PDF...</source>
         <translation>PDF Yazdır...</translation>
     </message>
@@ -715,24 +715,24 @@
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="849"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="912"/>
         <source>Abort typesetting</source>
         <translation>Dizgiyi durdur</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1085"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1150"/>
         <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
         <translation>Ne yazık ki bu %1 versiyonu PDF dokümanlarını çeşitle teknik sebepler nedeniyle yazdıramıyor.
 </translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1086"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1151"/>
         <source>Do you want to open the file in the default viewer for printing instead?</source>
         <translation>Öntanımlı programla açarak oradan yazdırmak ister misiniz?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1087"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1152"/>
         <source> (remember to close it again to avoid access problems)</source>
         <translation> (erişim sorunlarını önlemek için tekrar kapatmayı unutmayın)</translation>
     </message>
@@ -747,7 +747,7 @@
         <translation>Son kullanılanları temizle</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="493"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="550"/>
         <source>Error initializing SyncTeX</source>
         <translation>SyncTeX başlatılırken hata</translation>
     </message>
@@ -782,43 +782,43 @@
         <translation>Kesintisiz İkişer Sayfa</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="905"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="970"/>
         <source>Jump to Source</source>
         <translation>Kaynağa Atla</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1172"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1237"/>
         <source>Go to Page</source>
         <translation>Sayfaya Git</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1173"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1238"/>
         <source>Page number:</source>
         <translation>Sayfa no:</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1048"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1113"/>
         <source>Open URL</source>
         <translation>URL aç</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1048"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1113"/>
         <source>You are in the process of opening the URL %1. Opening unknown or untrusted web addresses can be a security risk.
 Do you want to continue?</source>
         <translation>%1 URL&apos;ini açmak üzeresiniz. Bilinmeyen veya güvenilmeyen web adreslerini açmak güvenlik riski oluşturabilir. Devam etmek istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1109"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1174"/>
         <source>Custom...</source>
         <translation>Özel...</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1184"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1249"/>
         <source>Set Zoom</source>
         <translation>Yakınlaştırmayı ayarla</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1184"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1249"/>
         <source>Zoom level:</source>
         <translation>Yakınlaştırma seviyesi:</translation>
     </message>
@@ -834,36 +834,36 @@ Do you want to continue?</source>
         <translation>Ctrl+4</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="229"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="240"/>
         <source>Ctrl+=</source>
         <translation>Ctrl+=</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1112"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1177"/>
         <source>200%</source>
         <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
         <translation>%​200</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1115"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1180"/>
         <source>150%</source>
         <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
         <translation>%​150</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1120"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1185"/>
         <source>100%</source>
         <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
         <translation>%​100</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1124"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1189"/>
         <source>75%</source>
         <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
         <translation>%​75</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentWindow.cpp" line="1127"/>
+        <location filename="../src/PDFDocumentWindow.cpp" line="1192"/>
         <source>50%</source>
         <translatorcomment>Contains a zero-width-space (U+200B)</translatorcomment>
         <translation>%​50</translation>
@@ -930,12 +930,12 @@ Do you want to continue?</source>
         <translation>Yeni Araç</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="539"/>
+        <location filename="../src/PrefsDialog.cpp" line="543"/>
         <source>System default [%1]</source>
         <translation>Sistemde öntanımlı [%1]</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="552"/>
+        <location filename="../src/PrefsDialog.cpp" line="556"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
         <translation type="unfinished">%1 (%2)</translation>
@@ -1100,57 +1100,57 @@ Do you want to continue?</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="842"/>
+        <location filename="../src/PrefsDialog.ui" line="884"/>
         <source>Magnifying glass</source>
         <translation>Büyüteç</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="850"/>
+        <location filename="../src/PrefsDialog.ui" line="892"/>
         <source>Small</source>
         <translation>Küçük</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="857"/>
+        <location filename="../src/PrefsDialog.ui" line="899"/>
         <source>Medium</source>
         <translation>Orta boy</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="864"/>
+        <location filename="../src/PrefsDialog.ui" line="906"/>
         <source>Large</source>
         <translation>Büyük</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="873"/>
+        <location filename="../src/PrefsDialog.ui" line="915"/>
         <source>Circular magnifier</source>
         <translation>Yuvarlak büyüteç</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="787"/>
+        <location filename="../src/PrefsDialog.ui" line="827"/>
         <source>Screen resolution:</source>
         <translation>Ekran çözünürlüğü:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="957"/>
+        <location filename="../src/PrefsDialog.ui" line="999"/>
         <source>Typesetting</source>
         <translation>Dizgi</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="974"/>
+        <location filename="../src/PrefsDialog.ui" line="1016"/>
         <source>Paths for TeX and related programs</source>
         <translation>TeX ve ilgili programlar için aranacak yollar</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1047"/>
+        <location filename="../src/PrefsDialog.ui" line="1089"/>
         <source>Processing tools</source>
         <translation>İşleme araçları</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1082"/>
+        <location filename="../src/PrefsDialog.ui" line="1124"/>
         <source>Edit...</source>
         <translation>Düzenle...</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1120"/>
+        <location filename="../src/PrefsDialog.ui" line="1162"/>
         <source>Default:</source>
         <translation>Öntanımlı:</translation>
     </message>
@@ -1182,59 +1182,64 @@ Do you want to continue?</source>
         <translation>Akıllı Tırnak işaretleri kipi:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1209"/>
+        <location filename="../src/PrefsDialog.ui" line="837"/>
+        <source>Render Cache:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="1251"/>
         <source>Scripts</source>
         <translation>Eklentiler</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1215"/>
+        <location filename="../src/PrefsDialog.ui" line="1257"/>
         <source>Security</source>
         <translation>Güvenlik</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1221"/>
+        <location filename="../src/PrefsDialog.ui" line="1263"/>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
         <translation>Eklentilerin tüm dosyaları okumasına izin ver (eklenti ve belge dosyaları her zaman okunabilir)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1228"/>
+        <location filename="../src/PrefsDialog.ui" line="1270"/>
         <source>Allow scripts to write files</source>
         <translation>Eklentilerin dosya yazmasına izin ver</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1235"/>
+        <location filename="../src/PrefsDialog.ui" line="1277"/>
         <source>Allow scripts to run system commands</source>
         <translation>Eklentilerin sistem komutu çalıştırmasına izin ver</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1242"/>
+        <location filename="../src/PrefsDialog.ui" line="1284"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
         <translation>Eklenti dillerini etkinleştir (eklenti davranışındaki diğer kısıtlamaları kaldırabilir)</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1252"/>
+        <location filename="../src/PrefsDialog.ui" line="1294"/>
         <source>Debugging</source>
         <translation>Hata ayıklama</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1258"/>
+        <location filename="../src/PrefsDialog.ui" line="1300"/>
         <source>Enable QtScript debugger</source>
         <translation>QtScript hata ayıklayıcısını etkinleştir</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1173"/>
+        <location filename="../src/PrefsDialog.ui" line="1215"/>
         <source>Never</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Hiçbir zaman</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1178"/>
+        <location filename="../src/PrefsDialog.ui" line="1220"/>
         <source>Automatically</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Otomatik olarak</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1183"/>
+        <location filename="../src/PrefsDialog.ui" line="1225"/>
         <source>On success</source>
         <extracomment>&quot;Hide console output&quot; mode</extracomment>
         <translation>Hata yoksa</translation>
@@ -1250,12 +1255,12 @@ Do you want to continue?</source>
         <translation>Kelime tamamlamayı etkinleştir</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1150"/>
+        <location filename="../src/PrefsDialog.ui" line="1192"/>
         <source>Hide console output:</source>
         <translation>Konsol çıktısını gizle:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="1163"/>
+        <location filename="../src/PrefsDialog.ui" line="1205"/>
         <source>&lt;p&gt;&lt;strong&gt;Never:&lt;/strong&gt; Never hide the console output panel after typesetting.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automatically:&lt;/strong&gt; Hide the console output panel after successful typesetting, but only if it was hidden before.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On Success:&lt;/strong&gt; Hide the console output panel after successful typesetting, regardless of its previous state.&lt;/p&gt;
@@ -1307,6 +1312,11 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
+        <source>Paper color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="790"/>
         <source>Ruler:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1331,35 +1341,41 @@ Do you want to continue?</source>
         <translation type="unfinished">Göster</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="883"/>
+        <location filename="../src/PrefsDialog.ui" line="850"/>
+        <source> MB</source>
+        <extracomment>abbreviation of megabytes</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefsDialog.ui" line="925"/>
         <source>Synchronization Resolution</source>
         <translation>Senkronizasyon Çözünürlüğü</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="889"/>
+        <location filename="../src/PrefsDialog.ui" line="931"/>
         <source>Source &gt; Preview:</source>
         <translation>Kaynak &gt; Önizleme:</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="903"/>
-        <location filename="../src/PrefsDialog.ui" line="935"/>
+        <location filename="../src/PrefsDialog.ui" line="945"/>
+        <location filename="../src/PrefsDialog.ui" line="977"/>
         <source>Highlight Character</source>
         <translation>Karakteri Vurgula</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="908"/>
-        <location filename="../src/PrefsDialog.ui" line="940"/>
+        <location filename="../src/PrefsDialog.ui" line="950"/>
+        <location filename="../src/PrefsDialog.ui" line="982"/>
         <source>Highlight Word</source>
         <translation>Kelimeyi Vurgula</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="913"/>
-        <location filename="../src/PrefsDialog.ui" line="945"/>
+        <location filename="../src/PrefsDialog.ui" line="955"/>
+        <location filename="../src/PrefsDialog.ui" line="987"/>
         <source>Highlight Line</source>
         <translation>Satırı Vurgula</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.ui" line="921"/>
+        <location filename="../src/PrefsDialog.ui" line="963"/>
         <source>Preview &gt; Source:</source>
         <translation>Önizleme &gt; Kaynak:</translation>
     </message>
@@ -1372,57 +1388,57 @@ Do you want to continue?</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/TWUtils.cpp" line="205"/>
+        <location filename="../src/TWUtils.cpp" line="203"/>
         <source>TeX documents (*.tex)</source>
         <translation>TeX belgeleri (*.tex)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="206"/>
+        <location filename="../src/TWUtils.cpp" line="204"/>
         <source>LaTeX documents (*.ltx)</source>
         <translation>LaTeX belgeleri (*.tex)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="208"/>
+        <location filename="../src/TWUtils.cpp" line="206"/>
         <source>BibTeX databases (*.bib)</source>
         <translation>BibTeX veritabanları (*.bib)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="209"/>
+        <location filename="../src/TWUtils.cpp" line="207"/>
         <source>Style files (*.sty)</source>
         <translation>Stil dosyaları (*.sty)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="210"/>
+        <location filename="../src/TWUtils.cpp" line="208"/>
         <source>Class files (*.cls)</source>
         <translation>Sınıf dosyaları (*.cls)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="211"/>
+        <location filename="../src/TWUtils.cpp" line="209"/>
         <source>Documented macros (*.dtx)</source>
         <translation>Belgelenmiş makrolar (*.dtx)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="213"/>
+        <location filename="../src/TWUtils.cpp" line="211"/>
         <source>Text files (*.txt)</source>
         <translation>Metin dosyaları (*.txt)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="214"/>
+        <location filename="../src/TWUtils.cpp" line="212"/>
         <source>PDF documents (*.pdf)</source>
         <translation>PDF belgeleri (*.pdf)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="215"/>
+        <location filename="../src/TWUtils.cpp" line="225"/>
         <source>All files</source>
         <translation>Tüm dosyalar</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="207"/>
+        <location filename="../src/TWUtils.cpp" line="205"/>
         <source>Log files (*.log *.blg)</source>
         <translation>Kayıt dosyaları (*.log *.blg)</translation>
     </message>
     <message>
-        <location filename="../src/TWUtils.cpp" line="212"/>
+        <location filename="../src/TWUtils.cpp" line="210"/>
         <source>Auxiliary files (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</source>
         <translation>Yardımcı dosyalar (*.aux *.toc *.lot *.lof *.nav *.out *.snm *.ind *.idx *.bbl *.brf)</translation>
     </message>
@@ -1652,12 +1668,12 @@ Birimleri değiştirmek için menüyü kullanın.</translation>
         <translation type="unfinished">Dosya: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManagerWidget.cpp" line="205"/>
+        <location filename="../src/ScriptManagerWidget.cpp" line="209"/>
         <source>Language: </source>
         <translation type="unfinished">Dil: </translation>
     </message>
     <message>
-        <location filename="../src/ScriptManagerWidget.cpp" line="209"/>
+        <location filename="../src/ScriptManagerWidget.cpp" line="213"/>
         <source>Hook: </source>
         <translation type="unfinished">Kanca: </translation>
     </message>
@@ -1709,218 +1725,221 @@ Birimleri değiştirmek için menüyü kullanın.</translation>
 <context>
     <name>TWApp</name>
     <message>
-        <location filename="../src/TWApp.cpp" line="217"/>
-        <location filename="../src/TWApp.cpp" line="324"/>
+        <location filename="../src/TWApp.cpp" line="231"/>
+        <location filename="../src/TWApp.cpp" line="420"/>
         <source>File</source>
         <translation>Dosya</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="219"/>
-        <location filename="../src/TWApp.cpp" line="325"/>
+        <location filename="../src/TWApp.cpp" line="233"/>
+        <location filename="../src/TWApp.cpp" line="421"/>
         <source>New</source>
         <translation>Yeni</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="224"/>
-        <location filename="../src/TWApp.cpp" line="327"/>
+        <location filename="../src/TWApp.cpp" line="238"/>
+        <location filename="../src/TWApp.cpp" line="423"/>
         <source>New from Template...</source>
         <translation>Şablondan Yeni...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="308"/>
+        <location filename="../src/TWApp.cpp" line="404"/>
         <source>Preferences...</source>
         <translation>Tercihler...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="228"/>
-        <location filename="../src/TWApp.cpp" line="329"/>
+        <location filename="../src/TWApp.cpp" line="242"/>
+        <location filename="../src/TWApp.cpp" line="425"/>
         <source>Open...</source>
         <translation>Aç...</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="233"/>
-        <location filename="../src/TWApp.cpp" line="334"/>
+        <location filename="../src/TWApp.cpp" line="247"/>
+        <location filename="../src/TWApp.cpp" line="430"/>
         <source>Open Recent</source>
         <translation>Son Açılanı Aç</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="240"/>
-        <location filename="../src/TWApp.cpp" line="336"/>
+        <location filename="../src/TWApp.cpp" line="254"/>
+        <location filename="../src/TWApp.cpp" line="432"/>
         <source>Help</source>
         <translation>Yardım</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="314"/>
-        <location filename="../src/TWApp.cpp" line="337"/>
+        <location filename="../src/TWApp.cpp" line="410"/>
+        <location filename="../src/TWApp.cpp" line="433"/>
         <source>About </source>
         <translation>Hakkında</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="242"/>
-        <location filename="../src/TWApp.cpp" line="338"/>
+        <location filename="../src/TWApp.cpp" line="256"/>
+        <location filename="../src/TWApp.cpp" line="434"/>
         <source>Go to TeXworks home page</source>
         <translation>TeXworks ana sayfasına git</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="245"/>
-        <location filename="../src/TWApp.cpp" line="339"/>
+        <location filename="../src/TWApp.cpp" line="259"/>
+        <location filename="../src/TWApp.cpp" line="435"/>
         <source>Email to the mailing list</source>
         <translation>Posta listesine e-posta gönder</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="326"/>
+        <location filename="../src/TWApp.cpp" line="422"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="328"/>
+        <location filename="../src/TWApp.cpp" line="424"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="330"/>
+        <location filename="../src/TWApp.cpp" line="426"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="346"/>
+        <location filename="../src/TWApp.cpp" line="442"/>
         <source>&lt;p&gt;%1 is a simple environment for editing, typesetting, and previewing TeX documents.&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1, TeX belgelerini düzenleme, dizme ve önizleme için basit bir ortamdır.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="355"/>
+        <location filename="../src/TWApp.cpp" line="445"/>
+        <source>&lt;br&gt;Version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="448"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF bezeme kitaplığı Kristian H&amp;#xF8;gsberg, Albert Astals Cid ve diğerleri tarafından.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="357"/>
+        <location filename="../src/TWApp.cpp" line="450"/>
         <source>&lt;br&gt;Concept and resources from &lt;a href=&quot;https://pages.uoregon.edu/koch/texshop/&quot;&gt;TeXShop&lt;/a&gt; by Richard Koch.</source>
         <translation>&lt;br&gt;Kavram ve kaynaklar Richard Koch tarafından &lt;a href=&quot;https://pages.uoregon.edu/koch/texshop/&quot;&gt;TeXShop&lt;/a&gt;&apos;dan.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="358"/>
+        <location filename="../src/TWApp.cpp" line="451"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; teknolojisi J&amp;#xE9;r&amp;#xF4;me Laurens tarafından.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="359"/>
+        <location filename="../src/TWApp.cpp" line="452"/>
         <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
         <translation>&lt;br&gt;Kullanılan bazı simgeler &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Masaüstü Projesi&lt;/a&gt;&apos;nden.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="360"/>
+        <location filename="../src/TWApp.cpp" line="453"/>
         <source>&lt;p&gt;%1 translation kindly contributed by %2.</source>
         <translation>&lt;p&gt;%1 tercümesi %2 tarafından eklendi.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="360"/>
+        <location filename="../src/TWApp.cpp" line="453"/>
         <source>[language name]</source>
         <translation>Türkçe</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="360"/>
+        <location filename="../src/TWApp.cpp" line="453"/>
         <source>[translator&apos;s name/email]</source>
         <translation>Sertaç Ö. Yıldız &lt;sertacyildiz＠gmail.com&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="364"/>
+        <location filename="../src/TWApp.cpp" line="457"/>
         <source>About %1</source>
         <translation>%1 hakkında</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="371"/>
+        <location filename="../src/TWApp.cpp" line="464"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
         <translation>&quot;%1&quot; erişilemiyor; belki web tarayıcınız veya e-posta uygulamanız uygun şekilde ayarlanmamıştır?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="646"/>
+        <location filename="../src/TWApp.cpp" line="747"/>
         <source>Unable to create window</source>
         <translation>Pencere oluşturulamıyor</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="647"/>
+        <location filename="../src/TWApp.cpp" line="748"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Bir şeyler fena halde yanlış; %1 bir belge penceresi oluşturamadı. Uygulama şimdi sonlandırılacak.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="699"/>
-        <location filename="../src/TWApp.cpp" line="714"/>
+        <location filename="../src/TWApp.cpp" line="800"/>
+        <location filename="../src/TWApp.cpp" line="815"/>
         <source>Open File</source>
         <translation>Dosya Aç</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="882"/>
+        <location filename="../src/TWApp.cpp" line="987"/>
         <source>No default binary directory found</source>
         <translation>Hiçbir öntanımlı ikili dizini bulunamadı</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="883"/>
+        <location filename="../src/TWApp.cpp" line="988"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>TeX ile ilgili programlar için önceden tanımlanmış dizinlerin hiçbiri bulunamadı.&lt;p&gt;&lt;small&gt;Bir işlem çalıştırmak için Tercihler penceresindeki Dizgi sekmesinde TeX dağıtımınız için ikililer dizini (veya dizinleri) ayarlamanız gerekecek.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1212"/>
+        <location filename="../src/TWApp.cpp" line="1317"/>
         <source>Unable to find help file.</source>
         <translation>Yardım dosyası bulunamıyor.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1331"/>
+        <location filename="../src/TWApp.cpp" line="1436"/>
         <source>Permission request</source>
         <translation>İzin isteği</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1332"/>
+        <location filename="../src/TWApp.cpp" line="1437"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>&quot;%1&quot; eklentisi &quot;%2&quot; dosyasını yeterli izin olmadan açmaya çalışıyor. Dosyayı açmak istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="353"/>
+        <location filename="../src/TWApp.cpp" line="446"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>&lt;p&gt;&lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU Genel Kamu Lisansı&lt;/a&gt;&apos;nın 2. sürümü veya (isteğinize göre) daha sonraki bir sürümü altında dağıtılır.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="234"/>
+        <location filename="../src/TWApp.cpp" line="248"/>
         <source>Clear Recent Files</source>
         <translation>Son kullanılanları temizle</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="350"/>
         <source>&lt;br&gt;Version %1 (%2) [r.%3, %4]</source>
-        <translation>&lt;br&gt;Versiyon %1 (%2) [r.%3, %4]</translation>
+        <translation type="vanished">&lt;br&gt;Versiyon %1 (%2) [r.%3, %4]</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="352"/>
         <source>&lt;br&gt;Version %1 (%2)</source>
-        <translation>&lt;br&gt;Versiyon %1 (%2)</translation>
+        <translation type="vanished">&lt;br&gt;Versiyon %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="303"/>
-        <location filename="../src/TWApp.cpp" line="331"/>
+        <location filename="../src/TWApp.cpp" line="399"/>
+        <location filename="../src/TWApp.cpp" line="427"/>
         <source>Quit TeXworks</source>
         <translation>TeXworks&apos;den çık</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="354"/>
+        <location filename="../src/TWApp.cpp" line="447"/>
         <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
         <translation>&lt;p&gt;The Qt Company tarafından &lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt uygulama çatısı&lt;/a&gt; v%1.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="356"/>
+        <location filename="../src/TWApp.cpp" line="449"/>
         <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
         <translation>&lt;br&gt;L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth tarafından &lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; yazım denetçisi.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="56"/>
+        <location filename="../src/TWApp.cpp" line="278"/>
         <source>Display this message</source>
         <translation>Bu mesajı göster</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="57"/>
+        <location filename="../src/TWApp.cpp" line="279"/>
         <source>Open the following file at the given position (line or page)</source>
         <translation>Dosyayı verilen konumda (satır veya sayfa) aç</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="58"/>
+        <location filename="../src/TWApp.cpp" line="280"/>
         <source>Display version information</source>
         <translation>Sürüm bilgisini göster</translation>
     </message>
@@ -1928,49 +1947,49 @@ Birimleri değiştirmek için menüyü kullanın.</translation>
 <context>
     <name>TWScriptableWindow</name>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="150"/>
-        <location filename="../src/TWScriptableWindow.cpp" line="158"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="141"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="149"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation type="unfinished">Eklenti &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="152"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="143"/>
         <source>Script result</source>
         <translation type="unfinished">Eklenti sonucu</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="157"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="148"/>
         <source>unknown error</source>
         <translation type="unfinished">bilinmeyen hata</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="158"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="149"/>
         <source>Script error</source>
         <translation type="unfinished">Eklenti hatası</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="179"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="170"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
         <translation type="unfinished">Eklentiler kullanılarak %1&apos;e yeni komutlar eklenebilir, ve davranışı değiştirilebilir veya çeşitlendirilebilir.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="182"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="173"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
         <translation type="unfinished">Eklenti oluşturma ve kullanma hakkında daha fazla bilgi için, bkz. %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="184"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="175"/>
         <source>Scripting languages currently available in this copy of %1:</source>
         <translation type="unfinished">Bu %1 kopyasında mevcut eklenti dilleri:</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="199"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="194"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
         <translation type="unfinished">(tercihlerden etkisizleştirilmiş)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="203"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="198"/>
         <source>About Scripts</source>
         <translation type="unfinished">Eklentiler Hakkında</translation>
     </message>
@@ -2012,7 +2031,7 @@ Birimleri değiştirmek için menüyü kullanın.</translation>
 <context>
     <name>TeXDocumentWindow</name>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="73"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="75"/>
         <source>New document</source>
         <translation>Yeni belge</translation>
     </message>
@@ -2030,39 +2049,39 @@ Birimleri değiştirmek için menüyü kullanın.</translation>
         <translation>Yok</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="626"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="630"/>
         <source>Open File</source>
         <translation>Dosya Aç</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="818"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="829"/>
         <source>Save File</source>
         <translation>Dosyayı Kaydet</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="856"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="867"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>&quot;%1&quot; belgesinde değişiklik yapılmış
 Değişikliklerinizi kaydetmek istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="893"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="898"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>&quot;%1&quot; belgesindeki tüm değişikliklerden vazgeçip, kaydedilmiş son versiyona geri dönmek istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="895"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="900"/>
         <source>Revert</source>
         <translation>Geri Dön</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1007"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1012"/>
         <source>Unrecognized encoding</source>
         <translation>Tanınmayan kodlama</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1008"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1013"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -2071,14 +2090,14 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 Onun yerine, hatalı metne yol açabilecek olan %3 olarak yorumlanacak.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1255"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1313"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1405"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1260"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1318"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1410"/>
         <source>File changed on disk</source>
         <translation>Diskteki dosya değişti</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1256"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1261"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2087,7 +2106,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Şu anki değişikliklerinizden vazgeçip, diskten tekrar yüklemek istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1406"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1411"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2096,17 +2115,17 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Diskteki versiyonun üzerine yazarak bu dosyayı kaydetmek istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1411"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1416"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>&quot;%1&quot; belgesi kaydedilmedi</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1433"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1438"/>
         <source>Text cannot be converted</source>
         <translation>Metin dönüştürülemedi</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1434"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1439"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -2115,125 +2134,125 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, veri kaybını önlemek için (UTF-8 gibi) başka bir kodlama kullanmak isteyebilirsiniz.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1515"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1520"/>
         <source>untitled-%1.tex</source>
         <translation>isimsiz-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1533"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1587"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1538"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1583"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1650"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1646"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Satır %1/%2; sütun %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1852"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1848"/>
         <source>Go to Line</source>
         <translation>Satıra Git</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1853"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1849"/>
         <source>Line number:</source>
         <translation>Satır no:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2304"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2416"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2300"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2412"/>
         <source>Invalid regular expression</source>
         <translation>Geçersiz düzenli ifade</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2350"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2387"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2504"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2346"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2383"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2500"/>
         <source>Not found</source>
         <translation>Bulunamadı</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2354"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2350"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>%n yerde bulundu</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2522"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2518"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n yerde bulundu</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2523"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2519"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n belge</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2524"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2520"/>
         <source>Replaced %1 in %2</source>
         <translation>%1/%2 yer değiştirildi</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2536"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2532"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>%n yerde değiştirildi</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2727"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2723"/>
         <source>Cannot process unsaved document</source>
         <translation>Kaydedilmemiş belge işlenemiyor</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2738"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2734"/>
         <source>Root document %1 is not readable</source>
         <translation>Ana belge %1 okunabilir değil</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2744"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2740"/>
         <source>%1 is not properly configured</source>
         <translation>%1 uygun şekilde ayarlanmamış</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2749"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2745"/>
         <source>%1 is already being processed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2802"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2803"/>
         <source>Unable to execute %1</source>
         <translation>%1 çalıştırılamıyor</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2865"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2866"/>
         <source>Go to typesetting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3124"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Araç olarak &quot;%1&quot; ayarla</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3127"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3128"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>&quot;%1&quot; aracı tanımlı değil</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3206"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3188"/>
         <source>No files found</source>
         <translation>Hiç dosya bulunamadı</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3207"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3189"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Şu anda bu belge ile ilişkilendirilmiş hiçbir yardımcı dosya yok.</translation>
     </message>
@@ -2264,7 +2283,7 @@ Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, 
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="607"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2872"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2873"/>
         <source>Typeset</source>
         <translation>Diz</translation>
     </message>
@@ -2694,12 +2713,12 @@ Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, 
         <translation>Sabit Sözcük Kaydırma...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2803"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2804"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>&quot;%1&quot; programı bulunamadı.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2814"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2815"/>
         <source>Searched in directories:</source>
         <translation>Şu dizinlerde arandı:</translation>
     </message>
@@ -2709,7 +2728,7 @@ Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, 
         <translation>Satır Numaraları</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2908"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2909"/>
         <source>Process interrupted by user</source>
         <translation>İşlem kullanıcı tarafından kesildi</translation>
     </message>
@@ -2781,31 +2800,31 @@ Devam ederseniz varsayılan kodlar ile yer değiştirilecek. Alternatif olarak, 
         <translation>Ctrl+Alt+S</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="861"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="872"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="896"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="901"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="991"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="996"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>&quot;%1&quot; dosyası okunamıyor:￼
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1145"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1150"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>&quot;%1&quot; dosyası yüklendi</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1314"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1319"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2814,29 +2833,29 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Haricî süreç tamamlandığında lütfen &quot;Dosya -&gt; Kaydedilene Geri Dön&quot; kullanın.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1448"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1453"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>&quot;%1&quot; dosyası yazılamıyor:￼
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1465"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1470"/>
         <source>Error writing file</source>
         <translation>Dosya yazılırken hata</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1466"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1471"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>Dosyayı kaydederken bir hata meydana gelmiş olabilir. Farklı bir konuma bir kopya kaydetmek isteyebilirsiniz.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1480"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1485"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>&quot;%1&quot; dosyası kaydedildi</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2857"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2858"/>
         <source>Abort typesetting</source>
         <translation>Dizgiyi durdur</translation>
     </message>
@@ -2846,13 +2865,13 @@ Haricî süreç tamamlandığında lütfen &quot;Dosya -&gt; Kaydedilene Geri D�
         <translation>Ayarlar ve Kaynaklar...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1704"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1700"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>Seçili kodlama ile tekrar yükle</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1706"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1702"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2862,12 +2881,12 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 Seçili kodlama öntanımlının yerine geçer ve tüm &quot;%!TEX encoding&quot; satırlarını geçersiz kılar.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1729"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1725"/>
         <source>Unsaved changes</source>
         <translation>Kaydedilmemiş değişiklikler</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1730"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1726"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2881,55 +2900,55 @@ Mevcut değişikliklerinizi gözardı etmek, ve dosyayı diskten %1 kodlaması i
         <translation>Son kullanılanları temizle</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="694"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="698"/>
         <source>Abort typesetting?</source>
         <translation>Dizgi iptal edilsin mi?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="694"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="698"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation>Bir dizgi işlemi halen devam ediyor ve bu pencereyi kapatmadan önce durdurulması gerekli.
 Şimdi durdurmak istiyor musunuz?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2805"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2806"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Belgenizi dizmek için sisteminize &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; veya &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; gibi bir &lt;b&gt;TeX dağıtımı&lt;/b&gt; kurmanız gerekiyor.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2807"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2808"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Belgenizi dizmek için sisteminize &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; gibi bir &lt;b&gt;TeX dağıtımı&lt;/b&gt; kurmanız gerekiyor.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2809"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2810"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>Belgenizi dizmek için sisteminize &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; gibi bir &lt;b&gt;TeX dağıtımı&lt;/b&gt; kurmanız gerekiyor. Çoğu sistem için böyle bir TeX dağıtımı hazır paket şeklinde mevcuttur.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2811"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2812"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>Bir TeX dağıtımı kurulduğunda TeXworks&apos;e onu nerede bulabileceğini Düzenle -&gt; Tercihler -&gt; Dizgi ile anlatmanız gerekebilir.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2816"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2817"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>%1 aracının konfigürasonunu ve yol ayarlarını Tercihler penceresinden kontrol edit.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="847"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3043"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3044"/>
         <source>Hide Console Output</source>
         <translation>Konsol Çıktısını Gizle</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1112"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1117"/>
         <source>Layout Problem</source>
         <translation>Yerleşim Problemi</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1112"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1117"/>
         <source>A problem occurred while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
  -) Turn syntax highlighting off and on
  -) Turn line numbers off and on
@@ -2944,12 +2963,12 @@ We are sorry for the inconvenience.</source>
 Rahatsızlık için üzgünüz.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3050"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3051"/>
         <source>Show Console Output</source>
         <translation>Konsol Çıktısını Göster</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1707"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1703"/>
         <source>Write UTF-8 byte order mark</source>
         <translation>UTF-8 BOM yaz</translation>
     </message>
@@ -2964,54 +2983,54 @@ Rahatsızlık için üzgünüz.</translation>
         <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="544"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="552"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - UnitedStates (en_US)&quot;)</extracomment>
         <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="547"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="555"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en_US)&quot;)</extracomment>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1660"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1656"/>
         <source>LF</source>
         <translation>LF</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1663"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1659"/>
         <source>CRLF</source>
         <translation>CRLF</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1666"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1662"/>
         <source>CR</source>
         <translation>CR</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1670"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1666"/>
         <source>*</source>
         <translation>*</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1677"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1673"/>
         <source>LF (Unix, Mac OS X)</source>
         <translation>LF (Unix, Mac OS X)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1678"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1674"/>
         <source>CRLF (Windows)</source>
         <translation>CRLF (Windows)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1679"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1675"/>
         <source>CR (Mac Classic)</source>
         <translation>CR (Mac Classic)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1990"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1986"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
         <translation>Bir &apos;%!TEX bibfile&apos; satırı bulunamadı</translation>
     </message>
@@ -3019,7 +3038,7 @@ Rahatsızlık için üzgünüz.</translation>
 <context>
     <name>TeXHighlighter</name>
     <message>
-        <location filename="../src/TeXHighlighter.cpp" line="188"/>
+        <location filename="../src/TeXHighlighter.cpp" line="190"/>
         <source>default</source>
         <translation>öntanımlı</translation>
     </message>
@@ -3040,22 +3059,22 @@ Rahatsızlık için üzgünüz.</translation>
 <context>
     <name>ToolConfig</name>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="948"/>
+        <location filename="../src/PrefsDialog.cpp" line="963"/>
         <source>NewArgument</source>
         <translation>YeniArgüman</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="899"/>
+        <location filename="../src/PrefsDialog.cpp" line="914"/>
         <source>Select program file</source>
         <translation>Program dosyası seçin</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="904"/>
+        <location filename="../src/PrefsDialog.cpp" line="919"/>
         <source>Invalid program</source>
         <translation>Geçersiz program</translation>
     </message>
     <message>
-        <location filename="../src/PrefsDialog.cpp" line="905"/>
+        <location filename="../src/PrefsDialog.cpp" line="920"/>
         <source>The file &apos;%1&apos; is not executable!</source>
         <translation>&apos;%1&apos; dosyası çalıştırılabilir değil!</translation>
     </message>

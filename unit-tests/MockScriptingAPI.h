@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2020  Stefan Löffler
+	Copyright (C) 2019-2022  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ public:
 	QObject* GetScript() override { return _script; }
 	QVariant& GetResult() override { return _result; }
 	void SetResult(const QVariant& rval) override { _result = rval; }
-	int strlen(const QString& str) const override { return str.length(); }
+	int strlen(const QString& str) const override { return static_cast<int>(str.length()); }
 	QString platform() const override { return QString(); }
 	int getQtVersion() const override { return QT_VERSION; }
 	QMap<QString, QVariant> system(const QString& cmdline, bool waitForResult = true) override {

@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2020  Stefan Löffler
+	Copyright (C) 2019-2022  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 
 #include "SignalCounter.h"
 #include "ui/ClickableLabel.h"
+#include "ui/ColorButton.h"
 #include "ui/ClosableTabWidget.h"
 #include "ui/LineNumberWidget.h"
 #include "ui/ScreenCalibrationWidget.h"
@@ -386,6 +387,28 @@ void TestUI::ClosableTabWidget_resizeEvent()
 	int buttonLeft = w.rect().right() - w.closeButton()->sizeHint().width();
 	QCOMPARE(w.closeButton()->geometry().left(), buttonLeft);
 	QCOMPARE(w.tabBar()->maximumWidth(), buttonLeft);
+}
+
+void TestUI::ColorButton_color()
+{
+	const QColor white{Qt::white}, col{qRgb(210, 42, 123)};
+	Tw::UI::ColorButton btn;
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QSignalSpy spy{&btn, SIGNAL(colorChanged(QColor))};
+#else
+	QSignalSpy spy{&btn, &Tw::UI::ColorButton::colorChanged};
+#endif
+
+	QCOMPARE(btn.color(), white);
+	QCOMPARE(spy.count(), 0);
+	btn.setColor(col);
+	QCOMPARE(spy.count(), 1);
+	QCOMPARE(btn.color(), col);
+
+	// Setting an invalid color does nothing
+	btn.setColor(QColor());
+	QCOMPARE(spy.count(), 1);
+	QCOMPARE(btn.color(), col);
 }
 
 

@@ -226,18 +226,7 @@ IF (UNIX AND NOT APPLE)
   ENDIF()
 ENDIF()
 
-# Source: https://stackoverflow.com/a/31010221
-macro(use_cxx11)
-  if (CMAKE_VERSION VERSION_LESS "3.1")
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-    endif ()
-  else ()
-    set (CMAKE_CXX_STANDARD 11)
-  endif ()
-endmacro(use_cxx11)
-
-use_cxx11()
+set (CMAKE_CXX_STANDARD 11)
 
 # Dependency Configuration
 # ========================
@@ -261,9 +250,30 @@ if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
 	  endif ()
 	endif ()
 
-	if (WIN32 AND NOT BUILD_SHARED_LIBS)
-	  find_package(Qt6WindowsPlatformSupport)
-	  list(APPEND QT_LIBRARIES Qt6::WindowsPlatformSupport)
+	if (APPLE)
+		# Inspired by https://github.com/MaximAlien/macdeployqt/blob/bc9c0ba199f323a42e3f1cc04d4b66e3e59ac995/macdeployqt/shared.cpp
+		if (QT_PLUGIN_PATH)
+			set(_pluginDir "${QT_PLUGIN_PATH}")
+		else ()
+			get_target_property(_pluginDir Qt6::Widgets LOCATION)
+			get_filename_component(_pluginDir "${_pluginDir}" REALPATH)
+			get_filename_component(_pluginDir "${_pluginDir}" DIRECTORY)
+			set(_pluginDir "${_pluginDir}/../../../../share/qt/plugins")
+			get_filename_component(_pluginDir "${_pluginDir}" REALPATH)
+		endif ()
+
+		foreach (_lib IN ITEMS platforms/qcocoa styles/qmacstyle)
+			get_filename_component(_lib_name ${_lib} NAME)
+			get_filename_component(_lib_dir ${_lib} DIRECTORY)
+			find_library(_plugin_${_lib_name} NAMES ${_lib_name} HINTS ${_pluginDir} PATH_SUFFIXES ${_lib_dir})
+			if (NOT _plugin_${_lib_name})
+				message(FATAL_ERROR "Could not find plugin ${_lib} in ${_pluginDir}")
+			else ()
+				list(APPEND QT_PLUGINS "${_plugin_${_lib_name}}")
+			endif ()
+		endforeach ()
+
+		message(STATUS "QT_PLUGINS = ${QT_PLUGINS}")
 	endif ()
 
 	set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")

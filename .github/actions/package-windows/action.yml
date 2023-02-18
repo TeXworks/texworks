@@ -31,6 +31,7 @@ runs:
       shell: wsl-bash {0}
       id: info
       run: |
+        GITHUB_OUTPUT=$(echo "${{ github.output }}" | tr '\\' '/' | sed -e 's!\([A-Za-z]\):/!/mnt/\L\1/!')
         FILENAME=$(find ${{ inputs.builddir }} -maxdepth 1 -name 'TeXworks-win-*.zip')
         VERSION=$(basename "$FILENAME" | sed -e 's/^TeXworks-win-\([^-]*\)-.*\.zip$/\1/')
         FULLVERSION=$(basename "$FILENAME" | sed -e 's/^TeXworks-win-\(.*\)\.zip$/\1/')
@@ -38,6 +39,6 @@ runs:
         md5sum "$FILENAME"
         echo "SHA256"
         sha256sum "$FILENAME"
-        echo "::set-output name=version::${VERSION}"
-        echo "::set-output name=fullversion::${FULLVERSION}"
-        echo "::set-output name=file::${FILENAME}"
+        echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
+        echo "fullversion=${FULLVERSION}" >> "${GITHUB_OUTPUT}"
+        echo "file=${FILENAME}" >> "${GITHUB_OUTPUT}"

@@ -33,6 +33,6 @@ runs:
         FILENAME=$(find ${{ inputs.builddir }} -depth 1 -name 'TeXworks-macos*-*.dmg')
         VERSION=$(basename "$FILENAME" | sed -e 's/^TeXworks-macos\([^-]*\)-\([^-]*\)-.*\.dmg$/\2/')
         FULLVERSION=$(basename "$FILENAME" | sed -e 's/^TeXworks-macos\([^-]*\)-\(.*\)\.dmg$/\2/')
-        echo "::set-output name=version::${VERSION}"
-        echo "::set-output name=fullversion::${FULLVERSION}"
-        echo "::set-output name=file::${FILENAME}"
+        echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
+        echo "fullversion=${FULLVERSION}" >> "${GITHUB_OUTPUT}"
+        echo "file=${FILENAME}" >> "${GITHUB_OUTPUT}"

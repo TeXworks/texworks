@@ -1,6 +1,6 @@
 /*
   This is part of TeXworks, an environment for working with TeX documents
-  Copyright (C) 2013-2022  Stefan Löffler
+  Copyright (C) 2013-2023  Stefan Löffler
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -268,6 +268,7 @@ void TestQtPDF::loadDocs()
     _docs[QString::fromLatin1("metadata")] = backend.newDocument(QString::fromLatin1("metadata.pdf"));
     _docs[QString::fromLatin1("page-rotation")] = backend.newDocument(QString::fromLatin1("page-rotation.pdf"));
     _docs[QString::fromLatin1("annotations")] = backend.newDocument(QString::fromLatin1("annotations.pdf"));
+    _docs[QString::fromLatin1("jpg")] = backend.newDocument(QStringLiteral("jpg.pdf"));
   }
 }
 
@@ -1208,7 +1209,7 @@ void TestQtPDF::ToCItem()
   QtPDF::Backend::PDFToCItem ti, def, act;
   QString label(QStringLiteral("label"));
 
-  act.setAction(new QtPDF::PDFGotoAction(QtPDF::PDFDestination(0)));
+  act.setAction(std::unique_ptr<QtPDF::PDFAction>(new QtPDF::PDFGotoAction(QtPDF::PDFDestination(0))));
 
   // Defaults
   QCOMPARE(ti.label(), QString());
@@ -1252,7 +1253,7 @@ void TestQtPDF::ToCItem()
   QVERIFY(ti == def);
 
   QtPDF::PDFGotoAction actGoto1 = QtPDF::PDFGotoAction(QtPDF::PDFDestination(1));
-  ti.setAction(new QtPDF::PDFGotoAction(actGoto1));
+  ti.setAction(std::unique_ptr<QtPDF::PDFAction>(new QtPDF::PDFGotoAction(actGoto1)));
   QVERIFY(ti.action() != nullptr);
   QCOMPARE(*ti.action(), dynamic_cast<const QtPDF::PDFAction&>(actGoto1));
   QVERIFY(!(ti == def));
@@ -1398,6 +1399,7 @@ void TestQtPDF::page_renderToImage_data()
   QTest::newRow("base14-fonts-ZapfDingbats") << base14Doc << 0 << "base14-fonts-1.png" << QRect(200, 1468, 840, 30) << 150.;
   newDocTest("base14-fonts") << 0 << "base14-fonts-1.png" << QRect() << 15.;
   newDocTest("poppler-data") << 0 << "poppler-data-1.png" << QRect() << 3.;
+  newDocTest("jpg") << 0 << "jpg.png" << QRect() << 15.;
 }
 
 void TestQtPDF::page_renderToImage()
@@ -1861,21 +1863,24 @@ void TestQtPDF::pageTile()
 {
   QList<QtPDF::Backend::PDFPageTile> tiles;
 
-  tiles.append({1., 1., QRect(0, 0, 1, 1), 0});
-  tiles.append({2., 1., QRect(0, 0, 1, 1), 0});
-  tiles.append({1., 3., QRect(0, 0, 1, 1), 0});
-  tiles.append({1., 1., QRect(4, 0, 1, 1), 0});
-  tiles.append({1., 1., QRect(0, 5, 1, 1), 0});
-  tiles.append({1., 1., QRect(0, 0, 6, 1), 0});
-  tiles.append({1., 1., QRect(0, 0, 1, 7), 0});
-  tiles.append({1., 1., QRect(0, 0, 1, 1), 8});
+  const QtPDF::Backend::Document * doc1 = _docs[QStringLiteral("page-rotation")].data();
+  const QtPDF::Backend::Document * doc2 = _docs[QStringLiteral("base14-fonts")].data();
+  tiles.append({1., 1., QRect(0, 0, 1, 1), doc1, 0});
+  tiles.append({2., 1., QRect(0, 0, 1, 1), doc1, 0});
+  tiles.append({1., 3., QRect(0, 0, 1, 1), doc1, 0});
+  tiles.append({1., 1., QRect(4, 0, 1, 1), doc1, 0});
+  tiles.append({1., 1., QRect(0, 5, 1, 1), doc1, 0});
+  tiles.append({1., 1., QRect(0, 0, 6, 1), doc1, 0});
+  tiles.append({1., 1., QRect(0, 0, 1, 7), doc1, 0});
+  tiles.append({1., 1., QRect(0, 0, 1, 1), doc1, 8});
+  tiles.append({1., 1., QRect(0, 0, 1, 1), doc2, 0});
 
   for (int i = 0; i < tiles.size(); ++i) {
     for (int j = i + 1; j < tiles.size(); ++j) {
       auto t1 = tiles[i];
       auto t2 = tiles[j];
-      uint h1{qHash(t1)};
-      uint h2{qHash(t2)};
+      auto h1 = qHash(t1);
+      auto h2 = qHash(t2);
 
       QVERIFY(t1 == t1);
       QVERIFY(t2 == t2);

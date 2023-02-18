@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2021  Stefan Löffler
+	Copyright (C) 2019-2022  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 	see <http://www.tug.org/texworks/>.
 */
 #include "LuaScripting_test.h"
-#include "../plugins-src/TWLuaPlugin/LuaScript.h"
 #include "MockScriptingAPI.h"
 
 using namespace Tw::Scripting;

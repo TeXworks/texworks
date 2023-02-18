@@ -5,7 +5,7 @@ project(tw-deps)
 include(ExternalProject)
 include(GNUInstallDirs)
 
-set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=RELEASE)
+set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=TRUE)
 set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(Platform) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
 
 ExternalProject_Add(lua
@@ -16,8 +16,8 @@ ExternalProject_Add(lua
 )
 
 ExternalProject_Add(hunspell
-	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.0.tar.gz"
-	URL_HASH SHA256=bb27b86eb910a8285407cf3ca33b62643a02798cf2eef468c0a74f6c3ee6bc8a
+	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.2.tar.gz"
+	URL_HASH SHA256=69fa312d3586c988789266eaf7ffc9861d9f6396c31fc930a014d551b59bbd6e
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND msbuild msvc\\libhunspell.vcxproj ${MSBUILD_ARGS} /p:Configuration=Release_dll
 	BUILD_IN_SOURCE TRUE
@@ -34,14 +34,14 @@ ExternalProject_Add(hunspell
 )
 
 ExternalProject_Add(zlib
-	URL "http://zlib.net/zlib-1.2.11.tar.xz"
-	URL_HASH SHA256=4ff941449631ace0d4d203e3483be9dbc9da454084111f97ea0a2114e19bf066
+	URL "https://github.com/madler/zlib/archive/refs/tags/v1.2.13.tar.gz"
+	URL_HASH SHA256=1525952a0a567581792613a9723333d7f8cc20b87a81f920fb8bc7e3f2251428
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
 
 ExternalProject_Add(libpng
-	URL "https://download.sourceforge.net/libpng/libpng-1.6.37.tar.xz"
-	URL_HASH SHA256=505e70834d35383537b6491e7ae8641f1a4bed1876dbfe361201fc80868d88ca
+	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.39.tar.gz"
+	URL_HASH SHA256=a00e9d2f2f664186e4202db9299397f851aea71b36a35e74910b8820e380d441
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS zlib
 )
@@ -58,15 +58,15 @@ ExternalProject_Add(libjpeg
 )
 
 ExternalProject_Add(libtiff
-	URL "https://download.osgeo.org/libtiff/tiff-4.3.0.tar.gz"
-	URL_HASH SHA256=0e46e5acb087ce7d1ac53cf4f56a09b221537fc86dfc5daaad1c2e89e1b37ac8
+	URL "https://download.osgeo.org/libtiff/tiff-4.5.0.tar.gz"
+	URL_HASH SHA256=c7a1d9296649233979fa3eacffef3fa024d73d05d589cb622727b5b08c423464
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libjpeg
 )
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.13.1.tar.gz"
-	URL_HASH SHA256=6f84c942ecde1b4852b5a051894502ac8c98d010acb3400dec958c6db1bc94ef
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.14.tar.gz"
+	URL_HASH SHA256=05869269f14e589b0b6d05a76f510c68c67fabb304904d16c6bd818abec80a83
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND MSBUILD Projects\\VC2019\\lcms2_DLL ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
@@ -79,23 +79,23 @@ ExternalProject_Add(lcms2
 )
 
 ExternalProject_Add(libopenjpeg
-	URL https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.4.0.tar.gz
-	URL_HASH SHA256=8702ba68b442657f11aaeb2b338443ca8d5fb95b0d845757968a7be31ef7f16d
-	CMAKE_ARGS ${CMAKE_ARGS}
+	URL https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.0.tar.gz
+	URL_HASH SHA256=0333806d6adecc6f7a91243b2b839ff4d2053823634d4f6ed7a59bc87409122a
+	CMAKE_ARGS ${CMAKE_ARGS} -DBUILD_CODEC=OFF
 	DEPENDS lcms2 libtiff libpng zlib
 )
 
 ExternalProject_Add(freetype
-	URL https://download.savannah.gnu.org/releases/freetype/freetype-2.11.1.tar.xz
-	URL_HASH SHA256=3333ae7cfda88429c97a7ae63b7d01ab398076c3b67182e960e5684050f2c5c8
+	URL https://github.com/freetype/freetype/archive/refs/tags/VER-2-13-0.tar.gz
+	URL_HASH SHA256=a683f1091aee95d2deaca9292d976f87415610b8ae1ea186abeebcb08e83ab12
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libpng
 )
 
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-22.02.0.tar.xz"
-	URL_HASH SHA256=e390c8b806f6c9f0e35c8462033e0a738bb2460ebd660bdb8b6dca01556193e1
+	URL "https://poppler.freedesktop.org/poppler-23.02.0.tar.xz"
+	URL_HASH SHA256=3315dda270fe2b35cf1f41d275948c39652fa863b90de0766f6b293d9a558fc9
 	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
-	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DBUILD_MANUAL_TESTS=FALSE -DBUILD_QT5_TESTS=FALSE
+	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DBUILD_MANUAL_TESTS=FALSE -DBUILD_QT5_TESTS=FALSE -DWITH_NSS3=FALSE
 	DEPENDS freetype lcms2 libjpeg libpng libtiff
 )

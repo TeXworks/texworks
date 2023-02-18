@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2020  Stefan Löffler
+	Copyright (C) 2019-2022  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
 	see <http://www.tug.org/texworks/>.
 */
 
+#include <QTemporaryDir>
+
 #include <QtTest/QtTest>
 
 namespace UnitTest {
@@ -26,6 +28,8 @@ namespace UnitTest {
 class TestDocument : public QObject
 {
 	Q_OBJECT
+
+	QTemporaryDir m_tempDir;
 private slots:
 	void isPDFfile_data();
 	void isPDFfile();
@@ -50,13 +54,16 @@ private slots:
 	void SpellChecker_ignoreWord();
 
 	void Synchronizer_isValid();
-	void syncTeXFilename();
-	void pdfFilename();
+	void Synchronizer_syncTeXFilename();
+	void Synchronizer_pdfFilename();
 
 	void Synchronizer_syncFromTeX_data();
 	void Synchronizer_syncFromTeX();
 	void Synchronizer_syncFromPDF_data();
 	void Synchronizer_syncFromPDF();
+
+	void rootFile_data();
+	void rootFile();
 };
 
 } // namespace UnitTest

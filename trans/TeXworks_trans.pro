@@ -40,10 +40,12 @@ SOURCES = \
   "../src/scripting/ScriptAPI.cpp" \
   "../src/ui/ClickableLabel.cpp" \
   "../src/ui/ClosableTabWidget.cpp" \
+  "../src/ui/ColorButton.cpp" \
   "../src/ui/LineNumberWidget.cpp" \
   "../src/ui/ListSelectDialog.cpp" \
   "../src/ui/RemoveAuxFilesDialog.cpp" \
   "../src/ui/ScreenCalibrationWidget.cpp" \
+  "../src/utils/CmdKeyFilter.cpp" \
   "../src/utils/CommandlineParser.cpp" \
   "../src/utils/FileVersionDatabase.cpp" \
   "../src/utils/FullscreenManager.cpp" \
@@ -51,7 +53,8 @@ SOURCES = \
   "../src/utils/SystemCommand.cpp" \
   "../src/utils/TextCodecs.cpp" \
   "../src/utils/TypesetManager.cpp" \
-  "../src/utils/VersionInfo.cpp"
+  "../src/utils/VersionInfo.cpp" \
+  "../src/utils/WindowManager.cpp"
 
 HEADERS = \
   "../src/BibTeXFile.h" \
@@ -91,6 +94,7 @@ HEADERS = \
   "../src/scripting/ScriptLanguageInterface.h" \
   "../src/ui/ClickableLabel.h" \
   "../src/ui/ClosableTabWidget.h" \
+  "../src/ui/ColorButton.h" \
   "../src/ui/LineNumberWidget.h" \
   "../src/ui/ListSelectDialog.h" \
   "../src/ui/RemoveAuxFilesDialog.h" \
@@ -102,7 +106,8 @@ HEADERS = \
   "../src/utils/SystemCommand.h" \
   "../src/utils/TextCodecs.h" \
   "../src/utils/TypesetManager.h" \
-  "../src/utils/VersionInfo.h"
+  "../src/utils/VersionInfo.h" \
+  "../src/utils/WindowManager.h"
 
 FORMS = \
   "../src/CitationSelectDialog.ui" \

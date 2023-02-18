@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2020  Stefan Löffler
+	Copyright (C) 2019-2022  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -22,12 +22,12 @@
 #include "Scripting_test.h"
 
 #include "MockScriptingAPI.h"
-#include "scripting/ECMAScript.h"
 #include "scripting/ECMAScriptInterface.h"
 #if WITH_QTSCRIPT
-#	include "scripting/JSScript.h"
 #	include "scripting/JSScriptInterface.h"
 #endif
+
+#include <memory>
 
 using namespace Tw::Scripting;
 
@@ -39,22 +39,22 @@ namespace UnitTest {
 void TestScripting::scriptLanguageName()
 {
 #if WITH_QTSCRIPT
-	Tw::Scripting::JSScriptInterface js;
+	Tw::Scripting::JSScriptInterface js(this);
 	QCOMPARE(js.scriptLanguageName(), QStringLiteral("QtScript"));
 #endif
 
-	Tw::Scripting::ECMAScriptInterface es;
+	Tw::Scripting::ECMAScriptInterface es(this);
 	QCOMPARE(es.scriptLanguageName(), QStringLiteral("ECMAScript"));
 }
 
 void TestScripting::scriptLanguageURL()
 {
 #if WITH_QTSCRIPT
-	Tw::Scripting::JSScriptInterface js;
+	Tw::Scripting::JSScriptInterface js(this);
 	QCOMPARE(js.scriptLanguageURL(), QStringLiteral("http://doc.qt.io/qt-5/qtscript-index.html"));
 #endif
 
-	Tw::Scripting::ECMAScriptInterface es;
+	Tw::Scripting::ECMAScriptInterface es(this);
 	QCOMPARE(es.scriptLanguageURL(), QStringLiteral("https://doc.qt.io/qt-5/qjsengine.html"));
 }
 
@@ -68,7 +68,7 @@ void TestScripting::canHandleFile()
 	QFileInfo fiTex(QStringLiteral("file.tex"));
 
 #if WITH_QTSCRIPT
-	Tw::Scripting::JSScriptInterface js;
+	Tw::Scripting::JSScriptInterface js(this);
 	QVERIFY(js.canHandleFile(fiNull) == false);
 	QVERIFY(js.canHandleFile(fiEs) == false);
 	QVERIFY(js.canHandleFile(fiJs));
@@ -77,7 +77,7 @@ void TestScripting::canHandleFile()
 	QVERIFY(js.canHandleFile(fiTex) == false);
 #endif
 
-	Tw::Scripting::ECMAScriptInterface es;
+	Tw::Scripting::ECMAScriptInterface es(this);
 	QVERIFY(es.canHandleFile(fiNull) == false);
 	QVERIFY(es.canHandleFile(fiEs));
 	QVERIFY(es.canHandleFile(fiJs));
@@ -89,8 +89,8 @@ void TestScripting::canHandleFile()
 void TestScripting::isEnabled()
 {
 #if WITH_QTSCRIPT
-	JSScriptInterface jsi;
-	Script * js = jsi.newScript(QString());
+	JSScriptInterface jsi(this);
+	std::unique_ptr<Script> js{jsi.newScript(QString())};
 
 	QVERIFY(js->isEnabled());
 	js->setEnabled(false);
@@ -99,8 +99,8 @@ void TestScripting::isEnabled()
 	QVERIFY(js->isEnabled());
 #endif
 
-	ECMAScriptInterface esi;
-	Script * es = esi.newScript(QString());
+	ECMAScriptInterface esi(this);
+	std::unique_ptr<Script> es{esi.newScript(QString())};
 
 	QVERIFY(es->isEnabled());
 	es->setEnabled(false);
@@ -112,28 +112,28 @@ void TestScripting::isEnabled()
 void TestScripting::getScriptLanguagePlugin()
 {
 #if WITH_QTSCRIPT
-	JSScriptInterface jsi;
-	QCOMPARE(jsi.newScript(QString())->getScriptLanguagePlugin(), &jsi);
+	JSScriptInterface jsi(this);
+	QCOMPARE(std::unique_ptr<Script>(jsi.newScript(QString()))->getScriptLanguagePlugin(), &jsi);
 #endif
 
-	ECMAScriptInterface esi;
-	QCOMPARE(esi.newScript(QString())->getScriptLanguagePlugin(), &esi);
+	ECMAScriptInterface esi(this);
+	QCOMPARE(std::unique_ptr<Script>(esi.newScript(QString()))->getScriptLanguagePlugin(), &esi);
 }
 
 void TestScripting::getFilename()
 {
 	QString invalid = QStringLiteral("does-not-exist");
 #if WITH_QTSCRIPT
-	JSScriptInterface jsi;
+	JSScriptInterface jsi(this);
 
-	QCOMPARE(jsi.newScript(QString())->getFilename(), QString());
-	QCOMPARE(jsi.newScript(invalid)->getFilename(), invalid);
+	QCOMPARE(std::unique_ptr<Script>(jsi.newScript(QString()))->getFilename(), QString());
+	QCOMPARE(std::unique_ptr<Script>(jsi.newScript(invalid))->getFilename(), invalid);
 #endif
 
-	ECMAScriptInterface esi;
+	ECMAScriptInterface esi(this);
 
-	QCOMPARE(esi.newScript(QString())->getFilename(), QString());
-	QCOMPARE(esi.newScript(invalid)->getFilename(), invalid);
+	QCOMPARE(std::unique_ptr<Script>(esi.newScript(QString()))->getFilename(), QString());
+	QCOMPARE(std::unique_ptr<Script>(esi.newScript(invalid))->getFilename(), invalid);
 }
 
 void TestScripting::globals()
@@ -142,7 +142,7 @@ void TestScripting::globals()
 	QVariant val(42.f);
 
 #if WITH_QTSCRIPT
-	JSScriptInterface jsi;
+	JSScriptInterface jsi(this);
 	QSharedPointer<Script> js = QSharedPointer<Script>(jsi.newScript(QString()));
 
 	QVERIFY(js->hasGlobal(key) == false);
@@ -157,7 +157,7 @@ void TestScripting::globals()
 	QVERIFY(js->hasGlobal(key) == false);
 #endif
 
-	ECMAScriptInterface esi;
+	ECMAScriptInterface esi(this);
 	QSharedPointer<Script> es = QSharedPointer<Script>(esi.newScript(QString()));
 
 	QVERIFY(es->hasGlobal(key) == false);
@@ -186,7 +186,7 @@ void TestScripting::parseHeader_data()
 	QTest::addColumn<QKeySequence>("keySequence");
 
 #if WITH_QTSCRIPT
-	JSScriptInterface jsi;
+	JSScriptInterface jsi(this);
 
 	QTest::newRow("invalid (JS)") << QSharedPointer<Script>(jsi.newScript(QString()))
 							 << false
@@ -220,7 +220,7 @@ void TestScripting::parseHeader_data()
 								<< QKeySequence();
 #endif
 
-	ECMAScriptInterface esi;
+	ECMAScriptInterface esi(this);
 
 	QTest::newRow("invalid (ECMA)") << QSharedPointer<Script>(esi.newScript(QString()))
 							 << false
@@ -281,7 +281,7 @@ void TestScripting::parseHeader()
 
 void TestScripting::mocks()
 {
-	Script * s = ECMAScriptInterface().newScript(QString());
+	Script * s = ECMAScriptInterface(this).newScript(QString());
 	MockTarget target;
 	MockAPI api(s, &target);
 
@@ -353,7 +353,7 @@ void TestScripting::mocks()
 void TestScripting::execute()
 {
 #if WITH_QTSCRIPT
-	JSScriptInterface jsi;
+	JSScriptInterface jsi(this);
 
 	QSharedPointer<Script> js1 = QSharedPointer<Script>(jsi.newScript(QStringLiteral("does-not-exist")));
 	QSharedPointer<Script> js2 = QSharedPointer<Script>(jsi.newScript(QStringLiteral("script1.js")));
@@ -379,7 +379,7 @@ void TestScripting::execute()
 	}
 #endif
 
-	ECMAScriptInterface esi;
+	ECMAScriptInterface esi(this);
 
 	QSharedPointer<Script> es1 = QSharedPointer<Script>(esi.newScript(QStringLiteral("does-not-exist")));
 	QSharedPointer<Script> es2 = QSharedPointer<Script>(esi.newScript(QStringLiteral("script1.js")));

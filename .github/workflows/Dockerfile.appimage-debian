@@ -1,0 +1,141 @@
+# NB: Don't use parallel builds (i.e., `make -j`) as that might require more RAM than is available on GitHub Actions, resulting in the run to hang and fail
+
+# Qt6 packages are built against glibc 2.28 [https://doc.qt.io/qt-6/supported-platforms.html#availability-of-packages]
+# This is the version bundled (among others) in Debian 10 [https://en.wikipedia.org/wiki/Glibc#Version_history]
+
+# Some linux distros featuring at least glibc 2.28 (see also https://repology.org/project/glibc/versions):
+# Debian 10+ [https://www.debian.org/releases/buster/amd64/release-notes/ch-whats-new.en.html#newdistro]
+# Fedora 29+ [https://fedoraproject.org/wiki/Changes/GLIBC228]
+# Arch (rolling)
+# Gentoo (rolling)
+
+# Ubuntu 18.10+ [https://wiki.ubuntu.com/CosmicCuttlefish/ReleaseNotes#Toolchain_Upgrades_.2B2D3e4P4P-]
+# RHEL 8.0.0+ [https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.0_release_notes/rhel-8_0_0_release#platform-tools]
+# openSUSE 15.3+ [https://software.opensuse.org/package/glibc]
+
+FROM debian:10 as build-stage
+
+ARG CMAKE_VERSION=3.25.2
+ARG FREETYPE_VERSION=2-13-0
+# Qt open-source LTS version
+ARG QT_VERSION=6.2.4
+ARG POPPLER_VERSION=23.02.0
+ARG HUNSPELL_VERSION=1.7.2
+
+# file is required by appimagetool
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install --no-install-recommends --assume-yes \
+	ca-certificates \
+	file \
+	g++ \
+	git \
+	gsfonts \
+	libbrotli-dev \
+	libbz2-dev \
+	libcairo2-dev \
+	libcurl4-nss-dev \
+	libdbus-1-dev \
+	libegl1-mesa-dev \
+	libfontconfig-dev \
+	libgl-dev \
+	libharfbuzz-dev \
+	libjpeg-dev \
+	liblcms2-dev \
+	liblua5.3-dev \
+	libnss3-dev \
+	libopenjp2-7-dev \
+	libtiff-dev \
+	libxcb-icccm4 \
+	libxcb-image0 \
+	libxcb-keysyms1 \
+	libxcb-randr0 \
+	libxcb-render-util0 \
+	libxcb-shape0 \
+	libxcb-xinerama0 \
+	libxkbcommon-dev \
+	libxkbcommon-x11-0 \
+	make \
+	poppler-data \
+	python3-dev \
+	python3-pip \
+	python3-setuptools \
+	python3-wheel \
+	wget \
+	xauth \
+	xvfb \
+	xz-utils \
+	zlib1g-dev \
+&& apt-get clean
+
+# Ensure Qt doesn't find "modern" (glvnd) OpenGL libraries
+# https://bugreports.qt.io/browse/QTBUG-89754
+# https://github.com/probonopd/linuxdeployqt/issues/486
+# https://github.com/linuxdeploy/linuxdeploy/issues/152
+RUN mkdir /opt/opengl && mv /usr/lib/x86_64-linux-gnu/libOpenGL.so* /opt/opengl
+
+# Install deployment tools
+RUN \
+	wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -P /opt && chmod +x /opt/appimagetool-x86_64.AppImage && \
+	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -P /opt && chmod +x /opt/linuxdeploy-x86_64.AppImage && \
+	wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage -P /opt && chmod +x /opt/linuxdeploy-plugin-qt-x86_64.AppImage
+
+# Install CMake
+RUN cd /opt && \
+	wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz && \
+	tar -xf cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz
+ENV CMAKE=/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin/cmake
+ENV CTEST=/opt/cmake-${CMAKE_VERSION}-linux-x86_64/bin/ctest
+
+# Build Hunspell
+RUN cd /opt && \
+	wget https://github.com/hunspell/hunspell/releases/download/v${HUNSPELL_VERSION}/hunspell-${HUNSPELL_VERSION}.tar.gz && \
+	tar -xf hunspell-${HUNSPELL_VERSION}.tar.gz && \
+	cd hunspell-${HUNSPELL_VERSION} && \
+	./configure && \
+	make && \
+	make install
+
+# Install Qt
+# aqt list-qt linux desktop --modules 6.2.4 gcc_64
+RUN pip3 install aqtinstall && \
+	aqt install-qt linux desktop ${QT_VERSION} --modules qt5compat -O /opt/qt
+
+# Build Freetype
+RUN \
+	cd /opt && \
+	wget -O freetype.tar.gz https://github.com/freetype/freetype/archive/refs/tags/VER-${FREETYPE_VERSION}.tar.gz && \
+	tar -xf freetype.tar.gz && \
+	mkdir freetype-VER-${FREETYPE_VERSION}/build && \
+	cd freetype-VER-${FREETYPE_VERSION}/build && \
+	${CMAKE} .. -DBUILD_SHARED_LIBS=ON && \
+	make && \
+	make install
+
+# Build Poppler
+RUN \
+	cd /opt && \
+	wget https://poppler.freedesktop.org/poppler-${POPPLER_VERSION}.tar.xz && \
+	tar -xf poppler-${POPPLER_VERSION}.tar.xz && \
+	mkdir poppler-${POPPLER_VERSION}/build && \
+	cd poppler-${POPPLER_VERSION}/build && \
+	${CMAKE} .. -DCMAKE_PREFIX_PATH=/opt/qt/${QT_VERSION}/gcc_64/lib/cmake/ -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_BOOST=OFF && \
+	make && \
+	make install
+
+COPY . /home/tw
+
+# Build TeXworks
+RUN mkdir /home/tw/build && cd /home/tw/build && \
+${CMAKE} -DTW_BUILD_ID='github' -DCMAKE_INSTALL_PREFIX=/usr .. -DCMAKE_PREFIX_PATH=/opt/qt/${QT_VERSION}/gcc_64 -DQT_DEFAULT_MAJOR_VERSION=6 && \
+make && \
+xvfb-run ${CTEST} -V && \
+make install DESTDIR=AppDir
+
+# Build AppImage
+RUN cd /home/tw/build && \
+	APPIMAGE_EXTRACT_AND_RUN=1 QMAKE=/opt/qt/${QT_VERSION}/gcc_64/bin/qmake LD_LIBRARY_PATH="/opt/qt/${QT_VERSION}/gcc_64/lib/:/usr/local/lib" /opt/linuxdeploy-x86_64.AppImage --appdir AppDir --desktop-file=AppDir/usr/share/applications/texworks.desktop --library=AppDir/usr/lib/texworks/libTWLuaPlugin.so --plugin qt --output appimage
+
+############################
+
+# Copy the resulting AppImage into a blank docker image for easier further processing
+FROM scratch
+COPY --from=build-stage /home/tw/build/TeXworks-*.AppImage /
