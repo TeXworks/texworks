@@ -137,7 +137,7 @@ FILE(STRINGS ${CMAKE_CURRENT_BINARY_DIR}/src/GitRev.h TeXworks_GIT_INFO)
 LIST(GET TeXworks_GIT_INFO 1 TeXworks_GIT_COMMIT)
 STRING(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+\\*?)\"" "\\1" TeXworks_GIT_HASH "${TeXworks_GIT_COMMIT}")
 LIST(GET TeXworks_GIT_INFO 2 TeXworks_GIT_COMMIT)
-STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
+STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9TZ]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
 
 
 # Declare Project Options
