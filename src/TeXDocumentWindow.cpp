@@ -1946,15 +1946,16 @@ void TeXDocumentWindow::balanceDelimiters()
 {
 	const QString text = textEdit->text();
 	QTextCursor cursor = textEdit->textCursor();
-	int openPos = TWUtils::findOpeningDelim(text, cursor.selectionStart());
+	using pos_type = decltype(cursor.position());
+	auto openPos = TWUtils::findOpeningDelim(text, cursor.selectionStart());
 	if (openPos >= 0 && openPos < text.length() - 1) {
 		do {
-			int closePos = TWUtils::balanceDelim(text, openPos + 1, TWUtils::closerMatching(text[openPos]), 1);
+			auto closePos = TWUtils::balanceDelim(text, openPos + 1, TWUtils::closerMatching(text[openPos]), 1);
 			if (closePos < 0)
 				break;
 			if (closePos >= cursor.selectionEnd()) {
-				cursor.setPosition(openPos);
-				cursor.setPosition(closePos + 1, QTextCursor::KeepAnchor);
+				cursor.setPosition(static_cast<pos_type>(openPos));
+				cursor.setPosition(static_cast<pos_type>(closePos + 1), QTextCursor::KeepAnchor);
 				textEdit->setTextCursor(cursor);
 				return;
 			}
@@ -2026,6 +2027,7 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	pattern += QLatin1String(")\\*?\\s*(\\[[^\\]]*\\])?\\s*\\{([^}]*)\\}");
 
 	QTextCursor curs(textDoc());
+	using pos_type = decltype(curs.position());
 	constexpr int PeekLength = 1024;
 
 	int peekFront = qMin(PeekLength, curs.position());
@@ -2041,7 +2043,8 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	QRegularExpressionMatch mCmd;
 
 #if QT_VERSION >= 0x050500
-	peekStr.lastIndexOf(reCmd, peekFront, &mCmd);
+	auto pos = peekStr.lastIndexOf(reCmd, peekFront, &mCmd);
+	Q_UNUSED(pos)
 #else
 	int pos = peekStr.lastIndexOf(reCmd, peekFront);
 	if (pos >= 0)
@@ -2070,9 +2073,9 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 			// captures pos() returns -1 according to the documentation; in that
 			// case, use the fact that cap(0) is not empty and we know that the
 			// argument is followed by "}"
-			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, (mCmd.capturedStart(3) >= 0 ? mCmd.capturedStart(3) : mCmd.capturedEnd(0) - 1));
+			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, static_cast<pos_type>(mCmd.capturedStart(3) >= 0 ? mCmd.capturedStart(3) : mCmd.capturedEnd(0) - 1));
 			// select the cite argument (until just before '}')
-			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, mCmd.capturedLength(3));
+			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, static_cast<pos_type>(mCmd.capturedLength(3)));
 			// replace the text
 			curs.insertText(dlg.getSelectedKeys().join(QLatin1String(",")));
 			curs.endEditBlock();
@@ -2347,7 +2350,7 @@ void TeXDocumentWindow::doFindAgain(bool fromDialog)
 		}
 		else {
 			SearchResults::presentResults(searchText, results, this, singleFile);
-			statusBar()->showMessage(tr("Found %n occurrence(s)", "", results.count()), kStatusMessageDuration);
+			statusBar()->showMessage(tr("Found %n occurrence(s)", "", static_cast<int>(results.count())), kStatusMessageDuration);
 		}
 	}
 	else {
@@ -2418,7 +2421,7 @@ void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 	QString	replacement = settings.value(QString::fromLatin1("replaceText")).toString();
 	if (regex) {
 		QRegularExpression escapedChar(QStringLiteral("\\\\([nt\\\\]|x([0-9A-Fa-f]{4}))"));
-		int index = -1;
+		QString::size_type index = -1;
 		QRegularExpressionMatch escapeMatch;
 		while ((escapeMatch = escapedChar.match(replacement, index + 1)).hasMatch()) {
 			index = escapeMatch.capturedStart();
@@ -2516,7 +2519,7 @@ void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 			foreach (TeXDocumentWindow* doc, docList)
 				replacements += doc->doReplaceAll(searchText, regex, replacement, flags);
 			QString numOccurrences = tr("%n occurrence(s)", "", replacements);
-			QString numDocuments = tr("%n documents", "", docList.count());
+			QString numDocuments = tr("%n documents", "", static_cast<int>(docList.count()));
 			QString message = tr("Replaced %1 in %2").arg(numOccurrences, numDocuments);
 			statusBar()->showMessage(message, kStatusMessageDuration);
 		}
@@ -2540,6 +2543,7 @@ int TeXDocumentWindow::doReplaceAll(const QString& searchText, QRegularExpressio
 								QTextDocument::FindFlags flags, int rangeStart, int rangeEnd)
 {
 	QTextCursor searchRange = textCursor();
+	using pos_type = decltype(searchRange.position());
 	searchRange.select(QTextCursor::Document);
 	if (rangeStart < 0)
 		rangeStart = searchRange.selectionStart();
@@ -2560,12 +2564,12 @@ int TeXDocumentWindow::doReplaceAll(const QString& searchText, QRegularExpressio
 			first = false;
 		}
 		QString target;
-		int oldLen = curs.selectionEnd() - curs.selectionStart();
+		pos_type oldLen = curs.selectionEnd() - curs.selectionStart();
 		if (regex)
 			target = textEdit->text().mid(curs.selectionStart(), oldLen).replace(*regex, replacement);
 		else
 			target = replacement;
-		int newLen = target.length();
+		pos_type newLen = static_cast<pos_type>(target.length());
 		if ((flags & QTextDocument::FindBackward) != 0)
 			rangeEnd = curs.selectionStart();
 		else {
@@ -2587,6 +2591,7 @@ int TeXDocumentWindow::doReplaceAll(const QString& searchText, QRegularExpressio
 QTextCursor TeXDocumentWindow::doSearch(const QString& searchText, const QRegularExpression * regex, QTextDocument::FindFlags flags, int s, int e)
 {
 	QTextCursor curs;
+	using pos_type = decltype(curs.position());
 	QTextDocument * theDoc = textEdit->document();
 	const QString& docText = textEdit->text();
 
@@ -2613,8 +2618,8 @@ QTextCursor TeXDocumentWindow::doSearch(const QString& searchText, const QRegula
 			}
 			if (offset >= s) {
 				curs = QTextCursor(textEdit->document());
-				curs.setPosition(m.capturedStart());
-				curs.setPosition(m.capturedEnd(), QTextCursor::KeepAnchor);
+				curs.setPosition(static_cast<pos_type>(m.capturedStart()));
+				curs.setPosition(static_cast<pos_type>(m.capturedEnd()), QTextCursor::KeepAnchor);
 			}
 		}
 		else {
@@ -2634,8 +2639,8 @@ QTextCursor TeXDocumentWindow::doSearch(const QString& searchText, const QRegula
 			QRegularExpressionMatch m = regex->match(docText, s);
 			if (m.hasMatch()) {
 				curs = QTextCursor(theDoc);
-				curs.setPosition(m.capturedStart());
-				curs.setPosition(m.capturedEnd(), QTextCursor::KeepAnchor);
+				curs.setPosition(static_cast<pos_type>(m.capturedStart()));
+				curs.setPosition(static_cast<pos_type>(m.capturedEnd()), QTextCursor::KeepAnchor);
 			}
 		}
 		else {
@@ -3070,7 +3075,8 @@ void TeXDocumentWindow::acceptInputLine()
 	if (process) {
 		QString	str = inputLine->text();
 		QTextCursor	curs(textEdit_console->document());
-		curs.setPosition(textEdit_console->toPlainText().length());
+		using pos_type = decltype(curs.position());
+		curs.setPosition(static_cast<pos_type>(textEdit_console->toPlainText().length()));
 		textEdit_console->setTextCursor(curs);
 		QTextCharFormat	consoleFormat = textEdit_console->currentCharFormat();
 		QTextCharFormat inputFormat(consoleFormat);
@@ -3078,7 +3084,7 @@ void TeXDocumentWindow::acceptInputLine()
 		str.append(QChar::fromLatin1('\n'));
 		textEdit_console->insertPlainText(str);
 		curs.movePosition(QTextCursor::PreviousCharacter);
-		curs.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, str.length() - 1);
+		curs.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, static_cast<pos_type>(str.length() - 1));
 		curs.setCharFormat(inputFormat);
 		process->write(str.toUtf8());
 		inputLine->clear();

@@ -465,7 +465,7 @@ void SearchResults::presentResults(const QString& searchText,
 	SearchResults* resultsWindow = new SearchResults(parent);
 	resultsWindow->setWindowTitle(tr("Search Results - %1 (%2 found)").arg(searchText).arg(results.count()));
 
-	resultsWindow->table->setRowCount(results.count());
+	resultsWindow->table->setRowCount(static_cast<decltype(resultsWindow->table->rowCount())>(results.count()));
 	int i = 0;
 	foreach (const SearchResult &result, results) {
 		QTableWidgetItem * item = new QTableWidgetItem();

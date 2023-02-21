@@ -54,7 +54,7 @@ public:
   };
   struct PDFSyncPoint {
     QString filename;
-    int page;
+    QtPDF::Backend::Document::size_type page;
     QList<QRectF> rects;
 
     bool operator==(const PDFSyncPoint & o) const {

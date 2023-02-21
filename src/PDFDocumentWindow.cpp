@@ -554,7 +554,7 @@ void PDFDocumentWindow::loadSyncData()
 		statusBar()->showMessage(tr("SyncTeX: \"%1\"").arg(_synchronizer->syncTeXFilename()), kStatusMessageDuration);
 }
 
-void PDFDocumentWindow::syncClick(int pageIndex, const QPointF& pos)
+void PDFDocumentWindow::syncClick(size_type pageIndex, const QPointF& pos)
 {
 	Tw::Settings settings;
 	TWSynchronizer::Resolution res{TWSynchronizer::kDefault_Resolution_ToPDF};
@@ -573,7 +573,7 @@ void PDFDocumentWindow::syncClick(int pageIndex, const QPointF& pos)
 	syncRange(pageIndex, pos, pos, res);
 }
 
-void PDFDocumentWindow::syncRange(const int pageIndex, const QPointF & start, const QPointF & end, const TWSynchronizer::Resolution resolution)
+void PDFDocumentWindow::syncRange(const size_type pageIndex, const QPointF & start, const QPointF & end, const TWSynchronizer::Resolution resolution)
 {
 	if (!_synchronizer)
 		return;
@@ -628,10 +628,11 @@ void PDFDocumentWindow::syncRange(const int pageIndex, const QPointF & start, co
 	// Get a text cursor in the correct position for "start" (if no valid column
 	// was found, place it at the beginning of the correct line)
 	QTextCursor curStart = texDoc->textCursor();
+	using pos_type = decltype(curStart.position());
 	curStart.setPosition(0);
 	curStart.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, destStart.line - 1);
 	if (destStart.col >= 0)
-		curStart.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, destStart.col);
+		curStart.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, static_cast<pos_type>(destStart.col));
 
 	// Get a text cursor in the correct position for "end" (if no valid column
 	// was found, place it at the end of the correct line)
@@ -640,7 +641,7 @@ void PDFDocumentWindow::syncRange(const int pageIndex, const QPointF & start, co
 		curEnd.setPosition(0);
 		curEnd.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, destStart.line - 1);
 		if (destEnd.col >= 0)
-			curEnd.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, destEnd.col + qMax(1, destEnd.len));
+			curEnd.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, static_cast<pos_type>(destEnd.col + qMax(1, destEnd.len)));
 		else
 			curEnd.movePosition(QTextCursor::EndOfBlock);
 	}
@@ -780,7 +781,7 @@ PDFDocumentWindow *PDFDocumentWindow::findDocument(const QString &fileName)
 	return nullptr;
 }
 
-void PDFDocumentWindow::showPage(int page)
+void PDFDocumentWindow::showPage(size_type page)
 {
 	pageLabel->setText(tr("page %1 of %2").arg(page).arg(pdfWidget->lastPage()));
 }
@@ -823,7 +824,7 @@ void PDFDocumentWindow::changedDocument(const QWeakPointer<QtPDF::Backend::Docum
 	enablePageActions(pdfWidget->currentPage());
 }
 
-void PDFDocumentWindow::enablePageActions(int pageIndex)
+void PDFDocumentWindow::enablePageActions(size_type pageIndex)
 {
 //#if !defined(Q_OS_DARWIN)
 // On Mac OS X, disabling these leads to a crash if we hit the end of document while auto-repeating a key
@@ -1035,7 +1036,7 @@ void PDFDocumentWindow::doFindAgain(bool newSearch /* = false */)
 	widget()->search(searchText, searchFlags);
 }
 
-void PDFDocumentWindow::searchResultHighlighted(const int pageNum, const QList<QPolygonF> & pdfRegion)
+void PDFDocumentWindow::searchResultHighlighted(const size_type pageNum, const QList<QPolygonF> & pdfRegion)
 {
 	Tw::Settings settings;
 
@@ -1235,8 +1236,8 @@ void PDFDocumentWindow::doPageDialog()
 	bool ok{false};
 
 	int pageNo = QInputDialog::getInt(this, tr("Go to Page"),
-									tr("Page number:"), pdfWidget->currentPage() + 1,
-                  1, pdfWidget->lastPage(), 1, &ok);
+									tr("Page number:"), static_cast<int>(pdfWidget->currentPage() + 1),
+				  1, static_cast<int>(pdfWidget->lastPage()), 1, &ok);
 	if (ok)
 		pdfWidget->goToPage(pageNo - 1);
 }

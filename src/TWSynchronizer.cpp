@@ -25,6 +25,11 @@
 #include <QFileInfo>
 #include <QTextBlock>
 
+namespace {
+  using page_type = decltype(SyncTeX::synctex_node_page(nullptr));
+  using column_type = decltype(SyncTeX::synctex_node_column(nullptr));
+}
+
 // TODO for fine-grained search:
 // - Specially handle \commands (and possibly other TeX codes)
 // - Allow to increase the context to neighboring lines (in case lines were
@@ -92,7 +97,7 @@ TWSynchronizer::PDFSyncPoint TWSyncTeXSynchronizer::syncFromTeX(const TWSynchron
 
   retVal.filename = pdfFilename();
 
-  if (SyncTeX::synctex_display_query(_scanner, name.toLocal8Bit().data(), src.line, src.col, -1) > 0) {
+  if (SyncTeX::synctex_display_query(_scanner, name.toLocal8Bit().data(), src.line, static_cast<column_type>(src.col), -1) > 0) {
 	while ((node = SyncTeX::synctex_scanner_next_result(_scanner))) {
       if (retVal.page < 0)
         retVal.page = SyncTeX::synctex_node_page(node);
@@ -125,7 +130,7 @@ TWSynchronizer::TeXSyncPoint TWSyncTeXSynchronizer::syncFromPDF(const TWSynchron
   if (src.rects.length() != 1)
     return retVal;
 
-  if (SyncTeX::synctex_edit_query(_scanner, src.page, static_cast<float>(src.rects[0].left()), static_cast<float>(src.rects[0].top())) > 0) {
+  if (SyncTeX::synctex_edit_query(_scanner, static_cast<page_type>(src.page), static_cast<float>(src.rects[0].left()), static_cast<float>(src.rects[0].top())) > 0) {
     SyncTeX::synctex_node_p node{nullptr};
     while ((node = SyncTeX::synctex_scanner_next_result(_scanner))) {
       retVal.filename = QString::fromLocal8Bit(SyncTeX::synctex_scanner_get_name(_scanner, SyncTeX::synctex_node_tag(node)));
@@ -244,7 +249,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
   // than one PDF rect for multiline paragraphs).
   // Note: this still does not help for paragraphs broken across pages
   QList<QPolygonF> selection;
-  if (SyncTeX::synctex_display_query(_scanner, dest.filename.toLocal8Bit().data(), dest.line, -1, src.page) > 0) {
+  if (SyncTeX::synctex_display_query(_scanner, dest.filename.toLocal8Bit().data(), dest.line, -1, static_cast<page_type>(src.page)) > 0) {
     SyncTeX::synctex_node_p node{nullptr};
 	while ((node = SyncTeX::synctex_scanner_next_result(_scanner))) {
       if (SyncTeX::synctex_node_page(node) != src.page)

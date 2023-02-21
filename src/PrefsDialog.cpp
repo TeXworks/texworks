@@ -465,6 +465,7 @@ static bool dictPairLessThan(const DictPair& d1, const DictPair& d2)
 QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 {
 	PrefsDialog dlg(nullptr);
+	using index_type = decltype(QComboBox().currentIndex());
 
 	QStringList nameList;
 	foreach (QTextCodec *codec, *TWUtils::findCodecs())
@@ -571,15 +572,15 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.localePopup->setCurrentIndex(oldLocaleIndex);
 
 	// Editor
-	dlg.syntaxColoring->setCurrentIndex(settings.contains(QString::fromLatin1("syntaxColoring"))
+	dlg.syntaxColoring->setCurrentIndex(static_cast<index_type>(settings.contains(QString::fromLatin1("syntaxColoring"))
 	                        ? 1 + syntaxOptions.indexOf(settings.value(QString::fromLatin1("syntaxColoring")).toString())
-							: 1 + kDefault_SyntaxColoring);
-	dlg.autoIndent->setCurrentIndex(settings.contains(QString::fromLatin1("autoIndent"))
+							: 1 + kDefault_SyntaxColoring));
+	dlg.autoIndent->setCurrentIndex(static_cast<index_type>(settings.contains(QString::fromLatin1("autoIndent"))
 	                        ? 1 + indentModes.indexOf(settings.value(QString::fromLatin1("autoIndent")).toString())
-							: 1 + kDefault_IndentMode);
-	dlg.smartQuotes->setCurrentIndex(settings.contains(QString::fromLatin1("smartQuotes"))
+							: 1 + kDefault_IndentMode));
+	dlg.smartQuotes->setCurrentIndex(static_cast<index_type>(settings.contains(QString::fromLatin1("smartQuotes"))
 	                        ? 1 + quotesModes.indexOf(settings.value(QString::fromLatin1("smartQuotes")).toString())
-							: 1 + kDefault_QuotesMode);
+							: 1 + kDefault_QuotesMode));
 	dlg.lineNumbers->setChecked(settings.value(QString::fromLatin1("lineNumbers"), kDefault_LineNumbers).toBool());
 	dlg.wrapLines->setChecked(settings.value(QString::fromLatin1("wrapLines"), kDefault_WrapLines).toBool());
 	dlg.tabWidth->setValue(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toInt());
@@ -590,9 +591,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	QFont font;
 	if (!fontString.isEmpty())
 		font.fromString(fontString);
-	dlg.editorFont->setCurrentIndex(fdb.families().indexOf(font.family()));
+	dlg.editorFont->setCurrentIndex(static_cast<index_type>(fdb.families().indexOf(font.family())));
 	dlg.fontSize->setValue(font.pointSize());
-	dlg.encoding->setCurrentIndex(nameList.indexOf(QString::fromUtf8(TWApp::instance()->getDefaultCodec()->name().constData())));
+	dlg.encoding->setCurrentIndex(static_cast<index_type>(nameList.indexOf(QString::fromUtf8(TWApp::instance()->getDefaultCodec()->name().constData()))));
 	dlg.highlightCurrentLine->setChecked(settings.value(QString::fromLatin1("highlightCurrentLine"), kDefault_HighlightCurrentLine).toBool());
 	dlg.cursorWidth->setValue(settings.value(QStringLiteral("cursorWidth"), kDefault_CursorWidth).toInt());
 	dlg.autocompleteEnabled->setChecked(settings.value(QString::fromLatin1("autocompleteEnabled"), kDefault_AutocompleteEnabled).toBool());

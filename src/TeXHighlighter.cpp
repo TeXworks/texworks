@@ -124,8 +124,9 @@ void TeXHighlighter::highlightBlock(const QString &text)
 				}
 				if (firstPatt && firstMatch.hasMatch() && (len = firstMatch.capturedLength()) > 0) {
 					QTextCursor	cursor(document());
-					cursor.setPosition(currentBlock().position() + firstIndex);
-					cursor.setPosition(currentBlock().position() + firstIndex + len, QTextCursor::KeepAnchor);
+					using pos_type = decltype(cursor.position());
+					cursor.setPosition(currentBlock().position() + static_cast<pos_type>(firstIndex));
+					cursor.setPosition(currentBlock().position() + static_cast<pos_type>(firstIndex + len), QTextCursor::KeepAnchor);
 					QString tagText = firstMatch.captured(1);
 					if (tagText.isEmpty())
 						tagText = firstMatch.captured(0);
