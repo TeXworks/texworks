@@ -77,7 +77,7 @@ public:
   void reload() override;
   bool unlock(const QString password) override;
 
-  QWeakPointer<Backend::Page> page(int at) override;
+  QWeakPointer<Backend::Page> page(size_type at) override;
   PDFDestination resolveDestination(const PDFDestination & namedDestination) const override;
 
   PDFToC toc() const override;
@@ -104,7 +104,7 @@ class Page: public Backend::Page
   void loadTransitionData();
 
 protected:
-  Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock);
+  Page(Document *parent, size_type at, QSharedPointer<QReadWriteLock> docLock);
 
 public:
   ~Page() override;

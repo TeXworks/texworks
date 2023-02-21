@@ -100,7 +100,7 @@ void PDFGuideline::setPosPage(const QPointF pt)
   }
 }
 
-void PDFGuideline::setPage(const int page)
+void PDFGuideline::setPage(const size_type page)
 {
   m_pageIdx = page;
   setPosPage(m_posPage);

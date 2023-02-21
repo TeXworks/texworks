@@ -204,6 +204,7 @@ void Document::reload()
 void Document::parseDocument()
 {
   QWriteLocker docLocker(_docLock.data());
+  using poppler_size_type = decltype(_poppler_doc->numPages());
 
   clearMetaData();
   _meta_fileSize = QFileInfo(_fileName).size();
@@ -279,14 +280,14 @@ void Document::parseDocument()
   }
 
   // Get the most often used page size
-  QMap<QSizeF, int> pageSizes;
-  for (int i = 0; i < _numPages; ++i) {
+  QMap<QSizeF, size_type> pageSizes;
+  for (poppler_size_type i = 0; i < _numPages; ++i) {
     const std::unique_ptr<::Poppler::Page> page{_poppler_doc->page(i)};
     QSizeF ps = page->pageSizeF();
     if (pageSizes.contains(ps)) ++pageSizes[ps];
     else pageSizes[ps] = 1;
   }
-  int occurrences = -1;
+  size_type occurrences = -1;
   _meta_pageSize = QSizeF();
   Q_FOREACH(QSizeF ps, pageSizes.keys()) {
       if (occurrences < pageSizes[ps]) {
@@ -305,7 +306,7 @@ void Document::parseDocument()
     _meta_other[key] = _poppler_doc->info(key);
 }
 
-QWeakPointer<Backend::Page> Document::page(int at)
+QWeakPointer<Backend::Page> Document::page(size_type at)
 {
   {
     QReadLocker docLocker(_docLock.data());
@@ -567,10 +568,12 @@ bool Document::unlock(const QString password)
 
 // Page Class
 // ==========
-Page::Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock):
+Page::Page(Document *parent, size_type at, QSharedPointer<QReadWriteLock> docLock):
   Super(parent, at, docLock)
 {
-  _poppler_page = std::unique_ptr< ::Poppler::Page >(dynamic_cast<Document *>(_parent)->_poppler_doc->page(at));
+  const auto & poppler_doc = dynamic_cast<Document *>(_parent)->_poppler_doc;
+  using poppler_size_type = decltype(poppler_doc->numPages());
+  _poppler_page = std::unique_ptr<::Poppler::Page>(poppler_doc->page(static_cast<poppler_size_type>(at)));
   loadTransitionData();
 }
 
@@ -881,7 +884,7 @@ QList<SearchResult> Page::search(const QString & searchText, const SearchFlags &
   if (!_parent)
     return results;
 
-  result.pageNum = static_cast<unsigned int>(_n);
+  result.pageNum = _n;
 
   QMutexLocker popplerDocLock(dynamic_cast<Document *>(_parent)->_poppler_docLock);
 
@@ -1028,6 +1031,7 @@ QString Page::selectedText(const QList<QPolygonF> & selection, BoxBoundaryList *
 {
   QReadLocker pageLocker(&_pageLock);
   Q_ASSERT(_poppler_page != nullptr);
+  using poppler_size_type = decltype(dynamic_cast<Document*>(_parent)->_poppler_doc->numPages());
   // Using the bounding rects of the selection polygons is almost
   // certainly wrong! However, poppler-qt4 doesn't offer any alternative AFAICS
   // (except for positioning each char in the string manually).
@@ -1067,7 +1071,7 @@ QString Page::selectedText(const QList<QPolygonF> & selection, BoxBoundaryList *
 
     // Determine which characters to include (if any)
     QBitArray include(poppler_box->text().length());
-    for (int i = 0; i < poppler_box->text().length(); ++i) {
+    for (poppler_size_type i = 0; i < poppler_box->text().length(); ++i) {
       QPolygonF remainder(poppler_box->charBoundingBox(i));
       foreach (const QPolygonF & p, selection) {
         // Include characters if they are entirely inside the selection area or
@@ -1126,7 +1130,7 @@ QString Page::selectedText(const QList<QPolygonF> & selection, BoxBoundaryList *
     insertSpace = false;
 
     // Insert the actual characters
-    for (int i = 0; i < poppler_box->text().length(); ++i) {
+    for (poppler_size_type i = 0; i < poppler_box->text().length(); ++i) {
       if (!include.testBit(i)) continue;
 
       retVal += poppler_box->text()[i];

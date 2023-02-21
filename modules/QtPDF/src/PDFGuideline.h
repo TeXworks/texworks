@@ -14,6 +14,7 @@
 #ifndef PDFGUIDELINE_H
 #define PDFGUIDELINE_H
 
+#include <QVector>
 #include <QWidget>
 
 namespace QtPDF {
@@ -26,8 +27,10 @@ class PDFGuideline : public QWidget
   Q_OBJECT
   constexpr static int padding = 2;
 
+  using size_type = QVector<int>::size_type;
+
   PDFDocumentView * m_parent{nullptr};
-  int m_pageIdx{-1};
+  size_type m_pageIdx{-1};
   qreal m_posPage;
   int m_posWin;
   Qt::Orientation m_orientation{Qt::Horizontal};
@@ -51,8 +54,8 @@ public:
   void setPosPage(const qreal pos);
   void setPosPage(const QPointF pt);
 
-  int page() const { return m_pageIdx; }
-  void setPage(const int page);
+  size_type page() const { return m_pageIdx; }
+  void setPage(const size_type page);
 
 protected:
   void paintEvent(QPaintEvent * event) override;

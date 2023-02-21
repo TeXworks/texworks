@@ -235,7 +235,7 @@ void PDFRuler::mouseReleaseEvent(QMouseEvent * event)
   }
 }
 
-QRectF PDFRuler::pageRectPx(const int pageIdx) const
+QRectF PDFRuler::pageRectPx(const size_type pageIdx) const
 {
   // Obtain pointer to the view and the page object
   PDFDocumentView * docView = qobject_cast<PDFDocumentView*>(parent());
@@ -254,7 +254,7 @@ QRectF PDFRuler::pageRectPx(const int pageIdx) const
   return rv.translated(rulerSize + 1, rulerSize + 1);
 }
 
-QRectF PDFRuler::pageRectBp(const int pageIdx) const
+QRectF PDFRuler::pageRectBp(const size_type pageIdx) const
 {
   // Obtain pointer to the view and the page object
   PDFDocumentView * docView = qobject_cast<PDFDocumentView*>(parent());
@@ -270,7 +270,7 @@ QRectF PDFRuler::pageRectBp(const int pageIdx) const
   return page->pointScale().inverted().mapRect(QRectF(QPointF(0, 0), page->pageSizeF()));
 }
 
-QTransform PDFRuler::pagePx2Bp(const int pageIdx) const
+QTransform PDFRuler::pagePx2Bp(const size_type pageIdx) const
 {
   const QRectF pageRect = pageRectPx(pageIdx);
   const QRectF pdfPageRect = pageRectBp(pageIdx);

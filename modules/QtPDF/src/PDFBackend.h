@@ -40,6 +40,8 @@ namespace Backend {
 
 class Page;
 class Document;
+struct SearchRequest;
+struct SearchResult;
 
 // TODO: Find a better place to put this
 QDateTime fromPDFDate(QString pdfDate);
@@ -48,24 +50,6 @@ QDateTime fromPDFDate(QString pdfDate);
 enum SearchFlag { Search_WrapAround = 0x01, Search_CaseInsensitive = 0x02, Search_Backwards = 0x04};
 Q_DECLARE_FLAGS(SearchFlags, SearchFlag)
 Q_DECLARE_OPERATORS_FOR_FLAGS(SearchFlags)
-
-struct SearchRequest
-{
-  QWeakPointer<Document> doc;
-  int pageNum;
-  QString searchString;
-  SearchFlags flags;
-};
-
-struct SearchResult
-{
-  unsigned int pageNum;
-  QRectF bbox;
-
-  bool operator==(const SearchResult & o) const {
-    return (pageNum == o.pageNum && bbox == o.bbox);
-  }
-};
 
 
 // PDF ABCs
@@ -83,6 +67,8 @@ class Document
   friend class Page;
 
 public:
+  using size_type = QVector<QSharedPointer<Page>>::size_type;
+
   enum TrappedState { Trapped_Unknown, Trapped_True, Trapped_False };
   enum Permission { Permission_Print = 0x0004,
                     Permission_Change = 0x0008,
@@ -103,7 +89,7 @@ public:
   virtual ~Document();
 
   // Uses doc-read-lock
-  int numPages() const;
+  size_type numPages() const;
   // Uses doc-read-lock
   QString fileName() const { QReadLocker docLocker(_docLock.data()); return _fileName; }
   // Uses doc-read-lock
@@ -113,7 +99,7 @@ public:
   // Uses doc-read-lock and may use doc-write-lock
   // NB: no const variant exists as we may need to create a new Page (if it was
   // not cached in _pages), which requires a non-const `this` pointer as parent
-  virtual QWeakPointer<Page> page(int at);
+  virtual QWeakPointer<Page> page(size_type at);
   virtual PDFDestination resolveDestination(const PDFDestination & namedDestination) const {
     return (namedDestination.isExplicit() ? namedDestination : PDFDestination());
   }
@@ -167,7 +153,7 @@ public:
   //     return the search results one at a time rather than all at once.
   //
   //   - See TODO list in `Page::search`
-  virtual QList<SearchResult> search(const QString & searchText, const SearchFlags & flags, const int startPage = 0);
+  virtual QList<SearchResult> search(const QString & searchText, const SearchFlags & flags, const size_type startPage = 0);
 
 protected:
   Document(const QString fileName);
@@ -175,7 +161,7 @@ protected:
   void clearPages();
   virtual void clearMetaData();
 
-  int _numPages{-1};
+  size_type _numPages{-1};
   PDFPageProcessingThread _processingThread;
   static PDFPageCache _pageCache;
   QVector< QSharedPointer<Page> > _pages;
@@ -204,8 +190,10 @@ class Page
   friend class Document;
 
 protected:
+  using size_type = Document::size_type;
+
   Document *_parent{nullptr};
-  const int _n{-1};
+  const size_type _n{-1};
   std::unique_ptr<Transition::AbstractTransition> _transition;
   mutable QReadWriteLock _pageLock{QReadWriteLock::Recursive};
   const QSharedPointer<QReadWriteLock> _docLock;
@@ -215,7 +203,7 @@ protected:
   // The caller must hold a doc-lock. Uses a page-write-lock.
   virtual void detachFromParent();
 
-  Page(Document *parent, int at, QSharedPointer<QReadWriteLock> docLock);
+  Page(Document *parent, size_type at, QSharedPointer<QReadWriteLock> docLock);
 
   // Uses doc-read-lock and page-read-lock.
   QSharedPointer<QImage> getCachedImage(double xres, double yres, QRect render_box = QRect(), PDFPageCache::TileStatus * status = nullptr);
@@ -239,7 +227,7 @@ public:
   virtual ~Page() = default;
 
   Document * document() { QReadLocker pageLocker(&_pageLock); return _parent; }
-  int pageNum() const;
+  size_type pageNum() const;
   virtual QSizeF pageSizeF() const = 0;
   virtual QRectF getContentBoundingBox() const;
   Transition::AbstractTransition * transition() const { QReadLocker pageLocker(&_pageLock); return _transition.get(); }
@@ -298,6 +286,24 @@ public:
   // library.
   virtual QList<SearchResult> search(const QString & searchText, const SearchFlags & flags) const = 0;
   static QList<SearchResult> executeSearch(SearchRequest request);
+};
+
+struct SearchRequest
+{
+  QWeakPointer<Document> doc;
+  Document::size_type pageNum;
+  QString searchString;
+  SearchFlags flags;
+};
+
+struct SearchResult
+{
+  Document::size_type pageNum;
+  QRectF bbox;
+
+  bool operator==(const SearchResult & o) const {
+    return (pageNum == o.pageNum && bbox == o.bbox);
+  }
 };
 
 } // namespace Backend

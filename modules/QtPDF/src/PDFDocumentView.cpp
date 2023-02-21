@@ -168,7 +168,7 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
 
   // Ensure we're at the top left corner (we need to set _currentPage to -1 to
   // ensure goToPage() actually does anything.
-  int page = _currentPage;
+  size_type page = _currentPage;
   if (page >= 0) {
     _currentPage = -1;
     goToPage(page);
@@ -182,8 +182,8 @@ void PDFDocumentView::setScene(QSharedPointer<PDFDocumentScene> a_scene)
   else
     emit changedDocument(QSharedPointer<Backend::Document>());
 }
-int PDFDocumentView::currentPage() { return _currentPage; }
-int PDFDocumentView::lastPage()    { return _lastPage; }
+PDFDocumentView::size_type PDFDocumentView::currentPage() { return _currentPage; }
+PDFDocumentView::size_type PDFDocumentView::lastPage()    { return _lastPage; }
 
 void PDFDocumentView::setPageMode(const PageMode pageMode, const bool forceRelayout /* = false */)
 {
@@ -314,7 +314,7 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
 }
 
 // path in PDF coordinates
-QGraphicsPathItem * PDFDocumentView::addHighlightPath(const unsigned int page, const QPainterPath & path, const QBrush & brush, const QPen & pen /* = Qt::NoPen */)
+QGraphicsPathItem * PDFDocumentView::addHighlightPath(const size_type page, const QPainterPath & path, const QBrush & brush, const QPen & pen /* = Qt::NoPen */)
 {
   if (!_pdf_scene)
     return nullptr;
@@ -520,7 +520,7 @@ QString PDFDocumentView::selectedText() const
 
 void PDFDocumentView::goPrev()  { goToPage(_currentPage - 1, Qt::AlignBottom); }
 void PDFDocumentView::goNext()  { goToPage(_currentPage + 1, Qt::AlignTop); }
-void PDFDocumentView::goFirst() { goToPage(0); }
+void PDFDocumentView::goFirst() { goToPage(static_cast<size_type>(0)); }
 void PDFDocumentView::goLast()  { goToPage(_lastPage - 1); }
 
 void PDFDocumentView::goPrevViewRect() {
@@ -536,7 +536,7 @@ void PDFDocumentView::goPrevViewRect() {
 // left corner of the viewport (if possible). Other alignments can be used in
 // the same way. If `alignment` for a direction is not set the view will
 // show the same portion of the new page as it did before with the old page.
-void PDFDocumentView::goToPage(const int pageNum, const int alignment /* = Qt::AlignLeft | Qt::AlignTop */)
+void PDFDocumentView::goToPage(const size_type pageNum, const int alignment /* = Qt::AlignLeft | Qt::AlignTop */)
 {
   // We silently ignore any invalid page numbers.
   if (!_pdf_scene || pageNum < 0 || pageNum >= _lastPage)
@@ -547,7 +547,7 @@ void PDFDocumentView::goToPage(const int pageNum, const int alignment /* = Qt::A
   goToPage(dynamic_cast<const PDFPageGraphicsItem*>(_pdf_scene->pageAt(pageNum)), alignment);
 }
 
-void PDFDocumentView::goToPage(const int pageNum, const QPointF anchor, const int alignment /* = Qt::AlignHCenter | Qt::AlignVCenter */)
+void PDFDocumentView::goToPage(const size_type pageNum, const QPointF anchor, const int alignment /* = Qt::AlignHCenter | Qt::AlignVCenter */)
 {
   // We silently ignore any invalid page numbers.
   if (!_pdf_scene || pageNum < 0 || pageNum >= _lastPage)
@@ -931,7 +931,7 @@ void PDFDocumentView::setCurrentSearchResultHighlightBrush(const QBrush & brush)
 
 // Protected Slots
 // --------------
-void PDFDocumentView::searchResultReady(int pageIndex)
+void PDFDocumentView::searchResultReady(PDFSearcher::size_type pageIndex)
 {
   const auto & result = _searcher.resultAt(pageIndex);
   // Convert the search result to highlight boxes
@@ -946,10 +946,10 @@ void PDFDocumentView::searchResultReady(int pageIndex)
 
   // Inform the rest of the world of our progress (in %, and how many
   // occurrences were found so far).
-  emit searchProgressChanged(100 * (_searcher.progressValue() - _searcher.progressMinimum()) / (_searcher.progressMaximum() - _searcher.progressMinimum()), _searchResults.count());
+  emit searchProgressChanged(static_cast<int>(100 * (_searcher.progressValue() - _searcher.progressMinimum()) / (_searcher.progressMaximum() - _searcher.progressMinimum())), _searchResults.count());
 }
 
-void PDFDocumentView::searchProgressValueChanged(int progressValue)
+void PDFDocumentView::searchProgressValueChanged(PDFSearcher::size_type progressValue)
 {
   // Inform the rest of the world of our progress (in %, and how many
   // occurrences were found so far)
@@ -965,7 +965,7 @@ void PDFDocumentView::searchProgressValueChanged(int progressValue)
   if (_searcher.progressMaximum() == _searcher.progressMinimum())
     emit searchProgressChanged(100, _searchResults.count());
   else
-    emit searchProgressChanged(100 * (progressValue - _searcher.progressMinimum()) / (_searcher.progressMaximum() - _searcher.progressMinimum()), _searchResults.count());
+    emit searchProgressChanged(static_cast<int>(100 * (progressValue - _searcher.progressMinimum()) / (_searcher.progressMaximum() - _searcher.progressMinimum())), _searchResults.count());
 }
 
 void PDFDocumentView::maybeUpdateSceneRect() {
@@ -993,7 +993,7 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const int align
 {
   if (!_pdf_scene || !page || !isPageItem(page))
     return;
-  int pageNum = _pdf_scene->pageNumFor(page);
+  size_type pageNum = _pdf_scene->pageNumFor(page);
   if (pageNum == _currentPage)
     return;
 
@@ -1099,7 +1099,7 @@ void PDFDocumentView::goToPage(const PDFPageGraphicsItem * page, const QPointF a
 {
   if (!_pdf_scene || !page || !isPageItem(page))
     return;
-  int pageNum = _pdf_scene->pageNumFor(page);
+  size_type pageNum = _pdf_scene->pageNumFor(page);
   if (pageNum == _currentPage)
     return;
 
@@ -1328,7 +1328,7 @@ void PDFDocumentView::paintEvent(QPaintEvent *event)
   if (_pdf_scene) {
     QRect pageBbox = viewport()->rect();
     pageBbox.setHeight(pageBbox.height() / 2);
-    int nextCurrentPage = _pdf_scene->pageNumAt(mapToScene(pageBbox));
+    size_type nextCurrentPage = _pdf_scene->pageNumAt(mapToScene(pageBbox));
 
     if ( nextCurrentPage != _currentPage && nextCurrentPage >= 0 && nextCurrentPage < _lastPage )
     {
@@ -1802,9 +1802,9 @@ QPixmap& PDFDocumentMagnifierView::dropShadow()
 // PDFLinkGraphicsItem.
 PDFDocumentScene::PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent /* = nullptr */, const double dpiX /* = -1 */, const double dpiY /* = -1 */):
   Super(parent),
+  _shownPageIdx(-2),
   _doc(a_doc),
-  _lastPage(-1),
-  _shownPageIdx(-2)
+  _lastPage(-1)
 {
   Q_ASSERT(a_doc != nullptr);
   // We need to register a QList<PDFLinkGraphicsItem *> meta-type so we can
@@ -1931,7 +1931,7 @@ QList<QGraphicsItem*> PDFDocumentScene::pages(const QPolygonF &polygon)
 
 // Convenience function to avoid moving the complete list of pages around
 // between functions if only one page is needed
-QGraphicsItem* PDFDocumentScene::pageAt(const int idx) const
+QGraphicsItem* PDFDocumentScene::pageAt(const size_type idx) const
 {
   if (idx < 0 || idx >= _pages.size())
     return nullptr;
@@ -1954,7 +1954,7 @@ QGraphicsItem* PDFDocumentScene::pageAt(const QPointF &pt) const
 // This is a convenience function for returning the page number of the first
 // page item inside a given area of the scene. If no page is in the specified
 // area, -1 is returned.
-int PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
+PDFDocumentScene::size_type PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
 {
   QList<QGraphicsItem*> p(pages(polygon));
   if (p.isEmpty())
@@ -1964,12 +1964,12 @@ int PDFDocumentScene::pageNumAt(const QPolygonF &polygon)
 
 // This is a convenience function for returning the page number of the first
 // page item at a given point. If no page is in the specified area, -1 is returned.
-int PDFDocumentScene::pageNumAt(const QPointF &pt)
+PDFDocumentScene::size_type PDFDocumentScene::pageNumAt(const QPointF &pt)
 {
   return static_cast<int>(_pages.indexOf(pageAt(pt)));
 }
 
-int PDFDocumentScene::pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const
+PDFDocumentScene::size_type PDFDocumentScene::pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const
 {
   // Note: since we store QGraphicsItem* in _pages, we need to remove the const
   // or else indexOf() complains during compilation. Since we don't do anything
@@ -1978,7 +1978,7 @@ int PDFDocumentScene::pageNumFor(const PDFPageGraphicsItem * const graphicsItem)
   return _pages.indexOf(const_cast<PDFPageGraphicsItem *>(graphicsItem));
 }
 
-int PDFDocumentScene::lastPage() { return _lastPage; }
+PDFDocumentScene::size_type PDFDocumentScene::lastPage() { return _lastPage; }
 
 // Event Handlers
 // --------------
@@ -2083,7 +2083,7 @@ void PDFDocumentScene::reinitializeScene()
     if (_shownPageIdx >= _lastPage)
       _shownPageIdx = _lastPage - 1;
 
-    for (int i = 0; i < _lastPage; ++i)
+    for (size_type i = 0; i < _lastPage; ++i)
     {
       PDFPageGraphicsItem * pagePtr = new PDFPageGraphicsItem(_doc->page(i), _dpiX, _dpiY);
       pagePtr->setVisible(i == _shownPageIdx || _shownPageIdx == -2);
@@ -2115,9 +2115,9 @@ void PDFDocumentScene::reloadDocument()
 
 // Other
 // -----
-void PDFDocumentScene::showOnePage(const int pageIdx)
+void PDFDocumentScene::showOnePage(const size_type pageIdx)
 {
-  for (int i = 0; i < _pages.size(); ++i) {
+  for (size_type i = 0; i < _pages.size(); ++i) {
     if (!isPageItem(_pages[i]))
       continue;
     if (i == pageIdx) {
@@ -2131,7 +2131,7 @@ void PDFDocumentScene::showOnePage(const int pageIdx)
 
 void PDFDocumentScene::showOnePage(const PDFPageGraphicsItem * page)
 {
-  for (int i = 0; i < _pages.size(); ++i) {
+  for (size_type i = 0; i < _pages.size(); ++i) {
     if (!isPageItem(_pages[i]))
       continue;
     _pages[i]->setVisible(_pages[i] == page);
@@ -2146,7 +2146,7 @@ void PDFDocumentScene::showOnePage(const PDFPageGraphicsItem * page)
 
 void PDFDocumentScene::showAllPages()
 {
-  for (int i = 0; i < _pages.size(); ++i) {
+  for (size_type i = 0; i < _pages.size(); ++i) {
     if (!isPageItem(_pages[i]))
       continue;
     _pages[i]->setVisible(true);
@@ -3217,7 +3217,7 @@ void PDFFontsInfoWidget::reload()
     return;
 
   QList<Backend::PDFFontInfo> fonts = doc->fonts();
-  _table->setRowCount(fonts.count());
+  _table->setRowCount(static_cast<decltype(_table->rowCount())>(fonts.count()));
 
   int i = 0;
   foreach (Backend::PDFFontInfo font, fonts) {
@@ -3451,7 +3451,7 @@ void PDFAnnotationsInfoWidget::annotationsReady(int index)
 {
   Q_ASSERT(_table != nullptr);
   int i{_table->rowCount()};
-  _table->setRowCount(i + _annotWatcher.resultAt(index).count());
+  _table->setRowCount(static_cast<decltype(_table->rowCount())>(i + _annotWatcher.resultAt(index).count()));
 
 
   foreach(QSharedPointer<Annotation::AbstractAnnotation> pdfAnnot, _annotWatcher.resultAt(index)) {

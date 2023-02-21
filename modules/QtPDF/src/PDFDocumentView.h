@@ -39,19 +39,6 @@ class PDFDocumentView : public QGraphicsView {
   Q_OBJECT
   typedef QGraphicsView Super;
 
-  QSharedPointer<PDFDocumentScene> _pdf_scene;
-
-  qreal _zoomLevel{1.0};
-  int _currentPage{-1}, _lastPage{-1};
-
-  PDFSearcher _searcher;
-  QList<QGraphicsItem *> _searchResults;
-  int _currentSearchResult{-1};
-  QBrush _searchResultHighlightBrush;
-  QBrush _currentSearchResultHighlightBrush;
-  PDFRuler _ruler{this};
-  bool _useGrayScale{false};
-
   friend class DocumentTool::AbstractTool;
   friend class DocumentTool::Select;
 
@@ -59,12 +46,13 @@ public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous, PageMode_Presentation };
   enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom, MouseMode_Measure, MouseMode_Select };
   enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions, Dock_Annotations };
+  using size_type = QList<QGraphicsItem*>::size_type;
 
   PDFDocumentView(QWidget *parent = nullptr);
   ~PDFDocumentView() override;
   void setScene(QSharedPointer<PDFDocumentScene> a_scene);
-  int currentPage();
-  int lastPage();
+  size_type currentPage();
+  size_type lastPage();
   PageMode pageMode() const { return _pageMode; }
   qreal zoomLevel() const { return _zoomLevel; }
   bool useGrayScale() const { return _useGrayScale; }
@@ -79,10 +67,10 @@ public:
   QDockWidget * dockWidget(const Dock type, QWidget * parent = nullptr);
 
   DocumentTool::AbstractTool * armedTool() const { return _armedTool; }
-  void triggerContextClick(const int page, const QPointF pos) { emit contextClick(page, pos); }
+  void triggerContextClick(const size_type page, const QPointF pos) { emit contextClick(page, pos); }
 
-  QGraphicsPathItem * addHighlightPath(const unsigned int page, const QPainterPath & path, const QBrush & brush, const QPen & pen = Qt::NoPen);
-  QGraphicsPathItem * addHighlightPath(const unsigned int page, const QRectF & rect, const QBrush & brush, const QPen & pen = Qt::NoPen) {
+  QGraphicsPathItem * addHighlightPath(const size_type page, const QPainterPath & path, const QBrush & brush, const QPen & pen = Qt::NoPen);
+  QGraphicsPathItem * addHighlightPath(const size_type page, const QRectF & rect, const QBrush & brush, const QPen & pen = Qt::NoPen) {
     QPainterPath p;
     p.addRect(rect);
     return addHighlightPath(page, p, brush, pen);
@@ -112,11 +100,11 @@ public slots:
   // Qt::AlignHCenter, Qt::AlignTop, Qt::AlignBottom, Qt::AlignVCenter.
   // 0 corresponds to no alignment, i.e., the view will change so that the
   // rectangle of page pageNum closest to the original viewport rect is visible.
-  void goToPage(const int pageNum, const int alignment = Qt::AlignLeft | Qt::AlignTop);
+  void goToPage(const size_type pageNum, const int alignment = Qt::AlignLeft | Qt::AlignTop);
   // Similar to the one above, but view is aligned at `anchor`. Note that the
   // default alignment is centering here, which is also used if `alignment` == 0.
   // `anchor` must be given in item coordinates
-  void goToPage(const int pageNum, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
+  void goToPage(const size_type pageNum, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
   void goToPDFDestination(const PDFDestination & dest, bool saveOldViewRect = true);
   void setPageMode(const PageMode pageMode, const bool forceRelayout = false);
   void setSinglePageMode() { setPageMode(PageMode_SinglePage); }
@@ -154,7 +142,7 @@ public slots:
   void showRuler(const bool show = true);
 
 signals:
-  void changedPage(int pageNum);
+  void changedPage(QtPDF::PDFDocumentView::size_type pageNum);
   void changedZoom(qreal zoomLevel);
   void changedPageMode(QtPDF::PDFDocumentView::PageMode newMode);
   // emitted, e.g., if a new document was loaded, or if the existing document
@@ -163,14 +151,14 @@ signals:
 
   void updated();
 
-  void searchProgressChanged(int percent, int occurrences);
-  void searchResultHighlighted(const int pageNum, const QList<QPolygonF> region);
+  void searchProgressChanged(int percent, QtPDF::PDFDocumentView::size_type occurrences);
+  void searchResultHighlighted(const QtPDF::PDFDocumentView::size_type pageNum, const QList<QPolygonF> region);
   void textSelectionChanged(const bool isTextSelected);
 
   void requestOpenUrl(const QUrl url);
   void requestExecuteCommand(QString command);
   void requestOpenPdf(QString filename, QtPDF::PDFDestination destination, bool newWindow);
-  void contextClick(const int page, const QPointF pos);
+  void contextClick(const QtPDF::PDFDocumentView::size_type page, const QPointF pos);
 
 protected:
   // Keep track of the current page by overloading the widget paint event.
@@ -198,11 +186,11 @@ protected slots:
   void pdfActionTriggered(const QtPDF::PDFAction * action);
   // Note: view specifies which part of the page should be visible and must
   // therefore be given in page coordinates
-  void goToPage(const PDFPageGraphicsItem * page, const QRectF view, const bool mayZoom = false);
-  void goToPage(const PDFPageGraphicsItem * page, const int alignment = Qt::AlignLeft | Qt::AlignTop);
-  void goToPage(const PDFPageGraphicsItem * page, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
-  void searchResultReady(int pageIndex);
-  void searchProgressValueChanged(int progressValue);
+  void goToPage(const QtPDF::PDFPageGraphicsItem * page, const QRectF view, const bool mayZoom = false);
+  void goToPage(const QtPDF::PDFPageGraphicsItem * page, const int alignment = Qt::AlignLeft | Qt::AlignTop);
+  void goToPage(const QtPDF::PDFPageGraphicsItem * page, const QPointF anchor, const int alignment = Qt::AlignHCenter | Qt::AlignVCenter);
+  void searchResultReady(PDFSearcher::size_type pageIndex);
+  void searchProgressValueChanged(PDFSearcher::size_type progressValue);
   void reinitializeFromScene();
   void notifyTextSelectionChanged();
 
@@ -217,6 +205,19 @@ private:
   QMap<uint, DocumentTool::AbstractTool::Type> _toolAccessors;
 
   QStack<PDFDestination> _oldViewRects;
+
+  QSharedPointer<PDFDocumentScene> _pdf_scene;
+
+  qreal _zoomLevel{1.0};
+  size_type _currentPage{-1}, _lastPage{-1};
+
+  PDFSearcher _searcher;
+  QList<QGraphicsItem *> _searchResults;
+  size_type _currentSearchResult{-1};
+  QBrush _searchResultHighlightBrush;
+  QBrush _currentSearchResultHighlightBrush;
+  PDFRuler _ruler{this};
+  bool _useGrayScale{false};
 
   // Never try to set a vanilla QGraphicsScene, always use a PDFGraphicsScene.
   void setScene(QGraphicsScene *scene);
@@ -452,48 +453,37 @@ class PDFDocumentScene : public QGraphicsScene
 {
   Q_OBJECT
   typedef QGraphicsScene Super;
-
-  const QSharedPointer<Backend::Document> _doc;
-
-  // This may change to a `QSet` in the future
-  QList<QGraphicsItem*> _pages;
-  int _lastPage;
-  PDFPageLayout _pageLayout;
-  QFileSystemWatcher _fileWatcher;
-  QTimer _reloadTimer;
-  double _dpiX, _dpiY;
-
-  void handleActionEvent(const PDFActionEvent * action_event);
-
 public:
+  using size_type = PDFDocumentView::size_type;
+
   PDFDocumentScene(QSharedPointer<Backend::Document> a_doc, QObject *parent = nullptr, const double dpiX = -1, const double dpiY = -1);
   ~PDFDocumentScene() override;
 
   QWeakPointer<Backend::Document> document();
   QList<QGraphicsItem*> pages();
   QList<QGraphicsItem*> pages(const QPolygonF &polygon);
-  QGraphicsItem* pageAt(const int idx) const;
+  QGraphicsItem* pageAt(const size_type idx) const;
   QGraphicsItem* pageAt(const QPointF &pt) const;
-  int pageNumAt(const QPolygonF &polygon);
-  int pageNumAt(const QPointF &pt);
-  int pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const;
+  size_type pageNumAt(const QPolygonF &polygon);
+  size_type pageNumAt(const QPointF &pt);
+  size_type pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const;
   PDFPageLayout& pageLayout() { return _pageLayout; }
 
-  void showOnePage(const int pageIdx);
+  void showOnePage(const size_type pageIdx);
   void showOnePage(const PDFPageGraphicsItem * page);
   void showAllPages();
 
   bool watchForDocumentChangesOnDisk() const { return _fileWatcher.files().size() > 0; }
   void setWatchForDocumentChangesOnDisk(const bool doWatch = true);
 
-  int lastPage();
+  size_type lastPage();
 
   const QWeakPointer<Backend::Document> document() const { return _doc.toWeakRef(); }
 
   void setResolution(const double dpiX, const double dpiY);
 
 signals:
-  void pageChangeRequested(int pageNum);
+  void pageChangeRequested(QtPDF::PDFDocumentScene::size_type pageNum);
   void pageLayoutChanged();
   void pdfActionTriggered(const QtPDF::PDFAction * action);
   void documentChanged(const QWeakPointer<QtPDF::Backend::Document> doc);
@@ -511,7 +501,7 @@ protected slots:
 protected:
   // Used in non-continuous mode to keep track of currently shown page across
   // reloads. -2 is used in continuous mode. -1 indicates an invalid value.
-  int _shownPageIdx;
+  size_type _shownPageIdx;
   bool event(QEvent * event) override;
 
   QWidget * _unlockWidget;
@@ -520,6 +510,18 @@ protected:
   QGraphicsProxyWidget * _unlockProxy;
 
 private:
+  const QSharedPointer<Backend::Document> _doc;
+
+  // This may change to a `QSet` in the future
+  QList<QGraphicsItem*> _pages;
+  size_type _lastPage;
+  PDFPageLayout _pageLayout;
+  QFileSystemWatcher _fileWatcher;
+  QTimer _reloadTimer;
+  double _dpiX, _dpiY;
+
+  void handleActionEvent(const PDFActionEvent * action_event);
+
   // Parent has no copy constructor, so this class shouldn't either. Also, we
   // hold some information in an `auto_ptr` which does interesting things on
   // copy that C++ newbies may not expect.
@@ -535,6 +537,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
 {
   Q_OBJECT
   typedef QGraphicsObject Super;
+  using size_type = PDFDocumentScene::size_type;
 
   QWeakPointer<Backend::Page> _page;
 
@@ -542,7 +545,7 @@ class PDFPageGraphicsItem : public QGraphicsObject
   double _dpiY;
   // the nominal (i.e., unmagnified) page size in pixel
   QSizeF _pageSize;
-  int _pageNum;
+  size_type _pageNum;
 
   bool _linksLoaded;
   bool _annotationsLoaded;
@@ -586,7 +589,7 @@ public:
 
   // get the nominal (i.e., unmagnified) page size in pixel
   QSizeF pageSizeF() const { return _pageSize; }
-  int pageNum() const { return _pageNum; }
+  size_type pageNum() const { return _pageNum; }
 
 protected:
   bool event(QEvent * event) override;
