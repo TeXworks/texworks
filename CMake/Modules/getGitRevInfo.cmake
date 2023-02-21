@@ -14,8 +14,8 @@ set(SUCCESS FALSE)
 if (EXISTS "${OUTPUT_DIR}/GitRev.h")
 	file(STRINGS ${OUTPUT_DIR}/GitRev.h GIT_INFO REGEX "#define GIT_COMMIT_HASH \"([a-f0-9]+\\*?)\"")
 	string(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+\\*?)\"" "\\1" OLD_HASH "${GIT_INFO}")
-	file(STRINGS ${OUTPUT_DIR}/GitRev.h GIT_INFO REGEX "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"")
-	string(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"" "\\1" OLD_DATE "${GIT_INFO}")
+	file(STRINGS ${OUTPUT_DIR}/GitRev.h GIT_INFO REGEX "#define GIT_COMMIT_DATE \"([-+:0-9TZ]+)\"")
+	string(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9TZ]+)\"" "\\1" OLD_DATE "${GIT_INFO}")
 endif()
 
 # Try to run git to obtain the last commit hash and date
@@ -37,8 +37,8 @@ if (NOT SUCCESS)
 	# Try to retrieve the export commit hash and date from GitArchiveInfo.txt
 	file(STRINGS GitArchiveInfo.txt GIT_INFO REGEX "#define GIT_COMMIT_HASH \"([a-f0-9]+)\"")
 	string(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+)\"" "\\1" NEW_HASH "${GIT_INFO}")
-	file(STRINGS GitArchiveInfo.txt GIT_INFO REGEX "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"")
-	string(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"" "\\1" NEW_DATE "${GIT_INFO}")
+	file(STRINGS GitArchiveInfo.txt GIT_INFO REGEX "#define GIT_COMMIT_DATE \"([-+:0-9TZ]+)\"")
+	string(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9TZ]+)\"" "\\1" NEW_DATE "${GIT_INFO}")
 
 	if (NOT "${NEW_HASH}" STREQUAL "" AND NOT "${NEW_DATE}" STREQUAL "")
 		set(SUCCESS TRUE)
