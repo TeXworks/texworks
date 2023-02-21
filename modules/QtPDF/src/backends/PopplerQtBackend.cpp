@@ -1037,6 +1037,13 @@ QString Page::selectedText(const QList<QPolygonF> & selection, BoxBoundaryList *
   QString retVal;
   bool insertSpace = false;
 
+  if (wordBoxes) {
+    wordBoxes->clear();
+  }
+  if (charBoxes) {
+    charBoxes->clear();
+  }
+
   // Get a list of all boxes
   const std::vector< std::unique_ptr<::Poppler::TextBox> > poppler_boxes = [&]() {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
