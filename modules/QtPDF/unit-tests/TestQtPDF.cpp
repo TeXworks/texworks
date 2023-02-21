@@ -237,9 +237,7 @@ void TestQtPDF::abstractBaseClasses()
   QCOMPARE(page->loadLinks(), QList< QSharedPointer<QtPDF::Annotation::Link> >());
   QCOMPARE(page->boxes(), QList<QtPDF::Backend::Page::Box>());
 
-  QMap<int, QRectF> wordBoxes,  charBoxes;
-  wordBoxes.insert(0, QRectF());
-  charBoxes.insert(0, QRectF());
+  QtPDF::Backend::Page::BoxBoundaryList wordBoxes{QRectF()},  charBoxes{QRectF()};
   QCOMPARE(page->selectedText({}, &wordBoxes, &charBoxes), QString());
   QVERIFY(wordBoxes.isEmpty());
   QVERIFY(charBoxes.isEmpty());

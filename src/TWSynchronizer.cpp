@@ -183,7 +183,7 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
   QList<QPolygonF> selection;
   foreach (QRectF r, dest.rects)
     selection.append(r);
-  QMap<int, QRectF> wordBoxes, charBoxes;
+  QtPDF::Backend::Page::BoxBoundaryList wordBoxes, charBoxes;
   QString destContext = pdfPage->selectedText(selection, &wordBoxes, &charBoxes);
   // Normalize the destContext. selectedText() returns newline chars between
   // separate (output) lines that all correspond to the same input line
@@ -257,7 +257,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
     }
   }
   // Find the box the user clicked on
-  QMap<int, QRectF> boxes;
+  QtPDF::Backend::Page::BoxBoundaryList boxes;
   QString srcContext = pdfPage->selectedText(selection, nullptr, &boxes);
   // Normalize the srcContext. selectedText() returns newline chars between
   // separate (output) lines that all correspond to the same input line

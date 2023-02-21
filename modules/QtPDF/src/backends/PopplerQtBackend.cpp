@@ -1024,7 +1024,7 @@ QList< Backend::Page::Box > Page::boxes() const
   return retVal;
 }
 
-QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes /* = nullptr */, QMap<int, QRectF> * charBoxes /* = nullptr */, const bool onlyFullyEnclosed /* = false */) const
+QString Page::selectedText(const QList<QPolygonF> & selection, BoxBoundaryList * wordBoxes /* = nullptr */, BoxBoundaryList * charBoxes /* = nullptr */, const bool onlyFullyEnclosed /* = false */) const
 {
   QReadLocker pageLocker(&_pageLock);
   Q_ASSERT(_poppler_page != nullptr);
@@ -1096,9 +1096,9 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
       retVal += QString::fromLatin1("\n");
 
       if (wordBoxes)
-        (*wordBoxes)[wordBoxes->count()] = lastPopplerBox->boundingBox();
+        (*wordBoxes).append(lastPopplerBox->boundingBox());
       if (charBoxes)
-        (*charBoxes)[charBoxes->count()] = lastPopplerBox->boundingBox();
+        (*charBoxes).append(lastPopplerBox->boundingBox());
       // If we queued a space to be inserted, ignore that as we inserted a
       // newline instead anyway
       insertSpace = false;
@@ -1110,9 +1110,9 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
       // As word and char Boxes, insert those of the lastPopplerBox since that
       // was the one causing insertSpace to be true
       if (wordBoxes)
-        (*wordBoxes)[wordBoxes->count()] = lastPopplerBox->boundingBox();
+        (*wordBoxes).append(lastPopplerBox->boundingBox());
       if (charBoxes)
-        (*charBoxes)[charBoxes->count()] = lastPopplerBox->boundingBox();
+        (*charBoxes).append(lastPopplerBox->boundingBox());
     }
 
     // Default to not inserting a space after this word
@@ -1125,9 +1125,9 @@ QString Page::selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF>
       retVal += poppler_box->text()[i];
 
       if (wordBoxes)
-        (*wordBoxes)[wordBoxes->count()] = poppler_box->boundingBox();
+        (*wordBoxes).append(poppler_box->boundingBox());
       if (charBoxes)
-        (*charBoxes)[charBoxes->count()] = poppler_box->charBoundingBox(i);
+        (*charBoxes).append(poppler_box->charBoundingBox(i));
 
       // If we reached the end of the word, possibly queue a space to be
       // inserted. By queuing this until the next word is processed, we ensure

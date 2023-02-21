@@ -234,6 +234,7 @@ public:
       return (boundingBox == o.boundingBox && subBoxes == o.subBoxes);
     }
   };
+  using BoxBoundaryList = QVector<QRectF>;
 
   virtual ~Page() = default;
 
@@ -261,7 +262,7 @@ public:
   // Optionally, the function can also return wordBoxes and/or charBoxes for
   // each character (i.e., a rect enclosing the word the character is part of
   // and/or a rect enclosing the actual character)
-  virtual QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = nullptr, QMap<int, QRectF> * charBoxes = nullptr, const bool onlyFullyEnclosed = false) const {
+  virtual QString selectedText(const QList<QPolygonF> & selection, BoxBoundaryList * wordBoxes = nullptr, BoxBoundaryList * charBoxes = nullptr, const bool onlyFullyEnclosed = false) const {
     Q_UNUSED(selection)
     Q_UNUSED(onlyFullyEnclosed)
     if (wordBoxes) wordBoxes->clear();

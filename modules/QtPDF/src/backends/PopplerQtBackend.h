@@ -116,7 +116,7 @@ public:
   QList< QSharedPointer<Annotation::Link> > loadLinks() override;
   QList< QSharedPointer<Annotation::AbstractAnnotation> > loadAnnotations() override;
   QList< Backend::Page::Box > boxes() const override;
-  QString selectedText(const QList<QPolygonF> & selection, QMap<int, QRectF> * wordBoxes = nullptr, QMap<int, QRectF> * charBoxes = nullptr, const bool onlyFullyEnclosed = false) const override;
+  QString selectedText(const QList<QPolygonF> & selection, BoxBoundaryList * wordBoxes = nullptr, BoxBoundaryList * charBoxes = nullptr, const bool onlyFullyEnclosed = false) const override;
 
   QList<Backend::SearchResult> search(const QString & searchText, const SearchFlags & flags) const override;
 };
