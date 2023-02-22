@@ -162,7 +162,7 @@ void TWApp::init()
 
 	setOrganizationName(QString::fromLatin1("TUG"));
 	setOrganizationDomain(QString::fromLatin1("tug.org"));
-	setApplicationName(QString::fromLatin1(TEXWORKS_NAME));
+	setApplicationName(QStringLiteral("TeXworks"));
 
 	// <Check for portable mode>
 #if defined(Q_OS_DARWIN)
@@ -407,7 +407,7 @@ void TWApp::recreateSpecialMenuItems()
 	connect(actionPreferences, &QAction::triggered, this, &TWApp::preferences);
 
 	delete aboutAction;
-	aboutAction = menuHelp->addAction(tr("About " TEXWORKS_NAME "..."));
+	aboutAction = menuHelp->addAction(tr("About %1...").arg(applicationName())));
 	aboutAction->setMenuRole(QAction::AboutRole);
 	connect(aboutAction, &QAction::triggered, this, &TWApp::about);
 }
@@ -430,7 +430,7 @@ void TWApp::changeLanguage()
 	menuRecent->setTitle(tr("Open Recent"));
 
 	menuHelp->setTitle(tr("Help"));
-	aboutAction->setText(tr("About " TEXWORKS_NAME "..."));
+	aboutAction->setText(tr("About %1...").arg(applicationName()));
 	homePageAction->setText(tr("Go to TeXworks home page"));
 	mailingListAction->setText(tr("Email to the mailing list"));
 	TWUtils::insertHelpMenuItems(menuHelp);
@@ -439,7 +439,7 @@ void TWApp::changeLanguage()
 
 void TWApp::about()
 {
-	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(QString::fromLatin1(TEXWORKS_NAME));
+	QString aboutText = tr("<p>%1 is a simple environment for editing, typesetting, and previewing TeX documents.</p>").arg(applicationName());
 	aboutText += QLatin1String("<small>");
 	aboutText += QLatin1String("<p>&#xA9; 2007-2023  Jonathan Kew, Stefan L&#xF6;ffler, Charlie Sharpsteen");
 	aboutText += tr("<br>Version %1").arg(Tw::Utils::VersionInfo::fullVersionString());
@@ -454,13 +454,13 @@ void TWApp::about()
 	if (!trText.contains(QString::fromLatin1("[language name]")))
 		aboutText += trText;	// omit this if it hasn't been translated!
 	aboutText += QLatin1String("</small>");
-	QMessageBox::about(nullptr, tr("About %1").arg(QString::fromLatin1(TEXWORKS_NAME)), aboutText);
+	QMessageBox::about(nullptr, tr("About %1").arg(applicationName()), aboutText);
 }
 
 void TWApp::openUrl(const QUrl& url)
 {
 	if (!QDesktopServices::openUrl(url))
-		QMessageBox::warning(nullptr, QString::fromLatin1(TEXWORKS_NAME),
+		QMessageBox::warning(nullptr, applicationName(),
 							 tr("Unable to access \"%1\"; perhaps your browser or mail application is not properly configured?")
 							 .arg(url.toString()));
 }
@@ -746,7 +746,7 @@ void TWApp::launchAction()
 			// something went wrong, give up!
 			(void)QMessageBox::critical(nullptr, tr("Unable to create window"),
 					tr("Something is badly wrong; %1 was unable to create a document window. "
-			           "The application will now quit.").arg(QString::fromLatin1(TEXWORKS_NAME)),
+					   "The application will now quit.").arg(applicationName()),
 					QMessageBox::Close, QMessageBox::Close);
 			quit();
 		}
@@ -1195,10 +1195,10 @@ QStringList TWApp::getTranslationList()
 	QVector<QDir> dirs({QDir(QStringLiteral(":/resfiles/translations")), QDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("translations")))});
 
 	for (QDir transDir : dirs) {
-		for (QFileInfo qmFileInfo : transDir.entryInfoList(QStringList(QStringLiteral(TEXWORKS_NAME "_*.qm")),
+		for (QFileInfo qmFileInfo : transDir.entryInfoList(QStringList(QStringLiteral("%1_*.qm").arg(applicationName())),
 					QDir::Files | QDir::Readable, QDir::Name | QDir::IgnoreCase)) {
 			QString locName = qmFileInfo.completeBaseName();
-			locName.remove(QStringLiteral(TEXWORKS_NAME "_"));
+			locName.remove(QStringLiteral("%1_").arg(applicationName()));
 			if (!translationList.contains(locName, Qt::CaseInsensitive))
 				translationList << locName;
 		}
@@ -1231,7 +1231,7 @@ void TWApp::applyTranslation(const QString& locale)
 		QStringList names, directories;
 		names << QString::fromLatin1("qt_") + locale \
 					<< QString::fromLatin1("QtPDF_") + locale \
-					<< QString::fromLatin1(TEXWORKS_NAME) + QString::fromLatin1("_") + locale;
+					<< applicationName() + QString::fromLatin1("_") + locale;
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		directories << QString::fromLatin1(":/resfiles/translations") \
 					<< QLibraryInfo::location(QLibraryInfo::TranslationsPath) \
@@ -1314,7 +1314,7 @@ void TWApp::openHelpFile(const QString& helpDirName)
 	if (helpDir.exists(QString::fromLatin1("index.html")))
 		openUrl(QUrl::fromLocalFile(helpDir.absoluteFilePath(QString::fromLatin1("index.html"))));
 	else
-		QMessageBox::warning(nullptr, QString::fromLatin1(TEXWORKS_NAME), tr("Unable to find help file."));
+		QMessageBox::warning(nullptr, applicationName(), tr("Unable to find help file."));
 }
 
 void TWApp::updateScriptsList()

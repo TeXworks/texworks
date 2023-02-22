@@ -25,7 +25,6 @@
 #include "Settings.h"
 #include "TWApp.h"
 #include "TWScriptManager.h"
-#include "TWUtils.h"
 #include "scripting/ECMAScriptInterface.h"
 #if WITH_QTSCRIPT
 #	include "scripting/JSScriptInterface.h"
@@ -168,11 +167,11 @@ TWScriptableWindow::doAboutScripts()
 	QString scriptingLink = QString::fromLatin1("<a href=\"%1\">%1</a>").arg(QString::fromLatin1("https://github.com/TeXworks/texworks/wiki/ScriptingTeXworks"));
 	QString aboutText = QLatin1String("<p>");
 	aboutText += tr("Scripts may be used to add new commands to %1, "
-	                "and to extend or modify its behavior.").arg(QString::fromLatin1(TEXWORKS_NAME));
+					"and to extend or modify its behavior.").arg(QCoreApplication::applicationName());
 	aboutText += QLatin1String("</p><p><small>");
 	aboutText += tr("For more information on creating and using scripts, see %1</p>").arg(scriptingLink);
 	aboutText += QLatin1String("</small></p><p>");
-	aboutText += tr("Scripting languages currently available in this copy of %1:").arg(QString::fromLatin1(TEXWORKS_NAME));
+	aboutText += tr("Scripting languages currently available in this copy of %1:").arg(QCoreApplication::applicationName());
 	aboutText += QLatin1String("</p><ul>");
 	foreach (const QObject * plugin,
 			 TWApp::instance()->getScriptManager()->languages()) {

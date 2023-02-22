@@ -863,7 +863,7 @@ bool TeXDocumentWindow::saveAs()
 bool TeXDocumentWindow::maybeSave()
 {
 	if (textEdit->document()->isModified()) {
-		QMessageBox msgBox(QMessageBox::Warning, tr(TEXWORKS_NAME),
+		QMessageBox msgBox(QMessageBox::Warning, QCoreApplication::applicationName(),
 						   tr("The document \"%1\" has been modified.\n"
 							  "Do you want to save your changes?")
 						   .arg(textDoc()->getFileInfo().fileName()),
@@ -894,7 +894,7 @@ bool TeXDocumentWindow::saveFilesHavingRoot(const QString& aRootFile)
 void TeXDocumentWindow::revert()
 {
 	if (!untitled()) {
-		QMessageBox	messageBox(QMessageBox::Warning, tr(TEXWORKS_NAME),
+		QMessageBox messageBox(QMessageBox::Warning, QCoreApplication::applicationName(),
 					tr("Do you want to discard all changes to the document \"%1\", and revert to the last saved version?")
 					   .arg(textDoc()->getFileInfo().fileName()), QMessageBox::Cancel, this);
 		QAbstractButton *revertButton = messageBox.addButton(tr("Revert"), QMessageBox::DestructiveRole);
@@ -992,7 +992,7 @@ QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 	// Not using QFile::Text because this prevents us reading "classic" Mac files
 	// with CR-only line endings. See issue #242.
 	if (!file.open(QFile::ReadOnly)) {
-		QMessageBox::warning(this, tr(TEXWORKS_NAME),
+		QMessageBox::warning(this, QCoreApplication::applicationName(),
 							 tr("Cannot read file \"%1\":\n%2")
 							 .arg(fileInfo.absoluteFilePath(), file.errorString()));
 		return QString();
@@ -1449,7 +1449,7 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 	{
 		QFile file(fileInfo.absoluteFilePath());
 		if (!file.open(QFile::WriteOnly)) {
-			QMessageBox::warning(this, tr(TEXWORKS_NAME),
+			QMessageBox::warning(this, QCoreApplication::applicationName(),
 								 tr("Cannot write file \"%1\":\n%2")
 								 .arg(fileInfo.absoluteFilePath(), file.errorString()));
 			setupFileWatcher();
@@ -1535,7 +1535,7 @@ void TeXDocumentWindow::setCurrentFile(const QFileInfo & fileInfo)
 	setWindowModified(false);
 
 	//: Format for the window title (ex. "file.tex[*] - TeXworks")
-	setWindowTitle(tr("%1[*] - %2").arg(textDoc()->getFileInfo().fileName(), tr(TEXWORKS_NAME)));
+	setWindowTitle(tr("%1[*] - %2").arg(textDoc()->getFileInfo().fileName(), QCoreApplication::applicationName()));
 
 	conditionallyEnableRemoveAuxFiles();
 
@@ -1580,7 +1580,7 @@ void TeXDocumentWindow::updateWindowMenu()
 
 	const QString label = Tw::Utils::WindowManager::uniqueLabelForFile(fileName());
 	if (!label.isEmpty()) {
-		setWindowTitle(tr("%1[*] - %2").arg(label, tr(TEXWORKS_NAME)));
+		setWindowTitle(tr("%1[*] - %2").arg(label, QCoreApplication::applicationName()));
 	}
 }
 

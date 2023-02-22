@@ -32,8 +32,6 @@
 #include <QString>
 #include <QTextCodec>
 
-#define TEXWORKS_NAME "TeXworks" /* app name, for use in menus, messages, etc */
-
 class QCompleter;
 class QMainWindow;
 class PDFDocumentWindow;
