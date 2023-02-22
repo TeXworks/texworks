@@ -400,7 +400,8 @@ void TestUtils::FullscreenManager()
 		m.addShortcut(QKeySequence(Qt::Key_F), SLOT(update()));
 		QCOMPARE(m.shortcuts().count(), 0);
 
-		QMouseEvent e(QMouseEvent::Move, {0, 0}, Qt::NoButton, Qt::NoButton, {});
+		const QPoint mousePos{0, 0};
+		QMouseEvent e(QMouseEvent::Move, mousePos, mousePos, Qt::NoButton, Qt::NoButton, {});
 		m.mouseMoveEvent(&e);
 	}
 	{
@@ -443,8 +444,10 @@ void TestUtils::FullscreenManager()
 
 		if (!w.menuBar()->isNativeMenuBar()) {
 			constexpr int threshold = 10;
-			QMouseEvent mouseOver(QMouseEvent::Move, {0, threshold}, Qt::NoButton, Qt::NoButton, {});
-			QMouseEvent mouseOut(QMouseEvent::Move, {0, qMax(threshold, w.menuBar()->height()) + 1.}, Qt::NoButton, Qt::NoButton, {});
+			const QPoint overPos{0, threshold};
+			const QPoint outPos{0, qMax(threshold, w.menuBar()->height()) + 1};
+			QMouseEvent mouseOver(QMouseEvent::Move, overPos, overPos, Qt::NoButton, Qt::NoButton, {});
+			QMouseEvent mouseOut(QMouseEvent::Move, outPos, outPos, Qt::NoButton, Qt::NoButton, {});
 
 			// Hover over and move away quickly (should not trigger the menubar)
 			m.mouseMoveEvent(&mouseOver);

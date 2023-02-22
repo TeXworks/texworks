@@ -180,7 +180,9 @@ void TestUI::ScreenCalibrationWidget_drag()
 	// i.e., holding down a mouse button while moving. Hence we have to send our
 	// own QMouseEvent.
 	{
-		QMouseEvent me(QEvent::MouseMove, w.rulerRect().bottomRight(), Qt::LeftButton, Qt::LeftButton, {});
+		const QPoint local = w.rulerRect().bottomRight();
+		const QPoint global = w.mapToGlobal(local);
+		QMouseEvent me(QEvent::MouseMove, local, global, Qt::LeftButton, Qt::LeftButton, {});
 		QCoreApplication::instance()->notify(&w, &me);
 	}
 	QVERIFY(w.isDragging());
@@ -210,7 +212,8 @@ void TestUI::ScreenCalibrationWidget_drag()
 	QCOMPARE(spy.count(), 0);
 
 	{
-		QMouseEvent me(QEvent::MouseMove, upPos, Qt::LeftButton, Qt::LeftButton, {});
+		const QPointF global = w.mapToGlobal(upPos);
+		QMouseEvent me(QEvent::MouseMove, upPos, global, Qt::LeftButton, Qt::LeftButton, {});
 		QCoreApplication::instance()->notify(&w, &me);
 	}
 	QVERIFY(w.isDragging());
@@ -272,7 +275,9 @@ void TestUI::ScreenCalibrationWidget_contextMenu()
 	// Click inside the rulerRect
 	QVERIFY(w.contextMenu().isVisible() == false);
 	{
-		QContextMenuEvent cme(QContextMenuEvent::Mouse, w.rulerRect().center());
+		const QPoint local = w.rulerRect().center();
+		const QPoint global = w.mapToGlobal(local);
+		QContextMenuEvent cme(QContextMenuEvent::Mouse, local, global);
 		QCoreApplication::instance()->notify(&w, &cme);
 	}
 	QVERIFY(w.contextMenu().isVisible());
@@ -281,7 +286,9 @@ void TestUI::ScreenCalibrationWidget_contextMenu()
 	// Click outside the rulerRect
 	QVERIFY(w.contextMenu().isVisible() == false);
 	{
-		QContextMenuEvent cme(QContextMenuEvent::Mouse, w.rulerRect().topLeft() - QPoint(1, 1));
+		const QPoint local = w.rulerRect().topLeft() - QPoint(1, 1);
+		const QPoint global = w.mapToGlobal(local);
+		QContextMenuEvent cme(QContextMenuEvent::Mouse, local, global);
 		QCoreApplication::instance()->notify(&w, &cme);
 	}
 	QVERIFY(w.contextMenu().isVisible() == false);
@@ -289,7 +296,9 @@ void TestUI::ScreenCalibrationWidget_contextMenu()
 	// Keypress ("outside the rulerRect")
 	QVERIFY(w.contextMenu().isVisible() == false);
 	{
-		QContextMenuEvent cme(QContextMenuEvent::Keyboard, w.rulerRect().center() - QPoint(1, 1));
+		const QPoint local = w.rulerRect().center() - QPoint(1, 1);
+		const QPoint global = w.mapToGlobal(local);
+		QContextMenuEvent cme(QContextMenuEvent::Keyboard, local, global);
 		QCoreApplication::instance()->notify(&w, &cme);
 	}
 	QVERIFY(w.contextMenu().isVisible());
