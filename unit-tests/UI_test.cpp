@@ -20,7 +20,6 @@
 */
 #include "UI_test.h"
 
-#include "SignalCounter.h"
 #include "ui/ClickableLabel.h"
 #include "ui/ColorButton.h"
 #include "ui/ClosableTabWidget.h"
@@ -28,6 +27,7 @@
 #include "ui/ScreenCalibrationWidget.h"
 
 #include <QDoubleSpinBox>
+#include <QMouseEvent>
 #include <QTabBar>
 
 namespace UnitTest {
@@ -47,6 +47,13 @@ class ClosableTabWidget : public Tw::UI::ClosableTabWidget
 public:
 	QToolButton * closeButton() { return _closeButton; }
 };
+
+void TestUI::initTestCase()
+{
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	qRegisterMetaType<QMouseEvent*>("QMouseEvent*");
+#endif
+}
 
 void TestUI::LineNumberWidget_bgColor()
 {
@@ -300,9 +307,15 @@ void TestUI::ClickableLable_ctor()
 void TestUI::ClickableLabel_click()
 {
 	Tw::UI::ClickableLabel cl;
-	SignalCounter leftCounter(&cl, &Tw::UI::ClickableLabel::mouseLeftClick);
-	SignalCounter middleCounter(&cl, &Tw::UI::ClickableLabel::mouseMiddleClick);
-	SignalCounter rightCounter(&cl, &Tw::UI::ClickableLabel::mouseRightClick);
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QSignalSpy leftCounter(&cl, SIGNAL(mouseLeftClick(QMouseEvent *)));
+	QSignalSpy middleCounter(&cl, SIGNAL(mouseMiddleClick(QMouseEvent *)));
+	QSignalSpy rightCounter(&cl, SIGNAL(mouseRightClick(QMouseEvent *)));
+#else
+	QSignalSpy leftCounter(&cl, &Tw::UI::ClickableLabel::mouseLeftClick);
+	QSignalSpy middleCounter(&cl, &Tw::UI::ClickableLabel::mouseMiddleClick);
+	QSignalSpy rightCounter(&cl, &Tw::UI::ClickableLabel::mouseRightClick);
+#endif
 
 	// Clicking emits appropriate signals
 	QCOMPARE(leftCounter.count(), 0);
@@ -352,7 +365,11 @@ void TestUI::ClickableLabel_doubleClick()
 {
 	Tw::UI::ClickableLabel cl;
 
-	SignalCounter spy(&cl, &Tw::UI::ClickableLabel::mouseDoubleClick);
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QSignalSpy spy(&cl, SIGNAL(mouseDoubleClick(QMouseEvent *)));
+#else
+	QSignalSpy spy(&cl, &Tw::UI::ClickableLabel::mouseDoubleClick);
+#endif
 
 	QVERIFY(spy.isValid());
 	QCOMPARE(spy.count(), 0);

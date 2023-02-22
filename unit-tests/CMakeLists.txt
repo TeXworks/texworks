@@ -51,7 +51,6 @@ ENDIF ()
 add_executable(test_UI
 	UI_test.cpp
 	UI_test.h
-	SignalCounter.cpp
 	"${CMAKE_SOURCE_DIR}/src/ui/ClickableLabel.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ClosableTabWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ColorButton.cpp"
@@ -66,7 +65,6 @@ add_test(NAME test_UI COMMAND test_UI WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/tes
 add_executable(test_Utils
 	Utils_test.cpp
 	Utils_test.h
-	SignalCounter.cpp
 	"${CMAKE_SOURCE_DIR}/src/utils/CommandlineParser.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/FileVersionDatabase.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/FullscreenManager.cpp"

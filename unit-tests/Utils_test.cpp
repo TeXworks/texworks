@@ -21,7 +21,6 @@
 
 #include "Utils_test.h"
 
-#include "SignalCounter.h"
 #include "utils/CommandlineParser.h"
 #include "utils/FileVersionDatabase.h"
 #include "utils/FullscreenManager.h"
@@ -69,7 +68,6 @@ bool operator==(const FileVersionDatabase & db1, const FileVersionDatabase & db2
 }
 } // namespace Utils
 } // namespace Tw
-
 
 namespace UnitTest {
 
@@ -165,7 +163,11 @@ void TestUtils::FileVersionDatabase_save()
 void TestUtils::SystemCommand_wait()
 {
 	Tw::Utils::SystemCommand cmd(this);
-	SignalCounter spy(&cmd, static_cast<void (Tw::Utils::SystemCommand::*)(int, QProcess::ExitStatus)>(&Tw::Utils::SystemCommand::finished));
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QSignalSpy spy(&cmd, SIGNAL(finished(int, QProcess::ExitStatus)));
+#else
+	QSignalSpy spy(&cmd, static_cast<void (Tw::Utils::SystemCommand::*)(int, QProcess::ExitStatus)>(&Tw::Utils::SystemCommand::finished));
+#endif
 
 	QVERIFY(spy.isValid());
 
