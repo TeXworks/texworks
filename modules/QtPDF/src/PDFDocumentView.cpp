@@ -301,8 +301,8 @@ QDockWidget * PDFDocumentView::dockWidget(const Dock type, QWidget * parent /* =
 
   // We don't want docks to (need to) take up a lot of space. If the infoWidget
   // can't shrink, we thus put it into a scroll area that can
-  if (!(infoWidget->sizePolicy().horizontalPolicy() & QSizePolicy::ShrinkFlag) || \
-      !(infoWidget->sizePolicy().verticalPolicy() & QSizePolicy::ShrinkFlag)) {
+  if (!(static_cast<int>(infoWidget->sizePolicy().horizontalPolicy()) & QSizePolicy::ShrinkFlag) || \
+      !(static_cast<int>(infoWidget->sizePolicy().verticalPolicy()) & QSizePolicy::ShrinkFlag)) {
     QScrollArea * scrollArea = new QScrollArea(dock);
     scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scrollArea->setWidget(infoWidget);

@@ -648,7 +648,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     const QList<::Poppler::Link *> poppler_links = _poppler_page->links();
     std::vector< std::unique_ptr<::Poppler::Link> > rv;
-    rv.reserve(poppler_links.size());
+    rv.reserve(static_cast<decltype(rv)::size_type>(poppler_links.size()));
     for (::Poppler::Link * link : poppler_links) {
       rv.emplace_back(link);
     }
@@ -663,7 +663,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     const QList<::Poppler::Annotation *> poppler_annots = _poppler_page->annotations();
     std::vector< std::unique_ptr<::Poppler::Annotation> > rv;
-    rv.reserve(poppler_annots.size());
+    rv.reserve(static_cast<decltype(rv)::size_type>(poppler_annots.size()));
     for (::Poppler::Annotation * annot : poppler_annots) {
       rv.emplace_back(annot);
     }
@@ -777,7 +777,7 @@ QList< QSharedPointer<Annotation::AbstractAnnotation> > Page::loadAnnotations()
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     const QList<::Poppler::Annotation *> poppler_annots = _poppler_page->annotations();
     std::vector< std::unique_ptr<::Poppler::Annotation> > rv;
-    rv.reserve(poppler_annots.size());
+    rv.reserve(static_cast<decltype(rv)::size_type>(poppler_annots.size()));
     for (::Poppler::Annotation * annot : poppler_annots) {
       rv.emplace_back(annot);
     }
@@ -1002,7 +1002,7 @@ QList< Backend::Page::Box > Page::boxes() const
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     const QList<::Poppler::TextBox*> popplerList = _poppler_page->textList();
     std::vector< std::unique_ptr<::Poppler::TextBox> > rv;
-    rv.reserve(popplerList.size());
+    rv.reserve(static_cast<decltype(rv)::size_type>(popplerList.size()));
     for (::Poppler::TextBox* box : popplerList) {
       rv.emplace_back(box);
     }
@@ -1053,7 +1053,7 @@ QString Page::selectedText(const QList<QPolygonF> & selection, BoxBoundaryList *
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     const QList<::Poppler::TextBox*> popplerList = _poppler_page->textList();
     std::vector< std::unique_ptr<::Poppler::TextBox> > rv;
-    rv.reserve(popplerList.size());
+    rv.reserve(static_cast<decltype(rv)::size_type>(popplerList.size()));
     for (::Poppler::TextBox* box : popplerList) {
       rv.emplace_back(box);
     }

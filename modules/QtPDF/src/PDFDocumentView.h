@@ -75,7 +75,7 @@ public:
     p.addRect(rect);
     return addHighlightPath(page, p, brush, pen);
   }
-  QGraphicsPathItem * addHighlightPath(const unsigned int page, const QPainterPath & path, const QColor color, const QPen & pen = Qt::NoPen) {
+  QGraphicsPathItem * addHighlightPath(const size_type page, const QPainterPath & path, const QColor color, const QPen & pen = Qt::NoPen) {
     return addHighlightPath(page, path, QBrush(color), pen);
   }
 
