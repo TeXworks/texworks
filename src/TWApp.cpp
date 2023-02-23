@@ -407,7 +407,7 @@ void TWApp::recreateSpecialMenuItems()
 	connect(actionPreferences, &QAction::triggered, this, &TWApp::preferences);
 
 	delete aboutAction;
-	aboutAction = menuHelp->addAction(tr("About %1...").arg(applicationName())));
+	aboutAction = menuHelp->addAction(tr("About %1...").arg(applicationName()));
 	aboutAction->setMenuRole(QAction::AboutRole);
 	connect(aboutAction, &QAction::triggered, this, &TWApp::about);
 }
