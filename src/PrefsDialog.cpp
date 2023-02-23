@@ -585,13 +585,19 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.wrapLines->setChecked(settings.value(QString::fromLatin1("wrapLines"), kDefault_WrapLines).toBool());
 	dlg.tabWidth->setValue(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toInt());
 	dlg.lineSpacing->setValue(settings.value(QStringLiteral("lineSpacing"), kDefault_LineSpacing).toInt());
-	QFontDatabase fdb;
-	dlg.editorFont->addItems(fdb.families());
+	const QStringList fontFamilies = []() {
+		#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+		return QFontDatabase().families();
+		#else
+		return QFontDatabase::families();
+		#endif
+	}();
+	dlg.editorFont->addItems(fontFamilies);
 	QString fontString = settings.value(QString::fromLatin1("font")).toString();
 	QFont font;
 	if (!fontString.isEmpty())
 		font.fromString(fontString);
-	dlg.editorFont->setCurrentIndex(static_cast<index_type>(fdb.families().indexOf(font.family())));
+	dlg.editorFont->setCurrentIndex(static_cast<index_type>(fontFamilies.indexOf(font.family())));
 	dlg.fontSize->setValue(font.pointSize());
 	dlg.encoding->setCurrentIndex(static_cast<index_type>(nameList.indexOf(QString::fromUtf8(TWApp::instance()->getDefaultCodec()->name().constData()))));
 	dlg.highlightCurrentLine->setChecked(settings.value(QString::fromLatin1("highlightCurrentLine"), kDefault_HighlightCurrentLine).toBool());
