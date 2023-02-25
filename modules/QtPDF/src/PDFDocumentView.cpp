@@ -933,9 +933,9 @@ void PDFDocumentView::setCurrentSearchResultHighlightBrush(const QBrush & brush)
 // --------------
 void PDFDocumentView::searchResultReady(PDFSearcher::size_type pageIndex)
 {
-  const auto & result = _searcher.resultAt(pageIndex);
+  const auto & results = _searcher.resultAt(pageIndex);
   // Convert the search result to highlight boxes
-  foreach(Backend::SearchResult result, result) {
+  for(const Backend::SearchResult & result : results) {
     _searchResults << addHighlightPath(result.pageNum, result.bbox, _searchResultHighlightBrush);
   }
 
@@ -2380,8 +2380,8 @@ void PDFPageGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsIte
         // If we are rendering a PDFDocumentMagnifierView who's parent
         // PDFDocumentView has `useGrayScale` set respect that setting.
         else if (widget && widget->parent() && widget->parent()->parent()) {
-          PDFDocumentView * view = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()->parent()) : nullptr);
-          if (view && view->useGrayScale())
+          PDFDocumentView * parentView = (widget ? qobject_cast<PDFDocumentView*>(widget->parent()->parent()) : nullptr);
+          if (parentView && parentView->useGrayScale())
             useGrayScale = true;
         }
 
@@ -2866,8 +2866,8 @@ void PDFToCInfoWidget::initFromDocument(const QWeakPointer<Backend::Document> ne
   clear();
   QSharedPointer<Backend::Document> doc(newDoc.toStrongRef());
   if (doc) {
-    const Backend::PDFToC data = doc->toc();
-    recursiveAddTreeItems(data, _tree->invisibleRootItem());
+    const Backend::PDFToC tocData = doc->toc();
+    recursiveAddTreeItems(tocData, _tree->invisibleRootItem());
   }
 }
 

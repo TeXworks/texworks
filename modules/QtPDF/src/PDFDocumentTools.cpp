@@ -832,7 +832,7 @@ void Select::mouseMoveEvent(QMouseEvent *event)
     // Set WindingFill so overlapping, individual paths are both filled
     // completely.
     highlightPath.setFillRule(Qt::WindingFill);
-    foreach(Backend::Page::Box b, _boxes) {
+    for (const Backend::Page::Box & b : _boxes) {
       // Note: If b.boundingBox is fully contained in the marqueeRect, add it
       // without iterating over the subboxes. Otherwise, add all intersected
       // subboxes
@@ -840,7 +840,7 @@ void Select::mouseMoveEvent(QMouseEvent *event)
         if (b.subBoxes.isEmpty() || marqueeRect.contains(b.boundingBox))
           highlightPath.addRect(toView.mapRect(b.boundingBox));
         else {
-          foreach(Backend::Page::Box sb, b.subBoxes) {
+          for(const Backend::Page::Box & sb : b.subBoxes) {
             if (marqueeRect.intersects(sb.boundingBox))
               highlightPath.addRect(toView.mapRect(sb.boundingBox));
           }
@@ -1009,14 +1009,14 @@ void Select::resetBoxes(const size_type pageNum /* = -1 */)
   Q_ASSERT(pageGraphicsItem != nullptr);
 
   QTransform toView = pageGraphicsItem->pointScale();
-  foreach(Backend::Page::Box b, _boxes) {
+  for(const Backend::Page::Box & b : _boxes) {
     if (b.subBoxes.isEmpty()) {
       QGraphicsRectItem * rectItem = scene->addRect(toView.mapRect(b.boundingBox), QPen(_highlightColor));
       rectItem->setParentItem(pageGraphicsItem);
       _displayBoxes << rectItem;
     }
     else {
-      foreach(Backend::Page::Box sb, b.subBoxes) {
+      for (const Backend::Page::Box & sb : b.subBoxes) {
         QGraphicsRectItem * rectItem = scene->addRect(toView.mapRect(sb.boundingBox), QPen(_highlightColor));
         rectItem->setParentItem(pageGraphicsItem);
         _displayBoxes << rectItem;
