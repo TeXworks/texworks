@@ -1419,7 +1419,12 @@ void TestQtPDF::page_renderToImage()
   // it is crucial that _something_ is rendered (which is not the case, e.g., if
   // a font is missing)
   QCOMPARE(ref.isHomogeneous(), render.isHomogeneous());
-  QVERIFY(render == ref);
+  if (!(render == ref)) {
+    QTemporaryFile imgFile;
+    imgFile.setAutoRemove(false);
+    render.save(&imgFile, "PNG");
+    QFAIL(qPrintable(QStringLiteral("Rendered image[%0] != reference[%1]").arg(imgFile.fileName(), filename)));
+  }
 }
 
 void TestQtPDF::page_loadLinks_data()
