@@ -41,6 +41,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   ui/ClickableLabel.cpp
                   ui/ClosableTabWidget.cpp
                   ui/ColorButton.cpp
+                  ui/ConsoleWidget.cpp
                   ui/LineNumberWidget.cpp
                   ui/ListSelectDialog.cpp
                   ui/RemoveAuxFilesDialog.cpp
@@ -93,6 +94,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   ui/ClickableLabel.h
                   ui/ClosableTabWidget.h
                   ui/ColorButton.h
+                  ui/ConsoleWidget.h
                   ui/LineNumberWidget.h
                   ui/ListSelectDialog.h
                   ui/RemoveAuxFilesDialog.h

@@ -211,7 +211,6 @@ private slots:
 	void updateEngineList();
 	void showCursorPosition();
 	void editMenuAboutToShow();
-	void processStandardOutput();
 	void processError(QProcess::ProcessError error);
 	void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void acceptInputLine();

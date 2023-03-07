@@ -2768,7 +2768,7 @@ void TeXDocumentWindow::typeset()
 	process = e.run(fileInfo, this);
 
 	if (process) {
-		textEdit_console->clear();
+		textEdit_console->setProcess(process);
 		if (consoleTabs->isHidden()) {
 			keepConsoleOpen = false;
 			showConsole();
@@ -2790,7 +2790,6 @@ void TeXDocumentWindow::typeset()
 		showPdfWhenFinished = e.showPdf();
 		userInterrupt = false;
 
-		connect(process, &QProcess::readyReadStandardOutput, this, &TeXDocumentWindow::processStandardOutput);
 #if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
 		connect(process, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::error), this, &TeXDocumentWindow::processError);
 #else
@@ -2898,16 +2897,6 @@ void TeXDocumentWindow::conditionallyEnableRemoveAuxFiles()
 	actionRemove_Aux_Files->setEnabled(enable);
 }
 
-void TeXDocumentWindow::processStandardOutput()
-{
-	QByteArray bytes = process->readAllStandardOutput();
-	QTextCursor cursor(textEdit_console->document());
-	cursor.select(QTextCursor::Document);
-	cursor.setPosition(cursor.selectionEnd());
-	cursor.insertText(QString::fromUtf8(bytes.constData()));
-	textEdit_console->setTextCursor(cursor);
-}
-
 void TeXDocumentWindow::processError(QProcess::ProcessError /*error*/)
 {
 	if (userInterrupt)
@@ -2915,6 +2904,7 @@ void TeXDocumentWindow::processError(QProcess::ProcessError /*error*/)
 	else
 		textEdit_console->append(process->errorString());
 	process->kill();
+	textEdit_console->setProcess(nullptr, false);
 	process->deleteLater();
 	process = nullptr;
 	inputLine->hide();
@@ -2931,6 +2921,8 @@ void TeXDocumentWindow::processFinished(int exitCode, QProcess::ExitStatus exitS
 	// Start watching for changes in the pdf (again)
 	if (pdfDoc && pdfDoc->widget())
 		pdfDoc->widget()->setWatchForDocumentChangesOnDisk(true);
+
+	textEdit_console->setProcess(nullptr, false);
 
 	if (exitStatus != QProcess::CrashExit) {
 		QString pdfName;
@@ -3073,19 +3065,8 @@ void TeXDocumentWindow::toggleConsoleVisibility()
 void TeXDocumentWindow::acceptInputLine()
 {
 	if (process) {
-		QString	str = inputLine->text();
-		QTextCursor	curs(textEdit_console->document());
-		using pos_type = decltype(curs.position());
-		curs.setPosition(static_cast<pos_type>(textEdit_console->toPlainText().length()));
-		textEdit_console->setTextCursor(curs);
-		QTextCharFormat	consoleFormat = textEdit_console->currentCharFormat();
-		QTextCharFormat inputFormat(consoleFormat);
-		inputFormat.setForeground(inputLine->palette().text());
-		str.append(QChar::fromLatin1('\n'));
-		textEdit_console->insertPlainText(str);
-		curs.movePosition(QTextCursor::PreviousCharacter);
-		curs.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, static_cast<pos_type>(str.length() - 1));
-		curs.setCharFormat(inputFormat);
+		const QString str = inputLine->text() + QStringLiteral("\n");
+		textEdit_console->echo(str, inputLine->palette().text().color());
 		process->write(str.toUtf8());
 		inputLine->clear();
 	}
