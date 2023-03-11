@@ -44,7 +44,10 @@ private slots:
 	void appendOutput(QByteArray output);
 
 private:
+	void processIncompleteUTF8Codes(QByteArray & data);
+
 	QProcess * m_process{nullptr};
+	QByteArray m_unicodeCarry;
 };
 
 } // namespace UI

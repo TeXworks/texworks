@@ -42,6 +42,7 @@ void ConsoleWidget::setProcess(QProcess *p, const bool clearConsole /* = true */
 	if (clearConsole) {
 		clear();
 	}
+	m_unicodeCarry.clear();
 	m_process = p;
 	if (m_process) {
 		connect(m_process, &QProcess::readyReadStandardOutput, this, [&]() {appendOutput(m_process->readAllStandardOutput()); });
@@ -66,11 +67,35 @@ void ConsoleWidget::echo(const QString &str, const QColor foregroundColor /* = {
 
 void ConsoleWidget::appendOutput(QByteArray output)
 {
+	processIncompleteUTF8Codes(output);
 	QTextCursor cursor(document());
 	cursor.select(QTextCursor::Document);
 	cursor.setPosition(cursor.selectionEnd());
 	cursor.insertText(QString::fromUtf8(output.constData()));
 	setTextCursor(cursor);
+}
+
+void ConsoleWidget::processIncompleteUTF8Codes(QByteArray &data)
+{
+	using size_type = decltype(data.size());
+
+	if (!m_unicodeCarry.isEmpty()) {
+		data.prepend(m_unicodeCarry);
+		m_unicodeCarry.clear();
+	}
+
+	unsigned char mask{0xF8};
+	unsigned char value{0xF0};
+
+	for (size_type codePointLength = 4; codePointLength > 1; --codePointLength, mask <<= 1, value <<= 1) {
+		for (size_type offset = 1; offset < qMin(data.size(), codePointLength); ++offset) {
+			if ((data[data.size() - offset] & mask) == value) {
+				m_unicodeCarry.append(data.right(offset));
+				data.remove(data.size() - offset, offset);
+				break;
+			}
+		}
+	}
 }
 
 } // namespace UI
