@@ -22,6 +22,7 @@
 
 #include "ui/ClickableLabel.h"
 #include "ui/ColorButton.h"
+#include "ui/ConsoleWidget.h"
 #include "ui/ClosableTabWidget.h"
 #include "ui/LineNumberWidget.h"
 #include "ui/ScreenCalibrationWidget.h"
@@ -413,6 +414,62 @@ void TestUI::ClosableTabWidget_resizeEvent()
 	int buttonLeft = w.rect().right() - w.closeButton()->sizeHint().width();
 	QCOMPARE(w.closeButton()->geometry().left(), buttonLeft);
 	QCOMPARE(w.tabBar()->maximumWidth(), buttonLeft);
+}
+
+void TestUI::ConsoleWidget_setProcess()
+{
+	Tw::UI::ConsoleWidget console;
+	QProcess process;
+	QProcess * ptrNull{nullptr};
+	const QString empty{};
+	const QString dummyText{QStringLiteral("Dummy text")};
+
+	QCOMPARE(console.process(), ptrNull);
+	QCOMPARE(console.toPlainText(), empty);
+
+	console.setPlainText(dummyText);
+	console.setProcess(&process, false);
+	QCOMPARE(console.process(), &process);
+	QCOMPARE(console.toPlainText(), dummyText);
+
+	console.setProcess(nullptr, false);
+	QCOMPARE(console.process(), ptrNull);
+	QCOMPARE(console.toPlainText(), dummyText);
+
+	console.setProcess(&process, true);
+	QCOMPARE(console.process(), &process);
+	QCOMPARE(console.toPlainText(), empty);
+}
+
+void TestUI::ConsoleWidget_output()
+{
+	const QString testString{QStringLiteral(u"Hello \u00e4\u20ac\U0001d11e")};
+	const QByteArray utf8Bytes = testString.toUtf8();
+	Tw::UI::ConsoleWidget console;
+	const QString cmd{QDir(QCoreApplication::applicationDirPath()).filePath(QStringLiteral("byte_echo_test"))};
+
+	using size_type = decltype(utf8Bytes.size());
+	for (size_type flushPos = 1; flushPos < utf8Bytes.size(); ++flushPos) {
+		QProcess process;
+		console.setProcess(&process);
+		QString arg;
+		for (size_type pos = 0; pos < flushPos; ++pos) {
+			arg += QStringLiteral("\\x%0").arg(static_cast<unsigned char>(utf8Bytes[pos]), 2, 16, QChar{'0'});
+		}
+		process.start(cmd, {arg});
+		process.waitForStarted();
+		process.waitForFinished();
+
+		arg.clear();
+		for (size_type pos = flushPos; pos < utf8Bytes.size(); ++pos) {
+			arg += QStringLiteral("\\x%0").arg(static_cast<unsigned char>(utf8Bytes[pos]), 2, 16, QChar{'0'});
+		}
+		process.start(cmd, {arg});
+		process.waitForStarted();
+		process.waitForFinished();
+
+		QCOMPARE(console.toPlainText(), testString);
+	}
 }
 
 void TestUI::ColorButton_color()

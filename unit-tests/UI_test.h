@@ -46,6 +46,9 @@ private slots:
 	void ClosableTabWidget_signals();
 	void ClosableTabWidget_resizeEvent();
 
+	void ConsoleWidget_setProcess();
+	void ConsoleWidget_output();
+
 	void ColorButton_color();
 };
 

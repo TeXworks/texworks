@@ -46,6 +46,8 @@ IF ( LUA_FOUND AND WITH_LUA )
 	add_test(NAME test_LuaScripting COMMAND test_LuaScripting WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 ENDIF ()
 
+add_executable(byte_echo_test byte_echo_test.cpp)
+target_compile_options(byte_echo_test PRIVATE ${WARNING_OPTIONS})
 
 # UI
 add_executable(test_UI
@@ -54,6 +56,7 @@ add_executable(test_UI
 	"${CMAKE_SOURCE_DIR}/src/ui/ClickableLabel.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ClosableTabWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ColorButton.cpp"
+	"${CMAKE_SOURCE_DIR}/src/ui/ConsoleWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ScreenCalibrationWidget.cpp"
 )
