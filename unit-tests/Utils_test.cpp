@@ -84,6 +84,9 @@ public:
 void TestUtils::initTestCase()
 {
 	QStandardPaths::setTestModeEnabled(true);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	qRegisterMetaType<QProcess::ExitStatus>("QProcess::ExitStatus");
+#endif
 }
 
 void TestUtils::cleanupTestCase()
