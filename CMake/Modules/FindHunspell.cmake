@@ -12,7 +12,7 @@
 # Redistribution and use of this file is allowed according to the terms of the
 # MIT license. For details see the file COPYING-CMAKE-MODULES.
 
-
+message("**** CMAKE_APPLE_SILICON_PROCESSOR=$ENV{CMAKE_APPLE_SILICON_PROCESSOR}")
 if ( HUNSPELL_INCLUDE_DIR AND HUNSPELL_LIBRARIES )
    # in cache already
    SET(Hunspell_FIND_QUIETLY TRUE)
@@ -26,6 +26,13 @@ if( NOT WIN32 )
   pkg_check_modules(HUNSPELL_PKG QUIET hunspell)
 endif( NOT WIN32 )
 
+if(TEXWORKS_OPT_HOMEBREW)
+FIND_PATH(HUNSPELL_INCLUDE_DIR NAMES hunspell.h
+  HINTS
+    ${TEXWORKS_OPT_HOMEBREW}/include
+  NO_CMAKE_SYSTEM_PATH
+)
+endif()
 FIND_PATH(HUNSPELL_INCLUDE_DIR NAMES hunspell.h
   PATHS
     /usr/local/include
@@ -35,6 +42,14 @@ FIND_PATH(HUNSPELL_INCLUDE_DIR NAMES hunspell.h
   PATH_SUFFIXES hunspell
 )
 
+if(TEXWORKS_OPT_HOMEBREW)
+FIND_LIBRARY(HUNSPELL_LIBRARIES NAMES hunspell-1.7 hunspell-1.6 hunspell-1.5 hunspell-1.4 hunspell-1.3 hunspell-1.2 hunspell ${HUNSPELL_PKG_LIBRARIES}
+  HINTS
+    ${TEXWORKS_OPT_HOMEBREW}/lib
+  NO_CMAKE_SYSTEM_PATH
+  NO_SYSTEM_ENVIRONMENT_PATH
+)
+endif()
 FIND_LIBRARY(HUNSPELL_LIBRARIES NAMES hunspell-1.7 hunspell-1.6 hunspell-1.5 hunspell-1.4 hunspell-1.3 hunspell-1.2 hunspell ${HUNSPELL_PKG_LIBRARIES}
   PATHS
     /usr/local

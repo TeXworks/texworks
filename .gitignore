@@ -16,3 +16,6 @@ CMakeLists.txt.user*
 
 # Files created by Inno Setup
 /win32/Output/
+
+# Files created by MacOS X
+.DS_Store

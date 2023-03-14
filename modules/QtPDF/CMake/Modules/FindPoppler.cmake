@@ -35,6 +35,14 @@ if (NOT WIN32)
 endif (NOT WIN32)
 
 # Find libpoppler
+if(TEXWORKS_OPT_HOMEBREW)
+find_library(Poppler_LIBRARY NAMES poppler ${Poppler_PKG_LIBRARIES}
+  HINTS
+    ${TEXWORKS_OPT_HOMEBREW}/lib
+  NO_CMAKE_SYSTEM_PATH
+  NO_SYSTEM_ENVIRONMENT_PATH
+)
+endif()
 find_library(Poppler_LIBRARY NAMES poppler ${Poppler_PKG_LIBRARIES}
   PATHS
     /usr/local
@@ -47,6 +55,15 @@ find_library(Poppler_LIBRARY NAMES poppler ${Poppler_PKG_LIBRARIES}
 )
 
 # Find include directory for private headers (optional)
+if(TEXWORKS_OPT_HOMEBREW)
+find_path(Poppler_PRIVATE_INCLUDE_DIR NAMES poppler-config.h
+  HINTS
+    ${TEXWORKS_OPT_HOMEBREW}/include
+  PATH_SUFFIXES
+    poppler
+  NO_CMAKE_SYSTEM_PATH
+)
+endif()
 find_path(Poppler_PRIVATE_INCLUDE_DIR NAMES poppler-config.h
   PATHS
     /usr/local/include
@@ -104,6 +121,7 @@ foreach (cmp IN LISTS Poppler_FIND_COMPONENTS)
   # Find library
   find_library(${label}_LIBRARY NAMES ${pkg} ${${label}_PKG_LIBRARIES}
     PATHS
+      /opt/homebrew
       /usr/local
       /usr
     HINTS
@@ -130,6 +148,7 @@ foreach (cmp IN LISTS Poppler_FIND_COMPONENTS)
 
   find_path(${label}_INCLUDE_DIR NAMES ${${pkg}_header}
     PATHS
+      /opt/homebrew/include
       /usr/local/include
       /usr/include
     HINTS
