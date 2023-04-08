@@ -46,6 +46,7 @@ void ConsoleWidget::setProcess(QProcess *p, const bool clearConsole /* = true */
 	m_process = p;
 	if (m_process) {
 		connect(m_process, &QProcess::readyReadStandardOutput, this, [&]() {appendOutput(m_process->readAllStandardOutput()); });
+		connect(m_process, &QProcess::destroyed, this, [&]() {setProcess(nullptr, false);});
 	}
 }
 
