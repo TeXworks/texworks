@@ -347,7 +347,7 @@ SET(TeXworks_LIBS
 # -------------------------------
 
 IF ( WITH_LUA )
-  include(TwxLua)
+  find_package(TwxLua)
 ENDIF()
 
 IF ( WITH_PYTHON )
