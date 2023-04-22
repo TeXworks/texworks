@@ -62,6 +62,9 @@ static bool isPageItem(const QGraphicsItem *item) { return ( item->type() == PDF
 PDFDocumentView::PDFDocumentView(QWidget *parent /* = nullptr */):
   Super(parent)
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+  qRegisterMetaType<QtPDF::PDFSearcher::size_type>("QtPDF::PDFSearcher::size_type");
+#endif
   initResources();
   setBackgroundRole(QPalette::Dark);
   setAlignment(Qt::AlignCenter);
