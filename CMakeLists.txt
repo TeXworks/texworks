@@ -23,7 +23,7 @@
 #       └── packaging
 #           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.txt</a>
 #           └── mac
-#               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.cmake.in</a>
+#               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.in.cmake</a>
 # </pre>
 #
 # Using CMake as a buildsystem offers some nice advantages:
