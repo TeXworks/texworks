@@ -415,6 +415,7 @@ void TestUtils::FullscreenManager()
 #else
 		QSignalSpy spy(&m, &::UnitTest::FullscreenManager::fullscreenChanged);
 #endif
+		QVERIFY(spy.isValid());
 
 		w.setAttribute(Qt::WA_TranslucentBackground);
 		w.setMenuBar(new QMenuBar);
@@ -423,8 +424,8 @@ void TestUtils::FullscreenManager()
 
 		w.show();
 		QCoreApplication::processEvents();
-
-		QVERIFY(spy.isValid());
+		// Ensure the window is properly shown/activated/polished
+		spy.wait(m.timeout());
 
 		QCOMPARE(m.isFullscreen(), false);
 
