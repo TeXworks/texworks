@@ -153,7 +153,7 @@ IF ( WIN32 )
   if (NOT MSVC)
     set(CREATE_MANIFEST TRUE)
   endif (NOT MSVC)
-  configure_file(${TeXworks_SOURCE_DIR}/res/TeXworks.rc TeXworks.rc)
+  configure_file(${TeXworks_SOURCE_DIR}/res/TeXworks.in.rc TeXworks.rc)
   list(APPEND TEXWORKS_SRCS ${CMAKE_CURRENT_BINARY_DIR}/TeXworks.rc)
 ENDIF ( WIN32 )
 
@@ -286,7 +286,7 @@ endif ()
 IF (APPLE)
   SET(VER ${TeXworks_VERSION})
   SET(REV ${TeXworks_GIT_HASH})
-  CONFIGURE_FILE(${TeXworks_SOURCE_DIR}/res/TeXworks.plist.in
+  CONFIGURE_FILE(${TeXworks_SOURCE_DIR}/res/TeXworks.in.plist
     TeXworks.plist
     @ONLY
   )

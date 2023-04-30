@@ -75,7 +75,7 @@ end
 def cmake_files
   _files ||= (Dir.chdir ROOT_DIR do
     # Gather all CMake files.
-    Dir['**/CMakeLists.txt'] + Dir['**/*.cmake.in']
+    Dir['**/CMakeLists.txt'] + Dir['**/*.in.cmake']
   end).reject do |f|
     # Remove unwanted items like 'modules/' and 'poppler-data-*/'.
     f.start_with?("poppler-data-")
