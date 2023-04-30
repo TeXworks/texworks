@@ -230,7 +230,11 @@ QMap<QString, QVariant> ScriptAPI::system(const QString& cmdline, bool waitForRe
 		Tw::Utils::SystemCommand * process = new Tw::Utils::SystemCommand(this, waitForResult, !waitForResult);
 		if (waitForResult) {
 			process->setProcessChannelMode(QProcess::MergedChannels);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 			process->start(cmdline);
+#else
+			process->startCommand(cmdline);
+#endif
 			// make sure events (in particular GUI update events that should
 			// inform the user of the progress) are processed before we make a
 			// call that possibly blocks for a considerable amount of time
@@ -258,7 +262,11 @@ QMap<QString, QVariant> ScriptAPI::system(const QString& cmdline, bool waitForRe
 		else {
 			process->closeReadChannel(QProcess::StandardOutput);
 			process->closeReadChannel(QProcess::StandardError);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 			process->start(cmdline);
+#else
+			process->startCommand(cmdline);
+#endif
 			retVal[QString::fromLatin1("status")] = SystemAccess_OK;
 		}
 	}
