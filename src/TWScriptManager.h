@@ -22,7 +22,7 @@
 #ifndef TWScriptManager_H
 #define TWScriptManager_H
 
-#include "scripting/Script.h"
+#include "scripting/ScriptObject.h"
 
 #include <QList>
 #include <QObject>
@@ -58,7 +58,7 @@ public:
 	TWScriptManager();
 	virtual ~TWScriptManager() = default;
 
-	bool addScript(QObject* scriptList, Tw::Scripting::Script* script);
+	bool addScript(QObject* scriptList, Tw::Scripting::ScriptObject *scriptObj);
 	void addScriptsInDirectory(const QDir& dir, const QStringList& disabled, const QStringList& ignore = QStringList()) {
 		addScriptsInDirectory(&m_Scripts, &m_Hooks, dir, disabled, ignore);
 	}
@@ -66,7 +66,7 @@ public:
 
 	TWScriptList* getScripts() { return &m_Scripts; }
 	TWScriptList* getHookScripts() { return &m_Hooks; }
-	QList<Tw::Scripting::Script*> getHookScripts(const QString& hook) const;
+	QList<Tw::Scripting::ScriptObject *> getHookScripts(const QString& hook) const;
 
 	bool runScript(QObject * script, QObject * context, QVariant & result, Tw::Scripting::Script::ScriptType scriptType = Tw::Scripting::Script::ScriptStandalone);
 	// Convenience overload if no result is required

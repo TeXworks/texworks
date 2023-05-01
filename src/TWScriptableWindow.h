@@ -43,7 +43,7 @@ public:
 
 public slots:
 	void updateScriptsMenu();
-	void runScript(QObject * script, Tw::Scripting::Script::ScriptType scriptType = Tw::Scripting::Script::ScriptStandalone);
+	void runScript(QObject * scriptObj, Tw::Scripting::Script::ScriptType scriptType = Tw::Scripting::Script::ScriptStandalone);
 	void runHooks(const QString& hookName);
 
 	void selectWindow(bool activate = true);

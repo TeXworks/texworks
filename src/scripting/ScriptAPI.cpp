@@ -24,7 +24,7 @@
 #include "Settings.h"
 #include "TWApp.h"
 #include "document/SpellChecker.h"
-#include "scripting/Script.h"
+#include "scripting/ScriptObject.h"
 #include "scripting/ScriptAPI.h"
 #include "utils/SystemCommand.h"
 
@@ -44,7 +44,7 @@
 namespace Tw {
 namespace Scripting {
 
-ScriptAPI::ScriptAPI(Script* script, QObject* twapp, QObject* ctx, QVariant& res)
+ScriptAPI::ScriptAPI(ScriptObject* script, QObject* twapp, QObject* ctx, QVariant& res)
 	: m_script(script),
 	  m_app(twapp),
 	  m_target(ctx),

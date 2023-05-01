@@ -1419,13 +1419,13 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 	if (fi.isRelative() || !settings.value(QString::fromLatin1("allowScriptFileReading"), kDefault_AllowScriptFileReading).toBool()) {
 		if (!scriptApi)
 			return retVal;
-		Tw::Scripting::Script * script = qobject_cast<Tw::Scripting::Script*>(scriptApi->GetScript());
-		if (!script)
+		Tw::Scripting::ScriptObject * scriptObj = qobject_cast<Tw::Scripting::ScriptObject*>(scriptApi->GetScript());
+		if (!scriptObj)
 			return retVal; // this should never happen
 
 		// relative paths are taken to be relative to the folder containing the
 		// executing script's file
-		QDir scriptDir(QFileInfo(script->getFilename()).dir());
+		QDir scriptDir(QFileInfo(scriptObj->getFilename()).dir());
 		QString path = scriptDir.absoluteFilePath(fileName);
 
 		if (!scriptApi->mayReadFile(path, scriptApi->GetTarget())) {
@@ -1435,7 +1435,7 @@ QMap<QString, QVariant> TWApp::openFileFromScript(const QString& fileName, QObje
 			if (QMessageBox::warning(qobject_cast<QWidget*>(scriptApi->GetTarget()),
 				tr("Permission request"),
 				tr("The script \"%1\" is trying to open the file \"%2\" without sufficient permissions. Do you want to open the file?")\
-					.arg(script->getTitle(), path),
+					.arg(scriptObj->getTitle(), path),
 				QMessageBox::Yes | QMessageBox::No, QMessageBox::No
 			) != QMessageBox::Yes)
 				return retVal;

@@ -2988,10 +2988,10 @@ void TeXDocumentWindow::executeAfterTypesetHooks()
 	for (int i = consoleTabs->count() - 1; i > 0; --i)
 		consoleTabs->removeTab(i);
 
-	foreach (Tw::Scripting::Script *s, scriptManager->getHookScripts(QString::fromLatin1("AfterTypeset"))) {
+	foreach (Tw::Scripting::ScriptObject *so, scriptManager->getHookScripts(QString::fromLatin1("AfterTypeset"))) {
 		QVariant result;
-		Tw::Scripting::ScriptAPI api(s, qApp, this, result);
-		bool success = s->run(api);
+		Tw::Scripting::ScriptAPI api(so, qApp, this, result);
+		bool success = so->run(api);
 		if (success && !result.isNull()) {
 			QString res = result.toString();
 			if (res.startsWith(QLatin1String("<html>"), Qt::CaseInsensitive)) {
@@ -3002,14 +3002,14 @@ void TeXDocumentWindow::executeAfterTypesetHooks()
 				connect(browser, &QTextBrowser::anchorClicked, this, &TeXDocumentWindow::anchorClicked);
 				browser->setHtml(res);
 				browser->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard | Qt::LinksAccessibleByMouse | Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
-				consoleTabs->addTab(browser, s->getTitle());
+				consoleTabs->addTab(browser, so->getTitle());
 			}
 			else {
 				QTextEdit *textEdit = new QTextEdit(this);
 				textEdit->setPlainText(res);
 				textEdit->setReadOnly(true);
 				textEdit->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard | Qt::LinksAccessibleByMouse | Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard | Qt::TextSelectableByMouse);
-				consoleTabs->addTab(textEdit, s->getTitle());
+				consoleTabs->addTab(textEdit, so->getTitle());
 			}
 		}
 	}

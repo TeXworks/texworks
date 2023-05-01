@@ -23,13 +23,15 @@
 
 #include "scripting/Script.h"
 
+#include <QCoreApplication>
+
 namespace Tw {
 namespace Scripting {
 
 class ECMAScript : public Script
 {
-	Q_OBJECT
 	Q_INTERFACES(Tw::Scripting::Script)
+	Q_DECLARE_TR_FUNCTIONS(Tw::Scripting::ECMAScript)
 
 public:
 	ECMAScript(QObject * plugin, const QString& filename)

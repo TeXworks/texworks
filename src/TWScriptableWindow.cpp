@@ -30,6 +30,7 @@
 #	include "scripting/JSScriptInterface.h"
 #endif
 #include "scripting/ScriptLanguageInterface.h"
+#include "scripting/ScriptObject.h"
 #include "utils/WindowManager.h"
 
 #include <QAction>
@@ -90,21 +91,21 @@ TWScriptableWindow::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 {
 	int count = 0;
 	foreach (QObject *obj, scripts->children()) {
-		Tw::Scripting::Script *script = qobject_cast<Tw::Scripting::Script*>(obj);
-		if (script) {
-			if (!script->isEnabled())
+		Tw::Scripting::ScriptObject *scriptObject = qobject_cast<Tw::Scripting::ScriptObject*>(obj);
+		if (scriptObject) {
+			if (!scriptObject->isEnabled())
 				continue;
-			if (script->getContext().isEmpty() || script->getContext() == scriptContext()) {
-				QAction *a = menu->addAction(script->getTitle());
-				connect(script, &Tw::Scripting::Script::destroyed, this, [this,a]() { scriptsMenu->removeAction(a); });
-				if (!script->getKeySequence().isEmpty())
-					a->setShortcut(script->getKeySequence());
+			if (scriptObject->getContext().isEmpty() || scriptObject->getContext() == scriptContext()) {
+				QAction *a = menu->addAction(scriptObject->getTitle());
+				connect(scriptObject, &Tw::Scripting::ScriptObject::destroyed, this, [this,a]() { scriptsMenu->removeAction(a); });
+				if (!scriptObject->getKeySequence().isEmpty())
+					a->setShortcut(scriptObject->getKeySequence());
 //				a->setEnabled(script->isEnabled());
 				// give the action an object name so it could possibly included in the
 				// customization process of keyboard shortcuts in the future
-				a->setObjectName(QString::fromLatin1("Script: %1").arg(script->getTitle()));
-				a->setStatusTip(script->getDescription());
-				connect(a, &QAction::triggered, this, [this, script](){ runScript(script); });
+				a->setObjectName(QString::fromLatin1("Script: %1").arg(scriptObject->getTitle()));
+				a->setStatusTip(scriptObject->getDescription());
+				connect(a, &QAction::triggered, this, [this, scriptObject](){ runScript(scriptObject); });
 				++count;
 			}
 			continue;
@@ -120,7 +121,7 @@ TWScriptableWindow::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 }
 
 void
-TWScriptableWindow::runScript(QObject* script, Tw::Scripting::Script::ScriptType scriptType)
+TWScriptableWindow::runScript(QObject* scriptObj, Tw::Scripting::Script::ScriptType scriptType)
 {
 	QVariant result;
 
@@ -128,11 +129,15 @@ TWScriptableWindow::runScript(QObject* script, Tw::Scripting::Script::ScriptType
 	if (!sm)
 		return;
 
-	Tw::Scripting::Script * s = qobject_cast<Tw::Scripting::Script*>(script);
+	Tw::Scripting::ScriptObject * so = qobject_cast<Tw::Scripting::ScriptObject*>(scriptObj);
+	if (!so) {
+		return;
+	}
+	Tw::Scripting::Script * s = so->getScript();
 	if (!s || s->getType() != scriptType)
 		return;
 
-	bool success = sm->runScript(script, this, result, scriptType);
+	bool success = sm->runScript(scriptObj, this, result, scriptType);
 
 	if (success) {
 		if (!result.isNull() && !result.toString().isEmpty()) {
@@ -152,7 +157,7 @@ TWScriptableWindow::runScript(QObject* script, Tw::Scripting::Script::ScriptType
 void
 TWScriptableWindow::runHooks(const QString& hookName)
 {
-	foreach (Tw::Scripting::Script *s, TWApp::instance()->getScriptManager()->getHookScripts(hookName)) {
+	foreach (Tw::Scripting::ScriptObject *s, TWApp::instance()->getScriptManager()->getHookScripts(hookName)) {
 		// Don't use TWScriptManager::runHooks here to get status bar messages
 		runScript(s, Tw::Scripting::Script::ScriptHook);
 	}

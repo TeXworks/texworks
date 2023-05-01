@@ -14,6 +14,7 @@ add_executable(test_Scripting
 	Scripting_test.h
 	MockScriptingAPI.h
 	"${CMAKE_SOURCE_DIR}/src/scripting/Script.cpp"
+	"${CMAKE_SOURCE_DIR}/src/scripting/ScriptObject.cpp"
 	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScriptInterface.cpp"
 	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScript.cpp"
 	"${CMAKE_SOURCE_DIR}/src/Settings.cpp"
@@ -35,6 +36,7 @@ IF ( LUA_FOUND AND WITH_LUA )
 		LuaScripting_test.h
 		MockScriptingAPI.h
 		"${CMAKE_SOURCE_DIR}/src/scripting/Script.cpp"
+		"${CMAKE_SOURCE_DIR}/src/scripting/ScriptObject.cpp"
 		"${CMAKE_SOURCE_DIR}/src/Settings.cpp"
 	)
 	target_compile_options(test_LuaScripting PRIVATE ${WARNING_OPTIONS})

@@ -26,6 +26,7 @@
 #include "scripting/Script.h"
 #include "scripting/ScriptAPIInterface.h"
 
+#include <QCoreApplication>
 #include <QMetaMethod>
 #include <QMetaProperty>
 #include <QVariant>
@@ -36,8 +37,8 @@ namespace Scripting {
 /** \brief Class for handling lua scripts */
 class LuaScript : public Script
 {
-	Q_OBJECT
 	Q_INTERFACES(Tw::Scripting::Script)
+	Q_DECLARE_TR_FUNCTIONS(Tw::Scripting::ECMAScript)
 
 public:
 	/** \brief Constructor

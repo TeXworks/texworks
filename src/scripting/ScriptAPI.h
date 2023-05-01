@@ -32,7 +32,7 @@
 namespace Tw {
 namespace Scripting {
 
-class Script;
+class ScriptObject;
 
 class ScriptAPI : public QObject, public ScriptAPIInterface
 {
@@ -44,7 +44,7 @@ class ScriptAPI : public QObject, public ScriptAPIInterface
 	Q_PROPERTY(QObject * script READ GetScript)
 
 public:
-	ScriptAPI(Script* script, QObject* twapp, QObject* ctx, QVariant& res);
+	ScriptAPI(ScriptObject* script, QObject* twapp, QObject* ctx, QVariant& res);
 
 	QObject* clone() const override { return new ScriptAPI(m_script, m_app, m_target, m_result); }
 
@@ -195,7 +195,7 @@ public:
 	bool mayReadFile(const QString& filename, QObject * context) const override;
 
 protected:
-	Script* m_script;
+	ScriptObject* m_script;
 	QObject* m_app;
 	QObject* m_target;
 	QVariant& m_result;

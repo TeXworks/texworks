@@ -38,6 +38,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   scripting/ECMAScript.cpp
                   scripting/ScriptAPI.cpp
                   scripting/Script.cpp
+                  scripting/ScriptObject.cpp
                   ui/ClickableLabel.cpp
                   ui/ClosableTabWidget.cpp
                   ui/ColorButton.cpp
@@ -91,6 +92,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   scripting/ScriptLanguageInterface.h
                   scripting/ScriptAPI.h
                   scripting/Script.h
+                  scripting/ScriptObject.h
                   ui/ClickableLabel.h
                   ui/ClosableTabWidget.h
                   ui/ColorButton.h
