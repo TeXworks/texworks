@@ -1,12 +1,54 @@
 # File to build unit-tests
 
-include_directories("${CMAKE_SOURCE_DIR}/src" ${TeXworks_INCLUDE_DIRS})
+set ( TWX_TEST ON )
+set ( TWX_unit-tests ON )
 
+if ( NOT TWX_IS_BASED )
+
+	cmake_minimum_required ( VERSION 3.1 )
+	include (
+		"${CMAKE_CURRENT_LIST_DIR}/../Cmake/Include/TwxBase.cmake"
+		NO_POLICY_SCOPE
+	)
+	project ( TwxAllTests )
+	include ( TwxBase )
+	set ( TWX_unit-tests_IS_ROOT ON )
+	enable_testing ()
+	include ( TwxQTLib )
+  twx_fresh_Qt ()
+endif ()
+
+add_subdirectory (
+	../src/ui
+	src/ui
+)
+include_directories (
+	"${TWX_DIR}/src"
+	${TeXworks_INCLUDE_DIRS}
+)
 # BiBTeXFile
-add_executable(test_BibTeXFile BibTeXFile_test.cpp BibTeXFile_test.h "${CMAKE_SOURCE_DIR}/src/BibTeXFile.cpp" "${CMAKE_SOURCE_DIR}/src/BibTeXFile.h")
-target_compile_options(test_BibTeXFile PRIVATE ${WARNING_OPTIONS})
-target_link_libraries(test_BibTeXFile ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
-add_test(NAME test_BibTeXFile COMMAND test_BibTeXFile WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
+add_executable (
+	test_BibTeXFile
+	BibTeXFile_test.cpp
+	BibTeXFile_test.h
+	"${TWX_DIR}/src/BibTeXFile.cpp"
+	"${TWX_DIR}/src/BibTeXFile.h"
+)
+include ( TwxWarning )
+twx_warning_target ( test_BibTeXFile )
+target_link_libraries (
+	test_BibTeXFile
+	${QT_LIBRARIES}	
+)
+add_test (
+	NAME test_BibTeXFile
+	COMMAND test_BibTeXFile
+	WORKING_DIRECTORY "${TWX_DIR}/testcases"
+)
+
+if ( TWX_unit-tests_IS_ROOT )
+  return ()
+endif ()
 
 # Scripting
 add_executable(test_Scripting
@@ -47,24 +89,6 @@ IF ( LUA_FOUND AND WITH_LUA )
 	target_link_libraries(test_LuaScripting ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 	add_test(NAME test_LuaScripting COMMAND test_LuaScripting WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 ENDIF ()
-
-add_executable(byte_echo_test byte_echo_test.cpp)
-target_compile_options(byte_echo_test PRIVATE ${WARNING_OPTIONS})
-
-# UI
-add_executable(test_UI
-	UI_test.cpp
-	UI_test.h
-	"${CMAKE_SOURCE_DIR}/src/ui/ClickableLabel.cpp"
-	"${CMAKE_SOURCE_DIR}/src/ui/ClosableTabWidget.cpp"
-	"${CMAKE_SOURCE_DIR}/src/ui/ColorButton.cpp"
-	"${CMAKE_SOURCE_DIR}/src/ui/ConsoleWidget.cpp"
-	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
-	"${CMAKE_SOURCE_DIR}/src/ui/ScreenCalibrationWidget.cpp"
-)
-target_compile_options(test_UI PRIVATE ${WARNING_OPTIONS})
-target_link_libraries(test_UI ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
-add_test(NAME test_UI COMMAND test_UI WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
 # Utils
 add_executable(test_Utils
