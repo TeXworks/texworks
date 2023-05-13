@@ -88,7 +88,10 @@ list (
 # )
 # message ( STATUS "SOURCES ====> ${SOURCES}")
 
-add_executable ( test_TwxUI )
+add_executable (
+	test_TwxUI
+	${TwxUI_SOURCES} ${TwxUI_HEADERS} ${TwxUI_UIS}
+)
 
 twx_target_include_src ( test_TwxUI )
 
@@ -115,11 +118,6 @@ target_link_libraries (
 
 include ( TwxWarning )
 twx_warning_target ( test_TwxUI )
-
-target_sources (
-	test_TwxUI
-	PRIVATE ${TwxUI_SOURCES} ${TwxUI_HEADERS} ${TwxUI_UIS}
-)
 
 include ( TwxTestCase )
 twx_test_case ( test_TwxUI tws_working_directory )
