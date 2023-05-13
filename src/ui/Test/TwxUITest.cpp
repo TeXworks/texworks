@@ -463,7 +463,7 @@ void TestUI::ConsoleWidget_output()
 	const QByteArray utf8Bytes = testString.toUtf8();
 	Tw::UI::ConsoleWidget console;
 
-	const QString cmd{QDir().filePath(QStringLiteral("byte_echo_TwxUI"))};
+	const QString cmd{QDir().filePath(QStringLiteral("byte_echo_TwxUI.program"))};
 
 	using size_type = decltype(utf8Bytes.size());
 	for (size_type flushPos = 1; flushPos < utf8Bytes.size(); ++flushPos) {

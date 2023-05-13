@@ -140,8 +140,8 @@ twx_warning_target ( byte_echo_TwxUI )
 set_target_properties (
 	byte_echo_TwxUI
   PROPERTIES
-		RUNTIME_OUTPUT_DIRECTORY
-		"${tws_working_directory}"
+		RUNTIME_OUTPUT_DIRECTORY "${tws_working_directory}"
+		SUFFIX ".program"
 )
 
 unset ( tws_working_directory )
