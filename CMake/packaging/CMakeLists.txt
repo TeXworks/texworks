@@ -1,3 +1,15 @@
+#[===============================================[/*
+This is part of the TWX build and test system.
+See https://github.com/TeXworks/texworks
+
+*//** @file
+@brief The packaging CMakeLists file
+
+This is not the top level CMakeLists file
+
+*//*
+#]===============================================]
+
 # Packaging Tasks
 # ===============
 
@@ -87,3 +99,7 @@ elseif (APPLE)
 	)
 	file(COPY "${CMAKE_SOURCE_DIR}/CMake/packaging/mac/fonts.conf" DESTINATION ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app/Contents/etc/fonts)
 endif ()
+
+#[=======[
+*/
+#]=======]

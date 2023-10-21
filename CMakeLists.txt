@@ -1,3 +1,15 @@
+#[===============================================[/*
+This is part of the TWX build and test system.
+See https://github.com/TeXworks/texworks
+
+*//** @file
+@brief The root CMakeLists file
+
+This is the top level CMakeLists file
+*//*
+#]===============================================]
+
+
 # Top-level build file for [TeXworks][tw], a simple editor for TeX and friends.
 #
 # This buildsystem uses [CMake][cmake] and consists of the following files:
@@ -51,54 +63,16 @@
 # Setup and User Options
 # ======================
 
+cmake_minimum_required ( VERSION 3.1 )
+
+include (
+  ${CMAKE_CURRENT_LIST_DIR}/CMake/Include/TwxBase.cmake
+  NO_POLICY_SCOPE
+)
 # Set project name.
 PROJECT(TeXworks)
 
-# CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
-CMAKE_POLICY(VERSION 3.1)
-
-# Silence warning about linking to qtmain.lib statically on Windows
-IF(POLICY CMP0020)
-  cmake_policy(SET CMP0020 NEW)
-ENDIF()
-
-# Silence warning about using @rpath on OS X.
-if(POLICY CMP0042)
-  cmake_policy(SET CMP0042 NEW)
-endif()
-
-# Silence warning about ninja custom command byproducts
-if(POLICY CMP0058)
-  cmake_policy(SET CMP0058 NEW)
-endif()
-
-# Prefer newer OpenGL libraries over legacy ones
-if (POLICY CMP0072)
-  cmake_policy(SET CMP0072 NEW)
-endif ()
-
-# Silence warning about option() treating variables differently on the first run
-if(POLICY CMP0077)
-  cmake_policy(SET CMP0077 NEW)
-endif()
-
-SET(CMAKE_COLOR_MAKEFILE ON)
-# Always add the current source and binary directories to the header include
-# path when compiling.
-SET(CMAKE_INCLUDE_CURRENT_DIR ON)
-SET(CMAKE_AUTOMOC TRUE)
-SET(CMAKE_AUTORCC TRUE)
-SET(CMAKE_AUTOUIC TRUE)
-
-# Make the contents of `CMake/Modules` available. Among other things, this
-# directory contains scripts that locate project components such as hunspell.
-SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${PROJECT_SOURCE_DIR}/modules/QtPDF/CMake/Modules ${CMAKE_MODULE_PATH})
-SET(
-  CMAKE_MODULE_PATH
-  ${PROJECT_SOURCE_DIR}/CMake/Include
-  ${CMAKE_MODULE_PATH}
-)
+include ( TwxBase )
 
 IF(WIN32 AND MINGW)
   # Ensure that no cpp flags are passed to windres, the Windows resource compiler.
@@ -179,7 +153,7 @@ IF (WITH_COVERAGE)
   set(COVERAGE_COMPILER_FLAGS "${COVERAGE_COMPILER_FLAGS} -fno-inline")
   APPEND_COVERAGE_COMPILER_FLAGS()
   IF (UNIX)
-    SET(COVERAGE_LCOV_EXCLUDES '/usr/*')
+    SET(COVERAGE_LCOV_EXCLUDES '/usr/*')#*/ balance the long comment
   ENDIF (UNIX)
   SETUP_TARGET_FOR_COVERAGE_LCOV(NAME coverage EXECUTABLE "${CMAKE_CTEST_COMMAND}")
 ENDIF (WITH_COVERAGE)
@@ -231,10 +205,10 @@ IF (UNIX AND NOT APPLE)
   ENDIF()
 ENDIF()
 
-set (CMAKE_CXX_STANDARD 11)
-
 # Dependency Configuration
 # ========================
+
+include ( TwxQtLib )
 
 if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
 	# Check for Qt6
@@ -281,9 +255,6 @@ if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
 		message(STATUS "QT_PLUGINS = ${QT_PLUGINS}")
 	endif ()
 
-	set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")
-	set(QT_VERSION_MINOR "${Qt6_VERSION_MINOR}")
-	set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
 else ()
 	# Check for Qt5
 	find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml OPTIONAL_COMPONENTS Script ScriptTools)
@@ -313,18 +284,8 @@ else ()
 	  list(APPEND QT_LIBRARIES Qt5::WindowsPlatformSupport)
 	endif ()
 
-	set(QT_VERSION_MAJOR "${Qt5_VERSION_MAJOR}")
-	set(QT_VERSION_MINOR "${Qt5_VERSION_MINOR}")
-	set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
 	set(WITH_QTSCRIPT ON)
 endif ()
-
-# Expose the major version number of Qt to the preprocessor. This is necessary
-# to include the correct Qt headers (as QTVERSION is not defined before any Qt
-# headers are included)
-ADD_DEFINITIONS(-DQT_VERSION_MAJOR=${QT_VERSION_MAJOR})
-
-
 
 FIND_PACKAGE(ZLIB REQUIRED)
 FIND_PACKAGE(Hunspell REQUIRED)
@@ -491,6 +452,8 @@ ENDIF ()
 
 INCLUDE(CPack)
 
+include ( TwxDoxydocLib )
+twx_doxydoc ( ${CMAKE_CURRENT_BINARY_DIR} )
 
 # Summary
 # =======
@@ -559,3 +522,7 @@ MESSAGE("")
 MESSAGE("  TeXworks will be installed to:")
 MESSAGE("      ${CMAKE_INSTALL_PREFIX}")
 MESSAGE("")
+
+#[=======[
+*/
+#]=======]
