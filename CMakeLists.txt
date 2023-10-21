@@ -286,9 +286,11 @@ if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
 	set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
 else ()
 	# Check for Qt5
-	find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml OPTIONAL_COMPONENTS Script ScriptTools)
+	find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml)
 	set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::Xml Qt5::Qml)
 
+	find_package(Qt5Script)
+	find_package(Qt5ScriptTools)
 	if (Qt5Script_FOUND AND Qt5ScriptTools_FOUND)
 		list(APPEND QT_LIBRARIES Qt5::ScriptTools Qt5::Script)
 		set(WITH_QTSCRIPT ON)
@@ -316,7 +318,6 @@ else ()
 	set(QT_VERSION_MAJOR "${Qt5_VERSION_MAJOR}")
 	set(QT_VERSION_MINOR "${Qt5_VERSION_MINOR}")
 	set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
-	set(WITH_QTSCRIPT ON)
 endif ()
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
