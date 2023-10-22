@@ -51,9 +51,6 @@
 # Setup and User Options
 # ======================
 
-# Set project name.
-PROJECT(TeXworks)
-
 # CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
 CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 CMAKE_POLICY(VERSION 3.1)
@@ -82,6 +79,9 @@ endif ()
 if(POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
 endif()
+
+# Set project name.
+PROJECT(TeXworks)
 
 SET(CMAKE_COLOR_MAKEFILE ON)
 # Always add the current source and binary directories to the header include
