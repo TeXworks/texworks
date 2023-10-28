@@ -73,7 +73,8 @@ bool CommandlineParser::parse()
 					else if (!spec.shortName.isEmpty() && rawItem == strShort)
 						found = true;
 					break;
-				default:
+				case Commandline_Argument:
+					// should not happen
 					break;
 			}
 
@@ -111,7 +112,8 @@ void CommandlineParser::printUsage(QTextStream & stream)
 				if (!spec.shortName.isEmpty())
 					stream << ", -" << spec.shortName;
 				break;
-			default:
+			case Commandline_Argument:
+				// should not happen
 				continue;
 		}
 		stream << "   " << spec.description << "\n";
