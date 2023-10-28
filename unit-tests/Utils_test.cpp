@@ -272,7 +272,16 @@ void TestUtils::CommandLineParser_parse()
 		QCOMPARE(clp.getPrevSwitch(), -1);
 	}
 	{
-		Tw::Utils::CommandlineParser clp(QStringList({exe, QStringLiteral("--oLong=asdf"), QStringLiteral("-o=ghjk"), QStringLiteral("qwerty"), QStringLiteral("-s"), QStringLiteral("--sLong")}));
+		Tw::Utils::CommandlineParser clp(QStringList({exe,
+			QStringLiteral("--oLong=asdf"),
+			QStringLiteral("-o=ghjk"),
+			QStringLiteral("qwerty"),
+			QStringLiteral("-s"),
+			QStringLiteral("--sLong"),
+			QStringLiteral("--oLong"), QStringLiteral("xcvb"),
+			QStringLiteral("-o"), QStringLiteral("vbnm"),
+			QStringLiteral("uiop")}
+		));
 		clp.registerSwitch(QStringLiteral("sLong"), QString(), QStringLiteral("s"));
 		clp.registerOption(QStringLiteral("oLong"), QString(), QStringLiteral("o"));
 		QVERIFY(clp.parse());
@@ -283,6 +292,15 @@ void TestUtils::CommandLineParser_parse()
 			QCOMPARE(item.type, Tw::Utils::CommandlineParser::Commandline_Argument);
 			QCOMPARE(item.longName, QString());
 			QCOMPARE(item.value, QVariant(QStringLiteral("qwerty")));
+			QVERIFY(item.processed == false);
+		}
+		int nextArg2 = clp.getNextArgument(nextArg);
+		QCOMPARE(nextArg2, 7);
+		{
+			const Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(nextArg2);
+			QCOMPARE(item.type, Tw::Utils::CommandlineParser::Commandline_Argument);
+			QCOMPARE(item.longName, QString());
+			QCOMPARE(item.value, QVariant(QStringLiteral("uiop")));
 			QVERIFY(item.processed == false);
 		}
 		int nextOpt = clp.getNextOption(QStringLiteral("oLong"));
@@ -303,7 +321,25 @@ void TestUtils::CommandLineParser_parse()
 			QCOMPARE(item.value, QVariant(QStringLiteral("ghjk")));
 			QVERIFY(item.processed == false);
 		}
-		QCOMPARE(clp.getNextOption(QStringLiteral("oLong"), nextOpt2), -1);
+		int nextOpt3 = clp.getNextOption(QStringLiteral("oLong"), nextOpt2);
+		QCOMPARE(nextOpt3, 5);
+		{
+			const Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(nextOpt3);
+			QCOMPARE(item.type, Tw::Utils::CommandlineParser::Commandline_Option);
+			QCOMPARE(item.longName, QStringLiteral("oLong"));
+			QCOMPARE(item.value, QVariant(QStringLiteral("xcvb")));
+			QVERIFY(item.processed == false);
+		}
+		int nextOpt4 = clp.getNextOption(QStringLiteral("oLong"), nextOpt3);
+		QCOMPARE(nextOpt4, 6);
+		{
+			const Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(nextOpt4);
+			QCOMPARE(item.type, Tw::Utils::CommandlineParser::Commandline_Option);
+			QCOMPARE(item.longName, QStringLiteral("oLong"));
+			QCOMPARE(item.value, QVariant(QStringLiteral("vbnm")));
+			QVERIFY(item.processed == false);
+		}
+		QCOMPARE(clp.getNextOption(QStringLiteral("oLong"), nextOpt4), -1);
 
 		int nextSwitch = clp.getNextSwitch(QStringLiteral("sLong"));
 		QCOMPARE(nextSwitch, 3);

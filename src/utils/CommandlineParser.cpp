@@ -28,8 +28,16 @@ namespace Utils {
 
 bool CommandlineParser::parse()
 {
+	bool requiredArg{false};
+
 	foreach (const QString& rawItem, m_rawItems) {
 		bool found = false;
+
+		if (requiredArg) {
+			requiredArg = false;
+			m_items.last().value = rawItem;
+			continue;
+		}
 
 		foreach (const CommandlineItemSpec& spec, m_specs) {
 			CommandlineItem item;
@@ -48,6 +56,14 @@ bool CommandlineParser::parse()
 					}
 					else if (!spec.shortName.isEmpty() && rawItem.startsWith(strShort + QLatin1String("="))) {
 						item.value = rawItem.mid(strShort.length() + 1);
+						found = true;
+					}
+					else if (!spec.longName.isEmpty() && rawItem == strLong) {
+						requiredArg = true;
+						found = true;
+					}
+					else if (!spec.shortName.isEmpty() && rawItem == strShort) {
+						requiredArg = true;
 						found = true;
 					}
 					break;
