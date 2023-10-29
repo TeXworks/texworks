@@ -52,33 +52,7 @@
 # ======================
 
 # CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
-CMAKE_POLICY(VERSION 3.1)
-
-# Silence warning about linking to qtmain.lib statically on Windows
-IF(POLICY CMP0020)
-  cmake_policy(SET CMP0020 NEW)
-ENDIF()
-
-# Silence warning about using @rpath on OS X.
-if(POLICY CMP0042)
-  cmake_policy(SET CMP0042 NEW)
-endif()
-
-# Silence warning about ninja custom command byproducts
-if(POLICY CMP0058)
-  cmake_policy(SET CMP0058 NEW)
-endif()
-
-# Prefer newer OpenGL libraries over legacy ones
-if (POLICY CMP0072)
-  cmake_policy(SET CMP0072 NEW)
-endif ()
-
-# Silence warning about option() treating variables differently on the first run
-if(POLICY CMP0077)
-  cmake_policy(SET CMP0077 NEW)
-endif()
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1...3.27)
 
 # Set project name.
 PROJECT(TeXworks)
