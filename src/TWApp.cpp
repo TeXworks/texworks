@@ -222,6 +222,32 @@ void TWApp::init()
 
 	scriptManager = new TWScriptManager;
 
+	connect(this, &QGuiApplication::focusObjectChanged, this, [=](QObject * focusObj) {
+		QWidget * widget = qobject_cast<QWidget*>(focusObj);
+		if (!widget) {
+			return;
+		}
+		// Get the corresponding top level widget
+		while (widget && widget->parentWidget()) {
+			widget = widget->parentWidget();
+		}
+		if (!m_focusStack.empty() && m_focusStack.top() == widget) {
+			return;
+		}
+		// Remove all empty pointers (to widgets that were destroyed already)
+		// and all mentions of the current widget
+		// NB: Using one indexed loop instead of two removeAll invocations (the
+		// latter was only introduced in Qt 5.4) to only traverse the stack once
+		for (decltype(m_focusStack)::size_type  i = 0; i < m_focusStack.size(); ) {
+			if (!m_focusStack[i] || m_focusStack[i] == widget) {
+				m_focusStack.remove(i);
+				continue;
+			}
+			++i;
+		}
+		m_focusStack.push(widget);
+	});
+
 #if defined(Q_OS_DARWIN)
 	setQuitOnLastWindowClosed(false);
 	setAttribute(Qt::AA_DontShowIconsInMenus);
@@ -1209,6 +1235,58 @@ QStringList TWApp::getTranslationList()
 	translationList.prepend(QString::fromLatin1("en"));
 
 	return translationList;
+}
+
+QWidget * TWApp::topWindow() const
+{
+	if (m_focusStack.empty()) {
+		return nullptr;
+	}
+	return m_focusStack.top().data();
+}
+
+QWidget *TWApp::topTeXWindow() const
+{
+	// NB: using iterators is safer, in case QStack::size_type is turned into an
+	// unsigned type at some point
+#if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
+	for (decltype(m_focusStack)::size_type i = m_focusStack.size() - 1; i >= 0; --i) {
+		auto * win = qobject_cast<TeXDocumentWindow *>(m_focusStack[i]);
+		if (win) {
+			return win;
+		}
+	}
+#else
+	for (auto it = m_focusStack.crbegin(); it != m_focusStack.crend(); ++it) {
+		auto * win = qobject_cast<TeXDocumentWindow *>(it->data());
+		if (win) {
+			return win;
+		}
+	}
+#endif
+	return nullptr;
+}
+
+QWidget *TWApp::topPDFWindow() const
+{
+  // NB: using iterators is safer, in case QStack::size_type is turned into an
+  // unsigned type at some point
+#if QT_VERSION < QT_VERSION_CHECK(5, 6, 0)
+	for (decltype(m_focusStack)::size_type i = m_focusStack.size() - 1; i >= 0; --i) {
+		auto * win = qobject_cast<PDFDocumentWindow *>(m_focusStack[i]);
+		if (win) {
+			return win;
+		}
+	}
+#else
+	for (auto it = m_focusStack.crbegin(); it != m_focusStack.crend(); ++it) {
+		auto * win = qobject_cast<PDFDocumentWindow *>(it->data());
+		if (win) {
+			return win;
+		}
+	}
+#endif
+	return nullptr;
 }
 
 void TWApp::applyTranslation(const QString& locale)

@@ -35,6 +35,7 @@
 #include <QMenuBar>
 #endif
 #include <QSettings>
+#include <QStack>
 #include <QString>
 #include <QTextCodec>
 #include <QVariant>
@@ -112,6 +113,10 @@ public:
 	Tw::Utils::TypesetManager & typesetManager() { return m_typesetManager; }
 
 	TWScriptManager* getScriptManager() { return scriptManager; }
+
+	QWidget * topWindow() const;
+	QWidget * topTeXWindow() const;
+	QWidget * topPDFWindow() const;
 
 #if defined(Q_OS_WIN)
 	static QString GetWindowsVersionString();
@@ -275,6 +280,8 @@ private:
 
 	static TWApp *theAppInstance;
 	Tw::InterProcessCommunicator m_IPC;
+
+	QStack<QPointer<QWidget>> m_focusStack;
 };
 
 inline TWApp *TWApp::instance()
