@@ -163,6 +163,7 @@ void TWApp::init()
 	setOrganizationName(QString::fromLatin1("TUG"));
 	setOrganizationDomain(QString::fromLatin1("tug.org"));
 	setApplicationName(QStringLiteral("TeXworks"));
+	setApplicationVersion(Tw::Utils::VersionInfo::fullVersionString());
 
 	// <Check for portable mode>
 #if defined(Q_OS_DARWIN)
