@@ -250,8 +250,10 @@ void TWScriptableWindow::selectWindow(bool activate)
 {
 	show();
 	raise();
-	if (activate)
+	if (activate) {
 		activateWindow();
+		emit TWApp::instance()->focusObjectChanged(this);
+	}
 	if (isMinimized())
 		showNormal();
 }
