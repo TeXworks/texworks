@@ -96,7 +96,7 @@ RUN cd /opt && \
 
 # Install Qt
 # aqt list-qt linux desktop --modules 6.2.4 gcc_64
-RUN pip3 install aqtinstall && \
+RUN pip3 install --upgrade pip && pip3 install aqtinstall && \
 	aqt install-qt linux desktop ${QT_VERSION} --modules qt5compat -O /opt/qt
 
 # Build Freetype
