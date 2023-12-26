@@ -21,6 +21,7 @@
 #include <QString>
 #include <QUrl>
 #include <QVector>
+#include <unordered_map>
 
 namespace QtPDF {
 
@@ -133,6 +134,26 @@ public:
 private:
   QUrl _url;
   bool _isMap{false};
+};
+
+class PDFOCGAction : public PDFAction
+{
+public:
+  enum class OCGStateChange { NoChange, Show, Hide, Toggle};
+  using MapType = std::unordered_map<int, OCGStateChange>;
+
+  PDFOCGAction(MapType changes) : _changes(changes) { }
+
+  ActionType type() const override { return ActionTypeSetOCGState; }
+  PDFAction * clone() const override { return new PDFOCGAction(*this); }
+
+  MapType changes() const { return _changes; }
+
+  bool operator==(const PDFAction & o) const override;
+  bool operator==(const PDFOCGAction & o) const;
+
+private:
+  MapType _changes;
 };
 
 class PDFGotoAction : public PDFAction

@@ -1240,6 +1240,42 @@ void PDFDocumentView::pdfActionTriggered(const PDFAction * action)
         emit requestExecuteCommand(actionLaunch->command());
       }
       break;
+    case PDFAction::ActionTypeSetOCGState:
+      {
+        const PDFOCGAction * actionOCG = dynamic_cast<const PDFOCGAction*>(action);
+        QSharedPointer<Backend::Document> doc(_pdf_scene->document().toStrongRef());
+        if (!actionOCG || !doc) {
+          break;
+        }
+        QAbstractItemModel * ocgModel = doc->optionalContentModel();
+        if (!ocgModel) {
+          break;
+        }
+        for (const auto & kv : actionOCG->changes()) {
+          const int & row = kv.first;
+          const PDFOCGAction::OCGStateChange & type = kv.second;
+          const QModelIndex idx = ocgModel->index(row, 0);
+          switch (type) {
+            case PDFOCGAction::OCGStateChange::NoChange:
+              break;
+            case PDFOCGAction::OCGStateChange::Show:
+              ocgModel->setData(idx, Qt::Checked, Qt::CheckStateRole);
+              break;
+            case PDFOCGAction::OCGStateChange::Hide:
+              ocgModel->setData(idx, Qt::Unchecked, Qt::CheckStateRole);
+              break;
+            case PDFOCGAction::OCGStateChange::Toggle:
+              if (ocgModel->data(idx, Qt::CheckStateRole) == QVariant(Qt::Checked)) {
+                ocgModel->setData(idx, Qt::Unchecked, Qt::CheckStateRole);
+              }
+              else {
+                ocgModel->setData(idx, Qt::Checked, Qt::CheckStateRole);
+              }
+              break;
+          }
+        }
+      }
+      break;
     // **TODO:**
     // We don't handle other actions yet, but the ActionTypes Quit, Presentation,
     // EndPresentation, Find, GoToPage, Close, and Print should be propagated to
@@ -1936,6 +1972,7 @@ void PDFDocumentScene::handleActionEvent(const PDFActionEvent * action_event)
     case PDFAction::ActionTypeGoTo:
     case PDFAction::ActionTypeURI:
     case PDFAction::ActionTypeLaunch:
+    case PDFAction::ActionTypeSetOCGState:
       break;
     default:
       // All other link types are currently not supported

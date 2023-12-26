@@ -164,6 +164,17 @@ bool PDFURIAction::operator==(const PDFURIAction & o) const
   return (o._url == _url && o._isMap == _isMap);
 }
 
+bool PDFOCGAction::operator==(const PDFAction &o) const
+{
+  if (type() != o.type()) { return false; }
+  return (*this == dynamic_cast<const PDFOCGAction &>(o));
+}
+
+bool PDFOCGAction::operator==(const PDFOCGAction & o) const
+{
+  return (_changes == o._changes);
+}
+
 bool PDFGotoAction::operator==(const PDFAction & o) const
 {
   if (o.type() != ActionTypeGoTo) {
