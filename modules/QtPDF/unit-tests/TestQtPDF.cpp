@@ -1419,7 +1419,7 @@ void TestQtPDF::page_renderToImage()
   // rendering is not tremendously important (hence the threshold is high), but
   // it is crucial that _something_ is rendered (which is not the case, e.g., if
   // a font is missing)
-  QCOMPARE(ref.isHomogeneous(), render.isHomogeneous());
+  QCOMPARE(render.isHomogeneous(), ref.isHomogeneous());
   if (!(render == ref)) {
     QTemporaryFile imgFile;
     imgFile.setAutoRemove(false);
