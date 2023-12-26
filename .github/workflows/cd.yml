@@ -190,7 +190,7 @@ jobs:
       # Mono seems to provide some (potentially incompatible) headers that CMake
       # might pick up on instead of ours
     - name: Uninstall Mono
-      run: sudo /bin/sh -c "$(curl -fsSL https://github.com/gurza/cli-toolbox/raw/master/dotnet/mono-uninstall.sh)"
+      run: sudo /bin/sh -c "$(curl -fsSL https://github.com/gurza/cli-toolbox/raw/master/uninstall-apps/uninstall-mono.sh)"
 
     - name: Install clean Homebrew dependencies
       shell: bash
