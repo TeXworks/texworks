@@ -527,6 +527,18 @@ QList<PDFFontInfo> Document::fonts() const
   return _fonts;
 }
 
+QAbstractItemModel *Document::optionalContentModel() const
+{
+  if (!_poppler_doc) {
+    return nullptr;
+  }
+  QMutexLocker l(_poppler_docLock);
+  if (_poppler_doc->isLocked() || !_poppler_doc->hasOptionalContent()) {
+    return nullptr;
+  }
+  return _poppler_doc->optionalContentModel();
+}
+
 QColor Document::paperColor() const
 {
   if (!_poppler_doc) {

@@ -267,6 +267,7 @@ void TestQtPDF::loadDocs()
     _docs[QString::fromLatin1("page-rotation")] = backend.newDocument(QString::fromLatin1("page-rotation.pdf"));
     _docs[QString::fromLatin1("annotations")] = backend.newDocument(QString::fromLatin1("annotations.pdf"));
     _docs[QString::fromLatin1("jpg")] = backend.newDocument(QStringLiteral("jpg.pdf"));
+    _docs[QString::fromLatin1("ocg")] = backend.newDocument(QString::fromLatin1("ocg.pdf"));
   }
 }
 
@@ -1860,6 +1861,68 @@ void TestQtPDF::transitions()
   QCOMPARE(transition->isFinished(), false);
   // Don't test getImage here - it corresponds to the first frame of the
   // animation, not imgStart
+}
+
+void TestQtPDF::ocg()
+{
+  const QRect rect(128, 100, 170, 40);
+
+  QVERIFY(_docs[QStringLiteral("invalid")].data()->optionalContentModel() == nullptr);
+  QVERIFY(_docs[QStringLiteral("base14-fonts")].data()->optionalContentModel() == nullptr);
+  QVERIFY(_docs[QStringLiteral("base14-locked")].data()->optionalContentModel() == nullptr);
+
+  QtPDF::Backend::Document * doc = _docs[QStringLiteral("ocg")].data();
+  QVERIFY(doc != nullptr);
+  QSharedPointer<QtPDF::Backend::Page> page = doc->page(0).toStrongRef();
+  QVERIFY(page != nullptr);
+  QAbstractItemModel * ocgModel = doc->optionalContentModel();
+  QVERIFY(ocgModel != nullptr);
+  QCOMPARE(ocgModel->rowCount(), 2);
+  QCOMPARE(ocgModel->data(ocgModel->index(0, 0)).toString(), QStringLiteral("Layer 1"));
+  QCOMPARE(ocgModel->data(ocgModel->index(1, 0)).toString(), QStringLiteral("Layer 2"));
+
+  {
+    QCOMPARE(ocgModel->data(ocgModel->index(0, 0), Qt::CheckStateRole), QVariant(Qt::Checked));
+    QCOMPARE(ocgModel->data(ocgModel->index(1, 0), Qt::CheckStateRole), QVariant(Qt::Unchecked));
+    ComparableImage render(page->renderToImage(100, 100, rect));
+    QCOMPARE(render.pixel(1 * rect.width() / 8, rect.height() / 2), qRgb(255, 0, 0));
+    QCOMPARE(render.pixel(3 * rect.width() / 8, rect.height() / 2), qRgb(0, 255, 0));
+    QCOMPARE(render.pixel(5 * rect.width() / 8, rect.height() / 2), qRgb(255, 255, 255));
+    QCOMPARE(render.pixel(7 * rect.width() / 8, rect.height() / 2), qRgb(0, 0, 255));
+  }
+
+  {
+    ocgModel->setData(ocgModel->index(0, 0), Qt::Unchecked, Qt::CheckStateRole);
+    QCOMPARE(ocgModel->data(ocgModel->index(0, 0), Qt::CheckStateRole), QVariant(Qt::Unchecked));
+    QCOMPARE(ocgModel->data(ocgModel->index(1, 0), Qt::CheckStateRole), QVariant(Qt::Unchecked));
+    ComparableImage render(page->renderToImage(100, 100, rect));
+    QCOMPARE(render.pixel(1 * rect.width() / 8, rect.height() / 2), qRgb(255, 0, 0));
+    QCOMPARE(render.pixel(3 * rect.width() / 8, rect.height() / 2), qRgb(255, 255, 255));
+    QCOMPARE(render.pixel(5 * rect.width() / 8, rect.height() / 2), qRgb(255, 255, 255));
+    QCOMPARE(render.pixel(7 * rect.width() / 8, rect.height() / 2), qRgb(0, 0, 255));
+  }
+
+  {
+    ocgModel->setData(ocgModel->index(1, 0), Qt::Checked, Qt::CheckStateRole);
+    QCOMPARE(ocgModel->data(ocgModel->index(0, 0), Qt::CheckStateRole), QVariant(Qt::Unchecked));
+    QCOMPARE(ocgModel->data(ocgModel->index(1, 0), Qt::CheckStateRole), QVariant(Qt::Checked));
+    ComparableImage render(page->renderToImage(100, 100, rect));
+    QCOMPARE(render.pixel(1 * rect.width() / 8, rect.height() / 2), qRgb(255, 0, 0));
+    QCOMPARE(render.pixel(3 * rect.width() / 8, rect.height() / 2), qRgb(255, 255, 255));
+    QCOMPARE(render.pixel(5 * rect.width() / 8, rect.height() / 2), qRgb(255, 242, 0));
+    QCOMPARE(render.pixel(7 * rect.width() / 8, rect.height() / 2), qRgb(0, 0, 255));
+  }
+
+  {
+    ocgModel->setData(ocgModel->index(0, 0), Qt::Checked, Qt::CheckStateRole);
+    QCOMPARE(ocgModel->data(ocgModel->index(0, 0), Qt::CheckStateRole), QVariant(Qt::Checked));
+    QCOMPARE(ocgModel->data(ocgModel->index(1, 0), Qt::CheckStateRole), QVariant(Qt::Checked));
+    ComparableImage render(page->renderToImage(100, 100, rect));
+    QCOMPARE(render.pixel(1 * rect.width() / 8, rect.height() / 2), qRgb(255, 0, 0));
+    QCOMPARE(render.pixel(3 * rect.width() / 8, rect.height() / 2), qRgb(0, 255, 0));
+    QCOMPARE(render.pixel(5 * rect.width() / 8, rect.height() / 2), qRgb(255, 242, 0));
+    QCOMPARE(render.pixel(7 * rect.width() / 8, rect.height() / 2), qRgb(0, 0, 255));
+  }
 }
 
 void TestQtPDF::pageTile()

@@ -86,6 +86,7 @@ PDFViewer::PDFViewer(const QString & pdf_doc, QWidget *parent, Qt::WindowFlags f
   tabifyDockWidget(toc, docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_Fonts, this));
   tabifyDockWidget(toc, docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_Permissions, this));
   tabifyDockWidget(toc, docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_Annotations, this));
+  tabifyDockWidget(toc, docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_OptionalContent, this));
   toc->raise();
 
   QShortcut * goPrevViewRect = new QShortcut(QKeySequence(tr("Alt+Left")), this);

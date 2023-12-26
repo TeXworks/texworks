@@ -21,6 +21,7 @@
 #include "PDFToC.h"
 #include "PDFTransitions.h"
 
+#include <QAbstractItemModel>
 #include <QEvent>
 #include <QFileInfo>
 #include <QImage>
@@ -125,6 +126,7 @@ public:
   // strutures of the pdf file.
   virtual PDFToC toc() const { return PDFToC(); }
   virtual QList<PDFFontInfo> fonts() const { return QList<PDFFontInfo>(); }
+  virtual QAbstractItemModel * optionalContentModel() const { return nullptr; }
 
   // <metadata>
   QString title() const { QReadLocker docLocker(_docLock.data()); return _meta_title; }

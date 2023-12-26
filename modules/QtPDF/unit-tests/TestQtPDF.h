@@ -167,6 +167,8 @@ private slots:
   void transitions_data();
   void transitions();
 
+  void ocg();
+
   void pageTile();
 
   void physicalLength();

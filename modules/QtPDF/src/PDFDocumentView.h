@@ -45,7 +45,7 @@ class PDFDocumentView : public QGraphicsView {
 public:
   enum PageMode { PageMode_SinglePage, PageMode_OneColumnContinuous, PageMode_TwoColumnContinuous, PageMode_Presentation };
   enum MouseMode { MouseMode_MagnifyingGlass, MouseMode_Move, MouseMode_MarqueeZoom, MouseMode_Measure, MouseMode_Select };
-  enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions, Dock_Annotations };
+  enum Dock { Dock_TableOfContents, Dock_MetaData, Dock_Fonts, Dock_Permissions, Dock_Annotations, Dock_OptionalContent };
   using size_type = QList<QGraphicsItem*>::size_type;
 
   PDFDocumentView(QWidget *parent = nullptr);
@@ -395,6 +395,20 @@ protected slots:
   void clear() override;
   void retranslateUi() final;
   void annotationsReady(int index);
+};
+
+class PDFOptionalContentInfoWidget : public PDFDocumentInfoWidget
+{
+  Q_OBJECT
+  QListView * _list{nullptr};
+public:
+  PDFOptionalContentInfoWidget(QWidget * parent);
+  ~PDFOptionalContentInfoWidget() override = default;
+
+protected slots:
+  void initFromDocument(const QWeakPointer<QtPDF::Backend::Document> newDoc) override;
+  void clear() override;
+  void retranslateUi() final;
 };
 
 // Cannot use QGraphicsGridLayout and similar classes for pages because it only

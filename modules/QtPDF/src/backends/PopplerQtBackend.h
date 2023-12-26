@@ -82,6 +82,7 @@ public:
 
   PDFToC toc() const override;
   QList<PDFFontInfo> fonts() const override;
+  QAbstractItemModel * optionalContentModel() const override;
 
   QColor paperColor() const override;
   void setPaperColor(const QColor & color) override;
