@@ -298,6 +298,11 @@ void PDFDocumentWindow::init()
 	addDockWidget(Qt::LeftDockWidgetArea, dw);
 	menuShow->addAction(dw->toggleViewAction());
 
+	dw = pdfWidget->dockWidget(QtPDF::PDFDocumentView::Dock_OptionalContent, this);
+	dw->hide();
+	addDockWidget(Qt::LeftDockWidgetArea, dw);
+	menuShow->addAction(dw->toggleViewAction());
+
 	Tw::Settings settings;
 	switch(settings.value(QString::fromLatin1("pdfPageMode"), kDefault_PDFPageMode).toInt()) {
 		case 0:
