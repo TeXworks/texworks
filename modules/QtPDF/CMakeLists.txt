@@ -1,11 +1,11 @@
 # Setup and User Options
 # ======================
 
-# Set project name.
-PROJECT(QtPDF)
-
 # CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
 CMAKE_MINIMUM_REQUIRED(VERSION 3.1...3.27)
+
+# Set project name.
+PROJECT(QtPDF)
 
 SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_AUTOMOC TRUE)
