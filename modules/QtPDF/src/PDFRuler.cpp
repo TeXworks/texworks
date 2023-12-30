@@ -14,6 +14,7 @@
 
 #include "PDFRuler.h"
 
+#include "PDFDocumentScene.h"
 #include "PDFDocumentView.h"
 
 #include <QPainter>

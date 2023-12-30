@@ -13,6 +13,8 @@
  */
 
 #include "PDFDocumentTools.h"
+
+#include "PDFDocumentScene.h"
 #include "PDFDocumentView.h"
 
 namespace QtPDF {

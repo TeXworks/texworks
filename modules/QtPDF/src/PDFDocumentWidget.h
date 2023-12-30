@@ -28,11 +28,8 @@ public:
 
   QWeakPointer<Backend::Document> document() const;
 
-  bool watchForDocumentChangesOnDisk() const {
-    if (_scene) return _scene->watchForDocumentChangesOnDisk();
-    else return false;
-  }
-  void setWatchForDocumentChangesOnDisk(const bool doWatch = true) { if (_scene) _scene->setWatchForDocumentChangesOnDisk(doWatch); }
+  bool watchForDocumentChangesOnDisk() const;
+  void setWatchForDocumentChangesOnDisk(const bool doWatch = true);
 
   void setResolution(const double dpi);
 

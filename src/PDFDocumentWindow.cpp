@@ -21,6 +21,7 @@
 
 #include "PDFDocumentWindow.h"
 
+#include "../modules/QtPDF/src/PDFDocumentScene.h"
 #include "FindDialog.h"
 #include "Settings.h"
 #include "TWApp.h"

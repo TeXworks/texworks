@@ -14,6 +14,7 @@
 #include "PDFGuideline.h"
 
 #include "GuidelineEditDialog.h"
+#include "PDFDocumentScene.h"
 #include "PDFDocumentView.h"
 
 namespace QtPDF {
