@@ -760,6 +760,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
       {
         PDFOCGAction::MapType map;
         std::vector<QVariant> origState;
+        using OrigStateSizeType = std::vector<QVariant>::size_type;
         Document * popplerDoc = dynamic_cast<Backend::PopplerQt::Document *>(_parent);
         Poppler::OptContentModel * ocgModel = popplerDoc->_poppler_doc->optionalContentModel();
         if (!ocgModel) {
@@ -767,7 +768,9 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
         }
 
         // Save original state
-        origState.reserve(ocgModel->rowCount());
+        if (ocgModel->rowCount() > 0) {
+          origState.reserve(static_cast<OrigStateSizeType>(ocgModel->rowCount()));
+        }
         for (int row = 0; row < ocgModel->rowCount(); ++row) {
           origState.push_back(ocgModel->data(ocgModel->index(row, 0, {}), Qt::CheckStateRole));
         }
@@ -803,7 +806,7 @@ QList< QSharedPointer<Annotation::Link> > Page::loadLinks()
 
         // Restore original state
         for (int row = 0; row < ocgModel->rowCount(); ++row) {
-          ocgModel->setData(ocgModel->index(row, 0, {}), origState[row], Qt::CheckStateRole);
+          ocgModel->setData(ocgModel->index(row, 0, {}), origState[static_cast<OrigStateSizeType>(row)], Qt::CheckStateRole);
         }
 
         link->setActionOnActivation(new PDFOCGAction(map));
