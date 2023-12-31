@@ -494,11 +494,18 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		if (loc.language() == QLocale::C)
 			label = dict;
 		else {
-			QLocale::Country country = loc.country();
-			if (country != QLocale::AnyCountry)
-				label = QString::fromLatin1("%1 - %2 (%3)").arg(QLocale::languageToString(loc.language()), QLocale::countryToString(country), dict);
-			else
-				label = QString::fromLatin1("%1 (%2)").arg(QLocale::languageToString(loc.language()), dict);
+			const QString languageString = QLocale::languageToString(loc.language());
+#if QT_VERSION < QT_VERSION_CHECK(6, 2, 0)
+			const QString territoryString = (loc.country() != QLocale::AnyCountry ? QLocale::countryToString(loc.country()) : QString());
+#else
+			const QString territoryString = (loc.territory() != QLocale::AnyTerritory ? QLocale::territoryToString(loc.territory()) : QString());
+#endif
+			if (!territoryString.isEmpty()) {
+				label = tr("%1 - %2 (%3)").arg(languageString, territoryString, dict);
+			}
+			else {
+				label = tr("%1 (%2)").arg(languageString, dict);
+			}
 		}
 
 		dictList << qMakePair(label, dict);
@@ -551,13 +558,18 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		if (language == QLocale::C)
 			locName = trans;
 		else {
-			QLocale::Country country  = loc.country();
-			if (trans.contains(QChar::fromLatin1('_')) && country != QLocale::AnyCountry) {
+			const QString languageString = QLocale::languageToString(language);
+#if QT_VERSION < QT_VERSION_CHECK(6, 2, 0)
+			const QString territoryString = (loc.country() != QLocale::AnyCountry ? QLocale::countryToString(loc.country()) : QString());
+#else
+			const QString territoryString = (loc.territory() != QLocale::AnyTerritory ? QLocale::territoryToString(loc.territory()) : QString());
+#endif
+			if (trans.contains(QChar::fromLatin1('_')) && !territoryString.isEmpty()) {
 				//: Language (%1) and Country (%2) for TeXworks translations (ex. "Portuguese (Brazil)")
-				locName = tr("%1 (%2)").arg(QLocale::languageToString(language), QLocale::countryToString(country));
+				locName = tr("%1 (%2)").arg(languageString, territoryString);
 			}
 			else {
-				locName = QLocale::languageToString(language);
+				locName = languageString;
 			}
 		}
 		displayList << qMakePair(locName, trans);

@@ -546,13 +546,20 @@ void TeXDocumentWindow::reloadSpellcheckerMenu()
 			if (loc.language() == QLocale::C)
 				label = dict;
 			else {
-				QLocale::Country country = loc.country();
-				if (country != QLocale::AnyCountry)
-					//: Format to display spell-checking dictionaries (ex. "English - UnitedStates (en_US)")
-					label = tr("%1 - %2 (%3)").arg(QLocale::languageToString(loc.language()), QLocale::countryToString(country), dict);
-				else
+				const QString languageString = QLocale::languageToString(loc.language());
+#if QT_VERSION < QT_VERSION_CHECK(6, 2, 0)
+				const QString territoryString = (loc.country() != QLocale::AnyCountry ? QLocale::countryToString(loc.country()) : QString());
+#else
+				const QString territoryString = (loc.territory() != QLocale::AnyTerritory ? QLocale::territoryToString(loc.territory()) : QString());
+#endif
+				if (!territoryString.isEmpty()) {
+					//: Format to display spell-checking dictionaries (ex. "English - United States (en_US)")
+					label = tr("%1 - %2 (%3)").arg(languageString, territoryString, dict);
+				}
+				else {
 					//: Format to display spell-checking dictionaries (ex. "English (en_US)")
-					label = tr("%1 (%2)").arg(QLocale::languageToString(loc.language()), dict);
+					label = tr("%1 (%2)").arg(languageString, dict);
+				}
 			}
 
 			QAction * act = new QAction(label, menuSpelling);
