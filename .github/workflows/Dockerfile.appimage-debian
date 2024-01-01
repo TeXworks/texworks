@@ -44,6 +44,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install 
 	libnss3-dev \
 	libopenjp2-7-dev \
 	libtiff-dev \
+	libxcb-cursor0 \
 	libxcb-icccm4 \
 	libxcb-image0 \
 	libxcb-keysyms1 \
