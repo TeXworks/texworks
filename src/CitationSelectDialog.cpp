@@ -215,7 +215,11 @@ QVariant CitationModel::headerData(int section, Qt::Orientation orientation, int
 QModelIndex CitationModel::index(int row, int column, const QModelIndex &parent /* = QModelIndex() */) const
 {
 	if (parent.isValid()) return QModelIndex();
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	return createIndex(row, column, const_cast<BibTeXFile::Entry*>(_entries[row]));
+#else
+	return createIndex(row, column, _entries[row]);
+#endif
 }
 
 void CitationModel::setSelectedKeys(const QStringList & keys)

@@ -197,11 +197,15 @@ PDFDocumentScene::size_type PDFDocumentScene::pageNumAt(const QPointF &pt)
 
 PDFDocumentScene::size_type PDFDocumentScene::pageNumFor(const PDFPageGraphicsItem * const graphicsItem) const
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
   // Note: since we store QGraphicsItem* in _pages, we need to remove the const
   // or else indexOf() complains during compilation. Since we don't do anything
   // with the pointer, this should be safe to do while still remaining the
   // const'ness of `graphicsItem`, however.
   return _pages.indexOf(const_cast<PDFPageGraphicsItem *>(graphicsItem));
+#else
+  return _pages.indexOf(graphicsItem);
+#endif
 }
 
 PDFDocumentScene::size_type PDFDocumentScene::lastPage() { return _lastPage; }
