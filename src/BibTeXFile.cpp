@@ -36,10 +36,16 @@ BibTeXFile::Entry::Type BibTeXFile::Entry::type() const
 
 QString BibTeXFile::Entry::howPublished() const
 {
-	if (_cache.valid) return _cache.howPublished;
-	if (hasField(QString::fromLatin1("howpublished")))
+	if (_cache.valid) {
+		return _cache.howPublished;
+	}
+	if (hasField(QString::fromLatin1("howpublished"))) {
 		return value(QString::fromLatin1("howpublished"));
-	return value(QString::fromLatin1("journal"));
+	}
+	if (hasField(QStringLiteral("journal"))) {
+		return value(QString::fromLatin1("journal"));
+	}
+	return value(QString::fromLatin1("booktitle"));
 }
 
 QString BibTeXFile::Entry::value(const QString & key) const
