@@ -56,6 +56,7 @@ protected:
 	QList<BibTeXFile> _bibFiles;
 	QVector<const BibTeXFile::Entry *> _entries;
 	QSet<QString> _selectedKeys;
+	QStringList m_columns;
 };
 
 class CitationProxyModel : public QSortFilterProxyModel
