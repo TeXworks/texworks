@@ -2033,7 +2033,7 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	pattern.chop(1);
 	pattern += QLatin1String(")\\*?\\s*(\\[[^\\]]*\\])?\\s*\\{([^}]*)\\}");
 
-	QTextCursor curs(textDoc());
+	QTextCursor curs(textCursor());
 	using pos_type = decltype(curs.position());
 	constexpr int PeekLength = 1024;
 
