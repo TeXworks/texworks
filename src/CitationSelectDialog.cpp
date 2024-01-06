@@ -112,7 +112,7 @@ bool BibTeXEntryLessThan(const BibTeXFile::Entry * a, const BibTeXFile::Entry * 
 
 QStringList CitationSelectDialog::getSelectedKeys(const bool ordered /* = true */) const
 {
-	QStringList keys = _model.selectedKeys();
+	QStringList keys{_model.selectedKeys()};
 	QStringList unknownKeys;
 
 	if (!ordered) return keys;
@@ -120,17 +120,23 @@ QStringList CitationSelectDialog::getSelectedKeys(const bool ordered /* = true *
 	QList<const BibTeXFile::Entry*> entries;
 	// Convert keys to entry pointers so we can sort them, e.g., by their year
 	// All keys that or not managed by the model will be appended unchanged
-	Q_FOREACH(QString key, keys) {
-		const BibTeXFile::Entry * e = _model.getEntry(key);
-		if (e) entries.append(e);
-		else unknownKeys.append(key);
+	for (const QString & key : keys) {
+		const BibTeXFile::Entry * const e = _model.getEntry(key);
+		if (e != nullptr) {
+			entries.append(e);
+		}
+		else {
+			unknownKeys.append(key);
+		}
 	}
 
 	std::stable_sort(entries.begin(), entries.end(), BibTeXEntryLessThan);
+	std::stable_sort(unknownKeys.begin(), unknownKeys.end());
 
 	keys.clear();
-	Q_FOREACH(const BibTeXFile::Entry * entry, entries)
+	for (const BibTeXFile::Entry * entry : entries) {
 		keys.append(entry->key());
+	}
 	return keys + unknownKeys;
 }
 
