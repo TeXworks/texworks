@@ -1998,7 +1998,7 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	// Load the bibfiles
 	QStringList bibFiles = textDoc()->getModeLineValue(QStringLiteral("bibfile")).split(QLatin1Char{','}) +
 						   textDoc()->getModeLineValue(QStringLiteral("bibfiles")).split(QLatin1Char{','});
-	Q_FOREACH(QString bibFile, bibFiles) {
+	for (QString bibFile : bibFiles) {
 		bibFile = bibFile.trimmed();
 		if (bibFile.isEmpty()) continue;
 		// Assume relative paths are given with respect to the current file's
@@ -2007,7 +2007,7 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 		dlg.addBibTeXFile(bibFile);
 	}
 
-	// Work out the enclosing citation command and already existing BiBTeX keys
+	// Work out the enclosing citation command and already existing BibTeX keys
 	// (if any)
 	// TODO: Make configurable in a config text file
 	QStringList citeCmds = QStringList() << QLatin1String("cite") \
@@ -2027,11 +2027,15 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	                                     << QLatin1String("Citealp") \
 	                                     << QLatin1String("Citeauthor");
 
-	QString pattern = QString::fromLatin1("\\\\(");
-	Q_FOREACH(QString citeCmd, citeCmds)
+	QString pattern = QString::fromLatin1("(\\\\(?:");
+	for (const QString & citeCmd : citeCmds)
 		pattern += QRegularExpression::escape(citeCmd) + QString::fromLatin1("|");
 	pattern.chop(1);
-	pattern += QLatin1String(")\\*?\\s*(\\[[^\\]]*\\])?\\s*\\{([^}]*)\\}");
+	pattern += QLatin1String(")\\*?\\s*(?:\\[[^\\]]*\\])?\\s*\\{)([^}]*)\\}");
+	// (\\(?:cite|...|Citeauthor)\*?\s*(?:\[[^\]]*\])?\s*\{)([^}]*)\}
+	// capture group 1: everything in front of the BibTeX keys (e.g. "\cite{"
+	//                  or "\Citep*[bla]{"
+	// capture group 2: the existing BibTeX keys
 
 	QTextCursor curs(textCursor());
 	using pos_type = decltype(curs.position());
@@ -2058,8 +2062,11 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 		mCmd= reCmd.match(peekStr, pos);
 #endif
 	bool updateExisting = mCmd.hasMatch() && mCmd.capturedStart() < peekFront && mCmd.capturedEnd() > peekFront;
+
+	// If the cursor was in a recognized cite command, pre-seed the dialog with
+	// the extracted BibTeX keys
 	if (updateExisting)
-		dlg.setInitialKeys(mCmd.captured(3).split(QLatin1Char(',')));
+		dlg.setInitialKeys(mCmd.captured(2).split(QLatin1Char(',')));
 
 	// Run the dialog
 	if (dlg.exec()) {
@@ -2076,13 +2083,9 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 			// collapse the selection to the beginning
 			curs.setPosition(qMin(curs.position(), curs.anchor()));
 			// move to the beginning of the cite argument (just after '{')
-			// NB: if there was no argument ("{}"), cap(3) is empty; for empty
-			// captures pos() returns -1 according to the documentation; in that
-			// case, use the fact that cap(0) is not empty and we know that the
-			// argument is followed by "}"
-			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, static_cast<pos_type>(mCmd.capturedStart(3) >= 0 ? mCmd.capturedStart(3) : mCmd.capturedEnd(0) - 1));
-			// select the cite argument (until just before '}')
-			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, static_cast<pos_type>(mCmd.capturedLength(3)));
+			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, static_cast<pos_type>(mCmd.capturedEnd(1)));
+			// select the cite argument
+			curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, static_cast<pos_type>(mCmd.capturedLength(2)));
 			// replace the text
 			curs.insertText(dlg.getSelectedKeys().join(QLatin1String(",")));
 			curs.endEditBlock();
