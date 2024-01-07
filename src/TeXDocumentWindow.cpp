@@ -1989,6 +1989,8 @@ void TeXDocumentWindow::doHardWrapDialog()
 void TeXDocumentWindow::doInsertCitationsDialog()
 {
 	CitationSelectDialog dlg(this);
+	Tw::Settings settings;
+	const QString defaultCiteCmd = settings.value(QStringLiteral("citeCommand"), QStringLiteral("\\cite{%1}")).toString();
 
 	if (!textDoc()->hasModeLine(QStringLiteral("bibfile")) && !textDoc()->hasModeLine(QStringLiteral("bibfiles"))) {
 		emit asyncFlashStatusBarMessage(tr("No '%!TEX bibfile' modline found"), kStatusMessageDuration);
@@ -2049,10 +2051,11 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, peekFront + peekBack);
 	curs.endEditBlock();
 
-	QString peekStr = curs.selectedText();
+	const QString peekStr = curs.selectedText();
 	QRegularExpression reCmd(pattern);
 	QRegularExpressionMatch mCmd;
 
+	// Check if the cursor is in one of the standard cite commands
 #if QT_VERSION >= 0x050500
 	auto pos = peekStr.lastIndexOf(reCmd, peekFront, &mCmd);
 	Q_UNUSED(pos)
@@ -2063,10 +2066,28 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 #endif
 	bool updateExisting = mCmd.hasMatch() && mCmd.capturedStart() < peekFront && mCmd.capturedEnd() > peekFront;
 
+	if (!updateExisting) {
+		// If the cursor was not in any of the standard cite commands, check if
+		// it was in a (user-defined) default cite command
+		const QString pattern{QStringLiteral("(") + QRegularExpression::escape(defaultCiteCmd).replace(QStringLiteral("\\%1"), QStringLiteral(")(.*?)"))};
+		QRegularExpression reCmd{pattern};
+
+#if QT_VERSION >= 0x050500
+		auto pos = peekStr.lastIndexOf(reCmd, peekFront, &mCmd);
+		Q_UNUSED(pos)
+#else
+		int pos = peekStr.lastIndexOf(reCmd, peekFront);
+		if (pos >= 0)
+			mCmd= reCmd.match(peekStr, pos);
+#endif
+		updateExisting = mCmd.hasMatch() && mCmd.capturedStart() < peekFront && mCmd.capturedEnd() > peekFront;
+	}
+
 	// If the cursor was in a recognized cite command, pre-seed the dialog with
 	// the extracted BibTeX keys
-	if (updateExisting)
+	if (updateExisting) {
 		dlg.setInitialKeys(mCmd.captured(2).split(QLatin1Char(',')));
+	}
 
 	// Run the dialog
 	if (dlg.exec()) {
@@ -2075,7 +2096,7 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 		// If the dialog was invoked without the cursor inside a citation
 		// command, insert a new one (\cite by default)
 		if (!updateExisting) {
-			insertText(QString::fromLatin1("\\cite{%1}").arg(dlg.getSelectedKeys().join(QLatin1String(","))));
+			insertText(defaultCiteCmd.arg(dlg.getSelectedKeys().join(QLatin1String(","))));
 		}
 		// Otherwise, replace the argument of the existing citation command
 		else {
