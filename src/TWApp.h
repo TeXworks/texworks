@@ -175,6 +175,7 @@ private:
 public slots:
 	void bringToFront();
 	QObject* openFile(const QString& fileName, const int pos = -1);
+	void insertText(const QString & text);
 
 	void preferences();
 
@@ -252,6 +253,7 @@ private:
 		};
 		bool shouldContinue{true};
 		std::vector<fileToOpenStruct> filesToOpen;
+		QString insertText;
 	};
 
 	void init();

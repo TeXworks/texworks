@@ -47,10 +47,12 @@ public:
 
 	void sendBringToFront();
 	void sendOpenFile(const QString & path, const int position = -1);
+	void sendInsertText(const QString & text);
 
 signals:
 	void receivedBringToFront();
 	void receivedOpenFile(const QString & path, const int position);
+	void receivedInsertText(const QString & text);
 };
 
 } // namespace Tw

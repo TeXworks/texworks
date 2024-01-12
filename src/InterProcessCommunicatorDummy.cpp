@@ -46,4 +46,9 @@ void InterProcessCommunicator::sendOpenFile(const QString & path, const int posi
 	emit receivedOpenFile(path, position);
 }
 
+void InterProcessCommunicator::sendInsertText(const QString & text)
+{
+	emit receivedInsertText(text);
+}
+
 } // namespace Tw

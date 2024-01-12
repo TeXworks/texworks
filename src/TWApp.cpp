@@ -304,6 +304,7 @@ TWApp::CommandLineData TWApp::processCommandLine()
 	Tw::Utils::CommandlineParser clp;
 	clp.registerSwitch(QString::fromLatin1("help"), tr("Display this message"), QString::fromLatin1("?"));
 	clp.registerOption(QString::fromLatin1("position"), tr("Open the following file at the given position (line or page)"), QString::fromLatin1("p"));
+	clp.registerOption(QStringLiteral("insert-text"), tr("Insert the given text in the top-most TeX editor window (only works if TeXworks is already running)"));
 	clp.registerSwitch(QString::fromLatin1("version"), tr("Display version information"), QString::fromLatin1("v"));
 
 	if (clp.parse()) {
@@ -345,6 +346,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLat
 			QTextStream strm(stdout);
 			clp.printUsage(strm);
 		}
+		if ((i = clp.getNextOption(QStringLiteral("insert-text"))) >= 0) {
+			Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(i);
+			item.processed = true;
+			retVal.insertText.append(item.value.toString());
+		}
 	}
 	return retVal;
 }
@@ -359,11 +365,15 @@ bool TWApp::ensureSingleInstance(const CommandLineData &cld)
 				continue;
 			m_IPC.sendOpenFile(fi.absoluteFilePath(), fileToOpen.position);
 		}
+		if (!cld.insertText.isEmpty()) {
+			m_IPC.sendInsertText(cld.insertText);
+		}
 		exitLater(0);
 		return false;
 	}
 	QObject::connect(&m_IPC, &Tw::InterProcessCommunicator::receivedBringToFront, this, &TWApp::bringToFront);
 	QObject::connect(&m_IPC, &Tw::InterProcessCommunicator::receivedOpenFile, this, &TWApp::openFile);
+	QObject::connect(&m_IPC, &Tw::InterProcessCommunicator::receivedInsertText, this, &TWApp::insertText);
 	return true;
 }
 
@@ -871,6 +881,14 @@ QObject* TWApp::openFile(const QString &fileName, int pos /* = 0 */)
 		return nullptr;
 	}
 	return TeXDocumentWindow::openDocument(fileName, true, true, pos, 0, 0);
+}
+
+void TWApp::insertText(const QString &text)
+{
+	TeXDocumentWindow * topTeXWin = qobject_cast<TeXDocumentWindow*>(topTeXWindow());
+	if (topTeXWin != nullptr) {
+		topTeXWin->textCursor().insertText(text);
+	}
 }
 
 void TWApp::preferences()

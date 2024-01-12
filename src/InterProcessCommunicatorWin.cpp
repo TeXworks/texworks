@@ -33,6 +33,7 @@ namespace Tw {
 #define TW_HIDDEN_WINDOW_CLASS	"TeXworks:MessageTarget"
 #define TW_OPEN_FILE_MSG		(('T' << 8) + 'W')	// just a small sanity check for the receiver
 #define TW_BRING_TO_FRONT_MSG		(('B' << 8) + 'F')	// just a small sanity check for the receiver
+#define TW_INSERT_TEXT_MSG		(('I' << 8) + 'T')	// just a small sanity check for the receiver
 
 LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -68,6 +69,9 @@ private:
 					emit q->receivedOpenFile(sl[0], sl[1].toInt());
 				break;
 			}
+			case TW_INSERT_TEXT_MSG:
+				emit q->receivedInsertText(QString::fromUtf8(data));
+				break;
 			default:
 				break;
 		}
@@ -184,6 +188,21 @@ void InterProcessCommunicator::sendOpenFile(const QString & path, const int posi
 	QByteArray ba = path.toUtf8() + "\n" + QByteArray::number(position);
 	COPYDATASTRUCT cds;
 	cds.dwData = TW_OPEN_FILE_MSG;
+	cds.cbData = ba.length();
+	cds.lpData = ba.data();
+	SendMessageA(hWnd, WM_COPYDATA, 0, reinterpret_cast<LPARAM>(&cds));
+}
+
+void InterProcessCommunicator::sendInsertText(const QString & text)
+{
+	HWND hWnd = InterProcessCommunicatorPrivate::findMessageWindow();
+	if (hWnd == NULL) {
+		return;
+	}
+
+	QByteArray ba = text.toUtf8();
+	COPYDATASTRUCT cds;
+	cds.dwData = TW_INSERT_TEXT_MSG;
 	cds.cbData = ba.length();
 	cds.lpData = ba.data();
 	SendMessageA(hWnd, WM_COPYDATA, 0, reinterpret_cast<LPARAM>(&cds));

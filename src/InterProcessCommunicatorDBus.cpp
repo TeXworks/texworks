@@ -51,6 +51,10 @@ public slots:
 		Q_Q(InterProcessCommunicator);
 		emit q->receivedBringToFront();
 	}
+	Q_NOREPLY void insertText(QString text) {
+		Q_Q(InterProcessCommunicator);
+		emit q->receivedInsertText(text);
+	}
 };
 
 InterProcessCommunicator::InterProcessCommunicator()
@@ -118,6 +122,15 @@ void InterProcessCommunicator::sendOpenFile(const QString & path, const int posi
 	if (!d->interface || !d->interface->isValid())
 		return;
 	d->interface->call(QStringLiteral("openFile"), path, position);
+}
+
+void InterProcessCommunicator::sendInsertText(const QString &text)
+{
+	Q_D(InterProcessCommunicator);
+	if (d->interface == nullptr || !d->interface->isValid()) {
+		return;
+	}
+	d->interface->call(QStringLiteral("insertText"), text);
 }
 
 
