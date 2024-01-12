@@ -305,6 +305,7 @@ TWApp::CommandLineData TWApp::processCommandLine()
 	clp.registerSwitch(QString::fromLatin1("help"), tr("Display this message"), QString::fromLatin1("?"));
 	clp.registerOption(QString::fromLatin1("position"), tr("Open the following file at the given position (line or page)"), QString::fromLatin1("p"));
 	clp.registerOption(QStringLiteral("insert-text"), tr("Insert the given text in the top-most TeX editor window (only works if TeXworks is already running)"));
+	clp.registerOption(QStringLiteral("insert-cite"), tr("Alias for --insert-text"));
 	clp.registerSwitch(QString::fromLatin1("version"), tr("Display version information"), QString::fromLatin1("v"));
 
 	if (clp.parse()) {
@@ -347,6 +348,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLat
 			clp.printUsage(strm);
 		}
 		if ((i = clp.getNextOption(QStringLiteral("insert-text"))) >= 0) {
+			Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(i);
+			item.processed = true;
+			retVal.insertText.append(item.value.toString());
+		}
+		if ((i = clp.getNextOption(QStringLiteral("insert-cite"))) >= 0) {
 			Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(i);
 			item.processed = true;
 			retVal.insertText.append(item.value.toString());
