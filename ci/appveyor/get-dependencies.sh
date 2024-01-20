@@ -5,7 +5,7 @@
 
 
 print_headline "Installing dependencies"
-pacman --noconfirm -S autotools mingw-w64-x86_64-boost mingw-w64-x86_64-freetype mingw-w64-x86_64-openjpeg2 mingw-w64-x86_64-lcms2 mingw-w64-x86_64-libpng mingw-w64-x86_64-libtiff mingw-w64-x86_64-curl mingw-w64-x86_64-lua
+pacman --noconfirm -S autotools mingw-w64-x86_64-boost mingw-w64-x86_64-freetype mingw-w64-x86_64-openjpeg2 mingw-w64-x86_64-lcms2 mingw-w64-x86_64-libpng mingw-w64-x86_64-libtiff mingw-w64-x86_64-curl mingw-w64-x86_64-lua mingw-w64-x86_64-nss
 
 # /mingw64/ssl/certs/ca-bundle.crt seems to be invalid (empty)
 # It is installed by mingw-w64-x86_64-ca-certificates, a dependency of curl
@@ -27,7 +27,7 @@ for PATCH in $(find "${APPVEYOR_BUILD_FOLDER}/.github/actions/setup-windows/mxe/
 	patch -p1 < "${PATCH}"
 done
 print_info "Building poppler"
-mkdir build && cd build && cmake -G"MSYS Makefiles" -DCMAKE_BUILD_TYPE="Release" -DBUILD_QT6_TESTS=OFF -DENABLE_CPP=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_RELOCATABLE=ON -DCMAKE_INSTALL_PREFIX="/mingw64" .. && make -j && make install
+mkdir build && cd build && cmake -G"MSYS Makefiles" -DCMAKE_BUILD_TYPE="Release" -DBUILD_QT6_TESTS=OFF -DENABLE_QT5=OFF -DENABLE_CPP=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_RELOCATABLE=ON -DENABLE_GPGME=OFF -DCMAKE_INSTALL_PREFIX="/mingw64" .. && make -j && make install
 
 
 print_headline "Installing hunspell"
