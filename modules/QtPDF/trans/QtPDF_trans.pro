@@ -4,15 +4,18 @@ error("This file is not intended for building QtPDF. Please use CMake instead. S
 
 SOURCES = \
   "../src/GuidelineEditDialog.cpp" \
+  "../src/InfoWidgets.cpp" \
   "../src/PDFActions.cpp" \
   "../src/PDFAnnotations.cpp" \
   "../src/PDFBackend.cpp" \
+  "../src/PDFDocumentScene.cpp" \
   "../src/PDFDocumentTools.cpp" \
   "../src/PDFDocumentView.cpp" \
   "../src/PDFDocumentWidget.cpp" \
   "../src/PDFFontDescriptor.cpp" \
   "../src/PDFGuideline.cpp" \
   "../src/PDFPageCache.cpp" \
+  "../src/PDFPageLayout.cpp" \
   "../src/PDFPageProcessingThread.cpp" \
   "../src/PDFPageTile.cpp" \
   "../src/PDFRuler.cpp" \
@@ -24,9 +27,11 @@ SOURCES = \
 
 HEADERS = \
   "../src/GuidelineEditDialog.h" \
+  "../src/InfoWidgets.h" \
   "../src/PDFActions.h" \
   "../src/PDFAnnotations.h" \
   "../src/PDFBackend.h" \
+  "../src/PDFDocumentScene.h" \
   "../src/PDFDocumentTools.h" \
   "../src/PDFDocumentView.h" \
   "../src/PDFDocumentWidget.h" \
@@ -34,6 +39,7 @@ HEADERS = \
   "../src/PDFFontInfo.h" \
   "../src/PDFGuideline.h" \
   "../src/PDFPageCache.h" \
+  "../src/PDFPageLayout.h" \
   "../src/PDFPageProcessingThread.h" \
   "../src/PDFPageTile.h" \
   "../src/PDFRuler.h" \
@@ -47,7 +53,7 @@ FORMS = \
   "../src/GuidelineEditDialog.ui"
 
 RESOURCES = \
-  "../../../build/modules/QtPDF/QtPDF_trans.qrc" \
+  "../../../build-qt5/modules/QtPDF/QtPDF_trans.qrc" \
   "../QtPDF_icons.qrc"
 
 TRANSLATIONS = \
