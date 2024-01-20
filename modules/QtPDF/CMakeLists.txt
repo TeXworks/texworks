@@ -2,7 +2,7 @@
 # ======================
 
 # CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1...3.27)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1...3.28)
 
 # Set project name.
 PROJECT(QtPDF)
