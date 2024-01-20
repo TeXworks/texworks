@@ -704,7 +704,35 @@ void TWApp::writeToMailingList()
 {
 	// The strings here are deliberately NOT localizable!
 	QString address(QLatin1String("texworks@tug.org"));
-	QString body(QLatin1String("Thank you for taking the time to write an email to the TeXworks mailing list. Please read the instructions below carefully as following them will greatly facilitate the communication.\n\nInstructions:\n-) Please write your message in English (it's in your own best interest; otherwise, many people will not be able to understand it and therefore will not answer).\n\n-) Please type something meaningful in the subject line.\n\n-) If you are having a problem, please describe it step-by-step in detail.\n\n-) After reading, please delete these instructions (up to the \"configuration info\" below which we may need to find the source of problems).\n\n\n\n----- configuration info -----\n"));
+	QString body(QLatin1String(
+		"Thank you for taking the time to write an email to the TeXworks mailing list. "
+		"Please note that this mailing list is intended for discussing the TeXworks "
+		"editor/previewer program only. For general questions about TeX typesetting "
+		"or problems with your own TeX code, please consult better suited resources like "
+		"tex.stackexchange.com or post to the texhax@tug.org mailing list instead.\n"
+		"\n"
+		"If you think the TeXworks mailing list is the right place for what's on your "
+		"mind, we're looking forward to receiving your message.\n"
+		"Please read the instructions below carefully as following them will greatly "
+		"facilitate the communication.\n"
+		"\n"
+		"Instructions:\n"
+		"-) Please write your message "
+		"in English (it's in your own best interest; otherwise, many people will not "
+		"be able to understand it and therefore will not answer).\n"
+		"\n"
+		"-) Please type something meaningful in the subject line.\n"
+		"\n"
+		"-) If you are having a problem, please describe it step-by-step in detail.\n"
+		"\n"
+		"-) After reading, please delete these instructions (up to the \"configuration info\" "
+		"below which we may need to find the source of problems) and type your own "
+		"message in their place.\n"
+		"\n"
+		"\n"
+		"\n"
+		"----- configuration info -----\n"
+	));
 
 	body += QStringLiteral("TeXworks version : %1\n").arg(Tw::Utils::VersionInfo::fullVersionString());
 #if defined(Q_OS_DARWIN)
