@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="14"/>
         <source>Select Citations</source>
-        <translation>Selección de referencias</translation>
+        <translation>Seleccionar referencias</translation>
     </message>
     <message>
         <location filename="../src/CitationSelectDialog.ui" line="20"/>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../src/FindDialog.cpp" line="136"/>
         <source>No recent search strings</source>
-        <translation>No hay búsqueda reciente</translation>
+        <translation>Sin búsquedas recientes</translation>
     </message>
     <message>
         <location filename="../src/FindDialog.cpp" line="192"/>
@@ -931,7 +931,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="504"/>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished">%1 - %2 (%3)</translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="551"/>
@@ -1777,18 +1777,18 @@ Utilice el menú contextual para modificar las unidades.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>Insert the given text in the top-most TeX editor window (only works if TeXworks is already running)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponga el texto en la ventana superior del editor TeX (solo funciona si TeXworks en ejecución)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>Alias for --insert-text</source>
-        <translation type="unfinished"></translation>
+        <translation>Alias para --insert-text</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="453"/>
         <location filename="../src/TWApp.cpp" line="476"/>
         <source>About %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de %1...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="465"/>
@@ -1861,43 +1861,43 @@ Utilice el menú contextual para modificar las unidades.</translation>
         <translation>No se pudo acceder a &quot;%1&quot;; ¿podría verificar la configuración de su navegador o cliente de correos?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="790"/>
+        <location filename="../src/TWApp.cpp" line="818"/>
         <source>Unable to create window</source>
         <translation>Falló creación de ventana</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="791"/>
+        <location filename="../src/TWApp.cpp" line="819"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Ha ocurrido un error grave; %1 no se ha podido crear la ventana para el documento. El programa se va a cerrar enseguida.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="843"/>
-        <location filename="../src/TWApp.cpp" line="858"/>
+        <location filename="../src/TWApp.cpp" line="871"/>
+        <location filename="../src/TWApp.cpp" line="886"/>
         <source>Open File</source>
         <translation>Abrir archivo</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1038"/>
+        <location filename="../src/TWApp.cpp" line="1066"/>
         <source>No default binary directory found</source>
         <translation>No se encontró el directorio predeterminado con lo binarios respectivos</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1039"/>
+        <location filename="../src/TWApp.cpp" line="1067"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Ninguno de los directorios predefinidos con los programas TeX correspondientes se pudo encontrar.&lt;p&gt;&lt;small&gt; Para ejecutar cualquier proceso debe establecer la ubicación del directorio (o directorios) con los programas de su distribución TeX, utilizando la pestaña Compilar en la ventana de Preferencias.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1420"/>
+        <location filename="../src/TWApp.cpp" line="1448"/>
         <source>Unable to find help file.</source>
         <translation>No se encontró el archivo de ayuda.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1539"/>
+        <location filename="../src/TWApp.cpp" line="1567"/>
         <source>Permission request</source>
         <translation>Solicitud de permisos</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1540"/>
+        <location filename="../src/TWApp.cpp" line="1568"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>El script &quot;%1&quot; intenta abrir el archivo &quot;%2&quot; sin contar con los permisos
 necesarios. ¿Quiere abrirlo de todos modos?</translation>
@@ -3125,7 +3125,7 @@ Ofrecemos disculpas por las molestias ocasionadas.</translation>
     <message>
         <location filename="../src/ToolConfig.ui" line="144"/>
         <source>View PDF after running</source>
-        <translation>Mostrar el PDF al terminar la compilación</translation>
+        <translation>Mostrar el PDF después de la compilación</translation>
     </message>
 </context>
 <context>
@@ -3258,7 +3258,7 @@ Utilice el menú contextual para modificar las unidades.</translation>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation>ERROR: falla en el código de %1</translation>
+        <translation>ERROR: falló el código de %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>

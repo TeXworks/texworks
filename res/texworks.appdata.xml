@@ -97,10 +97,10 @@
 			Skripting-Interface aus.
 		</p>
 		<p xml:lang="es">
-			TeXworks es un programa para crear, editar y compilar documentos TeX (LaTeX, ConTeXt
+			TeXworks es un entorno para crear, editar y compilar documentos TeX (LaTeX, ConTeXt
 			y otros). Dispone de un editor con Unicode incorporado y de un previsualizador PDF
-			integrado; cuenta con sincronización entre el archivo TeX y su salida PDF, así como
-			una interfaz de scripts extensible.
+			integrado. Cuenta, además, con sincronización entre el archivo TeX y su salida PDF, así como
+			con una interfaz de scripts que es extensible.
 		</p>
 		<p xml:lang="es">
 			TeXworks se ha inspirado en TeXShop, el afamado programa de Dick Koch para Mac OS X, el cual
