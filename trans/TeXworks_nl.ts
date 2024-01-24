@@ -926,7 +926,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="504"/>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="507"/>
@@ -1779,18 +1779,20 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>Insert the given text in the top-most TeX editor window (only works if TeXworks is already running)</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg de gegeven tekst in in het TeX editor venster op de voorgrond (dit kan alleen als TeXWorks draait)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>Alias for --insert-text</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Alias voor --insert-text</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="453"/>
         <location filename="../src/TWApp.cpp" line="476"/>
         <source>About %1...</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Over %1...</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="465"/>
@@ -1823,28 +1825,28 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
         <translation>Kan &quot;%1&quot; niet bereiken; misschien is uw browser of mail programma niet correct geconfigureerd?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="790"/>
+        <location filename="../src/TWApp.cpp" line="818"/>
         <source>Unable to create window</source>
         <translation>Kan geen venster maken</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="791"/>
+        <location filename="../src/TWApp.cpp" line="819"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Er is iets ernstig mis: %1 kon geen document venster maken. Het programma zal nu stoppen.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="843"/>
-        <location filename="../src/TWApp.cpp" line="858"/>
+        <location filename="../src/TWApp.cpp" line="871"/>
+        <location filename="../src/TWApp.cpp" line="886"/>
         <source>Open File</source>
         <translation>Open bestand</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1038"/>
+        <location filename="../src/TWApp.cpp" line="1066"/>
         <source>No default binary directory found</source>
         <translation>Geen standaard folder voor programmas gevonden</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1039"/>
+        <location filename="../src/TWApp.cpp" line="1067"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Geen van de gedefinieerde folders voor TeX-gerelateerde programma;s kon worden gevonden. &lt;p&gt;&lt;small&gt;Om processen te kunnen uitvoeren, moet u de folder(s) voor programmas in uw TeX distributie instellen in het Typesetting gedeelte van de Voorkeuren.&lt;/small&gt;</translation>
     </message>
@@ -1889,17 +1891,17 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
         <translation>&lt;a href=&quot;mailto:taco@luatex.org&quot;&gt;Taco Hoekwater&lt;/a&gt; en &lt;a href=&quot;mailto:post@Knypstra.nl&quot;&gt;Sytse Knypstra&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1420"/>
+        <location filename="../src/TWApp.cpp" line="1448"/>
         <source>Unable to find help file.</source>
         <translation>Help bestand niet gevonden.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1539"/>
+        <location filename="../src/TWApp.cpp" line="1567"/>
         <source>Permission request</source>
         <translation>Toestemming gevraagd</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1540"/>
+        <location filename="../src/TWApp.cpp" line="1568"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Het script  &quot;%1&quot; probeert het bestand &quot;%2&quot; te openen zonder voldoende rechten. Wilt u het bestand openen?</translation>
     </message>

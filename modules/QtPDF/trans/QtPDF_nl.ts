@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translation>Bewerk hulplijn...</translation>
+        <translation>Bewerk richtlijn...</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
@@ -759,7 +759,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="35"/>
         <source>[translator&apos;s name/email]</source>
-        <translation>&lt;a href=&quot;mailto:taco@luatex.org&quot;&gt;Taco Hoekwater&lt;/a&gt;</translation>
+        <translation>&lt;a href=&quot;mailto:post@Knypstra.nl&quot;&gt;Sytse Knypstra&lt;/a&gt;</translation>
     </message>
 </context>
 <context>
@@ -767,7 +767,7 @@
     <message>
         <location filename="../src/PDFBackend.cpp" line="321"/>
         <source>rendering page</source>
-        <translation>pagina voorbereiden</translation>
+        <translation>pagina weergeven</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentScene.cpp" line="243"/>
@@ -815,7 +815,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2264"/>
         <source>Goto page %1</source>
-        <translation>Ga naar pagina %1</translation>
+        <translation>Ga naar bladzijde %1</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2276"/>
@@ -825,7 +825,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2541"/>
         <source>Layers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lagen</translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="48"/>
@@ -1045,7 +1045,7 @@
     <message>
         <location filename="../src/InfoWidgets.cpp" line="591"/>
         <source>Modifications:</source>
-        <translation>Aanpassingen maken:</translation>
+        <translation>Aanpassingen:</translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="592"/>
@@ -1055,7 +1055,7 @@
     <message>
         <location filename="../src/InfoWidgets.cpp" line="593"/>
         <source>Annotation:</source>
-        <translation>Opmerkingen maken:</translation>
+        <translation>Opmerking:</translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="594"/>
@@ -1071,7 +1071,7 @@
     <message>
         <location filename="../src/InfoWidgets.cpp" line="695"/>
         <source>Page</source>
-        <translation>Pagina</translation>
+        <translation>Bladzijdes</translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="695"/>
