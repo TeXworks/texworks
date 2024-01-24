@@ -951,7 +951,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="504"/>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished">%1 - %2 (%3)</translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="551"/>
@@ -1816,18 +1816,18 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>Insert the given text in the top-most TeX editor window (only works if TeXworks is already running)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставить данный текст в самом верху окна редактора (работает, только если TeXworks уже запущен)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>Alias for --insert-text</source>
-        <translation type="unfinished"></translation>
+        <translation>Псевдоним для --insert-text</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="453"/>
         <location filename="../src/TWApp.cpp" line="476"/>
         <source>About %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>О %1...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="465"/>
@@ -1905,43 +1905,43 @@ Use the context menu to change the units.</source>
         <translation>Ошибка при подключении к «%1»; возможно ваш браузер или почтовый клиент не настроен?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="790"/>
+        <location filename="../src/TWApp.cpp" line="818"/>
         <source>Unable to create window</source>
         <translation>Ошибка про создании окна</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="791"/>
+        <location filename="../src/TWApp.cpp" line="819"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Произошло что-то непредвиденное; %1 не смог создать новое окно. Приложение будет закрыто.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="843"/>
-        <location filename="../src/TWApp.cpp" line="858"/>
+        <location filename="../src/TWApp.cpp" line="871"/>
+        <location filename="../src/TWApp.cpp" line="886"/>
         <source>Open File</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1038"/>
+        <location filename="../src/TWApp.cpp" line="1066"/>
         <source>No default binary directory found</source>
         <translation>Отсутствует заданный по умолчанию каталог с программами</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1039"/>
+        <location filename="../src/TWApp.cpp" line="1067"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Невозможно найти какой-либо из предопределённых каталогов с TeX и сопутствующих программ.&lt;p&gt;&lt;small&gt;Чтобы сверстать документ нужно установить путь к каталогу (каталогам) с программами вашего дистрибутива TeX, используя вкладку Вёрстка в окне Настройки.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1420"/>
+        <location filename="../src/TWApp.cpp" line="1448"/>
         <source>Unable to find help file.</source>
         <translation>Невозможно найти файл справки.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1539"/>
+        <location filename="../src/TWApp.cpp" line="1567"/>
         <source>Permission request</source>
         <translation>Запрос прав доступа</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1540"/>
+        <location filename="../src/TWApp.cpp" line="1568"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Сценарий «%1» пытается открыть файл «%2» без достаточных на то прав доступа. Открыть файл?</translation>
     </message>
