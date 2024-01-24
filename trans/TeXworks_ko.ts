@@ -926,7 +926,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="504"/>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="551"/>
@@ -1764,18 +1764,18 @@ Use the context menu to change the units.</source>
     <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>Insert the given text in the top-most TeX editor window (only works if TeXworks is already running)</source>
-        <translation type="unfinished"></translation>
+        <translation>주어진 텍스트를 최상위 텍 편집기 창에 삽입 (TeXworks가 실행 중일 때만 작동)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>Alias for --insert-text</source>
-        <translation type="unfinished"></translation>
+        <translation>--insert-text의 다른 표현</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="453"/>
         <location filename="../src/TWApp.cpp" line="476"/>
         <source>About %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>%1에 대하여...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="465"/>
@@ -1848,43 +1848,43 @@ Use the context menu to change the units.</source>
         <translation>&quot;%1&quot;에 접근할 수 없습니다. 브라우저나 이메일 설정이 올바릅니까?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="790"/>
+        <location filename="../src/TWApp.cpp" line="818"/>
         <source>Unable to create window</source>
         <translation>창을 생성할 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="791"/>
+        <location filename="../src/TWApp.cpp" line="819"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>무언가 잘못되었군요. %1가 문서창을 생성할 수 없습니다. 프로그램을 종료합니다.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="843"/>
-        <location filename="../src/TWApp.cpp" line="858"/>
+        <location filename="../src/TWApp.cpp" line="871"/>
+        <location filename="../src/TWApp.cpp" line="886"/>
         <source>Open File</source>
         <translation>파일 열기</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1038"/>
+        <location filename="../src/TWApp.cpp" line="1066"/>
         <source>No default binary directory found</source>
         <translation>기본 바이너리 디렉토리를 찾을 수 없습니다</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1039"/>
+        <location filename="../src/TWApp.cpp" line="1067"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>TeX 관련 프로그램의 경로를 찾을 수 없습니다.&lt;p&gt;&lt;small&gt;문서처리를 위해서는 TeX 배포판의 바이너리 디렉토리를 환경 설정 대화상자의 문서처리 탭에서 설정해야 합니다.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1420"/>
+        <location filename="../src/TWApp.cpp" line="1448"/>
         <source>Unable to find help file.</source>
         <translation>도움말 파일을 찾을 수 없습니다.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1539"/>
+        <location filename="../src/TWApp.cpp" line="1567"/>
         <source>Permission request</source>
         <translation>권한 요청</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1540"/>
+        <location filename="../src/TWApp.cpp" line="1568"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>&quot;%1&quot; 스크립트가 &quot;%2&quot; 파일을 열고자 하지만 권한이 없습니다. 그래도 파일을 열겠습니까?</translation>
     </message>
