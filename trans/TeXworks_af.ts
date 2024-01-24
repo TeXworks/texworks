@@ -278,7 +278,7 @@
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="539"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>Laai van lêer &quot;%1&quot; het misluk; miskien is dit nie &apos;n geldige PDF dokument nie. </translation>
+        <translation>Laai van lêer &quot;%1&quot; het misluk; miskien is dit nie &apos;n geldige PDF dokument nie.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="556"/>
@@ -927,7 +927,7 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="504"/>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished">%1 - %2 (%3)</translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="507"/>
@@ -1032,7 +1032,7 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="208"/>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="224"/>
@@ -1044,7 +1044,7 @@ Wil jy voortgaan?</translation>
         <location filename="../src/PrefsDialog.ui" line="564"/>
         <source> px</source>
         <extracomment>cursor width unit</extracomment>
-        <translation>px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="304"/>
@@ -1135,7 +1135,7 @@ Wil jy voortgaan?</translation>
         <location filename="../src/PrefsDialog.ui" line="268"/>
         <location filename="../src/PrefsDialog.ui" line="710"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
@@ -1175,12 +1175,12 @@ Wil jy voortgaan?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="261"/>
         <source>Line Spacing:</source>
-        <translation>Lynspasiëring</translation>
+        <translation>Lynspasiëring:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation>Wyserwydte</translation>
+        <translation>Wyserwydte:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
@@ -1797,18 +1797,18 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>Insert the given text in the top-most TeX editor window (only works if TeXworks is already running)</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg die teks in die boonste TeX redigeerder venster(werk net as TeXworks reeds loop)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>Alias for --insert-text</source>
-        <translation type="unfinished"></translation>
+        <translation>Alias vir --insert-text</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="453"/>
         <location filename="../src/TWApp.cpp" line="476"/>
         <source>About %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Oor %1...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="465"/>
@@ -1846,28 +1846,28 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <translation>Geen toegang tot &quot;%1&quot; nie; is jou blaaier of eposprogram nie dalk verkeerd ingestel nie?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="790"/>
+        <location filename="../src/TWApp.cpp" line="818"/>
         <source>Unable to create window</source>
         <translation>Kan nie venster skep nie</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="791"/>
+        <location filename="../src/TWApp.cpp" line="819"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Iets ernstigs is fout: %1 kon geen dokumentvenster skep nie. Die program sluit nou.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="843"/>
-        <location filename="../src/TWApp.cpp" line="858"/>
+        <location filename="../src/TWApp.cpp" line="871"/>
+        <location filename="../src/TWApp.cpp" line="886"/>
         <source>Open File</source>
         <translation>Maak lêer oop</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1038"/>
+        <location filename="../src/TWApp.cpp" line="1066"/>
         <source>No default binary directory found</source>
         <translation>Geen verstekvakkie vir programme is gevind nie</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1039"/>
+        <location filename="../src/TWApp.cpp" line="1067"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Geeneen van die gedefinieerde vakkies vir TeX-verwante programme is gevind nie. &lt;p&gt;&lt;small&gt;Om &apos;n proses te kan uitvoer moet jy die programbevattende vakkie(s) in jou TeX-distribusie instel in die Lettersetgedeelte van die Voorkeure.&lt;/small&gt;</translation>
     </message>
@@ -1925,17 +1925,17 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <translation>&lt;a href=&quot;mailto:jhsh@sun.ac.za&quot;&gt;Jannie Hofmeyr&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1420"/>
+        <location filename="../src/TWApp.cpp" line="1448"/>
         <source>Unable to find help file.</source>
         <translation>Kan nie helplêer vind nie.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1539"/>
+        <location filename="../src/TWApp.cpp" line="1567"/>
         <source>Permission request</source>
         <translation>Permissie versoek</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1540"/>
+        <location filename="../src/TWApp.cpp" line="1568"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Die skrip &quot;%1&quot; probeer om die lêer &quot;%2&quot; oop te maak sonder voldoende permissies. Wil jy die lêer oopmaak?</translation>
     </message>
