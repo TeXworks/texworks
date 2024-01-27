@@ -927,7 +927,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="504"/>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished">%1 - %2 (%3)</translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="551"/>
@@ -1103,7 +1103,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
         <source>Render Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>渲染缓存：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="884"/>
@@ -1313,7 +1313,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation>纸张颜色：</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="790"/>
@@ -1344,7 +1344,7 @@ Do you want to continue?</source>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation> MB</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1753,18 +1753,18 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>Insert the given text in the top-most TeX editor window (only works if TeXworks is already running)</source>
-        <translation type="unfinished"></translation>
+        <translation>在最顶部 TeX 编辑器窗口插入给定文本（只在 TeXworks 已在运行的情况下可用）</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>Alias for --insert-text</source>
-        <translation type="unfinished"></translation>
+        <translation>--insert-text 的别名</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="453"/>
         <location filename="../src/TWApp.cpp" line="476"/>
         <source>About %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>关于 %1...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="465"/>
@@ -1789,7 +1789,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/TWApp.cpp" line="488"/>
         <source>&lt;br&gt;Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;%1 版</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="491"/>

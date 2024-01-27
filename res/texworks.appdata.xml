@@ -281,6 +281,21 @@
 			TeXworks med ostalim ponuja vgrajen pregledovalnik PDF-jev, sinhronizacijo med
 			izvorno kodo in PDF-jem ter razširljivost s skriptami.
 		</p>
+		<p xml:lang="zh_CN">
+			TeXworks 是一款使用 TeX（LaTeX、ConTeXt 等）创作文档的环境，并提供了基于
+			Unicode 的、对 TeX 有感知的编辑器、集成 PDF 浏览器和适合非专业用户的清爽简洁的用户界面。
+		</p>
+		<p xml:lang="zh_CN">
+			TeXworks 受到 Dick Koch 为 Mac OS X 开发的获奖的 TeXShop
+			程序启发，该程序让广泛的社区用户能够得到高质量的 TeX 排版工具，而无需技术要求或面对复杂界面。
+			TeXworks 的目标是向其它平台的用户提供一款类似的集成而易用的环境，尤其注重
+			GNU/Linux 平台和 Windows 操作系统。
+		</p>
+		<p xml:lang="zh_CN">
+			TeXworks 的主要功能包括集成的 PDF 预览工具、在 TeX 文件和 PDF
+			输出之间的同步以及可扩展的脚本界面。
+		</p>
+
 	</description>
 
 	<categories>

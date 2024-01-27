@@ -825,7 +825,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2541"/>
         <source>Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>层</translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="48"/>
@@ -900,7 +900,7 @@
     <message>
         <location filename="../src/InfoWidgets.cpp" line="376"/>
         <source>Producer:</source>
-        <translation type="unfinished"></translation>
+        <translation>创建工具：</translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="377"/>
@@ -1092,31 +1092,31 @@
         <location filename="../src/InfoWidgets.cpp" line="270"/>
         <source>B</source>
         <extracomment>File size: bytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="272"/>
         <source>kB</source>
         <extracomment>File size: kilobytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="274"/>
         <source>MB</source>
         <extracomment>File size: megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="276"/>
         <source>GB</source>
         <extracomment>File size: gigabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="278"/>
         <source>TB</source>
         <extracomment>File size: terabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="371"/>
