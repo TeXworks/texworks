@@ -232,7 +232,7 @@
 		</p>
 		<p xml:lang="pl">
 			TeXworks to środowisko do tworzenia dokumentów opartych na TeXu (LaTeX, ConTeXt,
-			itp) wyposażone w edytor zgodny z TeXem, używający kodowania Unicode,
+			itp.) wyposażone w edytor zgodny z TeXem, używający kodowania Unicode,
 			zintegrowany z przeglądarką PDF, z prostym i jasnym interfejsem przyjaznym
 			zwłaszcza dla  przypadkowych i nie-technicznych użytkowników.
 		</p>
@@ -240,7 +240,7 @@
 			TeXworks jest inspirowany wielokrotnie nagradzanym programem TeXShop Dicka Kocha
 			dla systemu Mac OS X, który sprawił, że wysokiej jakości skład tekstów z
 			wykorzystaniem TeXa stał się dostępny dla szerszej społeczności użytkowników,
-			bez technicznego doświadczenia.. Celem TeXworks jest dostarczenie podobnie
+			bez technicznego doświadczenia. Celem TeXworks jest dostarczenie podobnie
 			zintegrowanego, łatwego w użyciu środowiska dla użytkowników na innych
 			platformach, zwłaszcza GNU/Linux i Windows.
 		</p>
