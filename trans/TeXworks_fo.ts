@@ -245,22 +245,22 @@
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="17"/>
         <source>Select items</source>
-        <translation type="unfinished"></translation>
+        <translation>Vel punkt</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="50"/>
         <source>Select All</source>
-        <translation type="unfinished">Vel alt</translation>
+        <translation>Vel alt</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="57"/>
         <source>Select None</source>
-        <translation type="unfinished">Vel einki</translation>
+        <translation>Vel einki</translation>
     </message>
     <message>
         <location filename="../src/ui/ListSelectDialog.ui" line="64"/>
         <source>Toggle</source>
-        <translation type="unfinished">Skift</translation>
+        <translation>Skift</translation>
     </message>
 </context>
 <context>
@@ -717,7 +717,7 @@
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="754"/>
         <source>Ruler</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineal</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="766"/>
@@ -1116,7 +1116,7 @@ Vilt tú halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
         <source>Render Cache:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ger cache:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="884"/>
@@ -1156,7 +1156,7 @@ Vilt tú halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="557"/>
         <source>Cursor Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vísarabreidd:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="618"/>
@@ -1166,7 +1166,7 @@ Vilt tú halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="689"/>
         <source>Fit to Content Width</source>
-        <translation type="unfinished">Passa til breiddina á innihaldinum</translation>
+        <translation>Passa til breiddina á innihaldinum</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="748"/>
@@ -1191,38 +1191,38 @@ Vilt tú halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="780"/>
         <source>Paper color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pappírslitur:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="790"/>
         <source>Ruler:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineal:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="800"/>
         <source>cm</source>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="805"/>
         <source>in</source>
-        <translation type="unfinished">&quot;</translation>
+        <translation>&quot;</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="810"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="818"/>
         <source>Show</source>
-        <translation type="unfinished">Vís</translation>
+        <translation>Vís</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="850"/>
         <source> MB</source>
         <extracomment>abbreviation of megabytes</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>MB</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="925"/>
@@ -1369,7 +1369,7 @@ Vilt tú halda fram?</translation>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="504"/>
         <source>%1 - %2 (%3)</source>
-        <translation type="unfinished">%1 - %2 (%3)</translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.cpp" line="551"/>
@@ -1381,7 +1381,7 @@ Vilt tú halda fram?</translation>
         <location filename="../src/PrefsDialog.cpp" line="569"/>
         <source>%1 (%2)</source>
         <extracomment>Language (%1) and Country (%2) for TeXworks translations (ex. &quot;Portuguese (Brazil)&quot;)</extracomment>
-        <translation type="unfinished">%1 (%2)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <source> (%1)</source>
@@ -1842,23 +1842,23 @@ Brúka kontekstmenuina fyri at broyta eindirnar.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="307"/>
         <source>Insert the given text in the top-most TeX editor window (only works if TeXworks is already running)</source>
-        <translation type="unfinished"></translation>
+        <translation>Set tekstin inn í tann ovasta TeX-ritilsgluggan (riggar bara um TeXworks longu koyrir)</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="308"/>
         <source>Alias for --insert-text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tøkuheiti fyri --insert-text</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="453"/>
         <location filename="../src/TWApp.cpp" line="476"/>
         <source>About %1...</source>
-        <translation type="unfinished"></translation>
+        <translation>Um %1...</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="488"/>
         <source>&lt;br&gt;Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;Útgáva %1</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="492"/>
@@ -1906,43 +1906,43 @@ Brúka kontekstmenuina fyri at broyta eindirnar.</translation>
         <translation>Atgongd fæst ikki til &quot;%1&quot;. Kanska eru kagin ella teldupostforritið ikki sett upp á rættan hátt?</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="790"/>
+        <location filename="../src/TWApp.cpp" line="818"/>
         <source>Unable to create window</source>
         <translation>Fái ikki gjørt glugga</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="791"/>
+        <location filename="../src/TWApp.cpp" line="819"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
         <translation>Okkurt er heilt galið. %1 fekk ikki gjørt ein skjalaglugga. Forritið sloknar nú.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="843"/>
-        <location filename="../src/TWApp.cpp" line="858"/>
+        <location filename="../src/TWApp.cpp" line="871"/>
+        <location filename="../src/TWApp.cpp" line="886"/>
         <source>Open File</source>
         <translation>Lat fílu upp</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1038"/>
+        <location filename="../src/TWApp.cpp" line="1066"/>
         <source>No default binary directory found</source>
         <translation>Eingin forsett tvítalsmappa funnin</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1039"/>
+        <location filename="../src/TWApp.cpp" line="1067"/>
         <source>None of the predefined directories for TeX-related programs could be found.&lt;p&gt;&lt;small&gt;To run any processes, you will need to set the binaries directory (or directories) for your TeX distribution using the Typesetting tab of the Preferences dialog.&lt;/small&gt;</source>
         <translation>Eingin av teimum upplýstu mappunum til TeX-forrit varð funnin. &lt;p&gt;&lt;small&gt;Fyri at koyra onkra prosess, so mást tú velja mappuna við fílunum til TeX-forritið við spjaldrinum Tekstseting í valmyndini Ásetingar.&lt;/small&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1420"/>
+        <location filename="../src/TWApp.cpp" line="1448"/>
         <source>Unable to find help file.</source>
         <translation>Fann ikki hjálparfíluna.</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1539"/>
+        <location filename="../src/TWApp.cpp" line="1567"/>
         <source>Permission request</source>
         <translation>Umbøn um loyvi</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="1540"/>
+        <location filename="../src/TWApp.cpp" line="1568"/>
         <source>The script &quot;%1&quot; is trying to open the file &quot;%2&quot; without sufficient permissions. Do you want to open the file?</source>
         <translation>Scriptið &quot;%1&quot; roynir at lata fíluna &quot;%2&quot; upp, uttan nøktandi loyvi. Vilt tú lata fíluna upp?</translation>
     </message>
@@ -2972,7 +2972,7 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2781"/>
         <source>%1 is already being processed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 er longu í viðgerð</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2838"/>
@@ -3017,7 +3017,7 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2901"/>
         <source>Go to typesetting</source>
-        <translation type="unfinished"></translation>
+        <translation>Far til tekstseting</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3079"/>
@@ -3140,7 +3140,10 @@ Vilt tú ógilda broytingarnar, og endurlesa fíluna frá diskinum við kotingin
 
 Stack trace:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+Stakkspor:
+</translation>
     </message>
 </context>
 <context>
@@ -3148,38 +3151,38 @@ Stack trace:
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="225"/>
         <source>Internal error</source>
-        <translation type="unfinished">Innanhýsis feilur</translation>
+        <translation>Innanhýsis feilur</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="244"/>
         <source>Failed to execute system command: %1</source>
-        <translation type="unfinished">Fekk ikki koyrt kervisboðini: %1</translation>
+        <translation>Fekk ikki koyrt kervisboðini: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="253"/>
         <source>Error executing system command: %1</source>
-        <translation type="unfinished">Feilur, tá hesi kervisboð vórðu koyrd: %1</translation>
+        <translation>Feilur, tá hesi kervisboð vórðu koyrd: %1</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="274"/>
         <location filename="../src/scripting/ScriptAPI.cpp" line="296"/>
         <source>System command execution is disabled (see Preferences)</source>
-        <translation type="unfinished">Koyring av kervisboðum er óvirkin (sí Ásetingar)</translation>
+        <translation>Koyring av kervisboðum er óvirkin (sí Ásetingar)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="292"/>
         <source>&quot;%1&quot; could not be opened.</source>
-        <translation type="unfinished">Fekk ikki latið &quot;%1&quot; upp.</translation>
+        <translation>Fekk ikki latið &quot;%1&quot; upp.</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="338"/>
         <source>Reading all files is disabled (see Preferences)</source>
-        <translation type="unfinished">Lesing av øllum fílum er óvirkin (sí Ásetingar)</translation>
+        <translation>Lesing av øllum fílum er óvirkin (sí Ásetingar)</translation>
     </message>
     <message>
         <location filename="../src/scripting/ScriptAPI.cpp" line="346"/>
         <source>The file &quot;%1&quot; could not be opened for reading</source>
-        <translation type="unfinished">Fekk ikki latið fíluna &quot;%1&quot; upp at lesa</translation>
+        <translation>Fekk ikki latið fíluna &quot;%1&quot; upp at lesa</translation>
     </message>
 </context>
 <context>
@@ -3187,27 +3190,27 @@ Stack trace:
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="35"/>
         <source>Confirm file deletion</source>
-        <translation type="unfinished">Vátta strikan av fílu</translation>
+        <translation>Vátta strikan av fílu</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="36"/>
         <source>Auxiliary files to be deleted:</source>
-        <translation type="unfinished">Hjálparfílur, sum skulu strikast:</translation>
+        <translation>Hjálparfílur, sum verða strikaðar:</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="37"/>
         <source>Delete</source>
-        <translation type="unfinished">Strika</translation>
+        <translation>Strika</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="58"/>
         <source>Unable to delete</source>
-        <translation type="unfinished">Fái ikki strika</translation>
+        <translation>Fái ikki strika</translation>
     </message>
     <message>
         <location filename="../src/ui/RemoveAuxFilesDialog.cpp" line="59"/>
         <source>Some of the auxiliary files could not be removed. Perhaps you don&apos;t have permission to delete them.</source>
-        <translation type="unfinished">Summar av hjálparfílunum kundu ikki strikast. Kanska hevur tú ikki rættindi til at strika tær.</translation>
+        <translation>Summar av hjálparfílunum kundu ikki strikast. Kanska tú ikki hevur rættindi til at strika tær.</translation>
     </message>
 </context>
 <context>
@@ -3217,7 +3220,7 @@ Stack trace:
         <source>Drag the ruler or change the value to match real world lengths.
 Common paper sizes are marked as well (you may need to resize the dialog window to see them).
 Use the context menu to change the units.</source>
-        <translation type="unfinished">Drag linjuna ella broyt talið fyri at hóska til veruligar longdir.
+        <translation>Drag linjuna ella broyt talið so tað hóskar til veruligar longdir.
 Vanligar pappírsstøddir eru eisini merktar (tú verður kanska noydd til at broyta støddina á glugganum fyri at síggja tær).
 Brúka kontekstmenuina fyri at broyta eindirnar.</translation>
     </message>
@@ -3225,31 +3228,31 @@ Brúka kontekstmenuina fyri at broyta eindirnar.</translation>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="82"/>
         <source> dpi</source>
         <extracomment>dots per inch</extracomment>
-        <translation type="unfinished"> prikkar per tumma (dpi)</translation>
+        <translation> prikkar per tumma (dpi)</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="85"/>
         <source>DIN A4</source>
-        <translation type="unfinished">DIN A4</translation>
+        <translation>DIN A4</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="86"/>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="90"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="96"/>
         <source>cm</source>
         <extracomment>this refers to the length unit of centimeters</extracomment>
-        <translation type="unfinished">cm</translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="92"/>
         <location filename="../src/ui/ScreenCalibrationWidget.cpp" line="102"/>
         <source>in</source>
         <extracomment>this refers to the length unit of inches</extracomment>
-        <translation type="unfinished">&quot;</translation>
+        <translation>&quot;</translation>
     </message>
 </context>
 <context>
@@ -3257,12 +3260,12 @@ Brúka kontekstmenuina fyri at broyta eindirnar.</translation>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation type="unfinished">FEILUR: feilkota %1</translation>
+        <translation>FEILUR: feilkota %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
         <source>ERROR: exit code %1</source>
-        <translation type="unfinished">FEILUR: endakota %1</translation>
+        <translation>FEILUR: endakota %1</translation>
     </message>
 </context>
 </TS>

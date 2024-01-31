@@ -6,32 +6,32 @@
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="14"/>
         <source>Edit guideline...</source>
-        <translation type="unfinished"></translation>
+        <translation>Rættanarvegleiðing...</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="22"/>
         <source>Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Síða:</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="36"/>
         <source>Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stað:</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="59"/>
         <source>cm</source>
-        <translation type="unfinished"></translation>
+        <translation>cm</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="64"/>
         <source>in</source>
-        <translation type="unfinished">t</translation>
+        <translation>&quot;</translation>
     </message>
     <message>
         <location filename="../src/GuidelineEditDialog.ui" line="69"/>
         <source>bp</source>
-        <translation type="unfinished"></translation>
+        <translation>bp</translation>
     </message>
 </context>
 <context>
@@ -825,7 +825,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2541"/>
         <source>Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Løg</translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="48"/>
