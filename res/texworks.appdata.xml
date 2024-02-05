@@ -150,17 +150,17 @@
 			scripts extensible.
 		</p>
 		<p xml:lang="it">
-			TeXworks è un ambiente completo per la creazione, la gestione e la manipolazione di
+			TeXworks è un ambiente completo per la creazione, la gestione e la manipolazione
 			di documenti basati su TeX e derivati (LaTex, ConTeXt, etc). E'  dotato di un proprio
 			editor compatibile con lo standard Unicode, di un visualizzatore di PDF integrato e di
-			una interfaccia semplice e comprensibile, accessibile a ogni tipologia di utente.
+			un'interfaccia semplice e comprensibile, accessibile a ogni tipologia di utente.
 		</p>
 		<p xml:lang="it">
 			TeXworks è ispirato a TeXShop, il celebrato programma di Dick Koch per Mac OS X, che ha
 			consentito a una vasta comunità di utenti di cimentarsi con la qualità di composizione
 			tipografica offerta da TeX senza farsi impressionare dai suoi aspetti più ostici.
 			Lo scopo di TeXworks è offrire agli utenti di altri sistemi operativi, GNU/Linux e
-			Windows in primis, lo stesso tipo di approccioi amichevole.
+			Windows in primis, lo stesso tipo di approccio amichevole.
 		</p>
 		<p xml:lang="it">
 			Tra le caratteristiche principali di TeXworks spiccano il visualizzatore integrato di file PDF,
