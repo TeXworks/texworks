@@ -1,3 +1,25 @@
+Release 0.6.9 (TL'24) [February 2024]
+	* Add support for PDF layers
+	* Add support for "--insert-text" and "--insert-cite" command line options
+	* Enable customization of which columns are shown in the "Insert
+	  Citations..." dialog
+	* Enable customization of the default citation command used by the "Insert
+	  Citations..." dialog
+	* Add dtx tag patterns
+	* Improve command line parsing
+
+	* Improve the "message to the mailing list" template text
+	* Update translations
+	* Refactor and modernize parts of the code
+	* Update the libraries for the pre-built binaries
+
+	* Fix the limited range of possible guideline positions
+	* Fix handling of existing \cite commands when using the "Insert
+	  Citations..." dialog
+	* Fix searching in the PDF preview
+	* Fix selecting text in the PDF preview
+	* Fix potentially garbled unicode output in the console window
+
 Release 0.6.8 (TL'23) [February 2023]
 	* Make the maximum RAM usage of the PDF previewer configurable (and reduce
 	  the default to 256 MiB)
