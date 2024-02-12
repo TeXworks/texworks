@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2022  Stefan Löffler
+	Copyright (C) 2019-2023  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 
 #include "Utils_test.h"
 
-#include "SignalCounter.h"
 #include "utils/CommandlineParser.h"
 #include "utils/FileVersionDatabase.h"
 #include "utils/FullscreenManager.h"
@@ -70,7 +69,6 @@ bool operator==(const FileVersionDatabase & db1, const FileVersionDatabase & db2
 } // namespace Utils
 } // namespace Tw
 
-
 namespace UnitTest {
 
 class FullscreenManager : public Tw::Utils::FullscreenManager
@@ -86,6 +84,9 @@ public:
 void TestUtils::initTestCase()
 {
 	QStandardPaths::setTestModeEnabled(true);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	qRegisterMetaType<QProcess::ExitStatus>("QProcess::ExitStatus");
+#endif
 }
 
 void TestUtils::cleanupTestCase()
@@ -165,7 +166,11 @@ void TestUtils::FileVersionDatabase_save()
 void TestUtils::SystemCommand_wait()
 {
 	Tw::Utils::SystemCommand cmd(this);
-	SignalCounter spy(&cmd, static_cast<void (Tw::Utils::SystemCommand::*)(int, QProcess::ExitStatus)>(&Tw::Utils::SystemCommand::finished));
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QSignalSpy spy(&cmd, SIGNAL(finished(int, QProcess::ExitStatus)));
+#else
+	QSignalSpy spy(&cmd, static_cast<void (Tw::Utils::SystemCommand::*)(int, QProcess::ExitStatus)>(&Tw::Utils::SystemCommand::finished));
+#endif
 
 	QVERIFY(spy.isValid());
 
@@ -267,7 +272,16 @@ void TestUtils::CommandLineParser_parse()
 		QCOMPARE(clp.getPrevSwitch(), -1);
 	}
 	{
-		Tw::Utils::CommandlineParser clp(QStringList({exe, QStringLiteral("--oLong=asdf"), QStringLiteral("-o=ghjk"), QStringLiteral("qwerty"), QStringLiteral("-s"), QStringLiteral("--sLong")}));
+		Tw::Utils::CommandlineParser clp(QStringList({exe,
+			QStringLiteral("--oLong=asdf"),
+			QStringLiteral("-o=ghjk"),
+			QStringLiteral("qwerty"),
+			QStringLiteral("-s"),
+			QStringLiteral("--sLong"),
+			QStringLiteral("--oLong"), QStringLiteral("xcvb"),
+			QStringLiteral("-o"), QStringLiteral("vbnm"),
+			QStringLiteral("uiop")}
+		));
 		clp.registerSwitch(QStringLiteral("sLong"), QString(), QStringLiteral("s"));
 		clp.registerOption(QStringLiteral("oLong"), QString(), QStringLiteral("o"));
 		QVERIFY(clp.parse());
@@ -278,6 +292,15 @@ void TestUtils::CommandLineParser_parse()
 			QCOMPARE(item.type, Tw::Utils::CommandlineParser::Commandline_Argument);
 			QCOMPARE(item.longName, QString());
 			QCOMPARE(item.value, QVariant(QStringLiteral("qwerty")));
+			QVERIFY(item.processed == false);
+		}
+		int nextArg2 = clp.getNextArgument(nextArg);
+		QCOMPARE(nextArg2, 7);
+		{
+			const Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(nextArg2);
+			QCOMPARE(item.type, Tw::Utils::CommandlineParser::Commandline_Argument);
+			QCOMPARE(item.longName, QString());
+			QCOMPARE(item.value, QVariant(QStringLiteral("uiop")));
 			QVERIFY(item.processed == false);
 		}
 		int nextOpt = clp.getNextOption(QStringLiteral("oLong"));
@@ -298,7 +321,25 @@ void TestUtils::CommandLineParser_parse()
 			QCOMPARE(item.value, QVariant(QStringLiteral("ghjk")));
 			QVERIFY(item.processed == false);
 		}
-		QCOMPARE(clp.getNextOption(QStringLiteral("oLong"), nextOpt2), -1);
+		int nextOpt3 = clp.getNextOption(QStringLiteral("oLong"), nextOpt2);
+		QCOMPARE(nextOpt3, 5);
+		{
+			const Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(nextOpt3);
+			QCOMPARE(item.type, Tw::Utils::CommandlineParser::Commandline_Option);
+			QCOMPARE(item.longName, QStringLiteral("oLong"));
+			QCOMPARE(item.value, QVariant(QStringLiteral("xcvb")));
+			QVERIFY(item.processed == false);
+		}
+		int nextOpt4 = clp.getNextOption(QStringLiteral("oLong"), nextOpt3);
+		QCOMPARE(nextOpt4, 6);
+		{
+			const Tw::Utils::CommandlineParser::CommandlineItem & item = clp.at(nextOpt4);
+			QCOMPARE(item.type, Tw::Utils::CommandlineParser::Commandline_Option);
+			QCOMPARE(item.longName, QStringLiteral("oLong"));
+			QCOMPARE(item.value, QVariant(QStringLiteral("vbnm")));
+			QVERIFY(item.processed == false);
+		}
+		QCOMPARE(clp.getNextOption(QStringLiteral("oLong"), nextOpt4), -1);
 
 		int nextSwitch = clp.getNextSwitch(QStringLiteral("sLong"));
 		QCOMPARE(nextSwitch, 3);
@@ -398,7 +439,8 @@ void TestUtils::FullscreenManager()
 		m.addShortcut(QKeySequence(Qt::Key_F), SLOT(update()));
 		QCOMPARE(m.shortcuts().count(), 0);
 
-		QMouseEvent e(QMouseEvent::Move, {0, 0}, Qt::NoButton, Qt::NoButton, {});
+		const QPoint mousePos{0, 0};
+		QMouseEvent e(QMouseEvent::Move, mousePos, mousePos, Qt::NoButton, Qt::NoButton, {});
 		m.mouseMoveEvent(&e);
 	}
 	{
@@ -409,6 +451,7 @@ void TestUtils::FullscreenManager()
 #else
 		QSignalSpy spy(&m, &::UnitTest::FullscreenManager::fullscreenChanged);
 #endif
+		QVERIFY(spy.isValid());
 
 		w.setAttribute(Qt::WA_TranslucentBackground);
 		w.setMenuBar(new QMenuBar);
@@ -417,8 +460,8 @@ void TestUtils::FullscreenManager()
 
 		w.show();
 		QCoreApplication::processEvents();
-
-		QVERIFY(spy.isValid());
+		// Ensure the window is properly shown/activated/polished
+		spy.wait(m.timeout());
 
 		QCOMPARE(m.isFullscreen(), false);
 
@@ -441,8 +484,10 @@ void TestUtils::FullscreenManager()
 
 		if (!w.menuBar()->isNativeMenuBar()) {
 			constexpr int threshold = 10;
-			QMouseEvent mouseOver(QMouseEvent::Move, {0, threshold}, Qt::NoButton, Qt::NoButton, {});
-			QMouseEvent mouseOut(QMouseEvent::Move, {0, qMax(threshold, w.menuBar()->height()) + 1.}, Qt::NoButton, Qt::NoButton, {});
+			const QPoint overPos{0, threshold};
+			const QPoint outPos{0, qMax(threshold, w.menuBar()->height()) + 1};
+			QMouseEvent mouseOver(QMouseEvent::Move, overPos, overPos, Qt::NoButton, Qt::NoButton, {});
+			QMouseEvent mouseOut(QMouseEvent::Move, outPos, outPos, Qt::NoButton, Qt::NoButton, {});
 
 			// Hover over and move away quickly (should not trigger the menubar)
 			m.mouseMoveEvent(&mouseOver);

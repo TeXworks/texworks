@@ -25,10 +25,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build
-      # Use unconfined `docker run` instead of (confined) `docker build` as
-      # the latter blocks faccessat2 calls required by the latest pacman
-      run: docker run --security-opt seccomp=unconfined --volume $(pwd):/home/tw archlinux /bin/sh -c "/home/tw/.github/workflows/build.arch-qt6"
-#     run: docker build -f .github/workflows/Dockerfile.arch-qt6 .
+      run: docker build -f .github/workflows/Dockerfile.arch-qt6 .
 
 ################################################################################
 
@@ -119,7 +116,8 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
-        modules: qtscript
+        version: 6.5.*
+        modules: qt5compat
 
       # Strawberry perl comes with all sorts of libraries (without headers) that
       # can wreak havoc when building some of the dependencies
@@ -132,7 +130,7 @@ jobs:
         cmake --build "${{ runner.workspace }}/tw-deps-build" --config Release
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' -DCMAKE_PREFIX_PATH="${{ runner.workspace }}/tw-deps" -Dgp_tool='none'
+      run: cmake -B build -DTW_BUILD_ID='github' -DCMAKE_PREFIX_PATH="${{ runner.workspace }}/tw-deps" -Dgp_tool='none' -DQT_DEFAULT_MAJOR_VERSION=6
 
     - name: Build
       run: cmake --build build --config Release
@@ -141,7 +139,7 @@ jobs:
       run: |
         cmake -E copy_directory build/share build/Release/share
         cd "${{ runner.workspace }}/tw-deps/bin"
-        cmake -E copy freetype.dll lcms2.dll libhunspell.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt5.dll tiff.dll zlib1.dll "${{ github.workspace }}/build/Release/"
+        cmake -E copy freetype.dll lcms2.dll libhunspell.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt6.dll tiff.dll zlib1.dll "${{ github.workspace }}/build/Release/"
 
     - name: Test
       run: ctest -V -C Release
@@ -172,7 +170,7 @@ jobs:
         brew link --force poppler-qt5
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt5"
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt@5"
 
     - name: Build
       run: make -j

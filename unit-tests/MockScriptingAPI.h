@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2022  Stefan Löffler
+	Copyright (C) 2019-2023  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -19,8 +19,8 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "scripting/Script.h"
 #include "scripting/ScriptAPIInterface.h"
+#include "scripting/ScriptObject.h"
 
 #include <QObject>
 
@@ -39,7 +39,7 @@ public:
 class MockAPI : public QObject, public ScriptAPIInterface
 {
 	Q_OBJECT
-	Script * _script;
+	ScriptObject * _scriptObject;
 	QVariant _result;
 	MockTarget * _target;
 
@@ -49,14 +49,14 @@ class MockAPI : public QObject, public ScriptAPIInterface
 	Q_PROPERTY(QObject * script READ GetScript)
 
 public:
-	MockAPI(Script * script, MockTarget * target) : _script(script), _target(target) { }
-	QObject* clone() const override { return new MockAPI(_script, _target); }
+	MockAPI(ScriptObject * scriptObject, MockTarget * target) : _scriptObject(scriptObject), _target(target) { }
+	QObject* clone() const override { return new MockAPI(_scriptObject, _target); }
 
 	QObject* self() override { return this; }
 
 	QObject* GetApp() override { return this; }
 	QObject* GetTarget() override { return _target; }
-	QObject* GetScript() override { return _script; }
+	QObject* GetScript() override { return _scriptObject; }
 	QVariant& GetResult() override { return _result; }
 	void SetResult(const QVariant& rval) override { _result = rval; }
 	int strlen(const QString& str) const override { return static_cast<int>(str.length()); }

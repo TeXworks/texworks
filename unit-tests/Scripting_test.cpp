@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2022  Stefan Löffler
+	Copyright (C) 2019-2023  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -281,13 +281,13 @@ void TestScripting::parseHeader()
 
 void TestScripting::mocks()
 {
-	Script * s = ECMAScriptInterface(this).newScript(QString());
+	ScriptObject so{std::unique_ptr<Script>(ECMAScriptInterface(this).newScript(QString()))};
 	MockTarget target;
-	MockAPI api(s, &target);
+	MockAPI api(&so, &target);
 
 	QCOMPARE(api.self(), &api);
 	QCOMPARE(api.GetApp(), &api);
-	QCOMPARE(api.GetScript(), s);
+	QCOMPARE(api.GetScript(), &so);
 
 	QCOMPARE(api.GetResult(), QVariant());
 	{
@@ -346,8 +346,6 @@ void TestScripting::mocks()
 	QVERIFY(api.mayExecuteSystemCommand(QString(), nullptr) == false);
 	QVERIFY(api.mayWriteFile(QString(), nullptr) == false);
 	QVERIFY(api.mayReadFile(QString(), nullptr) == false);
-
-	delete s;
 }
 
 void TestScripting::execute()
@@ -355,55 +353,55 @@ void TestScripting::execute()
 #if WITH_QTSCRIPT
 	JSScriptInterface jsi(this);
 
-	QSharedPointer<Script> js1 = QSharedPointer<Script>(jsi.newScript(QStringLiteral("does-not-exist")));
-	QSharedPointer<Script> js2 = QSharedPointer<Script>(jsi.newScript(QStringLiteral("script1.js")));
-	QSharedPointer<Script> js3 = QSharedPointer<Script>(jsi.newScript(QStringLiteral("script2.js")));
+	ScriptObject js1{std::unique_ptr<Script>(jsi.newScript(QStringLiteral("does-not-exist")))};
+	ScriptObject js2{std::unique_ptr<Script>(jsi.newScript(QStringLiteral("script1.js")))};
+	ScriptObject js3{std::unique_ptr<Script>(jsi.newScript(QStringLiteral("script2.js")))};
 
 	{
 		MockTarget target;
-		MockAPI api(js1.data(), &target);
-		QVERIFY(js1->run(api) == false);
+		MockAPI api(&js1, &target);
+		QVERIFY(js1.run(api) == false);
 	}
 	{
 		MockTarget target;
-		MockAPI api(js2.data(), &target);
-		QVERIFY(js2->run(api));
+		MockAPI api(&js2, &target);
+		QVERIFY(js2.run(api));
 		QCOMPARE(qobject_cast<MockTarget*>(api.GetTarget())->text, QStringLiteral("It works!"));
 		QCOMPARE(api.GetResult(), QVariant(QVariantList({1, 2, 3})));
 	}
 	{
 		MockTarget target;
-		MockAPI api(js3.data(), &target);
-		QVERIFY(js3->run(api) == false);
+		MockAPI api(&js3, &target);
+		QVERIFY(js3.run(api) == false);
 		QCOMPARE(api.GetResult(), QVariant(QStringLiteral("an exception")));
 	}
 #endif
 
 	ECMAScriptInterface esi(this);
 
-	QSharedPointer<Script> es1 = QSharedPointer<Script>(esi.newScript(QStringLiteral("does-not-exist")));
-	QSharedPointer<Script> es2 = QSharedPointer<Script>(esi.newScript(QStringLiteral("script1.js")));
-	QSharedPointer<Script> es3 = QSharedPointer<Script>(esi.newScript(QStringLiteral("script2.js")));
+	ScriptObject es1{std::unique_ptr<Script>(esi.newScript(QStringLiteral("does-not-exist")))};
+	ScriptObject es2{std::unique_ptr<Script>(esi.newScript(QStringLiteral("script1.js")))};
+	ScriptObject es3{std::unique_ptr<Script>(esi.newScript(QStringLiteral("script2.js")))};
 
 	{
 		MockTarget target;
-		MockAPI api(es1.data(), &target);
-		QVERIFY(es1->run(api) == false);
+		MockAPI api(&es1, &target);
+		QVERIFY(es1.run(api) == false);
 	}
 	{
 		MockTarget target;
-		MockAPI api(es2.data(), &target);
-		QVERIFY(es2->run(api));
+		MockAPI api(&es2, &target);
+		QVERIFY(es2.run(api));
 		QCOMPARE(qobject_cast<MockTarget*>(api.GetTarget())->text, QStringLiteral("It works!"));
 		QCOMPARE(api.GetResult(), QVariant(QVariantList({1, 2, 3})));
 	}
 	{
 		MockTarget target;
-		MockAPI api(es3.data(), &target);
+		MockAPI api(&es3, &target);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 		QEXPECT_FAIL("", "Script exceptions are not handled correctly until Qt6", Continue);
 #endif
-		QVERIFY(es3->run(api) == false);
+		QVERIFY(es3.run(api) == false);
 		QCOMPARE(api.GetResult(), QVariant(QStringLiteral("an exception")));
 	}
 }

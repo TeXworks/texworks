@@ -23,7 +23,7 @@
 #       └── packaging
 #           ├── <a href="CMake/packaging/CMakeLists.html">CMakeLists.txt</a>
 #           └── mac
-#               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.cmake.in</a>
+#               └── <a href="CMake/packaging/mac/MacPackagingTasks.cmake.html">MacPackagingTasks.in.cmake</a>
 # </pre>
 #
 # Using CMake as a buildsystem offers some nice advantages:
@@ -51,37 +51,11 @@
 # Setup and User Options
 # ======================
 
+# CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1...3.28)
+
 # Set project name.
 PROJECT(TeXworks)
-
-# CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
-CMAKE_POLICY(VERSION 3.1)
-
-# Silence warning about linking to qtmain.lib statically on Windows
-IF(POLICY CMP0020)
-  cmake_policy(SET CMP0020 NEW)
-ENDIF()
-
-# Silence warning about using @rpath on OS X.
-if(POLICY CMP0042)
-  cmake_policy(SET CMP0042 NEW)
-endif()
-
-# Silence warning about ninja custom command byproducts
-if(POLICY CMP0058)
-  cmake_policy(SET CMP0058 NEW)
-endif()
-
-# Prefer newer OpenGL libraries over legacy ones
-if (POLICY CMP0072)
-  cmake_policy(SET CMP0072 NEW)
-endif ()
-
-# Silence warning about option() treating variables differently on the first run
-if(POLICY CMP0077)
-  cmake_policy(SET CMP0077 NEW)
-endif()
 
 SET(CMAKE_COLOR_MAKEFILE ON)
 # Always add the current source and binary directories to the header include
@@ -94,6 +68,11 @@ SET(CMAKE_AUTOUIC TRUE)
 # Make the contents of `CMake/Modules` available. Among other things, this
 # directory contains scripts that locate project components such as hunspell.
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules ${PROJECT_SOURCE_DIR}/modules/QtPDF/CMake/Modules ${CMAKE_MODULE_PATH})
+SET(
+  CMAKE_MODULE_PATH
+  ${PROJECT_SOURCE_DIR}/CMake/Include
+  ${CMAKE_MODULE_PATH}
+)
 
 IF(WIN32 AND MINGW)
   # Ensure that no cpp flags are passed to windres, the Windows resource compiler.
@@ -137,7 +116,7 @@ FILE(STRINGS ${CMAKE_CURRENT_BINARY_DIR}/src/GitRev.h TeXworks_GIT_INFO)
 LIST(GET TeXworks_GIT_INFO 1 TeXworks_GIT_COMMIT)
 STRING(REGEX REPLACE "#define GIT_COMMIT_HASH \"([a-f0-9]+\\*?)\"" "\\1" TeXworks_GIT_HASH "${TeXworks_GIT_COMMIT}")
 LIST(GET TeXworks_GIT_INFO 2 TeXworks_GIT_COMMIT)
-STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9 Z]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
+STRING(REGEX REPLACE "#define GIT_COMMIT_DATE \"([-+:0-9TZ]+)\"" "\\1" TeXworks_GIT_DATE "${TeXworks_GIT_COMMIT}")
 
 
 # Declare Project Options
@@ -281,9 +260,10 @@ if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
 	set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
 else ()
 	# Check for Qt5
-	find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml OPTIONAL_COMPONENTS Script ScriptTools)
+	find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml)
 	set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::Xml Qt5::Qml)
 
+	find_package(Qt5 OPTIONAL_COMPONENTS Script ScriptTools)
 	if (Qt5Script_FOUND AND Qt5ScriptTools_FOUND)
 		list(APPEND QT_LIBRARIES Qt5::ScriptTools Qt5::Script)
 		set(WITH_QTSCRIPT ON)
@@ -295,7 +275,7 @@ else ()
 	endif ()
 
 	if (WITH_TESTS)
-	  find_package(Qt5 OPTIONAL_COMPONENTS Test QUIET)
+	  find_package(Qt5 OPTIONAL_COMPONENTS Test)
 	  if (NOT Qt5Test_FOUND)
 		set(WITH_TESTS OFF)
 	  else ()
@@ -311,7 +291,6 @@ else ()
 	set(QT_VERSION_MAJOR "${Qt5_VERSION_MAJOR}")
 	set(QT_VERSION_MINOR "${Qt5_VERSION_MINOR}")
 	set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
-	set(WITH_QTSCRIPT ON)
 endif ()
 
 # Expose the major version number of Qt to the preprocessor. This is necessary
@@ -342,7 +321,7 @@ SET(TeXworks_LIBS
 # -------------------------------
 
 IF ( WITH_LUA )
-  FIND_PACKAGE(Lua)
+  find_package(TwxLua)
 ENDIF()
 
 IF ( WITH_PYTHON )

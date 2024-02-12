@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2013-2021  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2013-2023  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -86,6 +86,7 @@ PDFViewer::PDFViewer(const QString & pdf_doc, QWidget *parent, Qt::WindowFlags f
   tabifyDockWidget(toc, docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_Fonts, this));
   tabifyDockWidget(toc, docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_Permissions, this));
   tabifyDockWidget(toc, docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_Annotations, this));
+  tabifyDockWidget(toc, docWidget->dockWidget(QtPDF::PDFDocumentView::Dock_OptionalContent, this));
   toc->raise();
 
   QShortcut * goPrevViewRect = new QShortcut(QKeySequence(tr("Alt+Left")), this);

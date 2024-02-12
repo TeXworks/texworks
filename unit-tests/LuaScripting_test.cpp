@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2022  Stefan Löffler
+	Copyright (C) 2019-2023  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@ using namespace Tw::Scripting;
 Q_IMPORT_PLUGIN(LuaScriptInterface)
 #endif
 
-Q_DECLARE_METATYPE(QSharedPointer<Script>)
 Q_DECLARE_METATYPE(Script::ScriptType)
 
 namespace UnitTest {
@@ -100,8 +99,8 @@ void TestLuaScripting::canHandleFile()
 
 void TestLuaScripting::execute()
 {
-	QSharedPointer<Script> s1 = QSharedPointer<Script>(luaSI->newScript(QStringLiteral("does-not-exist")));
-	QSharedPointer<Script> s2 = QSharedPointer<Script>(luaSI->newScript(QStringLiteral("script1.lua")));
+	QSharedPointer<ScriptObject> s1 = QSharedPointer<ScriptObject>(new ScriptObject(std::unique_ptr<Script>(luaSI->newScript(QStringLiteral("does-not-exist")))));
+	QSharedPointer<ScriptObject> s2 = QSharedPointer<ScriptObject>(new ScriptObject(std::unique_ptr<Script>(luaSI->newScript(QStringLiteral("script1.lua")))));
 //	QSharedPointer<Script> s3 = QSharedPointer<Script>(luaSI->newScript(QStringLiteral("script2.js")));
 
 	{

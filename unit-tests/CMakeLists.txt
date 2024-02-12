@@ -14,6 +14,7 @@ add_executable(test_Scripting
 	Scripting_test.h
 	MockScriptingAPI.h
 	"${CMAKE_SOURCE_DIR}/src/scripting/Script.cpp"
+	"${CMAKE_SOURCE_DIR}/src/scripting/ScriptObject.cpp"
 	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScriptInterface.cpp"
 	"${CMAKE_SOURCE_DIR}/src/scripting/ECMAScript.cpp"
 	"${CMAKE_SOURCE_DIR}/src/Settings.cpp"
@@ -35,6 +36,7 @@ IF ( LUA_FOUND AND WITH_LUA )
 		LuaScripting_test.h
 		MockScriptingAPI.h
 		"${CMAKE_SOURCE_DIR}/src/scripting/Script.cpp"
+		"${CMAKE_SOURCE_DIR}/src/scripting/ScriptObject.cpp"
 		"${CMAKE_SOURCE_DIR}/src/Settings.cpp"
 	)
 	target_compile_options(test_LuaScripting PRIVATE ${WARNING_OPTIONS})
@@ -46,15 +48,17 @@ IF ( LUA_FOUND AND WITH_LUA )
 	add_test(NAME test_LuaScripting COMMAND test_LuaScripting WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 ENDIF ()
 
+add_executable(byte_echo_test byte_echo_test.cpp)
+target_compile_options(byte_echo_test PRIVATE ${WARNING_OPTIONS})
 
 # UI
 add_executable(test_UI
 	UI_test.cpp
 	UI_test.h
-	SignalCounter.cpp
 	"${CMAKE_SOURCE_DIR}/src/ui/ClickableLabel.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ClosableTabWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ColorButton.cpp"
+	"${CMAKE_SOURCE_DIR}/src/ui/ConsoleWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ScreenCalibrationWidget.cpp"
 )
@@ -66,7 +70,6 @@ add_test(NAME test_UI COMMAND test_UI WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/tes
 add_executable(test_Utils
 	Utils_test.cpp
 	Utils_test.h
-	SignalCounter.cpp
 	"${CMAKE_SOURCE_DIR}/src/utils/CommandlineParser.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/FileVersionDatabase.cpp"
 	"${CMAKE_SOURCE_DIR}/src/utils/FullscreenManager.cpp"

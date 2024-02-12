@@ -1,37 +1,11 @@
 # Setup and User Options
 # ======================
 
+# CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1...3.28)
+
 # Set project name.
 PROJECT(QtPDF)
-
-# CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
-CMAKE_POLICY(VERSION 3.1)
-
-# Silence warning about linking to qtmain.lib statically on Windows
-IF(POLICY CMP0020)
-  cmake_policy(SET CMP0020 NEW)
-ENDIF()
-
-# Silence warning about using @rpath on OS X.
-if(POLICY CMP0042)
-  cmake_policy(SET CMP0042 NEW)
-endif()
-
-# Silence warning about ninja custom command byproducts
-if(POLICY CMP0058)
-  cmake_policy(SET CMP0058 NEW)
-endif()
-
-# Prefer newer OpenGL libraries over legacy ones
-if (POLICY CMP0072)
-  cmake_policy(SET CMP0072 NEW)
-endif ()
-
-# Silence warning about option() treating variables differently on the first run
-if(POLICY CMP0077)
-  cmake_policy(SET CMP0077 NEW)
-endif()
 
 SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_AUTOMOC TRUE)
@@ -198,6 +172,12 @@ IF( WITH_POPPLERQT )
   if (POPPLER_HAS_OUTLINE)
     add_definitions(-DPOPPLER_HAS_OUTLINE)
   endif (POPPLER_HAS_OUTLINE)
+
+  # LinkOCGState was added to poppler-qt in 0.50
+  CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { Poppler::LinkOCGState* l; return 0; }" POPPLER_HAS_OCGSTATELINK)
+  if (POPPLER_HAS_OCGSTATELINK)
+	add_definitions(-DPOPPLER_HAS_OCGSTATELINK)
+  endif (POPPLER_HAS_OCGSTATELINK)
 ENDIF()
 
 IF( WITH_MUPDF )
@@ -265,11 +245,14 @@ ENDIF()
 # -------
 SET(QTPDF_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/GuidelineEditDialog.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/InfoWidgets.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentScene.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentView.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentWidget.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontDescriptor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageLayout.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageProcessingThread.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageTile.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFRuler.cpp
@@ -285,12 +268,15 @@ SET(QTPDF_SRCS
 
 SET(QTPDF_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/src/GuidelineEditDialog.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/InfoWidgets.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentScene.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentView.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentWidget.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFDocumentTools.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFBackend.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontDescriptor.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFFontInfo.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageLayout.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageProcessingThread.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFPageTile.h
   ${CMAKE_CURRENT_SOURCE_DIR}/src/PDFRuler.h

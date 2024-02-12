@@ -38,9 +38,11 @@ SOURCES = \
   "../src/scripting/JSScriptInterface.cpp" \
   "../src/scripting/Script.cpp" \
   "../src/scripting/ScriptAPI.cpp" \
+  "../src/scripting/ScriptObject.cpp" \
   "../src/ui/ClickableLabel.cpp" \
   "../src/ui/ClosableTabWidget.cpp" \
   "../src/ui/ColorButton.cpp" \
+  "../src/ui/ConsoleWidget.cpp" \
   "../src/ui/LineNumberWidget.cpp" \
   "../src/ui/ListSelectDialog.cpp" \
   "../src/ui/RemoveAuxFilesDialog.cpp" \
@@ -92,9 +94,11 @@ HEADERS = \
   "../src/scripting/ScriptAPI.h" \
   "../src/scripting/ScriptAPIInterface.h" \
   "../src/scripting/ScriptLanguageInterface.h" \
+  "../src/scripting/ScriptObject.h" \
   "../src/ui/ClickableLabel.h" \
   "../src/ui/ClosableTabWidget.h" \
   "../src/ui/ColorButton.h" \
+  "../src/ui/ConsoleWidget.h" \
   "../src/ui/LineNumberWidget.h" \
   "../src/ui/ListSelectDialog.h" \
   "../src/ui/RemoveAuxFilesDialog.h" \
@@ -127,7 +131,7 @@ FORMS = \
   "../src/ui/ListSelectDialog.ui"
 
 RESOURCES = \
-  "../build/src/TeXworks_trans.qrc" \
+  "../build-qt5/src/TeXworks_trans.qrc" \
   "../res/resfiles.qrc" \
   "../res/resources.qrc"
 

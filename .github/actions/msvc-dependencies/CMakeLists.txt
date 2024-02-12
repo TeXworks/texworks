@@ -9,8 +9,8 @@ set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE
 set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(Platform) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
 
 ExternalProject_Add(lua
-	URL "https://www.lua.org/ftp/lua-5.4.4.tar.gz"
-	URL_HASH SHA256=164c7849653b80ae67bec4b7473b884bf5cc8d2dca05653475ec2ed27b9ebf61
+	URL "https://www.lua.org/ftp/lua-5.4.6.tar.gz"
+	URL_HASH SHA256=7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88
 	PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_LIST_DIR}/lua.cmake <SOURCE_DIR>/CMakeLists.txt
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
@@ -34,21 +34,21 @@ ExternalProject_Add(hunspell
 )
 
 ExternalProject_Add(zlib
-	URL "https://github.com/madler/zlib/archive/refs/tags/v1.2.13.tar.gz"
-	URL_HASH SHA256=1525952a0a567581792613a9723333d7f8cc20b87a81f920fb8bc7e3f2251428
+	URL "https://github.com/madler/zlib/archive/refs/tags/v1.3.tar.gz"
+	URL_HASH SHA256=b5b06d60ce49c8ba700e0ba517fa07de80b5d4628a037f4be8ad16955be7a7c0
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
 
 ExternalProject_Add(libpng
-	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.39.tar.gz"
-	URL_HASH SHA256=a00e9d2f2f664186e4202db9299397f851aea71b36a35e74910b8820e380d441
+	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.40.tar.gz"
+	URL_HASH SHA256=62d25af25e636454b005c93cae51ddcd5383c40fa14aa3dae8f6576feb5692c2
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS zlib
 )
 
 ExternalProject_Add(libjpeg
-	URL https://ijg.org/files/jpegsrc.v9e.tar.gz
-	URL_HASH SHA256=4077d6a6a75aeb01884f708919d25934c93305e49f7e3f36db9129320e6f4f3d
+	URL https://ijg.org/files/jpegsrc.v9f.tar.gz
+	URL_HASH SHA256=04705c110cb2469caa79fb71fba3d7bf834914706e9641a4589485c1f832565b
 	CONFIGURE_COMMAND NMAKE /f makefile.vs setupcopy-v16
 	BUILD_COMMAND MSBUILD jpeg.sln ${MSBUILD_ARGS}
 	INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_LIBDIR}
@@ -58,15 +58,15 @@ ExternalProject_Add(libjpeg
 )
 
 ExternalProject_Add(libtiff
-	URL "https://download.osgeo.org/libtiff/tiff-4.5.0.tar.gz"
-	URL_HASH SHA256=c7a1d9296649233979fa3eacffef3fa024d73d05d589cb622727b5b08c423464
+	URL "https://download.osgeo.org/libtiff/tiff-4.6.0.tar.gz"
+	URL_HASH SHA256=88b3979e6d5c7e32b50d7ec72fb15af724f6ab2cbf7e10880c360a77e4b5d99a
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libjpeg
 )
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.14.tar.gz"
-	URL_HASH SHA256=05869269f14e589b0b6d05a76f510c68c67fabb304904d16c6bd818abec80a83
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.16.tar.gz"
+	URL_HASH SHA256=cb4bf968aa66e3d5d16d1f094a99595966d4330cbd6be46c66129f2747ad2b0d
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND MSBUILD Projects\\VC2019\\lcms2_DLL ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
@@ -86,16 +86,16 @@ ExternalProject_Add(libopenjpeg
 )
 
 ExternalProject_Add(freetype
-	URL https://github.com/freetype/freetype/archive/refs/tags/VER-2-13-0.tar.gz
-	URL_HASH SHA256=a683f1091aee95d2deaca9292d976f87415610b8ae1ea186abeebcb08e83ab12
+	URL "https://github.com/freetype/freetype/archive/refs/tags/VER-2-13-2.tar.gz"
+	URL_HASH SHA256=427201f5d5151670d05c1f5b45bef5dda1f2e7dd971ef54f0feaaa7ffd2ab90c
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libpng
 )
 
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-23.02.0.tar.xz"
-	URL_HASH SHA256=3315dda270fe2b35cf1f41d275948c39652fa863b90de0766f6b293d9a558fc9
+	URL "https://poppler.freedesktop.org/poppler-24.01.0.tar.xz"
+	URL_HASH SHA256=c7def693a7a492830f49d497a80cc6b9c85cb57b15e9be2d2d615153b79cae08
 	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
-	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=FALSE -DENABLE_CPP=FALSE -DENABLE_UTILS=FALSE -DENABLE_UNSTABLE_API_ABI_HEADERS=TRUE -DBUILD_MANUAL_TESTS=FALSE -DBUILD_QT5_TESTS=FALSE -DWITH_NSS3=FALSE
+	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_QT5=OFF -DENABLE_BOOST=OFF -DENABLE_CPP=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DBUILD_MANUAL_TESTS=OFF -DBUILD_QT5_TESTS=OFF -DENABLE_NSS3=OFF -DENABLE_GPGME=OFF -DENABLE_LIBCURL=OFF
 	DEPENDS freetype lcms2 libjpeg libpng libtiff
 )

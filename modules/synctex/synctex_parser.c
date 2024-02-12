@@ -773,7 +773,6 @@ static synctex_reader_p synctex_reader_init_with_output_file(synctex_reader_p re
             (char *)_synctex_malloc(reader->size+1); /*  one more character for null termination */
         if (NULL == reader->start) {
             _synctex_error("!  malloc error in synctex_reader_init_with_output_file.");
-        bailey:
 #ifdef SYNCTEX_DEBUG
             return reader;
 #else
@@ -918,6 +917,7 @@ static void _synctex_free_node(synctex_node_p node) {
  *  It is not owned by its parent, unless it is its first child.
  *  This destructor is for all handles.
  */
+/*
 static void _synctex_free_handle_old(synctex_node_p handle) {
   if (handle) {
     _synctex_free_handle_old(__synctex_tree_sibling(handle));
@@ -926,6 +926,7 @@ static void _synctex_free_handle_old(synctex_node_p handle) {
   }
   return;
 }
+*/
 static void _synctex_free_handle(synctex_node_p handle) {
   if (handle) {
     synctex_node_p n = handle;
@@ -3658,7 +3659,7 @@ static char * _synctex_abstract_proxy(synctex_node_p node) {
                synctex_node_line(node),
                _synctex_data_h(node),
                _synctex_data_v(node),
-               node,
+               (void*)node, // Fix GCC warning: %p expects a void* according to POSIX
                _synctex_node_abstract(N));
     }
     return abstract;
@@ -3742,7 +3743,7 @@ static char * _synctex_abstract_proxy_hbox(synctex_node_p node) {
                synctex_node_width(node),
                synctex_node_height(node),
                synctex_node_depth(node),
-               node
+               (void*)node // Fix GCC warning: %p expects a void* according to POSIX
                SYNCTEX_PRINT_CHARINDEX_WHAT);
     }
     return abstract;
@@ -5490,7 +5491,6 @@ content_loop:
 #       pragma mark + SCAN KERN
 #   endif
             ns = _synctex_parse_new_kern(scanner);
-        continue_scan:
             if (ns.status == SYNCTEX_STATUS_OK) {
                 if (child) {
                     _synctex_node_set_sibling(child,ns.node);
@@ -7251,7 +7251,7 @@ SYNCTEX_INLINE static synctex_iterator_p _synctex_iterator_new(synctex_node_p re
         iterator->count0 = iterator->count = count;
     }
     return iterator;
-};
+}
 
 void synctex_iterator_free(synctex_iterator_p iterator) {
     if (iterator) {

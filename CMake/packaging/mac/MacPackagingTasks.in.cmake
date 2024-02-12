@@ -13,11 +13,11 @@ SET(QT_VERSION_MAJOR @QT_VERSION_MAJOR@)
 set(QT_LIBRARY_DIR @QT_LIBRARY_DIR@)
 
 # TeXworks HTML manual: version, matching hash, and derived variables.
-SET(TW_MANUAL_VERSION "20200329154824-18e0761")
-SET(TW_MANUAL_ARCHIVE_SHA256 "d74cd729abd1dd4b892f6e6e99334cb3f01aceffb4836d848fc84fcfdf2b8b8e")
+SET(TW_MANUAL_VERSION "20240209214359-496ef4a")
+SET(TW_MANUAL_ARCHIVE_SHA256 "4eb722d214068b38972d1da176db4496d27ca1ca8dd995619d5833cae4b83e9e")
 SET(TW_MANUAL_BASE "TeXworks-manual-html-${TW_MANUAL_VERSION}")
 SET(TW_MANUAL_ARCHIVE "${TW_MANUAL_BASE}.zip")
-SET(TW_MANUAL_ARCHIVE_URL "https://github.com/TeXworks/manual/releases/download/2020-03-29/${TW_MANUAL_ARCHIVE}")
+SET(TW_MANUAL_ARCHIVE_URL "https://github.com/TeXworks/manual/releases/download/2024-02-09/${TW_MANUAL_ARCHIVE}")
 
 # This `IF` statement ensures that the following commands are executed only when
 # CPack is running---i.e. when a user executes `make package` but not `make install`

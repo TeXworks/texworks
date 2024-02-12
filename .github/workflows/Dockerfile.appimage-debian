@@ -15,11 +15,11 @@
 
 FROM debian:10 as build-stage
 
-ARG CMAKE_VERSION=3.25.2
-ARG FREETYPE_VERSION=2-13-0
+ARG CMAKE_VERSION=3.28.1
+ARG FREETYPE_VERSION=2-13-2
 # Qt open-source LTS version
-ARG QT_VERSION=6.2.4
-ARG POPPLER_VERSION=23.02.0
+ARG QT_VERSION=6.5.3
+ARG POPPLER_VERSION=24.01.0
 ARG HUNSPELL_VERSION=1.7.2
 
 # file is required by appimagetool
@@ -32,7 +32,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install 
 	libbrotli-dev \
 	libbz2-dev \
 	libcairo2-dev \
-	libcurl4-nss-dev \
 	libdbus-1-dev \
 	libegl1-mesa-dev \
 	libfontconfig-dev \
@@ -41,9 +40,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install 
 	libjpeg-dev \
 	liblcms2-dev \
 	liblua5.3-dev \
-	libnss3-dev \
 	libopenjp2-7-dev \
 	libtiff-dev \
+	libxcb-cursor0 \
 	libxcb-icccm4 \
 	libxcb-image0 \
 	libxcb-keysyms1 \
@@ -96,7 +95,7 @@ RUN cd /opt && \
 
 # Install Qt
 # aqt list-qt linux desktop --modules 6.2.4 gcc_64
-RUN pip3 install aqtinstall && \
+RUN pip3 install --upgrade pip && pip3 install aqtinstall && \
 	aqt install-qt linux desktop ${QT_VERSION} --modules qt5compat -O /opt/qt
 
 # Build Freetype
@@ -111,13 +110,15 @@ RUN \
 	make install
 
 # Build Poppler
+# (without boost, nss3, gpgme, curl as those are not needed by TeXworks and are
+# not easily available (in a recent enough version) from the package manager)
 RUN \
 	cd /opt && \
 	wget https://poppler.freedesktop.org/poppler-${POPPLER_VERSION}.tar.xz && \
 	tar -xf poppler-${POPPLER_VERSION}.tar.xz && \
 	mkdir poppler-${POPPLER_VERSION}/build && \
 	cd poppler-${POPPLER_VERSION}/build && \
-	${CMAKE} .. -DCMAKE_PREFIX_PATH=/opt/qt/${QT_VERSION}/gcc_64/lib/cmake/ -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_BOOST=OFF && \
+	${CMAKE} .. -DCMAKE_PREFIX_PATH=/opt/qt/${QT_VERSION}/gcc_64/lib/cmake/ -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_BOOST=OFF -DENABLE_NSS3=OFF -DENABLE_GPGME=OFF -DENABLE_QT5=OFF -DENABLE_LIBCURL=OFF && \
 	make && \
 	make install
 

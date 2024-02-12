@@ -1,0 +1,23 @@
+\documentclass[12pt]{minimal}
+
+\usepackage{ocgx2}
+\usepackage{color}
+
+\begin{document}
+
+{\color{red}\rule{1cm}{1cm}}
+%
+\begin{ocg}{Layer 1}{layer1}{on}
+{\color{green}\rule{1cm}{1cm}}
+\end{ocg}
+\begin{ocg}{Layer 2}{layer2}{off}
+{\color{yellow}\rule{1cm}{1cm}}
+\end{ocg}
+%
+{\color{blue}\rule{1cm}{1cm}}
+
+\switchocg{layer1}{Toggle Layer 1}
+
+\switchocg{layer2}{Toggle Layer 2}
+
+\end{document}

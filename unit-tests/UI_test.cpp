@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2022  Stefan Löffler
+	Copyright (C) 2019-2023  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -20,14 +20,15 @@
 */
 #include "UI_test.h"
 
-#include "SignalCounter.h"
 #include "ui/ClickableLabel.h"
 #include "ui/ColorButton.h"
+#include "ui/ConsoleWidget.h"
 #include "ui/ClosableTabWidget.h"
 #include "ui/LineNumberWidget.h"
 #include "ui/ScreenCalibrationWidget.h"
 
 #include <QDoubleSpinBox>
+#include <QMouseEvent>
 #include <QTabBar>
 
 namespace UnitTest {
@@ -47,6 +48,13 @@ class ClosableTabWidget : public Tw::UI::ClosableTabWidget
 public:
 	QToolButton * closeButton() { return _closeButton; }
 };
+
+void TestUI::initTestCase()
+{
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	qRegisterMetaType<QMouseEvent*>("QMouseEvent*");
+#endif
+}
 
 void TestUI::LineNumberWidget_bgColor()
 {
@@ -173,7 +181,9 @@ void TestUI::ScreenCalibrationWidget_drag()
 	// i.e., holding down a mouse button while moving. Hence we have to send our
 	// own QMouseEvent.
 	{
-		QMouseEvent me(QEvent::MouseMove, w.rulerRect().bottomRight(), Qt::LeftButton, Qt::LeftButton, {});
+		const QPoint local = w.rulerRect().bottomRight();
+		const QPoint global = w.mapToGlobal(local);
+		QMouseEvent me(QEvent::MouseMove, local, global, Qt::LeftButton, Qt::LeftButton, {});
 		QCoreApplication::instance()->notify(&w, &me);
 	}
 	QVERIFY(w.isDragging());
@@ -203,7 +213,8 @@ void TestUI::ScreenCalibrationWidget_drag()
 	QCOMPARE(spy.count(), 0);
 
 	{
-		QMouseEvent me(QEvent::MouseMove, upPos, Qt::LeftButton, Qt::LeftButton, {});
+		const QPointF global = w.mapToGlobal(upPos);
+		QMouseEvent me(QEvent::MouseMove, upPos, global, Qt::LeftButton, Qt::LeftButton, {});
 		QCoreApplication::instance()->notify(&w, &me);
 	}
 	QVERIFY(w.isDragging());
@@ -265,7 +276,9 @@ void TestUI::ScreenCalibrationWidget_contextMenu()
 	// Click inside the rulerRect
 	QVERIFY(w.contextMenu().isVisible() == false);
 	{
-		QContextMenuEvent cme(QContextMenuEvent::Mouse, w.rulerRect().center());
+		const QPoint local = w.rulerRect().center();
+		const QPoint global = w.mapToGlobal(local);
+		QContextMenuEvent cme(QContextMenuEvent::Mouse, local, global);
 		QCoreApplication::instance()->notify(&w, &cme);
 	}
 	QVERIFY(w.contextMenu().isVisible());
@@ -274,7 +287,9 @@ void TestUI::ScreenCalibrationWidget_contextMenu()
 	// Click outside the rulerRect
 	QVERIFY(w.contextMenu().isVisible() == false);
 	{
-		QContextMenuEvent cme(QContextMenuEvent::Mouse, w.rulerRect().topLeft() - QPoint(1, 1));
+		const QPoint local = w.rulerRect().topLeft() - QPoint(1, 1);
+		const QPoint global = w.mapToGlobal(local);
+		QContextMenuEvent cme(QContextMenuEvent::Mouse, local, global);
 		QCoreApplication::instance()->notify(&w, &cme);
 	}
 	QVERIFY(w.contextMenu().isVisible() == false);
@@ -282,7 +297,9 @@ void TestUI::ScreenCalibrationWidget_contextMenu()
 	// Keypress ("outside the rulerRect")
 	QVERIFY(w.contextMenu().isVisible() == false);
 	{
-		QContextMenuEvent cme(QContextMenuEvent::Keyboard, w.rulerRect().center() - QPoint(1, 1));
+		const QPoint local = w.rulerRect().center() - QPoint(1, 1);
+		const QPoint global = w.mapToGlobal(local);
+		QContextMenuEvent cme(QContextMenuEvent::Keyboard, local, global);
 		QCoreApplication::instance()->notify(&w, &cme);
 	}
 	QVERIFY(w.contextMenu().isVisible());
@@ -300,9 +317,15 @@ void TestUI::ClickableLable_ctor()
 void TestUI::ClickableLabel_click()
 {
 	Tw::UI::ClickableLabel cl;
-	SignalCounter leftCounter(&cl, &Tw::UI::ClickableLabel::mouseLeftClick);
-	SignalCounter middleCounter(&cl, &Tw::UI::ClickableLabel::mouseMiddleClick);
-	SignalCounter rightCounter(&cl, &Tw::UI::ClickableLabel::mouseRightClick);
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QSignalSpy leftCounter(&cl, SIGNAL(mouseLeftClick(QMouseEvent *)));
+	QSignalSpy middleCounter(&cl, SIGNAL(mouseMiddleClick(QMouseEvent *)));
+	QSignalSpy rightCounter(&cl, SIGNAL(mouseRightClick(QMouseEvent *)));
+#else
+	QSignalSpy leftCounter(&cl, &Tw::UI::ClickableLabel::mouseLeftClick);
+	QSignalSpy middleCounter(&cl, &Tw::UI::ClickableLabel::mouseMiddleClick);
+	QSignalSpy rightCounter(&cl, &Tw::UI::ClickableLabel::mouseRightClick);
+#endif
 
 	// Clicking emits appropriate signals
 	QCOMPARE(leftCounter.count(), 0);
@@ -352,7 +375,11 @@ void TestUI::ClickableLabel_doubleClick()
 {
 	Tw::UI::ClickableLabel cl;
 
-	SignalCounter spy(&cl, &Tw::UI::ClickableLabel::mouseDoubleClick);
+#if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
+	QSignalSpy spy(&cl, SIGNAL(mouseDoubleClick(QMouseEvent *)));
+#else
+	QSignalSpy spy(&cl, &Tw::UI::ClickableLabel::mouseDoubleClick);
+#endif
 
 	QVERIFY(spy.isValid());
 	QCOMPARE(spy.count(), 0);
@@ -387,6 +414,62 @@ void TestUI::ClosableTabWidget_resizeEvent()
 	int buttonLeft = w.rect().right() - w.closeButton()->sizeHint().width();
 	QCOMPARE(w.closeButton()->geometry().left(), buttonLeft);
 	QCOMPARE(w.tabBar()->maximumWidth(), buttonLeft);
+}
+
+void TestUI::ConsoleWidget_setProcess()
+{
+	Tw::UI::ConsoleWidget console;
+	QProcess process;
+	QProcess * ptrNull{nullptr};
+	const QString empty{};
+	const QString dummyText{QStringLiteral("Dummy text")};
+
+	QCOMPARE(console.process(), ptrNull);
+	QCOMPARE(console.toPlainText(), empty);
+
+	console.setPlainText(dummyText);
+	console.setProcess(&process, false);
+	QCOMPARE(console.process(), &process);
+	QCOMPARE(console.toPlainText(), dummyText);
+
+	console.setProcess(nullptr, false);
+	QCOMPARE(console.process(), ptrNull);
+	QCOMPARE(console.toPlainText(), dummyText);
+
+	console.setProcess(&process, true);
+	QCOMPARE(console.process(), &process);
+	QCOMPARE(console.toPlainText(), empty);
+}
+
+void TestUI::ConsoleWidget_output()
+{
+	const QString testString{QStringLiteral(u"Hello \u00e4\u20ac\U0001d11e")};
+	const QByteArray utf8Bytes = testString.toUtf8();
+	Tw::UI::ConsoleWidget console;
+	const QString cmd{QDir(QCoreApplication::applicationDirPath()).filePath(QStringLiteral("byte_echo_test"))};
+
+	using size_type = decltype(utf8Bytes.size());
+	for (size_type flushPos = 1; flushPos < utf8Bytes.size(); ++flushPos) {
+		QProcess process;
+		console.setProcess(&process);
+		QString arg;
+		for (size_type pos = 0; pos < flushPos; ++pos) {
+			arg += QStringLiteral("\\x%0").arg(static_cast<unsigned char>(utf8Bytes[pos]), 2, 16, QChar{'0'});
+		}
+		process.start(cmd, {arg});
+		process.waitForStarted();
+		process.waitForFinished();
+
+		arg.clear();
+		for (size_type pos = flushPos; pos < utf8Bytes.size(); ++pos) {
+			arg += QStringLiteral("\\x%0").arg(static_cast<unsigned char>(utf8Bytes[pos]), 2, 16, QChar{'0'});
+		}
+		process.start(cmd, {arg});
+		process.waitForStarted();
+		process.waitForFinished();
+
+		QCOMPARE(console.toPlainText(), testString);
+	}
 }
 
 void TestUI::ColorButton_color()

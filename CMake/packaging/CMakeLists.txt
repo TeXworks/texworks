@@ -6,7 +6,7 @@
 # form `${VARIABLE}` will be left untouched.
 IF ( APPLE )
   CONFIGURE_FILE(
-    ${PROJECT_SOURCE_DIR}/CMake/packaging/mac/MacPackagingTasks.cmake.in
+    ${PROJECT_SOURCE_DIR}/CMake/packaging/mac/MacPackagingTasks.in.cmake
     ${PROJECT_BINARY_DIR}/CPackPackagingTasks.cmake
     @ONLY
   )
@@ -22,8 +22,8 @@ INSTALL(SCRIPT ${PROJECT_BINARY_DIR}/CPackPackagingTasks.cmake)
 set(POPPLERDATA_URL https://poppler.freedesktop.org/poppler-data-0.4.12.tar.gz)
 set(POPPLERDATA_SHA256 c835b640a40ce357e1b83666aabd95edffa24ddddd49b8daff63adb851cdab74)
 
-set(MANUAL_HTML_URL https://github.com/TeXworks/manual/releases/download/2021-03-08/TeXworks-manual-html-20210308173322-7d24168.zip)
-set(MANUAL_HTML_SHA256 b3fea63be210367f24d2d0a70c8e272f107edc4f53e241ec19c61e63eee99569)
+set(MANUAL_HTML_URL https://github.com/TeXworks/manual/releases/download/2024-02-09/TeXworks-manual-html-20240209214359-496ef4a.zip)
+set(MANUAL_HTML_SHA256 4eb722d214068b38972d1da176db4496d27ca1ca8dd995619d5833cae4b83e9e)
 
 set(CPACK_PROJECT_CONFIG_FILE "${CMAKE_SOURCE_DIR}/CMake/packaging/CPackProjectConfig.txt" PARENT_SCOPE)
 
