@@ -6,10 +6,15 @@
 ##Table Of Contents
 -----------------
 [About TeXworks](#about-texworks)
+
 [Getting Started](#getting-started)
+
 [Contribution](#contribution)
+
 [Installation](#installation)
+
 [Building TeXworks](#building-texworks)
+
 [License](#license)
 
 ##About TeXworks
