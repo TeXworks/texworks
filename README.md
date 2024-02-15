@@ -3,7 +3,7 @@
 [![Appveyor](https://ci.appveyor.com/api/projects/status/eb4e9108blt0pehr?svg=true)](https://ci.appveyor.com/project/stloeffler/texworks)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/22d3db26f8a542f08d8da056e6779020)](https://www.codacy.com/gh/TeXworks/texworks/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TeXworks/texworks&amp;utm_campaign=Badge_Grade)
 
-##Table Of Contents
+Table Of Contents
 -----------------
 [About TeXworks](#about-texworks)
 
@@ -17,7 +17,7 @@
 
 [License](#license)
 
-##About TeXworks
+About TeXworks
 ==============
 
 TeXworks is an environment for authoring TeX (LaTeX, ConTeXt, etc) documents,
@@ -30,22 +30,22 @@ of users, without a technical or intimidating face. The goal of TeXworks is to
 deliver a similarly integrated, easy-to-use environment for users on all
 platforms, especially GNU/Linux and Windows.
 
-##Getting Started
+Getting Started
 ---------------
 
 TeXworks is a free and open-source software project. New users are encouraged to leverage this [guide](https://www.tug.org/texworks/#How_can_you_help), outlining the fundamental process of creating, formatting, and generating PDF documents from within TeXworks.
 
-##Contribution
+Contribution
 -------------
 
 TeXworks thrives on an active community, and welcoming contributions is paramount. If you encounter bugs or have suggestions for improvement, please share them on our [issues page](https://github.com/TeXworks/texworks/issues). Additionally, you can engage in discussions with other users and developers via our [mailing list](https://tug.org/mailman/listinfo/texworks). Visit the [development page](https://github.com/TeXworks/texworks) to fork a copy of the codebase and start contributing. Visit our [homepage](ps://www.tug.org/texworks/) for more information. If you are new to contributing to open-source projects, we encourage you to visit this [guide](https://opensource.guide/how-to-contribute/) to help you get started.
 
-##Installation
+Installation
 ------------
 
 Pre-built binaries for Windows, macOS, and Linux are available for immediate download from our official [website](https://www.tug.org/texworks/).
 
-##Building TeXworks
+Building TeXworks
 -----------------
 
 Notes by Jonathan Kew, updated 2011-03-20, 2015-03-29, 2019-03-21, 2020-06-06 by
@@ -82,7 +82,7 @@ pages:
 -   <https://github.com/TeXworks/texworks/wiki/Building-on-Windows-(MinGW)>
 -   <https://github.com/TeXworks/texworks/wiki/Building-on-macOS-(Homebrew)>
 
-##License
+License
 -------
 
 TeXworks is copyright (C) 2007-2024 by Stefan Löffler, Jonathan Kew, and Charlie
