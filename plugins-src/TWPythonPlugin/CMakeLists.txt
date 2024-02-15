@@ -37,13 +37,13 @@ if (NOT MSVC)
 	target_compile_options(TWPythonPlugin PRIVATE -Wno-old-style-cast)
 endif ()
 
-target_include_directories(TWPythonPlugin SYSTEM PRIVATE ${PYTHON_INCLUDE_DIRS})
+target_include_directories(TWPythonPlugin SYSTEM PRIVATE ${Python_INCLUDE_DIRS})
 target_include_directories(TWPythonPlugin PRIVATE ${TeXworks_SOURCE_DIR}/src)
 
 # Specify link libraries even if the plugin is built statically so all the
 # interface properties of the Qt targets (include directories, lib directories,
 # etc.) are available
-TARGET_LINK_LIBRARIES(TWPythonPlugin ${QT_LIBRARIES} ${PYTHON_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+TARGET_LINK_LIBRARIES(TWPythonPlugin ${QT_LIBRARIES} ${Python_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 IF (${BUILD_SHARED_PLUGINS})
   INSTALL(TARGETS TWPythonPlugin
     LIBRARY DESTINATION ${TeXworks_PLUGIN_DIR}
