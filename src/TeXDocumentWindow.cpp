@@ -1454,7 +1454,8 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 	clearFileWatcher();
 
 	{
-		QFile file(fileInfo.absoluteFilePath());
+		QSaveFile file(fileInfo.absoluteFilePath());
+		file.setDirectWriteFallback(true);
 		if (!file.open(QFile::WriteOnly)) {
 			QMessageBox::warning(this, QCoreApplication::applicationName(),
 								 tr("Cannot write file \"%1\":\n%2")
@@ -1480,6 +1481,7 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 								 QMessageBox::Ok);
 			goto notSaved;
 		}
+		file.commit();
 		QApplication::restoreOverrideCursor();
 	}
 
