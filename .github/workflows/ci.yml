@@ -29,6 +29,18 @@ jobs:
 
 ################################################################################
 
+  build-sanitizer:
+    name: Sanitizer (Linux)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Build
+      run: docker build -f .github/workflows/Dockerfile.sanitizer .
+
+################################################################################
+
   coverage-linux:
     name: Coverage (Linux)
     runs-on: ubuntu-latest

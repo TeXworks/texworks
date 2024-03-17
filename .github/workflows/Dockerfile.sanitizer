@@ -1,0 +1,32 @@
+FROM archlinux
+
+RUN pacman --noconfirm -Syu \
+	cmake \
+	gcc \
+	git \
+	make \
+	hunspell \
+	lua \
+	poppler-qt6 \
+	qt6-5compat \
+	qt6-base \
+	qt6-declarative \
+	qt6-tools \
+	gsfonts \
+	poppler-data \
+	xorg-server-xvfb \
+&& pacman --noconfirm -Scc
+
+COPY . /home/tw
+
+# ---------------------- Addr/Leak/UB San
+
+RUN mkdir /home/tw/build-addrsan && cd /home/tw/build-addrsan && \
+cat <<EOF > suppress.txt
+leak:^/usr/lib/
+EOF
+RUN cd /home/tw/build-addrsan && \
+CXXFLAGS="-fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak -fsanitize=undefined -fsanitize-address-use-after-scope" cmake -DQT_DEFAULT_MAJOR_VERSION=6 .. -DCMAKE_BUILD_TYPE=Debug && \
+make && \
+LSAN_OPTIONS=suppressions=suppress.txt xvfb-run ctest -V
+
