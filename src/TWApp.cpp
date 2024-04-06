@@ -1121,49 +1121,27 @@ const QList<Engine> TWApp::getEngineList()
 {
 	if (!engineList) {
 		engineList = std::unique_ptr< QList<Engine> >(new QList<Engine>);
-		bool foundList = false;
-		// check for old engine list in Preferences
-		Tw::Settings settings;
-		int count = settings.beginReadArray(QString::fromLatin1("engines"));
-		if (count > 0) {
-			for (int i = 0; i < count; ++i) {
-				settings.setArrayIndex(i);
+
+		const QDir configDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration")));
+		const QFile toolsFile(configDir.filePath(QString::fromLatin1("tools.ini")));
+		if (toolsFile.exists()) {
+			Tw::Utils::IniConfig toolsSettings(toolsFile.fileName());
+			QStringList toolNames = toolsSettings.childGroups();
+			foreach (const QString& n, toolNames) {
+				toolsSettings.beginGroup(n);
 				Engine eng;
-				eng.setName(settings.value(QString::fromLatin1("name")).toString());
-				eng.setProgram(settings.value(QString::fromLatin1("program")).toString());
-				eng.setArguments(settings.value(QString::fromLatin1("arguments")).toStringList());
-				eng.setShowPdf(settings.value(QString::fromLatin1("showPdf")).toBool());
+				eng.setName(toolsSettings.value(QString::fromLatin1("name")).toString());
+				eng.setProgram(toolsSettings.value(QString::fromLatin1("program")).toString());
+				eng.setArguments(toolsSettings.value(QString::fromLatin1("arguments")).toStringList());
+				eng.setShowPdf(toolsSettings.value(QString::fromLatin1("showPdf")).toBool());
 				engineList->append(eng);
-				settings.remove(QString());
-			}
-			foundList = true;
-			saveEngineList();
-		}
-		settings.endArray();
-		settings.remove(QString::fromLatin1("engines"));
-
-		if (!foundList) { // read engine list from config file
-			QDir configDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration")));
-			QFile toolsFile(configDir.filePath(QString::fromLatin1("tools.ini")));
-			if (toolsFile.exists()) {
-				Tw::Utils::IniConfig toolsSettings(toolsFile.fileName());
-				QStringList toolNames = toolsSettings.childGroups();
-				foreach (const QString& n, toolNames) {
-					toolsSettings.beginGroup(n);
-					Engine eng;
-					eng.setName(toolsSettings.value(QString::fromLatin1("name")).toString());
-					eng.setProgram(toolsSettings.value(QString::fromLatin1("program")).toString());
-					eng.setArguments(toolsSettings.value(QString::fromLatin1("arguments")).toStringList());
-					eng.setShowPdf(toolsSettings.value(QString::fromLatin1("showPdf")).toBool());
-					engineList->append(eng);
-					toolsSettings.endGroup();
-				}
-				foundList = true;
+				toolsSettings.endGroup();
 			}
 		}
-
-		if (!foundList)
+		else {
 			setDefaultEngineList();
+		}
+		Tw::Settings settings;
 		setDefaultEngine(settings.value(QString::fromLatin1("defaultEngine"), QString::fromUtf8(DEFAULT_ENGINE_NAME)).toString());
 	}
 	return *engineList;
