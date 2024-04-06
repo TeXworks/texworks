@@ -22,4 +22,29 @@
 
 namespace Tw {
 
+bool Settings::contains(KeyType key) const
+{
+	return m_s.contains(key);
+}
+
+void Settings::remove(KeyType key)
+{
+	m_s.remove(key);
+}
+
+void Settings::setValue(KeyType key, const QVariant &value)
+{
+	m_s.setValue(key, value);
+}
+
+QVariant Settings::value(KeyType key, const QVariant &defaultValue) const
+{
+	return m_s.value(key, defaultValue);
+}
+
+QString Settings::fileName() const
+{
+	return m_s.fileName();
+}
+
 } // namespace Tw

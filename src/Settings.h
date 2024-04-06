@@ -25,14 +25,30 @@
 
 namespace Tw {
 
-class Settings : public QSettings
+class Settings
 {
-	Q_OBJECT
+	QSettings m_s;
 public:
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	using KeyType = QString;
+#else
+	using KeyType = QAnyStringView;
+#endif
+
 	Settings() = default;
 
-	using QSettings::defaultFormat;
-	using QSettings::setDefaultFormat;
+	bool contains(KeyType key) const;
+	void remove(KeyType key);
+	void setValue(KeyType key, const QVariant & value);
+	QVariant value(KeyType key, const QVariant & defaultValue = QVariant()) const;
+
+	QString fileName() const;
+
+	static QSettings::Format defaultFormat() { return QSettings::defaultFormat(); }
+	static void setDefaultFormat(QSettings::Format format) { QSettings::setDefaultFormat(format); }
+	static void setPath(QSettings::Format format, QSettings::Scope scope, const QString & path) {
+		QSettings::setPath(format, scope, path);
+	}
 };
 
 } // namespace Tw
