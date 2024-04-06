@@ -105,6 +105,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   utils/CommandlineParser.h
                   utils/FileVersionDatabase.h
                   utils/FullscreenManager.h
+                  utils/IniConfig.h
                   utils/ResourcesLibrary.h
                   utils/SystemCommand.h
                   utils/TextCodecs.h

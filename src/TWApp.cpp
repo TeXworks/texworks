@@ -33,6 +33,7 @@
 #include "document/SpellChecker.h"
 #include "scripting/ScriptAPI.h"
 #include "utils/CommandlineParser.h"
+#include "utils/IniConfig.h"
 #include "utils/ResourcesLibrary.h"
 #include "utils/SystemCommand.h"
 #include "utils/TextCodecs.h"
@@ -174,7 +175,7 @@ void TWApp::init()
 	QDir iniPath(appDir.absolutePath());
 	QDir libPath(appDir.absolutePath());
 	if (appDir.exists(QString::fromLatin1(SETUP_FILE_NAME))) {
-		QSettings portable(appDir.filePath(QString::fromLatin1(SETUP_FILE_NAME)), QSettings::IniFormat);
+		Tw::Utils::IniConfig portable(appDir.filePath(QString::fromLatin1(SETUP_FILE_NAME)));
 		if (portable.contains(QString::fromLatin1("inipath"))) {
 			if (iniPath.cd(portable.value(QString::fromLatin1("inipath")).toString())) {
 				Tw::Settings::setDefaultFormat(QSettings::IniFormat);
@@ -1145,7 +1146,7 @@ const QList<Engine> TWApp::getEngineList()
 			QDir configDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration")));
 			QFile toolsFile(configDir.filePath(QString::fromLatin1("tools.ini")));
 			if (toolsFile.exists()) {
-				QSettings toolsSettings(toolsFile.fileName(), QSettings::IniFormat);
+				Tw::Utils::IniConfig toolsSettings(toolsFile.fileName());
 				QStringList toolNames = toolsSettings.childGroups();
 				foreach (const QString& n, toolNames) {
 					toolsSettings.beginGroup(n);
@@ -1172,7 +1173,7 @@ void TWApp::saveEngineList()
 {
 	QDir configDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration")));
 	QFile toolsFile(configDir.filePath(QString::fromLatin1("tools.ini")));
-	QSettings toolsSettings(toolsFile.fileName(), QSettings::IniFormat);
+	Tw::Utils::IniConfig toolsSettings(toolsFile.fileName());
 	toolsSettings.clear();
 	int n = 0;
 	foreach (const Engine& e, *engineList) {

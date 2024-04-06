@@ -34,7 +34,6 @@
 #include <QMenu>
 #include <QMenuBar>
 #endif
-#include <QSettings>
 #include <QStack>
 #include <QString>
 #include <QTextCodec>
