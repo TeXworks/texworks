@@ -5,7 +5,7 @@
 
 
 print_headline "Installing dependencies"
-pacman --noconfirm -S autotools mingw-w64-x86_64-boost mingw-w64-x86_64-freetype mingw-w64-x86_64-openjpeg2 mingw-w64-x86_64-lcms2 mingw-w64-x86_64-libpng mingw-w64-x86_64-libtiff mingw-w64-x86_64-curl mingw-w64-x86_64-lua mingw-w64-x86_64-nss
+pacman --noconfirm -S autotools gettext-devel mingw-w64-x86_64-boost mingw-w64-x86_64-freetype mingw-w64-x86_64-openjpeg2 mingw-w64-x86_64-lcms2 mingw-w64-x86_64-libpng mingw-w64-x86_64-libtiff mingw-w64-x86_64-curl mingw-w64-x86_64-lua mingw-w64-x86_64-nss
 
 # /mingw64/ssl/certs/ca-bundle.crt seems to be invalid (empty)
 # It is installed by mingw-w64-x86_64-ca-certificates, a dependency of curl
