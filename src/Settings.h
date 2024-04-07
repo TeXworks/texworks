@@ -44,10 +44,7 @@ public:
 
 	QString fileName() const;
 
-	static void setDefaultFormat(QSettings::Format format) { QSettings::setDefaultFormat(format); }
-	static void setPath(QSettings::Format format, QSettings::Scope scope, const QString & path) {
-		QSettings::setPath(format, scope, path);
-	}
+	static void setPortableIniPath(const QString & iniPath);
 #if defined(Q_OS_WIN)
 	bool isStoredInRegistry();
 #endif

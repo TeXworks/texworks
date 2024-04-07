@@ -51,7 +51,6 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
-#include <QSettings>
 #include <QString>
 #include <QStringList>
 #include <QTextCodec>
@@ -145,12 +144,6 @@ TWApp::~TWApp()
 
 void TWApp::init()
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-	constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
-#else
-	constexpr auto SkipEmptyParts = Qt::SkipEmptyParts;
-#endif
-
 	QIcon::setThemeName(QStringLiteral("tango-texworks"));
 	QIcon appIcon;
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
@@ -166,42 +159,7 @@ void TWApp::init()
 	setApplicationName(QStringLiteral("TeXworks"));
 	setApplicationVersion(Tw::Utils::VersionInfo::fullVersionString());
 
-	// <Check for portable mode>
-#if defined(Q_OS_DARWIN)
-	QDir appDir(applicationDirPath() + QLatin1String("/../../..")); // move up to dir containing the .app package
-#else
-	QDir appDir(applicationDirPath());
-#endif
-	QDir iniPath(appDir.absolutePath());
-	QDir libPath(appDir.absolutePath());
-	if (appDir.exists(QString::fromLatin1(SETUP_FILE_NAME))) {
-		Tw::Utils::IniConfig portable(appDir.filePath(QString::fromLatin1(SETUP_FILE_NAME)));
-		if (portable.contains(QString::fromLatin1("inipath"))) {
-			if (iniPath.cd(portable.value(QString::fromLatin1("inipath")).toString())) {
-				Tw::Settings::setDefaultFormat(QSettings::IniFormat);
-				Tw::Settings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
-			}
-		}
-		if (portable.contains(QString::fromLatin1("libpath"))) {
-			if (libPath.cd(portable.value(QString::fromLatin1("libpath")).toString())) {
-				Tw::Utils::ResourcesLibrary::setPortableLibPath(libPath.absolutePath());
-			}
-		}
-		if (portable.contains(QString::fromLatin1("defaultbinpaths"))) {
-			defaultBinPaths = std::unique_ptr<QStringList>(new QStringList);
-			*defaultBinPaths = portable.value(QString::fromLatin1("defaultbinpaths")).toString().split(QString::fromLatin1(PATH_LIST_SEP), SkipEmptyParts);
-		}
-	}
-	QString envPath = QString::fromLocal8Bit(getenv("TW_INIPATH"));
-	if (!envPath.isNull() && iniPath.cd(envPath)) {
-		Tw::Settings::setDefaultFormat(QSettings::IniFormat);
-		Tw::Settings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath.absolutePath());
-	}
-	envPath = QString::fromLocal8Bit(getenv("TW_LIBPATH"));
-	if (!envPath.isNull() && libPath.cd(envPath)) {
-		Tw::Utils::ResourcesLibrary::setPortableLibPath(libPath.absolutePath());
-	}
-	// </Check for portable mode>
+	checkPortableMode();
 
 	// Required for TWUtils::getLibraryPath()
 	theAppInstance = this;
@@ -382,6 +340,48 @@ bool TWApp::ensureSingleInstance(const CommandLineData &cld)
 	QObject::connect(&m_IPC, &Tw::InterProcessCommunicator::receivedOpenFile, this, &TWApp::openFile);
 	QObject::connect(&m_IPC, &Tw::InterProcessCommunicator::receivedInsertText, this, &TWApp::insertText);
 	return true;
+}
+
+void TWApp::checkPortableMode()
+{
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
+#else
+	constexpr auto SkipEmptyParts = Qt::SkipEmptyParts;
+#endif
+
+#if defined(Q_OS_DARWIN)
+	QDir appDir(applicationDirPath() + QLatin1String("/../../..")); // move up to dir containing the .app package
+#else
+	QDir appDir(applicationDirPath());
+#endif
+	QDir iniPath(appDir.absolutePath());
+	QDir libPath(appDir.absolutePath());
+	if (appDir.exists(QString::fromLatin1(SETUP_FILE_NAME))) {
+		Tw::Utils::IniConfig portable(appDir.filePath(QString::fromLatin1(SETUP_FILE_NAME)));
+		if (portable.contains(QString::fromLatin1("inipath"))) {
+			if (iniPath.cd(portable.value(QString::fromLatin1("inipath")).toString())) {
+				Tw::Settings::setPortableIniPath(iniPath.absolutePath());
+			}
+		}
+		if (portable.contains(QString::fromLatin1("libpath"))) {
+			if (libPath.cd(portable.value(QString::fromLatin1("libpath")).toString())) {
+				Tw::Utils::ResourcesLibrary::setPortableLibPath(libPath.absolutePath());
+			}
+		}
+		if (portable.contains(QString::fromLatin1("defaultbinpaths"))) {
+			defaultBinPaths = std::unique_ptr<QStringList>(new QStringList);
+			*defaultBinPaths = portable.value(QString::fromLatin1("defaultbinpaths")).toString().split(QString::fromLatin1(PATH_LIST_SEP), SkipEmptyParts);
+		}
+	}
+	QString envPath = QString::fromLocal8Bit(getenv("TW_INIPATH"));
+	if (!envPath.isNull() && iniPath.cd(envPath)) {
+		Tw::Settings::setPortableIniPath(iniPath.absolutePath());
+	}
+	envPath = QString::fromLocal8Bit(getenv("TW_LIBPATH"));
+	if (!envPath.isNull() && libPath.cd(envPath)) {
+		Tw::Utils::ResourcesLibrary::setPortableLibPath(libPath.absolutePath());
+	}
 }
 
 void TWApp::exitLater(int retCode)

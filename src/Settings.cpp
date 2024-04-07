@@ -47,6 +47,12 @@ QString Settings::fileName() const
 	return m_s.fileName();
 }
 
+void Settings::setPortableIniPath(const QString &iniPath)
+{
+	QSettings::setDefaultFormat(QSettings::IniFormat);
+	QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, iniPath);
+}
+
 #if defined(Q_OS_WIN)
 bool Settings::isStoredInRegistry()
 {
