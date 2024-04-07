@@ -29,6 +29,20 @@
 
 #include <memory>
 
+#if WITH_QTSCRIPT
+// JSScript has settings.value(QString::fromLatin1("scriptDebugger"), false)
+// so we mock the relevant Settings method here to not have to pull in the
+// entire chain of Settings' dependencies
+#include "Settings.h"
+namespace Tw {
+QVariant Settings::value(KeyType key, const QVariant & defaultValue) const
+{
+	Q_UNUSED(key)
+	return defaultValue;
+}
+} // namespace Tw
+#endif
+
 using namespace Tw::Scripting;
 
 Q_DECLARE_METATYPE(QSharedPointer<Script>)
