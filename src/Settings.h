@@ -44,11 +44,13 @@ public:
 
 	QString fileName() const;
 
-	static QSettings::Format defaultFormat() { return QSettings::defaultFormat(); }
 	static void setDefaultFormat(QSettings::Format format) { QSettings::setDefaultFormat(format); }
 	static void setPath(QSettings::Format format, QSettings::Scope scope, const QString & path) {
 		QSettings::setPath(format, scope, path);
 	}
+#if defined(Q_OS_WIN)
+	bool isStoredInRegistry();
+#endif
 };
 
 } // namespace Tw

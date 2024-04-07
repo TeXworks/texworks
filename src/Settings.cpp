@@ -47,4 +47,19 @@ QString Settings::fileName() const
 	return m_s.fileName();
 }
 
+#if defined(Q_OS_WIN)
+bool Settings::isStoredInRegistry()
+{
+	if (m_s.format() == QSettings::NativeFormat) {
+		return true;
+	}
+#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+	if (m_s.format() == QSettings::Registry32Format || m_s.format() == QSettings::Registry64Format) {
+		return true;
+	}
+#endif
+	return false;
+}
+#endif // defined(Q_OS_WIN)
+
 } // namespace Tw
