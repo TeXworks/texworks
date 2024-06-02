@@ -13,10 +13,19 @@ file(GLOB _font_dirs /System/Library/Assets*/com_apple_MobileAsset_Font*)
 list(INSERT _font_dirs 0 /System/Library/Fonts /Library/Fonts ~/Library/Fonts)
 string(REPLACE ";" "," _font_dirs "${_font_dirs}")
 
-set(CONFIGURE_ENV CFLAGS=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET} CXXFLAGS=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET})
 set(CONFIGURE_ARGS --prefix=${CMAKE_INSTALL_PREFIX})
+set(CONFIGURE_CFLAGS -mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET})
+foreach(ARCH IN LISTS CMAKE_OSX_ARCHITECTURES)
+	set(ARCH_FLAGS "${ARCH_FLAGS} -arch ${ARCH}")
+	if (ARCH STREQUAL "arm64")
+		set(CONFIGURE_ARGS ${CONFIGURE_ARGS} --host aarch64-apple-darwin)
+	else ()
+		set(CONFIGURE_ARGS ${CONFIGURE_ARGS} --host ${ARCH}-apple-darwin)
+	endif()
+endforeach()
+set(CONFIGURE_ENV "CFLAGS=\"${CONFIGURE_CFLAGS} ${ARCH_FLAGS}\" CXXFLAGS=\"${CONFIGURE_CFLAGS} ${ARCH_FLAGS}\"")
 
-set(CMAKE_ARGS -DCMAKE_OSX_DEPLOYMENT_TARGET=${CMAKE_OSX_DEPLOYMENT_TARGET} "-DCMAKE_PREFIX_PATH=${CMAKE_INSTALL_PREFIX}\\;${CMAKE_PREFIX_PATH}" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_MACOSX_RPATH=TRUE -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
+set(CMAKE_ARGS -DCMAKE_OSX_DEPLOYMENT_TARGET=${CMAKE_OSX_DEPLOYMENT_TARGET} -DCMAKE_OSX_ARCHITECTURES=${CMAKE_OSX_ARCHITECTURES} "-DCMAKE_PREFIX_PATH=${CMAKE_INSTALL_PREFIX}\\;${CMAKE_PREFIX_PATH}" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_MACOSX_RPATH=TRUE -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX})
 
 include(ExternalProject)
 
@@ -46,24 +55,28 @@ ADD_GH_GROUP(freetype)
 ExternalProject_Add(gettext
 	URL "https://ftp.gnu.org/gnu/gettext/gettext-0.22.4.tar.xz"
 	URL_HASH SHA256=29217f1816ee2e777fa9a01f9956a14139c0c23cc1b20368f06b2888e8a34116
-	CONFIGURE_COMMAND ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS} --disable-dependency-tracking --disable-silent-rules --disable-debug --with-included-glib --with-included-libcroco --with-included-libunistring --with-included-libxml --with-included-gettext --disable-java --disable-csharp --without-git --without-cvs --without-xz
+	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV}" ./configure ${CONFIGURE_ARGS} --disable-dependency-tracking --disable-silent-rules --disable-debug --with-included-glib --with-included-libcroco --with-included-libunistring --with-included-libxml --with-included-gettext --disable-java --disable-csharp --without-git --without-cvs --without-xz
 	BUILD_IN_SOURCE TRUE
 )
 ADD_GH_GROUP(gettext)
 
+# Need to specify CXX as apparently that is used somewhere down the line for
+# linking (!) but without getting passed the necessary flags
 ExternalProject_Add(hunspell
 	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.2.tar.gz"
 	URL_HASH SHA256=69fa312d3586c988789266eaf7ffc9861d9f6396c31fc930a014d551b59bbd6e
-	CONFIGURE_COMMAND autoreconf -vfi && ${CONFIGURE_ENV} CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS}
+	CONFIGURE_COMMAND autoreconf -vfi && env -S "CXX=\"g++ ${ARCH_FLAGS}\" ${CONFIGURE_ENV} LDFLAGS=\"-L${CMAKE_INSTALL_PREFIX}/lib ${ARCH_FLAGS}\" CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include" ./configure ${CONFIGURE_ARGS}
 	BUILD_IN_SOURCE TRUE
 	DEPENDS gettext
 )
 ADD_GH_GROUP(hunspell)
 
+# Need to specify CXX as apparently that is used somewhere down the line for
+# linking (!) but without getting passed the necessary flags
 ExternalProject_Add(fontconfig
 	URL "https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.15.0.tar.xz"
 	URL_HASH SHA256=63a0658d0e06e0fa886106452b58ef04f21f58202ea02a94c39de0d3335d7c0e
-	CONFIGURE_COMMAND ${CONFIGURE_ENV} CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS} --with-add-fonts=${_font_dirs} --disable-docs
+	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV} CXX=\"g++ ${ARCH_FLAGS}\"" CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include LDFLAGS=-L${CMAKE_INSTALL_PREFIX}/lib ./configure ${CONFIGURE_ARGS} --disable-silent-rules --with-add-fonts=${_font_dirs} --disable-docs
 	BUILD_IN_SOURCE TRUE
 	INSTALL_COMMAND make install RUN_FC_CACHE_TEST=false
 	DEPENDS freetype gettext
@@ -73,7 +86,7 @@ ADD_GH_GROUP(fontconfig)
 ExternalProject_Add(libjpeg
 	URL https://ijg.org/files/jpegsrc.v9f.tar.gz
 	URL_HASH SHA256=04705c110cb2469caa79fb71fba3d7bf834914706e9641a4589485c1f832565b
-	CONFIGURE_COMMAND ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS}
+	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV}" ./configure ${CONFIGURE_ARGS}
 	BUILD_IN_SOURCE TRUE
 )
 ADD_GH_GROUP(libjpeg)
@@ -98,7 +111,7 @@ ADD_GH_GROUP(libopenjpeg)
 ExternalProject_Add(lcms2
 	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.16.tar.gz"
 	URL_HASH SHA256=cb4bf968aa66e3d5d16d1f094a99595966d4330cbd6be46c66129f2747ad2b0d
-	CONFIGURE_COMMAND ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS} "--with-tiff=${CMAKE_INSTALL_PREFIX}" "--with-jpeg=${CMAKE_INSTALL_PREFIX}"
+	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV}" ./configure ${CONFIGURE_ARGS} "--with-tiff=${CMAKE_INSTALL_PREFIX}" "--with-jpeg=${CMAKE_INSTALL_PREFIX}"
 	BUILD_IN_SOURCE TRUE
 	DEPENDS libtiff libjpeg
 )
@@ -132,13 +145,17 @@ ExternalProject_Add(poppler-data
 )
 ADD_GH_GROUP(poppler-data)
 
+# Need to patch the Makefile to not override/clear custom flags, i.e., to allow
+# passing them as env variables as there seems to be no easy way to pass complex
+# arguments on the command line via ExternalProject_Add (due to weird quotation
+# schemes). NB: lua uses plain Makefiles instead of autoconf or cmake, ...
 ExternalProject_Add(lua
 	URL "https://www.lua.org/ftp/lua-5.4.6.tar.gz"
 	URL_HASH SHA256=7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88
+	PATCH_COMMAND patch -p1 -i ${CMAKE_CURRENT_LIST_DIR}/lua.patch
 	CONFIGURE_COMMAND ""
-	BUILD_COMMAND make "MYCFLAGS=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET}"
+	BUILD_COMMAND env -S "MYCFLAGS=\"-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET} ${ARCH_FLAGS}\" MYLDFLAGS=\"${ARCH_FLAGS}\"" make
 	BUILD_IN_SOURCE TRUE
 	INSTALL_COMMAND make install "INSTALL_TOP=${CMAKE_INSTALL_PREFIX}"
 )
 ADD_GH_GROUP(lua)
-

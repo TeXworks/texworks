@@ -182,7 +182,7 @@ jobs:
         brew link --force poppler-qt5
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt@5"
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="`brew --prefix qt@5`"
 
     - name: Build
       run: make -j

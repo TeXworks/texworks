@@ -165,21 +165,31 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        macVersion: [11, 10.13]
+        label: [11-x86, 11-arm, 10.13-x86]
         include:
             # Latest open-source LTS Qt6 release [https://download.qt.io/official_releases/qt/]
             # Qt 6.5 supports macOS >= 11 [https://doc.qt.io/qt-6.5/macos.html]
-          - macVersion: 11
+          - label: 11-x86
+            macVersion: 11
             qtVersionMajor: 6
             qtVersion: 6.5.3
             qtModules: qt5compat
+            arch: x86_64
+          - label: 11-arm
+            macVersion: 11
+            qtVersionMajor: 6
+            qtVersion: 6.5.3
+            qtModules: qt5compat
+            arch: arm64
             # Qt 5.15 supports macOS >= 10.13 [https://doc.qt.io/qt-5.15/macos.html]
             # poppler >= 22.01.0 uses std::filesystem, which seems to only be (fully)
             # supported on macOS 10.15 and up
-          - macVersion: 10.13
+          - label: 10.13-x86
+            macVersion: 10.13
             qtVersionMajor: 5
             qtVersion: 5.15.2
             qtModules: qtscript
+            arch: x86_64
     env:
       MACOSX_DEPLOYMENT_TARGET: ${{ matrix.macVersion }}
 
@@ -214,18 +224,18 @@ jobs:
       id: cache-dependencies
       uses: actions/cache@v3
       with:
-        key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-qt${{ matrix.qtVersion }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
+        key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-${{ matrix.arch }}-qt${{ matrix.qtVersion }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
         path: ${{ runner.temp }}/tw-deps
 
     - name: Build dependencies
       if: steps.cache-dependencies.outputs.cache-hit != 'true'
       shell: bash
       run: |
-        cmake -S ".github/actions/setup-macos" -B ".github/actions/setup-macos/build" -DCMAKE_INSTALL_PREFIX="${RUNNER_TEMP}/tw-deps" -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }}
+        cmake -S ".github/actions/setup-macos" -B ".github/actions/setup-macos/build" -DCMAKE_INSTALL_PREFIX="${RUNNER_TEMP}/tw-deps" -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }} -DCMAKE_OSX_ARCHITECTURES="${{ matrix.arch }}"
         PATH="${RUNNER_TEMP}/tw-deps/bin:$PATH" PKG_CONFIG_PATH=${RUNNER_TEMP}/tw-deps/lib/pkgconfig cmake --build ".github/actions/setup-macos/build" -v
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_TEMP}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }} -DQT_PLUGIN_PATH=${QT_PLUGIN_PATH}
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_TEMP}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }} -DCMAKE_OSX_ARCHITECTURES="${{ matrix.arch }}" -DQT_PLUGIN_PATH=${QT_PLUGIN_PATH}
 
     - name: Build
       run: cmake --build build -j
@@ -241,7 +251,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: TeXworks-macOS${{ matrix.macVersion }}
+        name: TeXworks-macOS${{ matrix.macVersion }}-${{ matrix.arch }}
         path: ${{ steps.package.outputs.file }}
 
 #    - name: Deploy to Artifactory
