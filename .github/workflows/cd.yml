@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0 # fetch the entire history so we can create the changelog
 
@@ -39,13 +39,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Build
       run: DOCKER_BUILDKIT=1 docker build -f ./.github/workflows/Dockerfile.appimage-debian -o out .
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: TeXworks-AppImage
         path: out/TeXworks-*.AppImage
@@ -72,10 +72,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup WSL
-      uses: Vampire/setup-wsl@v2
+      uses: Vampire/setup-wsl@v3
       with:
         distribution: Ubuntu-22.04
 
@@ -131,7 +131,7 @@ jobs:
       id: package
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: TeXworks-Windows${{ matrix.winVersion }}
         path: ${{ steps.package.outputs.file }}
@@ -141,7 +141,7 @@ jobs:
       working-directory: win32
 
     - name: Upload installer artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: TeXworks-Windows${{ matrix.winVersion }}-Setup
         path: win32/Output/*.exe
@@ -195,7 +195,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
       # Mono seems to provide some (potentially incompatible) headers that CMake
       # might pick up on instead of ours
@@ -214,7 +214,7 @@ jobs:
         brew install automake cmake libtool pkg-config
 
     - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
         version: ${{ matrix.qtVersion }}
         modules: ${{ matrix.qtModules }}
@@ -222,7 +222,7 @@ jobs:
 
     - name: Cache dependencies
       id: cache-dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-${{ matrix.arch }}-qt${{ matrix.qtVersion }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
         path: ${{ runner.temp }}/tw-deps
@@ -249,7 +249,7 @@ jobs:
       uses: ./.github/actions/package-macos
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: TeXworks-macOS${{ matrix.macVersion }}-${{ matrix.arch }}
         path: ${{ steps.package.outputs.file }}
