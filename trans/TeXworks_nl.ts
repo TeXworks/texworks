@@ -227,7 +227,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="51"/>
         <source>Line length:</source>
-        <translation>Vaste regel lengte:</translation>
+        <translation>Vaste regellengte:</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="87"/>
@@ -1164,7 +1164,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="304"/>
         <source>Line numbers</source>
-        <translation>Regel nummers</translation>
+        <translation>Regelnummers</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="409"/>
@@ -1199,7 +1199,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1263"/>
         <source>Allow scripts to read all files (script and document files are always readable)</source>
-        <translation>Sta scripts to alle bestande te lezen (scripts en documenten zijn altijd leesbaar)</translation>
+        <translation>Sta scripts toe alle bestanden te lezen (scripts en documenten zijn altijd leesbaar)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1270"/>
@@ -1214,7 +1214,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1284"/>
         <source>Enable plug-in scripting languages (may circumvent other restrictions on script behavior)</source>
-        <translation>Sta externe scripttalen toe (kan beperkingen op scriptgedrag omzeilen)</translation>
+        <translation>Sta externe scripttalen toe (kan andere beperkingen op scriptgedrag omzeilen)</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1294"/>
@@ -1257,7 +1257,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1192"/>
         <source>Hide console output:</source>
-        <translation>Verberg console uitvoer:</translation>
+        <translation>Verberg console-uitvoer:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="1205"/>
@@ -1415,12 +1415,12 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/TWUtils.cpp" line="211"/>
         <source>Text files (*.txt)</source>
-        <translation>Tekst bestanden (*.txt)</translation>
+        <translation>Tekstbestanden (*.txt)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="212"/>
         <source>PDF documents (*.pdf)</source>
-        <translation>PDF documenten (*.pdf)</translation>
+        <translation>PDF-documenten (*.pdf)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="225"/>
@@ -1430,7 +1430,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/TWUtils.cpp" line="205"/>
         <source>Log files (*.log *.blg)</source>
-        <translation>Log bestanden (*.log *.blg)</translation>
+        <translation>Logbestanden (*.log *.blg)</translation>
     </message>
     <message>
         <location filename="../src/TWUtils.cpp" line="210"/>
@@ -1494,7 +1494,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/Replace.ui" line="139"/>
         <source>&amp;Case sensitive</source>
-        <translation>Hoofdletter &amp;gevoelig</translation>
+        <translation>&amp;Hoofdlettergevoelig</translation>
     </message>
     <message>
         <location filename="../src/Replace.ui" line="146"/>
@@ -1822,7 +1822,7 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="507"/>
         <source>Unable to access &quot;%1&quot;; perhaps your browser or mail application is not properly configured?</source>
-        <translation>Kan &quot;%1&quot; niet bereiken; misschien is uw browser of mail programma niet correct geconfigureerd?</translation>
+        <translation>Kan &quot;%1&quot; niet bereiken; misschien is uw browser of mailprogramma niet correct geconfigureerd?</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="818"/>
@@ -1832,7 +1832,7 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="819"/>
         <source>Something is badly wrong; %1 was unable to create a document window. The application will now quit.</source>
-        <translation>Er is iets ernstig mis: %1 kon geen document venster maken. Het programma zal nu stoppen.</translation>
+        <translation>Er is iets ernstig mis: %1 kon geen documentvenster maken. Het programma zal nu stoppen.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="871"/>
@@ -1893,7 +1893,7 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="1448"/>
         <source>Unable to find help file.</source>
-        <translation>Help bestand niet gevonden.</translation>
+        <translation>Helpbestand niet gevonden.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="1567"/>
@@ -2009,7 +2009,7 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <name>TWSystemCmd</name>
     <message>
         <source>ERROR: failure code %1</source>
-        <translation type="vanished">FOUT: fout code %1</translation>
+        <translation type="vanished">FOUT: foutcode %1</translation>
     </message>
     <message>
         <source>ERROR: exit code %1</source>
@@ -2757,7 +2757,7 @@ Indien u doorgaat, zullen zij worden vervangen door standaard codes. Een alterna
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="1029"/>
         <source>Line Numbers</source>
-        <translation>Regel nummers</translation>
+        <translation>Regelnummers</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="1037"/>
@@ -2980,7 +2980,7 @@ Het spijt ons van het ongemak.</translation>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="3079"/>
         <source>Show Console Output</source>
-        <translation>Toon console uitvoer</translation>
+        <translation>Toon console-uitvoer</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1710"/>
@@ -3255,7 +3255,7 @@ Gebruik het contextmenu om de eenheden te wijzigen.</translation>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="61"/>
         <source>ERROR: failure code %1</source>
-        <translation>FOUT: fout code %1</translation>
+        <translation>FOUT: foutcode %1</translation>
     </message>
     <message>
         <location filename="../src/utils/SystemCommand.cpp" line="78"/>
