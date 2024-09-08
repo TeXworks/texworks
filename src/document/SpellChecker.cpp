@@ -26,6 +26,8 @@
 
 #include <hunspell.h>
 
+#include <QLocale>
+
 namespace Tw {
 namespace Document {
 
