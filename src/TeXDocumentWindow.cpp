@@ -537,30 +537,8 @@ void TeXDocumentWindow::reloadSpellcheckerMenu()
 
 	QList<QAction*> dictActions;
 	foreach (const QString& dictKey, Tw::Document::SpellChecker::getDictionaryList()->uniqueKeys()) {
-		QString dict, label;
-		QLocale loc;
-
-		foreach (dict, Tw::Document::SpellChecker::getDictionaryList()->values(dictKey)) {
-			loc = QLocale(dict);
-
-			if (loc.language() == QLocale::C)
-				label = dict;
-			else {
-				const QString languageString = QLocale::languageToString(loc.language());
-#if QT_VERSION < QT_VERSION_CHECK(6, 2, 0)
-				const QString territoryString = (loc.country() != QLocale::AnyCountry ? QLocale::countryToString(loc.country()) : QString());
-#else
-				const QString territoryString = (loc.territory() != QLocale::AnyTerritory ? QLocale::territoryToString(loc.territory()) : QString());
-#endif
-				if (!territoryString.isEmpty()) {
-					//: Format to display spell-checking dictionaries (ex. "English - United States (en_US)")
-					label = tr("%1 - %2 (%3)").arg(languageString, territoryString, dict);
-				}
-				else {
-					//: Format to display spell-checking dictionaries (ex. "English (en_US)")
-					label = tr("%1 (%2)").arg(languageString, dict);
-				}
-			}
+		foreach (QString dict, Tw::Document::SpellChecker::getDictionaryList()->values(dictKey)) {
+			const QString label{Tw::Document::SpellChecker::labelForDict(dict)};
 
 			QAction * act = new QAction(label, menuSpelling);
 			act->setCheckable(true);
