@@ -487,9 +487,9 @@ void TeXDocumentWindow::setSpellcheckLanguage(const QString& lang)
 
 	if (menuSpelling) {
 		QAction *chosen = menuSpelling->actions()[0]; // default is None
-		foreach (QAction *act, menuSpelling->actions()) {
+		foreach(QString alias, langAliases) {
 			bool found = false;
-			foreach(QString alias, langAliases) {
+			foreach (QAction *act, menuSpelling->actions()) {
 				if (act->text() == alias || act->text().contains(QString::fromLatin1("(%1)").arg(alias))) {
 					chosen = act;
 					found = true;
