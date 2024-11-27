@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014-2024 Stefan Löffler <st.loeffler@gmail.com> -->
 <component type="desktop-application">
-	<id>org.tug.texworks.desktop</id>
+	<id>org.tug.texworks</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-2.0+</project_license>
 	<name>TeXworks</name>
@@ -321,7 +321,7 @@
 	<provides>
 		<binary>texworks</binary>
 	</provides>
-	<launchable type="desktop-id">texworks.desktop</launchable>
+	<launchable type="desktop-id">org.tug.texworks.desktop</launchable>
 	<content_rating type="oars-1.0" />
 
 	<releases>
