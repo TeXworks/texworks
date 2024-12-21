@@ -172,13 +172,13 @@ jobs:
           - label: 11-x86
             macVersion: 11
             qtVersionMajor: 6
-            qtVersion: 6.5.3
+            qtVersion: 6.8.1
             qtModules: qt5compat
             arch: x86_64
           - label: 11-arm
             macVersion: 11
             qtVersionMajor: 6
-            qtVersion: 6.5.3
+            qtVersion: 6.8.1
             qtModules: qt5compat
             arch: arm64
             # Qt 5.15 supports macOS >= 10.13 [https://doc.qt.io/qt-5.15/macos.html]
