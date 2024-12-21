@@ -141,7 +141,10 @@ bool Popup::operator==(const AbstractAnnotation & o) const
   if (!(AbstractAnnotation::operator==(o))) {
     return false;
   }
-  const Popup & p(dynamic_cast<const Popup&>(o));
+  return (*this == dynamic_cast<const Popup&>(o));
+}
+
+bool Popup::operator==(const Popup & p) const {
   return (isOpen() == p.isOpen() && title() == p.title());
   // Don't compare _parent values. _parent just modifies where some data (e.g.
   // _contents) is taken from (the _parent or the popup itself) but does not

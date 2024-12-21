@@ -243,6 +243,7 @@ public:
   void setTitle(const QString & title) { _title = title; }
 
   bool operator==(const AbstractAnnotation & o) const override;
+  bool operator==(const Popup & p) const;
 
 private:
   Markup * _parent{nullptr};

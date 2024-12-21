@@ -20,6 +20,7 @@
 #include <QGraphicsScene>
 #include <QLabel>
 #include <QPushButton>
+#include <QSharedPointer>
 #include <QTimer>
 
 namespace QtPDF {
