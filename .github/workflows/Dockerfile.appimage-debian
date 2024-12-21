@@ -133,7 +133,7 @@ make install DESTDIR=AppDir
 
 # Build AppImage
 RUN cd /home/tw/build && \
-	APPIMAGE_EXTRACT_AND_RUN=1 QMAKE=/opt/qt/${QT_VERSION}/gcc_64/bin/qmake LD_LIBRARY_PATH="/opt/qt/${QT_VERSION}/gcc_64/lib/:/usr/local/lib" /opt/linuxdeploy-x86_64.AppImage --appdir AppDir --desktop-file=AppDir/usr/share/applications/texworks.desktop --library=AppDir/usr/lib/texworks/libTWLuaPlugin.so --plugin qt --output appimage
+	APPIMAGE_EXTRACT_AND_RUN=1 QMAKE=/opt/qt/${QT_VERSION}/gcc_64/bin/qmake LD_LIBRARY_PATH="/opt/qt/${QT_VERSION}/gcc_64/lib/:/usr/local/lib" /opt/linuxdeploy-x86_64.AppImage --appdir AppDir --desktop-file=AppDir/usr/share/applications/org.tug.texworks.desktop --library=AppDir/usr/lib/texworks/libTWLuaPlugin.so --plugin qt --output appimage
 
 ############################
 
