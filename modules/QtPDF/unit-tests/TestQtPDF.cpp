@@ -22,6 +22,8 @@
 #include "PaperSizes.h"
 #include "PhysicalUnits.h"
 
+#include <QTimeZone>
+
 #ifdef USE_MUPDF
   typedef QtPDF::MuPDFBackend Backend;
 #elif USE_POPPLERQT
@@ -275,6 +277,11 @@ void TestQtPDF::parsePDFDate_data()
 {
   QTest::addColumn<QString>("str");
   QTest::addColumn<QDateTime>("result");
+#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
+  const auto UTC = Qt::UTC;
+#else
+  const auto UTC = QTimeZone::utc();
+#endif
 
   // NB: fromPDFDate always returns local time
   QTest::newRow("empty") << QString() << QDateTime();
@@ -284,9 +291,9 @@ void TestQtPDF::parsePDFDate_data()
   QTest::newRow("yyyymmddHH") << QStringLiteral("D:2000020213") << QDateTime(QDate(2000, 2, 2), QTime(13, 0, 0));
   QTest::newRow("yyyymmddHHMM") << QStringLiteral("D:200002021342") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 0));
   QTest::newRow("yyyymmddHHMMSS") << QStringLiteral("D:20000202134221") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
-  QTest::newRow("yyyymmddHHMMSSZ") << QStringLiteral("D:20000202134221Z") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21), Qt::UTC).toLocalTime();
-  QTest::newRow("yyyymmddHHMMSS+07'30") << QStringLiteral("D:20000202134221+07'30") << QDateTime(QDate(2000, 2, 2), QTime(6, 12, 21), Qt::UTC).toLocalTime();
-  QTest::newRow("yyyymmddHHMMSS-08'00") << QStringLiteral("D:20000202134221-08'00") << QDateTime(QDate(2000, 2, 2), QTime(21, 42, 21), Qt::UTC).toLocalTime();
+  QTest::newRow("yyyymmddHHMMSSZ") << QStringLiteral("D:20000202134221Z") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21), UTC).toLocalTime();
+  QTest::newRow("yyyymmddHHMMSS+07'30") << QStringLiteral("D:20000202134221+07'30") << QDateTime(QDate(2000, 2, 2), QTime(6, 12, 21), UTC).toLocalTime();
+  QTest::newRow("yyyymmddHHMMSS-08'00") << QStringLiteral("D:20000202134221-08'00") << QDateTime(QDate(2000, 2, 2), QTime(21, 42, 21), UTC).toLocalTime();
   QTest::newRow("yyyymmddHHMMSS;08'00") << QStringLiteral("D:20000202134221;08'00") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
   QTest::newRow("yyyymmddHHMMSS-0800") << QStringLiteral("D:20000202134221-0800") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
   QTest::newRow("yyyymmddHHMMSS-0a'00") << QStringLiteral("D:20000202134221-0a'00") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
@@ -966,14 +973,19 @@ void TestQtPDF::metaDataProducer()
 
 void TestQtPDF::metaDataCreationDate_data()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
+  const auto UTC = Qt::UTC;
+#else
+  const auto UTC = QTimeZone::utc();
+#endif
   QTest::addColumn<pDoc>("doc");
   QTest::addColumn<QDateTime>("expected");
   newDocTest("invalid") << QDateTime();
   newDocTest("transitions") << QDateTime();
-  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), Qt::UTC);
+  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), UTC);
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
-  newDocTest("metadata") << QDateTime(QDate(2013, 9, 7), QTime(23, 23, 45), Qt::UTC);
+  newDocTest("metadata") << QDateTime(QDate(2013, 9, 7), QTime(23, 23, 45), UTC);
 }
 
 void TestQtPDF::metaDataCreationDate()
@@ -985,14 +997,19 @@ void TestQtPDF::metaDataCreationDate()
 
 void TestQtPDF::metaDataModDate_data()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
+  const auto UTC = Qt::UTC;
+#else
+  const auto UTC = QTimeZone::utc();
+#endif
   QTest::addColumn<pDoc>("doc");
   QTest::addColumn<QDateTime>("expected");
   newDocTest("invalid") << QDateTime();
   newDocTest("transitions") << QDateTime();
-  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), Qt::UTC);
+  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), UTC);
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
-  newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(10, 34, 56), Qt::UTC);
+  newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(10, 34, 56), UTC);
 }
 
 void TestQtPDF::metaDataModDate()
