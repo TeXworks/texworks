@@ -13,7 +13,6 @@
  */
 
 #include "PDFAnnotations.h"
-#include "PDFBackend.h"
 
 namespace QtPDF {
 
