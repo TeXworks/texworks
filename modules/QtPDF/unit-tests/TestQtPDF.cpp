@@ -266,6 +266,7 @@ void TestQtPDF::loadDocs()
     _docs[QString::fromLatin1("base14-fonts")] = backend.newDocument(QString::fromLatin1("base14-fonts.pdf"));
     _docs[QString::fromLatin1("poppler-data")] = backend.newDocument(QString::fromLatin1("poppler-data.pdf"));
     _docs[QString::fromLatin1("metadata")] = backend.newDocument(QString::fromLatin1("metadata.pdf"));
+    _docs[QString::fromLatin1("info-metadata")] = backend.newDocument(QString::fromLatin1("info-metadata.pdf"));
     _docs[QString::fromLatin1("page-rotation")] = backend.newDocument(QString::fromLatin1("page-rotation.pdf"));
     _docs[QString::fromLatin1("annotations")] = backend.newDocument(QString::fromLatin1("annotations.pdf"));
     _docs[QString::fromLatin1("jpg")] = backend.newDocument(QStringLiteral("jpg.pdf"));
@@ -867,6 +868,7 @@ void TestQtPDF::metaDataTitle_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromUtf8("Document Title • UTF16-BE");
+  newDocTest("info-metadata") << QStringLiteral("test title");
 }
 
 void TestQtPDF::metaDataTitle()
@@ -886,6 +888,7 @@ void TestQtPDF::metaDataAuthor_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromUtf8("Stefan Löffler");
+  newDocTest("info-metadata") << QStringLiteral("author");
 }
 
 void TestQtPDF::metaDataAuthor()
@@ -905,6 +908,7 @@ void TestQtPDF::metaDataSubject_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromLatin1("PDF Test File");
+  newDocTest("info-metadata") << QStringLiteral("test subject");
 }
 
 void TestQtPDF::metaDataSubject()
@@ -924,6 +928,7 @@ void TestQtPDF::metaDataKeywords_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromLatin1("pdf, metadata, test");
+  newDocTest("info-metadata") << QStringLiteral("test keywords");
 }
 
 void TestQtPDF::metaDataKeywords()
@@ -943,6 +948,7 @@ void TestQtPDF::metaDataCreator_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromLatin1("gedit");
+  newDocTest("info-metadata") << QStringLiteral("LaTeX with hyperref");
 }
 
 void TestQtPDF::metaDataCreator()
@@ -962,6 +968,7 @@ void TestQtPDF::metaDataProducer_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromLatin1("also gedit");
+  newDocTest("info-metadata") << QString::fromUtf8("luahbtex-1.18.0");
 }
 
 void TestQtPDF::metaDataProducer()
@@ -986,6 +993,7 @@ void TestQtPDF::metaDataCreationDate_data()
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
   newDocTest("metadata") << QDateTime(QDate(2013, 9, 7), QTime(23, 23, 45), UTC);
+  newDocTest("info-metadata") << QDateTime(QDate(2024, 12, 26), QTime(20, 51, 42), UTC);
 }
 
 void TestQtPDF::metaDataCreationDate()
@@ -1010,6 +1018,7 @@ void TestQtPDF::metaDataModDate_data()
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
   newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(10, 34, 56), UTC);
+  newDocTest("info-metadata") << QDateTime(QDate(2024, 12, 26), QTime(20, 51, 42), UTC);
 }
 
 void TestQtPDF::metaDataModDate()
