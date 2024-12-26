@@ -150,7 +150,7 @@ set(TEXWORKS_RCS ${TeXworks_SOURCE_DIR}/res/resfiles.qrc
                  ${TeXworks_SOURCE_DIR}/res/resources.qrc)
 
 FILE(GLOB TEXWORKS_TRANS_TS   "${TeXworks_SOURCE_DIR}/trans/*.ts")
-FILE(GLOB QT_TRANS_QM         "${TeXworks_SOURCE_DIR}/trans/qt/*.qm")
+FILE(GLOB QT_TRANS_TS         "${TeXworks_SOURCE_DIR}/trans/qt/*.ts")
 
 IF ( WIN32 )
   if (NOT MSVC)
@@ -233,8 +233,7 @@ target_compile_options(TeXworks PRIVATE ${WARNING_OPTIONS})
 
 # Add translations
 target_add_qt_translations(TeXworks
-  TS_FILES ${TEXWORKS_TRANS_TS}
-  QM_FILES ${QT_TRANS_QM}
+  TS_FILES ${TEXWORKS_TRANS_TS} ${QT_TRANS_TS}
   INCLUDEPATH "../src/"
 )
 
