@@ -65,7 +65,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="23"/>
         <source>Previous Completion</source>
-        <translation>Vorige Verfollständigung</translation>
+        <translation>Vorige Vervollständigung</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="26"/>
@@ -223,7 +223,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="44"/>
         <source>Current window size</source>
-        <translation>Aktueller Fensterbreite</translation>
+        <translation>Aktuelle Fensterbreite</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="51"/>
@@ -379,7 +379,7 @@ Wollen Sie fortfahren?</translation>
         <location filename="../src/PDFDocumentWindow.cpp" line="1157"/>
         <source>Unfortunately, this version of %1 is unable to print PDF documents due to various technical reasons.
 </source>
-        <translation>Diese Version von %1 kann aufgrund verschiedener technischer Gründe leider keine PDF Dokumente drucken.
+        <translation>Diese Version von %1 kann aufgrund verschiedener technischer Gründe leider keine PDF-Dokumente drucken.
 </translation>
     </message>
     <message>
@@ -790,7 +790,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PDFDocumentWindow.cpp" line="539"/>
         <source>Failed to load file &quot;%1&quot;; perhaps it is not a valid PDF document.</source>
-        <translation>Konnte die Datei &apos;%1&apos; nicht laden; vielleicht handelt es sich nicht um ein gültiges PDF Dokument.</translation>
+        <translation>Konnte die Datei &apos;%1&apos; nicht laden; vielleicht handelt es sich nicht um ein gültiges PDF-Dokument.</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="17"/>
@@ -1049,7 +1049,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="141"/>
         <source>Open corresponding PDF preview with TeX files</source>
-        <translation>Beim Öffnen von TeX Dateien zughörige PDF Vorschau öffnen</translation>
+        <translation>Beim Öffnen von TeX Dateien zugehörige PDF-Vorschau öffnen</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="231"/>
