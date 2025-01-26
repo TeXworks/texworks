@@ -53,8 +53,8 @@ FORMS = \
   "../src/GuidelineEditDialog.ui"
 
 RESOURCES = \
-  "../../../build-qt5/modules/QtPDF/QtPDF_trans.qrc" \
-  "../QtPDF_icons.qrc"
+  "../QtPDF_icons.qrc" \
+  "../build/QtPDF_trans.qrc"
 
 TRANSLATIONS = \
   "QtPDF_af.ts" \

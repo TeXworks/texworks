@@ -34,8 +34,6 @@ SOURCES = \
   "../src/main.cpp" \
   "../src/scripting/ECMAScript.cpp" \
   "../src/scripting/ECMAScriptInterface.cpp" \
-  "../src/scripting/JSScript.cpp" \
-  "../src/scripting/JSScriptInterface.cpp" \
   "../src/scripting/Script.cpp" \
   "../src/scripting/ScriptAPI.cpp" \
   "../src/scripting/ScriptObject.cpp" \
@@ -88,8 +86,6 @@ HEADERS = \
   "../src/document/SpellChecker.h" \
   "../src/document/TeXDocument.h" \
   "../src/document/TextDocument.h" \
-  "../src/scripting/JSScript.h" \
-  "../src/scripting/JSScriptInterface.h" \
   "../src/scripting/Script.h" \
   "../src/scripting/ScriptAPI.h" \
   "../src/scripting/ScriptAPIInterface.h" \
@@ -106,6 +102,7 @@ HEADERS = \
   "../src/utils/CommandlineParser.h" \
   "../src/utils/FileVersionDatabase.h" \
   "../src/utils/FullscreenManager.h" \
+  "../src/utils/IniConfig.h" \
   "../src/utils/ResourcesLibrary.h" \
   "../src/utils/SystemCommand.h" \
   "../src/utils/TextCodecs.h" \
@@ -131,7 +128,7 @@ FORMS = \
   "../src/ui/ListSelectDialog.ui"
 
 RESOURCES = \
-  "../build-qt5/src/TeXworks_trans.qrc" \
+  "../build/src/TeXworks_trans.qrc" \
   "../res/resfiles.qrc" \
   "../res/resources.qrc"
 
