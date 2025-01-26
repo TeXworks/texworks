@@ -29,7 +29,6 @@ runs:
       run: |
         rm -f /usr/lib/mxe/src/poppler*
         cp .github/actions/setup-windows/mxe/poppler* /usr/lib/mxe/src/
-        ln -s poppler-1-win32.patch /usr/lib/mxe/src/poppler-qt${{ inputs.qt }}-1-win32.patch
         cd /usr/lib/mxe
         make download-only-poppler download-only-poppler-qt${{ inputs.qt }}
         make build-only-poppler_i686-w64-mingw32.static build-only-poppler-qt${{ inputs.qt }}_i686-w64-mingw32.static
