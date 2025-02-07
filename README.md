@@ -87,10 +87,10 @@ pages:
 License
 -------
 
-TeXworks is copyright (C) 2007-2024 by Stefan Löffler, Jonathan Kew, and Charlie
+TeXworks is copyright (C) 2007-2025 by Stefan Löffler, Jonathan Kew, and Charlie
 Sharpsteen. Distributed under the terms of the GNU General Public License,
 version 2 or (at your option) any later version.
 See the file COPYING for details.
 
-The SyncTeX code is copyright (c) 2008-2017 by Jérôme Laurens; see
+The SyncTeX code is copyright (c) 2008-2024 by Jérôme Laurens; see
 modules/synctex/synctex_parser.c for license details.
