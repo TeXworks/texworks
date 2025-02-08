@@ -75,9 +75,12 @@ jobs:
         echo "::group::Info"
         lcov --list coverage.info #debug info
         echo "::endgroup::"
-        echo "::group::Upload to Codecov"
-        bash <(curl -s https://codecov.io/bash) || echo "::warning::Codecov did not collect coverage reports"
-        echo "::endgroup::"
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
 
 ################################################################################
 
