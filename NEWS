@@ -1,3 +1,22 @@
+Release 0.6.10 (TL'25) [February 2025]
+	* Add first support for PDF 2.0 /Info metadata
+	* Include ConTeXt style scripts
+	* Add a macOS arm build
+
+	* Prevent file corruption when saving is interrupted
+	* Enhance configuration for ConTeXt
+	* Use --synctex=repeat for ConTeXt (Luatex) synctex
+	* Don't set the line height if it's not necessary to work around a Qt 6 bug
+	* Refactor and modernize parts of the code
+	* Update the libraries for the pre-built binaries
+
+	* Display all spellchecking languages in the preferences dialog
+	* Fix selection of a language alias in the spellcheck menu
+	* Fix focus when switching to a PDF from the "Windows" menu
+	* Ensure the input field in the find/replace dialog is initially focused
+	* Fix overescaping of \n in "Copy to Find"
+	* Fix Wayland appId
+
 Release 0.6.9 (TL'24) [February 2024]
 	* Add support for PDF layers
 	* Add support for "--insert-text" and "--insert-cite" command line options
