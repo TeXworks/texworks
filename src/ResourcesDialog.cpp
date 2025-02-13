@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2011-2020  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2011-2024  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ void ResourcesDialog::init()
 	setupUi(this);
 
 #if defined(Q_OS_WIN)
-	if(Tw::Settings::defaultFormat() == QSettings::NativeFormat)
+	if(s.isStoredInRegistry())
 		locationOfSettings->setText(tr("Registry (%1)").arg(s.fileName()));
 	else
 		locationOfSettings->setText(pathToLink(s.fileName()));

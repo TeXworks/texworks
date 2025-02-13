@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2022-2023  Stefan Löffler
+ * Copyright (C) 2022-2024  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -26,7 +26,7 @@ void PDFSearcher::populatePages()
   }
 
   const size_type numPages = doc->numPages();
-  const size_type startPage = [=] () {
+  const size_type startPage = [this,numPages] () {
     if (m_startPage >= 0 && m_startPage < numPages) {
       return m_startPage;
     }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2013-2023  Charlie Sharpsteen, Stefan Löffler
+ * Copyright (C) 2013-2024  Charlie Sharpsteen, Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -22,14 +22,8 @@
 #include "PDFTransitions.h"
 
 #include <QAbstractItemModel>
-#include <QEvent>
-#include <QFileInfo>
 #include <QImage>
-#include <QMutex>
 #include <QReadLocker>
-#include <QStack>
-#include <QThread>
-#include <QWaitCondition>
 #include <QWeakPointer>
 
 namespace QtPDF {

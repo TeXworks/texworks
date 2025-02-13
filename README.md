@@ -1,7 +1,23 @@
+[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/TeXworks/texworks/total?color=0f81c1)](https://github.com/TeXworks/texworks/releases)
+[![Packaging status](https://repology.org/badge/tiny-repos/texworks.svg?header=in+repos)](https://repology.org/project/texworks/versions)
 [![CD](https://github.com/TeXworks/texworks/actions/workflows/cd.yml/badge.svg)](https://github.com/TeXworks/texworks/actions/workflows/cd.yml)
 [![CI](https://github.com/TeXworks/texworks/actions/workflows/ci.yml/badge.svg)](https://github.com/TeXworks/texworks/actions/workflows/ci.yml)
 [![Appveyor](https://ci.appveyor.com/api/projects/status/eb4e9108blt0pehr?svg=true)](https://ci.appveyor.com/project/stloeffler/texworks)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/22d3db26f8a542f08d8da056e6779020)](https://www.codacy.com/gh/TeXworks/texworks/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TeXworks/texworks&amp;utm_campaign=Badge_Grade)
+
+Table Of Contents
+-----------------
+[About TeXworks](#about-texworks)
+
+[Getting Started](#getting-started)
+
+[Contribution](#contribution)
+
+[Installation](#installation)
+
+[Building TeXworks](#building-texworks)
+
+[License](#license)
 
 About TeXworks
 ==============
@@ -16,29 +32,20 @@ of users, without a technical or intimidating face. The goal of TeXworks is to
 deliver a similarly integrated, easy-to-use environment for users on all
 platforms, especially GNU/Linux and Windows.
 
-Further Information
--------------------
+Getting Started
+---------------
 
-If you find any bugs/problems or have any recommendations, don't hesitate to
-stop by the development webpage, send a mail to the mailing list (preferably via
-the "Help > Email to mailing list" menu item which automatically includes some
-debug information), or file a bug report.
+TeXworks is a free and open-source software project. New users are encouraged to leverage this [guide](https://www.tug.org/texworks/#How_can_you_help), outlining the fundamental process of creating, formatting, and generating PDF documents from within TeXworks.
 
--   Homepage:     <https://www.tug.org/texworks/>
--   Development:  <https://github.com/TeXworks/texworks>
--   Bugs:         <https://github.com/TeXworks/texworks/issues>
--   Mailing list: <https://tug.org/mailman/listinfo/texworks>
+Contribution
+-------------
 
-License
--------
+TeXworks thrives on an active community, and welcoming contributions is paramount. If you encounter bugs or have suggestions for improvement, please share them on our [issues page](https://github.com/TeXworks/texworks/issues). Additionally, you can engage in discussions with other users and developers via our [mailing list](https://tug.org/mailman/listinfo/texworks). Visit the [development page](https://github.com/TeXworks/texworks) to fork a copy of the codebase and start contributing. Visit our [homepage](ps://www.tug.org/texworks/) for more information. If you are new to contributing to open-source projects, we encourage you to visit this [guide](https://opensource.guide/how-to-contribute/) to help you get started.
 
-TeXworks is copyright (C) 2007-2024 by Stefan Löffler, Jonathan Kew, and Charlie
-Sharpsteen. Distributed under the terms of the GNU General Public License,
-version 2 or (at your option) any later version.
-See the file COPYING for details.
+Installation
+------------
 
-The SyncTeX code is copyright (c) 2008-2017 by Jérôme Laurens; see
-modules/synctex/synctex_parser.c for license details.
+Pre-built binaries for Windows, macOS, and Linux are available for immediate download from our official [website](https://www.tug.org/texworks/).
 
 Building TeXworks
 -----------------
@@ -76,3 +83,14 @@ pages:
 -   <https://github.com/TeXworks/texworks/wiki/Building>
 -   <https://github.com/TeXworks/texworks/wiki/Building-on-Windows-(MinGW)>
 -   <https://github.com/TeXworks/texworks/wiki/Building-on-macOS-(Homebrew)>
+
+License
+-------
+
+TeXworks is copyright (C) 2007-2025 by Stefan Löffler, Jonathan Kew, and Charlie
+Sharpsteen. Distributed under the terms of the GNU General Public License,
+version 2 or (at your option) any later version.
+See the file COPYING for details.
+
+The SyncTeX code is copyright (c) 2008-2024 by Jérôme Laurens; see
+modules/synctex/synctex_parser.c for license details.

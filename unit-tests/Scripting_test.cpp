@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2023  Stefan Löffler
+	Copyright (C) 2019-2024  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -28,6 +28,20 @@
 #endif
 
 #include <memory>
+
+#if WITH_QTSCRIPT
+// JSScript has settings.value(QString::fromLatin1("scriptDebugger"), false)
+// so we mock the relevant Settings method here to not have to pull in the
+// entire chain of Settings' dependencies
+#include "Settings.h"
+namespace Tw {
+QVariant Settings::value(KeyType key, const QVariant & defaultValue) const
+{
+	Q_UNUSED(key)
+	return defaultValue;
+}
+} // namespace Tw
+#endif
 
 using namespace Tw::Scripting;
 

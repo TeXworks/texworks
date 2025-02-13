@@ -58,14 +58,16 @@ OPTION(WITH_MUPDF "Build MuPDF backend" OFF)
 # directory contains scripts that locate project components such as Poppler.
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/Modules)
 
-# Recent poppler versions require C++17 (supported since CMake 3.8).
+# Recent poppler versions require C++20 (supported since CMake 3.12).
 # When building on older systems with a compiler that doesn't support the
 # requested standard, CMake automatically uses the highest standard available
 # [https://cmake.org/cmake/help/latest/prop_tgt/CXX_STANDARD.html]
 if (${CMAKE_VERSION} VERSION_LESS "3.8.0")
   set (CMAKE_CXX_STANDARD 14)
-else ()
+elseif (${CMAKE_VERSION} VERSION_LESS "3.12.0")
   set (CMAKE_CXX_STANDARD 17)
+else ()
+  set (CMAKE_CXX_STANDARD 20)
 endif()
 
 # Core Components

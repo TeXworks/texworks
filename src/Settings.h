@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2020  Stefan Löffler
+	Copyright (C) 2019-2024  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -25,14 +25,29 @@
 
 namespace Tw {
 
-class Settings : public QSettings
+class Settings
 {
-	Q_OBJECT
+	QSettings m_s;
 public:
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	using KeyType = QString;
+#else
+	using KeyType = QAnyStringView;
+#endif
+
 	Settings() = default;
 
-	using QSettings::defaultFormat;
-	using QSettings::setDefaultFormat;
+	bool contains(KeyType key) const;
+	void remove(KeyType key);
+	void setValue(KeyType key, const QVariant & value);
+	QVariant value(KeyType key, const QVariant & defaultValue = QVariant()) const;
+
+	QString fileName() const;
+
+	static void setPortableIniPath(const QString & iniPath);
+#if defined(Q_OS_WIN)
+	bool isStoredInRegistry();
+#endif
 };
 
 } // namespace Tw

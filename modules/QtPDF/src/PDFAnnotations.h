@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2013-2020  Stefan Löffler
+ * Copyright (C) 2013-2024  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -140,6 +140,7 @@ public:
   virtual void setPopup(Popup * popup);
 
   bool operator==(const AbstractAnnotation & o) const override;
+  bool operator==(const Markup & m) const;
 
 protected:
   QString _title; // optional; since PDF 1.1; by convention identifies the annotation author
@@ -186,6 +187,7 @@ public:
   void setActionOnActivation(PDFAction * const action);
 
   bool operator==(const AbstractAnnotation & o) const override;
+  bool operator==(const Link & l) const;
 
 private:
   // Note: the PA member of the link annotation dict is deliberately ommitted
@@ -243,6 +245,7 @@ public:
   void setTitle(const QString & title) { _title = title; }
 
   bool operator==(const AbstractAnnotation & o) const override;
+  bool operator==(const Popup & p) const;
 
 private:
   Markup * _parent{nullptr};

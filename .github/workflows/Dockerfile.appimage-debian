@@ -13,14 +13,15 @@
 # RHEL 8.0.0+ [https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.0_release_notes/rhel-8_0_0_release#platform-tools]
 # openSUSE 15.3+ [https://software.opensuse.org/package/glibc]
 
-FROM debian:10 as build-stage
+FROM debian:11 as build-stage
 
-ARG CMAKE_VERSION=3.28.1
-ARG FREETYPE_VERSION=2-13-2
+ARG CMAKE_VERSION=3.31.3
+ARG FREETYPE_VERSION=2-13-3
 # Qt open-source LTS version
-ARG QT_VERSION=6.5.3
-ARG POPPLER_VERSION=24.01.0
+ARG QT_VERSION=6.8.1
+ARG POPPLER_VERSION=24.12.0
 ARG HUNSPELL_VERSION=1.7.2
+ARG TIFF_VERSION=4.7.0
 
 # file is required by appimagetool
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install --no-install-recommends --assume-yes \
@@ -41,7 +42,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install 
 	liblcms2-dev \
 	liblua5.3-dev \
 	libopenjp2-7-dev \
-	libtiff-dev \
 	libxcb-cursor0 \
 	libxcb-icccm4 \
 	libxcb-image0 \
@@ -109,6 +109,17 @@ RUN \
 	make && \
 	make install
 
+# Build Tiff
+RUN \
+	cd /opt && \
+	wget https://download.osgeo.org/libtiff/tiff-${TIFF_VERSION}.tar.gz && \
+	tar -xf tiff-${TIFF_VERSION}.tar.gz && \
+	mkdir tiff-${TIFF_VERSION}/build-tiff && \
+	cd tiff-${TIFF_VERSION}/build-tiff && \
+	${CMAKE} .. && \
+	make && \
+	make install
+
 # Build Poppler
 # (without boost, nss3, gpgme, curl as those are not needed by TeXworks and are
 # not easily available (in a recent enough version) from the package manager)
@@ -133,7 +144,7 @@ make install DESTDIR=AppDir
 
 # Build AppImage
 RUN cd /home/tw/build && \
-	APPIMAGE_EXTRACT_AND_RUN=1 QMAKE=/opt/qt/${QT_VERSION}/gcc_64/bin/qmake LD_LIBRARY_PATH="/opt/qt/${QT_VERSION}/gcc_64/lib/:/usr/local/lib" /opt/linuxdeploy-x86_64.AppImage --appdir AppDir --desktop-file=AppDir/usr/share/applications/texworks.desktop --library=AppDir/usr/lib/texworks/libTWLuaPlugin.so --plugin qt --output appimage
+	APPIMAGE_EXTRACT_AND_RUN=1 QMAKE=/opt/qt/${QT_VERSION}/gcc_64/bin/qmake LD_LIBRARY_PATH="/opt/qt/${QT_VERSION}/gcc_64/lib/:/usr/local/lib" /opt/linuxdeploy-x86_64.AppImage --appdir AppDir --desktop-file=AppDir/usr/share/applications/org.tug.texworks.desktop --library=AppDir/usr/lib/texworks/libTWLuaPlugin.so --plugin qt --output appimage
 
 ############################
 

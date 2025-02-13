@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2022  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2024  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 #include "Settings.h"
 #include "TWApp.h"
 #include "TeXDocumentWindow.h"
+#include "utils/IniConfig.h"
 #include "utils/ResourcesLibrary.h"
 #include "utils/WindowManager.h"
 
@@ -490,22 +491,21 @@ QString::size_type TWUtils::findOpeningDelim(const QString& text, QString::size_
 
 void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true */, QSettings * map /* = nullptr */)
 {
-	bool deleteMap = false;
+	std::unique_ptr<Tw::Utils::IniConfig> iniConfig;
 
 	if (!widget)
 		return;
 
 	if (!map) {
-		QString filename = QDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration"))).absoluteFilePath(QString::fromLatin1("shortcuts.ini"));
+		const QString filename = QDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("configuration"))).absoluteFilePath(QString::fromLatin1("shortcuts.ini"));
 		if (filename.isEmpty() || !QFileInfo(filename).exists())
 			return;
 
-		map = new QSettings(filename, QSettings::IniFormat);
+		iniConfig.reset(new Tw::Utils::IniConfig(filename));
+		map = iniConfig.get();
 		if (map->status() != QSettings::NoError) {
-			delete map;
 			return;
 		}
-		deleteMap = true;
 	}
 
 	foreach (QAction * act, widget->actions()) {
@@ -522,7 +522,4 @@ void TWUtils::installCustomShortcuts(QWidget * widget, bool recursive /* = true 
 				installCustomShortcuts(child, true, map);
 		}
 	}
-
-	if (deleteMap)
-		delete map;
 }

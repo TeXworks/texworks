@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2020  Stefan Löffler
+	Copyright (C) 2019-2024  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 
 #include <QCryptographicHash>
 #include <QDir>
+#include <QSaveFile>
 #include <QTextStream>
 
 namespace Tw {
@@ -63,7 +64,7 @@ bool FileVersionDatabase::save(const QString & path) const
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
 	using Qt::endl;
 #endif
-	QFile fout(path);
+	QSaveFile fout(path);
 	QDir rootDir(QFileInfo(path).absoluteDir());
 
 	if (!fout.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -76,7 +77,7 @@ bool FileVersionDatabase::save(const QString & path) const
 		strm << rec.version << " " << rec.hash.toHex() << " " << rootDir.relativeFilePath(filePath) << endl;
 	}
 
-	fout.close();
+	fout.commit();
 	return true;
 }
 

@@ -1,0 +1,11 @@
+diff -ru a/poppler/ImageEmbeddingUtils.cc b/poppler/ImageEmbeddingUtils.cc
+--- a/poppler/ImageEmbeddingUtils.cc	2021-12-01 15:48:56.000000000 +0100
++++ b/poppler/ImageEmbeddingUtils.cc	2024-07-27 13:05:11.510688419 +0200
+@@ -14,6 +14,7 @@
+ #include <memory>
+ #ifdef ENABLE_LIBJPEG
+ extern "C" {
++#    include <cstdio>
+ #    include <jpeglib.h>
+ }
+ #endif

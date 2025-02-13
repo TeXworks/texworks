@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2023  Stefan Löffler
+ * Copyright (C) 2023-2024  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -15,12 +15,14 @@
 #define InfoWidgets_H
 
 #include <QFutureWatcher>
-#include <QGroupBox>
-#include <QLabel>
-#include <QListView>
-#include <QTableWidget>
-#include <QTreeWidgetItem>
 #include <QWidget>
+
+class QGroupBox;
+class QLabel;
+class QListView;
+class QTableWidget;
+class QTreeWidget;
+class QTreeWidgetItem;
 
 namespace QtPDF {
 

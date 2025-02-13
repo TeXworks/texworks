@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2023  Stefan Löffler
+ * Copyright (C) 2023-2024  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -14,6 +14,12 @@
 #include "InfoWidgets.h"
 
 #include <QEvent>
+#include <QGroupBox>
+#include <QLabel>
+#include <QListView>
+#include <QTableWidget>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 #include <QtConcurrent>
 
 #include "PaperSizes.h"

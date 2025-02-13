@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2023  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2024  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -140,6 +140,9 @@ void FindDialog::init(QTextEdit *document)
 	}
 	recentSearches->setMenu(recentItemsMenu);
 	searchText->installEventFilter(new RecentStringsKeyFilter(this, recentStrings));
+	// (At least) On Win11, the primary button receives focus by default. We
+	// specifically want the focus on the search box, though
+	searchText->setFocus();
 }
 
 void FindDialog::setSearchText()
@@ -304,6 +307,9 @@ void ReplaceDialog::init(QTextEdit *document)
 	}
 	recentReplacements->setMenu(recentItemsMenu);
 	replaceText->installEventFilter(new RecentStringsKeyFilter(this, recentStrings));
+	// (At least) On Win11, the primary button receives focus by default. We
+	// specifically want the focus on the search box, though
+	searchText->setFocus();
 }
 
 void ReplaceDialog::setSearchText()

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014-2024 Stefan Löffler <st.loeffler@gmail.com> -->
+<!-- Copyright 2014-2025 Stefan Löffler <st.loeffler@gmail.com> -->
 <component type="desktop-application">
-	<id>org.tug.texworks.desktop</id>
+	<id>org.tug.texworks</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-2.0+</project_license>
 	<name>TeXworks</name>
@@ -117,7 +117,7 @@
 		<p xml:lang="fo">
 			TeXworks er eitt umhvørvi til at skriva TeX-skjøl, t.e LaTeX, ConTeXt o.s.fr., við.
 			Tað kemur við einum Unicode-grundaðum ritli, sum kennir til TeX, einum innbygdum
-			PDF-vísara og einum reinum og einføldum markamóti, sum brúkarar við lítlum tøkniligum 
+			PDF-vísara og einum reinum og einføldum markamóti, sum brúkarar við lítlum tøkniligum
 			innliti kunnu brúka.
 		</p>
 		<p xml:lang="fo">
@@ -187,14 +187,14 @@
 		</p>
 		<p xml:lang="ko">
 			TeXworks는 Dick Koch의 Mac OS X 용 프로그램 TeXShop에서 영향을 받았습니다.
-			수상경력에 빛나는 이 프로그램은 접근 곤란한 전문적 기술적 외양을 걷어내어 
+			수상경력에 빛나는 이 프로그램은 접근 곤란한 전문적 기술적 외양을 걷어내어
 			텍을 이용한 고품질 조판을 폭넓은 사용자층에 보급하였습니다. TeXworks의 목표는
 			이와 같이 사용하기 쉬운 통합적인 환경을 GNU/Linux나 Windows 등 다른 플랫폼
 			사용자들에게도 제공하는 것입니다.
 		</p>
 		<p xml:lang="ko">
 			무엇보다 TeXworks는 PDF 미리보기 기능 내장, 텍 파일과 PDF 결과물 간 연동,
-			확장가능한 스크립트 활용 인터페이스 등의 특징을 가지고 있습니다.  
+			확장가능한 스크립트 활용 인터페이스 등의 특징을 가지고 있습니다.
 		</p>
 		<p xml:lang="nl">
 			TeXworks ist een omgeving om documenten voor TeX (LaTeX, ConTeXt, enzovoort)
@@ -321,10 +321,11 @@
 	<provides>
 		<binary>texworks</binary>
 	</provides>
-	<launchable type="desktop-id">texworks.desktop</launchable>
+	<launchable type="desktop-id">org.tug.texworks.desktop</launchable>
 	<content_rating type="oars-1.0" />
 
 	<releases>
+		<release version="0.6.10" date="2025-02-13" />
 		<release version="0.6.9" date="2024-02-12" />
 		<release version="0.6.8" date="2023-02-18" />
 		<release version="0.6.7" date="2022-02-26" />
@@ -348,4 +349,3 @@
 		<release version="0.2.0" date="2009-09-30" />
 	</releases>
 </component>
-

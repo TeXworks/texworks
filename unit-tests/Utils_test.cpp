@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2019-2023  Stefan Löffler
+	Copyright (C) 2019-2024  Stefan Löffler
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 #include <QMenuBar>
 #include <QMouseEvent>
 #include <QStatusBar>
-#include <QTemporaryFile>
+#include <QTemporaryDir>
 #include <QToolBar>
 
 #ifdef Q_OS_DARWIN
@@ -156,11 +156,14 @@ void TestUtils::FileVersionDatabase_save()
 
 	QVERIFY(db.save(QStringLiteral("does/not/exist.db")) == false);
 
-	QTemporaryFile tmpFile;
-	tmpFile.open();
-	tmpFile.close();
-	QVERIFY(db.save(tmpFile.fileName()));
-	QCOMPARE(Tw::Utils::FileVersionDatabase::load(tmpFile.fileName()), db);
+	QTemporaryDir tmpDir;
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
+	const QString tmpFile{QDir(tmpDir.path()).filePath(QStringLiteral("db"))};
+#else
+	const QString tmpFile{tmpDir.filePath(QStringLiteral("db"))};
+#endif
+	QVERIFY(db.save(tmpFile));
+	QCOMPARE(Tw::Utils::FileVersionDatabase::load(tmpFile), db);
 }
 
 void TestUtils::SystemCommand_wait()

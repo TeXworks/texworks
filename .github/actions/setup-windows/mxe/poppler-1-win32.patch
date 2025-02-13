@@ -2,22 +2,22 @@ This file is part of MXE. See LICENSE.md for licensing information.
 
 Contains ad hoc patches for cross building.
 
-From 4c5ec4c7bf25372a7bbe4e76dc9fc3170618913d Mon Sep 17 00:00:00 2001
+From 777d72fae43a56bd10c01fea7c179c51297a2c65 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Sat, 26 Jun 2021 19:49:25 +0200
-Subject: [PATCH 1/4] Fix static builds
+Subject: [PATCH 1/3] Fix static builds
 
 ---
  CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 2a23c9b0..7d0b4a19 100644
+index c9910ec2..4014fb5d 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -85,7 +85,7 @@ option(USE_FLOAT "Use single precision arithmetic in the Splash backend" OFF)
- option(BUILD_SHARED_LIBS "Build poppler as a shared library" ON)
+@@ -87,7 +87,7 @@ option(BUILD_SHARED_LIBS "Build poppler as a shared library" ON)
  option(RUN_GPERF_IF_PRESENT "Run gperf if it is found" ON)
+ option(INSTALL_GLIB_DEMO "Whether to install the poppler-glib-demo program." OFF)
  if(WIN32)
 -  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ON)
 +  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ${BUILD_SHARED_LIBS})
@@ -25,22 +25,23 @@ index 2a23c9b0..7d0b4a19 100644
    set(ENABLE_RELOCATABLE OFF)
  endif()
 -- 
-2.40.1
+2.45.2
 
-From 447b65b35be214c9d3c4245c860bd20ac3581d73 Mon Sep 17 00:00:00 2001
+
+From 99d2ff863225125bc7a5fc00e50d377f95d4a5bc Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Thu, 4 Feb 2021 20:44:30 +0100
-Subject: [PATCH 2/4] Fix static linking for libopenjpeg >= 2.4
+Subject: [PATCH 2/3] Fix static linking for libopenjpeg >= 2.4
 
 ---
  CMakeLists.txt | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 7d0b4a19..da320ed0 100644
+index 4014fb5d..5e8a086e 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -319,6 +319,9 @@ else()
+@@ -321,6 +321,9 @@ else()
    message(FATAL_ERROR "Invalid ENABLE_LIBOPENJPEG value: ${ENABLE_LIBOPENJPEG}")
  endif()
  set(ENABLE_LIBOPENJPEG "${WITH_OPENJPEG}")
@@ -48,15 +49,16 @@ index 7d0b4a19..da320ed0 100644
 +  add_definitions(-DOPJ_STATIC)
 +endif()
  
- find_soft_mandatory_package(ENABLE_LCMS LCMS2 2.9)
+ find_soft_mandatory_package(ENABLE_LCMS LCMS2 2.12)
  set(USE_CMS ${ENABLE_LCMS})
 -- 
-2.40.1
+2.45.2
 
-From e3cbb46b30da16c714e0e958686804c794ea227b Mon Sep 17 00:00:00 2001
+
+From 7cc4a547f2c54ab5ae9a3374cf589c02ded5e1ea Mon Sep 17 00:00:00 2001
 From: brodieG <brodieG@users.noreply.github.com>
 Date: Sat, 5 Nov 2022 14:08:43 +0000
-Subject: [PATCH 3/4] Allow setting PC requires for C Lib
+Subject: [PATCH 3/3] Allow setting PC requires for C Lib
 
 POPPLER_REQUIRES should be set through the .mk file, although
 ideally this would all be done through the cmake files (and
@@ -77,36 +79,5 @@ index 00b73488..80723df6 100644
  Libs: -L${libdir} -lpoppler
  Cflags: -I${includedir}/poppler
 -- 
-2.40.1
+2.45.2
 
-From 875fc764d1a64b07c8f664cb886dccad36e4adfd Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
-Date: Sun, 14 Jan 2024 19:08:42 +0100
-Subject: [PATCH 4/4] Help CMake find Qt
-
----
- CMakeLists.txt | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index da320ed0..9eca8c99 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -209,6 +209,7 @@ else()
- endif()
- 
- set(QT5_VERSION "5.12") # Update QT_DISABLE_DEPRECATED_BEFORE in qt5/CMakeLists.txt when changing this
-+find_package(Qt5 ${QT5_VERSION} COMPONENTS Core Gui Xml Widgets Test)
- find_soft_mandatory_package(ENABLE_QT5 Qt5Core ${QT5_VERSION})
- find_soft_mandatory_package(ENABLE_QT5 Qt5Gui ${QT5_VERSION})
- find_soft_mandatory_package(ENABLE_QT5 Qt5Xml ${QT5_VERSION})
-@@ -217,6 +218,7 @@ find_soft_mandatory_package(ENABLE_QT5 Qt5Test ${QT5_VERSION})
- 
- set(QT6_VERSION "6.2")
- SET(QT_NO_CREATE_VERSIONLESS_TARGETS ON)
-+find_package(Qt6 ${QT6_VERSION} COMPONENTS Core Gui Widgets Test)
- find_soft_mandatory_package(ENABLE_QT6 Qt6Core ${QT6_VERSION})
- find_soft_mandatory_package(ENABLE_QT6 Qt6Gui ${QT6_VERSION})
- find_soft_mandatory_package(ENABLE_QT6 Qt6Widgets ${QT6_VERSION})
--- 
-2.40.1

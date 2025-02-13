@@ -1,6 +1,6 @@
 /*
   This is part of TeXworks, an environment for working with TeX documents
-  Copyright (C) 2013-2023  Stefan Löffler
+  Copyright (C) 2013-2024  Stefan Löffler
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -21,6 +21,8 @@
 #include "TestQtPDF.h"
 #include "PaperSizes.h"
 #include "PhysicalUnits.h"
+
+#include <QTimeZone>
 
 #ifdef USE_MUPDF
   typedef QtPDF::MuPDFBackend Backend;
@@ -264,6 +266,7 @@ void TestQtPDF::loadDocs()
     _docs[QString::fromLatin1("base14-fonts")] = backend.newDocument(QString::fromLatin1("base14-fonts.pdf"));
     _docs[QString::fromLatin1("poppler-data")] = backend.newDocument(QString::fromLatin1("poppler-data.pdf"));
     _docs[QString::fromLatin1("metadata")] = backend.newDocument(QString::fromLatin1("metadata.pdf"));
+    _docs[QString::fromLatin1("info-metadata")] = backend.newDocument(QString::fromLatin1("info-metadata.pdf"));
     _docs[QString::fromLatin1("page-rotation")] = backend.newDocument(QString::fromLatin1("page-rotation.pdf"));
     _docs[QString::fromLatin1("annotations")] = backend.newDocument(QString::fromLatin1("annotations.pdf"));
     _docs[QString::fromLatin1("jpg")] = backend.newDocument(QStringLiteral("jpg.pdf"));
@@ -275,6 +278,11 @@ void TestQtPDF::parsePDFDate_data()
 {
   QTest::addColumn<QString>("str");
   QTest::addColumn<QDateTime>("result");
+#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
+  const auto UTC = Qt::UTC;
+#else
+  const auto UTC = QTimeZone::utc();
+#endif
 
   // NB: fromPDFDate always returns local time
   QTest::newRow("empty") << QString() << QDateTime();
@@ -284,9 +292,9 @@ void TestQtPDF::parsePDFDate_data()
   QTest::newRow("yyyymmddHH") << QStringLiteral("D:2000020213") << QDateTime(QDate(2000, 2, 2), QTime(13, 0, 0));
   QTest::newRow("yyyymmddHHMM") << QStringLiteral("D:200002021342") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 0));
   QTest::newRow("yyyymmddHHMMSS") << QStringLiteral("D:20000202134221") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
-  QTest::newRow("yyyymmddHHMMSSZ") << QStringLiteral("D:20000202134221Z") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21), Qt::UTC).toLocalTime();
-  QTest::newRow("yyyymmddHHMMSS+07'30") << QStringLiteral("D:20000202134221+07'30") << QDateTime(QDate(2000, 2, 2), QTime(6, 12, 21), Qt::UTC).toLocalTime();
-  QTest::newRow("yyyymmddHHMMSS-08'00") << QStringLiteral("D:20000202134221-08'00") << QDateTime(QDate(2000, 2, 2), QTime(21, 42, 21), Qt::UTC).toLocalTime();
+  QTest::newRow("yyyymmddHHMMSSZ") << QStringLiteral("D:20000202134221Z") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21), UTC).toLocalTime();
+  QTest::newRow("yyyymmddHHMMSS+07'30") << QStringLiteral("D:20000202134221+07'30") << QDateTime(QDate(2000, 2, 2), QTime(6, 12, 21), UTC).toLocalTime();
+  QTest::newRow("yyyymmddHHMMSS-08'00") << QStringLiteral("D:20000202134221-08'00") << QDateTime(QDate(2000, 2, 2), QTime(21, 42, 21), UTC).toLocalTime();
   QTest::newRow("yyyymmddHHMMSS;08'00") << QStringLiteral("D:20000202134221;08'00") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
   QTest::newRow("yyyymmddHHMMSS-0800") << QStringLiteral("D:20000202134221-0800") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
   QTest::newRow("yyyymmddHHMMSS-0a'00") << QStringLiteral("D:20000202134221-0a'00") << QDateTime(QDate(2000, 2, 2), QTime(13, 42, 21));
@@ -860,6 +868,7 @@ void TestQtPDF::metaDataTitle_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromUtf8("Document Title • UTF16-BE");
+  newDocTest("info-metadata") << QStringLiteral("test title");
 }
 
 void TestQtPDF::metaDataTitle()
@@ -879,6 +888,7 @@ void TestQtPDF::metaDataAuthor_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromUtf8("Stefan Löffler");
+  newDocTest("info-metadata") << QStringLiteral("author");
 }
 
 void TestQtPDF::metaDataAuthor()
@@ -898,6 +908,7 @@ void TestQtPDF::metaDataSubject_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromLatin1("PDF Test File");
+  newDocTest("info-metadata") << QStringLiteral("test subject");
 }
 
 void TestQtPDF::metaDataSubject()
@@ -917,6 +928,7 @@ void TestQtPDF::metaDataKeywords_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromLatin1("pdf, metadata, test");
+  newDocTest("info-metadata") << QStringLiteral("test keywords");
 }
 
 void TestQtPDF::metaDataKeywords()
@@ -936,6 +948,7 @@ void TestQtPDF::metaDataCreator_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromLatin1("gedit");
+  newDocTest("info-metadata") << QStringLiteral("LaTeX with hyperref");
 }
 
 void TestQtPDF::metaDataCreator()
@@ -955,6 +968,7 @@ void TestQtPDF::metaDataProducer_data()
   newDocTest("base14-fonts") << QString();
   newDocTest("base14-locked") << QString();
   newDocTest("metadata") << QString::fromLatin1("also gedit");
+  newDocTest("info-metadata") << QString::fromUtf8("luahbtex-1.18.0");
 }
 
 void TestQtPDF::metaDataProducer()
@@ -966,14 +980,20 @@ void TestQtPDF::metaDataProducer()
 
 void TestQtPDF::metaDataCreationDate_data()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
+  const auto UTC = Qt::UTC;
+#else
+  const auto UTC = QTimeZone::utc();
+#endif
   QTest::addColumn<pDoc>("doc");
   QTest::addColumn<QDateTime>("expected");
   newDocTest("invalid") << QDateTime();
   newDocTest("transitions") << QDateTime();
-  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), Qt::UTC);
+  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), UTC);
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
-  newDocTest("metadata") << QDateTime(QDate(2013, 9, 7), QTime(23, 23, 45), Qt::UTC);
+  newDocTest("metadata") << QDateTime(QDate(2013, 9, 7), QTime(23, 23, 45), UTC);
+  newDocTest("info-metadata") << QDateTime(QDate(2024, 12, 26), QTime(20, 51, 42), UTC);
 }
 
 void TestQtPDF::metaDataCreationDate()
@@ -985,14 +1005,20 @@ void TestQtPDF::metaDataCreationDate()
 
 void TestQtPDF::metaDataModDate_data()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 5, 0)
+  const auto UTC = Qt::UTC;
+#else
+  const auto UTC = QTimeZone::utc();
+#endif
   QTest::addColumn<pDoc>("doc");
   QTest::addColumn<QDateTime>("expected");
   newDocTest("invalid") << QDateTime();
   newDocTest("transitions") << QDateTime();
-  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), Qt::UTC);
+  newDocTest("pgfmanual") << QDateTime(QDate(2010, 10, 25), QTime(20, 56, 26), UTC);
   newDocTest("base14-fonts") << QDateTime();
   newDocTest("base14-locked") << QDateTime();
-  newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(10, 34, 56), Qt::UTC);
+  newDocTest("metadata") << QDateTime(QDate(2013, 9, 8), QTime(10, 34, 56), UTC);
+  newDocTest("info-metadata") << QDateTime(QDate(2024, 12, 26), QTime(20, 51, 42), UTC);
 }
 
 void TestQtPDF::metaDataModDate()

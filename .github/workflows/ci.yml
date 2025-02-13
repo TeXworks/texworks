@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Build
       run: docker build -f .github/workflows/Dockerfile.legacy .
@@ -22,10 +22,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Build
       run: docker build -f .github/workflows/Dockerfile.arch-qt6 .
+
+################################################################################
+
+  build-sanitizer:
+    name: Sanitizer (Linux)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Build
+      run: docker build -f .github/workflows/Dockerfile.sanitizer .
 
 ################################################################################
 
@@ -34,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install dependencies
       run: sudo apt update && sudo apt install --assume-yes --no-install-recommends qtbase5-dev qtdeclarative5-dev qtscript5-dev qttools5-dev qttools5-dev-tools zlib1g-dev libhunspell-dev libpoppler-qt5-dev libpoppler-private-dev liblua5.3-dev xvfb fonts-urw-base35 poppler-data lcov
@@ -63,9 +75,12 @@ jobs:
         echo "::group::Info"
         lcov --list coverage.info #debug info
         echo "::endgroup::"
-        echo "::group::Upload to Codecov"
-        bash <(curl -s https://codecov.io/bash) || echo "::warning::Codecov did not collect coverage reports"
-        echo "::endgroup::"
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
 
 ################################################################################
 
@@ -89,7 +104,7 @@ jobs:
         install: mingw-w64-x86_64-cmake git make mingw-w64-x86_64-gcc mingw-w64-x86_64-hunspell mingw-w64-x86_64-lua mingw-w64-x86_64-poppler mingw-w64-x86_64-qt5
 
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Configure
       run: cmake -G 'MSYS Makefiles' -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi'
@@ -111,12 +126,12 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
-        version: 6.5.*
+        version: 6.8.*
         modules: qt5compat
 
       # Strawberry perl comes with all sorts of libraries (without headers) that
@@ -155,7 +170,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install Dependencies
       run: |
@@ -170,7 +185,7 @@ jobs:
         brew link --force poppler-qt5
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="/usr/local/opt/qt@5"
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="`brew --prefix qt@5`"
 
     - name: Build
       run: make -j
@@ -194,7 +209,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install MacPorts
       run: |

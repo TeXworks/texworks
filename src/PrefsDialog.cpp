@@ -1,6 +1,6 @@
 /*
 	This is part of TeXworks, an environment for working with TeX documents
-	Copyright (C) 2007-2023  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
+	Copyright (C) 2007-2024  Jonathan Kew, Stefan Löffler, Charlie Sharpsteen
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -483,32 +483,10 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 
 	QList< DictPair > dictList;
 	foreach (const QString& dictKey, Tw::Document::SpellChecker::getDictionaryList()->uniqueKeys()) {
-		QString dict, label;
-		QLocale loc;
-
-		foreach (dict, Tw::Document::SpellChecker::getDictionaryList()->values(dictKey)) {
-			loc = QLocale(dict);
-			if (loc.language() != QLocale::C) break;
+		foreach (QString dict, Tw::Document::SpellChecker::getDictionaryList()->values(dictKey)) {
+			const QString label{Tw::Document::SpellChecker::labelForDict(dict)};
+			dictList << qMakePair(label, dict);
 		}
-
-		if (loc.language() == QLocale::C)
-			label = dict;
-		else {
-			const QString languageString = QLocale::languageToString(loc.language());
-#if QT_VERSION < QT_VERSION_CHECK(6, 2, 0)
-			const QString territoryString = (loc.country() != QLocale::AnyCountry ? QLocale::countryToString(loc.country()) : QString());
-#else
-			const QString territoryString = (loc.territory() != QLocale::AnyTerritory ? QLocale::territoryToString(loc.territory()) : QString());
-#endif
-			if (!territoryString.isEmpty()) {
-				label = tr("%1 - %2 (%3)").arg(languageString, territoryString, dict);
-			}
-			else {
-				label = tr("%1 (%2)").arg(languageString, dict);
-			}
-		}
-
-		dictList << qMakePair(label, dict);
 	}
 	std::sort(dictList.begin(), dictList.end(), dictPairLessThan);
 	foreach (const DictPair& dict, dictList)

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2023  Stefan Löffler
+ * Copyright (C) 2023-2024  Stefan Löffler
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -14,8 +14,6 @@
 #ifndef PDFPageProcessingThread_H
 #define PDFPageProcessingThread_H
 
-#include "PDFAnnotations.h"
-
 #include <QEvent>
 #include <QImage>
 #include <QMutex>
@@ -26,6 +24,11 @@
 #include <QWaitCondition>
 
 namespace QtPDF {
+
+namespace Annotation {
+class Link;
+} // namespace Annotation
+
 namespace Backend {
 
 class Page;

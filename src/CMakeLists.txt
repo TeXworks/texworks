@@ -105,6 +105,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   utils/CommandlineParser.h
                   utils/FileVersionDatabase.h
                   utils/FullscreenManager.h
+                  utils/IniConfig.h
                   utils/ResourcesLibrary.h
                   utils/SystemCommand.h
                   utils/TextCodecs.h
@@ -149,11 +150,12 @@ set(TEXWORKS_RCS ${TeXworks_SOURCE_DIR}/res/resfiles.qrc
                  ${TeXworks_SOURCE_DIR}/res/resources.qrc)
 
 FILE(GLOB TEXWORKS_TRANS_TS   "${TeXworks_SOURCE_DIR}/trans/*.ts")
-FILE(GLOB QT_TRANS_QM         "${TeXworks_SOURCE_DIR}/trans/qt/*.qm")
+FILE(GLOB QT_TRANS_TS         "${TeXworks_SOURCE_DIR}/trans/qt/*.ts")
 
 IF ( WIN32 )
   if (NOT MSVC)
     set(CREATE_MANIFEST TRUE)
+    configure_file(${TeXworks_SOURCE_DIR}/res/TeXworks.exe.in.manifest TeXworks.exe.manifest)
   endif (NOT MSVC)
   configure_file(${TeXworks_SOURCE_DIR}/res/TeXworks.in.rc TeXworks.rc)
   list(APPEND TEXWORKS_SRCS ${CMAKE_CURRENT_BINARY_DIR}/TeXworks.rc)
@@ -207,8 +209,8 @@ IF (NOT ${BUILD_SHARED_PLUGINS})
   IF (WITH_LUA AND LUA_FOUND)
     LIST(INSERT TeXworks_LIBS 0 TWLuaPlugin ${LUA_LIBRARIES})
   ENDIF()
-  IF (WITH_PYTHON AND PYTHONLIBS_FOUND)
-    LIST(INSERT TeXworks_LIBS 0 TWPythonPlugin ${PYTHON_LIBRARIES})
+  IF (WITH_PYTHON AND Python_Development_FOUND)
+    LIST(INSERT TeXworks_LIBS 0 TWPythonPlugin ${Python_LIBRARIES})
   ENDIF()
 ENDIF()
 
@@ -231,8 +233,7 @@ target_compile_options(TeXworks PRIVATE ${WARNING_OPTIONS})
 
 # Add translations
 target_add_qt_translations(TeXworks
-  TS_FILES ${TEXWORKS_TRANS_TS}
-  QM_FILES ${QT_TRANS_QM}
+  TS_FILES ${TEXWORKS_TRANS_TS} ${QT_TRANS_TS}
   INCLUDEPATH "../src/"
 )
 
@@ -328,8 +329,8 @@ IF ( UNIX AND NOT APPLE )
     ${TeXworks_SOURCE_DIR}/NEWS
   DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_DOCS_DIR})
   INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/texworks.1 DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_MAN_DIR})
-  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/texworks.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_DESKTOP_DIR})
-  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/texworks.appdata.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_APPDATA_DIR})
+  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/org.tug.texworks.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_DESKTOP_DIR})
+  INSTALL(FILES ${TeXworks_SOURCE_DIR}/res/org.tug.texworks.metainfo.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/${TeXworks_APPDATA_DIR})
 ENDIF ( UNIX AND NOT APPLE )
 
 # On OS X, ensure there is always a `qt.conf` file as all hell will break loose

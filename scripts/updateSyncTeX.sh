@@ -1,7 +1,7 @@
 #!/bin/sh
 
 url4file() {
-	echo "https://github.com/jlaurens/synctex/raw/2020/$1"
+	echo "https://github.com/jlaurens/synctex/raw/2024/$1"
 #	echo "https://www.tug.org/svn/texlive/trunk/Build/source/texk/web2c/synctexdir/$1?view=co"
 }
 
