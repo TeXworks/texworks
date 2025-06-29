@@ -62,14 +62,18 @@ jobs:
       run: |
         echo "::group::Initialization"
         lcov --zerocounters --directory .
+        lcov --capture --initial --directory . --output-file "coverage.base"
+        lcov --remove "coverage.base" '/usr/*' --output-file "coverage.base"
+        lcov --remove "coverage.base" "$(pwd)"'/*_autogen/*' --output-file "coverage.base"
         echo "::endgroup::"
         echo "::group::Run tests"
         xvfb-run ctest -V
         echo "::endgroup::"
         echo "::group::Collect data"
-        lcov --capture --all --directory . --output-file "coverage.info"
+        lcov --capture --directory . --output-file "coverage.info"
         lcov --remove "coverage.info" '/usr/*' --output-file "coverage.info"
         lcov --remove "coverage.info" "$(pwd)"'/*_autogen/*' --output-file "coverage.info"
+        lcov --add-tracefile "coverage.base" --add-tracefile "coverage.info" --output-file "coverage.info"
         echo "::endgroup::"
         echo "::group::Info"
         lcov --list coverage.info #debug info
