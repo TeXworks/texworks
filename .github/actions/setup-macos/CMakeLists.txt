@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.1...4.0)
 
 project(TeXworksDependencyInstall)
 
@@ -18,9 +18,9 @@ set(CONFIGURE_CFLAGS -mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET})
 foreach(ARCH IN LISTS CMAKE_OSX_ARCHITECTURES)
 	set(ARCH_FLAGS "${ARCH_FLAGS} -arch ${ARCH}")
 	if (ARCH STREQUAL "arm64")
-		set(CONFIGURE_ARGS ${CONFIGURE_ARGS} --host aarch64-apple-darwin)
+		set(CONFIGURE_ARGS ${CONFIGURE_ARGS} --host=aarch64-apple-darwin)
 	else ()
-		set(CONFIGURE_ARGS ${CONFIGURE_ARGS} --host ${ARCH}-apple-darwin)
+		set(CONFIGURE_ARGS ${CONFIGURE_ARGS} --host=${ARCH}-apple-darwin)
 	endif()
 endforeach()
 set(CONFIGURE_ENV "CFLAGS=\"${CONFIGURE_CFLAGS} ${ARCH_FLAGS}\" CXXFLAGS=\"${CONFIGURE_CFLAGS} ${ARCH_FLAGS}\"")
@@ -30,8 +30,13 @@ set(CMAKE_ARGS -DCMAKE_OSX_DEPLOYMENT_TARGET=${CMAKE_OSX_DEPLOYMENT_TARGET} -DCM
 include(ExternalProject)
 
 macro(ADD_GH_GROUP target)
-	ExternalProject_Add_Step(${target} pre COMMENT "${target} start" COMMAND ${CMAKE_COMMAND} -E echo "::group::${target}" DEPENDERS mkdir ALWAYS TRUE)
-	ExternalProject_Add_Step(${target} post COMMENT "${target} end" COMMAND ${CMAKE_COMMAND} -E echo "::endgroup::" DEPENDEES install ALWAYS TRUE)
+	if (CMAKE_VERSION VERSION_LESS "3.19")
+		ExternalProject_Add_Step(${target} pre COMMENT "${target} start" COMMAND ${CMAKE_COMMAND} -E echo "::group::${target}" DEPENDERS mkdir ALWAYS TRUE)
+		ExternalProject_Add_Step(${target} post COMMENT "${target} end" COMMAND ${CMAKE_COMMAND} -E echo "::endgroup::" DEPENDEES install ALWAYS TRUE)
+	else()
+		ExternalProject_Add_Step(${target} pre COMMENT "${target} start" COMMAND ${CMAKE_COMMAND} -E echo "::group::${target}" DEPENDERS mkdir ALWAYS TRUE INDEPENDENT TRUE>)
+		ExternalProject_Add_Step(${target} post COMMENT "${target} end" COMMAND ${CMAKE_COMMAND} -E echo "::endgroup::" DEPENDEES install ALWAYS TRUE)
+	endif()
 endmacro(ADD_GH_GROUP)
 
 
@@ -55,9 +60,10 @@ ADD_GH_GROUP(freetype)
 ExternalProject_Add(gettext
 	URL "https://ftp.gnu.org/gnu/gettext/gettext-0.23.tar.xz"
 	URL_HASH SHA256=bf31a9b6bdf3e364669c7bd9858f97e4a0c408a8d22940c5d4ab638b65460f85
-	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV} am_cv_func_iconv_works=yes" ./configure ${CONFIGURE_ARGS} --disable-dependency-tracking --disable-silent-rules --disable-debug --with-included-glib --with-included-libcroco --with-included-libunistring --with-included-libxml --with-included-gettext --disable-java --disable-csharp --without-git --without-cvs --without-xz
+	CONFIGURE_COMMAND autoreconf --force && env -S "${CONFIGURE_ENV} am_cv_func_iconv_works=yes" ./configure ${CONFIGURE_ARGS} --disable-dependency-tracking --disable-silent-rules --disable-debug --with-included-glib --with-included-libcroco --with-included-libunistring --with-included-libxml --with-included-gettext --disable-java --disable-csharp --without-git --without-cvs --without-xz
 	BUILD_IN_SOURCE TRUE
 )
+
 ADD_GH_GROUP(gettext)
 
 # Need to specify CXX as apparently that is used somewhere down the line for
@@ -95,7 +101,7 @@ ADD_GH_GROUP(libjpeg)
 ExternalProject_Add(libtiff
 	URL "https://download.osgeo.org/libtiff/tiff-4.7.0.tar.gz"
 	URL_HASH SHA256=67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976
-	CMAKE_ARGS ${CMAKE_ARGS}
+	CMAKE_ARGS ${CMAKE_ARGS} -Dtiff-docs=OFF
 	DEPENDS libjpeg
 )
 ADD_GH_GROUP(libtiff)
