@@ -44,6 +44,6 @@ RUN export HUNSPELL_VERSION=1.2.9 && \
 COPY . /home/tw
 
 RUN mkdir /home/tw/build && cd /home/tw/build && \
-cmake -DTW_BUILD_ID='github' .. && \
+cmake -DTW_BUILD_ID='github' .. -DQT_DEFAULT_MAJOR_VERSION=5 && \
 make -j && \
 xvfb-run ctest -V

@@ -75,31 +75,7 @@ endif()
 
 FIND_PACKAGE(ZLIB REQUIRED)
 
-if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
-  find_package(Qt6 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
-
-  if (WITH_TESTS)
-    find_package(Qt6 OPTIONAL_COMPONENTS Test QUIET)
-    if (NOT Qt6Test_FOUND)
-      set(WITH_TESTS OFF)
-    endif()
-  endif()
-
-  # Note: Qt6 only sets Qt6_VERSION, etc., but not QT_VERSION_MAJOR,
-  # etc. which is used here.
-  set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")
-  set(QT_VERSION_MINOR "${Qt6_VERSION_MINOR}")
-  set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
-
-  SET(QTPDF_LIBS
-    ${QT_PLATFORM_LIBRARIES}
-    Qt6::Core Qt6::Widgets Qt6::Concurrent Qt6::Core Qt6::Xml
-    ZLIB::ZLIB
-  )
-  SET(QTPDF_TEST_LIBS
-    Qt6::Test
-  )
-else ()
+if (QT_DEFAULT_MAJOR_VERSION EQUAL 5)
   find_package(Qt5 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
 
   if (WITH_TESTS)
@@ -127,6 +103,30 @@ else ()
   SET(QTPDF_TEST_LIBS
     ${QT_PLATFORM_LIBRARIES}
     Qt5::Test
+  )
+else ()
+  find_package(Qt6 REQUIRED COMPONENTS Core Widgets Concurrent Xml LinguistTools)
+
+  if (WITH_TESTS)
+    find_package(Qt6 OPTIONAL_COMPONENTS Test QUIET)
+    if (NOT Qt6Test_FOUND)
+      set(WITH_TESTS OFF)
+    endif()
+  endif()
+
+  # Note: Qt6 only sets Qt6_VERSION, etc., but not QT_VERSION_MAJOR,
+  # etc. which is used here.
+  set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")
+  set(QT_VERSION_MINOR "${Qt6_VERSION_MINOR}")
+  set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
+
+  SET(QTPDF_LIBS
+    ${QT_PLATFORM_LIBRARIES}
+    Qt6::Core Qt6::Widgets Qt6::Concurrent Qt6::Core Qt6::Xml
+    ZLIB::ZLIB
+  )
+  SET(QTPDF_TEST_LIBS
+    Qt6::Test
   )
 endif ()
 

@@ -49,7 +49,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install dependencies
-      run: sudo apt update && sudo apt install --assume-yes --no-install-recommends qtbase5-dev qtdeclarative5-dev qtscript5-dev qttools5-dev qttools5-dev-tools zlib1g-dev libhunspell-dev libpoppler-qt5-dev libpoppler-private-dev liblua5.3-dev xvfb fonts-urw-base35 poppler-data lcov
+      run: sudo apt update && sudo apt install --assume-yes --no-install-recommends libhunspell-dev liblua5.4-dev libpoppler-qt6-dev libpoppler-private-dev make poppler-data qt6-5compat-dev qt6-base-dev qt6-declarative-dev qt6-tools-dev qt6-tools-dev-tools zlib1g-dev xvfb fonts-urw-base35 poppler-data lcov
 
     - name: Configure
       run: cmake -B build -DCMAKE_BUILD_TYPE="Debug" -DWITH_COVERAGE=On .
@@ -62,15 +62,14 @@ jobs:
       run: |
         echo "::group::Initialization"
         lcov --zerocounters --directory .
-        lcov --capture --initial --directory . --output-file "coverage.base"
         echo "::endgroup::"
         echo "::group::Run tests"
         xvfb-run ctest -V
         echo "::endgroup::"
         echo "::group::Collect data"
-        lcov --capture --directory . --output-file "coverage.info"
-        lcov --add-tracefile "coverage.base" --add-tracefile "coverage.info" --output-file "coverage.info"
+        lcov --capture --all --directory . --output-file "coverage.info"
         lcov --remove "coverage.info" '/usr/*' --output-file "coverage.info"
+        lcov --remove "coverage.info" "$(pwd)"'/*_autogen/*' --output-file "coverage.info"
         echo "::endgroup::"
         echo "::group::Info"
         lcov --list coverage.info #debug info
@@ -107,7 +106,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Configure
-      run: cmake -G 'MSYS Makefiles' -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi'
+      run: cmake -G 'MSYS Makefiles' -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi' -DQT_DEFAULT_MAJOR_VERSION=5
 
     - name: Build
       run: cmake --build build -j
@@ -185,7 +184,7 @@ jobs:
         brew link --force poppler-qt5
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="`brew --prefix qt@5`"
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="`brew --prefix qt@5`" -DQT_DEFAULT_MAJOR_VERSION=5
 
     - name: Build
       run: make -j
@@ -221,7 +220,7 @@ jobs:
       run: sudo port selfupdate && sudo port install hunspell lua poppler-qt5 qt5-qtbase qt5-qtdeclarative qt5-qtscript qt5-qttools
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE}
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DQT_DEFAULT_MAJOR_VERSION=5
 
     - name: Build
       run: make -j
