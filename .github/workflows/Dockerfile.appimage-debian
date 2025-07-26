@@ -13,7 +13,7 @@
 # RHEL 8.0.0+ [https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.0_release_notes/rhel-8_0_0_release#platform-tools]
 # openSUSE 15.3+ [https://software.opensuse.org/package/glibc]
 
-FROM debian:11 as build-stage
+FROM debian:11 AS build-stage
 
 ARG CMAKE_VERSION=3.31.3
 ARG FREETYPE_VERSION=2-13-3
@@ -73,7 +73,7 @@ RUN mkdir /opt/opengl && mv /usr/lib/x86_64-linux-gnu/libOpenGL.so* /opt/opengl
 
 # Install deployment tools
 RUN \
-	wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -P /opt && chmod +x /opt/appimagetool-x86_64.AppImage && \
+	wget https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage -P /opt && chmod +x /opt/appimagetool-x86_64.AppImage && \
 	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -P /opt && chmod +x /opt/linuxdeploy-x86_64.AppImage && \
 	wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage -P /opt && chmod +x /opt/linuxdeploy-plugin-qt-x86_64.AppImage
 
