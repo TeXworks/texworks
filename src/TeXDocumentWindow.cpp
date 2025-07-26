@@ -1456,7 +1456,8 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 		if (codec->mibEnum() == 106 && utf8BOM)
 			file.write("\xEF\xBB\xBF");
 
-		if (file.write(codec->fromUnicode(theText)) == -1) {
+		file.write(codec->fromUnicode(theText));
+		if (file.commit() == false) {
 			QApplication::restoreOverrideCursor();
 			QMessageBox::warning(this, tr("Error writing file"),
 								 tr("An error may have occurred while saving the file. "
@@ -1465,7 +1466,6 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 			showNotSavedMessage();
 			return false;
 		}
-		file.commit();
 		QApplication::restoreOverrideCursor();
 	}
 
