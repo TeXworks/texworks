@@ -113,8 +113,12 @@ TWScriptableWindow::addScriptsToMenu(QMenu *menu, TWScriptList *scripts)
 		TWScriptList *list = qobject_cast<TWScriptList*>(obj);
 		if (list) {
 			QMenu *m = menu->addMenu(list->getName());
-			if (addScriptsToMenu(m, list) == 0)
+			if (addScriptsToMenu(m, list) == 0) {
 				menu->removeAction(m->menuAction());
+			}
+			else {
+				++count;
+			}
 		}
 	}
 	return count;
