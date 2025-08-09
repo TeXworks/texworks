@@ -20,11 +20,11 @@
 */
 
 #include "TeXHighlighter.h"
-#include "TWUtils.h"
 #include "document/TeXDocument.h"
 #include "utils/ResourcesLibrary.h"
 
 #include <QTextCursor>
+#include <QTime>
 #include <climits> // for INT_MAX
 
 QList<TeXHighlighter::HighlightingSpec> *TeXHighlighter::syntaxRules = nullptr;

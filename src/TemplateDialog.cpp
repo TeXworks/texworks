@@ -20,7 +20,6 @@
 */
 
 #include "Settings.h"
-#include "TWUtils.h"
 #include "TeXHighlighter.h"
 #include "TemplateDialog.h"
 #include "document/TeXDocument.h"

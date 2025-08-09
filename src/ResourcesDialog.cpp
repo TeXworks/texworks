@@ -22,7 +22,6 @@
 #include "ResourcesDialog.h"
 
 #include "Settings.h"
-#include "TWUtils.h"
 
 #include "utils/ResourcesLibrary.h"
 
