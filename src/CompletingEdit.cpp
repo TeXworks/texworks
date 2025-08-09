@@ -144,7 +144,7 @@ void CompletingEdit::unPrefixLines(const QString &prefix)
 	}
 
 	while (cursor.position() < selection.selectionEnd() || cursor.position() == selection.selectionStart()) {
-		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, prefix.length());
+		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, static_cast<decltype(cursor.position())>(prefix.length()));
 		if (cursor.selectedText() == prefix) {
 			cursor.removeSelectedText();
 		}
