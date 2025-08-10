@@ -1003,7 +1003,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="208"/>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="224"/>
@@ -1033,7 +1033,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/PrefsDialog.ui" line="52"/>
         <source>Locale:</source>
-        <translation>Sprache</translation>
+        <translation>Sprache:</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="72"/>
@@ -1050,7 +1050,7 @@ Wollen Sie fortfahren?</translation>
         <location filename="../src/PrefsDialog.ui" line="564"/>
         <source> px</source>
         <extracomment>cursor width unit</extracomment>
-        <translation>px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="304"/>
@@ -1116,7 +1116,7 @@ Wollen Sie fortfahren?</translation>
         <location filename="../src/PrefsDialog.ui" line="268"/>
         <location filename="../src/PrefsDialog.ui" line="710"/>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../src/PrefsDialog.ui" line="837"/>
@@ -2084,6 +2084,7 @@ Möchten Sie die Änderungen speichern?</translation>
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
         <translation>Die von %2 benutzte Zeichenkodierung %1 wird nicht unterstützt.
+
 Sie wird stattdessen als %3 interpretiert; das kann zu Fehlern im Text führen.</translation>
     </message>
     <message>
@@ -2097,6 +2098,7 @@ Sie wird stattdessen als %3 interpretiert; das kann zu Fehlern im Text führen.<
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
         <translation>Dieses Dokument enthält Zeichen, die in der Zeichenkodierung %1 nicht dargestellt werden können.
+
 Wenn Sie fortfahren, wird der Text mit Standardzeichen überschrieben. Alternativ können Sie eine andere Zeichenkodierung (z.B. UTF-8) verwenden, um Datenverlust vorzubeugen.</translation>
     </message>
     <message>
@@ -3098,7 +3100,7 @@ Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplat
     <message>
         <location filename="../src/ToolConfig.ui" line="60"/>
         <source>Browse...</source>
-        <translation>Durchsuchen</translation>
+        <translation>Durchsuchen...</translation>
     </message>
     <message>
         <location filename="../src/ToolConfig.ui" line="67"/>
