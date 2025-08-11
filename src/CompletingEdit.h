@@ -22,7 +22,7 @@
 #ifndef COMPLETING_EDIT_H
 #define COMPLETING_EDIT_H
 
-#include "document/SpellChecker.h"
+#include "document/SpellCheckManager.h"
 #include "ui/LineNumberWidget.h"
 #include "ui_CompletingEdit.h"
 
@@ -112,7 +112,7 @@ protected:
 	bool event(QEvent *event) override;
 	void scrollContentsBy(int dx, int dy) override;
 
-	Tw::Document::SpellChecker::Dictionary * getSpellChecker() const;
+	Tw::Document::SpellCheckManager::Dictionary * getSpellChecker() const;
 
 private slots:
 	void cursorPositionChangedSlot();

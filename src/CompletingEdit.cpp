@@ -1095,7 +1095,7 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	menu->insertSeparator(menu->actions().first());
 	menu->insertAction(menu->actions().first(), act);
 
-	const Tw::Document::SpellChecker::Dictionary * dictionary = getSpellChecker();
+	const Tw::Document::SpellCheckManager::Dictionary * dictionary = getSpellChecker();
 	if (dictionary) {
 		currentWord = cursorForPosition(event->pos());
 		currentWord.setPosition(currentWord.position());
@@ -1155,7 +1155,7 @@ void CompletingEdit::addToDictionary()
 
 void CompletingEdit::ignoreWord()
 {
-	Tw::Document::SpellChecker::Dictionary * dictionary = getSpellChecker();
+	Tw::Document::SpellCheckManager::Dictionary * dictionary = getSpellChecker();
 	if (dictionary == nullptr)
 		return;
 	// note that this is not persistent after quitting TW
@@ -1408,7 +1408,7 @@ void CompletingEdit::scrollContentsBy(int dx, int dy)
 	QTextEdit::scrollContentsBy(dx, dy);
 }
 
-Tw::Document::SpellChecker::Dictionary * CompletingEdit::getSpellChecker() const
+Tw::Document::SpellCheckManager::Dictionary * CompletingEdit::getSpellChecker() const
 {
 	Tw::Document::TeXDocument * doc = qobject_cast<Tw::Document::TeXDocument *>(document());
 	if (doc == nullptr)

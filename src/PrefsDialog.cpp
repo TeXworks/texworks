@@ -28,7 +28,7 @@
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "TeXHighlighter.h"
-#include "document/SpellChecker.h"
+#include "document/SpellCheckManager.h"
 
 #include <QFileDialog>
 #include <QFontDatabase>
@@ -482,9 +482,9 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	dlg.smartQuotes->addItems(quotesModes);
 
 	QList< DictPair > dictList;
-	foreach (const QString& dictKey, Tw::Document::SpellChecker::getDictionaryList()->uniqueKeys()) {
-		foreach (QString dict, Tw::Document::SpellChecker::getDictionaryList()->values(dictKey)) {
-			const QString label{Tw::Document::SpellChecker::labelForDict(dict)};
+	foreach (const QString& dictKey, Tw::Document::SpellCheckManager::getDictionaryList()->uniqueKeys()) {
+		foreach (QString dict, Tw::Document::SpellCheckManager::getDictionaryList()->values(dictKey)) {
+			const QString label{Tw::Document::SpellCheckManager::labelForDict(dict)};
 			dictList << qMakePair(label, dict);
 		}
 	}

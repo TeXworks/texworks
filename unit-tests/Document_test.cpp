@@ -25,7 +25,7 @@
 #include "TWSynchronizer.h"
 #include "TeXHighlighter.h"
 #include "document/Document.h"
-#include "document/SpellChecker.h"
+#include "document/SpellCheckManager.h"
 #include "document/TeXDocument.h"
 #include "document/TextDocument.h"
 #include "utils/ResourcesLibrary.h"
@@ -411,12 +411,12 @@ void TestDocument::findNextWord()
 
 void TestDocument::SpellChecker_getDictionaryList()
 {
-	auto * sc = Tw::Document::SpellChecker::instance();
+	auto * sc = Tw::Document::SpellCheckManager::instance();
 	Q_ASSERT(sc != nullptr);
 #if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QSignalSpy spy(sc, SIGNAL(dictionaryListChanged()));
 #else
-	QSignalSpy spy(sc, &Tw::Document::SpellChecker::dictionaryListChanged);
+	QSignalSpy spy(sc, &Tw::Document::SpellCheckManager::dictionaryListChanged);
 #endif
 
 	QVERIFY(spy.isValid());
@@ -446,7 +446,7 @@ void TestDocument::SpellChecker_getDictionary()
 	QString correctWord{QStringLiteral("World")};
 	QString wrongWord{QStringLiteral("Wrld")};
 
-	auto * sc = Tw::Document::SpellChecker::instance();
+	auto * sc = Tw::Document::SpellCheckManager::instance();
 	Q_ASSERT(sc != nullptr);
 
 	QVERIFY(sc->getDictionary(QString()) == nullptr);
@@ -468,7 +468,7 @@ void TestDocument::SpellChecker_ignoreWord()
 	QString lang{QStringLiteral("dictionary")};
 	QString wrongWord{QStringLiteral("Wrld")};
 
-	auto * sc = Tw::Document::SpellChecker::instance();
+	auto * sc = Tw::Document::SpellCheckManager::instance();
 	Q_ASSERT(sc != nullptr);
 
 	{

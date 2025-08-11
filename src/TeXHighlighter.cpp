@@ -148,7 +148,7 @@ void TeXHighlighter::setActiveIndex(int index)
 		rehighlight();
 }
 
-void TeXHighlighter::setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary)
+void TeXHighlighter::setSpellChecker(Tw::Document::SpellCheckManager::Dictionary * dictionary)
 {
 	if (_dictionary != dictionary) {
 		_dictionary = dictionary;

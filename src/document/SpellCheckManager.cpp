@@ -19,7 +19,7 @@
 	see <http://www.tug.org/texworks/>.
 */
 
-#include "document/SpellChecker.h"
+#include "document/SpellCheckManager.h"
 
 #include "utils/ResourcesLibrary.h"
 
@@ -30,12 +30,12 @@
 namespace Tw {
 namespace Document {
 
-QMultiHash<QString, QString> * SpellChecker::dictionaryList = nullptr;
-QHash<const QString,SpellChecker::Dictionary*> * SpellChecker::dictionaries = nullptr;
-SpellChecker * SpellChecker::_instance = new SpellChecker();
+QMultiHash<QString, QString> * SpellCheckManager::dictionaryList = nullptr;
+QHash<const QString,SpellCheckManager::Dictionary*> * SpellCheckManager::dictionaries = nullptr;
+SpellCheckManager * SpellCheckManager::_instance = new SpellCheckManager();
 
 // static
-QString SpellChecker::labelForDict(QString &dict)
+QString SpellCheckManager::labelForDict(QString &dict)
 {
 	QLocale loc{dict};
 
@@ -58,7 +58,7 @@ QString SpellChecker::labelForDict(QString &dict)
 	return dict;
 }
 
-QMultiHash<QString, QString> * SpellChecker::getDictionaryList(const bool forceReload /* = false */)
+QMultiHash<QString, QString> * SpellCheckManager::getDictionaryList(const bool forceReload /* = false */)
 {
 	if (dictionaryList) {
 		if (!forceReload)
@@ -77,12 +77,12 @@ QMultiHash<QString, QString> * SpellChecker::getDictionaryList(const bool forceR
 		}
 	}
 
-	emit SpellChecker::instance()->dictionaryListChanged();
+	emit SpellCheckManager::instance()->dictionaryListChanged();
 	return dictionaryList;
 }
 
 // static
-SpellChecker::Dictionary * SpellChecker::getDictionary(const QString& language)
+SpellCheckManager::Dictionary * SpellCheckManager::getDictionary(const QString& language)
 {
 	if (language.isEmpty())
 		return nullptr;
@@ -108,7 +108,7 @@ SpellChecker::Dictionary * SpellChecker::getDictionary(const QString& language)
 }
 
 // static
-void SpellChecker::clearDictionaries()
+void SpellCheckManager::clearDictionaries()
 {
 	if (!dictionaries)
 		return;
@@ -120,7 +120,7 @@ void SpellChecker::clearDictionaries()
 	dictionaries = nullptr;
 }
 
-SpellChecker::Dictionary::Dictionary(const QString & language, Hunhandle * hunhandle)
+SpellCheckManager::Dictionary::Dictionary(const QString & language, Hunhandle * hunhandle)
 	: _language(language)
 	, _hunhandle(hunhandle)
 	, _codec(nullptr)
@@ -131,18 +131,18 @@ SpellChecker::Dictionary::Dictionary(const QString & language, Hunhandle * hunha
 		_codec = QTextCodec::codecForLocale(); // almost certainly wrong, if we couldn't find the actual name!
 }
 
-SpellChecker::Dictionary::~Dictionary()
+SpellCheckManager::Dictionary::~Dictionary()
 {
 	if (_hunhandle)
 		Hunspell_destroy(_hunhandle);
 }
 
-bool SpellChecker::Dictionary::isWordCorrect(const QString & word) const
+bool SpellCheckManager::Dictionary::isWordCorrect(const QString & word) const
 {
 	return (Hunspell_spell(_hunhandle, _codec->fromUnicode(word).data()) != 0);
 }
 
-QList<QString> SpellChecker::Dictionary::suggestionsForWord(const QString & word) const
+QList<QString> SpellCheckManager::Dictionary::suggestionsForWord(const QString & word) const
 {
 	QList<QString> suggestions;
 	char ** suggestionList{nullptr};
@@ -157,7 +157,7 @@ QList<QString> SpellChecker::Dictionary::suggestionsForWord(const QString & word
 	return suggestions;
 }
 
-void SpellChecker::Dictionary::ignoreWord(const QString & word)
+void SpellCheckManager::Dictionary::ignoreWord(const QString & word)
 {
 	// note that this is not persistent after quitting TW
 	Hunspell_add(_hunhandle, _codec->fromUnicode(word).data());

@@ -31,7 +31,7 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   TWSynchronizer.cpp
                   TWUtils.cpp
                   document/Document.cpp
-                  document/SpellChecker.cpp
+                  document/SpellCheckManager.cpp
                   document/TextDocument.cpp
                   document/TeXDocument.cpp
                   scripting/ECMAScriptInterface.cpp
@@ -85,7 +85,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   TWVersion.h
                   InterProcessCommunicator.h
                   document/Document.h
-                  document/SpellChecker.h
+                  document/SpellCheckManager.h
                   document/TextDocument.h
                   document/TeXDocument.h
                   scripting/ScriptAPIInterface.h

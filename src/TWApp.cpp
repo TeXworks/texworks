@@ -30,7 +30,7 @@
 #include "TWUtils.h"
 #include "TeXDocumentWindow.h"
 #include "TemplateDialog.h"
-#include "document/SpellChecker.h"
+#include "document/SpellCheckManager.h"
 #include "scripting/ScriptAPI.h"
 #include "utils/CommandlineParser.h"
 #include "utils/IniConfig.h"
@@ -1577,8 +1577,8 @@ void TWApp::reloadSpellchecker()
 
 	// reset dictionaries (getDictionaryList(true) automatically updates all
 	// spell checker menus)
-	Tw::Document::SpellChecker::clearDictionaries();
-	Tw::Document::SpellChecker::getDictionaryList(true);
+	Tw::Document::SpellCheckManager::clearDictionaries();
+	Tw::Document::SpellCheckManager::getDictionaryList(true);
 
 	// reenable spell checker
 	for (QHash<TeXDocumentWindow*, QString>::iterator it = oldLangs.begin(); it != oldLangs.end(); ++it) {

@@ -18,8 +18,8 @@
 	For links to further information, or to contact the authors,
 	see <http://www.tug.org/texworks/>.
 */
-#ifndef SpellChecker_H
-#define SpellChecker_H
+#ifndef SpellCheckManager_H
+#define SpellCheckManager_H
 
 #include <QHash>
 #include <QObject>
@@ -30,17 +30,19 @@ struct Hunhandle;
 namespace Tw {
 namespace Document {
 
-class SpellChecker : public QObject {
+class SpellCheckManager : public QObject {
 	Q_OBJECT
 
-	SpellChecker() = default;
-	~SpellChecker() override = default;
-	SpellChecker(const SpellChecker & other) = delete;
-	SpellChecker & operator=(const SpellChecker & other) = delete;
+	SpellCheckManager() = default;
+	~SpellCheckManager() override = default;
+	SpellCheckManager(const SpellCheckManager &) = delete;
+	SpellCheckManager(SpellCheckManager &&) = delete;
+	SpellCheckManager & operator=(const SpellCheckManager &) = delete;
+	SpellCheckManager & operator=(SpellCheckManager &&) = delete;
 
 public:
 	class Dictionary {
-		friend class SpellChecker;
+		friend class SpellCheckManager;
 
 		QString _language;
 		Hunhandle * _hunhandle;
@@ -56,7 +58,7 @@ public:
 		void ignoreWord(const QString & word);
 	};
 
-	static SpellChecker * instance() { return _instance; }
+	static SpellCheckManager * instance() { return _instance; }
 	static QString labelForDict(QString & dict);
 
 	// get list of available dictionaries
@@ -76,12 +78,12 @@ signals:
 	void dictionaryListChanged() const;
 
 private:
-	static SpellChecker * _instance;
+	static SpellCheckManager * _instance;
 	static QMultiHash<QString, QString> * dictionaryList;
-	static QHash<const QString,SpellChecker::Dictionary*> * dictionaries;
+	static QHash<const QString,SpellCheckManager::Dictionary*> * dictionaries;
 };
 
 } // namespace Document
 } // namespace Tw
 
-#endif // !defined(SpellChecker_H)
+#endif // !defined(SpellCheckManager_H)

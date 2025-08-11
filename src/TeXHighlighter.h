@@ -22,7 +22,7 @@
 #ifndef TEX_HIGHLIGHTER_H
 #define TEX_HIGHLIGHTER_H
 
-#include "document/SpellChecker.h"
+#include "document/SpellCheckManager.h"
 
 #include <QRegularExpression>
 #include <QSyntaxHighlighter>
@@ -107,8 +107,8 @@ public:
 	explicit TeXHighlighter(Tw::Document::TeXDocument * parent);
 	void setActiveIndex(int index);
 
-	void setSpellChecker(Tw::Document::SpellChecker::Dictionary * dictionary);
-	Tw::Document::SpellChecker::Dictionary * getSpellChecker() const { return _dictionary; }
+	void setSpellChecker(Tw::Document::SpellCheckManager::Dictionary * dictionary);
+	Tw::Document::SpellCheckManager::Dictionary * getSpellChecker() const { return _dictionary; }
 
 	QString getSyntaxMode() const {
 		return (highlightIndex >= 0 && highlightIndex < syntaxOptions().size())
@@ -149,7 +149,7 @@ private:
 	int highlightIndex;
 	bool isTagging;
 
-	Tw::Document::SpellChecker::Dictionary * _dictionary;
+	Tw::Document::SpellCheckManager::Dictionary * _dictionary;
 
 	Tw::Document::TeXDocument * texDoc;
 };

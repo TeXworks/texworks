@@ -23,7 +23,7 @@
 #include "Engine.h"
 #include "Settings.h"
 #include "TWApp.h"
-#include "document/SpellChecker.h"
+#include "document/SpellCheckManager.h"
 #include "scripting/ScriptObject.h"
 #include "scripting/ScriptAPI.h"
 #include "utils/SystemCommand.h"
@@ -370,7 +370,7 @@ Q_INVOKABLE
 QMap<QString, QVariant> ScriptAPI::getDictionaryList(const bool forceReload /* = false */)
 {
 	QMap<QString, QVariant> retVal;
-	const QMultiHash<QString, QString> * h = Tw::Document::SpellChecker::getDictionaryList(forceReload);
+	const QMultiHash<QString, QString> * h = Tw::Document::SpellCheckManager::getDictionaryList(forceReload);
 	for (QMultiHash<QString, QString>::const_iterator it = h->begin(); it != h->end(); ++it) {
 		if (!retVal.contains(it.value()))
 			retVal[it.value()] = QVariant::fromValue((QList<QVariant>() << it.key()));
