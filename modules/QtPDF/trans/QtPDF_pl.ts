@@ -825,7 +825,7 @@
     <message>
         <location filename="../src/PDFDocumentView.cpp" line="2541"/>
         <source>Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Warstwy</translation>
     </message>
     <message>
         <location filename="../src/InfoWidgets.cpp" line="54"/>
