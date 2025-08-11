@@ -22,7 +22,6 @@
 #ifndef COMPLETING_EDIT_H
 #define COMPLETING_EDIT_H
 
-#include "document/SpellCheckManager.h"
 #include "ui/LineNumberWidget.h"
 #include "ui_CompletingEdit.h"
 
@@ -36,6 +35,14 @@
 class QCompleter;
 class QStandardItemModel;
 class QTextCodec;
+
+namespace Tw {
+namespace Document {
+
+class SpellChecker;
+
+} // namespace Document
+} // namespace Tw
 
 class CompletingEdit : public QTextEdit, private Ui::CompletingEdit
 {
@@ -112,7 +119,7 @@ protected:
 	bool event(QEvent *event) override;
 	void scrollContentsBy(int dx, int dy) override;
 
-	Tw::Document::SpellCheckManager::Dictionary * getSpellChecker() const;
+	Tw::Document::SpellChecker * getSpellChecker() const;
 
 private slots:
 	void cursorPositionChangedSlot();

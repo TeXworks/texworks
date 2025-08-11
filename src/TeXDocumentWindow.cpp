@@ -34,6 +34,8 @@
 #include "TeXHighlighter.h"
 #include "TemplateDialog.h"
 #include "scripting/ScriptAPI.h"
+#include "document/SpellChecker.h"
+#include "document/SpellCheckManager.h"
 #include "ui/ClickableLabel.h"
 #include "ui/RemoveAuxFilesDialog.h"
 #include "utils/CmdKeyFilter.h"
@@ -459,16 +461,16 @@ void TeXDocumentWindow::setLangInternal(const QString& lang)
 
 	// called internally by the spelling menu actions;
 	// not for use from scripts as it won't update the menu
-	Tw::Document::SpellCheckManager::Dictionary * oldDictionary = highlighter->getSpellChecker();
-	Tw::Document::SpellCheckManager::Dictionary * newDictionary = Tw::Document::SpellCheckManager::getDictionary(lang);
-	// if the dictionary hasn't change, don't reset the spell checker as that
+	Tw::Document::SpellChecker * oldSpellChecker = highlighter->getSpellChecker();
+	Tw::Document::SpellChecker * newSpellChecker = Tw::Document::SpellCheckManager::getDictionary(lang);
+	// if the dictionary hasn't changed, don't reset the spell checker as that
 	// can result in a serious delay for long documents
 	// NB: Don't delete the dictionaries; the pointers are kept by
-	// Tw::Document::SpellChecker
-	if (oldDictionary == newDictionary)
+	// Tw::Document::SpellCheckManager
+	if (oldSpellChecker == newSpellChecker)
 		return;
 
-	highlighter->setSpellChecker(newDictionary);
+	highlighter->setSpellChecker(newSpellChecker);
 }
 
 void TeXDocumentWindow::setSpellcheckLanguage(const QString& lang)
@@ -509,9 +511,9 @@ QString TeXDocumentWindow::spellcheckLanguage() const
 	TeXHighlighter * highlighter = _texDoc->getHighlighter();
 	if (highlighter == nullptr)
 		return QString();
-	Tw::Document::SpellCheckManager::Dictionary * dictionary = highlighter->getSpellChecker();
-	if (dictionary == nullptr) return QString();
-	return dictionary->getLanguage();
+	Tw::Document::SpellChecker * spellChecker = highlighter->getSpellChecker();
+	if (spellChecker == nullptr) return QString();
+	return spellChecker->getLanguage();
 }
 
 void TeXDocumentWindow::reloadSpellcheckerMenu()

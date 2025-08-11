@@ -25,10 +25,10 @@
 #include <QObject>
 #include <QTextCodec>
 
-struct Hunhandle;
-
 namespace Tw {
 namespace Document {
+
+class SpellChecker;
 
 class SpellCheckManager : public QObject {
 	Q_OBJECT
@@ -41,23 +41,6 @@ class SpellCheckManager : public QObject {
 	SpellCheckManager & operator=(SpellCheckManager &&) = delete;
 
 public:
-	class Dictionary {
-		friend class SpellCheckManager;
-
-		QString _language;
-		Hunhandle * _hunhandle;
-		QTextCodec * _codec;
-
-		Dictionary(const QString & language, Hunhandle * hunhandle);
-	public:
-		virtual ~Dictionary();
-		QString getLanguage() const { return _language; }
-		bool isWordCorrect(const QString & word) const;
-		QList<QString> suggestionsForWord(const QString & word) const;
-		// note that this is not persistent after quitting TW
-		void ignoreWord(const QString & word);
-	};
-
 	static SpellCheckManager * instance() { return _instance; }
 	static QString labelForDict(QString & dict);
 
@@ -65,7 +48,7 @@ public:
 	static QMultiHash<QString, QString> * getDictionaryList(const bool forceReload = false);
 
 	// get dictionary for a given language
-	static Dictionary * getDictionary(const QString& language);
+	static SpellChecker * getDictionary(const QString& language);
 	// deallocates all dictionaries
 	// WARNING: Don't call this while some window is using a dictionary as that
 	// window won't be notified; deactivate spell checking in all windows first
@@ -80,7 +63,7 @@ signals:
 private:
 	static SpellCheckManager * _instance;
 	static QMultiHash<QString, QString> * dictionaryList;
-	static QHash<const QString,SpellCheckManager::Dictionary*> * dictionaries;
+	static QHash<const QString,SpellChecker*> * dictionaries;
 };
 
 } // namespace Document

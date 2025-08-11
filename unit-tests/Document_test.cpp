@@ -25,6 +25,7 @@
 #include "TWSynchronizer.h"
 #include "TeXHighlighter.h"
 #include "document/Document.h"
+#include "document/SpellChecker.h"
 #include "document/SpellCheckManager.h"
 #include "document/TeXDocument.h"
 #include "document/TextDocument.h"
@@ -123,7 +124,7 @@ VersionNumber popplerRuntimeVersion() {
 
 namespace Tw {
 namespace Utils {
-// Referenced in Tw::Document::SpellChecker
+// Referenced in Tw::Document::SpellCheckManager
 const QStringList ResourcesLibrary::getLibraryPaths(const QString & subdir, const bool updateOnDisk) { Q_UNUSED(subdir) Q_UNUSED(updateOnDisk) return QStringList(QDir::currentPath()); }
 } // namespace Utils
 } // namespace Tw
@@ -409,21 +410,21 @@ void TestDocument::findNextWord()
 	}
 }
 
-void TestDocument::SpellChecker_getDictionaryList()
+void TestDocument::SpellCheckManager_getDictionaryList()
 {
-	auto * sc = Tw::Document::SpellCheckManager::instance();
-	Q_ASSERT(sc != nullptr);
+	auto * spellCheckManager = Tw::Document::SpellCheckManager::instance();
+	Q_ASSERT(spellCheckManager != nullptr);
 #if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
-	QSignalSpy spy(sc, SIGNAL(dictionaryListChanged()));
+	QSignalSpy spy(spellCheckManager, SIGNAL(dictionaryListChanged()));
 #else
-	QSignalSpy spy(sc, &Tw::Document::SpellCheckManager::dictionaryListChanged);
+	QSignalSpy spy(spellCheckManager, &Tw::Document::SpellCheckManager::dictionaryListChanged);
 #endif
 
 	QVERIFY(spy.isValid());
 
 	QCOMPARE(spy.count(), 0);
 
-	auto dictList = sc->getDictionaryList();
+	auto dictList = spellCheckManager->getDictionaryList();
 	Q_ASSERT(dictList);
 
 	QCOMPARE(spy.count(), 1);
@@ -431,36 +432,36 @@ void TestDocument::SpellChecker_getDictionaryList()
 
 	// Calling getDictionaryList() again (without forcing a reload) should give
 	// the same data again
-	QCOMPARE(sc->getDictionaryList(), dictList);
+	QCOMPARE(spellCheckManager->getDictionaryList(), dictList);
 	QCOMPARE(spy.count(), 1);
 
 	// Calling getDictionaryList() with forceReload should emit the
 	// dictionaryListChanged signal again
-	sc->getDictionaryList(true);
+	spellCheckManager->getDictionaryList(true);
 	QCOMPARE(spy.count(), 2);
 }
 
-void TestDocument::SpellChecker_getDictionary()
+void TestDocument::SpellCheckManager_getDictionary()
 {
 	QString lang{QStringLiteral("dictionary")};
 	QString correctWord{QStringLiteral("World")};
 	QString wrongWord{QStringLiteral("Wrld")};
 
-	auto * sc = Tw::Document::SpellCheckManager::instance();
-	Q_ASSERT(sc != nullptr);
+	auto * spellCheckManager = Tw::Document::SpellCheckManager::instance();
+	Q_ASSERT(spellCheckManager != nullptr);
 
-	QVERIFY(sc->getDictionary(QString()) == nullptr);
-	QVERIFY(sc->getDictionary(QStringLiteral("does-not-exist")) == nullptr);
+	QVERIFY(spellCheckManager->getDictionary(QString()) == nullptr);
+	QVERIFY(spellCheckManager->getDictionary(QStringLiteral("does-not-exist")) == nullptr);
 
-	auto * d = sc->getDictionary(lang);
-	QVERIFY(d != nullptr);
-	QCOMPARE(sc->getDictionary(lang), d);
+	auto * spellChecker = spellCheckManager->getDictionary(lang);
+	QVERIFY(spellChecker != nullptr);
+	QCOMPARE(spellCheckManager->getDictionary(lang), spellChecker);
 
-	QCOMPARE(d->getLanguage(), lang);
-	QCOMPARE(d->isWordCorrect(correctWord), true);
-	QCOMPARE(d->isWordCorrect(wrongWord), false);
+	QCOMPARE(spellChecker->getLanguage(), lang);
+	QCOMPARE(spellChecker->isWordCorrect(correctWord), true);
+	QCOMPARE(spellChecker->isWordCorrect(wrongWord), false);
 
-	QCOMPARE(d->suggestionsForWord(wrongWord), QList<QString>{correctWord});
+	QCOMPARE(spellChecker->suggestionsForWord(wrongWord), QList<QString>{correctWord});
 }
 
 void TestDocument::SpellChecker_ignoreWord()

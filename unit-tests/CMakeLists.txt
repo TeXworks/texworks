@@ -93,6 +93,7 @@ add_executable(test_Document
 	Document_test.cpp
 	Document_test.h
 	"${CMAKE_SOURCE_DIR}/src/document/Document.cpp"
+	"${CMAKE_SOURCE_DIR}/src/document/SpellChecker.cpp"
 	"${CMAKE_SOURCE_DIR}/src/document/SpellCheckManager.cpp"
 	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.cpp"
 	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.h"

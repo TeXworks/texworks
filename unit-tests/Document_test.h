@@ -49,8 +49,8 @@ private slots:
 	void findNextWord_data();
 	void findNextWord();
 
-	void SpellChecker_getDictionaryList();
-	void SpellChecker_getDictionary();
+	void SpellCheckManager_getDictionaryList();
+	void SpellCheckManager_getDictionary();
 	void SpellChecker_ignoreWord();
 
 	void Synchronizer_isValid();

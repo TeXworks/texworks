@@ -25,7 +25,6 @@
 #include "DefaultPrefs.h"
 #include "FindDialog.h"
 #include "TWScriptableWindow.h"
-#include "document/SpellCheckManager.h"
 #include "document/TeXDocument.h"
 #include "ui_TeXDocumentWindow.h"
 

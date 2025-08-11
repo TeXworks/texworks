@@ -26,6 +26,7 @@
 #include "TWApp.h"
 #include "TWUtils.h"
 #include "TeXHighlighter.h"
+#include "document/SpellChecker.h"
 #include "document/TeXDocument.h"
 #include "utils/ResourcesLibrary.h"
 
@@ -1095,15 +1096,15 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	menu->insertSeparator(menu->actions().first());
 	menu->insertAction(menu->actions().first(), act);
 
-	const Tw::Document::SpellCheckManager::Dictionary * dictionary = getSpellChecker();
-	if (dictionary) {
+	const Tw::Document::SpellChecker * spellChecker = getSpellChecker();
+	if (spellChecker) {
 		currentWord = cursorForPosition(event->pos());
 		currentWord.setPosition(currentWord.position());
 		if (selectWord(currentWord)) {
-			if (!dictionary->isWordCorrect(currentWord.selectedText())) {
+			if (!spellChecker->isWordCorrect(currentWord.selectedText())) {
 				QAction *sep = menu->insertSeparator(menu->actions().first());
 
-				QList<QString> suggestions = dictionary->suggestionsForWord(currentWord.selectedText());
+				QList<QString> suggestions = spellChecker->suggestionsForWord(currentWord.selectedText());
 				if (suggestions.size() == 0)
 					menu->insertAction(sep, new QAction(tr("No suggestions"), menu));
 				else {
@@ -1155,11 +1156,11 @@ void CompletingEdit::addToDictionary()
 
 void CompletingEdit::ignoreWord()
 {
-	Tw::Document::SpellCheckManager::Dictionary * dictionary = getSpellChecker();
-	if (dictionary == nullptr)
+	Tw::Document::SpellChecker * spellChecker = getSpellChecker();
+	if (spellChecker == nullptr)
 		return;
 	// note that this is not persistent after quitting TW
-	dictionary->ignoreWord(currentWord.selectedText());
+	spellChecker->ignoreWord(currentWord.selectedText());
 	emit rehighlight();
 }
 
@@ -1408,7 +1409,7 @@ void CompletingEdit::scrollContentsBy(int dx, int dy)
 	QTextEdit::scrollContentsBy(dx, dy);
 }
 
-Tw::Document::SpellCheckManager::Dictionary * CompletingEdit::getSpellChecker() const
+Tw::Document::SpellChecker * CompletingEdit::getSpellChecker() const
 {
 	Tw::Document::TeXDocument * doc = qobject_cast<Tw::Document::TeXDocument *>(document());
 	if (doc == nullptr)
