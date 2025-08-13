@@ -1,6 +1,7 @@
 #ifndef SpellChecker_H
 #define SpellChecker_H
 
+#include <memory>
 #include <QString>
 #include <QTextCodec>
 
@@ -13,13 +14,25 @@ class SpellChecker {
 	friend class SpellCheckManager;
 
 	QString _language;
-	Hunhandle * _hunhandle;
-	QTextCodec * _codec;
+	mutable std::weak_ptr<Hunhandle> _hunhandle;
+	QTextCodec * _codec{QTextCodec::codecForLocale()};
 
-	SpellChecker(const QString & language, Hunhandle * hunhandle);
+	using DictType = std::shared_ptr<Hunhandle>;
+	DictType getDict() const;
+
 public:
-	virtual ~SpellChecker();
+	SpellChecker() = default;
+
+	SpellChecker(const QString & language);
+
+	bool operator==(const SpellChecker & other) const;
+	bool operator!=(const SpellChecker & other) const { return !operator==(other); }
+	operator bool() const { return isValid(); }
+
+	bool isValid() const;
+
 	QString getLanguage() const { return _language; }
+	bool setLanguage(const QString & language);
 	bool isWordCorrect(const QString & word) const;
 	QList<QString> suggestionsForWord(const QString & word) const;
 	// note that this is not persistent after quitting TW

@@ -21,7 +21,6 @@
 
 #include "document/SpellCheckManager.h"
 
-#include "document/SpellChecker.h"
 #include "utils/ResourcesLibrary.h"
 
 #include <hunspell.h>
@@ -32,7 +31,7 @@ namespace Tw {
 namespace Document {
 
 QMultiHash<QString, QString> * SpellCheckManager::dictionaryList = nullptr;
-QHash<const QString,SpellChecker*> * SpellCheckManager::dictionaries = nullptr;
+QHash<const QString,std::shared_ptr<Hunhandle>> * SpellCheckManager::dictionaries = nullptr;
 SpellCheckManager * SpellCheckManager::_instance = new SpellCheckManager();
 
 // static
@@ -83,13 +82,13 @@ QMultiHash<QString, QString> * SpellCheckManager::getDictionaryList(const bool f
 }
 
 // static
-SpellChecker * SpellCheckManager::getDictionary(const QString& language)
+std::shared_ptr<Hunhandle> SpellCheckManager::getDictionary(const QString & language)
 {
 	if (language.isEmpty())
 		return nullptr;
 
 	if (!dictionaries)
-		dictionaries = new QHash<const QString, SpellChecker*>;
+		dictionaries = new QHash<const QString, std::shared_ptr<Hunhandle>>;
 
 	if (dictionaries->contains(language))
 		return dictionaries->value(language);
@@ -99,10 +98,10 @@ SpellChecker * SpellCheckManager::getDictionary(const QString& language)
 		QFileInfo affFile(dicDir, language + QLatin1String(".aff"));
 		QFileInfo dicFile(dicDir, language + QLatin1String(".dic"));
 		if (affFile.isReadable() && dicFile.isReadable()) {
-			Hunhandle * h = Hunspell_create(affFile.canonicalFilePath().toLocal8Bit().data(),
-								dicFile.canonicalFilePath().toLocal8Bit().data());
-			dictionaries->insert(language, new SpellChecker(language, h));
-			return dictionaries->value(language);
+			auto h = std::shared_ptr<Hunhandle>(Hunspell_create(affFile.canonicalFilePath().toLocal8Bit().data(),
+								dicFile.canonicalFilePath().toLocal8Bit().data()), Hunspell_destroy);
+			dictionaries->insert(language, h);
+			return h;
 		}
 	}
 	return nullptr;
@@ -114,8 +113,7 @@ void SpellCheckManager::clearDictionaries()
 	if (!dictionaries)
 		return;
 
-	foreach(SpellChecker * d, *dictionaries)
-		delete d;
+	dictionaries->clear();
 
 	delete dictionaries;
 	dictionaries = nullptr;

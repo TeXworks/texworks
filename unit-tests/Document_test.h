@@ -50,7 +50,7 @@ private slots:
 	void findNextWord();
 
 	void SpellCheckManager_getDictionaryList();
-	void SpellCheckManager_getDictionary();
+	void SpellChecker();
 	void SpellChecker_ignoreWord();
 
 	void Synchronizer_isValid();

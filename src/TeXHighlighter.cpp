@@ -35,7 +35,6 @@ TeXHighlighter::TeXHighlighter(Tw::Document::TeXDocument * parent)
 	: NonblockingSyntaxHighlighter(parent)
 	, highlightIndex(-1)
 	, isTagging(true)
-	, _spellChecker(nullptr)
 	, texDoc(parent)
 {
 	loadPatterns();
@@ -59,7 +58,7 @@ void TeXHighlighter::spellCheckRange(const QString &text, QString::size_type ind
 			if (end > limit)
 				end = limit;
 			if (start < end) {
-				if (!_spellChecker->isWordCorrect(text.mid(start, end - start)))
+				if (!_spellChecker.isWordCorrect(text.mid(start, end - start)))
 					setFormat(start, end - start, spellFormat);
 			}
 		}
@@ -149,7 +148,7 @@ void TeXHighlighter::setActiveIndex(int index)
 		rehighlight();
 }
 
-void TeXHighlighter::setSpellChecker(Tw::Document::SpellChecker * spellChecker)
+void TeXHighlighter::setSpellChecker(const Tw::Document::SpellChecker & spellChecker)
 {
 	if (_spellChecker != spellChecker) {
 		_spellChecker = spellChecker;

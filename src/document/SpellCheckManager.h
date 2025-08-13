@@ -21,9 +21,12 @@
 #ifndef SpellCheckManager_H
 #define SpellCheckManager_H
 
+#include <memory>
 #include <QHash>
 #include <QObject>
 #include <QTextCodec>
+
+struct Hunhandle;
 
 namespace Tw {
 namespace Document {
@@ -33,12 +36,16 @@ class SpellChecker;
 class SpellCheckManager : public QObject {
 	Q_OBJECT
 
+	friend class SpellChecker;
+
 	SpellCheckManager() = default;
 	~SpellCheckManager() override = default;
 	SpellCheckManager(const SpellCheckManager &) = delete;
 	SpellCheckManager(SpellCheckManager &&) = delete;
 	SpellCheckManager & operator=(const SpellCheckManager &) = delete;
 	SpellCheckManager & operator=(SpellCheckManager &&) = delete;
+
+	static std::shared_ptr<Hunhandle> getDictionary(const QString & language);
 
 public:
 	static SpellCheckManager * instance() { return _instance; }
@@ -47,8 +54,6 @@ public:
 	// get list of available dictionaries
 	static QMultiHash<QString, QString> * getDictionaryList(const bool forceReload = false);
 
-	// get dictionary for a given language
-	static SpellChecker * getDictionary(const QString& language);
 	// deallocates all dictionaries
 	// WARNING: Don't call this while some window is using a dictionary as that
 	// window won't be notified; deactivate spell checking in all windows first
@@ -63,7 +68,7 @@ signals:
 private:
 	static SpellCheckManager * _instance;
 	static QMultiHash<QString, QString> * dictionaryList;
-	static QHash<const QString,SpellChecker*> * dictionaries;
+	static QHash<const QString,std::shared_ptr<Hunhandle>> * dictionaries;
 };
 
 } // namespace Document

@@ -441,27 +441,41 @@ void TestDocument::SpellCheckManager_getDictionaryList()
 	QCOMPARE(spy.count(), 2);
 }
 
-void TestDocument::SpellCheckManager_getDictionary()
+void TestDocument::SpellChecker()
 {
-	QString lang{QStringLiteral("dictionary")};
-	QString correctWord{QStringLiteral("World")};
-	QString wrongWord{QStringLiteral("Wrld")};
+	const QString lang{QStringLiteral("dictionary")};
+	const QString correctWord{QStringLiteral("World")};
+	const QString wrongWord{QStringLiteral("Wrld")};
 
-	auto * spellCheckManager = Tw::Document::SpellCheckManager::instance();
-	Q_ASSERT(spellCheckManager != nullptr);
+	Tw::Document::SpellChecker defaultSpellChecker;
+	Tw::Document::SpellChecker invalidSpellChecker(QStringLiteral("does-not-exist"));
+	Tw::Document::SpellChecker spellChecker(lang);
 
-	QVERIFY(spellCheckManager->getDictionary(QString()) == nullptr);
-	QVERIFY(spellCheckManager->getDictionary(QStringLiteral("does-not-exist")) == nullptr);
+	QCOMPARE(defaultSpellChecker.isValid(), false);
+	QCOMPARE(invalidSpellChecker.isValid(), false);
+	QCOMPARE(spellChecker.isValid(), true);
 
-	auto * spellChecker = spellCheckManager->getDictionary(lang);
-	QVERIFY(spellChecker != nullptr);
-	QCOMPARE(spellCheckManager->getDictionary(lang), spellChecker);
+	QCOMPARE(defaultSpellChecker.getLanguage(), QString{});
+	QCOMPARE(invalidSpellChecker.getLanguage(), QString{});
+	QCOMPARE(spellChecker.getLanguage(), lang);
 
-	QCOMPARE(spellChecker->getLanguage(), lang);
-	QCOMPARE(spellChecker->isWordCorrect(correctWord), true);
-	QCOMPARE(spellChecker->isWordCorrect(wrongWord), false);
+	QCOMPARE(defaultSpellChecker.isWordCorrect(correctWord), false);
+	QCOMPARE(invalidSpellChecker.isWordCorrect(correctWord), false);
+	QCOMPARE(spellChecker.isWordCorrect(correctWord), true);
 
-	QCOMPARE(spellChecker->suggestionsForWord(wrongWord), QList<QString>{correctWord});
+	QCOMPARE(defaultSpellChecker.isWordCorrect(wrongWord), false);
+	QCOMPARE(invalidSpellChecker.isWordCorrect(wrongWord), false);
+	QCOMPARE(spellChecker.isWordCorrect(wrongWord), false);
+
+	QCOMPARE(defaultSpellChecker.suggestionsForWord(wrongWord), QList<QString>{});
+	QCOMPARE(invalidSpellChecker.suggestionsForWord(wrongWord), QList<QString>{});
+	QCOMPARE(spellChecker.suggestionsForWord(wrongWord), QList<QString>{correctWord});
+
+	// Verify that clearDictionaries does not affect spellChecker
+	Tw::Document::SpellCheckManager::clearDictionaries();
+	QCOMPARE(spellChecker.isWordCorrect(correctWord), true);
+	QCOMPARE(spellChecker.isWordCorrect(wrongWord), false);
+	QCOMPARE(spellChecker.suggestionsForWord(wrongWord), QList<QString>{correctWord});
 }
 
 void TestDocument::SpellChecker_ignoreWord()
@@ -469,25 +483,29 @@ void TestDocument::SpellChecker_ignoreWord()
 	QString lang{QStringLiteral("dictionary")};
 	QString wrongWord{QStringLiteral("Wrld")};
 
-	auto * sc = Tw::Document::SpellCheckManager::instance();
-	Q_ASSERT(sc != nullptr);
-
 	{
-		auto * d = sc->getDictionary(lang);
-		Q_ASSERT(d != nullptr);
+		Tw::Document::SpellChecker defaultSpellChecker;
+		Tw::Document::SpellChecker invalidSpellChecker(QStringLiteral("does-not-exist"));
+		Tw::Document::SpellChecker spellChecker(lang);
 
-		QCOMPARE(d->isWordCorrect(wrongWord), false);
-		d->ignoreWord(wrongWord);
-		QCOMPARE(d->isWordCorrect(wrongWord), true);
+		QCOMPARE(defaultSpellChecker.isWordCorrect(wrongWord), false);
+		defaultSpellChecker.ignoreWord(wrongWord);
+		QCOMPARE(defaultSpellChecker.isWordCorrect(wrongWord), false);
+
+		QCOMPARE(invalidSpellChecker.isWordCorrect(wrongWord), false);
+		invalidSpellChecker.ignoreWord(wrongWord);
+		QCOMPARE(invalidSpellChecker.isWordCorrect(wrongWord), false);
+
+		QCOMPARE(spellChecker.isWordCorrect(wrongWord), false);
+		spellChecker.ignoreWord(wrongWord);
+		QCOMPARE(spellChecker.isWordCorrect(wrongWord), true);
 	}
 	{
 		// Check that ignoring is not persistent
-		sc->clearDictionaries();
+		Tw::Document::SpellCheckManager::clearDictionaries();
 
-		auto * d = sc->getDictionary(lang);
-		Q_ASSERT(d != nullptr);
-
-		QCOMPARE(d->isWordCorrect(wrongWord), false);
+		Tw::Document::SpellChecker spellChecker(lang);
+		QCOMPARE(spellChecker.isWordCorrect(wrongWord), false);
 	}
 }
 

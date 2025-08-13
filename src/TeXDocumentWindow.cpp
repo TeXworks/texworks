@@ -452,25 +452,16 @@ void TeXDocumentWindow::changeEvent(QEvent *event)
 
 void TeXDocumentWindow::setLangInternal(const QString& lang)
 {
-	if (_texDoc == nullptr)
+	if (_texDoc == nullptr) {
 		return;
+	}
 
 	TeXHighlighter * highlighter = _texDoc->getHighlighter();
-	if (highlighter == nullptr)
+	if (highlighter == nullptr) {
 		return;
+	}
 
-	// called internally by the spelling menu actions;
-	// not for use from scripts as it won't update the menu
-	Tw::Document::SpellChecker * oldSpellChecker = highlighter->getSpellChecker();
-	Tw::Document::SpellChecker * newSpellChecker = Tw::Document::SpellCheckManager::getDictionary(lang);
-	// if the dictionary hasn't changed, don't reset the spell checker as that
-	// can result in a serious delay for long documents
-	// NB: Don't delete the dictionaries; the pointers are kept by
-	// Tw::Document::SpellCheckManager
-	if (oldSpellChecker == newSpellChecker)
-		return;
-
-	highlighter->setSpellChecker(newSpellChecker);
+	highlighter->setSpellChecker(Tw::Document::SpellChecker(lang));
 }
 
 void TeXDocumentWindow::setSpellcheckLanguage(const QString& lang)
@@ -506,14 +497,14 @@ void TeXDocumentWindow::setSpellcheckLanguage(const QString& lang)
 
 QString TeXDocumentWindow::spellcheckLanguage() const
 {
-	if (_texDoc == nullptr)
-		return QString();
+	if (_texDoc == nullptr) {
+		return {};
+	}
 	TeXHighlighter * highlighter = _texDoc->getHighlighter();
-	if (highlighter == nullptr)
-		return QString();
-	Tw::Document::SpellChecker * spellChecker = highlighter->getSpellChecker();
-	if (spellChecker == nullptr) return QString();
-	return spellChecker->getLanguage();
+	if (highlighter == nullptr) {
+		return {};
+	}
+	return highlighter->getSpellChecker().getLanguage();
 }
 
 void TeXDocumentWindow::reloadSpellcheckerMenu()

@@ -119,7 +119,7 @@ protected:
 	bool event(QEvent *event) override;
 	void scrollContentsBy(int dx, int dy) override;
 
-	Tw::Document::SpellChecker * getSpellChecker() const;
+	Tw::Document::SpellChecker getSpellChecker() const;
 
 private slots:
 	void cursorPositionChangedSlot();
