@@ -5,6 +5,7 @@
 #include <QString>
 #include <QStringList>
 #include <QTextCodec>
+#include <vector>
 
 struct Hunhandle;
 
