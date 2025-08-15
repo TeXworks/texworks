@@ -4,6 +4,7 @@
 [![CI](https://github.com/TeXworks/texworks/actions/workflows/ci.yml/badge.svg)](https://github.com/TeXworks/texworks/actions/workflows/ci.yml)
 [![Appveyor](https://ci.appveyor.com/api/projects/status/eb4e9108blt0pehr?svg=true)](https://ci.appveyor.com/project/stloeffler/texworks)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/22d3db26f8a542f08d8da056e6779020)](https://www.codacy.com/gh/TeXworks/texworks/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TeXworks/texworks&amp;utm_campaign=Badge_Grade)
+[![Translation status](https://hosted.weblate.org/widget/texworks/svg-badge.svg)](https://hosted.weblate.org/engage/texworks/)
 
 Table Of Contents
 -----------------
@@ -40,7 +41,7 @@ TeXworks is a free and open-source software project. New users are encouraged to
 Contribution
 -------------
 
-TeXworks thrives on an active community, and welcoming contributions is paramount. If you encounter bugs or have suggestions for improvement, please share them on our [issues page](https://github.com/TeXworks/texworks/issues). Additionally, you can engage in discussions with other users and developers via our [mailing list](https://tug.org/mailman/listinfo/texworks). Visit the [development page](https://github.com/TeXworks/texworks) to fork a copy of the codebase and start contributing. Visit our [homepage](ps://www.tug.org/texworks/) for more information. If you are new to contributing to open-source projects, we encourage you to visit this [guide](https://opensource.guide/how-to-contribute/) to help you get started.
+TeXworks thrives on an active community, and welcoming contributions is paramount. If you encounter bugs or have suggestions for improvement, please share them on our [issues page](https://github.com/TeXworks/texworks/issues). Additionally, you can engage in discussions with other users and developers via our [mailing list](https://tug.org/mailman/listinfo/texworks). TeXworks' translation efforts are hosted on [Weblate](https://hosted.weblate.org/engage/texworks/) where any and all help is very welcome. To start contributing to the code, visit the [development page](https://github.com/TeXworks/texworks) to fork a copy of the codebase and start hacking. Visit our [homepage](https://www.tug.org/texworks/) for more information. If you are new to contributing to open-source projects, we encourage you to visit this [guide](https://opensource.guide/how-to-contribute/) to help you get started.
 
 Installation
 ------------
