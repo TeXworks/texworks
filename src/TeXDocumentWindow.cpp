@@ -504,7 +504,7 @@ QString TeXDocumentWindow::spellcheckLanguage() const
 	if (highlighter == nullptr) {
 		return {};
 	}
-	return highlighter->getSpellChecker().getLanguage();
+	return highlighter->getSpellChecker().languages().join(QStringLiteral("\n"));
 }
 
 void TeXDocumentWindow::reloadSpellcheckerMenu()

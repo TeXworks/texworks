@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <QString>
+#include <QStringList>
 #include <QTextCodec>
 
 struct Hunhandle;
@@ -11,14 +12,20 @@ namespace Tw {
 namespace Document {
 
 class SpellChecker {
-	friend class SpellCheckManager;
-
-	QString _language;
-	mutable std::weak_ptr<Hunhandle> _hunhandle;
-	QTextCodec * _codec{QTextCodec::codecForLocale()};
-
 	using DictType = std::shared_ptr<Hunhandle>;
-	DictType getDict() const;
+
+	struct DictRef {
+		QString language;
+		mutable std::weak_ptr<Hunhandle> hunhandle;
+		QTextCodec * codec{QTextCodec::codecForLocale()};
+
+		bool operator==(const DictRef & other) const;
+		operator bool() const { return isValid(); }
+		bool isValid() const;
+		std::shared_ptr<Hunhandle> getHunhandle() const;
+	};
+
+	std::vector<DictRef> m_dicts;
 
 public:
 	SpellChecker() = default;
@@ -31,8 +38,8 @@ public:
 
 	bool isValid() const;
 
-	QString getLanguage() const { return _language; }
-	bool setLanguage(const QString & language);
+	QStringList languages() const;
+	bool setLanguages(const QStringList & languages);
 	bool isWordCorrect(const QString & word) const;
 	QList<QString> suggestionsForWord(const QString & word) const;
 	// note that this is not persistent after quitting TW

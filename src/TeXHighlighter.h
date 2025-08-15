@@ -109,7 +109,8 @@ public:
 	void setActiveIndex(int index);
 
 	void setSpellChecker(const Tw::Document::SpellChecker & spellChecker);
-	Tw::Document::SpellChecker getSpellChecker() const { return _spellChecker; }
+	const Tw::Document::SpellChecker & getSpellChecker() const { return _spellChecker; }
+	Tw::Document::SpellChecker & getSpellChecker() { return _spellChecker; }
 
 	QString getSyntaxMode() const {
 		return (highlightIndex >= 0 && highlightIndex < syntaxOptions().size())

@@ -455,9 +455,9 @@ void TestDocument::SpellChecker()
 	QCOMPARE(invalidSpellChecker.isValid(), false);
 	QCOMPARE(spellChecker.isValid(), true);
 
-	QCOMPARE(defaultSpellChecker.getLanguage(), QString{});
-	QCOMPARE(invalidSpellChecker.getLanguage(), QString{});
-	QCOMPARE(spellChecker.getLanguage(), lang);
+	QCOMPARE(defaultSpellChecker.languages(), QStringList{});
+	QCOMPARE(invalidSpellChecker.languages(), QStringList{});
+	QCOMPARE(spellChecker.languages(), QStringList{lang});
 
 	QCOMPARE(defaultSpellChecker.isWordCorrect(correctWord), false);
 	QCOMPARE(invalidSpellChecker.isWordCorrect(correctWord), false);

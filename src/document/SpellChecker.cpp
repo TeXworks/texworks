@@ -7,87 +7,132 @@
 namespace Tw {
 namespace Document {
 
-std::shared_ptr<Hunhandle> SpellChecker::getDict() const
+std::shared_ptr<Hunhandle> SpellChecker::DictRef::getHunhandle() const
 {
-	DictType dict = _hunhandle.lock();
-	if (!dict) {
-		dict = SpellCheckManager::getDictionary(_language);
-		_hunhandle = dict;
+	std::shared_ptr<Hunhandle> retVal = hunhandle.lock();
+	if (!retVal) {
+		retVal = SpellCheckManager::getDictionary(language);
+		hunhandle = retVal;
 	}
-	return dict;
+	return retVal;
+}
+
+bool SpellChecker::DictRef::operator==(const DictRef & other) const
+{
+	return (language == other.language && getHunhandle() == other.getHunhandle() && codec == other.codec);
+}
+
+bool SpellChecker::DictRef::isValid() const
+{
+	return (!language.isEmpty() && codec != nullptr && getHunhandle());
 }
 
 SpellChecker::SpellChecker(const QString & language)
 	: SpellChecker()
 {
-	setLanguage(language);
+	setLanguages(QStringList{language});
 }
 
 bool SpellChecker::operator==(const SpellChecker & other) const
 {
-	return (_language == other._language && getDict() == other.getDict() && _codec == other._codec);
+	return m_dicts == other.m_dicts;
 }
 
 bool SpellChecker::isValid() const
 {
-	return (!_language.isEmpty() && getDict());
+	// Return true if we have (at least) one valid dictionary
+	for (const DictRef & dictRef : m_dicts) {
+		if (dictRef) {
+			return true;
+		}
+	}
+	return false;
 }
 
-bool SpellChecker::setLanguage(const QString & language)
+QStringList SpellChecker::languages() const
 {
-	const DictType & dict{SpellCheckManager::getDictionary(language)};
-	_hunhandle = dict;
-
-	if (!dict) {
-		_language.clear();
-		_codec = QTextCodec::codecForLocale();
-		return (language.isEmpty() == true);
+	QStringList retVal;
+	for (const DictRef & dictRef : m_dicts) {
+		if (dictRef) {
+			retVal.push_back(dictRef.language);
+		}
 	}
+	return retVal;
+}
 
-	_language = language;
-	_codec = QTextCodec::codecForName(Hunspell_get_dic_encoding(dict.get()));
-	if (_codec == nullptr) {
-		_codec = QTextCodec::codecForLocale();
+bool SpellChecker::setLanguages(const QStringList & languages)
+{
+	bool ok{true};
+	m_dicts.clear();
+	for (const QString & language : languages) {
+		std::shared_ptr<Hunhandle> ptrHunhandle = SpellCheckManager::getDictionary(language);
+		if (!ptrHunhandle) {
+			ok = false;
+			continue;
+		}
+		DictRef dictRef;
+		dictRef.hunhandle = ptrHunhandle;
+		dictRef.language = language;
+		dictRef.codec = QTextCodec::codecForName(Hunspell_get_dic_encoding(ptrHunhandle.get()));
+		if (dictRef.codec == nullptr) {
+			dictRef.codec = QTextCodec::codecForLocale();
+		}
+		m_dicts.push_back(std::move(dictRef));
 	}
-	return true;
+	return ok;
 }
 
 bool SpellChecker::isWordCorrect(const QString & word) const
 {
-	const DictType & dict{getDict()};
-	if (!dict || _codec == nullptr) {
-		return false;
+	for (const DictRef & dictRef : m_dicts) {
+		if (!dictRef) {
+			continue;
+		}
+		std::shared_ptr<Hunhandle> ptrHunhandle = dictRef.getHunhandle();
+		if (Hunspell_spell(ptrHunhandle.get(), dictRef.codec->fromUnicode(word).data()) != 0) {
+			return true;
+		}
 	}
-	return (Hunspell_spell(dict.get(), _codec->fromUnicode(word).data()) != 0);
+	return false;
 }
 
 QList<QString> SpellChecker::suggestionsForWord(const QString & word) const
 {
-	const DictType & dict{getDict()};
-	if (!dict || _codec == nullptr) {
-		return {};
-	}
 	QList<QString> suggestions;
-	char ** suggestionList{nullptr};
 
-	int numSuggestions = Hunspell_suggest(dict.get(), &suggestionList, _codec->fromUnicode(word).data());
-	suggestions.reserve(numSuggestions);
-	for (int iSuggestion = 0; iSuggestion < numSuggestions; ++iSuggestion)
-		suggestions.append(_codec->toUnicode(suggestionList[iSuggestion]));
+	for (const DictRef & dictRef : m_dicts) {
+		if (!dictRef) {
+			continue;
+		}
+		std::shared_ptr<Hunhandle> ptrHunhandle = dictRef.getHunhandle();
+		char ** suggestionList{nullptr};
 
-	Hunspell_free_list(dict.get(), &suggestionList, numSuggestions);
+		int numSuggestions = Hunspell_suggest(ptrHunhandle.get(), &suggestionList, dictRef.codec->fromUnicode(word).data());
+		suggestions.reserve(suggestions.size() + numSuggestions);
+		for (int iSuggestion = 0; iSuggestion < numSuggestions; ++iSuggestion) {
+			suggestions.append(dictRef.codec->toUnicode(suggestionList[iSuggestion]));
+		}
 
+		Hunspell_free_list(ptrHunhandle.get(), &suggestionList, numSuggestions);
+	}
 	return suggestions;
 }
 
 void SpellChecker::ignoreWord(const QString & word)
 {
-	const DictType & dict{getDict()};
-	if (!dict || _codec == nullptr) {
+	// FIXME: this adds the word to the first (valid) Hunhandle, which
+	// (from the user's perspective) corresponds to an arbitrary language;
+	// if that language is deactivated later the ignore list disappears as
+	// well
+	for (const DictRef & dictRef : m_dicts) {
+		if (!dictRef) {
+			continue;
+		}
+		std::shared_ptr<Hunhandle> ptrHunhandle = dictRef.getHunhandle();
+		// note that this is not persistent after quitting TW
+		Hunspell_add(ptrHunhandle.get(), dictRef.codec->fromUnicode(word).data());
 		return;
 	}
-	// note that this is not persistent after quitting TW
-	Hunspell_add(dict.get(), _codec->fromUnicode(word).data());
 }
 
 } // namespace Document
