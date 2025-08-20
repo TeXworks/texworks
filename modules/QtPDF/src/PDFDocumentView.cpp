@@ -1648,7 +1648,7 @@ void PDFDocumentView::showRuler(const bool show)
 // ========================
 //
 PDFDocumentMagnifierView::PDFDocumentMagnifierView(PDFDocumentView *parent /* = nullptr */) :
-  Super(parent),
+  Super(parent != nullptr ? parent->viewport() : nullptr),
   _parent_view(parent)
 {
   // the magnifier should initially be hidden
