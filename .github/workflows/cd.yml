@@ -136,6 +136,10 @@ jobs:
         name: TeXworks-Windows${{ matrix.winVersion }}
         path: ${{ steps.package.outputs.file }}
 
+    # InnoSetup is currently not included by default, see https://github.com/actions/runner-images/issues/11644
+    - name: Install InnoSetup
+      run: choco install innosetup
+
     - name: Build installer
       run: ISCC texworks-setup-script.iss
       working-directory: win32
