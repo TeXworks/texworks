@@ -215,7 +215,10 @@ jobs:
         # Update Homebrew
         brew update > brew_update.log || { echo "::error::Updating homebrew failed"; cat brew_update.log; exit 1; }
         # Install needed dependencies
-        brew install --formula automake cmake libtool pkg-config
+        brew install --formula automake cmake gnu-sed libtool make pkg-config texinfo
+        echo "$(brew --prefix)/opt/gnu-sed/libexec/gnubin" >> "$GITHUB_PATH"
+        echo "$(brew --prefix)/opt/make/libexec/gnubin" >> "$GITHUB_PATH"
+        echo "$(brew --prefix)/opt/libtool/libexec/gnubin" >> "$GITHUB_PATH"
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
