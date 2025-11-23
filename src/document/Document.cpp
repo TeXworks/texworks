@@ -32,7 +32,7 @@ bool isPDFfile(const QString& fileName)
 	QFile theFile(fileName);
 	if (theFile.open(QIODevice::ReadOnly)) {
 		QByteArray ba = theFile.peek(8);
-		if (ba.startsWith("%PDF-1."))
+		if (ba.startsWith("%PDF-1.") || ba.startsWith("%PDF-2."))
 			return true;
 	}
 	return false;
