@@ -112,10 +112,23 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 
 void CompletingEdit::prefixLines(const QString &prefix)
 {
-	const QTextCursor selection{textCursor()};
+	QTextCursor selection{textCursor()};
 	QTextCursor cursor{selection};
 
 	cursor.beginEditBlock();
+
+	// Expand the front of the selection to include the newly added prefix
+	// if it is at the beginning of a block
+	// Note that selectionStart <= selectionEnd always holds, but position might
+	// be smaller than anchor (in case the user selected from right to left)
+	const bool expandFront = [](const QTextCursor & selection) {
+		if (!selection.hasSelection()) {
+			return false;
+		}
+		QTextCursor selectionStart{selection};
+		selectionStart.setPosition(selection.selectionStart());
+		return selectionStart.atBlockStart();
+	}(selection);
 
 	cursor.setPosition(cursor.selectionStart());
 	if (!cursor.atBlockStart()) {
@@ -127,6 +140,18 @@ void CompletingEdit::prefixLines(const QString &prefix)
 			// Reached end of file (no more blocks)
 			break;
 		}
+	}
+
+	if (expandFront) {
+		if (selection.position() == selection.selectionStart()) {
+			selection.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor, static_cast<decltype(selection.position())>(prefix.size()));
+		}
+		else {
+			const auto selectionEnd = selection.selectionEnd();
+			selection.setPosition(static_cast<decltype(selection.position())>(selection.selectionStart() - prefix.size()));
+			selection.setPosition(selectionEnd, QTextCursor::KeepAnchor);
+		}
+		setTextCursor(selection);
 	}
 
 	cursor.endEditBlock();
