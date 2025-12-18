@@ -389,7 +389,7 @@ void TWApp::exitLater(int retCode)
 #if QT_VERSION < QT_VERSION_CHECK(5, 4, 0)
 	QTimer * t = new QTimer();
 	t->setSingleShot(true);
-	connect(t, &QTimer::timeout, [&]() { this->exit(retCode); });
+	connect(t, &QTimer::timeout, [this,retCode]() { this->exit(retCode); });
 	connect(t, &QTimer::timeout, t, &QTimer::deleteLater);
 	t->start(0);
 #else
