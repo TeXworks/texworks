@@ -172,6 +172,11 @@ void InterProcessCommunicator::sendBringToFront()
 	if (hWnd == NULL)
 		return;
 
+	DWORD processId;
+	if (GetWindowThreadProcessId(hWnd, &processId)) {
+		AllowSetForegroundWindow(processId);
+	}
+
 	COPYDATASTRUCT cds;
 	cds.dwData = TW_BRING_TO_FRONT_MSG;
 	cds.cbData = 0;
