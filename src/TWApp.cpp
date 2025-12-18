@@ -393,7 +393,7 @@ void TWApp::exitLater(int retCode)
 	connect(t, &QTimer::timeout, t, &QTimer::deleteLater);
 	t->start(0);
 #else
-	QTimer::singleShot(0, this, [&]() { this->exit(retCode); });
+	QTimer::singleShot(0, this, [this,retCode]() { this->exit(retCode); });
 #endif
 }
 
