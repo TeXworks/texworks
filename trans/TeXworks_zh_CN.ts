@@ -1791,8 +1791,8 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="492"/>
-        <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF 渲染库由 Kristian H&amp;#xF8;gsberg, Albert Astals Cid 及其他人开发。</translation>
+        <source>&lt;br&gt;&lt;a href=&quot;https://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
+        <translation>&lt;br&gt;&lt;a href=&quot;https://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF 渲染库由 Kristian H&amp;#xF8;gsberg, Albert Astals Cid 及其他人开发。</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="494"/>
@@ -1801,13 +1801,13 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="495"/>
-        <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; 同步技术由 J&amp;#xE9;r&amp;#xF4;me Laurens 开发。</translation>
+        <source>&lt;br&gt;&lt;a href=&quot;https://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
+        <translation>&lt;br&gt;&lt;a href=&quot;https://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; 同步技术由 J&amp;#xE9;r&amp;#xF4;me Laurens 开发。</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="496"/>
-        <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation>&lt;br&gt;使用的一些图标来源于&lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango 桌面项目&lt;/a&gt;。</translation>
+        <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;https://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
+        <translation>&lt;br&gt;使用的一些图标来源于&lt;a href=&quot;https://tango.freedesktop.org/&quot;&gt;Tango 桌面项目&lt;/a&gt;。</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="497"/>
@@ -1877,7 +1877,7 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="490"/>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
         <translation>在 GNU 通用公共许可证（版本2）条款下分发，或根据您的个人选择选用任一后续版本。</translation>
     </message>
     <message>
@@ -1901,13 +1901,13 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="491"/>
-        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt 应用程序框架&lt;/a&gt; v%1 由 Qt 公司提供。</translation>
+        <source>&lt;p&gt;&lt;a href=&quot;https://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;https://www.qt.io/&quot;&gt;Qt 应用程序框架&lt;/a&gt; v%1 由 Qt 公司提供。</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="493"/>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; 拼写检查器由 L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth 提供。</translation>
+        <source>&lt;br&gt;&lt;a href=&quot;https://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation>&lt;br&gt;&lt;a href=&quot;https://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; 拼写检查器由 L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth 提供。</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="264"/>
@@ -2887,18 +2887,18 @@ Do you want to stop it now?</source>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2828"/>
-        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;http://www.tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;或&lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;。</translation>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;https://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;或&lt;a href=&quot;https://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;。</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2830"/>
-        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;。</translation>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;https://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;。</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2832"/>
-        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;http://www.tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;，大多数系统都可以获得一份现成的此类 TeX 发行版。</translation>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
+        <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;，大多数系统都可以获得一份现成的此类 TeX 发行版。</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2834"/>

@@ -72,7 +72,7 @@ public:
 	 *
 	 * \return	a string with a URL for information about the language
 	 */
-	QString scriptLanguageURL() const override { return QString::fromLatin1("http://www.lua.org/"); }
+	QString scriptLanguageURL() const override { return QString::fromLatin1("https://www.lua.org/"); }
 
 	/** \brief  Return whether the given file is handled by this scripting language plugin
 	 */

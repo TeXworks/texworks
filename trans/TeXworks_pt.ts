@@ -1777,8 +1777,8 @@ Verwenden Sie das Kontextmenü, um die Längeneinheit zu ändern.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="490"></location>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation>&lt;p&gt;Distribuído sob a &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versão 2 ou (se preferir) qualquer versão posterior.</translation>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation>&lt;p&gt;Distribuído sob a &lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, versão 2 ou (se preferir) qualquer versão posterior.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="501"></location>
@@ -1859,13 +1859,13 @@ Verwenden Sie das Kontextmenü, um die Längeneinheit zu ändern.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="491"></location>
-        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Biblioteca para desenvolvimento de aplicações Qt&lt;/a&gt; v%1 by The Qt Company.</translation>
+        <source>&lt;p&gt;&lt;a href=&quot;https://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;https://www.qt.io/&quot;&gt;Biblioteca para desenvolvimento de aplicações Qt&lt;/a&gt; v%1 by The Qt Company.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="493"></location>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
-        <translation>&lt;br&gt;Verificador ortográfico &lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt;, de L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
+        <source>&lt;br&gt;&lt;a href=&quot;https://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <translation>&lt;br&gt;Verificador ortográfico &lt;a href=&quot;https://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt;, de L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="508"></location>
@@ -1895,8 +1895,8 @@ Verwenden Sie das Kontextmenü, um die Längeneinheit zu ändern.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="492"></location>
-        <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
-        <translation>&lt;br&gt;Biblioteca de renderização de PDF &lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt;, por Kristian H&amp;#xF8;gsberg, Albert Astals-Cid e outros.</translation>
+        <source>&lt;br&gt;&lt;a href=&quot;https://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
+        <translation>&lt;br&gt;Biblioteca de renderização de PDF &lt;a href=&quot;https://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt;, por Kristian H&amp;#xF8;gsberg, Albert Astals-Cid e outros.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="494"></location>
@@ -1905,13 +1905,13 @@ Verwenden Sie das Kontextmenü, um die Längeneinheit zu ändern.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="495"></location>
-        <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation>&lt;br&gt;Tecnologia &lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; por J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
+        <source>&lt;br&gt;&lt;a href=&quot;https://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
+        <translation>&lt;br&gt;Tecnologia &lt;a href=&quot;https://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; por J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="496"></location>
-        <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation>&lt;br&gt;Alguns ícones usados são do &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
+        <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;https://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
+        <translation>&lt;br&gt;Alguns ícones usados são do &lt;a href=&quot;https://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="497"></location>
@@ -2337,18 +2337,18 @@ Gostaria de descartar as suas mudanças atuais e reabrir o ficheiro do disco com
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2828"></location>
-        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation>Precisa que uma &lt;b&gt;distribuição do TeX&lt;/b&gt; &amp;mdash; tal como a &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; ou a &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; &amp;mdash; esteja instalada no seu sistema para poder compilar o seu documento.</translation>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;https://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>Precisa que uma &lt;b&gt;distribuição do TeX&lt;/b&gt; &amp;mdash; tal como a &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; ou a &lt;a href=&quot;https://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; &amp;mdash; esteja instalada no seu sistema para poder compilar o seu documento.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2830"></location>
-        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation>Precisa que uma &lt;b&gt;distribuição do TeX&lt;/b&gt; &amp;mdash; tal como a &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; &amp;mdash; esteja instalada no seu sistema para poder compilar o seu documento.</translation>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>Precisa que uma &lt;b&gt;distribuição do TeX&lt;/b&gt; &amp;mdash; tal como a &lt;a href=&quot;https://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; &amp;mdash; esteja instalada no seu sistema para poder compilar o seu documento.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2832"></location>
-        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation>Precisa que uma &lt;b&gt;distribuição do TeX&lt;/b&gt; &amp;mdash; tal como a &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; &amp;mdash; esteja instalada no seu sistema para poder compilar o seu documento. Na maior parte dos sistemas operações ela estará disponível como um pacote pré-compilado.</translation>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
+        <translation>Precisa que uma &lt;b&gt;distribuição do TeX&lt;/b&gt; &amp;mdash; tal como a &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; &amp;mdash; esteja instalada no seu sistema para poder compilar o seu documento. Na maior parte dos sistemas operações ela estará disponível como um pacote pré-compilado.</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2834"></location>

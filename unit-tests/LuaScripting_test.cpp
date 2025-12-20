@@ -79,7 +79,7 @@ void TestLuaScripting::scriptLanguageName()
 
 void TestLuaScripting::scriptLanguageURL()
 {
-	QCOMPARE(luaSI->scriptLanguageURL(), QStringLiteral("http://www.lua.org/"));
+	QCOMPARE(luaSI->scriptLanguageURL(), QStringLiteral("https://www.lua.org/"));
 }
 
 void TestLuaScripting::canHandleFile()

@@ -1,7 +1,7 @@
 # Simple Rakefile for generating documentation from the CMake buildsystem using
 # Rocco:
 #
-#    http://rtomayko.github.com/rocco
+#    https://rtomayko.github.io/rocco/
 #
 require 'pathname'
 require 'rocco/tasks' # Not used, but serves as a good test that Rocco is installed

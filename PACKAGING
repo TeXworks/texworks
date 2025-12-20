@@ -107,7 +107,7 @@ CMAKE_INSTALL_PREFIX.
 
 Other than that, CMake should take care of most of your needs. For details about
 how to tweak general CMake settings, please refer to the CMake documentation
-(http://www.cmake.org/documentation/). A variables that you might find useful is
+(https://cmake.org/documentation/). A variables that you might find useful is
 CMAKE_PREFIX_PATH.
 
 Note that generated Makefiles still honor the DESTDIR= directive to take
@@ -125,9 +125,9 @@ In order to properly display PDF files without embedded fonts - and to conform
 to the PDF standard - TeXworks packages must ensure that the base 14 fonts are
 available on the system. The preferable way to do that is to pull in system
 packages and/or use alternative fonts found on the system. The remaining files
-can be obtained, e.g., from http://www.ctan.org/tex-archive/fonts/urw/base35
+can be obtained, e.g., from https://www.ctan.org/tex-archive/fonts/urw/base35
 (note that those fonts have been renamed according to
-http://www.tug.org/fontname/html/URW-fonts.html which must be undone as poppler
+https://tug.org/fontname/html/URW-fonts.html which must be undone as poppler
 expects the original filenames). The following pfb files are needed:
 d050000l.pfb, n019003l.pfb, n019004l.pfb, n019023l.pfb, n019024l.pfb,
 n021003l.pfb, n021004l.pfb, n021023l.pfb, n021024l.pfb, n022003l.pfb,
@@ -142,7 +142,7 @@ To check if the fonts are picked up correctly, use the base14-fonts testcase
 from https://github.com/TeXworks/texworks/tree/master/testcases.
 
 Moreover, the poppler library needs the poppler-data from
-http://poppler.freedesktop.org/ (this particularly affects displaying CJK
+https://poppler.freedesktop.org/ (this particularly affects displaying CJK
 documents). By default, TeXworks looks for a folder named "poppler-data"
 alongside the main application on Windows and Mac (see src/TWApp.cpp -
 TWApp::init()). It only sets this directory once while starting up, however, so
@@ -156,7 +156,7 @@ from https://github.com/TeXworks/texworks/tree/master/testcases.
 Further information and help
 ============================
 
-Homepage:     http://www.tug.org/texworks/
+Homepage:     https://tug.org/texworks/
 Development:  https://github.com/TeXworks/texworks
 Bugs:         https://github.com/TeXworks/texworks/issues
-Mailing list: http://tug.org/mailman/listinfo/texworks
+Mailing list: https://tug.org/mailman/listinfo/texworks

@@ -65,7 +65,7 @@ void TestScripting::scriptLanguageURL()
 {
 #if WITH_QTSCRIPT
 	Tw::Scripting::JSScriptInterface js(this);
-	QCOMPARE(js.scriptLanguageURL(), QStringLiteral("http://doc.qt.io/qt-5/qtscript-index.html"));
+	QCOMPARE(js.scriptLanguageURL(), QStringLiteral("https://doc.qt.io/qt-5/qtscript-index.html"));
 #endif
 
 	Tw::Scripting::ECMAScriptInterface es(this);

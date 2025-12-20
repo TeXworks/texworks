@@ -32,7 +32,7 @@ class MacCentralEurRomanCodec : public QTextCodec
 	Q_DISABLE_COPY(MacCentralEurRomanCodec)
 public:
 	// NOTE: The mib number is arbitrary since this encoding is not in the IANA
-	// list (http://www.iana.org/assignments/character-sets).
+	// list (https://www.iana.org/assignments/character-sets/).
 	int mibEnum() const override { return -4000; }
 	QByteArray name() const override { return "Mac Central European Roman"; }
 	QList<QByteArray> aliases() const override;

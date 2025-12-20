@@ -42,7 +42,7 @@ public:
 	Script* newScript(const QString& fileName) override;
 
 	QString scriptLanguageName() const override { return QString::fromLatin1("QtScript"); }
-	QString scriptLanguageURL() const override { return QString::fromLatin1("http://doc.qt.io/qt-5/qtscript-index.html"); }
+	QString scriptLanguageURL() const override { return QString::fromLatin1("https://doc.qt.io/qt-5/qtscript-index.html"); }
 	bool canHandleFile(const QFileInfo& fileInfo) const override { return fileInfo.suffix() == QLatin1String("js"); }
 };
 

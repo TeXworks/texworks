@@ -145,7 +145,7 @@ public:
 
 // Class to perform (possibly) lengthy operations on pages in the background
 // Modelled after the "Blocking Fortune Client Example" in the Qt docs
-// (http://doc.qt.nokia.com/stable/network-blockingfortuneclient.html)
+// (https://doc.qt.io/qt-5/qtnetwork-blockingfortuneclient-example.html)
 
 // The `PDFPageProcessingThread` is a thread that processes background jobs.
 // Each job is represented by a subclass of `PageProcessingRequest` and

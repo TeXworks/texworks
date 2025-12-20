@@ -292,7 +292,7 @@ TWApp::CommandLineData TWApp::processCommandLine()
 			strm << "TeXworks " << Tw::Utils::VersionInfo::fullVersionString() << "\n\n";
 			strm << QString::fromUtf8("\
 Copyright (C) %1  %2\n\
-License GPLv2+: GNU GPL (version 2 or later) <http://gnu.org/licenses/gpl.html>\n\
+License GPLv2+: GNU GPL (version 2 or later) <https://www.gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\n").arg(QString::fromLatin1("2007-2025"), QString::fromUtf8("Stefan Löffler, Jonathan Kew, Charlie Sharpsteen"));
 			strm.flush();
@@ -487,13 +487,13 @@ void TWApp::about()
 	aboutText += QLatin1String("<small>");
 	aboutText += QLatin1String("<p>&#xA9; 2007-2025  Stefan L&#xF6;ffler, Jonathan Kew, Charlie Sharpsteen");
 	aboutText += tr("<br>Version %1").arg(Tw::Utils::VersionInfo::fullVersionString());
-	aboutText += tr("<p>Distributed under the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU General Public License</a>, version 2 or (at your option) any later version.");
-	aboutText += tr("<p><a href=\"http://www.qt.io/\">Qt application framework</a> v%1 by The Qt Company.").arg(QString::fromLatin1(qVersion()));
-	aboutText += tr("<br><a href=\"http://poppler.freedesktop.org/\">Poppler</a> PDF rendering library by Kristian H&#xF8;gsberg, Albert Astals Cid and others.");
-	aboutText += tr("<br><a href=\"http://hunspell.github.io/\">Hunspell</a> spell checker by L&#xE1;szl&#xF3; N&#xE9;meth.");
+	aboutText += tr("<p>Distributed under the <a href=\"https://www.gnu.org/licenses/gpl.html\">GNU General Public License</a>, version 2 or (at your option) any later version.");
+	aboutText += tr("<p><a href=\"https://www.qt.io/\">Qt application framework</a> v%1 by The Qt Company.").arg(QString::fromLatin1(qVersion()));
+	aboutText += tr("<br><a href=\"https://poppler.freedesktop.org/\">Poppler</a> PDF rendering library by Kristian H&#xF8;gsberg, Albert Astals Cid and others.");
+	aboutText += tr("<br><a href=\"https://hunspell.github.io/\">Hunspell</a> spell checker by L&#xE1;szl&#xF3; N&#xE9;meth.");
 	aboutText += tr("<br>Concept and resources from <a href=\"https://pages.uoregon.edu/koch/texshop/\">TeXShop</a> by Richard Koch.");
-	aboutText += tr("<br><a href=\"http://itexmac.sourceforge.net/SyncTeX.html\">SyncTeX</a> technology by J&#xE9;r&#xF4;me Laurens.");
-	aboutText += tr("<br>Some icons used are from the <a href=\"http://tango.freedesktop.org/\">Tango Desktop Project</a>.");
+	aboutText += tr("<br><a href=\"https://itexmac.sourceforge.net/SyncTeX.html\">SyncTeX</a> technology by J&#xE9;r&#xF4;me Laurens.");
+	aboutText += tr("<br>Some icons used are from the <a href=\"https://tango.freedesktop.org/\">Tango Desktop Project</a>.");
 	QString trText = tr("<p>%1 translation kindly contributed by %2.").arg(tr("[language name]"), tr("[translator's name/email]"));
 	if (!trText.contains(QString::fromLatin1("[language name]")))
 		aboutText += trText;	// omit this if it hasn't been translated!
@@ -511,11 +511,11 @@ void TWApp::openUrl(const QUrl& url)
 
 void TWApp::goToHomePage()
 {
-	openUrl(QUrl(QString::fromLatin1("http://www.tug.org/texworks/")));
+	openUrl(QUrl(QString::fromLatin1("https://tug.org/texworks/")));
 }
 
 #if defined(Q_OS_WIN)
-/* based on MSDN sample code from http://msdn.microsoft.com/en-us/library/ms724429(VS.85).aspx */
+/* based on MSDN sample code from https://msdn.microsoft.com/en-us/library/ms724429(VS.85).aspx */
 typedef void (WINAPI *PGNSI)(LPSYSTEM_INFO);
 
 QString TWApp::GetWindowsVersionString()

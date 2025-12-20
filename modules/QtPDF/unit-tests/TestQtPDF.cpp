@@ -738,7 +738,7 @@ void TestQtPDF::destinationComparison()
 
 void TestQtPDF::PDFUriAction()
 {
-  QUrl urlTw(QStringLiteral("http://www.tug.org/texworks/"));
+  QUrl urlTw(QStringLiteral("https://tug.org/texworks/"));
   QtPDF::PDFURIAction a(urlTw);
 
   QCOMPARE(a.type(), QtPDF::PDFAction::ActionTypeURI);
@@ -807,7 +807,7 @@ void TestQtPDF::actionComparison()
   QVector< QSP > actions;
 
   actions << QSP(new QtPDF::PDFURIAction(QUrl()))
-          << QSP(new QtPDF::PDFURIAction(QUrl(QStringLiteral("http://www.tug.org/texworks/"))))
+          << QSP(new QtPDF::PDFURIAction(QUrl(QStringLiteral("https://tug.org/texworks/"))))
           << QSP(new QtPDF::PDFGotoAction())
           << QSP(new QtPDF::PDFGotoAction(QtPDF::PDFDestination(0)))
           << QSP(new QtPDF::PDFGotoAction(QtPDF::PDFDestination(QStringLiteral("name"))))
@@ -1059,7 +1059,7 @@ void TestQtPDF::metaDataOther_data()
 
   {
     QStringMap a;
-    a.insert(QString::fromLatin1("PTEX.FullBanner"), QString::fromLatin1("This is LuaTeX, Version 1.07.0 (TeX Live 2018)"));
+    a.insert(QString::fromLatin1("PTEX.FullBanner"), QString::fromLatin1("This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)"));
     newDocTest("annotations") << a;
   }
 }
@@ -1081,7 +1081,7 @@ void TestQtPDF::fileSize_data()
   newDocTest("base14-fonts") << static_cast<qint64>(3800);
   newDocTest("base14-locked") << static_cast<qint64>(2774);
   newDocTest("pgfmanual") << static_cast<qint64>(5346838);
-  newDocTest("annotations") << static_cast<qint64>(11817);
+  newDocTest("annotations") << static_cast<qint64>(12011);
 }
 
 void TestQtPDF::fileSize()
@@ -1467,10 +1467,10 @@ void TestQtPDF::page_loadLinks_data()
     QRectF r;
 
     l = QtPDF::Annotation::Link();
-    r = QRectF(QPointF(102, 500.89), QPointF(276, 513.89));
+    r = QRectF(QPointF(102, 500.89), QPointF(258, 513.89));
     l.setRect(r);
     l.setQuadPoints(QPolygonF(r));
-    l.setActionOnActivation(new QtPDF::PDFURIAction(QUrl(QString::fromLatin1("http://www.tug.org/texworks/"))));
+    l.setActionOnActivation(new QtPDF::PDFURIAction(QUrl(QString::fromLatin1("https://tug.org/texworks/"))));
     data << l;
 
     l = QtPDF::Annotation::Link();

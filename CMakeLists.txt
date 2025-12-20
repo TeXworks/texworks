@@ -42,9 +42,9 @@
 # such as [Docco][docco] to create a nicely annotated README for the benefit of
 # future developers and maintainers.
 #
-#   [cmake]: http://www.cmake.org
-#   [docco]: http://jashkenas.github.com/docco
-#   [md]: http://daringfireball.net/projects/markdown/
+#   [cmake]: https://cmake.org
+#   [docco]: https://ashkenas.com/docco/
+#   [md]: https://daringfireball.net/projects/markdown/
 #   [tw]: https://github.com/TeXworks/texworks
 
 

@@ -24,12 +24,12 @@ Description: simple interface for working with TeX documents
  deliver a similarly integrated, easy-to-use environment for users on other
  platforms, especially GNU/Linux and Windows.
  .
- For further information, see http://tug.org/texworks/
+ For further information, see https://tug.org/texworks/
 
 Package: texworks-scripting-lua
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: texworks
 Description: Plugin to bring Lua scripting to TeXworks
- For further information, see http://tug.org/texworks/
+ For further information, see https://tug.org/texworks/
 

@@ -36,17 +36,17 @@ platforms, especially GNU/Linux and Windows.
 Getting Started
 ---------------
 
-TeXworks is a free and open-source software project. New users are encouraged to leverage this [guide](https://www.tug.org/texworks/#How_can_you_help), outlining the fundamental process of creating, formatting, and generating PDF documents from within TeXworks.
+TeXworks is a free and open-source software project. New users are encouraged to leverage this [guide](https://tug.org/texworks/#How_can_you_help), outlining the fundamental process of creating, formatting, and generating PDF documents from within TeXworks.
 
 Contribution
 -------------
 
-TeXworks thrives on an active community, and welcoming contributions is paramount. If you encounter bugs or have suggestions for improvement, please share them on our [issues page](https://github.com/TeXworks/texworks/issues). Additionally, you can engage in discussions with other users and developers via our [mailing list](https://tug.org/mailman/listinfo/texworks). TeXworks' translation efforts are hosted on [Weblate](https://hosted.weblate.org/engage/texworks/) where any and all help is very welcome. To start contributing to the code, visit the [development page](https://github.com/TeXworks/texworks) to fork a copy of the codebase and start hacking. Visit our [homepage](https://www.tug.org/texworks/) for more information. If you are new to contributing to open-source projects, we encourage you to visit this [guide](https://opensource.guide/how-to-contribute/) to help you get started.
+TeXworks thrives on an active community, and welcoming contributions is paramount. If you encounter bugs or have suggestions for improvement, please share them on our [issues page](https://github.com/TeXworks/texworks/issues). Additionally, you can engage in discussions with other users and developers via our [mailing list](https://tug.org/mailman/listinfo/texworks). TeXworks' translation efforts are hosted on [Weblate](https://hosted.weblate.org/engage/texworks/) where any and all help is very welcome. To start contributing to the code, visit the [development page](https://github.com/TeXworks/texworks) to fork a copy of the codebase and start hacking. Visit our [homepage](https://tug.org/texworks/) for more information. If you are new to contributing to open-source projects, we encourage you to visit this [guide](https://opensource.guide/how-to-contribute/) to help you get started.
 
 Installation
 ------------
 
-Pre-built binaries for Windows, macOS, and Linux are available for immediate download from our official [website](https://www.tug.org/texworks/).
+Pre-built binaries for Windows, macOS, and Linux are available for immediate download from our official [website](https://tug.org/texworks/).
 
 Building TeXworks
 -----------------

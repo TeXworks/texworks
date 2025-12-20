@@ -66,7 +66,7 @@ public:
 	 *
 	 * \return	a string with a URL for information about the language
 	 */
-	QString scriptLanguageURL() const override { return QStringLiteral("http://www.python.org/"); }
+	QString scriptLanguageURL() const override { return QStringLiteral("https://www.python.org/"); }
 
 	/** \brief  Return whether the given file is handled by this scripting language plugin
 	 */

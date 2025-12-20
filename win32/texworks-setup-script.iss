@@ -15,9 +15,9 @@ AppId={{41DA4817-4D2A-4D83-AD02-6A2D95DC8DCB}
 AppName={#APPNAME}
 AppVersion={#APPVERSION}
 AppPublisher={#APPPUBLISHER}
-AppPublisherURL=http://www.tug.org/texworks/
-AppSupportURL=http://www.tug.org/texworks/
-AppUpdatesURL=http://www.tug.org/texworks/
+AppPublisherURL=https://tug.org/texworks/
+AppSupportURL=https://tug.org/texworks/
+AppUpdatesURL=https://tug.org/texworks/
 AppCopyright={#APPCOPYRIGHT}
 DefaultDirName={pf}\{#APPNAME}
 DefaultGroupName={#APPNAME}
@@ -97,7 +97,7 @@ Source: "..\release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs cr
 
 [Icons]
 Name: "{group}\TeXworks"; Filename: "{app}\TeXworks.exe"
-Name: "{group}\{cm:ProgramOnTheWeb,TeXworks}"; Filename: "http://www.tug.org/texworks/"
+Name: "{group}\{cm:ProgramOnTheWeb,TeXworks}"; Filename: "https://tug.org/texworks/"
 Name: "{group}\{cm:ManualNameEn}"; Filename: "{app}\texworks-help\TeXworks-manual\en\TeXworks-manual-en.pdf"
 Name: "{group}\{cm:ManualNameFr}"; Filename: "{app}\texworks-help\TeXworks-manual\fr\TeXworks-manual-fr.pdf"
 Name: "{commondesktop}\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: desktopicon
