@@ -2,7 +2,7 @@
 
 ; Definitions using Inno Setup Preprocessor
 #define APPNAME      GetStringFileInfo("..\release/TeXworks.exe", PRODUCT_NAME)
-#define APPVERNAME   GetStringFileInfo("..\release/TeXworks.exe", PRODUCT_VERSION)
+#define APPVERSION   GetStringFileInfo("..\release/TeXworks.exe", PRODUCT_VERSION)
 #define APPPUBLISHER GetStringFileInfo("..\release/TeXworks.exe", COMPANY_NAME)
 #define APPCOPYRIGHT GetStringFileInfo("..\release/TeXworks.exe", LEGAL_COPYRIGHT)
 #define VERSIONINFO  GetFileVersion("..\release/TeXworks.exe")
@@ -13,7 +13,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{41DA4817-4D2A-4D83-AD02-6A2D95DC8DCB}
 AppName={#APPNAME}
-AppVerName={#APPVERNAME}
+AppVersion={#APPVERSION}
 AppPublisher={#APPPUBLISHER}
 AppPublisherURL=http://www.tug.org/texworks/
 AppSupportURL=http://www.tug.org/texworks/
@@ -30,6 +30,7 @@ SolidCompression=yes
 ChangesAssociations=yes
 VersionInfoVersion={#VERSIONINFO}
 WizardSmallImageFile=..\res\images\TeXworks-small.bmp
+UninstallDisplayName={#APPNAME}
 
 [Languages]
 Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl"

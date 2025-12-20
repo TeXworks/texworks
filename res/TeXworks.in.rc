@@ -25,7 +25,7 @@ BEGIN
             VALUE "LegalCopyright",   "Copyright (C) 2007-2025  Stefan Löffler, Jonathan Kew, Charlie Sharpsteen"
             VALUE "OriginalFilename", "TeXworks.exe"
             VALUE "ProductName",      "TeXworks"
-            VALUE "ProductVersion",   "TeXworks " TEXWORKS_VERSION
+            VALUE "ProductVersion",   TEXWORKS_VERSION
         END
     END
 
