@@ -33,6 +33,7 @@ WizardSmallImageFile=..\res\images\TeXworks-small.bmp
 UninstallDisplayName={#APPNAME}
 
 [Languages]
+Name: "ar"; MessagesFile: "compiler:Languages\Arabic.isl"
 Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl"
 Name: "cs"; MessagesFile: "compiler:Languages\Czech.isl"
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"
@@ -41,6 +42,7 @@ Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
 Name: "it"; MessagesFile: "compiler:Languages\Italian.isl"
 Name: "ja"; MessagesFile: "compiler:Languages\Japanese.isl"
+Name: "ko"; MessagesFile: "compiler:Languages\Korean.isl"
 Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl"
 Name: "nn"; MessagesFile: "compiler:Languages\Norwegian.isl"
 Name: "pl"; MessagesFile: "compiler:Languages\Polish.isl"
@@ -50,9 +52,7 @@ Name: "sl"; MessagesFile: "compiler:Languages\Slovenian.isl"
 Name: "tr"; MessagesFile: "compiler:Languages\Turkish.isl"
 ; additional Inno Setup languages using contributed translations
 Name: "af"; MessagesFile: "extra-setup-languages\Afrikaans.isl"
-Name: "ar"; MessagesFile: "extra-setup-languages\Arabic.isl"
 Name: "fa"; MessagesFile: "extra-setup-languages\Farsi.isl"
-Name: "ko"; MessagesFile: "extra-setup-languages\Korean.isl"
 Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimplified.isl"
 
 [CustomMessages]
