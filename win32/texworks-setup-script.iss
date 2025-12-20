@@ -5,7 +5,7 @@
 #define APPVERSION   GetStringFileInfo("..\release/TeXworks.exe", PRODUCT_VERSION)
 #define APPPUBLISHER GetStringFileInfo("..\release/TeXworks.exe", COMPANY_NAME)
 #define APPCOPYRIGHT GetStringFileInfo("..\release/TeXworks.exe", LEGAL_COPYRIGHT)
-#define VERSIONINFO  GetFileVersion("..\release/TeXworks.exe")
+#define VERSIONINFO  GetVersionNumbersString("..\release/TeXworks.exe")
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -19,7 +19,7 @@ AppPublisherURL=https://tug.org/texworks/
 AppSupportURL=https://tug.org/texworks/
 AppUpdatesURL=https://tug.org/texworks/
 AppCopyright={#APPCOPYRIGHT}
-DefaultDirName={pf}\{#APPNAME}
+DefaultDirName={autopf}\{#APPNAME}
 DefaultGroupName={#APPNAME}
 AllowNoIcons=yes
 LicenseFile=..\COPYING
@@ -84,7 +84,6 @@ zh_cn.CreateFileAssoc=默认使用 TeXworks 打开下列文件类型：
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 Name: "texfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.tex}"; GroupDescription: "{cm:CreateFileAssoc}"
 Name: "ltxfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.ltx}"; GroupDescription: "{cm:CreateFileAssoc}"
 Name: "styfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.sty}"; GroupDescription: "{cm:CreateFileAssoc}"
@@ -101,7 +100,6 @@ Name: "{group}\{cm:ProgramOnTheWeb,TeXworks}"; Filename: "https://tug.org/texwor
 Name: "{group}\{cm:ManualNameEn}"; Filename: "{app}\texworks-help\TeXworks-manual\en\TeXworks-manual-en.pdf"
 Name: "{group}\{cm:ManualNameFr}"; Filename: "{app}\texworks-help\TeXworks-manual\fr\TeXworks-manual-fr.pdf"
 Name: "{commondesktop}\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: desktopicon
-Name: "{commonappdata}\Microsoft\Internet Explorer\Quick Launch\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: quicklaunchicon
 
 [Registry]
 Root: HKCR; Subkey: ".tex"; ValueType: string; ValueName: ""; ValueData: "TeXworksTeXFile"; Flags: uninsdeletevalue; Tasks: texfileassoc
