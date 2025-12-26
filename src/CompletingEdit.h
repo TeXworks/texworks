@@ -23,7 +23,10 @@
 #define COMPLETING_EDIT_H
 
 #include "ui/LineNumberWidget.h"
-#include "ui_CompletingEdit.h"
+// FIXME shortcuts defined in CompletingEdit.ui
+//#include "ui_CompletingEdit.h"
+
+#include "ScintillaEdit.h"
 
 #include <QDrag>
 #include <QHash>
@@ -44,10 +47,32 @@ class SpellChecker;
 } // namespace Document
 } // namespace Tw
 
-class CompletingEdit : public QTextEdit, private Ui::CompletingEdit
+class CompletingEdit : public ScintillaEdit
 {
 	Q_OBJECT
-	using pos_type = decltype(QTextCursor().position());
+//	using pos_type = decltype(QTextCursor().position());
+
+
+	// QTextEdit mockups
+public:
+	QTextCursor textCursor() const { return {}; }
+	QTextDocument* document() { return new QTextDocument(this); }
+	QRect cursorRect() const { return {}; }
+	void setTabStopDistance(qreal distance) {}
+	QTextOption::WrapMode wordWrapMode() const { return QTextOption::NoWrap; }
+	QTextCursor cursorForPosition(const QPoint &pos) const { return {}; }
+	void ensureCursorVisible() {}
+	void setWordWrapMode(QTextOption::WrapMode policy) {}
+	QFont currentFont() const { return {}; }
+	void setFocus(Qt::FocusReason reason = Qt::OtherFocusReason) {}
+
+signals:
+	void cursorPositionChanged();
+	void selectionChanged();
+
+	// QTextEdit mockups
+
+
 
 public:
 	CompletingEdit(QWidget *parent = nullptr);
@@ -59,15 +84,22 @@ public:
 	bool getLineNumbersVisible() const;
 
 	QString getIndentMode() const {
+		/* FIXME
 		return autoIndentMode >= 0 && autoIndentMode < autoIndentModes().size() ?
 			autoIndentModes().at(autoIndentMode) : QString();
+*/
+		return {};
 	}
 	QString getQuotesMode() const {
+		/* FIXME
 		return smartQuotesMode >= 0 && smartQuotesMode < smartQuotesModes().size() ?
 			smartQuotesModes().at(smartQuotesMode) : QString();
+*/
+		return {};
 	}
 
-	QString text() const;
+	QString text();
+	void setPlainText(const QString & text);
 
 	// Override of QTextEdit's method to properly handle scrolling for multiline
 	// cursors
@@ -101,6 +133,7 @@ signals:
 	void rehighlight();
 	void updateRequest(const QRect& rect, int dy);
 
+	/*
 protected:
 	void keyPressEvent(QKeyEvent *e) override;
 	void focusInEvent(QFocusEvent *e) override;
@@ -118,7 +151,6 @@ protected:
 	void wheelEvent(QWheelEvent *event) override;
 	bool event(QEvent *event) override;
 	void scrollContentsBy(int dx, int dy) override;
-
 	Tw::Document::SpellChecker getSpellChecker() const;
 
 private slots:
@@ -217,6 +249,7 @@ private:
 
 	static bool highlightCurrentLine;
 	static bool autocompleteEnabled;
+*/
 };
 
 #endif // COMPLETING_EDIT_H

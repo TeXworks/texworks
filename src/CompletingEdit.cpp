@@ -53,8 +53,9 @@
 #include <QTimer>
 
 CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
-	: QTextEdit(parent)
+	: ScintillaEdit(parent)
 {
+	/* FIXME
 	Tw::Settings settings;
 	if (!sharedCompleter) { // initialize shared (static) members
 		sharedCompleter = new QCompleter(qApp);
@@ -108,10 +109,12 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	updateLineNumberAreaWidth(0);
 	updateColors();
 	TWUtils::installCustomShortcuts(this);
+*/
 }
 
 void CompletingEdit::prefixLines(const QString &prefix)
 {
+	/* FIXME
 	QTextCursor selection{textCursor()};
 	QTextCursor cursor{selection};
 
@@ -155,10 +158,12 @@ void CompletingEdit::prefixLines(const QString &prefix)
 	}
 
 	cursor.endEditBlock();
+*/
 }
 
 void CompletingEdit::unPrefixLines(const QString &prefix)
 {
+	/* FIXME
 	const QTextCursor selection{textCursor()};
 	QTextCursor cursor{selection};
 
@@ -181,9 +186,11 @@ void CompletingEdit::unPrefixLines(const QString &prefix)
 	}
 
 	cursor.endEditBlock();
+*/
 }
 
 
+/* FIXME
 void CompletingEdit::updateColors()
 {
 	Q_ASSERT(currentCompletionFormat);
@@ -212,12 +219,16 @@ void CompletingEdit::updateColors()
 	palette().color(QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
 	lineNumberArea->setBgColor(QColor::fromRgbF(0.75f * bgR + 0.25f * fgR, 0.75f * bgG + 0.25f * fgG, 0.75f * bgB + 0.25f * fgB));
 }
+*/
 
 CompletingEdit::~CompletingEdit()
 {
+	/* FIXME
 	setCompleter(nullptr);
+*/
 }
 
+/* FIXME
 void CompletingEdit::setCompleter(QCompleter *completer)
 {
 	c = completer;
@@ -226,7 +237,9 @@ void CompletingEdit::setCompleter(QCompleter *completer)
 
 	c->setWidget(this);
 }
+*/
 
+/* FIXME
 void CompletingEdit::cursorPositionChangedSlot()
 {
 	setCompleter(nullptr);
@@ -724,22 +737,29 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 		}
 	}
 }
+*/
 
 void CompletingEdit::setSmartQuotesMode(int index)
 {
+	/* FIXME
 	smartQuotesMode = (index >= 0 && index < quotesModes->count()) ? index : -1;
+*/
 }
 
 QStringList CompletingEdit::smartQuotesModes()
 {
+	/* FIXME
 	loadSmartQuotesModes();
 
 	QStringList modes;
 	foreach (const QuotesMode& mode, *quotesModes)
 		modes << mode.name;
 	return modes;
+*/
+	return {};
 }
 
+/* FIXME
 void CompletingEdit::loadSmartQuotesModes()
 {
 	if (!quotesModes) {
@@ -822,9 +842,11 @@ void CompletingEdit::maybeSmartenQuote(int offset)
 
 	cursor.insertText(replacement);
 }
+*/
 
 void CompletingEdit::smartenQuotes()
 {
+	/* FIXME
 	if (smartQuotesMode < 0 || smartQuotesMode >= quotesModes->count())
 		return;
 	const QuoteMapping& mappings = quotesModes->at(smartQuotesMode).mappings;
@@ -859,8 +881,10 @@ void CompletingEdit::smartenQuotes()
 		curs.setPosition(selEnd, QTextCursor::KeepAnchor);
 		setTextCursor(curs);
 	}
+*/
 }
 
+/* FIXME
 // \returns true if shortcut was handled, false otherwise
 bool CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 {
@@ -1162,12 +1186,16 @@ void CompletingEdit::contextMenuEvent(QContextMenuEvent *event)
 	menu->exec(event->globalPos(), defaultAction);
 	delete menu;
 }
+*/
 
 void CompletingEdit::setAutoIndentMode(int index)
 {
+	/* FIXME
 	autoIndentMode = (index >= 0 && index < indentModes->count()) ? index : -1;
+*/
 }
 
+/* FIXME
 void CompletingEdit::correction(const QString& suggestion)
 {
 	currentWord.insertText(suggestion);
@@ -1213,17 +1241,22 @@ void CompletingEdit::loadIndentModes()
 		}
 	}
 }
+*/
 
 QStringList CompletingEdit::autoIndentModes()
 {
+	/* FIXME
 	loadIndentModes();
 
 	QStringList modes;
 	foreach (const IndentMode& mode, *indentModes)
 		modes << mode.name;
 	return modes;
+*/
+	return {};
 }
 
+/* FIXME
 void CompletingEdit::dragEnterEvent(QDragEnterEvent *event)
 {
 	if (event->mimeData()->hasUrls())
@@ -1265,55 +1298,40 @@ bool CompletingEdit::canInsertFromMimeData(const QMimeData *source) const
 {
 	return source->hasText();
 }
+*/
 
 // support for the line-number area
 // from Qt tutorial "Code Editor"
 
 void CompletingEdit::setLineNumberDisplay(bool displayNumbers)
 {
+	/* FIXME
 	lineNumberArea->setVisible(displayNumbers);
 	updateLineNumberAreaWidth(0);
+*/
 }
 
 bool CompletingEdit::getLineNumbersVisible() const
 {
+	/* FIXME
 	return lineNumberArea->isVisible();
+*/
+	return false;
 }
 
-QString CompletingEdit::text() const
+QString CompletingEdit::text()
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
-	return toPlainText();
-#else
-	if (document() == nullptr) {
-		return {};
-	}
-	// Raw text leaves certain unicode characters intact, most notably
-	// non-breaking spaces
-	QString rv{document()->toRawText()};
+	return QString::fromUtf8(getText(textLength()));
+}
 
-	// Modeled after QTextDocument::toPlainText()
-	QChar *uc = rv.data();
-	QChar *e = uc + rv.size();
-
-	for ( ; uc != e; ++uc) {
-		switch (uc->unicode()) {
-			case 0xfdd0: // QTextBeginningOfFrame
-			case 0xfdd1: // QTextEndOfFrame
-			case QChar::ParagraphSeparator:
-			case QChar::LineSeparator:
-				*uc = QLatin1Char('\n');
-				break;
-			default:
-				;
-		}
-	}
-	return rv;
-#endif
+void CompletingEdit::setPlainText(const QString & text)
+{
+	setText(text.toUtf8().data());
 }
 
 void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
 {
+/* FIXME
 	if (lineNumberArea->isVisible()) {
 		setViewportMargins(lineNumberArea->sizeHint().width(), 0, 0, 0);
 		lineNumberArea->update();
@@ -1321,8 +1339,10 @@ void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
 	else {
 		setViewportMargins(0, 0, 0, 0);
 	}
+*/
 }
 
+/* FIXME
 void CompletingEdit::updateLineNumberArea(const QRect &rect, int dy)
 {
 	if (dy)
@@ -1363,9 +1383,11 @@ void CompletingEdit::wheelEvent(QWheelEvent *e)
 
 	QTextEdit::wheelEvent(e);
 }
+*/
 
 void CompletingEdit::setTextCursor(const QTextCursor & cursor)
 {
+	/* FIXME
 	// QTextEdit::setTextCursor only scrolls to cursor.position(). If
 	// position() > anchor(), the two are on different lines, and the view has
 	// to scroll up, this means that not the whole selection is visible.
@@ -1377,18 +1399,22 @@ void CompletingEdit::setTextCursor(const QTextCursor & cursor)
 	c.setPosition(c.anchor());
 	QTextEdit::setTextCursor(c);
 	QTextEdit::setTextCursor(cursor);
+*/
 }
 
 void CompletingEdit::setDocument(QTextDocument * document)
 {
+	/* FIXME
 	disconnect(QTextEdit::document(), nullptr, this, nullptr);
 	// Remember the cursor width setting
 	int oldCursorWidth = cursorWidth();
 	QTextEdit::setDocument(document);
 	setCursorWidth(oldCursorWidth);
 	connect(document, &QTextDocument::blockCountChanged, this, &CompletingEdit::updateLineNumberAreaWidth);
+*/
 }
 
+/* FIXME
 bool CompletingEdit::event(QEvent *e)
 {
 	if (e->type() == QEvent::UpdateRequest) {
@@ -1441,52 +1467,68 @@ Tw::Document::SpellChecker CompletingEdit::getSpellChecker() const
 		return {};
 	return highlighter->getSpellChecker();
 }
+*/
 
 void CompletingEdit::setHighlightCurrentLine(bool highlight)
 {
+	/* FIXME
 	if (highlight != highlightCurrentLine) {
 		highlightCurrentLine = highlight;
 		TWApp::instance()->emitHighlightLineOptionChanged();
 	}
+*/
 }
 
 void CompletingEdit::setAutocompleteEnabled(bool autocomplete)
 {
+	/* FIXME
 	if (autocomplete != autocompleteEnabled) {
 		autocompleteEnabled = autocomplete;
 	}
+*/
 }
 
 void CompletingEdit::setFont(const QFont & font)
 {
+	/* FIXME
 	QTextEdit::setFont(font);
 	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+*/
 }
 
 void CompletingEdit::setFontFamily(const QString & fontFamily)
 {
+	/* FIXME
 	QTextEdit::setFontFamily(fontFamily);
 	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+*/
 }
 
 void CompletingEdit::setFontItalic(bool italic)
 {
+	/* FIXME
 	QTextEdit::setFontItalic(italic);
 	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+*/
 }
 
 void CompletingEdit::setFontPointSize(qreal s)
 {
+	/* FIXME
 	QTextEdit::setFontPointSize(s);
 	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+*/
 }
 
 void CompletingEdit::setFontWeight(int weight)
 {
+	/* FIXME
 	QTextEdit::setFontWeight(weight);
 	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
+*/
 }
 
+/* FIXME
 
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = nullptr;
 QTextCharFormat	*CompletingEdit::braceMatchingFormat = nullptr;
@@ -1498,3 +1540,4 @@ QCompleter	*CompletingEdit::sharedCompleter = nullptr;
 
 QList<CompletingEdit::IndentMode> *CompletingEdit::indentModes = nullptr;
 QList<CompletingEdit::QuotesMode> *CompletingEdit::quotesModes = nullptr;
+*/

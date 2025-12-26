@@ -310,6 +310,7 @@ FIND_PACKAGE(Synctex QUIET)
 SET(TeXworks_LIBS
   SyncTeX::synctex
   Hunspell::hunspell
+  scintilla
   ${QT_LIBRARIES}
   ZLIB::ZLIB
   ${TEXWORKS_ADDITIONAL_LIBS}
