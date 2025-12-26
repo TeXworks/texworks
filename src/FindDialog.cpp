@@ -37,7 +37,7 @@
 
 const int kMaxRecentStrings = 10;
 
-FindDialog::FindDialog(QTextEdit *parent)
+FindDialog::FindDialog(CompletingEdit *parent)
 	: QDialog(parent)
 {
 	init(parent);
@@ -88,7 +88,7 @@ void RecentStringsKeyFilter::setRecentString(QObject *obj, int dir)
 	lineEdit->selectAll();
 }
 
-void FindDialog::init(QTextEdit *document)
+void FindDialog::init(CompletingEdit *document)
 {
 	setupUi(this);
 
@@ -156,7 +156,7 @@ void FindDialog::setSearchText()
 
 void FindDialog::toggledAllFilesOption(bool checked)
 {
-	QTextEdit* document = qobject_cast<QTextEdit*>(parent());
+	CompletingEdit* document = qobject_cast<CompletingEdit*>(parent());
 	checkBox_selection->setEnabled(document && document->textCursor().hasSelection() && !checked && !checkBox_findAll->isChecked());
 	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()) && !checked && !checkBox_findAll->isChecked());
 	checkBox_backwards->setEnabled(!checked && !checkBox_findAll->isChecked());
@@ -165,7 +165,7 @@ void FindDialog::toggledAllFilesOption(bool checked)
 
 void FindDialog::toggledFindAllOption(bool checked)
 {
-	QTextEdit* document = qobject_cast<QTextEdit*>(parent());
+	CompletingEdit* document = qobject_cast<CompletingEdit*>(parent());
 	checkBox_selection->setEnabled(document && document->textCursor().hasSelection() && !checked);
 	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()) && !checked);
 	checkBox_backwards->setEnabled(!checked);
@@ -196,7 +196,7 @@ void FindDialog::checkRegex(const QString& str)
 	}
 }
 
-QDialog::DialogCode FindDialog::doFindDialog(QTextEdit *document)
+QDialog::DialogCode FindDialog::doFindDialog(CompletingEdit *document)
 {
 	FindDialog dlg(document);
 
@@ -234,13 +234,13 @@ QDialog::DialogCode FindDialog::doFindDialog(QTextEdit *document)
 	return result;
 }
 
-ReplaceDialog::ReplaceDialog(QTextEdit *parent)
+ReplaceDialog::ReplaceDialog(CompletingEdit *parent)
 	: QDialog(parent)
 {
 	init(parent);
 }
 
-void ReplaceDialog::init(QTextEdit *document)
+void ReplaceDialog::init(CompletingEdit *document)
 {
 	setupUi(this);
 
@@ -332,7 +332,7 @@ void ReplaceDialog::setReplaceText()
 
 void ReplaceDialog::toggledAllFilesOption(bool checked)
 {
-	QTextEdit* document = qobject_cast<QTextEdit*>(parent());
+	CompletingEdit* document = qobject_cast<CompletingEdit*>(parent());
 	checkBox_selection->setEnabled(document && document->textCursor().hasSelection() && !checked);
 	checkBox_wrap->setEnabled(!(checkBox_selection->isEnabled() && checkBox_selection->isChecked()) && !checked);
 	checkBox_backwards->setEnabled(!checked);
@@ -374,7 +374,7 @@ void ReplaceDialog::clickedReplaceAll()
 	done(2);
 }
 
-ReplaceDialog::DialogCode ReplaceDialog::doReplaceDialog(QTextEdit *document)
+ReplaceDialog::DialogCode ReplaceDialog::doReplaceDialog(CompletingEdit *document)
 {
 	ReplaceDialog dlg(document);
 
@@ -440,7 +440,7 @@ void SearchResults::goToSource()
 {
 	TeXDocumentWindow * theDoc = showSelectedEntry();
 	if (theDoc) {
-		QTextEdit * editor = theDoc->findChild<QTextEdit*>(QString::fromLatin1("textEdit"));
+		CompletingEdit * editor = theDoc->findChild<CompletingEdit*>(QString::fromLatin1("textEdit"));
 		if (editor)
 			editor->setFocus();
 	}

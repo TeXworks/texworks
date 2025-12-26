@@ -32,7 +32,7 @@
 #include "ui_SearchResults.h"
 
 class TeXDocumentWindow;
-class QTextEdit;
+class CompletingEdit;
 class PDFDocumentWindow;
 
 class RecentStringsKeyFilter : public QObject
@@ -58,9 +58,9 @@ class FindDialog : public QDialog, private Ui::FindDialog
 	Q_OBJECT
 
 public:
-	explicit FindDialog(QTextEdit * document);
+	explicit FindDialog(CompletingEdit * document);
 
-	static DialogCode doFindDialog(QTextEdit *document);
+	static DialogCode doFindDialog(CompletingEdit *document);
 
 private slots:
 	void toggledAllFilesOption(bool checked);
@@ -71,7 +71,7 @@ private slots:
 	void setSearchText();
 
 private:
-	void init(QTextEdit *document);
+	void init(CompletingEdit *document);
 };
 
 class PDFFindDialog : public QDialog, private Ui::PDFFindDialog
@@ -97,7 +97,7 @@ class ReplaceDialog : public QDialog, private Ui::ReplaceDialog
 	Q_OBJECT
 
 public:
-	explicit ReplaceDialog(QTextEdit * parent);
+	explicit ReplaceDialog(CompletingEdit * parent);
 
 	typedef enum {
 		Cancel,
@@ -105,7 +105,7 @@ public:
 		ReplaceAll
 	} DialogCode;
 
-	static DialogCode doReplaceDialog(QTextEdit *document);
+	static DialogCode doReplaceDialog(CompletingEdit *document);
 
 private slots:
 	void toggledAllFilesOption(bool checked);
@@ -118,7 +118,7 @@ private slots:
 	void setReplaceText();
 
 private:
-	void init(QTextEdit *document);
+	void init(CompletingEdit *document);
 };
 
 
