@@ -20,6 +20,9 @@
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QScreen>
 #endif
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+#include <QDesktopWidget>
+#endif
 #include <QFont>
 #include <QColor>
 #include <QRect>
