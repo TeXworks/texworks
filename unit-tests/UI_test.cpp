@@ -24,7 +24,6 @@
 #include "ui/ColorButton.h"
 #include "ui/ConsoleWidget.h"
 #include "ui/ClosableTabWidget.h"
-#include "ui/LineNumberWidget.h"
 #include "ui/ScreenCalibrationWidget.h"
 
 #include <QDoubleSpinBox>
@@ -53,80 +52,6 @@ void TestUI::initTestCase()
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	qRegisterMetaType<QMouseEvent*>("QMouseEvent*");
-#endif
-}
-
-void TestUI::LineNumberWidget_bgColor()
-{
-	Tw::UI::LineNumberWidget w(nullptr);
-	QColor color(21, 42, 84, 168);
-
-	QCOMPARE(w.bgColor(), w.palette().color(QPalette::Mid));
-	w.setBgColor(color);
-	QCOMPARE(w.bgColor(), color);
-}
-
-void TestUI::LineNumberWidget_sizeHint()
-{
-	{
-		Tw::UI::LineNumberWidget w(nullptr);
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-		QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')), 0));
-#else
-		QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().horizontalAdvance(QChar::fromLatin1('9')), 0));
-#endif
-	}
-	{
-		QTextEdit e;
-		Tw::UI::LineNumberWidget w(&e);
-		int digits = 1;
-		for (int lines = 1; lines <= 100; lines++, e.insertPlainText(QStringLiteral("\n"))) {
-			if (lines == 10) ++digits;
-			else if (lines == 100) ++digits;
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-			QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')) * digits, 0));
-#else
-			QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * digits, 0));
-#endif
-		}
-	}
-}
-
-void TestUI::LineNumberWidget_paint()
-{
-	{
-		Tw::UI::LineNumberWidget w(nullptr);
-		w.setGeometry(0, 0, 100, 100);
-		w.grab();
-	}
-	{
-		QTextEdit e;
-		Tw::UI::LineNumberWidget w(&e);
-		w.setGeometry(0, 0, 100, 100);
-		w.grab();
-
-		e.insertPlainText(QStringLiteral("Hello World\n"));
-		w.grab();
-	}
-}
-
-void TestUI::LineNumberWidget_setParent()
-{
-	QTextEdit e;
-	Tw::UI::LineNumberWidget w(nullptr);
-
-	e.insertPlainText(QStringLiteral("\n\n\n\n\n\n\n\n\n\n"));
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')) * 1, 0));
-#else
-	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * 1, 0));
-#endif
-	w.setParent(&e);
-#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().width(QChar::fromLatin1('9')) * 2, 0));
-#else
-	QCOMPARE(w.sizeHint(), QSize(3 + w.fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * 2, 0));
 #endif
 }
 

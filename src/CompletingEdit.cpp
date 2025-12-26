@@ -52,11 +52,15 @@
 #include <QTextStream>
 #include <QTimer>
 
+namespace {
+const int LineNumberMargin = 0;
+}
+
 CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	: ScintillaEdit(parent)
 {
-	/* FIXME
 	Tw::Settings settings;
+	/* FIXME
 	if (!sharedCompleter) { // initialize shared (static) members
 		sharedCompleter = new QCompleter(qApp);
 		sharedCompleter->setCompletionMode(QCompleter::InlineCompletion);
@@ -78,13 +82,9 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	connect(this, &CompletingEdit::cursorPositionChanged, this, &CompletingEdit::cursorPositionChangedSlot);
 	connect(this, &CompletingEdit::selectionChanged, this, &CompletingEdit::cursorPositionChangedSlot);
 
-	lineNumberArea = new Tw::UI::LineNumberWidget(this);
-
 	// Invoke our setDocument() method to properly set up document-specific
 	// connections
 	setDocument(document());
-	connect(this, &CompletingEdit::updateRequest, this, &CompletingEdit::updateLineNumberArea);
-	connect(this, &CompletingEdit::textChanged, lineNumberArea, static_cast<void (Tw::UI::LineNumberWidget::*)()>(&Tw::UI::LineNumberWidget::update));
 
 	connect(TWApp::instance(), &TWApp::highlightLineOptionChanged, this, &CompletingEdit::resetExtraSelections);
 
@@ -106,10 +106,11 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 #endif
 
 	cursorPositionChangedSlot();
-	updateLineNumberAreaWidth(0);
 	updateColors();
 	TWUtils::installCustomShortcuts(this);
 */
+	connect(this, &ScintillaEditBase::linesAdded, this, &CompletingEdit::updateLineNumberAreaWidth);
+	setLineNumberDisplay(settings.value(QStringLiteral("lineNumbers"), kDefault_LineNumbers).toBool());
 }
 
 void CompletingEdit::prefixLines(const QString &prefix)
@@ -196,7 +197,6 @@ void CompletingEdit::updateColors()
 	Q_ASSERT(currentCompletionFormat);
 	Q_ASSERT(braceMatchingFormat);
 	Q_ASSERT(currentLineFormat);
-	Q_ASSERT(lineNumberArea);
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	qreal bgR{1}, bgG{1}, bgB{1};
@@ -1300,23 +1300,20 @@ bool CompletingEdit::canInsertFromMimeData(const QMimeData *source) const
 }
 */
 
-// support for the line-number area
-// from Qt tutorial "Code Editor"
-
 void CompletingEdit::setLineNumberDisplay(bool displayNumbers)
 {
-	/* FIXME
-	lineNumberArea->setVisible(displayNumbers);
-	updateLineNumberAreaWidth(0);
-*/
+	m_lineNumbersVisible = displayNumbers;
+	if (m_lineNumbersVisible) {
+		updateLineNumberAreaWidth();
+	}
+	else {
+		setMarginWidthN(LineNumberMargin, 0);
+	}
 }
 
 bool CompletingEdit::getLineNumbersVisible() const
 {
-	/* FIXME
-	return lineNumberArea->isVisible();
-*/
-	return false;
+	return m_lineNumbersVisible;
 }
 
 QString CompletingEdit::text()
@@ -1329,39 +1326,28 @@ void CompletingEdit::setPlainText(const QString & text)
 	setText(text.toUtf8().data());
 }
 
-void CompletingEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
+void CompletingEdit::updateLineNumberAreaWidth()
 {
-/* FIXME
-	if (lineNumberArea->isVisible()) {
-		setViewportMargins(lineNumberArea->sizeHint().width(), 0, 0, 0);
-		lineNumberArea->update();
+	if (m_lineNumbersVisible) {
+		const int digits = [](long lineCount) {
+			int digits = 1;
+			long max = qMax(1, lineCount);
+			while (max >= 10) {
+				max /= 10;
+				++digits;
+			}
+			return digits;
+		}(getLineCount());
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
+		const int space = 5 + fontMetrics().width(QChar::fromLatin1('9')) * digits;
+#else
+		const int space = 5 + fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * digits;
+#endif
+		setMarginWidthN(LineNumberMargin, space);
 	}
-	else {
-		setViewportMargins(0, 0, 0, 0);
-	}
-*/
 }
 
 /* FIXME
-void CompletingEdit::updateLineNumberArea(const QRect &rect, int dy)
-{
-	if (dy)
-		lineNumberArea->scroll(0, dy);
-	else
-		lineNumberArea->update(0, rect.y(), lineNumberArea->width(), rect.height());
-
-	if (rect.contains(viewport()->rect()))
-		updateLineNumberAreaWidth(0);
-}
-
-void CompletingEdit::resizeEvent(QResizeEvent *e)
-{
-	QTextEdit::resizeEvent(e);
-
-	QRect cr = contentsRect();
-	lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberArea->sizeHint().width(), cr.height()));
-}
-
 void CompletingEdit::wheelEvent(QWheelEvent *e)
 {
 	if (e->modifiers() & Qt::ControlModifier)
@@ -1410,7 +1396,6 @@ void CompletingEdit::setDocument(QTextDocument * document)
 	int oldCursorWidth = cursorWidth();
 	QTextEdit::setDocument(document);
 	setCursorWidth(oldCursorWidth);
-	connect(document, &QTextDocument::blockCountChanged, this, &CompletingEdit::updateLineNumberAreaWidth);
 */
 }
 
@@ -1492,7 +1477,6 @@ void CompletingEdit::setFont(const QFont & font)
 {
 	/* FIXME
 	QTextEdit::setFont(font);
-	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
 */
 }
 
@@ -1500,7 +1484,6 @@ void CompletingEdit::setFontFamily(const QString & fontFamily)
 {
 	/* FIXME
 	QTextEdit::setFontFamily(fontFamily);
-	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
 */
 }
 
@@ -1508,7 +1491,6 @@ void CompletingEdit::setFontItalic(bool italic)
 {
 	/* FIXME
 	QTextEdit::setFontItalic(italic);
-	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
 */
 }
 
@@ -1516,7 +1498,6 @@ void CompletingEdit::setFontPointSize(qreal s)
 {
 	/* FIXME
 	QTextEdit::setFontPointSize(s);
-	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
 */
 }
 
@@ -1524,8 +1505,12 @@ void CompletingEdit::setFontWeight(int weight)
 {
 	/* FIXME
 	QTextEdit::setFontWeight(weight);
-	updateLineNumberAreaWidth((document() ? document()->blockCount() : 0));
 */
+}
+
+long CompletingEdit::getLineCount() const
+{
+	return send(SCI_GETLINECOUNT, 0, 0);
 }
 
 /* FIXME

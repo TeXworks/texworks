@@ -57,7 +57,6 @@ add_executable(test_UI
 	"${CMAKE_SOURCE_DIR}/src/ui/ClosableTabWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ColorButton.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ConsoleWidget.cpp"
-	"${CMAKE_SOURCE_DIR}/src/ui/LineNumberWidget.cpp"
 	"${CMAKE_SOURCE_DIR}/src/ui/ScreenCalibrationWidget.cpp"
 )
 target_compile_options(test_UI PRIVATE ${WARNING_OPTIONS})

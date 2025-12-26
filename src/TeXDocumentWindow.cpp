@@ -564,7 +564,6 @@ void TeXDocumentWindow::newFile()
 {
 	TeXDocumentWindow *doc = new TeXDocumentWindow;
 	doc->selectWindow();
-	doc->textEdit->updateLineNumberAreaWidth(0);
 	doc->runHooks(QString::fromLatin1("NewFile"));
 }
 
@@ -583,7 +582,6 @@ void TeXDocumentWindow::newFromTemplate()
 		if (doc) {
 			doc->makeUntitled();
 			doc->selectWindow();
-			doc->textEdit->updateLineNumberAreaWidth(0);
 			doc->runHooks(QString::fromLatin1("NewFromTemplate"));
 		}
 	}
@@ -1177,8 +1175,6 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 		selectWindow();
 		saveRecentFileInfo();
 	}
-
-	editor()->updateLineNumberAreaWidth(0);
 
 	runHooks(QString::fromLatin1("LoadFile"));
 }

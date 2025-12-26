@@ -27,10 +27,6 @@ class TestUI : public QObject
 	Q_OBJECT
 private slots:
 	void initTestCase();
-	void LineNumberWidget_bgColor();
-	void LineNumberWidget_sizeHint();
-	void LineNumberWidget_paint();
-	void LineNumberWidget_setParent();
 
 	void ScreenCalibrationWidget_dpi();
 	void ScreenCalibrationWidget_drag();

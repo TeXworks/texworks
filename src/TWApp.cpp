@@ -830,7 +830,6 @@ QObject * TWApp::newFile() const
 {
 	TeXDocumentWindow *doc = new TeXDocumentWindow;
 	doc->show();
-	doc->editor()->updateLineNumberAreaWidth(0);
 	doc->runHooks(QString::fromLatin1("NewFile"));
 	return doc;
 }
@@ -843,7 +842,6 @@ QObject * TWApp::newFromTemplate() const
 		if (doc) {
 			doc->makeUntitled();
 			doc->selectWindow();
-			doc->editor()->updateLineNumberAreaWidth(0);
 			doc->runHooks(QString::fromLatin1("NewFromTemplate"));
 			return doc;
 		}

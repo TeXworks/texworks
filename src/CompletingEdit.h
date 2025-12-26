@@ -22,7 +22,6 @@
 #ifndef COMPLETING_EDIT_H
 #define COMPLETING_EDIT_H
 
-#include "ui/LineNumberWidget.h"
 // FIXME shortcuts defined in CompletingEdit.ui
 //#include "ui_CompletingEdit.h"
 
@@ -121,7 +120,6 @@ public slots:
 	void setAutoIndentMode(int index);
 	void setSmartQuotesMode(int index);
 	void smartenQuotes();
-	void updateLineNumberAreaWidth(int newBlockCount);
 	void setFont(const QFont & font);
 	void setFontFamily(const QString & fontFamily);
 	void setFontItalic(bool italic);
@@ -147,7 +145,6 @@ protected:
 	void timerEvent(QTimerEvent *e) override;
 	bool canInsertFromMimeData(const QMimeData *source) const override;
 	void insertFromMimeData(const QMimeData *source) override;
-	void resizeEvent(QResizeEvent *event) override;
 	void wheelEvent(QWheelEvent *event) override;
 	bool event(QEvent *event) override;
 	void scrollContentsBy(int dx, int dy) override;
@@ -161,7 +158,6 @@ private slots:
 	void resetExtraSelections();
 	void jumpToPdf(QTextCursor pos = {});
 	void jumpToPdfFromContextMenu();
-	void updateLineNumberArea(const QRect&, int);
 
 private:
 	void updateColors();
@@ -239,8 +235,6 @@ private:
 
 	QTextCursor	currentCompletionRange;
 
-	Tw::UI::LineNumberWidget * lineNumberArea;
-
 	static QTextCharFormat	*currentCompletionFormat;
 	static QTextCharFormat	*braceMatchingFormat;
 	static QTextCharFormat	*currentLineFormat;
@@ -250,6 +244,12 @@ private:
 	static bool highlightCurrentLine;
 	static bool autocompleteEnabled;
 */
+
+private:
+	long getLineCount() const;
+	void updateLineNumberAreaWidth();
+
+	bool m_lineNumbersVisible{false};
 };
 
 #endif // COMPLETING_EDIT_H
