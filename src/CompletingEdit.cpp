@@ -69,9 +69,7 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 
 		currentCompletionFormat = new QTextCharFormat;
 		braceMatchingFormat = new QTextCharFormat;
-		currentLineFormat = new QTextCharFormat;
 
-		highlightCurrentLine = settings.value(QString::fromLatin1("highlightCurrentLine"), true).toBool();
 		autocompleteEnabled = settings.value(QString::fromLatin1("autocompleteEnabled"), true).toBool();
 	}
 	setCursorWidth(settings.value(QStringLiteral("cursorWidth"), kDefault_CursorWidth).toInt());
@@ -106,11 +104,17 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 #endif
 
 	cursorPositionChangedSlot();
-	updateColors();
 	TWUtils::installCustomShortcuts(this);
 */
 	connect(this, &ScintillaEditBase::linesAdded, this, &CompletingEdit::updateLineNumberAreaWidth);
 	setLineNumberDisplay(settings.value(QStringLiteral("lineNumbers"), kDefault_LineNumbers).toBool());
+
+	setCaretLineVisibleAlways(true);
+	setCaretLineHighlightSubLine(true);
+	setHighlightCurrentLine(settings.value(QStringLiteral("highlightCurrentLine"), kDefault_HighlightCurrentLine).toBool());
+	connect(TWApp::instance(), &TWApp::highlightLineOptionChanged, this, &CompletingEdit::setHighlightCurrentLine);
+
+	updateColors();
 }
 
 void CompletingEdit::prefixLines(const QString &prefix)
@@ -191,12 +195,12 @@ void CompletingEdit::unPrefixLines(const QString &prefix)
 }
 
 
-/* FIXME
 void CompletingEdit::updateColors()
 {
+	/* FIXME
 	Q_ASSERT(currentCompletionFormat);
 	Q_ASSERT(braceMatchingFormat);
-	Q_ASSERT(currentLineFormat);
+*/
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	qreal bgR{1}, bgG{1}, bgB{1};
@@ -209,17 +213,19 @@ void CompletingEdit::updateColors()
 	palette().color(QPalette::Active, QPalette::Base).getRgbF(&bgR, &bgG, &bgB);
 	palette().color(QPalette::Active, QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
 
+	const QColor caretLineBg = QColor::fromRgbF(.9f * bgR + .1f * fgR, .9f * bgG + .1f * fgG, .9f * bgB + .1f * fgB);
+	setCaretLineBack(caretLineBg.rgba());
+
+	/* FIXME
 	currentCompletionFormat->setBackground(QColor::fromRgbF(.75f * bgR + .25f * fgR, .75f * bgG + .25f * fgG, .75f * bgB + .25f * fgB));
 	braceMatchingFormat->setBackground(QColor("orange"));
-
-	currentLineFormat->setBackground(QColor::fromRgbF(.9f * bgR + .1f * fgR, .9f * bgG + .1f * fgG, .9f * bgB + .1f * fgB));
-	currentLineFormat->setProperty(QTextFormat::FullWidthSelection, true);
 
 	palette().color(QPalette::Window).getRgbF(&bgR, &bgG, &bgB);
 	palette().color(QPalette::Text).getRgbF(&fgR, &fgG, &fgB);
 	lineNumberArea->setBgColor(QColor::fromRgbF(0.75f * bgR + 0.25f * fgR, 0.75f * bgG + 0.25f * fgG, 0.75f * bgB + 0.25f * fgB));
-}
 */
+
+}
 
 CompletingEdit::~CompletingEdit()
 {
@@ -584,12 +590,6 @@ void CompletingEdit::focusInEvent(QFocusEvent *e)
 void CompletingEdit::resetExtraSelections()
 {
 	QList<ExtraSelection> selections;
-	if (highlightCurrentLine && !textCursor().hasSelection()) {
-		ExtraSelection sel;
-		sel.format = *currentLineFormat;
-		sel.cursor = textCursor();
-		selections.append(sel);
-	}
 	if (!currentCompletionRange.isNull()) {
 		ExtraSelection sel;
 		sel.cursor = currentCompletionRange;
@@ -1454,14 +1454,9 @@ Tw::Document::SpellChecker CompletingEdit::getSpellChecker() const
 }
 */
 
-void CompletingEdit::setHighlightCurrentLine(bool highlight)
+void CompletingEdit::setHighlightCurrentLine(const bool highlight)
 {
-	/* FIXME
-	if (highlight != highlightCurrentLine) {
-		highlightCurrentLine = highlight;
-		TWApp::instance()->emitHighlightLineOptionChanged();
-	}
-*/
+	setCaretLineVisible(highlight);
 }
 
 void CompletingEdit::setAutocompleteEnabled(bool autocomplete)
@@ -1517,8 +1512,6 @@ long CompletingEdit::getLineCount() const
 
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = nullptr;
 QTextCharFormat	*CompletingEdit::braceMatchingFormat = nullptr;
-QTextCharFormat	*CompletingEdit::currentLineFormat = nullptr;
-bool CompletingEdit::highlightCurrentLine = true;
 bool CompletingEdit::autocompleteEnabled = true;
 
 QCompleter	*CompletingEdit::sharedCompleter = nullptr;

@@ -929,9 +929,9 @@ void TWApp::preferences()
 	PrefsDialog::doPrefsDialog(activeWindow());
 }
 
-void TWApp::emitHighlightLineOptionChanged()
+void TWApp::emitHighlightLineOptionChanged(const bool highlightLine)
 {
-	emit highlightLineOptionChanged();
+	emit highlightLineOptionChanged(highlightLine);
 }
 
 int TWApp::maxRecentFiles() const

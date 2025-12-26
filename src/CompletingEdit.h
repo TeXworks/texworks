@@ -110,7 +110,7 @@ public:
 	static QStringList autoIndentModes();
 	static QStringList smartQuotesModes();
 
-	static void setHighlightCurrentLine(bool highlight);
+	void setHighlightCurrentLine(const bool highlight);
 	static void setAutocompleteEnabled(bool autocomplete);
 
 	void prefixLines(const QString &prefix);
@@ -160,7 +160,6 @@ private slots:
 	void jumpToPdfFromContextMenu();
 
 private:
-	void updateColors();
 
 	void setCompleter(QCompleter *c);
 
@@ -237,16 +236,15 @@ private:
 
 	static QTextCharFormat	*currentCompletionFormat;
 	static QTextCharFormat	*braceMatchingFormat;
-	static QTextCharFormat	*currentLineFormat;
 
 	static QCompleter	*sharedCompleter;
 
-	static bool highlightCurrentLine;
 	static bool autocompleteEnabled;
 */
 
 private:
 	long getLineCount() const;
+	void updateColors();
 	void updateLineNumberAreaWidth();
 
 	bool m_lineNumbersVisible{false};

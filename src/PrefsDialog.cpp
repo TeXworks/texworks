@@ -769,7 +769,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 			settings.setValue(QString::fromLatin1("language"), QString::fromLatin1("None"));
 		bool highlightLine = dlg.highlightCurrentLine->isChecked();
 		settings.setValue(QString::fromLatin1("highlightCurrentLine"), highlightLine);
-		CompletingEdit::setHighlightCurrentLine(highlightLine);
+		TWApp::instance()->emitHighlightLineOptionChanged(highlightLine);
 
 		settings.setValue(QStringLiteral("cursorWidth"), dlg.cursorWidth->value());
 

@@ -77,7 +77,7 @@ public:
 	void setMaxRecentFiles(int value);
 	void addToRecentFiles(const QMap<QString,QVariant>& fileProperties);
 
-	void emitHighlightLineOptionChanged();
+	void emitHighlightLineOptionChanged(const bool highlightLine);
 
 	QMap<QString,QVariant> getFileProperties(const QString& path);
 
@@ -232,7 +232,7 @@ signals:
 
 	void updatedTranslators();
 
-	void highlightLineOptionChanged();
+	void highlightLineOptionChanged(bool highlightLine);
 
 private slots:
 	void openRecentFile();
