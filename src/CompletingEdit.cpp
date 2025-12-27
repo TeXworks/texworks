@@ -1337,7 +1337,7 @@ void CompletingEdit::updateLineNumberAreaWidth()
 				++digits;
 			}
 			return digits;
-		}(getLineCount());
+		}(lineCount());
 #if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
 		const int space = 5 + fontMetrics().width(QChar::fromLatin1('9')) * digits;
 #else
@@ -1501,11 +1501,6 @@ void CompletingEdit::setFontWeight(int weight)
 	/* FIXME
 	QTextEdit::setFontWeight(weight);
 */
-}
-
-long CompletingEdit::getLineCount() const
-{
-	return send(SCI_GETLINECOUNT, 0, 0);
 }
 
 /* FIXME

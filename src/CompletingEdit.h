@@ -243,7 +243,6 @@ private:
 */
 
 private:
-	long getLineCount() const;
 	void updateColors();
 	void updateLineNumberAreaWidth();
 
