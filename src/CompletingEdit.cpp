@@ -106,6 +106,17 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	cursorPositionChangedSlot();
 	TWUtils::installCustomShortcuts(this);
 */
+	connect(this, &ScintillaEditBase::updateUi, this, [this](Scintilla::Update updated) {
+		if (updated == Scintilla::Update::Selection) {
+			emit copyAvailable(!selectionEmpty());
+		}
+	});
+	connect(this, &ScintillaEditBase::modified, this, [this](Scintilla::ModificationFlags type, Scintilla::Position position, Scintilla::Position length, Scintilla::Position linesAdded,
+															 const QByteArray &text, Scintilla::Position line, Scintilla::FoldLevel foldNow, Scintilla::FoldLevel foldPrev) {
+		emit undoAvailable(canUndo());
+		emit redoAvailable(canRedo());
+	});
+
 	connect(this, &ScintillaEditBase::linesAdded, this, &CompletingEdit::updateLineNumberAreaWidth);
 	setLineNumberDisplay(settings.value(QStringLiteral("lineNumbers"), kDefault_LineNumbers).toBool());
 

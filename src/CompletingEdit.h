@@ -68,6 +68,9 @@ public:
 	void setFocus(Qt::FocusReason reason = Qt::OtherFocusReason) {}
 
 signals:
+	void copyAvailable(bool canCopy);
+	void undoAvailable(bool canUndo);
+	void redoAvailable(bool canRedo);
 	void cursorPositionChanged();
 	void selectionChanged();
 
