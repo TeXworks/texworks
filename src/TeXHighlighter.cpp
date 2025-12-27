@@ -32,7 +32,8 @@ QList<TeXHighlighter::HighlightingSpec> *TeXHighlighter::syntaxRules = nullptr;
 QList<TeXHighlighter::TagPattern> *TeXHighlighter::tagPatterns = nullptr;
 
 TeXHighlighter::TeXHighlighter(Tw::Document::TeXDocument * parent)
-	: NonblockingSyntaxHighlighter(parent)
+	// FIXME : NonblockingSyntaxHighlighter(parent)
+	: NonblockingSyntaxHighlighter(nullptr)
 	, highlightIndex(-1)
 	, isTagging(true)
 	, texDoc(parent)

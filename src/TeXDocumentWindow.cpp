@@ -214,9 +214,11 @@ void TeXDocumentWindow::init()
 
 	connect(actionBalance_Delimiters, &QAction::triggered, this, &TeXDocumentWindow::balanceDelimiters);
 
+	/* FIXME
 	connect(textDoc(), &Tw::Document::TeXDocument::modificationChanged, this, &TeXDocumentWindow::setWindowModified);
 	connect(textDoc(), &Tw::Document::TeXDocument::modificationChanged, this, &TeXDocumentWindow::maybeEnableSaveAndRevert);
 	connect(textDoc(), &Tw::Document::TeXDocument::modelinesChanged, this, &TeXDocumentWindow::handleModelineChange);
+*/
 	connect(textEdit, &CompletingEdit::cursorPositionChanged, this, &TeXDocumentWindow::showCursorPosition);
 	connect(textEdit, &CompletingEdit::selectionChanged, this, &TeXDocumentWindow::showCursorPosition);
 	connect(textEdit, &CompletingEdit::syncClick, this, &TeXDocumentWindow::syncClick);
@@ -1056,6 +1058,7 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 			show();
 		QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
+		/* FIXME
 		{
 			// Try to work around QTBUG-20354
 			// It seems that adding additionalFormats (as is done automatically on
@@ -1093,6 +1096,7 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 				QMessageBox::warning(this, tr("Layout Problem"), tr("A problem occurred while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:\n -) Turn syntax highlighting off and on\n -) Turn line numbers off and on\n -) Resize the window\n\nWe are sorry for the inconvenience."));
 			}
 		}
+*/
 
 		// Reset the line spacing as setPlainText() clears all text formatting
 		setLineSpacing(m_lineSpacing);
@@ -1139,12 +1143,14 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 		if (properties.contains(QString::fromLatin1("state")))
 			restoreState(properties.value(QString::fromLatin1("state")).toByteArray(), kTeXWindowStateVersion);
 
+		/* FIXME
 		if (properties.contains(QString::fromLatin1("selStart"))) {
 			QTextCursor c(textEdit->document());
 			c.setPosition(properties.value(QString::fromLatin1("selStart")).toInt());
 			c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, properties.value(QString::fromLatin1("selLength"), 0).toInt());
 			textEdit->setTextCursor(c);
 		}
+*/
 
 		if (properties.contains(QString::fromLatin1("quotesMode")))
 			setSmartQuotesMode(properties.value(QString::fromLatin1("quotesMode")).toString());
@@ -1620,6 +1626,7 @@ void TeXDocumentWindow::selectedEngine(int idx) // sent by toolbar combo box; ne
 
 void TeXDocumentWindow::showCursorPosition()
 {
+	/* FIXME
 	QTextCursor cursor = textEdit->textCursor();
 	cursor.setPosition(cursor.selectionStart());
 	int line = cursor.blockNumber() + 1;
@@ -1628,6 +1635,7 @@ void TeXDocumentWindow::showCursorPosition()
 	lineNumberLabel->setText(tr("Line %1 of %2; col %3").arg(line).arg(total).arg(col));
 	if (actionAuto_Follow_Focus->isChecked())
 		emit syncFromSource(textDoc()->absoluteFilePath(), line, col, false);
+*/
 }
 
 void TeXDocumentWindow::showLineEndingSetting()
@@ -1769,14 +1777,15 @@ void TeXDocumentWindow::clear()
 
 QString TeXDocumentWindow::getLineText(int lineNo) const
 {
-	QTextDocument* doc = textEdit->document();
-	if (lineNo < 1 || lineNo > doc->blockCount())
+	Tw::Document::TextDocument * doc = textEdit->document();
+	if (lineNo < 1 || lineNo > doc->lineCount())
 		return QString();
-	return doc->findBlockByNumber(lineNo - 1).text();
+	return doc->line(lineNo - 1);
 }
 
 void TeXDocumentWindow::goToLine(int lineNo, int selStart, int selEnd)
 {
+	/* FIXME
 	QTextDocument* doc = textEdit->document();
 	if (lineNo < 1 || lineNo > doc->blockCount())
 		return;
@@ -1792,6 +1801,7 @@ void TeXDocumentWindow::goToLine(int lineNo, int selStart, int selEnd)
 		cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
 	textEdit->setTextCursor(cursor);
 	maybeCenterSelection(oldScrollValue);
+*/
 }
 
 void TeXDocumentWindow::maybeCenterSelection(int oldScrollValue)
@@ -1829,7 +1839,7 @@ void TeXDocumentWindow::doLineDialog()
 	bool ok{false};
 	int lineNo = QInputDialog::getInt(this, tr("Go to Line"),
 									tr("Line number:"), cursor.blockNumber() + 1,
-									1, textEdit->document()->blockCount(), 1, &ok);
+									1, textEdit->document()->lineCount(), 1, &ok);
 	if (ok)
 		goToLine(lineNo);
 }
@@ -2019,7 +2029,7 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	constexpr int PeekLength = 1024;
 
 	int peekFront = qMin(PeekLength, curs.position());
-	int peekBack = qMin(PeekLength, textDoc()->characterCount() - curs.position());
+	int peekBack = qMin(PeekLength, textDoc()->length() - curs.position());
 
 	curs.beginEditBlock();
 	curs.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, peekFront);
@@ -2203,6 +2213,7 @@ void TeXDocumentWindow::setLineNumbers(bool displayNumbers)
 
 void TeXDocumentWindow::setLineSpacing(qreal percent)
 {
+	/* FIXME
 	// percent should typically be between 100 (single spacing) and 200 (double
 	// spacing). Values below 1 are simply ignored (this includes the "typical
 	// invalid return value" of 0).
@@ -2237,6 +2248,7 @@ void TeXDocumentWindow::setLineSpacing(qreal percent)
 	cur.mergeBlockFormat(fmt);
 	// Restore "modified" state
 	setModified(wasModified);
+*/
 }
 
 void TeXDocumentWindow::setWrapLines(bool wrap)
@@ -2300,6 +2312,7 @@ void TeXDocumentWindow::setAutoIndentMode(const QString& mode)
 
 void TeXDocumentWindow::doFindAgain(bool fromDialog)
 {
+	/* FIXME
 	Tw::Settings settings;
 	QString	searchText = settings.value(QString::fromLatin1("searchText")).toString();
 	if (searchText.isEmpty())
@@ -2397,6 +2410,7 @@ void TeXDocumentWindow::doFindAgain(bool fromDialog)
 	}
 
 	delete regex;
+*/
 }
 
 void TeXDocumentWindow::doReplaceAgain()
@@ -2597,6 +2611,7 @@ int TeXDocumentWindow::doReplaceAll(const QString& searchText, QRegularExpressio
 
 QTextCursor TeXDocumentWindow::doSearch(const QString& searchText, const QRegularExpression * regex, QTextDocument::FindFlags flags, int s, int e)
 {
+	/* FIXME
 	QTextCursor curs;
 	using pos_type = decltype(curs.position());
 	QTextDocument * theDoc = textEdit->document();
@@ -2657,6 +2672,7 @@ QTextCursor TeXDocumentWindow::doSearch(const QString& searchText, const QRegula
 			curs = QTextCursor();
 	}
 	return curs;
+*/
 }
 
 void TeXDocumentWindow::copyToFind()
@@ -3108,6 +3124,8 @@ void TeXDocumentWindow::syncClick(int lineNo, int col)
 
 void TeXDocumentWindow::handleModelineChange(QStringList changedKeys, QStringList removedKeys)
 {
+	/* FIXME
+
 	Q_UNUSED(removedKeys);
 
 	if (changedKeys.contains(QStringLiteral("program"))) {
@@ -3144,6 +3162,7 @@ void TeXDocumentWindow::handleModelineChange(QStringList changedKeys, QStringLis
 	if (changedKeys.contains(QStringLiteral("spellcheck"))) {
 		setSpellcheckLanguage(_texDoc->getModeLineValue(QStringLiteral("spellcheck")));
 	}
+*/
 }
 
 void TeXDocumentWindow::goToTag(int index)

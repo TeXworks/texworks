@@ -108,6 +108,6 @@ if (WITH_POPPLERQT)
 		target_compile_definitions(test_Document PRIVATE POPPLER_HAS_RUNTIME_VERSION)
 	endif (POPPLER_HAS_RUNTIME_VERSION)
 endif (WITH_POPPLERQT)
-target_link_libraries(test_Document QtPDF::qtpdf SyncTeX::synctex Hunspell::hunspell ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+target_link_libraries(test_Document QtPDF::qtpdf scintilla SyncTeX::synctex Hunspell::hunspell ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Document COMMAND test_Document WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 

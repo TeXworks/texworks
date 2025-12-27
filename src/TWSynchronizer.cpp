@@ -180,7 +180,7 @@ void TWSyncTeXSynchronizer::_syncFromTeXFine(const TWSynchronizer::TeXSyncPoint 
     return;
 
   // Get source context
-  QString srcContext = tex->findBlockByNumber(src.line - 1).text();
+  QString srcContext = tex->line(src.line - 1);
   if (srcContext.isEmpty())
     return;
 
@@ -280,7 +280,7 @@ void TWSyncTeXSynchronizer::_syncFromPDFFine(const TWSynchronizer::PDFSyncPoint 
     return;
 
   // Get destination context
-  QString destContext = tex->findBlockByNumber(dest.line - 1).text();
+  QString destContext = tex->line(dest.line - 1);
   if (destContext.isEmpty())
     return;
 

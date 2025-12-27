@@ -23,15 +23,20 @@
 
 #include "document/Document.h"
 
+#include <memory>
+#include <QObject>
 #include <QTextCursor>
-#include <QTextDocument>
+
+class ScintillaDocument;
+class CompletingEdit;
 
 namespace Tw {
 namespace Document {
 
-class TextDocument : public QTextDocument, public Document
+class TextDocument : public QObject, public Document
 {
 	Q_OBJECT
+	friend class ::CompletingEdit;
 public:
 	struct Tag {
 		QTextCursor cursor;
@@ -41,16 +46,29 @@ public:
 
 	explicit TextDocument(QObject * parent = nullptr);
 	explicit TextDocument(const QString & text, QObject * parent = nullptr);
+	// Explicit out-of-line d'tor required by unique_ptr holding an incomplete type
+	virtual ~TextDocument();
 
 	const QList<Tag> & getTags() const { return _tags; }
 	void addTag(const QTextCursor & cursor, const unsigned int level, const QString & text);
 	unsigned int removeTags(int offset, int len);
+
+	qsizetype length() const;
+	bool isEmpty() const { return length() == 0; }
+
+	QString line(const int line) const;
+	int lineCount() const;
+
+	virtual bool isModified() const;
+	virtual void setModified(const bool modified = true);
+
 
 signals:
 	void tagsChanged() const;
 
 protected:
 	QList<Tag> _tags;
+	std::unique_ptr<ScintillaDocument> m_scintilla;
 };
 
 } // namespace Document

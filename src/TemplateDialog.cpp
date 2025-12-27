@@ -39,7 +39,9 @@ void TemplateDialog::init()
 {
 	setupUi(this);
 	Tw::Document::TeXDocument * texDoc = new Tw::Document::TeXDocument(textEdit);
+	/* FIXME
 	textEdit->setDocument(texDoc);
+	*/
 
 	QString templatePath = Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("templates"));
 		// do this before creating the model, as getLibraryPath might initialize a new dir

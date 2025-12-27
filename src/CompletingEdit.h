@@ -25,7 +25,8 @@
 // FIXME shortcuts defined in CompletingEdit.ui
 //#include "ui_CompletingEdit.h"
 
-#include "ScintillaEdit.h"
+#include "document/TextDocument.h"
+#include <ScintillaEdit.h>
 
 #include <QDrag>
 #include <QHash>
@@ -59,7 +60,6 @@ public:
 	};
 
 	QTextCursor textCursor() const { return {}; }
-	QTextDocument* document() { return new QTextDocument(this); }
 	QRect cursorRect() const { return {}; }
 	void setTabStopDistance(qreal distance) {}
 	QTextCursor cursorForPosition(const QPoint &pos) const { return {}; }
@@ -111,8 +111,8 @@ public:
 	// cursors
 	void setTextCursor(const QTextCursor & cursor);
 
-	// Override of QTextEdit's method to reconnect signals
-	void setDocument(QTextDocument * document);
+	Tw::Document::TextDocument * document() const { return m_doc; }
+	void setDocument(Tw::Document::TextDocument * document);
 
 	static QStringList autoIndentModes();
 	static QStringList smartQuotesModes();
@@ -250,6 +250,7 @@ private:
 */
 
 private:
+	Tw::Document::TextDocument * m_doc{nullptr};
 	void updateColors();
 	void updateLineNumberAreaWidth();
 

@@ -21,12 +21,28 @@
 
 #include "document/TextDocument.h"
 
+#include <ScintillaDocument.h>
+
 namespace Tw {
 namespace Document {
 
-TextDocument::TextDocument(QObject * parent) : QTextDocument(parent) { }
+TextDocument::TextDocument(QObject * parent)
+: QObject(parent)
+, m_scintilla(new ScintillaDocument(this))
+{
 
-TextDocument::TextDocument(const QString & text, QObject * parent) : QTextDocument(text, parent) { }
+}
+
+TextDocument::TextDocument(const QString & text, QObject * parent)
+: QObject(parent)
+, m_scintilla(new ScintillaDocument(this))
+{
+	// FIXME: const-issues in ScintillaDocument [https://sourceforge.net/p/scintilla/bugs/2494/]
+	QByteArray buffer{text.toUtf8()};
+	m_scintilla->insert_string(0, buffer);
+}
+
+TextDocument::~TextDocument() = default;
 
 void TextDocument::addTag(const QTextCursor & cursor, const unsigned int level, const QString & text)
 {
@@ -60,6 +76,45 @@ unsigned int TextDocument::removeTags(int offset, int len)
 		emit tagsChanged();
 	}
 	return removed;
+}
+
+QString TextDocument::line(const int line) const
+{
+	if (!m_scintilla) {
+		return {};
+	}
+	const int start = m_scintilla->line_start(line);
+	const int end = m_scintilla->line_end(line);
+	return QString::fromUtf8(m_scintilla->get_char_range(start, end - start));
+}
+
+int TextDocument::lineCount() const
+{
+	if (!m_scintilla) {
+		return 0;
+	}
+	return m_scintilla->lines_total();
+}
+
+bool TextDocument::isModified() const
+{
+	if (!m_scintilla) {
+		return false;
+	}
+	return m_scintilla->is_save_point() == false;
+}
+
+void TextDocument::setModified(const bool modified)
+{
+	// FIXME
+}
+
+qsizetype TextDocument::length() const
+{
+	if (!m_scintilla) {
+		return 0;
+	}
+	return m_scintilla->length();
 }
 
 } // namespace Document

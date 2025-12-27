@@ -129,6 +129,8 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	setWordWrapMode(shouldWrap ? WrapMode::Word : WrapMode::None);
 
 	updateColors();
+
+	setDocument(new Tw::Document::TextDocument());
 }
 
 void CompletingEdit::prefixLines(const QString &prefix)
@@ -1417,7 +1419,7 @@ void CompletingEdit::setTextCursor(const QTextCursor & cursor)
 */
 }
 
-void CompletingEdit::setDocument(QTextDocument * document)
+void CompletingEdit::setDocument(Tw::Document::TextDocument *document)
 {
 	/* FIXME
 	disconnect(QTextEdit::document(), nullptr, this, nullptr);
@@ -1426,6 +1428,8 @@ void CompletingEdit::setDocument(QTextDocument * document)
 	QTextEdit::setDocument(document);
 	setCursorWidth(oldCursorWidth);
 */
+	m_doc = document;
+	set_doc(m_doc->m_scintilla.get());
 }
 
 /* FIXME

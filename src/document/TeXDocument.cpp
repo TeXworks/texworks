@@ -30,12 +30,16 @@ namespace Document {
 
 TeXDocument::TeXDocument(QObject * parent) : TextDocument(parent)
 {
+	/* FIXME
 	connect(this, &TeXDocument::contentsChange, this, &TeXDocument::maybeUpdateModeLines);
+*/
 }
 
 TeXDocument::TeXDocument(const QString & text, QObject * parent) : TextDocument(text, parent)
 {
+	/* FIXME
 	connect(this, &TeXDocument::contentsChange, this, &TeXDocument::maybeUpdateModeLines);
+*/
 	parseModeLines();
 }
 
@@ -46,6 +50,7 @@ TeXHighlighter * TeXDocument::getHighlighter() const
 
 void TeXDocument::parseModeLines()
 {
+	/* FIXME
 	QMap<QString, QString> newModeLines;
 
 	QRegularExpression re(QStringLiteral(u"%(?:\\^\\^A)?\\s*!TEX\\s+(?:TS-)?(\\w+)\\s*=\\s*([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
@@ -84,6 +89,7 @@ void TeXDocument::parseModeLines()
 		_modelines = newModeLines;
 		emit modelinesChanged(changedKeys, removedKeys);
 	}
+*/
 }
 
 QString TeXDocument::getRootFilePath() const
