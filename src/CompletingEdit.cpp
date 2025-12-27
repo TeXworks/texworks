@@ -1362,7 +1362,7 @@ void CompletingEdit::updateLineNumberAreaWidth()
 	if (m_lineNumbersVisible) {
 		const int digits = [](long lineCount) {
 			int digits = 1;
-			long max = qMax(1, lineCount);
+			long max = qMax(1L, lineCount);
 			while (max >= 10) {
 				max /= 10;
 				++digits;
