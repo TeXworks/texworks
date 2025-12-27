@@ -230,13 +230,6 @@ void CompletingEdit::updateColors()
 
 }
 
-CompletingEdit::~CompletingEdit()
-{
-	/* FIXME
-	setCompleter(nullptr);
-*/
-}
-
 /* FIXME
 void CompletingEdit::setCompleter(QCompleter *completer)
 {

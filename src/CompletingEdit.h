@@ -77,7 +77,6 @@ signals:
 
 public:
 	CompletingEdit(QWidget *parent = nullptr);
-	~CompletingEdit() override;
 
 	bool selectWord(QTextCursor& cursor);
 
