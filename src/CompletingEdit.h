@@ -54,14 +54,16 @@ class CompletingEdit : public ScintillaEdit
 
 	// QTextEdit mockups
 public:
+	enum class WrapMode {
+		None, Word
+	};
+
 	QTextCursor textCursor() const { return {}; }
 	QTextDocument* document() { return new QTextDocument(this); }
 	QRect cursorRect() const { return {}; }
 	void setTabStopDistance(qreal distance) {}
-	QTextOption::WrapMode wordWrapMode() const { return QTextOption::NoWrap; }
 	QTextCursor cursorForPosition(const QPoint &pos) const { return {}; }
 	void ensureCursorVisible() {}
-	void setWordWrapMode(QTextOption::WrapMode policy) {}
 	QFont currentFont() const { return {}; }
 	void setFocus(Qt::FocusReason reason = Qt::OtherFocusReason) {}
 
@@ -81,6 +83,9 @@ public:
 
 	void setLineNumberDisplay(bool displayNumbers);
 	bool getLineNumbersVisible() const;
+
+	WrapMode wordWrapMode() const;
+	void setWordWrapMode(WrapMode policy);
 
 	QString getIndentMode() const {
 		/* FIXME

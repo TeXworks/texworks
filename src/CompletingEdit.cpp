@@ -114,6 +114,9 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	setHighlightCurrentLine(settings.value(QStringLiteral("highlightCurrentLine"), kDefault_HighlightCurrentLine).toBool());
 	connect(TWApp::instance(), &TWApp::highlightLineOptionChanged, this, &CompletingEdit::setHighlightCurrentLine);
 
+	const bool shouldWrap = settings.value(QStringLiteral("wrapLines"), kDefault_WrapLines).toBool();
+	setWordWrapMode(shouldWrap ? WrapMode::Word : WrapMode::None);
+
 	updateColors();
 }
 
@@ -1315,6 +1318,28 @@ bool CompletingEdit::getLineNumbersVisible() const
 {
 	return m_lineNumbersVisible;
 }
+
+CompletingEdit::WrapMode CompletingEdit::wordWrapMode() const
+{
+	const auto sciWrapMode = wrapMode();
+	if (sciWrapMode == SC_WRAP_WORD) {
+		return WrapMode::Word;
+	}
+	return WrapMode::None;
+}
+
+void CompletingEdit::setWordWrapMode(WrapMode policy)
+{
+	const int sciWrapMode = [](WrapMode policy) {
+		switch (policy) {
+		case WrapMode::Word: return SC_WRAP_WORD;
+		case WrapMode::None: break;
+		}
+		return SC_WRAP_NONE;
+	}(policy);
+	setWrapMode(sciWrapMode);
+}
+
 
 QString CompletingEdit::text()
 {

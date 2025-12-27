@@ -1541,7 +1541,7 @@ void TeXDocumentWindow::saveRecentFileInfo()
 	if (_texDoc && _texDoc->getHighlighter())
 		fileProperties.insert(QString::fromLatin1("syntaxMode"), _texDoc->getHighlighter()->getSyntaxMode());
 	fileProperties.insert(QString::fromLatin1("lineNumbers"), textEdit->getLineNumbersVisible());
-	fileProperties.insert(QString::fromLatin1("wrapLines"), textEdit->wordWrapMode() == QTextOption::WordWrap);
+	fileProperties.insert(QString::fromLatin1("wrapLines"), textEdit->wordWrapMode() == CompletingEdit::WrapMode::Word);
 
 	if (pdfDoc) {
 		fileProperties.insert(QString::fromLatin1("pdfgeometry"), pdfDoc->saveGeometry());
@@ -2242,7 +2242,7 @@ void TeXDocumentWindow::setLineSpacing(qreal percent)
 void TeXDocumentWindow::setWrapLines(bool wrap)
 {
 	actionWrap_Lines->setChecked(wrap);
-	textEdit->setWordWrapMode(wrap ? QTextOption::WordWrap : QTextOption::NoWrap);
+	textEdit->setWordWrapMode(wrap ? CompletingEdit::WrapMode::Word : CompletingEdit::WrapMode::None);
 }
 
 void TeXDocumentWindow::setSyntaxColoring(int index)
