@@ -1816,7 +1816,7 @@ void TeXDocumentWindow::maybeCenterSelection(int oldScrollValue)
 void TeXDocumentWindow::doFontDialog()
 {
 	bool ok{false};
-	QFont font = QFontDialog::getFont(&ok, textEdit->font());
+	QFont font = QFontDialog::getFont(&ok, textEdit->currentFont());
 	if (ok) {
 		textEdit->setFont(font);
 		font.setPointSize(font.pointSize() - 1);

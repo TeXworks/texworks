@@ -64,7 +64,6 @@ public:
 	void setTabStopDistance(qreal distance) {}
 	QTextCursor cursorForPosition(const QPoint &pos) const { return {}; }
 	void ensureCursorVisible() {}
-	QFont currentFont() const { return {}; }
 	void setFocus(Qt::FocusReason reason = Qt::OtherFocusReason) {}
 
 signals:
@@ -88,6 +87,8 @@ public:
 
 	WrapMode wordWrapMode() const;
 	void setWordWrapMode(WrapMode policy);
+
+	QFont currentFont() const;
 
 	void setLineSpacing(qreal percent);
 

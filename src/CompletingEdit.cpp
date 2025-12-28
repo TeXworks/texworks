@@ -1346,6 +1346,14 @@ void CompletingEdit::setWordWrapMode(WrapMode policy)
 	setWrapMode(sciWrapMode);
 }
 
+QFont CompletingEdit::currentFont() const
+{
+	return QFont(QString::fromUtf8(styleFont(STYLE_DEFAULT)),
+					 static_cast<int>(styleSize(STYLE_DEFAULT)),
+					 static_cast<int>(styleWeight(STYLE_DEFAULT)),
+					 styleItalic(STYLE_DEFAULT));
+}
+
 void CompletingEdit::setLineSpacing(qreal percent)
 {
 	// NB: currently, all lines have the same height, so we just take the first one
@@ -1380,10 +1388,13 @@ void CompletingEdit::updateLineNumberAreaWidth()
 			}
 			return digits;
 		}(lineCount());
+
+		const QFontMetrics fontMetrics(currentFont());
+
 #if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
-		const int space = 5 + fontMetrics().width(QChar::fromLatin1('9')) * digits;
+		const int space = 5 + fontMetrics.width(QChar::fromLatin1('9')) * digits;
 #else
-		const int space = 5 + fontMetrics().horizontalAdvance(QChar::fromLatin1('9')) * digits;
+		const int space = 5 + fontMetrics.horizontalAdvance(QChar::fromLatin1('9')) * digits;
 #endif
 		setMarginWidthN(LineNumberMargin, space);
 	}
@@ -1519,37 +1530,39 @@ void CompletingEdit::setAutocompleteEnabled(bool autocomplete)
 
 void CompletingEdit::setFont(const QFont & font)
 {
-	/* FIXME
-	QTextEdit::setFont(font);
-*/
+	setFontFamily(font.family());
+	setFontPointSize(font.pointSize());
+	setFontWeight(font.weight());
+	setFontItalic(font.italic());
 }
 
 void CompletingEdit::setFontFamily(const QString & fontFamily)
 {
-	/* FIXME
-	QTextEdit::setFontFamily(fontFamily);
-*/
+	// FIXME: potentially set the font for other styles (e.g., when using syntax
+	// highlighting)
+	// FIXME: On Cocoa (Mac), MacRoman should be used instead of UTF-8
+	styleSetFont(STYLE_DEFAULT, fontFamily.toUtf8().constData());
 }
 
 void CompletingEdit::setFontItalic(bool italic)
 {
-	/* FIXME
-	QTextEdit::setFontItalic(italic);
-*/
+	// FIXME: potentially set the font for other styles (e.g., when using syntax
+	// highlighting)
+	styleSetItalic(STYLE_DEFAULT, italic);
 }
 
 void CompletingEdit::setFontPointSize(qreal s)
 {
-	/* FIXME
-	QTextEdit::setFontPointSize(s);
-*/
+	// FIXME: potentially set the font for other styles (e.g., when using syntax
+	// highlighting)
+	styleSetSizeFractional(STYLE_DEFAULT, qRound(100 * s));
 }
 
 void CompletingEdit::setFontWeight(int weight)
 {
-	/* FIXME
-	QTextEdit::setFontWeight(weight);
-*/
+	// FIXME: potentially set the font for other styles (e.g., when using syntax
+	// highlighting)
+	styleSetWeight(STYLE_DEFAULT, weight);
 }
 
 /* FIXME
