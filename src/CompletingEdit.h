@@ -64,7 +64,6 @@ public:
 	void setTabStopDistance(qreal distance) {}
 	QTextCursor cursorForPosition(const QPoint &pos) const { return {}; }
 	void ensureCursorVisible() {}
-	void setFocus(Qt::FocusReason reason = Qt::OtherFocusReason) {}
 
 signals:
 	void copyAvailable(bool canCopy);

@@ -442,7 +442,7 @@ void SearchResults::goToSource()
 	if (theDoc) {
 		CompletingEdit * editor = theDoc->findChild<CompletingEdit*>(QString::fromLatin1("textEdit"));
 		if (editor)
-			editor->setFocus();
+			qobject_cast<QWidget*>(editor)->setFocus();
 	}
 }
 
