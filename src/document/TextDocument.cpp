@@ -26,13 +26,18 @@
 namespace Tw {
 namespace Document {
 
+// NB: the ScintillaDocument's parent is `this` so it gets automatically
+// destroyed by Qt when this object is destroyed - without the need for an
+// explicit destructor, std::unique_ptr, etc.
 TextDocument::TextDocument(QObject * parent)
 : QObject(parent)
 , m_scintilla(new ScintillaDocument(this))
 {
-
 }
 
+// NB: the ScintillaDocument's parent is `this` so it gets automatically
+// destroyed by Qt when this object is destroyed - without the need for an
+// explicit destructor, std::unique_ptr, etc.
 TextDocument::TextDocument(const QString & text, QObject * parent)
 : QObject(parent)
 , m_scintilla(new ScintillaDocument(this))
@@ -41,8 +46,6 @@ TextDocument::TextDocument(const QString & text, QObject * parent)
 	QByteArray buffer{text.toUtf8()};
 	m_scintilla->insert_string(0, buffer);
 }
-
-TextDocument::~TextDocument() = default;
 
 void TextDocument::addTag(const QTextCursor & cursor, const unsigned int level, const QString & text)
 {

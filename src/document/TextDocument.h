@@ -23,7 +23,6 @@
 
 #include "document/Document.h"
 
-#include <memory>
 #include <QObject>
 #include <QTextCursor>
 
@@ -46,8 +45,6 @@ public:
 
 	explicit TextDocument(QObject * parent = nullptr);
 	explicit TextDocument(const QString & text, QObject * parent = nullptr);
-	// Explicit out-of-line d'tor required by unique_ptr holding an incomplete type
-	virtual ~TextDocument();
 
 	const QList<Tag> & getTags() const { return _tags; }
 	void addTag(const QTextCursor & cursor, const unsigned int level, const QString & text);
@@ -68,7 +65,10 @@ signals:
 
 protected:
 	QList<Tag> _tags;
-	std::unique_ptr<ScintillaDocument> m_scintilla;
+	// This is a non-owning pointer that doesn't get destroyed automatically;
+	// set its parent to `this` (or another, appropriate QObject) to ensure
+	// `m_scintilla` is destroyed at the right time
+	ScintillaDocument * m_scintilla{nullptr};
 };
 
 } // namespace Document

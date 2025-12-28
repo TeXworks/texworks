@@ -130,7 +130,7 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 
 	updateColors();
 
-	setDocument(new Tw::Document::TextDocument());
+	setDocument(new Tw::Document::TextDocument(this));
 }
 
 void CompletingEdit::prefixLines(const QString &prefix)
@@ -1429,7 +1429,12 @@ void CompletingEdit::setDocument(Tw::Document::TextDocument *document)
 	setCursorWidth(oldCursorWidth);
 */
 	m_doc = document;
-	set_doc(m_doc->m_scintilla.get());
+	if (m_doc) {
+		set_doc(m_doc->m_scintilla);
+	}
+	else {
+		set_doc(new ScintillaDocument(this));
+	}
 }
 
 /* FIXME
