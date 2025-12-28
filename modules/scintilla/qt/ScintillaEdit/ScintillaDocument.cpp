@@ -100,8 +100,9 @@ ScintillaDocument::ScintillaDocument(QObject *parent, void *pdoc_) :
 	pdoc = new Document(DocumentOption::Default);
     }
     docWatcher = new WatcherHelper(this);
-    (static_cast<Document *>(pdoc))->AddRef();
-    (static_cast<Document *>(pdoc))->AddWatcher(docWatcher, pdoc);
+    Document *doc = static_cast<Document *>(pdoc);
+    doc->AddRef();
+    doc->AddWatcher(docWatcher, doc);
 }
 
 ScintillaDocument::~ScintillaDocument() {
