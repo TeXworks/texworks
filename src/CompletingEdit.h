@@ -89,6 +89,8 @@ public:
 	WrapMode wordWrapMode() const;
 	void setWordWrapMode(WrapMode policy);
 
+	void setLineSpacing(qreal percent);
+
 	QString getIndentMode() const {
 		/* FIXME
 		return autoIndentMode >= 0 && autoIndentMode < autoIndentModes().size() ?

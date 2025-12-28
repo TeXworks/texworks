@@ -1097,10 +1097,6 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 			}
 		}
 */
-
-		// Reset the line spacing as setPlainText() clears all text formatting
-		setLineSpacing(m_lineSpacing);
-
 		QApplication::restoreOverrideCursor();
 	}
 
@@ -2213,42 +2209,14 @@ void TeXDocumentWindow::setLineNumbers(bool displayNumbers)
 
 void TeXDocumentWindow::setLineSpacing(qreal percent)
 {
-	/* FIXME
 	// percent should typically be between 100 (single spacing) and 200 (double
 	// spacing). Values below 1 are simply ignored (this includes the "typical
 	// invalid return value" of 0).
 	if (percent <= 1.)
 		return;
 
-	Q_ASSERT(textDoc() != nullptr);
-
 	m_lineSpacing = percent;
-
-	// Select the entire document
-	QTextCursor cur{textDoc()};
-	cur.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-
-	// Don't set the block format if it is not necessary
-	// (works around QTBUG-120451 in "common" cases)
-	if (cur.blockFormat().lineHeightType() == QTextBlockFormat::ProportionalHeight && cur.blockFormat().lineHeight() == percent) {
-		return;
-	}
-	if (cur.blockFormat().lineHeightType() == QTextBlockFormat::SingleHeight && percent == 100) {
-		return;
-	}
-
-	// Remember the "modified" state. While we consider the line spacing as a
-	// purely cosmetic property here, it is set on the underlying text document
-	// and therefore will force its "modified" state to true (which we don't
-	// want, e.g., when starting up)
-	const bool wasModified = isModified();
-	// Apply the modified line height
-	QTextBlockFormat fmt;
-	fmt.setLineHeight(percent, QTextBlockFormat::ProportionalHeight);
-	cur.mergeBlockFormat(fmt);
-	// Restore "modified" state
-	setModified(wasModified);
-*/
+	textEdit->setLineSpacing(percent);
 }
 
 void TeXDocumentWindow::setWrapLines(bool wrap)

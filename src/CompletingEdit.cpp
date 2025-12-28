@@ -1346,6 +1346,17 @@ void CompletingEdit::setWordWrapMode(WrapMode policy)
 	setWrapMode(sciWrapMode);
 }
 
+void CompletingEdit::setLineSpacing(qreal percent)
+{
+	// NB: currently, all lines have the same height, so we just take the first one
+	const auto rawHeight = textHeight(0) - extraAscent() - extraDescent();
+	const auto newHeight = rawHeight * static_cast<decltype(rawHeight)>(percent) / 100;
+	const auto ascent = static_cast<int>((newHeight - rawHeight) / 2);
+	const auto descent = newHeight - rawHeight - ascent;
+	setExtraAscent(ascent);
+	setExtraDescent(descent);
+}
+
 
 QString CompletingEdit::text()
 {
