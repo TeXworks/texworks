@@ -60,3 +60,7 @@ if (${QT_VERSION_MAJOR} LESS 6)
 else ()
 	target_link_libraries(scintilla Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Core5Compat)
 endif ()
+if (NOT MSVC)
+	# Scintilla still uses 0 instead of nullptr in several places
+	target_compile_options(scintilla PRIVATE -Wno-zero-as-null-pointer-constant)
+endif()
