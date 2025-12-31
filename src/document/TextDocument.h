@@ -62,6 +62,11 @@ public:
 
 signals:
 	void tagsChanged() const;
+	void modificationChanged(bool modified) const;
+
+private slots:
+	void onModified(int position, int modification_type, const QByteArray &text, int length,
+					int linesAdded, int line, int foldLevelNow, int foldLevelPrev);
 
 protected:
 	QList<Tag> _tags;
@@ -69,6 +74,7 @@ protected:
 	// set its parent to `this` (or another, appropriate QObject) to ensure
 	// `m_scintilla` is destroyed at the right time
 	ScintillaDocument * m_scintilla{nullptr};
+	bool m_isModifiedCache{false};
 };
 
 } // namespace Document

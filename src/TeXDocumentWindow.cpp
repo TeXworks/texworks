@@ -214,9 +214,9 @@ void TeXDocumentWindow::init()
 
 	connect(actionBalance_Delimiters, &QAction::triggered, this, &TeXDocumentWindow::balanceDelimiters);
 
+	connect(textDoc(), &Tw::Document::TextDocument::modificationChanged, this, &TeXDocumentWindow::setWindowModified);
+	connect(textDoc(), &Tw::Document::TextDocument::modificationChanged, this, &TeXDocumentWindow::maybeEnableSaveAndRevert);
 	/* FIXME
-	connect(textDoc(), &Tw::Document::TeXDocument::modificationChanged, this, &TeXDocumentWindow::setWindowModified);
-	connect(textDoc(), &Tw::Document::TeXDocument::modificationChanged, this, &TeXDocumentWindow::maybeEnableSaveAndRevert);
 	connect(textDoc(), &Tw::Document::TeXDocument::modelinesChanged, this, &TeXDocumentWindow::handleModelineChange);
 */
 	connect(textEdit, &CompletingEdit::cursorPositionChanged, this, &TeXDocumentWindow::showCursorPosition);

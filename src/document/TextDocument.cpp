@@ -22,6 +22,7 @@
 #include "document/TextDocument.h"
 
 #include <ScintillaDocument.h>
+#include <ScintillaTypes.h>
 
 namespace Tw {
 namespace Document {
@@ -33,14 +34,14 @@ TextDocument::TextDocument(QObject * parent)
 : QObject(parent)
 , m_scintilla(new ScintillaDocument(this))
 {
+	connect(m_scintilla, &ScintillaDocument::modified, this, &TextDocument::onModified);
 }
 
 // NB: the ScintillaDocument's parent is `this` so it gets automatically
 // destroyed by Qt when this object is destroyed - without the need for an
 // explicit destructor, std::unique_ptr, etc.
 TextDocument::TextDocument(const QString & text, QObject * parent)
-: QObject(parent)
-, m_scintilla(new ScintillaDocument(this))
+: TextDocument(parent)
 {
 	// FIXME: const-issues in ScintillaDocument [https://sourceforge.net/p/scintilla/bugs/2494/]
 	QByteArray buffer{text.toUtf8()};
@@ -110,6 +111,24 @@ bool TextDocument::isModified() const
 void TextDocument::setModified(const bool modified)
 {
 	// FIXME
+}
+
+void TextDocument::onModified(int position, int modification_type, const QByteArray &text, int length, int linesAdded, int line, int foldLevelNow, int foldLevelPrev)
+{
+	Q_UNUSED(position)
+	Q_UNUSED(text)
+	Q_UNUSED(length)
+	Q_UNUSED(linesAdded)
+	Q_UNUSED(line)
+	Q_UNUSED(foldLevelNow)
+	Q_UNUSED(foldLevelPrev)
+	if (modification_type & static_cast<int>(Scintilla::ModificationFlags::InsertText) || modification_type & static_cast<int>(Scintilla::ModificationFlags::DeleteText)) {
+		const bool modified{isModified()};
+		if (modified != m_isModifiedCache) {
+			m_isModifiedCache = modified;
+			emit modificationChanged(modified);
+		}
+	}
 }
 
 qsizetype TextDocument::length() const
