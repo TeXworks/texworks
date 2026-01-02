@@ -31,7 +31,7 @@ cleanup-patterns:	$jobname.[pms]tc $jobname.[pms]tc[0-9] $jobname.[pms]tc[0-9][0
 cleanup-patterns:	$jobname.[pms]lf $jobname.[pms]lf[0-9] $jobname.[pms]lf[0-9][0-9] $jobname.[GFH][0-9] $jobname.[GFH][0-9][0-9]
 cleanup-patterns:	$jobname.[pms]lt $jobname.[pms]lt[0-9] $jobname.[pms]lt[0-9][0-9] $jobname.[UTV][0-9] $jobname.[UTV][0-9][0-9]
 # biblatex / biber
-cleanup-patterns:	$jobname.run.xml
+cleanup-patterns:	$jobname.bcf $jobname.run.xml
 # ConTeXt
 cleanup-patterns:	$jobname.tuc $jobname.log $jobname-t-b-*.pdf
 
