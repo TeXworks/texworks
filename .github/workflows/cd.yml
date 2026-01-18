@@ -77,7 +77,7 @@ jobs:
     - name: Setup WSL
       uses: Vampire/setup-wsl@v5
       with:
-        distribution: Ubuntu-22.04
+        distribution: Ubuntu-24.04
 
     - name: Install dependencies
       uses: ./.github/actions/setup-windows
