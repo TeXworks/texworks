@@ -41,8 +41,8 @@ endmacro(ADD_GH_GROUP)
 
 
 ExternalProject_Add(libpng
-	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.50.tar.gz"
-	URL_HASH SHA256=71158e53cfdf2877bc99bcab33641d78df3f48e6e0daad030afe9cb8c031aa46
+	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.54.tar.gz"
+	URL_HASH SHA256=ba7efce137409079989df4667706c339bebfbb10e9f413474718012a13c8cd4c
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
 ADD_GH_GROUP(libpng)
@@ -116,8 +116,8 @@ ExternalProject_Add(libopenjpeg
 ADD_GH_GROUP(libopenjpeg)
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.17.tar.gz"
-	URL_HASH SHA256=6e6f6411db50e85ae8ff7777f01b2da0614aac13b7b9fcbea66dc56a1bc71418
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.18.tar.gz"
+	URL_HASH SHA256=4f52a4459a93ac02b88e49b04dc0679e52fc92d36d3b722e5a1a44dbe8118236
 	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV}" ./configure ${CONFIGURE_ARGS} "--with-tiff=${CMAKE_INSTALL_PREFIX}" "--with-jpeg=${CMAKE_INSTALL_PREFIX}"
 	BUILD_IN_SOURCE TRUE
 	DEPENDS libtiff libjpeg
@@ -135,8 +135,8 @@ ExternalProject_Add(poppler
 )
 else ()
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-25.10.0.tar.xz"
-	URL_HASH SHA256=6b5e9bb64dabb15787a14db1675291c7afaf9387438cc93a4fb7f6aec4ee6fe0
+	URL "https://poppler.freedesktop.org/poppler-26.01.0.tar.xz"
+	URL_HASH SHA256=1cb944a4b88847f5fb6551683bc799db59f04990f5d8be07aba2acbf38601089
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=OFF -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DRUN_GPERF_IF_PRESENT=OFF -DENABLE_QT5=OFF -DBUILD_MANUAL_TESTS=OFF -DBUILD_QT5_TESTS=OFF -DENABLE_NSS3=OFF -DENABLE_GPGME=OFF -DENABLE_LIBCURL=OFF
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )
@@ -158,8 +158,8 @@ ADD_GH_GROUP(poppler-data)
 # arguments on the command line via ExternalProject_Add (due to weird quotation
 # schemes). NB: lua uses plain Makefiles instead of autoconf or cmake, ...
 ExternalProject_Add(lua
-	URL "https://www.lua.org/ftp/lua-5.4.8.tar.gz"
-	URL_HASH SHA256=4f18ddae154e793e46eeab727c59ef1c0c0c2b744e7b94219710d76f530629ae
+	URL "https://www.lua.org/ftp/lua-5.5.0.tar.gz"
+	URL_HASH SHA256=57ccc32bbbd005cab75bcc52444052535af691789dba2b9016d5c50640d68b3d
 	PATCH_COMMAND patch -p1 -i ${CMAKE_CURRENT_LIST_DIR}/lua.patch
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND env -S "MYCFLAGS=\"-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET} ${ARCH_FLAGS}\" MYLDFLAGS=\"${ARCH_FLAGS}\"" make
