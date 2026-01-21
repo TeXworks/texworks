@@ -1540,7 +1540,7 @@ Wollen Sie fortfahren?</translation>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="93"/>
         <source>Dictionaries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wörterbücher:</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.cpp" line="42"/>
@@ -1903,7 +1903,7 @@ Verwenden Sie das Kontextmenü, um die Längeneinheit zu ändern.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="490"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Vertrieb unter der &lt;a href=&quot;https://www.gnu.org/licenses/gpl.de.html&quot;&gt;GNU General Public License&lt;/a&gt;, Version 2, oder (nach Ihrer Option) jeder späteren Version.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="492"/>
@@ -3128,13 +3128,13 @@ Wollen Sie diese Datei trotzdem speichern und damit die Version auf der Festplat
         <location filename="../src/document/SpellCheckManager.cpp" line="51"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - United States (en_US)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/document/SpellCheckManager.cpp" line="55"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en)&quot;)</extracomment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
