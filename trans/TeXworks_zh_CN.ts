@@ -87,7 +87,7 @@
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="47"/>
-        <location filename="../src/CompletingEdit.cpp" line="1090"/>
+        <location filename="../src/CompletingEdit.cpp" line="1116"/>
         <source>Jump to PDF</source>
         <translation>跳至 PDF 文件</translation>
     </message>
@@ -98,12 +98,12 @@
         <translation>Ctrl+Shift+J</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="1108"/>
+        <location filename="../src/CompletingEdit.cpp" line="1134"/>
         <source>No suggestions</source>
         <translation>没有可用的建议</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="1129"/>
+        <location filename="../src/CompletingEdit.cpp" line="1155"/>
         <source>Ignore word</source>
         <translation>忽略单词</translation>
     </message>
@@ -1533,12 +1533,17 @@ Do you want to continue?</source>
         <translation>配置：</translation>
     </message>
     <message>
-        <location filename="../src/ResourcesDialog.ui" line="61"/>
+        <location filename="../src/ResourcesDialog.ui" line="67"/>
         <source>Resources:</source>
         <translation>资源：</translation>
     </message>
     <message>
-        <location filename="../src/ResourcesDialog.cpp" line="43"/>
+        <location filename="../src/ResourcesDialog.ui" line="93"/>
+        <source>Dictionaries:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ResourcesDialog.cpp" line="42"/>
         <source>Registry (%1)</source>
         <translation>注册表（%1）</translation>
     </message>
@@ -1790,6 +1795,11 @@ Do you want to continue?</source>
         <translation>&lt;br&gt;%1 版</translation>
     </message>
     <message>
+        <location filename="../src/TWApp.cpp" line="490"/>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/TWApp.cpp" line="492"/>
         <source>&lt;br&gt;&lt;a href=&quot;https://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;&lt;a href=&quot;https://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF 渲染库由 Kristian H&amp;#xF8;gsberg, Albert Astals Cid 及其他人开发。</translation>
@@ -1876,9 +1886,8 @@ Do you want to continue?</source>
         <translation>脚本“%1”试图打开未授权文件“%2”。您想打开此文件吗？</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="490"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation>在 GNU 通用公共许可证（版本2）条款下分发，或根据您的个人选择选用任一后续版本。</translation>
+        <translation type="vanished">在 GNU 通用公共许可证（版本2）条款下分发，或根据您的个人选择选用任一后续版本。</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="234"/>
@@ -1928,49 +1937,49 @@ Do you want to continue?</source>
 <context>
     <name>TWScriptableWindow</name>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="145"/>
-        <location filename="../src/TWScriptableWindow.cpp" line="153"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="149"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="157"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>脚本“%1”：%2</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="147"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="151"/>
         <source>Script result</source>
         <translation>脚本执行结果</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="152"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="156"/>
         <source>unknown error</source>
         <translation>未知错误</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="153"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="157"/>
         <source>Script error</source>
         <translation>脚本错误</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="174"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="178"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
         <translation>脚本可用于添加新的命令到 %1，以及扩展或修改程序行为。</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="177"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="181"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
         <translation>关于创建和使用脚本的更多信息，参见 %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="179"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="183"/>
         <source>Scripting languages currently available in this copy of %1:</source>
         <translation>当前 %1 副本中支持的脚本语言：</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="198"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="202"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
         <translation>（已在首选项中停用）</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="202"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="206"/>
         <source>About Scripts</source>
         <translation>关于脚本</translation>
     </message>
@@ -2012,7 +2021,7 @@ Do you want to continue?</source>
 <context>
     <name>TeXDocumentWindow</name>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="75"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="77"/>
         <source>New document</source>
         <translation>新建文档</translation>
     </message>
@@ -2030,39 +2039,39 @@ Do you want to continue?</source>
         <translation>无</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="615"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="608"/>
         <source>Open File</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="814"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="807"/>
         <source>Save File</source>
         <translation>保存文件</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="852"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="845"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>文档“%1”被修改了。
 您想保存修改吗？</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="883"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="876"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>是否放弃所有对文档“%1”的修改，并恢复到上一次保存的版本？</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="885"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="878"/>
         <source>Revert</source>
         <translation>恢复</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="997"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="990"/>
         <source>Unrecognized encoding</source>
         <translation>无法识别的编码</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="998"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="991"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -2070,14 +2079,14 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 将使用 %3 替代，可能会导致不正确的文本。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1245"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1303"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1400"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1238"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1296"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1393"/>
         <source>File changed on disk</source>
         <translation>保存文件至磁盘</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1246"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1239"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2085,7 +2094,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 您想放弃当前所做修改并重新载入磁盘上的文件吗？</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1401"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1394"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2093,17 +2102,17 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 您想继续以保存本文件，并覆盖磁盘上的版本吗？</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1394"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1387"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>文档 %1 没有保存</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1425"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1418"/>
         <source>Text cannot be converted</source>
         <translation>无法转换文本</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1426"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1419"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -2111,125 +2120,125 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 如果继续进行，将使用默认代码替换。或者，您可能希望使用另一种编码（如 UTF-8）来避免丢失数据。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1513"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1506"/>
         <source>untitled-%1.tex</source>
         <translation>未命名-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1531"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1576"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1524"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1569"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1639"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1632"/>
         <source>Line %1 of %2; col %3</source>
         <translation>行 %1/%2；列 %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1841"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1834"/>
         <source>Go to Line</source>
         <translation>跳至行</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1842"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1835"/>
         <source>Line number:</source>
         <translation>行号：</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2326"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2433"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2319"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2426"/>
         <source>Invalid regular expression</source>
         <translation>无效正则表达式</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2366"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2404"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2521"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2359"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2397"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2514"/>
         <source>Not found</source>
         <translation>无法找到</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2371"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2364"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>找到 %n 处</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2539"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2532"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n 处</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2540"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2533"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n 文档</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2541"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2534"/>
         <source>Replaced %1 in %2</source>
         <translation>在 %2 中替换 %1</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2553"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2546"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>替换了 %n 处</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2746"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2740"/>
         <source>Cannot process unsaved document</source>
         <translation>无法处理未保存文档</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2757"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2751"/>
         <source>Root document %1 is not readable</source>
         <translation>根文档 %1 不可读 (无读权限)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2763"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2757"/>
         <source>%1 is not properly configured</source>
         <translation>%1 配置不恰当</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2768"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2762"/>
         <source>%1 is already being processed</source>
         <translation>%1 已在处理</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2825"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2819"/>
         <source>Unable to execute %1</source>
         <translation>无法执行 %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2888"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2882"/>
         <source>Go to typesetting</source>
         <translation>转到排版</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3129"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>将处理引擎设为“%1”</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3133"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3127"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>处理引擎“%1”未定义</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3193"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3187"/>
         <source>No files found</source>
         <translation>没有找到文件</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3194"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3188"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>此刻没有与当前文档关联的辅助文件。</translation>
     </message>
@@ -2260,7 +2269,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="607"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2895"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2889"/>
         <source>Typeset</source>
         <translation>排版</translation>
     </message>
@@ -2690,12 +2699,12 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>硬换行...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2826"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2820"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>程序“%1”无法找到。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2837"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2831"/>
         <source>Searched in directories:</source>
         <translation>在目录中搜索：</translation>
     </message>
@@ -2705,7 +2714,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>行号</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2921"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2915"/>
         <source>Process interrupted by user</source>
         <translation>用户中断了进程</translation>
     </message>
@@ -2742,21 +2751,21 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation>管理脚本</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="981"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="974"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>无法读入文件“%1”：
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1443"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1436"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>无法写入文件“%1”：
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2880"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2874"/>
         <source>Abort typesetting</source>
         <translation>中止排版</translation>
     </message>
@@ -2796,39 +2805,39 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="857"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="850"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="886"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="879"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1135"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1128"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>文件“%1”已加载</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1461"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1455"/>
         <source>Error writing file</source>
         <translation>写文件错误</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1462"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1456"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>保存文件时出错。您可以换个位置保存文件。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1478"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1471"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>文件“%1”已保存</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1304"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1297"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2841,18 +2850,18 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>TeXworks 配置与资源 ...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1693"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1686"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>使用所选编码重载文档</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1718"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1711"/>
         <source>Unsaved changes</source>
         <translation>未保存的改动</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1719"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1712"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2861,7 +2870,7 @@ Do you want to discard your current changes, and reload the file from disk with 
 您想放弃这些改动并重新使用编码 %1 载入磁盘上的文件吗？</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1695"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1688"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2875,54 +2884,54 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
         <translation>清除近期文件</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="683"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="676"/>
         <source>Abort typesetting?</source>
         <translation>终止排版？</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="683"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="676"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation>排版进程仍在运行，关闭此窗口前必须停止。你想停止它吗？</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2828"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2822"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;https://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;或&lt;a href=&quot;https://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt;。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2830"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2824"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;https://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt;。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2832"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2826"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>你需要安装一份&lt;b&gt;TeX 发行版&lt;/b&gt;来排版你的文档，如&lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt;，大多数系统都可以获得一份现成的此类 TeX 发行版。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2834"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2828"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>在已安装 TeX 发行版的情况下，你可以在【编辑】-&gt;【首选项】-&gt;【排版】中进行设置通知 TeXworks 其路径。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2839"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2833"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>检查首选项对话框工具 %1 的配置和路径设置。</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="847"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3059"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3053"/>
         <source>Hide Console Output</source>
         <translation>隐藏控制台输出</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1102"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1095"/>
         <source>Layout Problem</source>
         <translation>排版问题</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1102"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1095"/>
         <source>A problem occurred while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
  -) Turn syntax highlighting off and on
  -) Turn line numbers off and on
@@ -2937,12 +2946,12 @@ We are sorry for the inconvenience.</source>
 不便之处请谅解。</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3066"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3060"/>
         <source>Show Console Output</source>
         <translation>显示控制台输出</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1696"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1689"/>
         <source>Write UTF-8 byte order mark</source>
         <translation>写入 UTF-8 字节顺序标记 (BOM)</translation>
     </message>
@@ -2967,42 +2976,42 @@ We are sorry for the inconvenience.</source>
         <translation type="vanished">%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1649"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1642"/>
         <source>LF</source>
         <translation>换行</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1652"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1645"/>
         <source>CRLF</source>
         <translation>回车换行</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1655"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1648"/>
         <source>CR</source>
         <translation>回车</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1659"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1652"/>
         <source>*</source>
         <translation>*</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1666"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1659"/>
         <source>LF (Unix, Mac OS X)</source>
         <translation>换行（Unix, Mac OS X）</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1667"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1660"/>
         <source>CRLF (Windows)</source>
         <translation>回车换行（Windows）</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1668"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1661"/>
         <source>CR (Mac Classic)</source>
         <translation>回车（Mac 经典）</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1982"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1975"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
         <translation>未找到 &apos;%!TEX bibfile&apos; 行</translation>
     </message>
@@ -3085,18 +3094,31 @@ We are sorry for the inconvenience.</source>
     </message>
 </context>
 <context>
-    <name>Tw::Document::SpellChecker</name>
+    <name>Tw::Document::SpellCheckManager</name>
     <message>
-        <location filename="../src/document/SpellChecker.cpp" line="52"/>
+        <location filename="../src/document/SpellCheckManager.cpp" line="51"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - United States (en_US)&quot;)</extracomment>
-        <translation>%1 - %2 (%3)</translation>
+        <translation type="unfinished">%1 - %2 (%3)</translation>
     </message>
     <message>
-        <location filename="../src/document/SpellChecker.cpp" line="56"/>
+        <location filename="../src/document/SpellCheckManager.cpp" line="55"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en)&quot;)</extracomment>
-        <translation>%1 (%2)</translation>
+        <translation type="unfinished">%1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>Tw::Document::SpellChecker</name>
+    <message>
+        <source>%1 - %2 (%3)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - United States (en_US)&quot;)</extracomment>
+        <translation type="vanished">%1 - %2 (%3)</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en)&quot;)</extracomment>
+        <translation type="vanished">%1 (%2)</translation>
     </message>
 </context>
 <context>

@@ -813,17 +813,17 @@
         <translation>Teksekstraksie word nie vir hierdie dokument toegelaat nie.</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentView.cpp" line="2264"/>
+        <location filename="../src/PDFDocumentView.cpp" line="2266"/>
         <source>Goto page %1</source>
         <translation>Gaan na bladsy %1</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentView.cpp" line="2276"/>
+        <location filename="../src/PDFDocumentView.cpp" line="2278"/>
         <source>Execute `%1`</source>
         <translation>Voer `%1` uit</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentView.cpp" line="2541"/>
+        <location filename="../src/PDFDocumentView.cpp" line="2543"/>
         <source>Layers</source>
         <translation>Lae</translation>
     </message>

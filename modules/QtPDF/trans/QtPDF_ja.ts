@@ -813,17 +813,17 @@
         <translation>このファイルでは、テキスト抽出は許可されていません</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentView.cpp" line="2264"/>
+        <location filename="../src/PDFDocumentView.cpp" line="2266"/>
         <source>Goto page %1</source>
         <translation>%1ページに移動する</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentView.cpp" line="2276"/>
+        <location filename="../src/PDFDocumentView.cpp" line="2278"/>
         <source>Execute `%1`</source>
         <translation>`%1`を実行する</translation>
     </message>
     <message>
-        <location filename="../src/PDFDocumentView.cpp" line="2541"/>
+        <location filename="../src/PDFDocumentView.cpp" line="2543"/>
         <source>Layers</source>
         <translation>レイヤー</translation>
     </message>

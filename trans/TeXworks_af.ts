@@ -42,12 +42,12 @@
 <context>
     <name>CompletingEdit</name>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="1108"/>
+        <location filename="../src/CompletingEdit.cpp" line="1134"/>
         <source>No suggestions</source>
         <translation>Geen voorstelle</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="1129"/>
+        <location filename="../src/CompletingEdit.cpp" line="1155"/>
         <source>Ignore word</source>
         <translation>Ignoreer woord</translation>
     </message>
@@ -97,7 +97,7 @@
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="47"/>
-        <location filename="../src/CompletingEdit.cpp" line="1090"/>
+        <location filename="../src/CompletingEdit.cpp" line="1116"/>
         <source>Jump to PDF</source>
         <translation>Spring na PDF</translation>
     </message>
@@ -1539,12 +1539,17 @@ Wil jy voortgaan?</translation>
         <translation>Instellings:</translation>
     </message>
     <message>
-        <location filename="../src/ResourcesDialog.ui" line="61"/>
+        <location filename="../src/ResourcesDialog.ui" line="67"/>
         <source>Resources:</source>
         <translation>Hulpbronne:</translation>
     </message>
     <message>
-        <location filename="../src/ResourcesDialog.cpp" line="43"/>
+        <location filename="../src/ResourcesDialog.ui" line="93"/>
+        <source>Dictionaries:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ResourcesDialog.cpp" line="42"/>
         <source>Registry (%1)</source>
         <translation>Registrasie (%1)</translation>
     </message>
@@ -1829,9 +1834,8 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <translation>&lt;br&gt;Weergawe %1</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="490"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation>&lt;p&gt;Versprei onder die &lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, weergawe 2 of (u opsie) enige latere weergawe.</translation>
+        <translation type="vanished">&lt;p&gt;Versprei onder die &lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, weergawe 2 of (u opsie) enige latere weergawe.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="501"/>
@@ -1881,6 +1885,11 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
     <message>
         <source>&lt;br&gt;Version %1 (%2)</source>
         <translation type="vanished">&lt;br&gt;Weergawe %1 (%2)</translation>
+    </message>
+    <message>
+        <location filename="../src/TWApp.cpp" line="490"/>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="491"/>
@@ -1956,49 +1965,49 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
 <context>
     <name>TWScriptableWindow</name>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="145"/>
-        <location filename="../src/TWScriptableWindow.cpp" line="153"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="149"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="157"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation>Skrip &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="147"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="151"/>
         <source>Script result</source>
         <translation>Skrip resultaat</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="152"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="156"/>
         <source>unknown error</source>
         <translation>onbekende fout</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="153"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="157"/>
         <source>Script error</source>
         <translation>Skripfout</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="174"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="178"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
         <translation>Skrippe kan gebruik word om nuwe bevele by %1 te voeg, en om die bevele se gedrag te uit te brei of te modifiseer.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="177"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="181"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
         <translation>Vir meer inligting oor die skepping en gebruik van skrippe, sien %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="179"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="183"/>
         <source>Scripting languages currently available in this copy of %1:</source>
         <translation>Skriptale wat tans in hierdie kopie van %1 beskikbaar is:</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="198"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="202"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
         <translation>(afgeskakel in die voorkeure)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="202"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="206"/>
         <source>About Scripts</source>
         <translation>Oor skrippe</translation>
     </message>
@@ -2040,7 +2049,7 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
 <context>
     <name>TeXDocumentWindow</name>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="75"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="77"/>
         <source>New document</source>
         <translation>Nuwe dokument</translation>
     </message>
@@ -2058,45 +2067,45 @@ Gebruik die kontekskeuseskerm om die eenhede te verander.</translation>
         <translation>Geen</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="615"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="608"/>
         <source>Open File</source>
         <translation>Maak lêer oop</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="814"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="807"/>
         <source>Save File</source>
         <translation>Stoor lêer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="852"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="845"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Die dokument &quot;%1&quot; is gemodifiseer.
 Wil jy die veranderings stoor?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="857"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="850"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="883"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="876"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>Wil jy alle wysigings in dokument &quot;%1&quot; ongedaan maak en teruggaan na die laaste gestoorde weergawe?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="885"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="878"/>
         <source>Revert</source>
         <translation>Val terug</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="997"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="990"/>
         <source>Unrecognized encoding</source>
         <translation>Onbekende enkodering</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="998"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="991"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -2105,14 +2114,14 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 Dit sal geïnterpreteer word as %3, wat kan lei tot foutiewe teks.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1245"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1303"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1400"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1238"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1296"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1393"/>
         <source>File changed on disk</source>
         <translation>Lêer is op skyf verander</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1246"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1239"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2121,7 +2130,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 Wil jy die wysigings ongedaan maak, en die lêer vanaf die skyf herlaai?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1401"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1394"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2130,17 +2139,17 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 Wil jy voortgaan om die lêer te stoor en dus oor die weergawe op die skyf skryf?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1394"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1387"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>Dokument &quot;%1&quot; is nie gestoor nie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1425"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1418"/>
         <source>Text cannot be converted</source>
         <translation>Hierdie teks kan nie omgesit word nie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1426"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1419"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -2149,21 +2158,21 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 Indien jy voortgaan, sal hulle deur standaard kodes vervang word. Om dataverlies te voorkom kan jy as alternatief &apos;n ander enkodering (soos UTF-8) gebruik.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="981"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="974"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>Kan nie lêer &quot;%1&quot; lees nie:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1443"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1436"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Kan nie lêer &quot;%1&quot; skryf nie:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="886"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="879"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
@@ -2179,24 +2188,24 @@ Indien jy voortgaan, sal hulle deur standaard kodes vervang word. Om dataverlies
         <translation type="vanished">%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="683"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="676"/>
         <source>Abort typesetting?</source>
         <translation>Staak lettersetproses?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="683"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="676"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation>&apos;n Lettersetproses loop nog en moet beeindig word voordat hierdie venster toegemaak word.
 Wil jy dit nou stop?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1102"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1095"/>
         <source>Layout Problem</source>
         <translation>Uitlegprobleem</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1102"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1095"/>
         <source>A problem occurred while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
  -) Turn syntax highlighting off and on
  -) Turn line numbers off and on
@@ -2211,12 +2220,12 @@ We are sorry for the inconvenience.</source>
 Ons maak verskoning vir die ongerief.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1135"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1128"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>Lêer &quot;%1&quot; is gelaai</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1304"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1297"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2225,80 +2234,80 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 Gebruik asseblief &quot;Lêer &gt; Terug na gestoorde weergawe&quot; handmatig wanneer die eksterne proses klaar is.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1461"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1455"/>
         <source>Error writing file</source>
         <translation>Fout tydens skryf van lêer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1462"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1456"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>Daar was dalk &apos;n fout tydens stoor van lêer. Miskien behoort jy &apos;n kopie in &apos;n ander plek te stoor.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1478"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1471"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>Lêer &quot;%1&quot; is gestoor</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1513"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1506"/>
         <source>untitled-%1.tex</source>
         <translation>naamloos-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1531"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1576"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1524"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1569"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1639"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1632"/>
         <source>Line %1 of %2; col %3</source>
         <translation>Reël %1 van %2; kolom %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1649"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1642"/>
         <source>LF</source>
         <translation>LF</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1652"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1645"/>
         <source>CRLF</source>
         <translation>CRLF</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1655"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1648"/>
         <source>CR</source>
         <translation>CR</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1659"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1652"/>
         <source>*</source>
         <translation>*</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1666"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1659"/>
         <source>LF (Unix, Mac OS X)</source>
         <translation>LF (Unix, Mac OS X)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1667"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1660"/>
         <source>CRLF (Windows)</source>
         <translation>CRLF (Windows)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1668"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1661"/>
         <source>CR (Mac Classic)</source>
         <translation>CR (Mac Classic)</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1693"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1686"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>Herlaai met geselekteerde enkodering</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1695"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1688"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2308,17 +2317,17 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
 Die geselekteerde enkodering vervang die verstekkeuse en hef alle &quot;%!TEX encoding&quot; reëls op.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1696"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1689"/>
         <source>Write UTF-8 byte order mark</source>
         <translation>Skryf UTF-8 greeporde merk</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1718"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1711"/>
         <source>Unsaved changes</source>
         <translation>Ongestoorde veranderings</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1719"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1712"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2327,35 +2336,35 @@ Do you want to discard your current changes, and reload the file from disk with 
 Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met enkodering %1?</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1841"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1834"/>
         <source>Go to Line</source>
         <translation>Gaan na reël</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1842"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1835"/>
         <source>Line number:</source>
         <translation>Reëlnommer:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1982"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1975"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
         <translation>Geen &apos;%!TEX bibfile&apos; modlyn gevind nie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2326"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2433"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2319"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2426"/>
         <source>Invalid regular expression</source>
         <translation>Ongeldige stringpatroon-uitdrukking</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2366"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2404"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2521"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2359"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2397"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2514"/>
         <source>Not found</source>
         <translation>Nie gevind nie</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2371"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2364"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>%n geval gevind</numerusform>
@@ -2363,7 +2372,7 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2539"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2532"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n geval</numerusform>
@@ -2371,7 +2380,7 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2540"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2533"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n dokument</numerusform>
@@ -2379,12 +2388,12 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2541"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2534"/>
         <source>Replaced %1 in %2</source>
         <translation>%1 is vervang in %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2553"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2546"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>%n geval is vervang</numerusform>
@@ -2392,102 +2401,102 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2746"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2740"/>
         <source>Cannot process unsaved document</source>
         <translation>Kan nie ongestoorde dokument verwerk nie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2757"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2751"/>
         <source>Root document %1 is not readable</source>
         <translation>Hoofdokument %1 is nie leesbaar nie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2768"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2762"/>
         <source>%1 is already being processed</source>
         <translation>%1 word reeds geprosesseer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2826"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2820"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>Kon nie program &quot;%1&quot; vind nie.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2828"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2822"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;https://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Om jou dokument te letterset moet jy &apos;n &lt;b&gt;TeX distribusie&lt;/b&gt; soos &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; of &lt;a href=&quot;https://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; op jou stelsel geïnstalleer hê.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2830"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2824"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
         <translation>Om jou dokument te letterset moet jy &apos;n &lt;b&gt;TeX distribusie&lt;/b&gt; soos &lt;a href=&quot;https://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; op jou stelsel geïnstalleer hê.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2832"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2826"/>
         <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
         <translation>Om jou dokument te letterset moet jy &apos;n &lt;b&gt;TeX distribusie&lt;/b&gt; soos &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; op jou stelsel geïnstalleer hê. So &apos;n TeX distribusie is op meeste stelsels as &apos;n voorafgeboude pakket beskikbaar.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2834"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2828"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>Wanneer &apos;n TeX distribusie geïnstalleer word mag dit nodig wees om TeXworks te laat weet waar om dit te vind in Redigeer -&gt; Voorkeure -&gt; Lettersetting.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2837"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2831"/>
         <source>Searched in directories:</source>
         <translation>Soek in vakkies:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2839"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2833"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>Kontroleer die konfigurasie van die %1 nutsprogram en die padopstellings in die Voorkeure dialoog.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2888"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2882"/>
         <source>Go to typesetting</source>
         <translation>Gaan na lettersetproses</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3066"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3060"/>
         <source>Show Console Output</source>
         <translation>Vertoon konsoolafvoer</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2880"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2874"/>
         <source>Abort typesetting</source>
         <translation>Staak lettersetproses</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2921"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2915"/>
         <source>Process interrupted by user</source>
         <translation>Proses deur gebruiker onderbreek</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2763"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2757"/>
         <source>%1 is not properly configured</source>
         <translation>%1 is nie behoorlik gekonfigureer nie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2825"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2819"/>
         <source>Unable to execute %1</source>
         <translation>Kan nie %1 uitvoer nie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3129"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>Stel engin in op &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3133"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3127"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>Engin &quot;%1&quot; is nie gedefinieer nie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3193"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3187"/>
         <source>No files found</source>
         <translation>Geen lêers gevind nie</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3194"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3188"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>Geen hulplêers is tans met hierdie dokument geassosieer nie.</translation>
     </message>
@@ -2518,7 +2527,7 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="607"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2895"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2889"/>
         <source>Typeset</source>
         <translation>Letterset</translation>
     </message>
@@ -2860,7 +2869,7 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="847"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3059"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3053"/>
         <source>Hide Console Output</source>
         <translation>Verberg konsoolafvoer</translation>
     </message>
@@ -3124,18 +3133,31 @@ Wil jy jou huidige veranderings ignoreer en die lêer vanaf die skyf lees met en
     </message>
 </context>
 <context>
-    <name>Tw::Document::SpellChecker</name>
+    <name>Tw::Document::SpellCheckManager</name>
     <message>
-        <location filename="../src/document/SpellChecker.cpp" line="52"/>
+        <location filename="../src/document/SpellCheckManager.cpp" line="51"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - United States (en_US)&quot;)</extracomment>
-        <translation>%1 - %2 (%3)</translation>
+        <translation type="unfinished">%1 - %2 (%3)</translation>
     </message>
     <message>
-        <location filename="../src/document/SpellChecker.cpp" line="56"/>
+        <location filename="../src/document/SpellCheckManager.cpp" line="55"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en)&quot;)</extracomment>
-        <translation>%1 (%2)</translation>
+        <translation type="unfinished">%1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>Tw::Document::SpellChecker</name>
+    <message>
+        <source>%1 - %2 (%3)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - United States (en_US)&quot;)</extracomment>
+        <translation type="vanished">%1 - %2 (%3)</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en)&quot;)</extracomment>
+        <translation type="vanished">%1 (%2)</translation>
     </message>
 </context>
 <context>
