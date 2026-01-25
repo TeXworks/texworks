@@ -66,7 +66,7 @@
         <location filename="../src/CompletingEdit.ui" line="26"></location>
         <source>Shift+Backtab</source>
         <extracomment>This is a keyboard shortcut. Please leave it untranslated unless this particular key combination is typically inaccessible or used with a different meaning in your language.</extracomment>
-        <translation></translation>
+        <translation>Shift+Tab</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="31"></location>
