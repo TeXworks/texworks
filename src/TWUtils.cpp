@@ -57,10 +57,9 @@ insertItemIfPresent(QFileInfo& fi, QMenu* helpMenu, QAction* before, QSignalMapp
 {
 	QFileInfo indexFile(fi.absoluteFilePath(), QString::fromLatin1("index.html"));
 	if (indexFile.exists()) {
-		QFileInfo titlefileInfo(fi.absoluteFilePath(), QString::fromLatin1("tw-help-title.txt"));
-		if (titlefileInfo.exists() && titlefileInfo.isReadable()) {
-			QFile titleFile(titlefileInfo.absoluteFilePath());
-			titleFile.open(QIODevice::ReadOnly | QIODevice::Text);
+		const QFileInfo titlefileInfo(fi.absoluteFilePath(), QString::fromLatin1("tw-help-title.txt"));
+		QFile titleFile(titlefileInfo.absoluteFilePath());
+		if (titleFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
 			QTextStream titleStream(&titleFile);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 			titleStream.setCodec("UTF-8");
