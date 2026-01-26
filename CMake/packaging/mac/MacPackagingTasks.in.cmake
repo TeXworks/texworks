@@ -153,4 +153,5 @@ ENDIF ()
 # Do adhoc code signing (required on arm platforms)
 # FIXME: use a proper DeveloperID instead of adhoc signing if this ever becomes
 # feasible
+message(STATUS "Signing ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app (ad hoc)")
 execute_process(COMMAND codesign --sign - ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app)
