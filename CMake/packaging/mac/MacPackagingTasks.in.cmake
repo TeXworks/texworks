@@ -150,3 +150,7 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
 
 ENDIF ()
 
+# Do adhoc code signing (required on arm platforms)
+# FIXME: use a proper DeveloperID instead of adhoc signing if this ever becomes
+# feasible
+execute_process(COMMAND codesign --sign - ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app)
