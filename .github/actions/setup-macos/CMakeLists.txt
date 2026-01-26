@@ -43,7 +43,7 @@ endmacro(ADD_GH_GROUP)
 ExternalProject_Add(libpng
 	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.54.tar.gz"
 	URL_HASH SHA256=ba7efce137409079989df4667706c339bebfbb10e9f413474718012a13c8cd4c
-	CMAKE_ARGS ${CMAKE_ARGS}
+	CMAKE_ARGS ${CMAKE_ARGS} -DPNG_FRAMEWORK=OFF
 )
 ADD_GH_GROUP(libpng)
 
