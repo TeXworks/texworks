@@ -153,10 +153,10 @@ ENDIF ()
 # Do adhoc code signing (required on arm platforms)
 # FIXME: use a proper DeveloperID instead of adhoc signing if this ever becomes
 # feasible
-file(GLOB TeXworks_PLUGINS ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/PlugIns/*${CMAKE_SHARED_MODULE_SUFFIX})
-file(GLOB BUNDLED_DYLIBS ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/MacOS/*${CMAKE_SHARED_LIBRARY_SUFFIX})
-foreach(LIB IN LISTS TeXworks_PLUGINS BUNDLED_DYLIBS)
-  message(STATUS "Signing ${LIB}")
+file(GLOB_RECURSE SharedModules "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*${CMAKE_SHARED_MODULE_SUFFIX}") # .so
+file(GLOB_RECURSE SharedLibraries "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*${CMAKE_SHARED_LIBRARY_SUFFIX}") # .dylib
+foreach(LIB IN LISTS SharedModules SharedLibraries)
+  message(STATUS "Signing ${LIB} (ad hoc)")
   execute_process(COMMAND codesign --sign - ${LIB})
 endforeach()
 
