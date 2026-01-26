@@ -255,6 +255,13 @@ jobs:
       id: package
       uses: ./.github/actions/package-macos
 
+    - name: Check signature
+      run: |
+        mkdir -p ${{ runner.temp }}/pkg
+        hdiutil attach -mountpoint ${{ runner.temp }}/pkg ${{ steps.package.outputs.file }}
+        codesign --verify --verbose=4 ${{ runner.temp }}/pkg/TeXworks.app
+        hdiutil detach ${{ runner.temp }}/pkg
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
