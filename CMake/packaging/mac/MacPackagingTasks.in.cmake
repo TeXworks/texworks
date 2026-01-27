@@ -155,7 +155,7 @@ ENDIF ()
 # feasible
 file(GLOB_RECURSE SharedModules "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.so")
 file(GLOB_RECURSE SharedLibraries "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.dylib")
-file(GLOB_RECURSE Frameworks "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.framework")
+file(GLOB_RECURSE Frameworks LIST_DIRECTORIES TRUE "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.framework")
 foreach(LIB IN LISTS SharedLibraries Frameworks SharedModules)
   message(STATUS "Signing ${LIB} (ad hoc)")
   execute_process(COMMAND codesign --sign - ${LIB})
