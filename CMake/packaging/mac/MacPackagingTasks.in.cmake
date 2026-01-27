@@ -153,9 +153,9 @@ ENDIF ()
 # Do adhoc code signing (required on arm platforms)
 # FIXME: use a proper DeveloperID instead of adhoc signing if this ever becomes
 # feasible
-file(GLOB_RECURSE SharedModules "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*${CMAKE_SHARED_MODULE_SUFFIX}") # .so
-file(GLOB_RECURSE SharedLibraries "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*${CMAKE_SHARED_LIBRARY_SUFFIX}") # .dylib
-foreach(LIB IN LISTS SharedModules SharedLibraries)
+file(GLOB_RECURSE SharedModules "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.so")
+file(GLOB_RECURSE SharedLibraries "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.dylib")
+foreach(LIB IN LISTS SharedLibraries SharedModules)
   message(STATUS "Signing ${LIB} (ad hoc)")
   execute_process(COMMAND codesign --sign - ${LIB})
 endforeach()
