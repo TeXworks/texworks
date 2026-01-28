@@ -158,8 +158,8 @@ file(GLOB_RECURSE SharedLibraries "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/C
 file(GLOB_RECURSE Frameworks LIST_DIRECTORIES TRUE "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.framework")
 foreach(LIB IN LISTS SharedLibraries Frameworks SharedModules)
   message(STATUS "Signing ${LIB} (ad hoc)")
-  execute_process(COMMAND codesign --sign - ${LIB})
+  execute_process(COMMAND codesign --sign - --options runtime ${LIB})
 endforeach()
 
 message(STATUS "Signing ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app (ad hoc)")
-execute_process(COMMAND codesign --sign - ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app)
+execute_process(COMMAND codesign --sign - --options runtime ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app)
