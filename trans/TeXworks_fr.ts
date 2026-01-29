@@ -2546,7 +2546,7 @@ Si vous continuez, ils seront remplacés par des codes par défaut. Comme autre 
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="776"></location>
         <source>Wrap Lines</source>
-        <translation>Passage à lal ligne</translation>
+        <translation>Passage à la ligne</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="798"></location>
@@ -2843,7 +2843,7 @@ Voulez-vous continuer à sauvegarder ce fichier, en écrasant la version sur le 
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1659"></location>
         <source>LF (Unix, Mac OS X)</source>
-        <translation>LF (à laligne : Unix, MacOS X)</translation>
+        <translation>LF (à la ligne&#xa0;: Unix, MacOS X)</translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="1660"></location>
