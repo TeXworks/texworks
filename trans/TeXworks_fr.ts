@@ -684,7 +684,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="726"></location>
         <source>Alt+Left</source>
-        <translation></translation>
+        <translation>Alt+Gauche</translation>
     </message>
     <message>
         <location filename="../src/PDFDocumentWindow.ui" line="737"></location>
