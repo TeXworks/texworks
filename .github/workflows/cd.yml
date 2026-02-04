@@ -179,12 +179,14 @@ jobs:
             qtVersion: 6.8.3
             qtModules: qt5compat
             arch: x86_64
+            signBundle: OFF
           - label: 11-arm
             macVersion: 11
             qtVersionMajor: 6
             qtVersion: 6.8.3
             qtModules: qt5compat
             arch: arm64
+            signBundle: ON
             # Qt 5.15 supports macOS >= 10.13 [https://doc.qt.io/qt-5.15/macos.html]
             # poppler >= 22.01.0 uses std::filesystem, which seems to only be (fully)
             # supported on macOS 10.15 and up
@@ -194,6 +196,7 @@ jobs:
             qtVersion: 5.15.2
             qtModules: qtscript
             arch: x86_64
+            signBundle: OFF
     env:
       MACOSX_DEPLOYMENT_TARGET: ${{ matrix.macVersion }}
 
@@ -242,7 +245,7 @@ jobs:
         PATH="${RUNNER_TEMP}/tw-deps/bin:$PATH" PKG_CONFIG_PATH=${RUNNER_TEMP}/tw-deps/lib/pkgconfig cmake --build ".github/actions/setup-macos/build" -v
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_TEMP}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }} -DCMAKE_OSX_ARCHITECTURES="${{ matrix.arch }}" -DQT_PLUGIN_PATH=${QT_PLUGIN_PATH}
+      run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE} -DCMAKE_PREFIX_PATH="${RUNNER_TEMP}/tw-deps" -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DQT_DEFAULT_MAJOR_VERSION=${{ matrix.qtVersionMajor }} -DCMAKE_OSX_ARCHITECTURES="${{ matrix.arch }}" -DQT_PLUGIN_PATH=${QT_PLUGIN_PATH} -DSIGN_BUNDLE=${{ matrix.signBundle }}
 
     - name: Build
       run: cmake --build build -j
