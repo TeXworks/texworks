@@ -259,6 +259,7 @@ jobs:
       uses: ./.github/actions/package-macos
 
     - name: Check signature
+      if: ${{ matrix.signBundle == 'ON' }}
       run: |
         mkdir -p ${{ runner.temp }}/pkg
         hdiutil attach -mountpoint ${{ runner.temp }}/pkg ${{ steps.package.outputs.file }}
