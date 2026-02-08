@@ -66,7 +66,7 @@
     <message>
         <location filename="../src/CompletingEdit.ui" line="31"/>
         <source>Next Completion Placeholder</source>
-        <translation>Marcardor para la siguiente adición</translation>
+        <translation>Marcador para la siguiente adición</translation>
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="34"/>
@@ -217,7 +217,7 @@
     <message>
         <location filename="../src/HardWrapDialog.ui" line="35"/>
         <source>Wrap lines to:</source>
-        <translation>Ajuste líneas:</translation>
+        <translation>Ajuste líneas a:</translation>
     </message>
     <message>
         <location filename="../src/HardWrapDialog.ui" line="44"/>
@@ -1547,7 +1547,7 @@ Do you want to continue?</source>
     <message>
         <location filename="../src/ResourcesDialog.ui" line="93"/>
         <source>Dictionaries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Diccionarios:</translation>
     </message>
     <message>
         <location filename="../src/ResourcesDialog.cpp" line="42"/>
@@ -1821,7 +1821,7 @@ Utilice el menú contextual para modificar las unidades.</translation>
     <message>
         <location filename="../src/TWApp.cpp" line="490"/>
         <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Distribuido bajo la &lt;a href=&quot;https://www.gnu.org/licenses/gpl.html&quot;&gt;Licencia Pública General de GNU&lt;/a&gt;, versión 2 o (a su elección) cualquier versión posterior.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="492"/>
@@ -3139,13 +3139,13 @@ Ofrecemos disculpas por las molestias ocasionadas.</translation>
         <location filename="../src/document/SpellCheckManager.cpp" line="51"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - United States (en_US)&quot;)</extracomment>
-        <translation type="unfinished">%1 - %2 (%3)</translation>
+        <translation>%1 - %2 (%3)</translation>
     </message>
     <message>
         <location filename="../src/document/SpellCheckManager.cpp" line="55"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en)&quot;)</extracomment>
-        <translation type="unfinished">%1 (%2)</translation>
+        <translation>%1 (%2)</translation>
     </message>
 </context>
 <context>
