@@ -48,3 +48,4 @@ Exec=texworks %F
 MimeType=text/x-tex;application/pdf;
 Categories=Office;Qt;
 Keywords=TeX;LaTeX;ConTeXt;XeTeX;PDF;editor;
+StartupWMClass=org.tug.texworks

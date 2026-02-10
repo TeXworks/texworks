@@ -20,7 +20,7 @@ index fafb736..f7116f2 100755
  	dh_testdir
  	# Configure
 -	mkdir --parents build && cd build && cmake .. -DTW_BUILD_ID='launchpad' -DCMAKE_INSTALL_PREFIX='/usr' -DCMAKE_BUILD_TYPE="RelWithDebInfo" -DQT_DEFAULT_MAJOR_VERSION=6 && cd ..
-+	mkdir --parents build && cd build && cmake .. -DTW_BUILD_ID='launchpad' -DCMAKE_INSTALL_PREFIX='/usr' -DCMAKE_BUILD_TYPE="RelWithDebInfo" && cd ..
++	mkdir --parents build && cd build && cmake .. -DTW_BUILD_ID='launchpad' -DCMAKE_INSTALL_PREFIX='/usr' -DCMAKE_BUILD_TYPE="RelWithDebInfo" -DQT_DEFAULT_MAJOR_VERSION=5 && cd ..
  	touch $@
  
  # Build architecture-independent files

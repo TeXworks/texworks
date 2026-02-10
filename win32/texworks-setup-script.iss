@@ -2,10 +2,10 @@
 
 ; Definitions using Inno Setup Preprocessor
 #define APPNAME      GetStringFileInfo("..\release/TeXworks.exe", PRODUCT_NAME)
-#define APPVERNAME   GetStringFileInfo("..\release/TeXworks.exe", PRODUCT_VERSION)
+#define APPVERSION   GetStringFileInfo("..\release/TeXworks.exe", PRODUCT_VERSION)
 #define APPPUBLISHER GetStringFileInfo("..\release/TeXworks.exe", COMPANY_NAME)
 #define APPCOPYRIGHT GetStringFileInfo("..\release/TeXworks.exe", LEGAL_COPYRIGHT)
-#define VERSIONINFO  GetFileVersion("..\release/TeXworks.exe")
+#define VERSIONINFO  GetVersionNumbersString("..\release/TeXworks.exe")
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -13,13 +13,13 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{41DA4817-4D2A-4D83-AD02-6A2D95DC8DCB}
 AppName={#APPNAME}
-AppVerName={#APPVERNAME}
+AppVersion={#APPVERSION}
 AppPublisher={#APPPUBLISHER}
-AppPublisherURL=http://www.tug.org/texworks/
-AppSupportURL=http://www.tug.org/texworks/
-AppUpdatesURL=http://www.tug.org/texworks/
+AppPublisherURL=https://tug.org/texworks/
+AppSupportURL=https://tug.org/texworks/
+AppUpdatesURL=https://tug.org/texworks/
 AppCopyright={#APPCOPYRIGHT}
-DefaultDirName={pf}\{#APPNAME}
+DefaultDirName={autopf}\{#APPNAME}
 DefaultGroupName={#APPNAME}
 AllowNoIcons=yes
 LicenseFile=..\COPYING
@@ -30,8 +30,10 @@ SolidCompression=yes
 ChangesAssociations=yes
 VersionInfoVersion={#VERSIONINFO}
 WizardSmallImageFile=..\res\images\TeXworks-small.bmp
+UninstallDisplayName={#APPNAME}
 
 [Languages]
+Name: "ar"; MessagesFile: "compiler:Languages\Arabic.isl"
 Name: "ca"; MessagesFile: "compiler:Languages\Catalan.isl"
 Name: "cs"; MessagesFile: "compiler:Languages\Czech.isl"
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"
@@ -40,6 +42,7 @@ Name: "es"; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
 Name: "it"; MessagesFile: "compiler:Languages\Italian.isl"
 Name: "ja"; MessagesFile: "compiler:Languages\Japanese.isl"
+Name: "ko"; MessagesFile: "compiler:Languages\Korean.isl"
 Name: "nl"; MessagesFile: "compiler:Languages\Dutch.isl"
 Name: "nn"; MessagesFile: "compiler:Languages\Norwegian.isl"
 Name: "pl"; MessagesFile: "compiler:Languages\Polish.isl"
@@ -49,9 +52,7 @@ Name: "sl"; MessagesFile: "compiler:Languages\Slovenian.isl"
 Name: "tr"; MessagesFile: "compiler:Languages\Turkish.isl"
 ; additional Inno Setup languages using contributed translations
 Name: "af"; MessagesFile: "extra-setup-languages\Afrikaans.isl"
-Name: "ar"; MessagesFile: "extra-setup-languages\Arabic.isl"
 Name: "fa"; MessagesFile: "extra-setup-languages\Farsi.isl"
-Name: "ko"; MessagesFile: "extra-setup-languages\Korean.isl"
 Name: "zh_cn"; MessagesFile: "extra-setup-languages\ChineseSimplified.isl"
 
 [CustomMessages]
@@ -83,7 +84,6 @@ zh_cn.CreateFileAssoc=默认使用 TeXworks 打开下列文件类型：
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 Name: "texfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.tex}"; GroupDescription: "{cm:CreateFileAssoc}"
 Name: "ltxfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.ltx}"; GroupDescription: "{cm:CreateFileAssoc}"
 Name: "styfileassoc"; Description: "{cm:AssocFileExtension,TeXworks,.sty}"; GroupDescription: "{cm:CreateFileAssoc}"
@@ -96,11 +96,10 @@ Source: "..\release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs cr
 
 [Icons]
 Name: "{group}\TeXworks"; Filename: "{app}\TeXworks.exe"
-Name: "{group}\{cm:ProgramOnTheWeb,TeXworks}"; Filename: "http://www.tug.org/texworks/"
+Name: "{group}\{cm:ProgramOnTheWeb,TeXworks}"; Filename: "https://tug.org/texworks/"
 Name: "{group}\{cm:ManualNameEn}"; Filename: "{app}\texworks-help\TeXworks-manual\en\TeXworks-manual-en.pdf"
 Name: "{group}\{cm:ManualNameFr}"; Filename: "{app}\texworks-help\TeXworks-manual\fr\TeXworks-manual-fr.pdf"
 Name: "{commondesktop}\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: desktopicon
-Name: "{commonappdata}\Microsoft\Internet Explorer\Quick Launch\TeXworks"; Filename: "{app}\TeXworks.exe"; Tasks: quicklaunchicon
 
 [Registry]
 Root: HKCR; Subkey: ".tex"; ValueType: string; ValueName: ""; ValueData: "TeXworksTeXFile"; Flags: uninsdeletevalue; Tasks: texfileassoc

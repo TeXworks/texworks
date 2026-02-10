@@ -11,6 +11,7 @@ SET(CMAKE_SHARED_LIBRARY_SUFFIX @CMAKE_SHARED_LIBRARY_SUFFIX@)
 SET(QT_PLUGINS @QT_PLUGINS@)
 SET(QT_VERSION_MAJOR @QT_VERSION_MAJOR@)
 set(QT_LIBRARY_DIR @QT_LIBRARY_DIR@)
+set(SIGN_BUNDLE @SIGN_BUNDLE@)
 
 # TeXworks HTML manual: version, matching hash, and derived variables.
 SET(TW_MANUAL_VERSION "20240209214359-496ef4a")
@@ -150,3 +151,18 @@ IF ( ${CMAKE_INSTALL_PREFIX} MATCHES .*/_CPack_Packages/.* )
 
 ENDIF ()
 
+if (SIGN_BUNDLE)
+  # Do adhoc code signing (required on arm platforms)
+  # FIXME: use a proper DeveloperID instead of adhoc signing if this ever becomes
+  # feasible
+  file(GLOB_RECURSE SharedModules "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.so")
+  file(GLOB_RECURSE SharedLibraries "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.dylib")
+  file(GLOB_RECURSE Frameworks LIST_DIRECTORIES TRUE "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/*.framework")
+  foreach(LIB IN LISTS SharedLibraries Frameworks SharedModules)
+    message(STATUS "Signing ${LIB} (ad hoc)")
+    execute_process(COMMAND codesign --sign - ${LIB})
+  endforeach()
+
+  message(STATUS "Signing ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app (ad hoc)")
+  execute_process(COMMAND codesign --sign - ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app)
+endif (SIGN_BUNDLE)

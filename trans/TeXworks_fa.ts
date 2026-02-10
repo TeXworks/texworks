@@ -87,7 +87,7 @@
     </message>
     <message>
         <location filename="../src/CompletingEdit.ui" line="47"/>
-        <location filename="../src/CompletingEdit.cpp" line="1090"/>
+        <location filename="../src/CompletingEdit.cpp" line="1116"/>
         <source>Jump to PDF</source>
         <translation>پرش به پی.دی.اف</translation>
     </message>
@@ -98,12 +98,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="1108"/>
+        <location filename="../src/CompletingEdit.cpp" line="1134"/>
         <source>No suggestions</source>
         <translation>بدون پیشنهاد</translation>
     </message>
     <message>
-        <location filename="../src/CompletingEdit.cpp" line="1129"/>
+        <location filename="../src/CompletingEdit.cpp" line="1155"/>
         <source>Ignore word</source>
         <translation>نادیده‌گرفتن کلمه</translation>
     </message>
@@ -1529,12 +1529,17 @@ Do you want to continue?</source>
         <translation>ساماندهی‌ها:</translation>
     </message>
     <message>
-        <location filename="../src/ResourcesDialog.ui" line="61"/>
+        <location filename="../src/ResourcesDialog.ui" line="67"/>
         <source>Resources:</source>
         <translation>سرچشمه‌ها:</translation>
     </message>
     <message>
-        <location filename="../src/ResourcesDialog.cpp" line="43"/>
+        <location filename="../src/ResourcesDialog.ui" line="93"/>
+        <source>Dictionaries:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ResourcesDialog.cpp" line="42"/>
         <source>Registry (%1)</source>
         <translation>دفتر نگارش (%1)</translation>
     </message>
@@ -1780,8 +1785,13 @@ Do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/TWApp.cpp" line="490"/>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/TWApp.cpp" line="492"/>
-        <source>&lt;br&gt;&lt;a href=&quot;http://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
+        <source>&lt;br&gt;&lt;a href=&quot;https://poppler.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; PDF rendering library by Kristian H&amp;#xF8;gsberg, Albert Astals Cid and others.</source>
         <translation>&lt;br&gt;کتابخانهٔ برگردان پی‌دی‌اف &lt;a href=&quot;http.freedesktop.org/&quot;&gt;Poppler&lt;/a&gt; بدست Kristian H&amp;#xF8;gsberg, Albert Astals Cid و دیگران.</translation>
     </message>
     <message>
@@ -1791,13 +1801,13 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="495"/>
-        <source>&lt;br&gt;&lt;a href=&quot;http://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
-        <translation>&lt;br&gt;فناوری &lt;a href=&quot;http://itemac.sourceforge.net/SyncTex.html&quot;&gt;SyncTex&lt;/a&gt; بدست J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
+        <source>&lt;br&gt;&lt;a href=&quot;https://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTeX&lt;/a&gt; technology by J&amp;#xE9;r&amp;#xF4;me Laurens.</source>
+        <translation>&lt;br&gt;فناوری &lt;a href=&quot;https://itexmac.sourceforge.net/SyncTeX.html&quot;&gt;SyncTex&lt;/a&gt; بدست J&amp;#xE9;r&amp;#xF4;me Laurens.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="496"/>
-        <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
-        <translation>&lt;br&gt;پاره‌ای از آیکون‌های بکار گرفته شده از پروژهٔ &lt;a href=&quot;http://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt; هستند.</translation>
+        <source>&lt;br&gt;Some icons used are from the &lt;a href=&quot;https://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt;.</source>
+        <translation>&lt;br&gt;پاره‌ای از آیکون‌های بکار گرفته شده از پروژهٔ &lt;a href=&quot;https://tango.freedesktop.org/&quot;&gt;Tango Desktop Project&lt;/a&gt; هستند.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="497"/>
@@ -1866,9 +1876,8 @@ Do you want to continue?</source>
         <translation>سند &quot;%1&quot;در حال گشودن پروندهٔ &quot;%2&quot; بدون پروانهٔ کافی است. آیا می‌خواهید پرونده را باز کنید؟</translation>
     </message>
     <message>
-        <location filename="../src/TWApp.cpp" line="490"/>
-        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;http://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
-        <translation>&lt;p&gt; پخش‌شده زیر &lt;a href=&quot;http://www.gnu.org/licences/gpl-2.0.html&quot;&gt; پروانهٔ سراسری گنو&lt;/a&gt;, ویراست ۲ یا ویراست‌های تازه‌تر .</translation>
+        <source>&lt;p&gt;Distributed under the &lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;GNU General Public License&lt;/a&gt;, version 2 or (at your option) any later version.</source>
+        <translation type="vanished">&lt;p&gt; پخش‌شده زیر &lt;a href=&quot;https://www.gnu.org/licences/gpl-2.0.html&quot;&gt; پروانهٔ سراسری گنو&lt;/a&gt;, ویراست ۲ یا ویراست‌های تازه‌تر .</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="234"/>
@@ -1897,12 +1906,12 @@ Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="491"/>
-        <source>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
-        <translation>&lt;p&gt;&lt;a href=&quot;http://www.qt.io/&quot;&gt;چارچوب کاربردی کیوت&lt;/a&gt; v%1 توسط کمپانی کیوت.</translation>
+        <source>&lt;p&gt;&lt;a href=&quot;https://www.qt.io/&quot;&gt;Qt application framework&lt;/a&gt; v%1 by The Qt Company.</source>
+        <translation>&lt;p&gt;&lt;a href=&quot;https://www.qt.io/&quot;&gt;چارچوب کاربردی کیوت&lt;/a&gt; v%1 توسط کمپانی کیوت.</translation>
     </message>
     <message>
         <location filename="../src/TWApp.cpp" line="493"/>
-        <source>&lt;br&gt;&lt;a href=&quot;http://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
+        <source>&lt;br&gt;&lt;a href=&quot;https://hunspell.github.io/&quot;&gt;Hunspell&lt;/a&gt; spell checker by L&amp;#xE1;szl&amp;#xF3; N&amp;#xE9;meth.</source>
         <translation></translation>
     </message>
     <message>
@@ -1924,49 +1933,49 @@ Do you want to continue?</source>
 <context>
     <name>TWScriptableWindow</name>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="145"/>
-        <location filename="../src/TWScriptableWindow.cpp" line="153"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="149"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="157"/>
         <source>Script &quot;%1&quot;: %2</source>
         <translation type="unfinished">سند &quot;%1&quot;:%2</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="147"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="151"/>
         <source>Script result</source>
         <translation type="unfinished">دستاورد سند</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="152"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="156"/>
         <source>unknown error</source>
         <translation type="unfinished">خطای ناشناخته</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="153"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="157"/>
         <source>Script error</source>
         <translation type="unfinished">خطای اسکریپت</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="174"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="178"/>
         <source>Scripts may be used to add new commands to %1, and to extend or modify its behavior.</source>
         <translation type="unfinished">سند می‌تواند برای افزودن فرمان تازه به %1 ، یا گسترش و یا بهسازی آن بکار برده شود.</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="177"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="181"/>
         <source>For more information on creating and using scripts, see %1&lt;/p&gt;</source>
         <translation type="unfinished">برای دانستن بیشتر در بارهٔ ساخت و استفاده از سندها به %1 بروید &lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="179"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="183"/>
         <source>Scripting languages currently available in this copy of %1:</source>
         <translation type="unfinished">زبان‌های سند در دسترس در این ویراست از %1:</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="198"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="202"/>
         <source>(disabled in the preferences)</source>
         <extracomment>This string is appended to a script language name to indicate it is currently disabled</extracomment>
         <translation type="unfinished">(ناپویا در تنظیم‌ها)</translation>
     </message>
     <message>
-        <location filename="../src/TWScriptableWindow.cpp" line="202"/>
+        <location filename="../src/TWScriptableWindow.cpp" line="206"/>
         <source>About Scripts</source>
         <translation type="unfinished">دربارهٔ سند</translation>
     </message>
@@ -2008,7 +2017,7 @@ Do you want to continue?</source>
 <context>
     <name>TeXDocumentWindow</name>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="75"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="77"/>
         <source>New document</source>
         <translation>نوشتار تازه</translation>
     </message>
@@ -2026,39 +2035,39 @@ Do you want to continue?</source>
         <translation>هیچ‌کدام</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="615"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="608"/>
         <source>Open File</source>
         <translation>گشودن پرونده</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="814"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="807"/>
         <source>Save File</source>
         <translation>ذخیرهٔ پرونده</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="852"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="845"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>نوشتار &quot;%1&quot; بازسازی شده است.
 آیا می‌خواهید دگرگونی‌ها را ذخیره کنید؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="883"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="876"/>
         <source>Do you want to discard all changes to the document &quot;%1&quot;, and revert to the last saved version?</source>
         <translation>آیا می‌خواهید تمام دگرگونی‌های نوشتار &quot;%1&quot; را دور بیندازید، و به ویراست پایانی ذخیره‌شده برگردید؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="885"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="878"/>
         <source>Revert</source>
         <translation>برگرداندن</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="997"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="990"/>
         <source>Unrecognized encoding</source>
         <translation>رمزینهٔ ناشناخته</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="998"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="991"/>
         <source>The text encoding %1 used in %2 is not supported.
 
 It will be interpreted as %3 instead, which may result in incorrect text.</source>
@@ -2067,14 +2076,14 @@ It will be interpreted as %3 instead, which may result in incorrect text.</sourc
 به‌جای آن %3 را بکار گیرید، که شاید متن درست نمایش داده نشود.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1245"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1303"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1400"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1238"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1296"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1393"/>
         <source>File changed on disk</source>
         <translation>پرونده روی دیسک دگرگون شد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1246"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1239"/>
         <source>%1 has been modified by another program.
 
 Do you want to discard your current changes, and reload the file from disk?</source>
@@ -2083,7 +2092,7 @@ Do you want to discard your current changes, and reload the file from disk?</sou
 آیا می‌خواهید دگرگونی‌های شما دور انداخته شود، و پرونده از دیسک فراخوانی شود؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1401"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1394"/>
         <source>%1 has been modified by another program.
 
 Do you want to proceed with saving this file, overwriting the version on disk?</source>
@@ -2092,17 +2101,17 @@ Do you want to proceed with saving this file, overwriting the version on disk?</
 آیا می‌خواهید پرونده را در دیسک دوباره بنویسید؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1394"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1387"/>
         <source>Document &quot;%1&quot; was not saved</source>
         <translation>نوشتار &quot;%1&quot; ذخیره نشده است</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1425"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1418"/>
         <source>Text cannot be converted</source>
         <translation>متن تبدیل شدنی نیست</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1426"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1419"/>
         <source>This document contains characters that cannot be represented in the encoding %1.
 
 If you proceed, they will be replaced with default codes. Alternatively, you may wish to use a different encoding (such as UTF-8) to avoid loss of data.</source>
@@ -2111,47 +2120,47 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
 اگر ادامه دهید، این واج‌ها با اندازه‌های رمزینهٔ پیش‌نشان جایگزین می‌شوند. به‌جای این کار شاید بخواهید  رمزینهٔ دیگری مانند UTF-8 را بکار ببرید تا نوشته‌ها از دست نروند.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1513"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1506"/>
         <source>untitled-%1.tex</source>
         <translation>untitled-%1.tex</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1531"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1576"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1524"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1569"/>
         <source>%1[*] - %2</source>
         <extracomment>Format for the window title (ex. &quot;file.tex[*] - TeXworks&quot;)</extracomment>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1639"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1632"/>
         <source>Line %1 of %2; col %3</source>
         <translation>رج %1 از %2؛ ستون %3</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1841"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1834"/>
         <source>Go to Line</source>
         <translation>برو به رج</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1842"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1835"/>
         <source>Line number:</source>
         <translation>شمارهٔ رج‌ها:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2326"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2433"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2319"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2426"/>
         <source>Invalid regular expression</source>
         <translation>گزارهٔ منظم بی‌ارزش</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2366"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2404"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2521"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2359"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2397"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2514"/>
         <source>Not found</source>
         <translation>پیدا نشد</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2371"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2364"/>
         <source>Found %n occurrence(s)</source>
         <translation>
             <numerusform>%n% نمونه پیدا شد
@@ -2159,7 +2168,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2539"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2532"/>
         <source>%n occurrence(s)</source>
         <translation>
             <numerusform>%n نمونه
@@ -2167,7 +2176,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2540"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2533"/>
         <source>%n documents</source>
         <translation>
             <numerusform>%n نوشتار
@@ -2175,12 +2184,12 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2541"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2534"/>
         <source>Replaced %1 in %2</source>
         <translation>جایگزینی %1 در %2</translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/TeXDocumentWindow.cpp" line="2553"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2546"/>
         <source>Replaced %n occurrence(s)</source>
         <translation>
             <numerusform>جایگزینی %n نمونه
@@ -2188,67 +2197,67 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         </translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2746"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2740"/>
         <source>Cannot process unsaved document</source>
         <translation>نوشتار ذخیره نشده پردازش‌پذیر نیست</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2757"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2751"/>
         <source>Root document %1 is not readable</source>
         <translation>نوشتار ریشهٔ %1 خوانش‌پذیر نیست</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2763"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2757"/>
         <source>%1 is not properly configured</source>
         <translation>%1 به‌درستی تنظیم نشده است</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2768"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2762"/>
         <source>%1 is already being processed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2825"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2819"/>
         <source>Unable to execute %1</source>
         <translation>ناتوان در کاربست %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2826"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2820"/>
         <source>The program &quot;%1&quot; was not found.</source>
         <translation>برنامهٔ %1 پیدا نشد.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2837"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2831"/>
         <source>Searched in directories:</source>
         <translation>جستجو در پوشه‌های:</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2888"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2882"/>
         <source>Go to typesetting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2921"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2915"/>
         <source>Process interrupted by user</source>
         <translation>پردازش بدست کابر ایست شد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3129"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3123"/>
         <source>Set engine to &quot;%1&quot;</source>
         <translation>ساماندهی موتور به %1</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3133"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3127"/>
         <source>Engine &quot;%1&quot; not defined</source>
         <translation>موتور &quot;%1&quot; شناسانده نشده است</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3193"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3187"/>
         <source>No files found</source>
         <translation>پرونده‌ای پیدا نشد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3194"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3188"/>
         <source>No auxiliary files associated with this document at the moment.</source>
         <translation>هیچ پروندهٔ کمکی درپیوند با این نوشتار اکنون پیدا نشد.</translation>
     </message>
@@ -2445,7 +2454,7 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="607"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2895"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2889"/>
         <source>Typeset</source>
         <translation>حروف‌چینی</translation>
     </message>
@@ -2781,31 +2790,31 @@ If you proceed, they will be replaced with default codes. Alternatively, you may
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="857"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="850"/>
         <source>Ctrl+D</source>
         <comment>shortcut: Don&apos;t Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="886"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="879"/>
         <source>Ctrl+R</source>
         <comment>shortcut: Revert</comment>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="981"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="974"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
         <translation>ناتوان در خواندن پروندهٔ &quot;%1&quot;:
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1135"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1128"/>
         <source>File &quot;%1&quot; loaded</source>
         <translation>پروندهٔ &quot;%1&quot; بارگذاری شد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1304"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1297"/>
         <source>%1 is constantly being modified by another program.
 
 Please use &quot;File &gt; Revert to Saved&quot; manually when the external process has finished.</source>
@@ -2814,29 +2823,29 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
 بعد از پایان پردازش، خواهشمندم از «پرونده &gt; بازگردانی به ذخیره شده»  به صورت دستی استفاده کنید.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1443"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1436"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>ناتوان از نوشتن پروندهٔ &quot;%1&quot;
 %2</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1461"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1455"/>
         <source>Error writing file</source>
         <translation>خطا در نوشتن پرونده</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1462"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1456"/>
         <source>An error may have occurred while saving the file. You might like to save a copy in a different location.</source>
         <translation>خطایی در هنگام نوشتن پرونده رخ داد. ممکن است بخواهید یک نسخه از پرونده را در جای دیگری ذخیره کنید.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1478"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1471"/>
         <source>File &quot;%1&quot; saved</source>
         <translation>پروندهٔ &quot;%1&quot; ذخیره شد</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2880"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2874"/>
         <source>Abort typesetting</source>
         <translation>کنسل‌کردن حروف‌چینی</translation>
     </message>
@@ -2846,13 +2855,13 @@ Please use &quot;File &gt; Revert to Saved&quot; manually when the external proc
         <translation>ساماندهی‌ها و سرچشمه‌ها...</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1693"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1686"/>
         <source>Reload using selected encoding</source>
         <extracomment>Item in the encoding popup menu</extracomment>
         <translation>بازخوانی بر اساس رمزینهٔ برگزیده</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1695"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1688"/>
         <source>Reloads the current file with the encoding selected from this menu.
 
 The selected encoding replaces the default one and overrides all &quot;%!TEX encoding&quot; lines.</source>
@@ -2862,12 +2871,12 @@ The selected encoding replaces the default one and overrides all &quot;%!TEX enc
  رمزینهٔ برگزیده جایگزین رمزینهٔ پیش‌نشان شد  &quot;%!TEX encoding&quot; رج‌های.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1718"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1711"/>
         <source>Unsaved changes</source>
         <translation>دگرگونی‌های ذخیره‌نشده</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1719"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1712"/>
         <source>The file you are trying to reload has unsaved changes.
 
 Do you want to discard your current changes, and reload the file from disk with the encoding %1?</source>
@@ -2881,55 +2890,55 @@ Do you want to discard your current changes, and reload the file from disk with 
         <translation>پاک‌کردن پرونده‌های واپسین</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="683"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="676"/>
         <source>Abort typesetting?</source>
         <translation>کنسل‌کردن حروف‌چینی؟</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="683"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="676"/>
         <source>A typesetting process is still running and must be stopped before closing this window.
 Do you want to stop it now?</source>
         <translation>یک پردازش حروف‌چینی هنوز در حال کار است و پیش از بستن این پنجره بایدبایستد. 
 آیا می‌خواهید آن رابایستانید؟</translation>
     </message>
     <message>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2822"/>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;https://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>نیاز به &lt;b&gt;TeX پخشایشی از تک&lt;/b&gt; مانند &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;تک‌لایو&lt;/a&gt; یا &lt;a href=&quot;https://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; دارید که بر سیستم شما نصب شده باشد تا بتوانید نوشتهٔ خود را حروف‌چینی کنید. </translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2824"/>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
+        <translation>نیاز به &lt;b&gt;TeX پخشایشی از تک&lt;/b&gt; مانند &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;تک‌لایو&lt;/a&gt; یا &lt;a href=&quot;https://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; دارید که بر سیستم شما نصب شده باشد تا بتوانید نوشتهٔ خود را حروف‌چینی کنید. </translation>
+    </message>
+    <message>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2826"/>
+        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
+        <translation>نیاز به &lt;b&gt;TeX پخشایشی از تک&lt;/b&gt; مانند &lt;a href=&quot;https://tug.org/texlive/&quot;&gt;تک‌لایو&lt;/a&gt; یا &lt;a href=&quot;https://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; دارید که بر سیستم شما نصب شده باشد تا بتوانید نوشتهٔ خود را حروف‌چینی کنید. بر بیشتر سیستم‌ها چنین پخشایشی از پیش نصب است.</translation>
+    </message>
+    <message>
         <location filename="../src/TeXDocumentWindow.cpp" line="2828"/>
-        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; or &lt;a href=&quot;http://miktex.org/&quot;&gt;MiKTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation>نیاز به &lt;b&gt;TeX پخشایشی از تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو&lt;/a&gt; یا &lt;a href=&quot;http://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; دارید که بر سیستم شما نصب شده باشد تا بتوانید نوشتهٔ خود را حروف‌چینی کنید. </translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2830"/>
-        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://www.tug.org/mactex/&quot;&gt;MacTeX&lt;/a&gt; installed on your system to typeset your document.</source>
-        <translation>نیاز به &lt;b&gt;TeX پخشایشی از تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو&lt;/a&gt; یا &lt;a href=&quot;http://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; دارید که بر سیستم شما نصب شده باشد تا بتوانید نوشتهٔ خود را حروف‌چینی کنید. </translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2832"/>
-        <source>You need a &lt;b&gt;TeX distribution&lt;/b&gt; like &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;TeX Live&lt;/a&gt; installed on your system to typeset your document. On most systems such a TeX distribution is available as prebuilt package.</source>
-        <translation>نیاز به &lt;b&gt;TeX پخشایشی از تک&lt;/b&gt; مانند &lt;a href=&quot;http://tug.org/texlive/&quot;&gt;تک‌لایو&lt;/a&gt; یا &lt;a href=&quot;http://miktex.org/&quot;&gt;میک‌تک&lt;/a&gt; دارید که بر سیستم شما نصب شده باشد تا بتوانید نوشتهٔ خود را حروف‌چینی کنید. بر بیشتر سیستم‌ها چنین پخشایشی از پیش نصب است.</translation>
-    </message>
-    <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2834"/>
         <source>When a TeX distribution is installed you may need to tell TeXworks where to find it in Edit -&gt; Preferences -&gt; Typesetting.</source>
         <translation>زمانی که پخشایشی از تک را نصب کردید، باید به تک‌ورکس بگویید که در کجا آن را بیابید در ویرایش-&gt;ساماندهی‌ها-&gt;حروف‌چینی.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="2839"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="2833"/>
         <source>Check the configuration of the %1 tool and the path settings in the Preferences dialog.</source>
         <translation>پیکربندی ابزار %1 و مسیر ساماندهی‌ها را در گفتگوی ساماندهی‌ها بررسی کنید. </translation>
     </message>
     <message>
         <location filename="../src/TeXDocumentWindow.ui" line="847"/>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3059"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3053"/>
         <source>Hide Console Output</source>
         <translation>پنهان‌سازی پیشانهٔ خروجی</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1102"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1095"/>
         <source>Layout Problem</source>
         <translation>خطای چهارچوب</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1102"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1095"/>
         <source>A problem occurred while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:
  -) Turn syntax highlighting off and on
  -) Turn line numbers off and on
@@ -2944,12 +2953,12 @@ We are sorry for the inconvenience.</source>
 به خاطر مشکل پدید آمده پوزش می‌خواهیم.</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="3066"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="3060"/>
         <source>Show Console Output</source>
         <translation>نمایش پیشانهٔ خروجی</translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1696"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1689"/>
         <source>Write UTF-8 byte order mark</source>
         <translation>نوشتن نشانهٔ بایت مرتبهٔ UTF-8</translation>
     </message>
@@ -2964,42 +2973,42 @@ We are sorry for the inconvenience.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1649"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1642"/>
         <source>LF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1652"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1645"/>
         <source>CRLF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1655"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1648"/>
         <source>CR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1659"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1652"/>
         <source>*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1666"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1659"/>
         <source>LF (Unix, Mac OS X)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1667"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1660"/>
         <source>CRLF (Windows)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1668"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1661"/>
         <source>CR (Mac Classic)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TeXDocumentWindow.cpp" line="1982"/>
+        <location filename="../src/TeXDocumentWindow.cpp" line="1975"/>
         <source>No &apos;%!TEX bibfile&apos; modline found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3082,15 +3091,15 @@ We are sorry for the inconvenience.</source>
     </message>
 </context>
 <context>
-    <name>Tw::Document::SpellChecker</name>
+    <name>Tw::Document::SpellCheckManager</name>
     <message>
-        <location filename="../src/document/SpellChecker.cpp" line="52"/>
+        <location filename="../src/document/SpellCheckManager.cpp" line="51"/>
         <source>%1 - %2 (%3)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English - United States (en_US)&quot;)</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/document/SpellChecker.cpp" line="56"/>
+        <location filename="../src/document/SpellCheckManager.cpp" line="55"/>
         <source>%1 (%2)</source>
         <extracomment>Format to display spell-checking dictionaries (ex. &quot;English (en)&quot;)</extracomment>
         <translation type="unfinished"></translation>

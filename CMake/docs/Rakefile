@@ -1,7 +1,7 @@
 # Simple Rakefile for generating documentation from the CMake build system using
 # Rocco:
 #
-#    http://rtomayko.github.io/rocco/
+#    https://rtomayko.github.io/rocco/
 #
 require "pathname"
 require "rbconfig" # Detection of host OS for OS-specific code.

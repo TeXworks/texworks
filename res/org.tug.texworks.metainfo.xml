@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014-2025 Stefan Löffler <st.loeffler@gmail.com> -->
+<!-- Copyright 2014-2026 Stefan Löffler <st.loeffler@gmail.com> -->
 <component type="desktop-application">
 	<id>org.tug.texworks</id>
 	<metadata_license>CC0-1.0</metadata_license>
@@ -308,11 +308,11 @@
 
 	<screenshots>
 		<screenshot type="default">
-			<image width="1280" height="800">https://www.tug.org/texworks/img/texworks-linux.png</image>
+			<image width="1280" height="800">https://tug.org/texworks/img/texworks-linux.png</image>
 			<caption>The TeXworks source and preview windows</caption>
 		</screenshot>
 	</screenshots>
-	<url type="homepage">https://www.tug.org/texworks/</url>
+	<url type="homepage">https://tug.org/texworks/</url>
 	<url type="help">https://github.com/TeXworks/manual</url>
 	<url type="bugtracker">https://github.com/TeXworks/texworks/issues</url>
 	<url type="translate">https://github.com/TeXworks/texworks/wiki/Translating</url>
@@ -325,6 +325,7 @@
 	<content_rating type="oars-1.0" />
 
 	<releases>
+		<release version="0.6.11" date="2026-02-10" />
 		<release version="0.6.10" date="2025-02-13" />
 		<release version="0.6.9" date="2024-02-12" />
 		<release version="0.6.8" date="2023-02-18" />

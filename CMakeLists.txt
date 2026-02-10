@@ -42,9 +42,9 @@
 # such as [Docco][docco] to create a nicely annotated README for the benefit of
 # future developers and maintainers.
 #
-#   [cmake]: http://www.cmake.org
-#   [docco]: http://jashkenas.github.com/docco
-#   [md]: http://daringfireball.net/projects/markdown/
+#   [cmake]: https://cmake.org
+#   [docco]: https://ashkenas.com/docco/
+#   [md]: https://daringfireball.net/projects/markdown/
 #   [tw]: https://github.com/TeXworks/texworks
 
 
@@ -52,7 +52,7 @@
 # ======================
 
 # CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1...3.28)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1...4.2)
 
 # Set project name.
 PROJECT(TeXworks)
@@ -206,12 +206,46 @@ IF (UNIX AND NOT APPLE)
 ENDIF()
 
 set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_C_STANDARD 11)
 
 # Dependency Configuration
 # ========================
 
-if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
-	# Check for Qt6
+if (QT_DEFAULT_MAJOR_VERSION EQUAL 5)
+        # Check for Qt5
+        find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml)
+        set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::Xml Qt5::Qml)
+
+        find_package(Qt5 OPTIONAL_COMPONENTS Script ScriptTools)
+        if (Qt5Script_FOUND AND Qt5ScriptTools_FOUND)
+                list(APPEND QT_LIBRARIES Qt5::ScriptTools Qt5::Script)
+                set(WITH_QTSCRIPT ON)
+        endif()
+
+        if (UNIX AND NOT APPLE)
+          find_package(Qt5 REQUIRED COMPONENTS DBus)
+          list(APPEND QT_LIBRARIES Qt5::DBus)
+        endif ()
+
+        if (WITH_TESTS)
+          find_package(Qt5 OPTIONAL_COMPONENTS Test)
+          if (NOT Qt5Test_FOUND)
+                set(WITH_TESTS OFF)
+          else ()
+                list(APPEND QT_LIBRARIES Qt5::Test)
+          endif ()
+        endif ()
+
+        if (WIN32 AND NOT BUILD_SHARED_LIBS)
+          find_package(Qt5WindowsPlatformSupport)
+          list(APPEND QT_LIBRARIES Qt5::WindowsPlatformSupport)
+        endif ()
+
+        set(QT_VERSION_MAJOR "${Qt5_VERSION_MAJOR}")
+        set(QT_VERSION_MINOR "${Qt5_VERSION_MINOR}")
+        set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
+else ()
+        # Check for Qt6
 	find_package(Qt6 REQUIRED COMPONENTS Core Core5Compat Widgets Gui UiTools Concurrent Xml LinguistTools Qml)
 	set(QT_LIBRARIES Qt6::Core Qt6::Core5Compat Qt6::Widgets Qt6::Gui Qt6::UiTools Qt6::Concurrent Qt6::Xml Qt6::Qml)
 
@@ -258,39 +292,6 @@ if (QT_DEFAULT_MAJOR_VERSION EQUAL 6)
 	set(QT_VERSION_MAJOR "${Qt6_VERSION_MAJOR}")
 	set(QT_VERSION_MINOR "${Qt6_VERSION_MINOR}")
 	set(QT_VERSION_PATCH "${Qt6_VERSION_PATCH}")
-else ()
-	# Check for Qt5
-	find_package(Qt5 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml)
-	set(QT_LIBRARIES Qt5::Core Qt5::Widgets Qt5::Gui Qt5::UiTools Qt5::Concurrent Qt5::Xml Qt5::Qml)
-
-	find_package(Qt5 OPTIONAL_COMPONENTS Script ScriptTools)
-	if (Qt5Script_FOUND AND Qt5ScriptTools_FOUND)
-		list(APPEND QT_LIBRARIES Qt5::ScriptTools Qt5::Script)
-		set(WITH_QTSCRIPT ON)
-	endif()
-
-	if (UNIX AND NOT APPLE)
-	  find_package(Qt5 REQUIRED COMPONENTS DBus)
-	  list(APPEND QT_LIBRARIES Qt5::DBus)
-	endif ()
-
-	if (WITH_TESTS)
-	  find_package(Qt5 OPTIONAL_COMPONENTS Test)
-	  if (NOT Qt5Test_FOUND)
-		set(WITH_TESTS OFF)
-	  else ()
-		list(APPEND QT_LIBRARIES Qt5::Test)
-	  endif ()
-	endif ()
-
-	if (WIN32 AND NOT BUILD_SHARED_LIBS)
-	  find_package(Qt5WindowsPlatformSupport)
-	  list(APPEND QT_LIBRARIES Qt5::WindowsPlatformSupport)
-	endif ()
-
-	set(QT_VERSION_MAJOR "${Qt5_VERSION_MAJOR}")
-	set(QT_VERSION_MINOR "${Qt5_VERSION_MINOR}")
-	set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
 endif ()
 
 # Expose the major version number of Qt to the preprocessor. This is necessary

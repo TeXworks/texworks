@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-# For the debian policies, see http://www.debian.org/doc/debian-policy/ch-source.html#s-debianrules
+# For the debian policies, see https://www.debian.org/doc/debian-policy/ch-source.html#s-debianrules
 
 export DH_VERBOSE=1
 

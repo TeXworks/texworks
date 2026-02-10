@@ -9,8 +9,8 @@ set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE
 set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(Platform) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
 
 ExternalProject_Add(lua
-	URL "https://www.lua.org/ftp/lua-5.4.7.tar.gz"
-	URL_HASH SHA256=9fbf5e28ef86c69858f6d3d34eccc32e911c1a28b4120ff3e84aaa70cfbf1e30
+	URL "https://www.lua.org/ftp/lua-5.5.0.tar.gz"
+	URL_HASH SHA256=57ccc32bbbd005cab75bcc52444052535af691789dba2b9016d5c50640d68b3d
 	PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_LIST_DIR}/lua.cmake <SOURCE_DIR>/CMakeLists.txt
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
@@ -40,8 +40,8 @@ ExternalProject_Add(zlib
 )
 
 ExternalProject_Add(libpng
-	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.44.tar.gz"
-	URL_HASH SHA256=0ef5b633d0c65f780c4fced27ff832998e71478c13b45dfb6e94f23a82f64f7c
+	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.54.tar.gz"
+	URL_HASH SHA256=ba7efce137409079989df4667706c339bebfbb10e9f413474718012a13c8cd4c
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS zlib
 )
@@ -58,15 +58,15 @@ ExternalProject_Add(libjpeg
 )
 
 ExternalProject_Add(libtiff
-	URL "https://download.osgeo.org/libtiff/tiff-4.7.0.tar.gz"
-	URL_HASH SHA256=67160e3457365ab96c5b3286a0903aa6e78bdc44c4bc737d2e486bcecb6ba976
+	URL "https://download.osgeo.org/libtiff/tiff-4.7.1.tar.gz"
+	URL_HASH SHA256=f698d94f3103da8ca7438d84e0344e453fe0ba3b7486e04c5bf7a9a3fabe9b69
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libjpeg
 )
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.16.tar.gz"
-	URL_HASH SHA256=cb4bf968aa66e3d5d16d1f094a99595966d4330cbd6be46c66129f2747ad2b0d
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.18.tar.gz"
+	URL_HASH SHA256=4f52a4459a93ac02b88e49b04dc0679e52fc92d36d3b722e5a1a44dbe8118236
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND MSBUILD Projects\\VC2019\\lcms2_DLL ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
@@ -79,22 +79,22 @@ ExternalProject_Add(lcms2
 )
 
 ExternalProject_Add(libopenjpeg
-	URL https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.3.tar.gz
-	URL_HASH SHA256=368fe0468228e767433c9ebdea82ad9d801a3ad1e4234421f352c8b06e7aa707
+	URL https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.4.tar.gz
+	URL_HASH SHA256=a695fbe19c0165f295a8531b1e4e855cd94d0875d2f88ec4b61080677e27188a
 	CMAKE_ARGS ${CMAKE_ARGS} -DBUILD_CODEC=OFF
 	DEPENDS lcms2 libtiff libpng zlib
 )
 
 ExternalProject_Add(freetype
-	URL "https://github.com/freetype/freetype/archive/refs/tags/VER-2-13-3.tar.gz"
-	URL_HASH SHA256=bc5c898e4756d373e0d991bab053036c5eb2aa7c0d5c67e8662ddc6da40c4103
+	URL "https://github.com/freetype/freetype/archive/refs/tags/VER-2-14-1.tar.gz"
+	URL_HASH SHA256=44bd69d1f0750603410cfd4f26f1c5523c5a3a087a2dfa8639b757dc7c6677be
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS libpng
 )
 
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-24.12.0.tar.xz"
-	URL_HASH SHA256=1cf374c3146f3f685d9257701bf0c2866c61d6c202c14d1f5c01a1f3a089028a
+	URL "https://poppler.freedesktop.org/poppler-26.01.0.tar.xz"
+	URL_HASH SHA256=1cb944a4b88847f5fb6551683bc799db59f04990f5d8be07aba2acbf38601089
 	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_QT5=OFF -DENABLE_BOOST=OFF -DENABLE_CPP=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DBUILD_MANUAL_TESTS=OFF -DBUILD_QT5_TESTS=OFF -DENABLE_NSS3=OFF -DENABLE_GPGME=OFF -DENABLE_LIBCURL=OFF
 	DEPENDS freetype lcms2 libjpeg libpng libtiff
