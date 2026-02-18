@@ -173,7 +173,7 @@ CitationModel::CitationModel(QObject * parent /* = nullptr */)
 	connect(this, &CitationModel::rowsMoved, this, &CitationModel::rebuildEntryCache);
 
 	Tw::Settings settings;
-	const QString fields = settings.value(QStringLiteral("citationDialogBibTeXFields"), QStringLiteral("Type;Author;Title;Year;Journal")).toString();
+	const QString fields = settings.value(QStringLiteral("citationDialogBibTeXFields"), QStringLiteral("Key;Author;Title;Year;Journal")).toString();
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	m_columns << QString() << fields.split(QChar::fromLatin1(';'), QString::SkipEmptyParts);
 #else
@@ -230,6 +230,9 @@ QVariant CitationModel::data(const QModelIndex &index, int role /* = Qt::Display
 		}
 		if (index.column() < m_columns.size()) {
 			const QString & key = m_columns[index.column()];
+			if (key.compare(QStringLiteral("key"), Qt::CaseInsensitive) == 0) {
+				return QSize(85, 20);
+			}
 			if (key.compare(QStringLiteral("type"), Qt::CaseInsensitive) == 0) {
 				return QSize(75, 20);
 			}
