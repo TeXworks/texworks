@@ -95,6 +95,7 @@ protected:
 	void dropEvent(QDropEvent *event) override;
 	void contextMenuEvent(QContextMenuEvent *event) override;
 	void mouseMoveEvent(QMouseEvent *event) override;
+	void mouseDoubleClickEvent(QMouseEvent *event) override;
 
 	QString scriptContext() const override { return QStringLiteral("PDFDocument"); }
 
