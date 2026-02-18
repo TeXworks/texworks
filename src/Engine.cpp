@@ -103,7 +103,7 @@ QString Engine::programPath(const QString & prog)
 }
 
 
-QProcess * Engine::run(const QFileInfo & input, QObject * parent /* = nullptr */)
+QProcess * Engine::run(const QFileInfo & input, QObject * parent /* = nullptr */, int CurrentLine /* = 0 */, QString jobname /* = "" */)
 {
 	QString exeFilePath = programPath(program());
 	if (exeFilePath.isEmpty())
@@ -162,11 +162,16 @@ QProcess * Engine::run(const QFileInfo & input, QObject * parent /* = nullptr */
 	if (!synctexSupported)
 		args.removeAll(QString::fromLatin1("$synctexoption"));
 
+	if (jobname == QLatin1String(""))
+		args.removeAll(QString::fromLatin1("$jobname"));
+
 	args.replaceInStrings(QString::fromLatin1("$synctexoption"), QString::fromLatin1("-synctex=1"));
 	args.replaceInStrings(QString::fromLatin1("$fullname"), input.fileName());
 	args.replaceInStrings(QString::fromLatin1("$basename"), input.completeBaseName());
 	args.replaceInStrings(QString::fromLatin1("$suffix"), input.suffix());
 	args.replaceInStrings(QString::fromLatin1("$directory"), input.absoluteDir().absolutePath());
+	args.replaceInStrings(QString::fromLatin1("$linenumber"), QString::number(CurrentLine));
+	args.replaceInStrings(QString::fromLatin1("$jobname"), QString::fromLatin1("-jobname=") + jobname);
 
 	process->setEnvironment(env.toStringList());
 	process->setProcessChannelMode(QProcess::MergedChannels);

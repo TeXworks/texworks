@@ -790,6 +790,13 @@ bool TeXDocumentWindow::saveAll()
 	return savedAll;
 }
 
+int TeXDocumentWindow::getCurrentline()
+{
+	QTextCursor cursor = textEdit->textCursor();
+	cursor.setPosition(cursor.selectionStart());
+	return cursor.blockNumber() + 1;
+}
+
 bool TeXDocumentWindow::saveAs()
 {
 	QFileDialog::Options options;
@@ -1349,7 +1356,11 @@ bool TeXDocumentWindow::getPreviewFileName(QString &pdfName)
 	if (rootFilePath.isEmpty())
 		return false;
 	QFileInfo fi(rootFilePath);
-	pdfName = QDir(fi.canonicalPath()).filePath(fi.completeBaseName() + QLatin1String(".pdf"));
+	// if "%!TEX jobname" magic comment exists, then use it for the filename of PDF
+	if (textDoc()->hasModeLine(QStringLiteral("jobname")))
+		pdfName = QDir(fi.canonicalPath()).filePath(textDoc()->getModeLineValue(QStringLiteral("jobname")) + QLatin1String(".pdf"));
+	else
+		pdfName = QDir(fi.canonicalPath()).filePath(fi.completeBaseName() + QLatin1String(".pdf"));
 	fi.setFile(pdfName);
 	return fi.exists();
 }
@@ -2803,7 +2814,10 @@ void TeXDocumentWindow::typeset()
 	if (pdfDoc && pdfDoc->widget())
 		pdfDoc->widget()->setWatchForDocumentChangesOnDisk(false);
 
-	process = e.run(fileInfo, this);
+	if (textDoc()->hasModeLine(QStringLiteral("jobname")))
+		process = e.run(fileInfo, this, getCurrentline(), textDoc()->getModeLineValue(QStringLiteral("jobname")));
+	else
+		process = e.run(fileInfo, this, getCurrentline());
 
 	if (process) {
 		textEdit_console->setProcess(process);

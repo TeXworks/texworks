@@ -198,6 +198,7 @@ public slots:
 	void setSmartQuotesMode(const QString& mode);
 	void setAutoIndentMode(const QString& mode);
 	void setSyntaxColoringMode(const QString& mode);
+	int  getCurrentline();	
 
 private slots:
 	void setLangInternal(const QString& lang);

@@ -44,7 +44,7 @@ public:
 	void setShowPdf(bool showPdf);
 
 	bool isAvailable() const;
-	QProcess * run(const QFileInfo & input, QObject * parent = nullptr);
+	QProcess * run(const QFileInfo & input, QObject * parent = nullptr, int CurrentLine = 0, QString jobname = QLatin1String(""));
 
 	static QStringList binPaths();
 
