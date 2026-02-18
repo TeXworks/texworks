@@ -43,8 +43,30 @@ bool KeyForwarder::eventFilter(QObject * watched, QEvent * event)
 				return true;
 			}
 		}
+		if ((keyEvent->key() == Qt::Key_Return) || (keyEvent->key() == Qt::Key_Enter)) {
+			QCoreApplication::sendEvent(_target, keyEvent);
+			return true;
+		}
 	}
 	return QObject::eventFilter(watched, event);
+}
+
+void CitationTableView::mouseDoubleClickEvent(QMouseEvent *event)
+{
+	QModelIndex idx;
+	if (selectedIndexes().size() > 0)
+		idx=selectedIndexes()[0];	// "first" line double-clicked on
+	else
+		idx = model()->index(0,0);	// first element shown
+
+	if (!(idx.isValid()))
+		return;
+	
+	model()->setData(idx, Qt::Checked, Qt::CheckStateRole);
+
+	// CitationTableView is a QTableView. We need to close its parent, CitationSelectDialog, which is a QDialog
+	 if (QDialog *dialog = qobject_cast<QDialog *>(this->parent())) 
+		dialog->accept(); // similiar to the effect of clicking OK
 }
 
 //virtual
@@ -59,6 +81,8 @@ void CitationTableView::keyPressEvent(QKeyEvent * event)
 			model()->setData(idx, (model()->data(idx, Qt::CheckStateRole) == Qt::Unchecked ? Qt::Checked : Qt::Unchecked), Qt::CheckStateRole);
 		}
 	}
+	else if ((event->key() == Qt::Key_Return) || (event->key() == Qt::Key_Enter))
+		mouseDoubleClickEvent(0);
 	else
 		QTableView::keyPressEvent(event);
 }

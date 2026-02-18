@@ -74,6 +74,7 @@ public:
 	CitationTableView(QWidget * parent = nullptr) : QTableView(parent) { }
 protected:
 	void keyPressEvent(QKeyEvent * event) override;
+	void mouseDoubleClickEvent(QMouseEvent *event) override;
 };
 
 // The ui header must be included after declaring CitationTableView, as the
