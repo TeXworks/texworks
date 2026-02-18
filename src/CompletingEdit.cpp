@@ -684,6 +684,9 @@ void CompletingEdit::handleOtherKey(QKeyEvent *e)
 		if (pos < end && !cursor.hasSelection()) { // collapsed selection
 			if (cursor.position() == end + 1)
 				pos = end;
+			// if text is selected and going right, then go right from the end of selection (instead from the beginning)
+			else if (e->key() == Qt::Key_Right) 
+				pos = end + 1; 
 			cursor.setPosition(pos);
 			setTextCursor(cursor);
 		}
