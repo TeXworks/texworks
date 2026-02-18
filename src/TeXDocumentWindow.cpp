@@ -1110,7 +1110,18 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 		if (!reload) {
 			Tw::Settings settings;
 			if (!inBackground && settings.value(QString::fromLatin1("openPDFwithTeX"), kDefault_OpenPDFwithTeX).toBool()) {
-				openPdfIfAvailable(false);
+				if (!(openPdfIfAvailable(false)))
+				{
+					QMessageBox msgBox;
+					msgBox.setWindowTitle(tr("PDF does not exist"));	
+					msgBox.setText(tr("Do you want to typeset?"));
+					msgBox.setStandardButtons(QMessageBox::Yes);
+					msgBox.addButton(QMessageBox::No);
+					msgBox.setDefaultButton(QMessageBox::Yes);		
+					if(msgBox.exec() == QMessageBox::Yes)
+						typeset();
+				}
+
 				// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
 				// automatically.
 			}
