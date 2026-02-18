@@ -790,6 +790,13 @@ bool TeXDocumentWindow::saveAll()
 	return savedAll;
 }
 
+int TeXDocumentWindow::getCurrentline()
+{
+	QTextCursor cursor = textEdit->textCursor();
+	cursor.setPosition(cursor.selectionStart());
+	return cursor.blockNumber() + 1;
+}
+
 bool TeXDocumentWindow::saveAs()
 {
 	QFileDialog::Options options;
@@ -1110,7 +1117,18 @@ void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bo
 		if (!reload) {
 			Tw::Settings settings;
 			if (!inBackground && settings.value(QString::fromLatin1("openPDFwithTeX"), kDefault_OpenPDFwithTeX).toBool()) {
-				openPdfIfAvailable(false);
+				if (!(openPdfIfAvailable(false)))
+				{
+					QMessageBox msgBox;
+					msgBox.setWindowTitle(tr("PDF does not exist"));	
+					msgBox.setText(tr("Do you want to typeset?"));
+					msgBox.setStandardButtons(QMessageBox::Yes);
+					msgBox.addButton(QMessageBox::No);
+					msgBox.setDefaultButton(QMessageBox::Yes);		
+					if(msgBox.exec() == QMessageBox::Yes)
+						typeset();
+				}
+
 				// Note: openPdfIfAvailable() enables/disables actionGo_to_Preview
 				// automatically.
 			}
@@ -1338,7 +1356,11 @@ bool TeXDocumentWindow::getPreviewFileName(QString &pdfName)
 	if (rootFilePath.isEmpty())
 		return false;
 	QFileInfo fi(rootFilePath);
-	pdfName = QDir(fi.canonicalPath()).filePath(fi.completeBaseName() + QLatin1String(".pdf"));
+	// if "%!TEX jobname" magic comment exists, then use it for the filename of PDF
+	if (textDoc()->hasModeLine(QStringLiteral("jobname")))
+		pdfName = QDir(fi.canonicalPath()).filePath(textDoc()->getModeLineValue(QStringLiteral("jobname")) + QLatin1String(".pdf"));
+	else
+		pdfName = QDir(fi.canonicalPath()).filePath(fi.completeBaseName() + QLatin1String(".pdf"));
 	fi.setFile(pdfName);
 	return fi.exists();
 }
@@ -2542,8 +2564,23 @@ void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 				rangeStart = searchRange.selectionStart();
 				rangeEnd = searchRange.selectionEnd();
 			}
+
+			bool simultaneousReplace = false;
+			if (searchText.contains(QStringLiteral("|")))
+				if (searchText.count(QStringLiteral("|"),Qt::CaseInsensitive)==replacement.count(QStringLiteral("|"),Qt::CaseInsensitive))
+					if (QMessageBox::question(this, tr("Simultaneous Replace?"), tr("Should the input strings be treated as multiple strings?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) 
+						simultaneousReplace = true;
+
+			if (simultaneousReplace)
+			{
+				int replacements = doSimultaneousReplace(searchText, replacement, flags, rangeStart, rangeEnd);
+				statusBar()->showMessage(tr("Replaced %n occurrence(s)", "", replacements), kStatusMessageDuration);
+			}
+			else 
+			{
 			int replacements = doReplaceAll(searchText, regex, replacement, flags, rangeStart, rangeEnd);
 			statusBar()->showMessage(tr("Replaced %n occurrence(s)", "", replacements), kStatusMessageDuration);
+			}
 		}
 	}
 
@@ -2777,7 +2814,10 @@ void TeXDocumentWindow::typeset()
 	if (pdfDoc && pdfDoc->widget())
 		pdfDoc->widget()->setWatchForDocumentChangesOnDisk(false);
 
-	process = e.run(fileInfo, this);
+	if (textDoc()->hasModeLine(QStringLiteral("jobname")))
+		process = e.run(fileInfo, this, getCurrentline(), textDoc()->getModeLineValue(QStringLiteral("jobname")));
+	else
+		process = e.run(fileInfo, this, getCurrentline());
 
 	if (process) {
 		textEdit_console->setProcess(process);
@@ -3321,3 +3361,102 @@ void TeXDocumentWindow::detachPdf()
 		pdfDoc = nullptr;
 	}
 }
+
+int TeXDocumentWindow::doSimultaneousReplace(const QString& searchText, const QString& replacement,
+								QTextDocument::FindFlags flags, int rangeStart, int rangeEnd)
+								
+{
+	if (!(searchText.contains(QStringLiteral("|"))))
+		return 0;
+
+	// Split the keys and values by '|' (the pipe character). e.g, searchText="APPLE|BANANA|CHERRY"
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+	QStringList keys = searchText.split(QStringLiteral("|"), QString::SkipEmptyParts);
+	QStringList values = replacement.split(QStringLiteral("|"), QString::SkipEmptyParts);
+#else
+	QStringList keys = searchText.split(QStringLiteral("|"), Qt::SkipEmptyParts);
+	QStringList values = replacement.split(QStringLiteral("|"), Qt::SkipEmptyParts);
+#endif
+
+	// If both lists are the same size then continue with current approach
+	if (keys.size() != values.size()) 
+		return(0);
+
+	// Get input data
+	QTextCursor searchRange = textCursor();
+	searchRange.select(QTextCursor::Document);
+	if (rangeStart < 0)
+		rangeStart = searchRange.selectionStart();
+	if (rangeEnd < 0)
+		rangeEnd = searchRange.selectionEnd();
+
+	const QString& myString = textEdit->text();		
+	QString input = myString.mid(rangeStart,rangeEnd-rangeStart);    
+	QString output;
+
+    // The simultaneous replace is implementated using a lookup hash table 
+	QHash<QString, QString> lookup;
+	QStringList escapedKeys;
+	bool caseInsensitive;
+	if (flags & QTextDocument::FindCaseSensitively)
+		caseInsensitive=false;
+	else
+		caseInsensitive=true;	
+
+	for (int i = 0; i < keys.size(); ++i) 
+	{
+		// We escape keys so that regex-type chars like '.' or '+' will become literal '\.' or '\+'
+		escapedKeys << QRegularExpression::escape(keys[i]);
+		
+		// Store in hash (lowercase if case-insensitive)
+		lookup.insert(caseInsensitive ? keys[i].toLower() : keys[i], values[i]);
+	}
+
+	// Regex pattern
+	QString pattern;
+	if (flags & QTextDocument::FindWholeWords)
+		pattern = QStringLiteral("\\b(") + escapedKeys.join(QStringLiteral("|")) + QStringLiteral(")\\b");
+	else
+		pattern =    QStringLiteral("(") + escapedKeys.join(QStringLiteral("|")) + QStringLiteral(")");
+	
+	// Regex flags: Use (?i) for case-insensitive matching within the regex itself			
+	QRegularExpression::PatternOptions options = caseInsensitive 
+		? QRegularExpression::CaseInsensitiveOption 
+		: QRegularExpression::NoPatternOption;
+
+	// The actual Regex
+	QRegularExpression re(pattern, options);
+
+	// The Replacement Loop
+	int replacements = 0;
+	int lastPos = 0;
+	QRegularExpressionMatchIterator i = re.globalMatch(input);
+	while (i.hasNext())
+	{
+		QRegularExpressionMatch match = i.next();
+		
+		// Append the text that came BEFORE the match
+		output.append(input.mid(lastPos, match.capturedStart() - lastPos));
+
+		// Get the replacement
+		QString matchedText = match.captured(1);
+		QString lookupKey = caseInsensitive ? matchedText.toLower() : matchedText;
+		output.append(lookup.value(lookupKey, matchedText));
+
+		// Update the marker
+		lastPos = match.capturedEnd();
+
+		// increase counter by one
+		if (!matchedText.isEmpty()) 
+			replacements++;
+	}
+
+	// Append any remaining text after the last match
+	output.append(input.mid(lastPos));
+
+	searchRange.setPosition(rangeStart);
+	searchRange.setPosition(rangeEnd, QTextCursor::KeepAnchor);
+	searchRange.insertText(output);
+	return replacements;
+}
+

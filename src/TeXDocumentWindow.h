@@ -198,6 +198,7 @@ public slots:
 	void setSmartQuotesMode(const QString& mode);
 	void setAutoIndentMode(const QString& mode);
 	void setSyntaxColoringMode(const QString& mode);
+	int  getCurrentline();	
 
 private slots:
 	void setLangInternal(const QString& lang);
@@ -244,6 +245,8 @@ private:
 	QTextCursor doSearch(const QString& searchText, const QRegularExpression *regex,
 						 QTextDocument::FindFlags flags, int rangeStart, int rangeEnd);
 	int doReplaceAll(const QString& searchText, QRegularExpression* regex, const QString& replacement,
+						QTextDocument::FindFlags flags, int rangeStart = -1, int rangeEnd = -1);
+	int doSimultaneousReplace(const QString& searchText, const QString& replacement,
 						QTextDocument::FindFlags flags, int rangeStart = -1, int rangeEnd = -1);
 	void executeAfterTypesetHooks();
 	void showConsole();

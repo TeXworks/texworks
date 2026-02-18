@@ -955,6 +955,14 @@ void PDFDocumentWindow::dropEvent(QDropEvent *event)
 	}
 }
 
+void PDFDocumentWindow::mouseDoubleClickEvent(QMouseEvent *event)
+{
+	QAction *act = new QAction(tr("Jump to Source"), this);
+	act->setData(QVariant(event->pos()));
+	connect(act, &QAction::triggered, this, &PDFDocumentWindow::jumpToSource);
+	act->trigger();
+}
+
 void PDFDocumentWindow::contextMenuEvent(QContextMenuEvent *event)
 {
 	Q_ASSERT(pdfWidget);

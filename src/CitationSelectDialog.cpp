@@ -43,8 +43,30 @@ bool KeyForwarder::eventFilter(QObject * watched, QEvent * event)
 				return true;
 			}
 		}
+		if ((keyEvent->key() == Qt::Key_Return) || (keyEvent->key() == Qt::Key_Enter)) {
+			QCoreApplication::sendEvent(_target, keyEvent);
+			return true;
+		}
 	}
 	return QObject::eventFilter(watched, event);
+}
+
+void CitationTableView::mouseDoubleClickEvent(QMouseEvent *event)
+{
+	QModelIndex idx;
+	if (selectedIndexes().size() > 0)
+		idx=selectedIndexes()[0];	// "first" line double-clicked on
+	else
+		idx = model()->index(0,0);	// first element shown
+
+	if (!(idx.isValid()))
+		return;
+	
+	model()->setData(idx, Qt::Checked, Qt::CheckStateRole);
+
+	// CitationTableView is a QTableView. We need to close its parent, CitationSelectDialog, which is a QDialog
+	 if (QDialog *dialog = qobject_cast<QDialog *>(this->parent())) 
+		dialog->accept(); // similiar to the effect of clicking OK
 }
 
 //virtual
@@ -59,6 +81,8 @@ void CitationTableView::keyPressEvent(QKeyEvent * event)
 			model()->setData(idx, (model()->data(idx, Qt::CheckStateRole) == Qt::Unchecked ? Qt::Checked : Qt::Unchecked), Qt::CheckStateRole);
 		}
 	}
+	else if ((event->key() == Qt::Key_Return) || (event->key() == Qt::Key_Enter))
+		mouseDoubleClickEvent(0);
 	else
 		QTableView::keyPressEvent(event);
 }
@@ -149,7 +173,7 @@ CitationModel::CitationModel(QObject * parent /* = nullptr */)
 	connect(this, &CitationModel::rowsMoved, this, &CitationModel::rebuildEntryCache);
 
 	Tw::Settings settings;
-	const QString fields = settings.value(QStringLiteral("citationDialogBibTeXFields"), QStringLiteral("Type;Author;Title;Year;Journal")).toString();
+	const QString fields = settings.value(QStringLiteral("citationDialogBibTeXFields"), QStringLiteral("Key;Author;Title;Year;Journal")).toString();
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 	m_columns << QString() << fields.split(QChar::fromLatin1(';'), QString::SkipEmptyParts);
 #else
@@ -206,6 +230,9 @@ QVariant CitationModel::data(const QModelIndex &index, int role /* = Qt::Display
 		}
 		if (index.column() < m_columns.size()) {
 			const QString & key = m_columns[index.column()];
+			if (key.compare(QStringLiteral("key"), Qt::CaseInsensitive) == 0) {
+				return QSize(85, 20);
+			}
 			if (key.compare(QStringLiteral("type"), Qt::CaseInsensitive) == 0) {
 				return QSize(75, 20);
 			}
