@@ -2553,8 +2553,23 @@ void TeXDocumentWindow::doReplace(ReplaceDialog::DialogCode mode)
 				rangeStart = searchRange.selectionStart();
 				rangeEnd = searchRange.selectionEnd();
 			}
+
+			bool simultaneousReplace = false;
+			if (searchText.contains(QStringLiteral("|")))
+				if (searchText.count(QStringLiteral("|"),Qt::CaseInsensitive)==replacement.count(QStringLiteral("|"),Qt::CaseInsensitive))
+					if (QMessageBox::question(this, tr("Simultaneous Replace?"), tr("Should the input strings be treated as multiple strings?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes) 
+						simultaneousReplace = true;
+
+			if (simultaneousReplace)
+			{
+				int replacements = doSimultaneousReplace(searchText, replacement, flags, rangeStart, rangeEnd);
+				statusBar()->showMessage(tr("Replaced %n occurrence(s)", "", replacements), kStatusMessageDuration);
+			}
+			else 
+			{
 			int replacements = doReplaceAll(searchText, regex, replacement, flags, rangeStart, rangeEnd);
 			statusBar()->showMessage(tr("Replaced %n occurrence(s)", "", replacements), kStatusMessageDuration);
+			}
 		}
 	}
 
@@ -3332,3 +3347,102 @@ void TeXDocumentWindow::detachPdf()
 		pdfDoc = nullptr;
 	}
 }
+
+int TeXDocumentWindow::doSimultaneousReplace(const QString& searchText, const QString& replacement,
+								QTextDocument::FindFlags flags, int rangeStart, int rangeEnd)
+								
+{
+	if (!(searchText.contains(QStringLiteral("|"))))
+		return 0;
+
+	// Split the keys and values by '|' (the pipe character). e.g, searchText="APPLE|BANANA|CHERRY"
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+	QStringList keys = searchText.split(QStringLiteral("|"), QString::SkipEmptyParts);
+	QStringList values = replacement.split(QStringLiteral("|"), QString::SkipEmptyParts);
+#else
+	QStringList keys = searchText.split(QStringLiteral("|"), Qt::SkipEmptyParts);
+	QStringList values = replacement.split(QStringLiteral("|"), Qt::SkipEmptyParts);
+#endif
+
+	// If both lists are the same size then continue with current approach
+	if (keys.size() != values.size()) 
+		return(0);
+
+	// Get input data
+	QTextCursor searchRange = textCursor();
+	searchRange.select(QTextCursor::Document);
+	if (rangeStart < 0)
+		rangeStart = searchRange.selectionStart();
+	if (rangeEnd < 0)
+		rangeEnd = searchRange.selectionEnd();
+
+	const QString& myString = textEdit->text();		
+	QString input = myString.mid(rangeStart,rangeEnd-rangeStart);    
+	QString output;
+
+    // The simultaneous replace is implementated using a lookup hash table 
+	QHash<QString, QString> lookup;
+	QStringList escapedKeys;
+	bool caseInsensitive;
+	if (flags & QTextDocument::FindCaseSensitively)
+		caseInsensitive=false;
+	else
+		caseInsensitive=true;	
+
+	for (int i = 0; i < keys.size(); ++i) 
+	{
+		// We escape keys so that regex-type chars like '.' or '+' will become literal '\.' or '\+'
+		escapedKeys << QRegularExpression::escape(keys[i]);
+		
+		// Store in hash (lowercase if case-insensitive)
+		lookup.insert(caseInsensitive ? keys[i].toLower() : keys[i], values[i]);
+	}
+
+	// Regex pattern
+	QString pattern;
+	if (flags & QTextDocument::FindWholeWords)
+		pattern = QStringLiteral("\\b(") + escapedKeys.join(QStringLiteral("|")) + QStringLiteral(")\\b");
+	else
+		pattern =    QStringLiteral("(") + escapedKeys.join(QStringLiteral("|")) + QStringLiteral(")");
+	
+	// Regex flags: Use (?i) for case-insensitive matching within the regex itself			
+	QRegularExpression::PatternOptions options = caseInsensitive 
+		? QRegularExpression::CaseInsensitiveOption 
+		: QRegularExpression::NoPatternOption;
+
+	// The actual Regex
+	QRegularExpression re(pattern, options);
+
+	// The Replacement Loop
+	int replacements = 0;
+	int lastPos = 0;
+	QRegularExpressionMatchIterator i = re.globalMatch(input);
+	while (i.hasNext())
+	{
+		QRegularExpressionMatch match = i.next();
+		
+		// Append the text that came BEFORE the match
+		output.append(input.mid(lastPos, match.capturedStart() - lastPos));
+
+		// Get the replacement
+		QString matchedText = match.captured(1);
+		QString lookupKey = caseInsensitive ? matchedText.toLower() : matchedText;
+		output.append(lookup.value(lookupKey, matchedText));
+
+		// Update the marker
+		lastPos = match.capturedEnd();
+
+		// increase counter by one
+		if (!matchedText.isEmpty()) 
+			replacements++;
+	}
+
+	// Append any remaining text after the last match
+	output.append(input.mid(lastPos));
+
+	searchRange.setPosition(rangeStart);
+	searchRange.setPosition(rangeEnd, QTextCursor::KeepAnchor);
+	searchRange.insertText(output);
+	return replacements;
+}
+
