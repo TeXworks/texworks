@@ -124,9 +124,16 @@ jobs:
 ################################################################################
 
   build-win-msvc:
-    name: Windows (MSVC)
-    runs-on: windows-latest
-
+    name: Windows ${{ matrix.arch }} (MSVC)
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - arch: x64
+            runner: windows-latest
+          - arch: ARM64
+            runner: windows-11-arm
+  
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -140,15 +147,16 @@ jobs:
       # Strawberry perl comes with all sorts of libraries (without headers) that
       # can wreak havoc when building some of the dependencies
     - name: Remove Strawberry Perl
+      if: matrix.arch == 'x64'
       run: rm -r -fo C:/Strawberry
 
     - name: Install dependencies
       run: |
-        cmake -B "${{ runner.workspace }}/tw-deps-build" -S "${{ github.workspace }}/.github/actions/msvc-dependencies" -DCMAKE_INSTALL_PREFIX="${{ runner.workspace }}/tw-deps"
+        cmake -A ${{ matrix.arch }} -B "${{ runner.workspace }}/tw-deps-build" -S "${{ github.workspace }}/.github/actions/msvc-dependencies" -DCMAKE_INSTALL_PREFIX="${{ runner.workspace }}/tw-deps"
         cmake --build "${{ runner.workspace }}/tw-deps-build" --config Release
 
     - name: Configure
-      run: cmake -B build -DTW_BUILD_ID='github' -DCMAKE_PREFIX_PATH="${{ runner.workspace }}/tw-deps" -Dgp_tool='none' -DQT_DEFAULT_MAJOR_VERSION=6
+      run: cmake -A ${{ matrix.arch }} -B build -DTW_BUILD_ID='github' -DCMAKE_PREFIX_PATH="${{ runner.workspace }}/tw-deps" -Dgp_tool='none' -DQT_DEFAULT_MAJOR_VERSION=6
 
     - name: Build
       run: cmake --build build --config Release
@@ -233,4 +241,3 @@ jobs:
     - name: Test
       run: ctest -V
       working-directory: build
-
