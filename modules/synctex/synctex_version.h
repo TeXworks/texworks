@@ -56,10 +56,10 @@ I would appreciate to be listed as contributor and see "__SyncTeX__" highlighted
 
 /* The version of the synctex parser library */
 #   define SYNCTEX_VERSION_MAJOR 1
-#   define SYNCTEX_VERSION_MINOR 30
+#   define SYNCTEX_VERSION_MINOR 31
 
 /* Keep next value in synch with `synctex_parser_version.txt` contents. */
-#   define SYNCTEX_VERSION_STRING "1.30"
+#   define SYNCTEX_VERSION_STRING "1.31"
 
 /* The version of the synctex CLI tool */
 #   define SYNCTEX_CLI_VERSION_MAJOR 1
