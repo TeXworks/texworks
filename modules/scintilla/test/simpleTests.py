@@ -260,6 +260,13 @@ class TestSimple(unittest.TestCase):
 		self.assertEqual(self.ed.CanUndo(), 0)
 		self.ed.UndoCollection = 1
 
+	def testDragDrop(self):
+		self.assertEqual(self.ed.DragDropEnabled, 1)
+		self.ed.DragDropEnabled = 0
+		self.assertEqual(self.ed.DragDropEnabled, 0)
+		self.ed.DragDropEnabled = 1
+		self.assertEqual(self.ed.DragDropEnabled, 1)
+
 	def testGetColumn(self):
 		self.ed.AddText(1, b"x")
 		self.assertEqual(self.ed.GetColumn(0), 0)
@@ -363,6 +370,12 @@ class TestSimple(unittest.TestCase):
 			self.ed.ConvertEOLs(lineEndType)
 			self.assertEqual(self.ed.Contents(), b"x" + lineEnds[lineEndType] + b"y")
 			self.assertEqual(self.ed.LineLength(0), 1 + len(lineEnds[lineEndType]))
+
+	def testLineEndConversionLengthening(self):
+		# Bug #2501
+		self.ed.AddText(4, b"x\ny\n")
+		self.ed.ConvertEOLs(self.ed.SC_EOL_CRLF)
+		self.assertEqual(self.ed.Contents(), b"x\r\ny\r\n")
 
 	# Several tests for unicode line ends U+2028 and U+2029
 
@@ -1966,6 +1979,28 @@ class TestMultiSelection(unittest.TestCase):
 		self.assertEqual(self.ed.GetSelectionNCaret(0), 3)
 		self.assertEqual(self.ed.GetSelectionNStart(0), 2)
 		self.assertEqual(self.ed.GetSelectionNEnd(0), 3)
+
+		self.ed.SetSelectionNStart(0, 1)
+		self.assertEqual(self.ed.GetSelectionNAnchor(0), 1)
+		self.assertEqual(self.ed.GetSelectionNCaret(0), 3)
+		self.assertEqual(self.ed.GetSelectionNStart(0), 1)
+		self.assertEqual(self.ed.GetSelectionNEnd(0), 3)
+
+		self.ed.SetSelectionNAnchor(0, 2)
+		self.ed.SetSelectionNCaret(0, 2)
+		self.ed.SetSelectionNStart(0, 9)
+		self.assertEqual(self.ed.GetSelectionNAnchor(0), 9)
+		self.assertEqual(self.ed.GetSelectionNCaret(0), 9)
+		self.assertEqual(self.ed.GetSelectionNStart(0), 9)
+		self.assertEqual(self.ed.GetSelectionNEnd(0), 9)
+
+		self.ed.SetSelectionNAnchor(0, 2)
+		self.ed.SetSelectionNCaret(0, 3)
+		self.ed.SetSelectionNStart(0, 9)
+		self.assertEqual(self.ed.GetSelectionNAnchor(0), 9)
+		self.assertEqual(self.ed.GetSelectionNCaret(0), 9)
+		self.assertEqual(self.ed.GetSelectionNStart(0), 9)
+		self.assertEqual(self.ed.GetSelectionNEnd(0), 9)
 
 	def test2Selections(self):
 		self.ed.SetSelection(1, 2)

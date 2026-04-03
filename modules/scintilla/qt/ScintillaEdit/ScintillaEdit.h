@@ -33,27 +33,27 @@ public:
 
 	QByteArray TextReturner(int message, uptr_t wParam) const;
 
-	QPair<int, int>find_text(int flags, const char *text, int cpMin, int cpMax);
-	QByteArray get_text_range(int start, int end);
-        ScintillaDocument *get_doc();
+	QPair<int, int>find_text(int flags, const char *text, int cpMin, int cpMax) const;
+	QByteArray get_text_range(int start, int end) const;
+        ScintillaDocument *get_doc() const;
         void set_doc(ScintillaDocument *pdoc_);
 
 	// Same as previous two methods but with Qt style names
-	QPair<int, int>findText(int flags, const char *text, int cpMin, int cpMax) {
+	QPair<int, int>findText(int flags, const char *text, int cpMin, int cpMax) const {
 		return find_text(flags, text, cpMin, cpMax);
 	}
 
-	QByteArray textRange(int start, int end) {
+	QByteArray textRange(int start, int end) const {
 		return get_text_range(start, end);
 	}
 
 	// Exposing the FORMATRANGE api with both underscore & qt style names
 	long format_range(bool draw, QPaintDevice* target, QPaintDevice* measure,
 			   const QRect& print_rect, const QRect& page_rect,
-                          long range_start, long range_end);
+                          long range_start, long range_end) const;
 	long formatRange(bool draw, QPaintDevice* target, QPaintDevice* measure,
                          const QRect& print_rect, const QRect& page_rect,
-                         long range_start, long range_end) {
+                         long range_start, long range_end) const {
 		return format_range(draw, target, measure, print_rect, page_rect,
 		                    range_start, range_end);
 	}
@@ -178,6 +178,8 @@ public:
 	void styleSetHotSpot(sptr_t style, bool hotspot);
 	void styleSetCheckMonospaced(sptr_t style, bool checkMonospaced);
 	bool styleCheckMonospaced(sptr_t style) const;
+	void styleSetStretch(sptr_t style, sptr_t stretch);
+	sptr_t styleStretch(sptr_t style) const;
 	void styleSetInvisibleRepresentation(sptr_t style, const char * representation);
 	QByteArray styleInvisibleRepresentation(sptr_t style) const;
 	void setElementColour(sptr_t element, sptr_t colourElement);
@@ -212,6 +214,21 @@ public:
 	sptr_t characterCategoryOptimization() const;
 	void beginUndoAction();
 	void endUndoAction();
+	sptr_t undoSequence() const;
+	sptr_t undoActions() const;
+	void setUndoSavePoint(sptr_t action);
+	sptr_t undoSavePoint() const;
+	void setUndoDetach(sptr_t action);
+	sptr_t undoDetach() const;
+	void setUndoTentative(sptr_t action);
+	sptr_t undoTentative() const;
+	void setUndoCurrent(sptr_t action);
+	sptr_t undoCurrent() const;
+	void pushUndoActionType(sptr_t type, sptr_t pos);
+	void changeLastUndoActionText(sptr_t length, const char * text);
+	sptr_t undoActionType(sptr_t action) const;
+	sptr_t undoActionPosition(sptr_t action) const;
+	QByteArray undoActionText(sptr_t action) const;
 	void indicSetStyle(sptr_t indicator, sptr_t indicatorStyle);
 	sptr_t indicStyle(sptr_t indicator) const;
 	void indicSetFore(sptr_t indicator, sptr_t fore);
@@ -271,6 +288,10 @@ public:
 	sptr_t autoCMaxWidth() const;
 	void autoCSetMaxHeight(sptr_t rowCount);
 	sptr_t autoCMaxHeight() const;
+	void autoCSetStyle(sptr_t style);
+	sptr_t autoCStyle() const;
+	void autoCSetImageScale(sptr_t scalePercent);
+	sptr_t autoCImageScale() const;
 	void setIndent(sptr_t indentSize);
 	sptr_t indent() const;
 	void setUseTabs(bool useTabs);
@@ -303,6 +324,10 @@ public:
 	sptr_t printColourMode() const;
 	void setChangeHistory(sptr_t changeHistory);
 	sptr_t changeHistory() const;
+	void setUndoSelectionHistory(sptr_t undoSelectionHistory);
+	sptr_t undoSelectionHistory() const;
+	void setSelectionSerialized(const char * selectionString);
+	QByteArray selectionSerialized() const;
 	sptr_t firstVisibleLine() const;
 	QByteArray getLine(sptr_t line);
 	sptr_t lineCount() const;
@@ -321,6 +346,7 @@ public:
 	sptr_t lineFromPosition(sptr_t pos);
 	sptr_t positionFromLine(sptr_t line);
 	void lineScroll(sptr_t columns, sptr_t lines);
+	void scrollVertical(sptr_t docLine, sptr_t subLine);
 	void scrollCaret();
 	void scrollRange(sptr_t secondary, sptr_t primary);
 	void replaceSel(const char * text);
@@ -358,13 +384,14 @@ public:
 	void targetWholeDocument();
 	sptr_t replaceTarget(sptr_t length, const char * text);
 	sptr_t replaceTargetRE(sptr_t length, const char * text);
+	sptr_t replaceTargetMinimal(sptr_t length, const char * text);
 	sptr_t searchInTarget(sptr_t length, const char * text);
 	void setSearchFlags(sptr_t searchFlags);
 	sptr_t searchFlags() const;
 	void callTipShow(sptr_t pos, const char * definition);
 	void callTipCancel();
 	bool callTipActive();
-	sptr_t callTipPosStart();
+	sptr_t callTipPosStart() const;
 	void callTipSetPosStart(sptr_t posStart);
 	void callTipSetHlt(sptr_t highlightStart, sptr_t highlightEnd);
 	void callTipSetBack(sptr_t back);
@@ -476,7 +503,9 @@ public:
 	void cancel();
 	void deleteBack();
 	void tab();
+	void lineIndent();
 	void backTab();
+	void lineDedent();
 	void newLine();
 	void formFeed();
 	void vCHome();
@@ -590,7 +619,9 @@ public:
 	void copyRange(sptr_t start, sptr_t end);
 	void copyText(sptr_t length, const char * text);
 	void setSelectionMode(sptr_t selectionMode);
+	void changeSelectionMode(sptr_t selectionMode);
 	sptr_t selectionMode() const;
+	void setMoveExtendsSelection(bool moveExtendsSelection);
 	bool moveExtendsSelection() const;
 	sptr_t getLineSelStartPosition(sptr_t line);
 	sptr_t getLineSelEndPosition(sptr_t line);
@@ -655,6 +686,9 @@ public:
 	void setLayoutThreads(sptr_t threads);
 	sptr_t layoutThreads() const;
 	void copyAllowLine();
+	void cutAllowLine();
+	void setCopySeparator(const char * separator);
+	QByteArray copySeparator() const;
 	sptr_t characterPointer() const;
 	sptr_t rangePointer(sptr_t start, sptr_t lengthRange) const;
 	sptr_t gapPosition() const;
@@ -710,6 +744,7 @@ public:
 	void clearSelections();
 	void setSelection(sptr_t caret, sptr_t anchor);
 	void addSelection(sptr_t caret, sptr_t anchor);
+	sptr_t selectionFromPoint(sptr_t x, sptr_t y);
 	void dropSelectionN(sptr_t selection);
 	void setMainSelection(sptr_t selection);
 	sptr_t mainSelection() const;
@@ -799,6 +834,8 @@ public:
 	void releaseLineCharacterIndex(sptr_t lineCharacterIndex);
 	sptr_t lineFromIndexPosition(sptr_t pos, sptr_t lineCharacterIndex);
 	sptr_t indexPositionFromLine(sptr_t line, sptr_t lineCharacterIndex);
+	bool dragDropEnabled() const;
+	void setDragDropEnabled(bool dragDropEnabled);
 	void startRecord();
 	void stopRecord();
 	sptr_t lexer() const;

@@ -43,9 +43,7 @@ TextDocument::TextDocument(QObject * parent)
 TextDocument::TextDocument(const QString & text, QObject * parent)
 : TextDocument(parent)
 {
-	// FIXME: const-issues in ScintillaDocument [https://sourceforge.net/p/scintilla/bugs/2494/]
-	QByteArray buffer{text.toUtf8()};
-	m_scintilla->insert_string(0, buffer);
+	m_scintilla->insert_string(0, text.toUtf8());
 }
 
 void TextDocument::addTag(const QTextCursor & cursor, const unsigned int level, const QString & text)

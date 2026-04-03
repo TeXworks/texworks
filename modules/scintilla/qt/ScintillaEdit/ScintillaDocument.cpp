@@ -2,6 +2,8 @@
 // Wrapper for Scintilla document object so it can be manipulated independently.
 // Copyright (c) 2011 Archaeopteryx Software, Inc. d/b/a Wingware
 
+#include <cstdint>
+
 #include <stdexcept>
 #include <string_view>
 #include <vector>
@@ -9,7 +11,6 @@
 #include <set>
 #include <optional>
 #include <memory>
-#include <cstdint>
 
 #include "ScintillaTypes.h"
 #include "ScintillaMessages.h"
@@ -116,15 +117,15 @@ ScintillaDocument::~ScintillaDocument() {
     docWatcher = nullptr;
 }
 
-void *ScintillaDocument::pointer() {
+void *ScintillaDocument::pointer() const {
     return pdoc;
 }
 
-int ScintillaDocument::line_from_position(int pos) {
+int ScintillaDocument::line_from_position(int pos) const {
     return (static_cast<Document *>(pdoc))->LineFromPosition(pos);
 }
 
-bool ScintillaDocument::is_cr_lf(int pos) {
+bool ScintillaDocument::is_cr_lf(int pos) const {
     return (static_cast<Document *>(pdoc))->IsCrLf(pos);
 }
 
@@ -140,11 +141,11 @@ int ScintillaDocument::redo() {
     return (static_cast<Document *>(pdoc))->Redo();
 }
 
-bool ScintillaDocument::can_undo() {
+bool ScintillaDocument::can_undo() const {
     return (static_cast<Document *>(pdoc))->CanUndo();
 }
 
-bool ScintillaDocument::can_redo() {
+bool ScintillaDocument::can_redo() const {
     return (static_cast<Document *>(pdoc))->CanRedo();
 }
 
@@ -156,7 +157,7 @@ bool ScintillaDocument::set_undo_collection(bool collect_undo) {
     return (static_cast<Document *>(pdoc))->SetUndoCollection(collect_undo);
 }
 
-bool ScintillaDocument::is_collecting_undo() {
+bool ScintillaDocument::is_collecting_undo() const {
     return (static_cast<Document *>(pdoc))->IsCollectingUndo();
 }
 
@@ -172,7 +173,7 @@ void ScintillaDocument::set_save_point() {
     (static_cast<Document *>(pdoc))->SetSavePoint();
 }
 
-bool ScintillaDocument::is_save_point() {
+bool ScintillaDocument::is_save_point() const {
     return (static_cast<Document *>(pdoc))->IsSavePoint();
 }
 
@@ -180,15 +181,15 @@ void ScintillaDocument::set_read_only(bool read_only) {
     (static_cast<Document *>(pdoc))->SetReadOnly(read_only);
 }
 
-bool ScintillaDocument::is_read_only() {
+bool ScintillaDocument::is_read_only() const {
     return (static_cast<Document *>(pdoc))->IsReadOnly();
 }
 
-void ScintillaDocument::insert_string(int position, QByteArray &str) {
+void ScintillaDocument::insert_string(int position, const QByteArray &str) {
     (static_cast<Document *>(pdoc))->InsertString(position, str.data(), str.size());
 }
 
-QByteArray ScintillaDocument::get_char_range(int position, int length) {
+QByteArray ScintillaDocument::get_char_range(int position, int length) const {
     const Document *doc = static_cast<Document *>(pdoc);
 
     if (position < 0 || length <= 0 || position + length > doc->Length())
@@ -199,27 +200,27 @@ QByteArray ScintillaDocument::get_char_range(int position, int length) {
     return ba;
 }
 
-char ScintillaDocument::style_at(int position) {
+char ScintillaDocument::style_at(int position) const {
     return (static_cast<Document *>(pdoc))->StyleAt(position);
 }
 
-int ScintillaDocument::line_start(int lineno) {
+int ScintillaDocument::line_start(int lineno) const {
     return (static_cast<Document *>(pdoc))->LineStart(lineno);
 }
 
-int ScintillaDocument::line_end(int lineno) {
+int ScintillaDocument::line_end(int lineno) const {
     return (static_cast<Document *>(pdoc))->LineEnd(lineno);
 }
 
-int ScintillaDocument::line_end_position(int pos) {
+int ScintillaDocument::line_end_position(int pos) const {
     return (static_cast<Document *>(pdoc))->LineEndPosition(pos);
 }
 
-int ScintillaDocument::length() {
+int ScintillaDocument::length() const {
     return (static_cast<Document *>(pdoc))->Length();
 }
 
-int ScintillaDocument::lines_total() {
+int ScintillaDocument::lines_total() const {
     return (static_cast<Document *>(pdoc))->LinesTotal();
 }
 
@@ -231,7 +232,7 @@ bool ScintillaDocument::set_style_for(int length, char style) {
     return (static_cast<Document *>(pdoc))->SetStyleFor(length, style);
 }
 
-int ScintillaDocument::get_end_styled() {
+int ScintillaDocument::get_end_styled() const {
     return (static_cast<Document *>(pdoc))->GetEndStyled();
 }
 
@@ -259,7 +260,7 @@ int ScintillaDocument::decorations_end(int indic, int position) {
     return (static_cast<Document *>(pdoc))->decorations->End(indic, position);
 }
 
-int ScintillaDocument::get_code_page() {
+int ScintillaDocument::get_code_page() const {
     return (static_cast<Document *>(pdoc))->CodePage();
 }
 
@@ -267,7 +268,7 @@ void ScintillaDocument::set_code_page(int code_page) {
     (static_cast<Document *>(pdoc))->dbcsCodePage = code_page;
 }
 
-int ScintillaDocument::get_eol_mode() {
+int ScintillaDocument::get_eol_mode() const {
     return static_cast<int>((static_cast<Document *>(pdoc))->eolMode);
 }
 
@@ -279,6 +280,6 @@ int ScintillaDocument::move_position_outside_char(int pos, int move_dir, bool ch
     return (static_cast<Document *>(pdoc))->MovePositionOutsideChar(pos, move_dir, check_line_end);
 }
 
-int ScintillaDocument::get_character(int pos) {
+int ScintillaDocument::get_character(int pos) const {
     return (static_cast<Document *>(pdoc))->GetCharacterAndWidth(pos, nullptr);
 }
