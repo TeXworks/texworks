@@ -125,6 +125,8 @@ public:
 	void prefixLines(const QString &prefix);
 	void unPrefixLines(const QString &prefix);
 
+	Scintilla::sptr_t posFromLineCol(const int line, const int col);
+
 public slots:
 	void setAutoIndentMode(int index);
 	void setSmartQuotesMode(int index);
@@ -134,6 +136,8 @@ public slots:
 	void setFontItalic(bool italic);
 	void setFontPointSize(qreal s);
 	void setFontWeight(int weight);
+
+	void selectTextInLine(const int lineNo, const int firstChar = 0, const int numChars = -1);
 
 signals:
 	void syncClick(int line, int col);

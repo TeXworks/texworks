@@ -1781,23 +1781,15 @@ QString TeXDocumentWindow::getLineText(int lineNo) const
 
 void TeXDocumentWindow::goToLine(int lineNo, int selStart, int selEnd)
 {
-	/* FIXME
-	QTextDocument* doc = textEdit->document();
-	if (lineNo < 1 || lineNo > doc->blockCount())
-		return;
-	int oldScrollValue = -1;
-	if (textEdit->verticalScrollBar())
-		oldScrollValue = textEdit->verticalScrollBar()->value();
-	QTextCursor cursor(doc->findBlockByNumber(lineNo - 1));
-	if (selStart >= 0 && selEnd >= selStart) {
-		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, selStart);
-		cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, selEnd - selStart);
+	if (selStart < 0) {
+		editor()->selectTextInLine(lineNo, 0, 0);
 	}
-	else
-		cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
-	textEdit->setTextCursor(cursor);
-	maybeCenterSelection(oldScrollValue);
-*/
+	else if (selEnd < 0) {
+		editor()->selectTextInLine(lineNo, selStart, 0);
+	}
+	else {
+		editor()->selectTextInLine(lineNo, selStart, selEnd - selStart);
+	}
 }
 
 void TeXDocumentWindow::maybeCenterSelection(int oldScrollValue)

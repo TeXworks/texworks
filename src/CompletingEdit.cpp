@@ -210,6 +210,25 @@ void CompletingEdit::unPrefixLines(const QString &prefix)
 */
 }
 
+Scintilla::sptr_t CompletingEdit::posFromLineCol(const int line, const int col)
+{
+	const auto lineStart = positionFromLine(line - 1);
+	if (col < 0) {
+		// don't leave the line
+		return lineStart;
+	}
+	const auto pos = positionRelative(lineStart, col);
+	const auto lineEnd = lineEndPosition(line - 1);
+	if (pos == 0 && col > 0) {
+		// Past the end of the document
+		return lineEnd;
+	}
+	if (pos > lineEnd) {
+		// past the end of the line
+		return lineEnd;
+	}
+	return pos;
+}
 
 void CompletingEdit::updateColors()
 {
@@ -1563,6 +1582,29 @@ void CompletingEdit::setFontWeight(int weight)
 	// FIXME: potentially set the font for other styles (e.g., when using syntax
 	// highlighting)
 	styleSetWeight(STYLE_DEFAULT, weight);
+}
+
+void CompletingEdit::selectTextInLine(const int lineNo, const int firstChar, const int numChars)
+{
+	const auto lineStart = positionFromLine(lineNo - 1);
+	if (lineStart < 0) {
+		// We got a line past the end of the document; move to the end
+		setSel(textLength(), textLength());
+		return;
+	}
+	const auto anchor = positionRelative(lineStart, firstChar);
+	const auto caret = [&]() {
+		if (numChars < 0) {
+			return lineEndPosition(lineNo - 1);
+		}
+		const auto pos = positionRelative(anchor, numChars);
+		if (pos == 0 && numChars > 0) {
+			// Reached the end of the document
+			return textLength();
+		}
+		return pos;
+	}();
+	setSel(caret, anchor);
 }
 
 /* FIXME
