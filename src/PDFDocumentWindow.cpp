@@ -623,47 +623,43 @@ void PDFDocumentWindow::syncRange(const size_type pageIndex, const QPointF & sta
 	if (destStart.filename.isEmpty() || destStart.line < 0)
 		return;
 
-	// Open the destination document (for the point "start"), and put the cursor
-	// on the right line (though not necessarily on the right column or with the
-	// the right selection, yet, as that requires additional handling below)
+	const auto selStart = [&]() -> int {
+		if (destStart.col >= 0) {
+			return static_cast<int>(destStart.col);
+		}
+		return 0;
+	}();
+
+	// Open the destination document (for the point "start")
 	QDir curDir(QFileInfo(curFile).canonicalPath());
-	TeXDocumentWindow * texDoc = TeXDocumentWindow::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line);
+	TeXDocumentWindow * texDoc = TeXDocumentWindow::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line, selStart);
 	if (!texDoc)
 		return;
 
-	// Get a text cursor in the correct position for "start" (if no valid column
-	// was found, place it at the beginning of the correct line)
-	QTextCursor curStart = texDoc->textCursor();
-	using pos_type = decltype(curStart.position());
-	curStart.setPosition(0);
-	curStart.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, destStart.line - 1);
-	if (destStart.col >= 0)
-		curStart.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, static_cast<pos_type>(destStart.col));
-
-	// Get a text cursor in the correct position for "end" (if no valid column
-	// was found, place it at the end of the correct line)
-	QTextCursor curEnd = texDoc->textCursor();
-	if (destEnd.filename == destStart.filename) {
-		curEnd.setPosition(0);
-		curEnd.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, destStart.line - 1);
-		if (destEnd.col >= 0)
-			curEnd.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, static_cast<pos_type>(destEnd.col + qMax(1, destEnd.len)));
-		else
-			curEnd.movePosition(QTextCursor::EndOfBlock);
-	}
-	else {
-		// If we get here, the end point is in a different file than the
-		// starting point. In that case, we assume the rest of the file
-		// containing the starting point should be highlighted)
-		curEnd.movePosition(QTextCursor::End);
-	}
-
+	// TODO: Refactor TeXDocumentWindow::openDocument
+	// Right now, it interprets both selStart and selEnd relative to the start
+	// of the line lineNo. If the selection spans several lines, that behavior
+	// is weird (and requires extra handling here)
+	const auto selEnd = [&]() -> int {
+		if (destEnd.filename != destStart.filename) {
+			return std::numeric_limits<int>::max();
+		}
+		if (texDoc->editor() == nullptr) {
+			return selStart;
+		}
+		const auto startLineStartPos = texDoc->editor()->posFromLineCol(destStart.line, 0);
+		auto endPos = texDoc->editor()->posFromLineCol(destEnd.line, static_cast<int>(destEnd.col));
+		if (destEnd.len > 0) {
+			endPos = texDoc->editor()->positionRelative(endPos, destEnd.len);
+		}
+		return static_cast<int>(texDoc->editor()->countCharacters(startLineStartPos, endPos));
+	}();
 	// Properly highlight the destination document
 	// NB: We use TeXDocument::openDocument here even though we already have a
 	// pointer to the document as that is the only publicly available function
 	// that does what we need (i.e., position the cursor and possibly change the
 	// current selection).
-	TeXDocumentWindow::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line, curStart.position() - curStart.block().position(), curEnd.position() - curStart.block().position());
+	TeXDocumentWindow::openDocument(QFileInfo(curDir, destStart.filename).canonicalFilePath(), true, true, destStart.line, selStart, selEnd);
 }
 
 void PDFDocumentWindow::syncFromSource(const QString& sourceFile, int lineNo, int col, bool activatePreview)

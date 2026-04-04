@@ -144,8 +144,9 @@ signals:
 	void rehighlight();
 	void updateRequest(const QRect& rect, int dy);
 
-	/*
 protected:
+	void mouseReleaseEvent(QMouseEvent *e) override;
+	/*
 	void keyPressEvent(QKeyEvent *e) override;
 	void focusInEvent(QFocusEvent *e) override;
 	void mousePressEvent(QMouseEvent *e) override;

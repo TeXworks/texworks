@@ -1607,6 +1607,18 @@ void CompletingEdit::selectTextInLine(const int lineNo, const int firstChar, con
 	setSel(caret, anchor);
 }
 
+void CompletingEdit::mouseReleaseEvent(QMouseEvent *e)
+{
+	if (e && e->button() == Qt::LeftButton && e->modifiers() == Qt::ControlModifier) {
+		const QPoint pt = e->pos();
+		const auto pos = positionFromPointClose(pt.x(), pt.y());
+		const auto line = lineFromPosition(pos);
+		const auto col = countCharacters(positionFromLine(line), pos);
+		emit syncClick(static_cast<int>(line + 1), static_cast<int>(col));
+	}
+	ScintillaEdit::mouseReleaseEvent(e);
+}
+
 /* FIXME
 
 QTextCharFormat	*CompletingEdit::currentCompletionFormat = nullptr;
