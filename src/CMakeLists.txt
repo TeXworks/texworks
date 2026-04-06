@@ -103,6 +103,7 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   ui/ScreenCalibrationWidget.h
                   utils/CmdKeyFilter.cpp
                   utils/CommandlineParser.h
+                  utils/CompilerWarnings.h
                   utils/FileVersionDatabase.h
                   utils/FullscreenManager.h
                   utils/IniConfig.h

@@ -21,8 +21,13 @@
 
 #include "document/TextDocument.h"
 
+#include "../utils/CompilerWarnings.h"
+
+WARNINGS_PUSH()
+WARNINGS_DISABLE("-Wzero-as-null-pointer-constant")
 #include <ScintillaDocument.h>
 #include <ScintillaTypes.h>
+WARNINGS_POP()
 
 #include <QSaveFile>
 #include <QTextCodec>

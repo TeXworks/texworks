@@ -25,7 +25,11 @@
 // FIXME shortcuts defined in CompletingEdit.ui
 //#include "ui_CompletingEdit.h"
 
+#include "utils/CompilerWarnings.h"
+WARNINGS_PUSH()
+WARNINGS_DISABLE("-Wzero-as-null-pointer-constant")
 #include <ScintillaEdit.h>
+WARNINGS_POP()
 
 #include <QDrag>
 #include <QHash>
