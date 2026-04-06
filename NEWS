@@ -1,3 +1,25 @@
+Release 0.6.11 (TL'26) [February 2026]
+	* Add additional cleanup patterns for LaTeXmk, biblatex, minitoc
+	* List dictionary folders in the "Settings & Resources" dialog
+
+	* Include prefix in selection if at the beginning of a line
+	* Properly report version info in Windows installer
+	* Make spell checker backend accept multiple languages
+	* Update translations
+	* Switch to build with Qt6 by default
+	* Refactor and modernize parts of the code
+	* Update URLs
+
+	* Enlarge drawing rect to avoid artifacts in the PDF preview
+	* Fix magnifier shadow position when ruler is shown
+	* Correctly detect PDF 2.x
+	* Fix Scripts menu for nested folders
+	* Fix error handling of QSaveFile::commit
+	* Fix exit code when transferring to other instance
+	* Allow focus transfer to first instance on Windows
+	* Fix missing application's taskbar icon on Linux
+	* Fix CMake warning when enabling coverage
+
 Release 0.6.10 (TL'25) [February 2025]
 	* Add first support for PDF 2.0 /Info metadata
 	* Include ConTeXt style scripts

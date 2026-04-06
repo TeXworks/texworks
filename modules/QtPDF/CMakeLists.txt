@@ -2,7 +2,7 @@
 # ======================
 
 # CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1...3.28)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1...4.2)
 
 # Set project name.
 PROJECT(QtPDF)
@@ -149,7 +149,8 @@ IF( WITH_POPPLERQT )
   # expose its version number, there is no easy way to check for these at
   # compile-time)
   include(CheckCXXSourceCompiles)
-  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR} Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
+  set(__old_required_libraries ${CMAKE_REQUIRED_LIBRARIES})
+  set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR} Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui ${CMAKE_REQUIRED_LIBRARIES})
 
   # Page::SearchFlags were added in 0.31
   CHECK_CXX_SOURCE_COMPILES("#include <poppler-qt${QT_VERSION_MAJOR}.h>\nint main() { double x; Poppler::Document::load(QString())->page(0)->search(QString(), x, x, x, x, Poppler::Page::NextResult, Poppler::Page::IgnoreCase); return 0; }" POPPLER_HAS_SEARCH_FLAGS)
@@ -180,6 +181,8 @@ IF( WITH_POPPLERQT )
   if (POPPLER_HAS_OCGSTATELINK)
 	add_definitions(-DPOPPLER_HAS_OCGSTATELINK)
   endif (POPPLER_HAS_OCGSTATELINK)
+
+  set(CMAKE_REQUIRED_LIBRARIES ${__old_required_libraries})
 ENDIF()
 
 IF( WITH_MUPDF )
@@ -310,7 +313,8 @@ IF( WITH_POPPLERQT )
   if (POPPLER_HAS_XPDF)
     set(QTPDF_FLAGS "${QTPDF_FLAGS} -DHAVE_POPPLER_XPDF_HEADERS")
 
-    set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR})
+    set(__old_required_libraries ${CMAKE_REQUIRED_LIBRARIES})
+    set(CMAKE_REQUIRED_LIBRARIES Poppler::poppler-qt${QT_VERSION_MAJOR} ${CMAKE_REQUIRED_LIBRARIES})
 
     # GlobalParamsIniter was introduced in 0.85
     CHECK_CXX_SOURCE_COMPILES("#include <GlobalParams.h>\nint main() { GlobalParamsIniter::setCustomDataDir(\"\"); return 0; }" POPPLER_HAS_GLOBALPARAMSINITER)
@@ -323,7 +327,9 @@ IF( WITH_POPPLERQT )
     if (POPPLER_GLOBALPARAMS_IS_UNIQUE)
       add_definitions(-DPOPPLER_GLOBALPARAMS_IS_UNIQUE)
     endif (POPPLER_GLOBALPARAMS_IS_UNIQUE)
-  endif (POPPLER_HAS_XPDF)
+
+    set(CMAKE_REQUIRED_LIBRARIES ${__old_required_libraries})
+endif (POPPLER_HAS_XPDF)
 ENDIF()
 
 IF( WITH_MUPDF )

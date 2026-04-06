@@ -1,4 +1,4 @@
-From d95966a93ad6f93a92f1b4b27d248dd3e75cfed0 Mon Sep 17 00:00:00 2001
+From 05c33c34e6cb5624092457c09e6041c01d5933a8 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
 Date: Tue, 25 Jan 2022 22:47:29 +0100
 Subject: [PATCH] Fix building with MSVC and libjpeg
@@ -8,17 +8,17 @@ Subject: [PATCH] Fix building with MSVC and libjpeg
  1 file changed, 1 insertion(+)
 
 diff --git a/poppler/ImageEmbeddingUtils.cc b/poppler/ImageEmbeddingUtils.cc
-index e5ec7ba5..81d4b20c 100644
+index cd7a086..a7f529a 100644
 --- a/poppler/ImageEmbeddingUtils.cc
 +++ b/poppler/ImageEmbeddingUtils.cc
-@@ -16,6 +16,7 @@
+@@ -17,6 +17,7 @@
  #include <memory>
- #ifdef ENABLE_LIBJPEG
- #    include <cstdio>
+ #if ENABLE_LIBJPEG
+ #    include <cstdio> // jpeglib.h is broken on purpose and needs cstdio include before it
 +#    include <basetsd.h>
  extern "C" {
  #    include <jpeglib.h>
  }
 -- 
-2.40.1
+2.51.0
 

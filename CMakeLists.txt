@@ -52,7 +52,7 @@
 # ======================
 
 # CMake 3.1 significantly improves support for imported targets, Qt5, c++11, etc.
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1...3.28)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1...4.2)
 
 # Set project name.
 PROJECT(TeXworks)
@@ -206,6 +206,7 @@ IF (UNIX AND NOT APPLE)
 ENDIF()
 
 set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_C_STANDARD 11)
 
 # Dependency Configuration
 # ========================

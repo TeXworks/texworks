@@ -28,12 +28,15 @@ SOURCES = \
   "../src/TeXHighlighter.cpp" \
   "../src/TemplateDialog.cpp" \
   "../src/document/Document.cpp" \
+  "../src/document/SpellCheckManager.cpp" \
   "../src/document/SpellChecker.cpp" \
   "../src/document/TeXDocument.cpp" \
   "../src/document/TextDocument.cpp" \
   "../src/main.cpp" \
   "../src/scripting/ECMAScript.cpp" \
   "../src/scripting/ECMAScriptInterface.cpp" \
+  "../src/scripting/JSScript.cpp" \
+  "../src/scripting/JSScriptInterface.cpp" \
   "../src/scripting/Script.cpp" \
   "../src/scripting/ScriptAPI.cpp" \
   "../src/scripting/ScriptObject.cpp" \
@@ -83,9 +86,12 @@ HEADERS = \
   "../src/TeXHighlighter.h" \
   "../src/TemplateDialog.h" \
   "../src/document/Document.h" \
+  "../src/document/SpellCheckManager.h" \
   "../src/document/SpellChecker.h" \
   "../src/document/TeXDocument.h" \
   "../src/document/TextDocument.h" \
+  "../src/scripting/JSScript.h" \
+  "../src/scripting/JSScriptInterface.h" \
   "../src/scripting/Script.h" \
   "../src/scripting/ScriptAPI.h" \
   "../src/scripting/ScriptAPIInterface.h" \
@@ -128,7 +134,7 @@ FORMS = \
   "../src/ui/ListSelectDialog.ui"
 
 RESOURCES = \
-  "../build/src/TeXworks_trans.qrc" \
+  "../build-qt5/src/TeXworks_trans.qrc" \
   "../res/resfiles.qrc" \
   "../res/resources.qrc"
 
@@ -148,6 +154,7 @@ TRANSLATIONS = \
   "TeXworks_nl.ts" \
   "TeXworks_nn.ts" \
   "TeXworks_pl.ts" \
+  "TeXworks_pt.ts" \
   "TeXworks_pt_BR.ts" \
   "TeXworks_ru.ts" \
   "TeXworks_sl.ts" \

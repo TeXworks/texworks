@@ -9,8 +9,8 @@ set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE
 set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(Platform) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
 
 ExternalProject_Add(lua
-	URL "https://www.lua.org/ftp/lua-5.4.8.tar.gz"
-	URL_HASH SHA256=4f18ddae154e793e46eeab727c59ef1c0c0c2b744e7b94219710d76f530629ae
+	URL "https://www.lua.org/ftp/lua-5.5.0.tar.gz"
+	URL_HASH SHA256=57ccc32bbbd005cab75bcc52444052535af691789dba2b9016d5c50640d68b3d
 	PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_LIST_DIR}/lua.cmake <SOURCE_DIR>/CMakeLists.txt
 	CMAKE_ARGS ${CMAKE_ARGS}
 )
@@ -40,8 +40,8 @@ ExternalProject_Add(zlib
 )
 
 ExternalProject_Add(libpng
-	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.50.tar.gz"
-	URL_HASH SHA256=71158e53cfdf2877bc99bcab33641d78df3f48e6e0daad030afe9cb8c031aa46
+	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.54.tar.gz"
+	URL_HASH SHA256=ba7efce137409079989df4667706c339bebfbb10e9f413474718012a13c8cd4c
 	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS zlib
 )
@@ -65,8 +65,8 @@ ExternalProject_Add(libtiff
 )
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.17.tar.gz"
-	URL_HASH SHA256=6e6f6411db50e85ae8ff7777f01b2da0614aac13b7b9fcbea66dc56a1bc71418
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.18.tar.gz"
+	URL_HASH SHA256=4f52a4459a93ac02b88e49b04dc0679e52fc92d36d3b722e5a1a44dbe8118236
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND MSBUILD Projects\\VC2019\\lcms2_DLL ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
@@ -93,8 +93,8 @@ ExternalProject_Add(freetype
 )
 
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-25.10.0.tar.xz"
-	URL_HASH SHA256=6b5e9bb64dabb15787a14db1675291c7afaf9387438cc93a4fb7f6aec4ee6fe0
+	URL "https://poppler.freedesktop.org/poppler-26.01.0.tar.xz"
+	URL_HASH SHA256=1cb944a4b88847f5fb6551683bc799db59f04990f5d8be07aba2acbf38601089
 	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/poppler-msvc.patch
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_QT5=OFF -DENABLE_BOOST=OFF -DENABLE_CPP=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DBUILD_MANUAL_TESTS=OFF -DBUILD_QT5_TESTS=OFF -DENABLE_NSS3=OFF -DENABLE_GPGME=OFF -DENABLE_LIBCURL=OFF
 	DEPENDS freetype lcms2 libjpeg libpng libtiff
