@@ -1837,7 +1837,7 @@ void TeXDocumentWindow::doInsertCitationsDialog()
 	constexpr int PeekLength = 1024;
 
 	int peekFront = qMin(PeekLength, curs.position());
-	int peekBack = qMin(PeekLength, textDoc()->length() - curs.position());
+	int peekBack = qMin(PeekLength, static_cast<int>(textDoc()->length()) - curs.position());
 
 	curs.beginEditBlock();
 	curs.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, peekFront);
