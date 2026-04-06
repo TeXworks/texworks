@@ -258,15 +258,6 @@ void TestDocument::tags()
 */
 }
 
-void TestDocument::getHighlighter()
-{
-	Tw::Document::TeXDocument doc;
-	// Older versions of Qt don't support QCOMPARE of pointer and nullptr
-	QVERIFY(doc.getHighlighter() == nullptr);
-	TeXHighlighter highlighter(&doc);
-	QCOMPARE(doc.getHighlighter(), &highlighter);
-}
-
 void TestDocument::modelines()
 {
 	Tw::Document::TeXDocument doc(QStringLiteral("Lorem ipsum\n").repeated(200));

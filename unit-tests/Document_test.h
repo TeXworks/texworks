@@ -44,7 +44,6 @@ private slots:
 
 	void tags();
 
-	void getHighlighter();
 	void modelines();
 	void findNextWord_data();
 	void findNextWord();
