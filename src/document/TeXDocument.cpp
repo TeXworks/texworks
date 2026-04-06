@@ -24,6 +24,37 @@
 
 #include <QDir>
 #include <QFileInfo>
+#include <QTextCodec>
+
+namespace {
+const std::unordered_map<std::string, const char *> texshopSynonyms = {
+	{"macosroman",			"Apple Roman"},
+	{"isolatin",			"ISO 8859-1"},
+	{"isolatin2",			"ISO 8859-2"},
+	{"isolatin5",			"ISO 8859-5"},
+	{"isolatin9",			"ISO 8859-9"},
+	//	{"macjapanese",		""},
+	//	{"dosjapanese",		""},
+	{"sjis_x0213",			"Shift-JIS"},
+	{"euc_jp",				"EUC-JP"},
+	//	{"jisjapanese",		""},
+	//	{"mackorean",		""},
+	{"utf-8 unicode",		"UTF-8"},
+	{"standard unicode",	"UTF-16"},
+	//	{"mac cyrillic",		""},
+	//	{"dos cyrillic",		""},
+	//	{"dos russian",		""},
+	{"windows cyrillic",	"Windows-1251"},
+	{"koi8_r",				"KOI8-R"},
+	//	{"mac chinese traditional",	""},
+	//	{"mac chinese simplified",	""},
+	//	{"dos chinese traditional",	""},
+	//	{"dos chinese simplified",	""},
+	//	{"gbk",				""},
+	//	{"gb 2312",			""},
+	{"gb 18030",			"GB18030-0"}
+};
+}
 
 namespace Tw {
 namespace Document {
@@ -113,6 +144,34 @@ void TeXDocument::maybeUpdateModeLines(int position, int charsRemoved, int chars
 
 	if (position < PeekLength)
 		parseModeLines();
+}
+
+void TeXDocument::guessReadSettings(const QFileInfo &path, FileSettings &settings, const QByteArray &peekBytes)
+{
+	if (settings.codec != nullptr) {
+		TextDocument::guessReadSettings(path, settings, peekBytes);
+		return;
+	}
+
+	const QString peekStr = QString::fromLatin1(peekBytes);
+
+	// peek at the file for %!TEX encoding = ....
+	QRegularExpression re(QStringLiteral(u"% *!TEX +encoding *= *([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
+	QRegularExpressionMatch m = re.match(peekStr);
+	if (m.hasMatch()) {
+		const QString reqName = m.captured(1).trimmed();
+		settings.codec = QTextCodec::codecForName(reqName.toLatin1());
+		if (settings.codec == nullptr) {
+			const auto it = texshopSynonyms.find(reqName.toLower().toStdString());
+			if (it != texshopSynonyms.cend()) {
+				settings.codec = QTextCodec::codecForName(it->second);
+			}
+			else if(settings.ignoreUnsupportedEncoding == false) {
+				throw UnsupportedEncodingException(reqName);
+			}
+		}
+	}
+	TextDocument::guessReadSettings(path, settings, peekBytes);
 }
 
 // static

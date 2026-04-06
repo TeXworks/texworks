@@ -26,21 +26,59 @@
 #include <QObject>
 #include <QTextCursor>
 
+#include <stdexcept>
+
 class ScintillaDocument;
 class CompletingEdit;
+class QTextCodec;
 
 namespace Tw {
 namespace Document {
+
+#define kLineEnd_Mask   0x00FF
+#define kLineEnd_LF     0x0000
+#define kLineEnd_CRLF   0x0001
+#define kLineEnd_CR     0x0002
+
+#define kLineEnd_Flags_Mask  0xFF00
+#define kLineEnd_Mixed       0x0100
+
+class FileIOException : public std::runtime_error
+{
+public:
+	FileIOException(const QString & what) : std::runtime_error(what.toStdString()) { }
+};
+
+class UnsupportedEncodingException : public std::runtime_error
+{
+public:
+	UnsupportedEncodingException(const QString & encoding) : std::runtime_error(encoding.toStdString()) { }
+};
 
 class TextDocument : public QObject, public Document
 {
 	Q_OBJECT
 	friend class ::CompletingEdit;
+	const int utf8MIB = 106;
+
+#if defined(Q_OS_WIN)
+	const unsigned int defaultLineEndings = kLineEnd_CRLF;
+#else
+	const unsigned int defaultLineEndings = kLineEnd_LF;
+#endif
+
 public:
 	struct Tag {
 		QTextCursor cursor;
 		unsigned int level;
 		QString text;
+	};
+
+	struct FileSettings {
+		QTextCodec * codec{nullptr};
+		unsigned int lineEnding{0};
+		bool utf8BOM{false};
+		bool ignoreUnsupportedEncoding{false};
 	};
 
 	explicit TextDocument(QObject * parent = nullptr);
@@ -59,6 +97,11 @@ public:
 	virtual bool isModified() const;
 	virtual void setModified(const bool modified = true);
 
+	void saveFile(const QFileInfo & path);
+	virtual void saveFile(const QFileInfo & path, const FileSettings & settings);
+
+	void loadFile(const QFileInfo & path, QTextCodec * defaultCodec = nullptr);
+	virtual void loadFile(const QFileInfo & path, FileSettings & settings, QTextCodec * defaultCodec = nullptr);
 
 signals:
 	void tagsChanged() const;
@@ -69,6 +112,8 @@ private slots:
 					int linesAdded, int line, int foldLevelNow, int foldLevelPrev);
 
 protected:
+	virtual void guessReadSettings(const QFileInfo & path, FileSettings & settings, const QByteArray & peekBytes);
+
 	QList<Tag> _tags;
 	// This is a non-owning pointer that doesn't get destroyed automatically;
 	// set its parent to `this` (or another, appropriate QObject) to ensure

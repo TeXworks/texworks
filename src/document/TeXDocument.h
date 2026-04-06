@@ -56,6 +56,8 @@ protected slots:
 	void maybeUpdateModeLines(int position, int charsRemoved, int charsAdded);
 
 protected:
+	void guessReadSettings(const QFileInfo & path, FileSettings & settings, const QByteArray & peekBytes) override;
+
 	static constexpr int PeekLength = 1024;
 	QMap<QString, QString> _modelines;
 };

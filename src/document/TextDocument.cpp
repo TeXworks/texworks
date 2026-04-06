@@ -24,6 +24,9 @@
 #include <ScintillaDocument.h>
 #include <ScintillaTypes.h>
 
+#include <QSaveFile>
+#include <QTextCodec>
+
 namespace Tw {
 namespace Document {
 
@@ -111,6 +114,104 @@ void TextDocument::setModified(const bool modified)
 	// FIXME
 }
 
+void TextDocument::saveFile(const QFileInfo &path)
+{
+	FileSettings defaultSettings{QTextCodec::codecForMib(utf8MIB), defaultLineEndings, false, true};
+	saveFile(path, defaultSettings);
+}
+
+void TextDocument::saveFile(const QFileInfo &path, const FileSettings &settings)
+{
+	QSaveFile file(path.absoluteFilePath());
+	file.setDirectWriteFallback(true);
+	if (!file.open(QFile::WriteOnly)) {
+		throw FileIOException(tr("Cannot write file \"%1\":\n%2").arg(path.absoluteFilePath(), file.errorString()));
+	}
+	if (settings.codec->mibEnum() == utf8MIB && settings.utf8BOM) {
+		file.write("\xEF\xBB\xBF");
+	}
+	// FIXME: write in chunks to avoid holding the entire text in a temporary
+	// QString; needs caution that we don't split a UTF-8 multi-byte character
+	const QString text = QString::fromUtf8(m_scintilla->get_char_range(0, m_scintilla->length()));
+	file.write(settings.codec->fromUnicode(text));
+	if (file.commit() == false) {
+		throw FileIOException(tr("An error may have occurred while saving the file. "
+								 "You might like to save a copy in a different location."));
+	}
+	m_scintilla->set_save_point();
+}
+
+void TextDocument::loadFile(const QFileInfo & path, QTextCodec * defaultCodec)
+{
+	FileSettings settings;
+	loadFile(path, settings, defaultCodec);
+}
+
+void TextDocument::loadFile(const QFileInfo & path, FileSettings & settings, QTextCodec * defaultCodec)
+{
+	const int PEEK_LENGTH = 1024;
+
+	QFile file(path.absoluteFilePath());
+	// Not using QFile::Text because this prevents us reading "classic" Mac files
+	// with CR-only line endings. See issue #242.
+	if (!file.open(QFile::ReadOnly)) {
+		throw FileIOException(tr("Cannot read file \"%1\":\n%2")
+								 .arg(path.absoluteFilePath(), file.errorString()));
+	}
+
+	const QByteArray peekBytes(file.peek(PEEK_LENGTH));
+
+	guessReadSettings(path, settings, peekBytes);
+
+	if (settings.codec == nullptr) {
+		if (defaultCodec != nullptr) {
+			settings.codec = defaultCodec;
+		}
+		else {
+			settings.codec = QTextCodec::codecForMib(utf8MIB);
+		}
+	}
+
+	// When using the UTF-8 codec (mib = 106), byte order marks (BOMs) are
+	// ignored during reading and not produced when writing. To keep them in
+	// files that have them, we need to check for them ourselves.
+	if (settings.codec->mibEnum() == 106 && peekBytes.size() >= 3 && peekBytes[0] == '\xEF' && peekBytes[1] == '\xBB' && peekBytes[2] == '\xBF') {
+		settings.utf8BOM = true;
+	}
+
+	QString text = settings.codec->toUnicode(file.readAll());
+
+	// TODO: possibly only delete/insert the text if it has actually changed
+	// to avoid side effects (such as messing with the undo-stack)
+	m_scintilla->delete_chars(0, m_scintilla->length());
+	m_scintilla->insert_string(0, text.toUtf8());
+	m_scintilla->set_save_point();
+
+	unsigned int numLineEndings{0};
+	if (text.contains(QLatin1String("\r\n"))) {
+		text.remove(QLatin1String("\r\n"));
+		settings.lineEnding |= kLineEnd_CRLF;
+		++numLineEndings;
+	}
+	if (text.contains(QChar::fromLatin1('\r'))) {
+		text.remove(QChar::fromLatin1('\r'));
+		settings.lineEnding |= kLineEnd_CR;
+		++numLineEndings;
+	}
+	if (text.contains(QChar::fromLatin1('\n'))) {
+		text.remove(QChar::fromLatin1('\n'));
+		settings.lineEnding |= kLineEnd_LF;
+		++numLineEndings;
+	}
+
+	if (numLineEndings == 0) {
+		settings.lineEnding |= defaultLineEndings;
+	}
+	else if (numLineEndings > 1) {
+		settings.lineEnding |= kLineEnd_Mixed;
+	}
+}
+
 void TextDocument::onModified(int position, int modification_type, const QByteArray &text, int length, int linesAdded, int line, int foldLevelNow, int foldLevelPrev)
 {
 	Q_UNUSED(position)
@@ -127,6 +228,13 @@ void TextDocument::onModified(int position, int modification_type, const QByteAr
 			emit modificationChanged(modified);
 		}
 	}
+}
+
+void TextDocument::guessReadSettings(const QFileInfo &path, FileSettings &settings, const QByteArray &peekBytes)
+{
+	Q_UNUSED(path)
+	Q_UNUSED(settings)
+	Q_UNUSED(peekBytes)
 }
 
 qsizetype TextDocument::length() const
