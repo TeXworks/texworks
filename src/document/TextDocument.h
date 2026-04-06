@@ -59,15 +59,15 @@ class TextDocument : public QObject, public Document
 {
 	Q_OBJECT
 	friend class ::CompletingEdit;
-	const int utf8MIB = 106;
-
-#if defined(Q_OS_WIN)
-	const unsigned int defaultLineEndings = kLineEnd_CRLF;
-#else
-	const unsigned int defaultLineEndings = kLineEnd_LF;
-#endif
 
 public:
+	static const int utf8MIB = 106;
+#if defined(Q_OS_WIN)
+	static const unsigned int defaultLineEndings = kLineEnd_CRLF;
+#else
+	static const unsigned int defaultLineEndings = kLineEnd_LF;
+#endif
+
 	struct Tag {
 		QTextCursor cursor;
 		unsigned int level;

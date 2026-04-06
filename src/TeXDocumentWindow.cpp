@@ -111,11 +111,7 @@ void TeXDocumentWindow::init()
 	pdfDoc = nullptr;
 	process = nullptr;
 	utf8BOM = false;
-#if defined(Q_OS_WIN)
-	lineEndings = kLineEnd_CRLF;
-#else
-	lineEndings = kLineEnd_LF;
-#endif
+	lineEndings = Tw::Document::TextDocument::defaultLineEndings;
 
 	setupUi(this);
 	editor()->setDocument(textDoc());
