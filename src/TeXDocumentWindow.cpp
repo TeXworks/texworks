@@ -891,214 +891,34 @@ void TeXDocumentWindow::maybeEnableSaveAndRevert(bool modified)
 	actionRevert_to_Saved->setEnabled(modified && !untitled());
 }
 
-static const char* texshopSynonyms[] = {
-	"MacOSRoman",		"Apple Roman",
-	"IsoLatin",			"ISO 8859-1",
-	"IsoLatin2",		"ISO 8859-2",
-	"IsoLatin5",		"ISO 8859-5",
-	"IsoLatin9",		"ISO 8859-9",
-//	"MacJapanese",		"",
-//	"DOSJapanese",		"",
-	"SJIS_X0213",		"Shift-JIS",
-	"EUC_JP",			"EUC-JP",
-//	"JISJapanese",		"",
-//	"MacKorean",		"",
-	"UTF-8 Unicode",	"UTF-8",
-	"Standard Unicode",	"UTF-16",
-//	"Mac Cyrillic",		"",
-//	"DOS Cyrillic",		"",
-//	"DOS Russian",		"",
-	"Windows Cyrillic",	"Windows-1251",
-	"KOI8_R",			"KOI8-R",
-//	"Mac Chinese Traditional",	"",
-//	"Mac Chinese Simplified",	"",
-//	"DOS Chinese Traditional",	"",
-//	"DOS Chinese Simplified",	"",
-//	"GBK",				"",
-//	"GB 2312",			"",
-	"GB 18030",			"GB18030-0",
-	nullptr
-};
-
-QTextCodec *TeXDocumentWindow::scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName)
-{
-	// peek at the file for %!TEX encoding = ....
-	QRegularExpression re(QStringLiteral(u"% *!TEX +encoding *= *([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
-	QRegularExpressionMatch m = re.match(peekStr);
-	QTextCodec *reqCodec = nullptr;
-	if (m.hasMatch()) {
-		hasMetadata = true;
-		reqName = m.captured(1).trimmed();
-		reqCodec = QTextCodec::codecForName(reqName.toLatin1());
-		if (!reqCodec) {
-			static QHash<QString,QString> *synonyms = nullptr;
-			if (!synonyms) {
-				synonyms = new QHash<QString,QString>;
-				for (int i = 0; texshopSynonyms[i]; i += 2)
-					synonyms->insert(QString::fromLatin1(texshopSynonyms[i]).toLower(), QString::fromLatin1(texshopSynonyms[i+1]));
-			}
-			if (synonyms->contains(reqName.toLower()))
-				reqCodec = QTextCodec::codecForName(synonyms->value(reqName.toLower()).toLatin1());
-		}
-	}
-	else
-		hasMetadata = false;
-	return reqCodec;
-}
-
-#define PEEK_LENGTH 1024
-
-QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
-							  QTextCodec **codecUsed,
-							  int *lineEndings,
-							  QTextCodec * forceCodec)
-	// reads the text from a file, after checking for %!TEX encoding.... metadata
-	// sets codecUsed to the QTextCodec used to read the text
-	// returns a null (not just empty) QString on failure
-{
-	if (lineEndings) {
-		// initialize to default for the platform
-#if defined(Q_OS_WIN)
-		*lineEndings = kLineEnd_CRLF;
-#else
-		*lineEndings = kLineEnd_LF;
-#endif
-	}
-
-	utf8BOM = false;
-	QFile file(fileInfo.absoluteFilePath());
-	// Not using QFile::Text because this prevents us reading "classic" Mac files
-	// with CR-only line endings. See issue #242.
-	if (!file.open(QFile::ReadOnly)) {
-		QMessageBox::warning(this, QCoreApplication::applicationName(),
-							 tr("Cannot read file \"%1\":\n%2")
-							 .arg(fileInfo.absoluteFilePath(), file.errorString()));
-		return QString();
-	}
-
-	QByteArray peekBytes(file.peek(PEEK_LENGTH));
-
-	QString reqName;
-	if (forceCodec)
-		*codecUsed = forceCodec;
-	else {
-		bool hasMetadata{false};
-		*codecUsed = scanForEncoding(QString::fromUtf8(peekBytes.constData()), hasMetadata, reqName);
-		if (!(*codecUsed)) {
-			*codecUsed = TWApp::instance()->getDefaultCodec();
-			if (hasMetadata) {
-				if (QMessageBox::warning(this, tr("Unrecognized encoding"),
-						tr("The text encoding %1 used in %2 is not supported.\n\n"
-						   "It will be interpreted as %3 instead, which may result in incorrect text.")
-							.arg(reqName, fileInfo.absoluteFilePath(), QString::fromUtf8((*codecUsed)->name().constData())),
-						QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
-					return QString();
-			}
-		}
-	}
-
-	// When using the UTF-8 codec (mib = 106), byte order marks (BOMs) are
-	// ignored during reading and not produced when writing. To keep them in
-	// files that have them, we need to check for them ourselves.
-	if ((*codecUsed)->mibEnum() == 106 && peekBytes.size() >= 3 && peekBytes[0] == '\xEF' && peekBytes[1] == '\xBB' && peekBytes[2] == '\xBF')
-		utf8BOM = true;
-
-	// If the file is empty (we're already at the end), don't try to read
-	// anything using QTextStream below as that would return a Null-String
-	// (QString()) rather than an empty string (QString("")). Instead, return
-	// an empty string right away.
-	if (file.atEnd())
-		return QStringLiteral("");
-
-	QString text = (*codecUsed)->toUnicode(file.readAll());
-
-	if (lineEndings) {
-		if (text.contains(QLatin1String("\r\n"))) {
-			text.replace(QLatin1String("\r\n"), QChar::fromLatin1('\n'));
-			*lineEndings = kLineEnd_CRLF;
-		}
-		else if (text.contains(QChar::fromLatin1('\r')) && !text.contains(QChar::fromLatin1('\n'))) {
-			text.replace(QChar::fromLatin1('\r'), QChar::fromLatin1('\n'));
-			*lineEndings = kLineEnd_CR;
-		}
-		else
-			*lineEndings = kLineEnd_LF;
-
-		if (text.contains(QChar::fromLatin1('\r'))) {
-			text.replace(QChar::fromLatin1('\r'), QChar::fromLatin1('\n'));
-			*lineEndings |= kLineEnd_Mixed;
-		}
-	}
-
-	return text;
-}
-
 void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bool inBackground, bool reload, QTextCodec * forceCodec)
 {
-	QString fileContents = readFile(fileInfo, &codec, &lineEndings, forceCodec);
+	Tw::Document::TextDocument::FileSettings settings{forceCodec, lineEndings, utf8BOM, false};
+	QTextCodec * const defaultCodec = TWApp::instance()->getDefaultCodec();
+
+	try {
+		textDoc()->loadFile(fileInfo, settings, defaultCodec);
+	}
+	catch (const Tw::Document::UnsupportedEncodingException & e) {
+		if (QMessageBox::warning(this, tr("Unrecognized encoding"),
+								 tr("The text encoding %1 used in %2 is not supported.\n\n"
+									"It will be interpreted as %3 instead, which may result in incorrect text.")
+									 .arg(QString::fromUtf8(e.what()), fileInfo.absoluteFilePath(), QString::fromUtf8(defaultCodec->name())),
+								 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel) {
+			return;
+		}
+		settings.codec = defaultCodec;
+		textDoc()->loadFile(fileInfo, settings, defaultCodec);
+	}
+
+	lineEndings = settings.lineEnding;
 	showLineEndingSetting();
+
+	codec = settings.codec;
 	showEncodingSetting();
 
-	if (fileContents.isNull())
-		return;
-	bool identicalContent{fileContents == textEdit->text()};
-
-	// Only re-set the content if it has actually changed. Setting the content
-	// has many side effects, e.g., destroying the undo/redo stack.
-	if (!reload || !identicalContent) {
-		QApplication::setOverrideCursor(Qt::WaitCursor);
-
-		textEdit->setPlainText(fileContents);
-
-		// Ensure the window is shown early (before setPlainText()).
-		// - this ensures it is shown before the PDF (if opening a new doc)
-		// - this avoids problems during layouting (which can be broken if the
-		//   geometry, highlighting, ... is changed before the window is shown)
-		if (!reload)
-			show();
-		QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-
-		/* FIXME
-		{
-			// Try to work around QTBUG-20354
-			// It seems that adding additionalFormats (as is done automatically on
-			// setPlainText() by the syntax highlighter) can disturb the layouting
-			// process, leaving some blocks with size zero. This causes the
-			// corresponding lines to "disappear" and can even crash the application
-			// in connection with the "highlight current line" feature.
-			QTextDocument * doc = textEdit->document();
-			Q_ASSERT(doc);
-			QAbstractTextDocumentLayout * docLayout = doc->documentLayout();
-			Q_ASSERT(docLayout);
-
-			int tries{0};
-			for (tries = 0; tries < 10; ++tries) {
-				bool isLayoutOK = true;
-				for (QTextBlock b = doc->firstBlock(); b.isValid(); b = b.next()) {
-					if (docLayout->	blockBoundingRect(b).isEmpty()) {
-						isLayoutOK = false;
-						break;
-					}
-				}
-				if (isLayoutOK) break;
-				// Re-setting the document content naturally triggers a relayout
-				// (also a rehighlight). Note that layouting only works sensibly
-				// once show() was called, or else there is no valid widget geometry
-				// to act as bounding box.
-#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
-				doc->setPlainText(doc->toPlainText());
-#else
-				doc->setPlainText(doc->toRawText());
-#endif
-				QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-			}
-			if (tries >= 10) {
-				QMessageBox::warning(this, tr("Layout Problem"), tr("A problem occurred while laying out the loaded document in the editor. This is caused by an issue in the underlying Qt framework and can cause TeXworks to crash under certain circumstances. The symptoms of this problem are hidden or overlapping lines. To work around this, please try one of the following:\n -) Turn syntax highlighting off and on\n -) Turn line numbers off and on\n -) Resize the window\n\nWe are sorry for the inconvenience."));
-			}
-		}
-*/
-		QApplication::restoreOverrideCursor();
-	}
+	if (!reload)
+		show();
 
 	if (asTemplate) {
 		lastModified = QDateTime();
@@ -1398,6 +1218,7 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 		}
 	}
 
+	// FIXME: line endings should be handled internally by scintilla!
 	QString theText = textEdit->text();
 	switch (lineEndings & kLineEnd_Mask) {
 		case kLineEnd_CR:
@@ -1427,37 +1248,21 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 	clearFileWatcher();
 
 	{
-		QSaveFile file(fileInfo.absoluteFilePath());
-		file.setDirectWriteFallback(true);
-		if (!file.open(QFile::WriteOnly)) {
-			QMessageBox::warning(this, QCoreApplication::applicationName(),
-								 tr("Cannot write file \"%1\":\n%2")
-								 .arg(fileInfo.absoluteFilePath(), file.errorString()));
+		QApplication::setOverrideCursor(Qt::WaitCursor);
+		Tw::Document::TextDocument::FileSettings settings{codec, lineEndings, utf8BOM, true};
+		try {
+			textDoc()->saveFile(fileInfo, settings);
+			QApplication::restoreOverrideCursor();
+		}
+		catch (const Tw::Document::FileIOException & e) {
+			QApplication::restoreOverrideCursor();
+			QMessageBox::warning(this, tr("Error writing file"),
+								 QString::fromStdString(e.what()),
+								 QMessageBox::Ok);
 			setupFileWatcher();
 			showNotSavedMessage();
 			return false;
 		}
-
-		QApplication::setOverrideCursor(Qt::WaitCursor);
-
-		// When using the UTF-8 codec (mib = 106), byte order marks (BOMs) are
-		// ignored during reading and not produced when writing. To keep them in
-		// files that have them (or the user wants them), we need to write them
-		// ourselves.
-		if (codec->mibEnum() == 106 && utf8BOM)
-			file.write("\xEF\xBB\xBF");
-
-		file.write(codec->fromUnicode(theText));
-		if (file.commit() == false) {
-			QApplication::restoreOverrideCursor();
-			QMessageBox::warning(this, tr("Error writing file"),
-								 tr("An error may have occurred while saving the file. "
-									"You might like to save a copy in a different location."),
-								 QMessageBox::Ok);
-			showNotSavedMessage();
-			return false;
-		}
-		QApplication::restoreOverrideCursor();
 	}
 
 	// Pass the absoluteFilePath to the function; this will create a new
@@ -3244,8 +3049,9 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 
 					case INSERT_DOCUMENT_TEXT:
 						if (!Tw::Document::isPDFfile(fileName) && !Tw::Document::isImageFile(fileName) && !Tw::Document::isPostscriptFile(fileName)) {
-							QTextCodec * codecUsed{nullptr};
-							text = readFile(QFileInfo(fileName), &codecUsed);
+							Tw::Document::TextDocument textDoc;
+							textDoc.loadFile(QFileInfo(fileName));
+							const QString text = textDoc.text();
 							if (!text.isNull()) {
 								if (!editBlockStarted) {
 									curs.beginEditBlock();

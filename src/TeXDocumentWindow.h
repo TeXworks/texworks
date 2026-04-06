@@ -55,14 +55,6 @@ class ClickableLabel;
 
 const int kTeXWindowStateVersion = 1; // increment this if we add toolbars/docks/etc
 
-#define kLineEnd_Mask   0x00FF
-#define kLineEnd_LF     0x0000
-#define kLineEnd_CRLF   0x0001
-#define kLineEnd_CR     0x0002
-
-#define kLineEnd_Flags_Mask  0xFF00
-#define kLineEnd_Mixed       0x0100
-
 class TeXDocumentWindow : public TWScriptableWindow, private Ui::TeXDocumentWindow
 {
 	Q_OBJECT
@@ -232,7 +224,6 @@ private:
 	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
 	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
-	QString readFile(const QFileInfo & fileInfo, QTextCodec **codecUsed, int *lineEndings = nullptr, QTextCodec * forceCodec = nullptr);
 	void loadFile(const QFileInfo & fileInfo, bool asTemplate = false, bool inBackground = false, bool reload = false, QTextCodec * forceCodec = nullptr);
 	bool saveFile(const QFileInfo & fileInfo);
 	void setCurrentFile(const QFileInfo & fileInfo);
@@ -268,7 +259,7 @@ private:
 	// reading and not produced when writing. To keep them in files that have
 	// them, we need to keep track of them ourselves.
 	bool utf8BOM{false};
-	int lineEndings{kLineEnd_LF};
+	unsigned int lineEndings{kLineEnd_LF};
 	QDateTime lastModified;
 	qreal m_lineSpacing{kDefault_LineSpacing};
 
