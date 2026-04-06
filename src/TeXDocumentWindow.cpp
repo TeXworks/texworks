@@ -1438,19 +1438,38 @@ void TeXDocumentWindow::showCursorPosition()
 void TeXDocumentWindow::showLineEndingSetting()
 {
 	QString lineEndStr;
-	switch (lineEndings & kLineEnd_Mask) {
-		case kLineEnd_LF:
-		    lineEndStr = tr("LF");
-			break;
-		case kLineEnd_CRLF:
-		    lineEndStr = tr("CRLF");
-			break;
-		case kLineEnd_CR:
-		    lineEndStr = tr("CR");
-			break;
+	int numLineEndings{0};
+	if ((lineEndings & kLineEnd_LF) != 0) {
+		if (lineEndStr.isEmpty()) {
+			//: line endings: line feed
+			lineEndStr = tr("LF");
+		}
+		++numLineEndings;
 	}
-	if ((lineEndings & kLineEnd_Mixed) != 0)
+	if ((lineEndings & kLineEnd_CRLF) != 0) {
+		if (lineEndStr.isEmpty()) {
+			//: line endings: carriage return + line feed
+			lineEndStr = tr("CRLF");
+		}
+		++numLineEndings;
+	}
+	if ((lineEndings & kLineEnd_CR) != 0) {
+		if (lineEndStr.isEmpty()) {
+			//: line endings: carriage return
+			lineEndStr = tr("CR");
+		}
+		++numLineEndings;
+	}
+
+	if (lineEndStr.isEmpty()) {
+		//: Unknown line endings
+		lineEndStr = tr("?");
+	}
+	if (numLineEndings > 1) {
+		//: line endings: marker that more than one type was found
 		lineEndStr += tr("*");
+	}
+
 	lineEndingLabel->setText(lineEndStr);
 }
 

@@ -203,9 +203,6 @@ void TextDocument::loadFile(const QFileInfo & path, FileSettings & settings, QTe
 	if (numLineEndings == 0) {
 		settings.lineEnding |= defaultLineEndings;
 	}
-	else if (numLineEndings > 1) {
-		settings.lineEnding |= kLineEnd_Mixed;
-	}
 }
 
 void TextDocument::onModified(int position, int modification_type, const QByteArray &text, int length, int linesAdded, int line, int foldLevelNow, int foldLevelPrev)

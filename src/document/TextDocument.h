@@ -40,9 +40,6 @@ namespace Document {
 #define kLineEnd_CRLF   0x0002
 #define kLineEnd_CR     0x0004
 
-#define kLineEnd_Flags_Mask  0xFF00
-#define kLineEnd_Mixed       0x0100
-
 class FileIOException : public std::runtime_error
 {
 public:
