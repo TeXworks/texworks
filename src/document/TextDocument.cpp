@@ -132,8 +132,7 @@ void TextDocument::saveFile(const QFileInfo &path, const FileSettings &settings)
 	}
 	// FIXME: write in chunks to avoid holding the entire text in a temporary
 	// QString; needs caution that we don't split a UTF-8 multi-byte character
-	const QString text = QString::fromUtf8(m_scintilla->get_char_range(0, m_scintilla->length()));
-	file.write(settings.codec->fromUnicode(text));
+	file.write(settings.codec->fromUnicode(text()));
 	if (file.commit() == false) {
 		throw FileIOException(tr("An error may have occurred while saving the file. "
 								 "You might like to save a copy in a different location."));
@@ -180,11 +179,7 @@ void TextDocument::loadFile(const QFileInfo & path, FileSettings & settings, QTe
 	}
 
 	QString text = settings.codec->toUnicode(file.readAll());
-
-	// TODO: possibly only delete/insert the text if it has actually changed
-	// to avoid side effects (such as messing with the undo-stack)
-	m_scintilla->delete_chars(0, m_scintilla->length());
-	m_scintilla->insert_string(0, text.toUtf8());
+	setText(text);
 	m_scintilla->set_save_point();
 
 	unsigned int numLineEndings{0};
@@ -243,6 +238,19 @@ qsizetype TextDocument::length() const
 		return 0;
 	}
 	return m_scintilla->length();
+}
+
+QString TextDocument::text() const
+{
+	return QString::fromUtf8(m_scintilla->get_char_range(0, m_scintilla->length()));
+}
+
+void TextDocument::setText(const QString & newText)
+{
+	// TODO: possibly only delete/insert the text if it has actually changed
+	// to avoid side effects (such as messing with the undo-stack)
+	m_scintilla->delete_chars(0, m_scintilla->length());
+	m_scintilla->insert_string(0, newText.toUtf8());
 }
 
 } // namespace Document

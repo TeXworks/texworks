@@ -91,6 +91,9 @@ public:
 	qsizetype length() const;
 	bool isEmpty() const { return length() == 0; }
 
+	virtual QString text() const;
+	virtual void setText(const QString & newText);
+
 	QString line(const int line) const;
 	int lineCount() const;
 
