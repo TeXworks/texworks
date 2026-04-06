@@ -55,6 +55,7 @@ add_library(scintilla
 target_compile_definitions(scintilla PUBLIC SCINTILLA_QT=1 MAKING_LIBRARY=1)
 target_include_directories(scintilla PUBLIC scintilla/qt/ScintillaEdit scintilla/qt/ScintillaEditBase scintilla/src scintilla/include)
 target_link_libraries(scintilla Qt${QT_VERSION_MAJOR}::Widgets)
+install(TARGETS scintilla)
 if (${QT_VERSION_MAJOR} LESS 6)
 	target_link_libraries(scintilla Qt${QT_VERSION_MAJOR}::Widgets)
 else ()
