@@ -25,7 +25,6 @@
 // FIXME shortcuts defined in CompletingEdit.ui
 //#include "ui_CompletingEdit.h"
 
-#include "document/TextDocument.h"
 #include <ScintillaEdit.h>
 
 #include <QDrag>
@@ -43,6 +42,7 @@ namespace Tw {
 namespace Document {
 
 class SpellChecker;
+class TextDocument;
 
 } // namespace Document
 } // namespace Tw
