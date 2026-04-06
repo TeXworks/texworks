@@ -183,6 +183,7 @@ void TextDocument::loadFile(const QFileInfo & path, FileSettings & settings, QTe
 	m_scintilla->set_save_point();
 
 	unsigned int numLineEndings{0};
+	settings.lineEnding = 0;
 	if (text.contains(QLatin1String("\r\n"))) {
 		text.remove(QLatin1String("\r\n"));
 		settings.lineEnding |= kLineEnd_CRLF;

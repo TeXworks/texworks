@@ -36,9 +36,9 @@ namespace Tw {
 namespace Document {
 
 #define kLineEnd_Mask   0x00FF
-#define kLineEnd_LF     0x0000
-#define kLineEnd_CRLF   0x0001
-#define kLineEnd_CR     0x0002
+#define kLineEnd_LF     0x0001
+#define kLineEnd_CRLF   0x0002
+#define kLineEnd_CR     0x0004
 
 #define kLineEnd_Flags_Mask  0xFF00
 #define kLineEnd_Mixed       0x0100
