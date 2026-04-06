@@ -22,6 +22,13 @@
 #include "document/TeXDocument.h"
 #include "TeXHighlighter.h"
 
+#include "../utils/CompilerWarnings.h"
+WARNINGS_PUSH()
+WARNINGS_DISABLE("-Wzero-as-null-pointer-constant")
+#include <ScintillaDocument.h>
+#include <ScintillaTypes.h>
+WARNINGS_POP()
+
 #include <QDir>
 #include <QFileInfo>
 #include <QTextCodec>
@@ -81,21 +88,12 @@ TeXHighlighter * TeXDocument::getHighlighter() const
 
 void TeXDocument::parseModeLines()
 {
-	/* FIXME
 	QMap<QString, QString> newModeLines;
 
 	QRegularExpression re(QStringLiteral(u"%(?:\\^\\^A)?\\s*!TEX\\s+(?:TS-)?(\\w+)\\s*=\\s*([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
 
-	QTextCursor curs(this);
-	// (begin|end)EditBlock() is a workaround for QTBUG-24718 that causes
-	// movePosition() to crash the program under some circumstances.
-	// Since we don't change any text in the edit block, it should be a noop
-	// in the context of undo/redo.
-	curs.beginEditBlock();
-	curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PeekLength);
-	curs.endEditBlock();
-
-	QRegularExpressionMatchIterator it = re.globalMatch(curs.selectedText());
+	const QString peekText = QString::fromUtf8(m_scintilla->get_char_range(0, qMin(PeekLength, m_scintilla->length())));
+	QRegularExpressionMatchIterator it = re.globalMatch(peekText);
 
 	while (it.hasNext()) {
 		QRegularExpressionMatch m = it.next();
@@ -120,7 +118,6 @@ void TeXDocument::parseModeLines()
 		_modelines = newModeLines;
 		emit modelinesChanged(changedKeys, removedKeys);
 	}
-*/
 }
 
 QString TeXDocument::getRootFilePath() const
