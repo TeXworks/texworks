@@ -140,13 +140,13 @@ COPY . /home/tw
 # Build TeXworks
 RUN mkdir /home/tw/build && cd /home/tw/build && \
 ${CMAKE} -DTW_BUILD_ID='github' -DCMAKE_INSTALL_PREFIX=/usr .. -DCMAKE_PREFIX_PATH=/opt/qt/${QT_VERSION}/gcc_64 -DQT_DEFAULT_MAJOR_VERSION=6 && \
-make && \
+make -j4 && \
 xvfb-run ${CTEST} -V && \
 make install DESTDIR=AppDir
 
 # Build AppImage
 RUN cd /home/tw/build && \
-	APPIMAGE_EXTRACT_AND_RUN=1 QMAKE=/opt/qt/${QT_VERSION}/gcc_64/bin/qmake LD_LIBRARY_PATH="/opt/qt/${QT_VERSION}/gcc_64/lib/:/usr/local/lib" /opt/linuxdeploy-x86_64.AppImage --appdir AppDir --desktop-file=AppDir/usr/share/applications/org.tug.texworks.desktop --library=AppDir/usr/lib/texworks/libTWLuaPlugin.so --plugin qt --output appimage
+	APPIMAGE_EXTRACT_AND_RUN=1 QMAKE=/opt/qt/${QT_VERSION}/gcc_64/bin/qmake LD_LIBRARY_PATH="/opt/qt/${QT_VERSION}/gcc_64/lib/:/usr/local/lib:AppDir/usr/lib/$(gcc -print-multiarch)/" /opt/linuxdeploy-x86_64.AppImage --appdir AppDir --desktop-file=AppDir/usr/share/applications/org.tug.texworks.desktop --library=AppDir/usr/lib/texworks/libTWLuaPlugin.so --plugin qt --output appimage
 
 ############################
 
