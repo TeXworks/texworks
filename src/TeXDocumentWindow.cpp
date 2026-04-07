@@ -2453,6 +2453,7 @@ QTextCursor TeXDocumentWindow::doSearch(const QString& searchText, const QRegula
 	}
 	return curs;
 */
+	return {};
 }
 
 void TeXDocumentWindow::copyToFind()
