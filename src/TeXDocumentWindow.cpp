@@ -312,11 +312,10 @@ void TeXDocumentWindow::init()
 	}
 
 	// kDefault_TabWidth is defined in DefaultPrefs.h
+	textEdit->setTabStopDistance(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toReal());
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
-	textEdit->setTabStopWidth(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toInt());
 	textEdit_console->setTabStopWidth(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toInt());
 #else
-	textEdit->setTabStopDistance(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toReal());
 	textEdit_console->setTabStopDistance(settings.value(QString::fromLatin1("tabWidth"), kDefault_TabWidth).toReal());
 #endif
 

@@ -235,7 +235,7 @@ void TextDocument::guessReadSettings(const QFileInfo &path, FileSettings &settin
 	Q_UNUSED(peekBytes)
 }
 
-qsizetype TextDocument::length() const
+TextDocument::size_type TextDocument::length() const
 {
 	if (!m_scintilla) {
 		return 0;

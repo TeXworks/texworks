@@ -58,6 +58,12 @@ class TextDocument : public QObject, public Document
 	friend class ::CompletingEdit;
 
 public:
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+	using size_type = int;
+#else
+	using size_type = qsizetype;
+#endif
+
 	static const int utf8MIB = 106;
 #if defined(Q_OS_WIN)
 	static const unsigned int defaultLineEndings = kLineEnd_CRLF;
@@ -85,7 +91,7 @@ public:
 	void addTag(const QTextCursor & cursor, const unsigned int level, const QString & text);
 	unsigned int removeTags(int offset, int len);
 
-	qsizetype length() const;
+	size_type length() const;
 	bool isEmpty() const { return length() == 0; }
 
 	virtual QString text() const;

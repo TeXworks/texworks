@@ -1,0 +1,14 @@
+diff --git a/qt/ScintillaEditBase/PlatQt.cpp b/qt/ScintillaEditBase/PlatQt.cpp
+index 8550e9f..35a793d 100644
+--- a/modules/scintilla/qt/ScintillaEditBase/PlatQt.cpp
++++ b/modules/scintilla/qt/ScintillaEditBase/PlatQt.cpp
+@@ -20,6 +20,9 @@
+ #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+ #include <QScreen>
+ #endif
++#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
++#include <QDesktopWidget>
++#endif
+ #include <QFont>
+ #include <QColor>
+ #include <QRect>
