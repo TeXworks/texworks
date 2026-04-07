@@ -1,13 +1,14 @@
-FROM ubuntu:trusty
+FROM ubuntu:bionic
 
-# Trusty comes with Qt 5.2.3, poppler 0.24.5
-# For CMake (3.5.1) and hunspell (1.3.2), we want to use even older versions
-# (3.1 and 1.2.9, respectively) than are packaged
+# Bionic comes with Qt 5.9.5, poppler 0.62.0, CMake (3.10.2) and hunspell (1.6.2)
 
-RUN apt-get update && apt-get install --no-install-recommends --assume-yes \
-	g++ \
+RUN apt update && apt install --no-install-recommends --assume-yes \
+	cmake \
+	g++-8 \
 	git \
+	libhunspell-dev \
 	make \
+	patch \
 	qtbase5-dev \
 	qtdeclarative5-dev \
 	qtscript5-dev \
@@ -21,27 +22,15 @@ RUN apt-get update && apt-get install --no-install-recommends --assume-yes \
 	liblua5.2-dev \
 	gsfonts \
 	xvfb \
-&& apt-get clean
+&& apt clean
 
-ENV PATH="/opt/cmake/bin:${PATH}"
-
-RUN export CMAKE_VERSION=3.1.0 && \
-	wget -O /tmp/cmake.tar.gz https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz && \
-	tar -x -C /tmp -f /tmp/cmake.tar.gz && \
-	mv /tmp/cmake-${CMAKE_VERSION}-Linux-x86_64 /opt/cmake && \
-	rm /tmp/cmake.tar.gz
-
-# https://downloads.sourceforge.net/project/hunspell/Hunspell/${HUNSPELL_VERSION}/hunspell-${HUNSPELL_VERSION}.tar.gz
-RUN export HUNSPELL_VERSION=1.2.9 && \
-	wget --no-check-certificate -O /tmp/hunspell.tar.gz https://sourceforge.net/projects/hunspell/files/Hunspell/${HUNSPELL_VERSION}/hunspell-${HUNSPELL_VERSION}.tar.gz/download?use_mirror=versaweb && \
-	tar -x -C /tmp -f /tmp/hunspell.tar.gz && \
-	cd /tmp/hunspell-${HUNSPELL_VERSION} && \
-    ./configure --disable-dependency-tracking && \
-    make -j && \
-    sudo make install && \
-	rm -rf /tmp/hunspell.tar.gz /tmp/hunspell-${HUNSPELL_VERSION}
+RUN \
+	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 10 && \
+	update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 10
 
 COPY . /home/tw
+
+RUN cd /home/tw && patch -p1 < /home/tw/lib-patches/scintilla-legacy-qt.patch
 
 RUN mkdir /home/tw/build && cd /home/tw/build && \
 cmake -DTW_BUILD_ID='github' .. -DQT_DEFAULT_MAJOR_VERSION=5 && \

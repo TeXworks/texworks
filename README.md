@@ -71,8 +71,8 @@ platform. On Linux or similar systems, your package manager can probably provide
 all these. On the Mac, required libraries can be obtained, e.g., using Homebrew.
 
 Using the latest stable versions of the dependencies is highly recommended,
-although TeXworks can be built with versions at least as old as CMake 3.1.0,
-Qt 5.2.3, poppler 0.24.5, and hunspell 1.2.9.
+although TeXworks can be built with versions at least as old as CMake 3.10,
+Qt 5.9, poppler 0.62, and hunspell 1.6.2.
 
 Once everything is set up, create a folder for building (e.g., "build") and run
 CMake in it to create a Makefile or Xcode project. Finally, run make or use
