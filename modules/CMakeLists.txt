@@ -52,7 +52,14 @@ add_library(scintilla
 	scintilla/qt/ScintillaEditBase/ScintillaEditBase.h
 	scintilla/qt/ScintillaEditBase/ScintillaQt.h
 )
-target_compile_definitions(scintilla PUBLIC SCINTILLA_QT=1 MAKING_LIBRARY=1)
+target_compile_definitions(scintilla PUBLIC SCINTILLA_QT=1)
+if (WIN32)
+	if (BUILD_SHARED_LIBS)
+		target_compile_definitions(scintilla PRIVATE MAKING_LIBRARY=1)
+	else ()
+		target_compile_definitions(scintilla PUBLIC EXPORT_IMPORT_API=)
+	endif ()
+endif (WIN32)
 target_include_directories(scintilla PUBLIC scintilla/qt/ScintillaEdit scintilla/qt/ScintillaEditBase scintilla/src scintilla/include)
 target_link_libraries(scintilla Qt${QT_VERSION_MAJOR}::Widgets)
 install(TARGETS scintilla)
