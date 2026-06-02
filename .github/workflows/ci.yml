@@ -183,7 +183,7 @@ jobs:
         # So we remove them
         cd /usr/local/bin && rm -f 2to3* idle* pydoc* python*
         brew update > /tmp/brew_update.log || { echo "::error::Updating homebrew failed"; cat /tmp/brew_update.log; exit 1; }
-        brew install hunspell poppler-qt5 lua qt@5
+        brew install hunspell poppler-qt5 lua qt@5 font-urw-core35
         # As poppler-qt5 conflicts with poppler, we need to force-link it
         brew link --force poppler-qt5
 
