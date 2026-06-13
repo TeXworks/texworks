@@ -97,8 +97,12 @@ for SERIES in ${LAUNCHPAD_SERIES}; do
 			echo "$NEWS" >> "${DEBDIR}/debian/changelog"
 			;;
 		*)
-			git log --reverse --pretty=format:"%w(80,4,6)* %s" "${PREV_COMMIT}.." >> "${DEBDIR}/debian/changelog"
-			echo "" >> "${DEBDIR}/debian/changelog" # git log does not append a newline
+			if [ "${PREV_COMMIT}" = "0000000000000000000000000000000000000000" ]; then
+				echo "    * New release" >> "${DEBDIR}/debian/changelog"
+			else
+				git log --reverse --pretty=format:"%w(80,4,6)* %s" "${PREV_COMMIT}.." >> "${DEBDIR}/debian/changelog"
+				echo "" >> "${DEBDIR}/debian/changelog" # git log does not append a newline
+			fi
 			;;
 	esac
 	printf "\n -- ${DEB_MAINTAINER_NAME} <${DEB_MAINTAINER_EMAIL}>  ${DEBDATE}\n" >> "${DEBDIR}/debian/changelog"
