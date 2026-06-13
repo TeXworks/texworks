@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0 # fetch the entire history so we can create the changelog
 
@@ -39,13 +39,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Build
       run: DOCKER_BUILDKIT=1 docker build -f ./.github/workflows/Dockerfile.appimage-debian -o out .
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: TeXworks-AppImage
         path: out/TeXworks-*.AppImage
@@ -72,10 +72,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Setup WSL
-      uses: Vampire/setup-wsl@v5
+      uses: Vampire/setup-wsl@v7
       with:
         distribution: Ubuntu-24.04
 
@@ -131,7 +131,7 @@ jobs:
       id: package
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: TeXworks-Windows${{ matrix.winVersion }}
         path: ${{ steps.package.outputs.file }}
@@ -145,7 +145,7 @@ jobs:
       working-directory: win32
 
     - name: Upload installer artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: TeXworks-Windows${{ matrix.winVersion }}-Setup
         path: win32/Output/*.exe
@@ -202,7 +202,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
       # Mono seems to provide some (potentially incompatible) headers that CMake
       # might pick up on instead of ours
@@ -232,7 +232,7 @@ jobs:
 
     - name: Cache dependencies
       id: cache-dependencies
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         key: twdeps-${{ runner.os }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}-${{ matrix.arch }}-qt${{ matrix.qtVersion }}-${{ hashFiles('./.github/actions/setup-macos/*') }}
         path: ${{ runner.temp }}/tw-deps
@@ -267,7 +267,7 @@ jobs:
         hdiutil detach ${{ runner.temp }}/pkg
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: TeXworks-macOS${{ matrix.macVersion }}-${{ matrix.arch }}
         path: ${{ steps.package.outputs.file }}

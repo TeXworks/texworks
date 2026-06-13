@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Build
       run: docker build -f .github/workflows/Dockerfile.legacy .
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Build
       run: docker build -f .github/workflows/Dockerfile.arch-qt6 .
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Build
       run: docker build -f .github/workflows/Dockerfile.sanitizer .
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Install dependencies
       run: sudo apt update && sudo apt install --assume-yes --no-install-recommends libhunspell-dev liblua5.4-dev libpoppler-qt6-dev libpoppler-private-dev make poppler-data qt6-5compat-dev qt6-base-dev qt6-declarative-dev qt6-tools-dev qt6-tools-dev-tools zlib1g-dev xvfb fonts-urw-base35 poppler-data lcov
@@ -79,7 +79,7 @@ jobs:
         lcov --list coverage.info #debug info
         echo "::endgroup::"
     - name: Upload to Codecov
-      uses: codecov/codecov-action@v5
+      uses: codecov/codecov-action@v7
       with:
         fail_ci_if_error: true
         token: ${{ secrets.CODECOV_TOKEN }}
@@ -107,7 +107,7 @@ jobs:
         install: mingw-w64-x86_64-cmake git make mingw-w64-x86_64-gcc mingw-w64-x86_64-hunspell mingw-w64-x86_64-lua mingw-w64-x86_64-poppler mingw-w64-x86_64-qt5
 
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Configure
       run: cmake -G 'MSYS Makefiles' -B build -DTW_BUILD_ID='github' -DTEXWORKS_ADDITIONAL_LIBS='shlwapi' -DQT_DEFAULT_MAJOR_VERSION=5
@@ -129,7 +129,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
@@ -173,7 +173,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Install Dependencies
       run: |
@@ -212,7 +212,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Install MacPorts
       run: |
