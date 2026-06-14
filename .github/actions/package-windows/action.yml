@@ -11,25 +11,32 @@ inputs:
 outputs:
   file:
     description: 'The filename of the packaged artifact (relative to builddir)'
-    value: ${{ steps.info.outputs.file }}
+    value: ${{ steps.info-x64.outputs.file || steps.info-arm64.outputs.file }}
   version:
     description: 'The version of the packaged artifact (e.g., 0.7)'
-    value: ${{ steps.info.outputs.version }}
+    value: ${{ steps.info-x64.outputs.version || steps.info-arm64.outputs.version }}
   fullversion:
     description: 'The full version of the packaged artifact (e.g., 0.7-202011160643-git_14dcc2c)'
-    value: ${{ steps.info.outputs.fullversion }}
-
+    value: ${{ steps.info-x64.outputs.fullversion || steps.info-arm64.outputs.fullversion }}
 runs:
   using: composite
   steps:
-    - name: Assemble package
+    - name: Assemble package (WSL x64)
+      if: env.arch != 'ARM64'
       shell: wsl-bash {0}
       run: cpack --verbose
       working-directory: ${{ inputs.builddir }}
 
-    - name: Info
+    - name: Assemble package (ARM64)
+      if: env.arch == 'ARM64'
+      shell: bash
+      run: cpack --verbose
+      working-directory: ${{ inputs.builddir }}
+
+    - name: Info WSL-x64
+      if: env.arch != 'ARM64'
       shell: wsl-bash {0}
-      id: info
+      id: info-x64
       run: |
         GITHUB_OUTPUT=$(echo "${{ github.output }}" | tr '\\' '/' | sed -e 's!\([A-Za-z]\):/!/mnt/\L\1/!')
         FILENAME=$(find ${{ inputs.builddir }} -maxdepth 1 -name 'TeXworks-win-*.zip')
@@ -42,3 +49,20 @@ runs:
         echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
         echo "fullversion=${FULLVERSION}" >> "${GITHUB_OUTPUT}"
         echo "file=${FILENAME}" >> "${GITHUB_OUTPUT}"
+
+    - name: Info Windows ARM64
+      if: env.arch == 'ARM64'
+      shell: bash
+      id: info-arm64
+      working-directory: ${{ inputs.builddir }}
+      run: |
+        FILENAME=$(find . -maxdepth 1 -name 'TeXworks-win-*.zip' | sed 's|^\./||')
+        VERSION=$(basename "$FILENAME" | sed -e 's/^TeXworks-win-\([^-]*\)-.*\.zip$/\1/')
+        FULLVERSION=$(basename "$FILENAME" | sed -e 's/^TeXworks-win-\(.*\)\.zip$/\1/')
+        echo "MD5"
+        md5sum "$FILENAME"
+        echo "SHA256"
+        sha256sum "$FILENAME"
+        echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+        echo "fullversion=${FULLVERSION}" >> "$GITHUB_OUTPUT"
+        echo "file=${{ inputs.builddir }}/${FILENAME}" >> "$GITHUB_OUTPUT"

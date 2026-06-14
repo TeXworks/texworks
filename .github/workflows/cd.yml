@@ -52,7 +52,7 @@ jobs:
 
 ################################################################################
 
-  win:
+  win-x64:
     name: Windows
     runs-on: windows-latest
     strategy:
@@ -129,6 +129,8 @@ jobs:
     - name: Package
       uses: ./.github/actions/package-windows
       id: package
+      env:
+        arch: x64
 
     - name: Upload artifact
       uses: actions/upload-artifact@v7
@@ -157,6 +159,89 @@ jobs:
 #          file: ${{ steps.package.outputs.file }}
 #          baseurl: https://texworks.jfrog.io
 #          repo: windows-latest
+#          remotePath: ${{ steps.package.outputs.version }}
+#          username: st.loeffler@gmail.com
+#          key: ${{ secrets.jfrog_key }}
+
+################################################################################
+
+  win-arm64:
+    name: Windows (MSVC ARM64)
+    runs-on: windows-11-arm
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: 6.8.*
+        modules: qt5compat
+
+    - name: Install dependencies
+      run: |
+        cmake -A ARM64 -B "${{ runner.workspace }}/tw-deps-build" -S "${{ github.workspace }}/.github/actions/msvc-dependencies" -DCMAKE_INSTALL_PREFIX="${{ runner.workspace }}/tw-deps"
+        cmake --build "${{ runner.workspace }}/tw-deps-build" --config Release
+  
+    - name: Configure
+      run: |
+        cmake -A ARM64 -B build -DTW_DEPS_PATH="${{ runner.workspace }}/tw-deps" -DTW_BUILD_ID='github' -DCMAKE_PREFIX_PATH="${{ runner.workspace }}/tw-deps" -Dgp_tool='none' -DQT_DEFAULT_MAJOR_VERSION=6
+
+    - name: Build & Install
+      run: |
+        cmake --build build --config Release
+        cmake --install build --config Release
+
+    - name: Prepare dependencies for testing
+      shell: cmd
+      run: |
+        set PATH=${{ env.QT_ROOT_DIR }}\bin;%PATH%
+        windeployqt --release --compiler-runtime build\Release\texworks.exe
+        cmake -E copy_directory build/share build/Release/share
+        cd "${{ runner.workspace }}/tw-deps/bin"
+        cmake -E copy freetype.dll lcms2.dll libhunspell.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt6.dll tiff.dll zlib1.dll "${{ github.workspace }}/build/Release/"
+  
+    - name: Run Test suite
+      run: ctest -V -C Release
+      working-directory: build
+      env:
+        QT_FORCE_STDERR_LOGGING: 1
+
+    - name: Package
+      uses: ./.github/actions/package-windows
+      id: package
+      env:
+        arch: ARM64
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TeXworks-WindowsARM64
+        path: ${{ steps.package.outputs.file }}
+
+    - name: Install InnoSetup
+      run: choco install innosetup
+
+    - name: Prepare installer files
+      run: cmake -E copy_directory build/Release win32/../release
+
+    - name: Build installer
+      run: ISCC texworks-setup-script.iss
+      working-directory: win32
+
+    - name: Upload installer artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TeXworks-WindowsARM64-Setup
+        path: win32/Output/*.exe
+
+#    - name: Deploy to Artifactory
+#      if: github.event_name == 'push'
+#      uses: ./.github/actions/deploy-artifactory
+#      with:
+#          file: ${{ steps.package.outputs.file }}
+#          baseurl: https://texworks.jfrog.io
+#          repo: windows-11-arm
 #          remotePath: ${{ steps.package.outputs.version }}
 #          username: st.loeffler@gmail.com
 #          key: ${{ secrets.jfrog_key }}
