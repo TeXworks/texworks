@@ -1,6 +1,5 @@
-<!DOCTYPE plist PUBLIC
-	"-//Apple Computer//DTD PLIST 1.0//EN"
-	"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>CFBundleDocumentTypes</key>
@@ -51,7 +50,9 @@
 	<key>CFBundleIconFile</key>
 	<string>TeXworks.icns</string>
 	<key>CFBundleGetInfoString</key>
-	<string>TeXworks version @VER@ (r.@REV@)&#xA;(C) 2007-2026 Stefan L&#xF6;ffler, Jonathan Kew, Charlie Sharpsteen&#xA;Released under GPL (v2.0 or later)</string>
+	<string>TeXworks version @VER@ (r.@REV@)
+(C) 2007-2026 Stefan Löffler, Jonathan Kew, Charlie Sharpsteen
+Released under GPL (v2.0 or later)</string>
 	<key>CFBundleExecutable</key>
 	<string>TeXworks</string>
 	<key>CFBundleIdentifier</key>
