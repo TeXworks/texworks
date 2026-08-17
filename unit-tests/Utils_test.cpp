@@ -43,15 +43,20 @@ namespace Tw {
 namespace Utils {
 bool operator==(const FileVersionDatabase::Record & r1, const FileVersionDatabase::Record & r2)
 {
-	if (r1.version != r2.version || r1.hash != r2.hash)
+	qDebug() << QDir::cleanPath(r1.filePath.absoluteFilePath()) << QDir::cleanPath(r2.filePath.absoluteFilePath());
+	if (r1.version != r2.version || r1.hash != r2.hash) {
+		qDebug() << r1.filePath << r2.filePath << "version/hash mismatch";
 		return false;
+	}
 
 	// Work around the fact that the behavior of QFileInfo::operator== is
 	// undefined if the objects are empty or refer to non-existant files
 
 	// If the only one of the files exists, they are clearly not the same
-	if (r1.filePath.exists() != r2.filePath.exists())
+	if (r1.filePath.exists() != r2.filePath.exists()) {
+		qDebug() << r1.filePath << r2.filePath << "existance mismatch";
 		return false;
+	}
 
 	if (r1.filePath.exists()) {
 		// If they exist, we can compare them directly
