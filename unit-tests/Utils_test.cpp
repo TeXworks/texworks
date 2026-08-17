@@ -74,7 +74,7 @@ char * toString(const FileVersionDatabase & db)
 		records.append(QStringLiteral("R(%0,%1,%2)").arg(record.filePath.filePath()).arg(record.version).arg(record.hash.toHex()));
 	}
 
-	return QTest::toString(QStringLiteral("FileVersionDatabase[%0]").arg(records.join(",")));
+	return qstrdup(qPrintable(QStringLiteral("FileVersionDatabase[%0]").arg(records.join(","))));
 }
 } // namespace Utils
 } // namespace Tw
