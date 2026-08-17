@@ -60,7 +60,7 @@ bool operator==(const FileVersionDatabase::Record & r1, const FileVersionDatabas
 	else {
 		// If they don't exist, we compare the (cleaned) stored absolute file
 		// paths (which can be empty).
-		return (QDir::cleanPath(r1.filePath.absolutePath()) == QDir::cleanPath(r2.filePath.absolutePath()));
+		return (QDir::cleanPath(r1.filePath.absoluteFilePath()) == QDir::cleanPath(r2.filePath.absoluteFilePath()));
 	}
 }
 bool operator==(const FileVersionDatabase & db1, const FileVersionDatabase & db2) {
