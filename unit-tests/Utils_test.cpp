@@ -43,6 +43,10 @@ namespace Tw {
 namespace Utils {
 bool operator==(const FileVersionDatabase::Record & r1, const FileVersionDatabase::Record & r2)
 {
+	auto cleanAbsoluteFileInfo = [](const FileVersionDatabase::Record & rec) {
+		const QDir dir{QDir::cleanPath(rec.filePath.absolutePath())};
+		return QFileInfo(dir, rec.filePath.fileName());
+	};
 	qDebug() << QDir::cleanPath(r1.filePath.absoluteFilePath()) << QDir::cleanPath(r2.filePath.absoluteFilePath());
 	if (r1.version != r2.version || r1.hash != r2.hash) {
 		qDebug() << r1.filePath << r2.filePath << "version/hash mismatch";
@@ -51,21 +55,27 @@ bool operator==(const FileVersionDatabase::Record & r1, const FileVersionDatabas
 
 	// Work around the fact that the behavior of QFileInfo::operator== is
 	// undefined if the objects are empty or refer to non-existant files
+	// Also, comparisons might break if paths are not cleaned and the traversal
+	// of the uncleaned path crosses into inaccessible territory (e.g., where
+	// the user has insufficient permissions or when crossing boundaries of
+	// mounted file systems)
+
+	const QFileInfo fi1 = cleanAbsoluteFileInfo(r1);
+	const QFileInfo fi2 = cleanAbsoluteFileInfo(r2);
 
 	// If the only one of the files exists, they are clearly not the same
-	if (r1.filePath.exists() != r2.filePath.exists()) {
-		qDebug() << r1.filePath << r2.filePath << "existance mismatch";
+	if (fi1.exists() != fi2.exists()) {
+		qDebug() << fi1 << fi2 << "existance mismatch";
 		return false;
 	}
 
-	if (r1.filePath.exists()) {
+	if (fi1.filePath.exists()) {
 		// If they exist, we can compare them directly
-		return (r1.filePath == r2.filePath);
+		return (fi1 == fi2);
 	}
 	else {
-		// If they don't exist, we compare the (cleaned) stored absolute file
-		// paths (which can be empty).
-		return (QDir::cleanPath(r1.filePath.absoluteFilePath()) == QDir::cleanPath(r2.filePath.absoluteFilePath()));
+		// If they don't exist, we compare the path strings (which can be empty).
+		return (fi1.filePath() == fi2.filePath());
 	}
 }
 bool operator==(const FileVersionDatabase & db1, const FileVersionDatabase & db2) {
