@@ -47,9 +47,7 @@ bool operator==(const FileVersionDatabase::Record & r1, const FileVersionDatabas
 		const QDir dir{QDir::cleanPath(rec.filePath.absolutePath())};
 		return QFileInfo(dir, rec.filePath.fileName());
 	};
-	qDebug() << QDir::cleanPath(r1.filePath.absoluteFilePath()) << QDir::cleanPath(r2.filePath.absoluteFilePath());
 	if (r1.version != r2.version || r1.hash != r2.hash) {
-		qDebug() << r1.filePath << r2.filePath << "version/hash mismatch";
 		return false;
 	}
 
@@ -65,7 +63,6 @@ bool operator==(const FileVersionDatabase::Record & r1, const FileVersionDatabas
 
 	// If the only one of the files exists, they are clearly not the same
 	if (fi1.exists() != fi2.exists()) {
-		qDebug() << fi1 << fi2 << "existance mismatch";
 		return false;
 	}
 
