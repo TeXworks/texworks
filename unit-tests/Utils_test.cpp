@@ -69,7 +69,7 @@ bool operator==(const FileVersionDatabase::Record & r1, const FileVersionDatabas
 		return false;
 	}
 
-	if (fi1.filePath.exists()) {
+	if (fi1.exists()) {
 		// If they exist, we can compare them directly
 		return (fi1 == fi2);
 	}
