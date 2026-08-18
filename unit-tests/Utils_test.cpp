@@ -83,7 +83,7 @@ char * toString(const FileVersionDatabase & db)
 {
 	QStringList records;
 	for (const FileVersionDatabase::Record & record : db.getFileRecords()) {
-		records.append(QStringLiteral("R(%0,%1,%2)").arg(record.filePath.filePath()).arg(record.version).arg(record.hash.toHex()));
+		records.append(QStringLiteral("R(%0,%1,%2)").arg(record.filePath.filePath()).arg(record.version).arg(QString::fromLatin1(record.hash.toHex())));
 	}
 
 	return qstrdup(qPrintable(QStringLiteral("FileVersionDatabase[%0]").arg(records.join(","))));
