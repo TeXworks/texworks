@@ -66,6 +66,16 @@ bool operator==(const FileVersionDatabase::Record & r1, const FileVersionDatabas
 bool operator==(const FileVersionDatabase & db1, const FileVersionDatabase & db2) {
 	return db1.getFileRecords() == db2.getFileRecords();
 }
+
+char * toString(const FileVersionDatabase & db)
+{
+	QStringList records;
+	for (const FileVersionDatabase::Record & record : db.getFileRecords()) {
+		records.append(QStringLiteral("R(%0,%1,%2)").arg(record.filePath.filePath()).arg(record.version).arg(QString::fromLatin1(record.hash.toHex())));
+	}
+
+	return qstrdup(qPrintable(QStringLiteral("FileVersionDatabase[%0]").arg(records.join(","))));
+}
 } // namespace Utils
 } // namespace Tw
 
