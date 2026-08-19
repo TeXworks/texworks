@@ -41,16 +41,16 @@ endmacro(ADD_GH_GROUP)
 
 
 ExternalProject_Add(libpng
-	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.54.tar.gz"
-	URL_HASH SHA256=ba7efce137409079989df4667706c339bebfbb10e9f413474718012a13c8cd4c
+	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.58.tar.gz"
+	URL_HASH SHA256=a9d4df463d36a6e5f9c29bd6f4967312d17e996c1854f3511f833924eb1993cf
 	CMAKE_ARGS ${CMAKE_ARGS} -DPNG_FRAMEWORK=OFF
 )
 ADD_GH_GROUP(libpng)
 
 # TODO: harfbuzz?
 ExternalProject_Add(freetype
-	URL "https://github.com/freetype/freetype/archive/refs/tags/VER-2-14-1.tar.gz"
-	URL_HASH SHA256=44bd69d1f0750603410cfd4f26f1c5523c5a3a087a2dfa8639b757dc7c6677be
+	URL "https://github.com/freetype/freetype/archive/refs/tags/VER-2-14-3.tar.gz"
+	URL_HASH SHA256=dc49de6b01a266eef4876a4dd34d9842c475d3e28ff2eff63bd2fb760ab56261
 	CMAKE_ARGS ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=TRUE
 	DEPENDS libpng
 )
@@ -58,8 +58,8 @@ ADD_GH_GROUP(freetype)
 
 # Modeled after https://github.com/Homebrew/homebrew-core/blob/72ca636/Formula/gettext.rb
 ExternalProject_Add(gettext
-	URL "https://ftp.gnu.org/gnu/gettext/gettext-0.26.tar.xz"
-	URL_HASH SHA256=d1fb86e260cfe7da6031f94d2e44c0da55903dbae0a2fa0fae78c91ae1b56f00
+	URL "https://ftp.gnu.org/gnu/gettext/gettext-1.0.tar.xz"
+	URL_HASH SHA256=71132a3fb71e68245b8f2ac4e9e97137d3e5c02f415636eb508ae607bc01add7
 	CONFIGURE_COMMAND autoreconf --force && env -S "${CONFIGURE_ENV} am_cv_func_iconv_works=yes" ./configure ${CONFIGURE_ARGS} --disable-dependency-tracking --disable-silent-rules --disable-debug --with-included-glib --with-included-libcroco --with-included-libunistring --with-included-libxml --with-included-gettext --disable-java --disable-csharp --without-git --without-cvs --without-xz
 	BUILD_IN_SOURCE TRUE
 )
@@ -69,8 +69,8 @@ ADD_GH_GROUP(gettext)
 # Need to specify CXX as apparently that is used somewhere down the line for
 # linking (!) but without getting passed the necessary flags
 ExternalProject_Add(hunspell
-	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.2.tar.gz"
-	URL_HASH SHA256=69fa312d3586c988789266eaf7ffc9861d9f6396c31fc930a014d551b59bbd6e
+	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.3.tar.gz"
+	URL_HASH SHA256=933be3dac6fd55f6e752331a170efb7e33800e40fae1156d8434cc8c85379a1b
 	CONFIGURE_COMMAND autoreconf -vfi && env -S "CXX=\"g++ ${ARCH_FLAGS}\" ${CONFIGURE_ENV} LDFLAGS=\"-L${CMAKE_INSTALL_PREFIX}/lib ${ARCH_FLAGS}\" CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include" ./configure ${CONFIGURE_ARGS}
 	BUILD_IN_SOURCE TRUE
 	DEPENDS gettext
@@ -91,8 +91,8 @@ ExternalProject_Add(fontconfig
 ADD_GH_GROUP(fontconfig)
 
 ExternalProject_Add(libjpeg
-	URL https://ijg.org/files/jpegsrc.v9f.tar.gz
-	URL_HASH SHA256=04705c110cb2469caa79fb71fba3d7bf834914706e9641a4589485c1f832565b
+	URL "https://ijg.org/files/jpegsrc.v10.tar.gz"
+	URL_HASH SHA256=8b9eaa13242690ebd03e1728ab1edf97a81a78ed6e83624d493655f31ac95ab5
 	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV}" ./configure ${CONFIGURE_ARGS}
 	BUILD_IN_SOURCE TRUE
 )
@@ -100,8 +100,8 @@ ADD_GH_GROUP(libjpeg)
 
 # jbig? Lzma? Deflate?
 ExternalProject_Add(libtiff
-	URL "https://download.osgeo.org/libtiff/tiff-4.7.1.tar.gz"
-	URL_HASH SHA256=f698d94f3103da8ca7438d84e0344e453fe0ba3b7486e04c5bf7a9a3fabe9b69
+	URL "https://download.osgeo.org/libtiff/tiff-4.7.2.tar.gz"
+	URL_HASH SHA256=672bd7d10aee4606171afb864f3570b83340f6a33e2c186dc0512f7145ffdf6a
 	CMAKE_ARGS ${CMAKE_ARGS} -Dtiff-docs=OFF
 	DEPENDS libjpeg
 )
@@ -116,8 +116,8 @@ ExternalProject_Add(libopenjpeg
 ADD_GH_GROUP(libopenjpeg)
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.18.tar.gz"
-	URL_HASH SHA256=4f52a4459a93ac02b88e49b04dc0679e52fc92d36d3b722e5a1a44dbe8118236
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.19.1.tar.gz"
+	URL_HASH SHA256=267705e278e2f7c2fb886c259dadcbaeb2be52748bcbc71c79f08aacacb7a709
 	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV}" ./configure ${CONFIGURE_ARGS} "--with-tiff=${CMAKE_INSTALL_PREFIX}" "--with-jpeg=${CMAKE_INSTALL_PREFIX}"
 	BUILD_IN_SOURCE TRUE
 	DEPENDS libtiff libjpeg
@@ -135,8 +135,8 @@ ExternalProject_Add(poppler
 )
 else ()
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-26.01.0.tar.xz"
-	URL_HASH SHA256=1cb944a4b88847f5fb6551683bc799db59f04990f5d8be07aba2acbf38601089
+	URL "https://poppler.freedesktop.org/poppler-26.08.0.tar.xz"
+	URL_HASH SHA256=dc906e68cea698109706ac6aa3d2c9d4512fcfcac42d90b8afcda486d1b9abd0
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=OFF -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DRUN_GPERF_IF_PRESENT=OFF -DENABLE_QT5=OFF -DBUILD_MANUAL_TESTS=OFF -DBUILD_QT5_TESTS=OFF -DENABLE_NSS3=OFF -DENABLE_GPGME=OFF -DENABLE_LIBCURL=OFF
 	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg libpng libtiff
 )
@@ -158,8 +158,8 @@ ADD_GH_GROUP(poppler-data)
 # arguments on the command line via ExternalProject_Add (due to weird quotation
 # schemes). NB: lua uses plain Makefiles instead of autoconf or cmake, ...
 ExternalProject_Add(lua
-	URL "https://www.lua.org/ftp/lua-5.5.0.tar.gz"
-	URL_HASH SHA256=57ccc32bbbd005cab75bcc52444052535af691789dba2b9016d5c50640d68b3d
+	URL "https://www.lua.org/ftp/lua-5.5.1.tar.gz"
+	URL_HASH SHA256=1c4b4068d67061f2a2231ad2b5422e77acea1487ea9890f6320af614f4373dce
 	PATCH_COMMAND patch -p1 -i ${CMAKE_CURRENT_LIST_DIR}/lua.patch
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND env -S "MYCFLAGS=\"-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET} ${ARCH_FLAGS}\" MYLDFLAGS=\"${ARCH_FLAGS}\"" make
