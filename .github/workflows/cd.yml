@@ -164,38 +164,43 @@ jobs:
 ################################################################################
 
   macosx:
-    name: Mac OS X
-    runs-on: macos-latest
+    name: macOS
+    runs-on: "${{ matrix.runner-image }}"
     strategy:
       fail-fast: false
       matrix:
-        label: [11-x86, 11-arm, 10.13-x86]
+        label: [13-x86, 13-arm, 10.15-x86]
         include:
-            # Latest open-source LTS Qt6 release [https://download.qt.io/official_releases/qt/]
-            # Qt 6.5 supports macOS >= 11 [https://doc.qt.io/qt-6.5/macos.html]
-          - label: 11-x86
-            macVersion: 11
-            qtVersionMajor: 6
-            qtVersion: 6.8.3
-            qtModules: qt5compat
-            arch: x86_64
-            signBundle: OFF
-          - label: 11-arm
-            macVersion: 11
-            qtVersionMajor: 6
-            qtVersion: 6.8.3
-            qtModules: qt5compat
-            arch: arm64
-            signBundle: ON
-            # Qt 5.15 supports macOS >= 10.13 [https://doc.qt.io/qt-5.15/macos.html]
+            # Qt 6.0 supports macOS 10.14-11 [https://doc.qt.io/archives/qt-6.0/macos.html]
+            # Qt 6.4 supports macOS 10.14-13 [https://doc.qt.io/archives/qt-6.4/macos.html]
+            # Qt 6.5 LTS supports macOS 11-15 [https://doc.qt.io/qt-6.5/macos.html]
+            # Qt 6.8 LTS supports macOS 12-15 [https://doc.qt.io/qt-6.8/macos.html]
+            # Qt 6.11 supports macOS 13 and up [https://doc.qt.io/qt-6/macos.html]
             # poppler >= 22.01.0 uses std::filesystem, which seems to only be (fully)
             # supported on macOS 10.15 and up
-          - label: 10.13-x86
-            macVersion: 10.13
-            qtVersionMajor: 5
-            qtVersion: 5.15.2
-            qtModules: qtscript
+          - label: 13-x86
+            macVersion: 13
+            qtVersionMajor: 6
+            qtVersion: 6.11.2
+            qtModules: qt5compat
             arch: x86_64
+            runner-image: macos-latest
+            signBundle: OFF
+          - label: 13-arm
+            macVersion: 13
+            qtVersionMajor: 6
+            qtVersion: 6.11.2
+            qtModules: qt5compat
+            arch: arm64
+            runner-image: macos-latest
+            signBundle: ON
+          - label: 10.15-x86
+            macVersion: 10.15
+            qtVersionMajor: 6
+            qtVersion: 6.4.3
+            qtModules: qt5compat
+            arch: x86_64
+            runner-image: macos-15
             signBundle: OFF
     env:
       MACOSX_DEPLOYMENT_TARGET: ${{ matrix.macVersion }}
