@@ -18,6 +18,7 @@
 FROM ubuntu:jammy AS build-stage
 
 ARG CMAKE_VERSION=4.4.2
+ARG FONTCONFIG_VERSION=2.16.0
 ARG FREETYPE_VERSION=2-14-3
 ARG QT_VERSION=6.11.2
 ARG POPPLER_VERSION=26.08.0
@@ -36,7 +37,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install 
 	libcairo2-dev \
 	libdbus-1-dev \
 	libegl1-mesa-dev \
-	libfontconfig-dev \
 	libgl-dev \
 	libharfbuzz-dev \
 	libjpeg-dev \
@@ -98,6 +98,18 @@ RUN cd /opt && \
 # aqt list-qt linux desktop --modules 6.2.4 gcc_64
 RUN pip3 install --upgrade pip && pip3 install aqtinstall && \
 	aqt install-qt linux desktop ${QT_VERSION} --modules qt5compat -O /opt/qt
+
+# Build Fontconfig
+RUN apt-get install --no-install-recommends --assume-yes \
+	gperf
+RUN \
+	cd /opt && \
+	wget -O fontconfig.tar.xz https://www.freedesktop.org/software/fontconfig/release/fontconfig-${FONTCONFIG_VERSION}.tar.xz && \
+	tar -xf fontconfig.tar.xz && \
+	cd fontconfig-${FONTCONFIG_VERSION} && \
+	./configure --disable-docbook --disable-docs && \
+	make && \
+	make install
 
 # Build Freetype
 RUN \
