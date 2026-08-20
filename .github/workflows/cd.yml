@@ -34,7 +34,7 @@ jobs:
             IdentityFile ~/.ssh/id_launchpad
 
     - name: Install Dependencies
-      run: sudo apt install --assume-yes python3-paramiko
+      run: sudo apt install --assume-yes dput-ng python3-paramiko
 
     - name: Package for Launchpad
       id: package
