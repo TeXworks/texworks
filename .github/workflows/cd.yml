@@ -36,6 +36,9 @@ jobs:
     - name: Install Dependencies
       run: sudo apt install --assume-yes dput-ng python3-paramiko
 
+    - name: Test
+      run: echo "exit" | sftp ppa.launchpad.net
+
     - name: Package for Launchpad
       id: package
       uses: ./.github/actions/package-launchpad
