@@ -27,6 +27,9 @@ jobs:
         key: ${{ secrets.LAUNCHPAD_SSH_KEY }}
         known_hosts: ${{ secrets.LAUNCHPAD_KNOWN_HOSTS }}
 
+    - name: Install Dependencies
+      run: sudo apt install --assume-yes python3-paramiko
+
     - name: Package for Launchpad
       id: package
       uses: ./.github/actions/package-launchpad
