@@ -28,7 +28,7 @@ jobs:
         name: id_launchpad
         known_hosts: ${{ secrets.LAUNCHPAD_KNOWN_HOSTS }}
         config: |
-          Host launchpad
+          Host ppa.launchpad.net
             HostName ppa.launchpad.net
             User st.loeffler
             IdentityFile ~/.ssh/id_launchpad
