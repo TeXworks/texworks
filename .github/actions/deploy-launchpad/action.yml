@@ -26,6 +26,9 @@ runs:
             ;;
         esac
         cat ~/.ssh/config
+        echo """[ssh-ppa]
+        login = st.loeffler""" > ~/.dput.cf
+        cat ~/.dput.cf
         for FILE in ${{ inputs.changes_files }}; do
           echo "::group::Uploading ${FILE}"
           dput -d -d ${REPO} "$FILE"
