@@ -12,11 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
+    # Uploading to Launchpad using FTP seems to have issues
+    # Use SFTP as a workaround [https://askubuntu.com/a/1566947]
+
     steps:
     - name: Checkout
       uses: actions/checkout@v6
       with:
         fetch-depth: 0 # fetch the entire history so we can create the changelog
+
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.LAUNCHPAD_SSH_KEY }}
+        known_hosts: ${{ secrets.LAUNCHPAD_KNOWN_HOSTS }}
+
+    - name: Install Dependencies
+      run: sudo apt install --assume-yes python3-paramiko
 
     - name: Package for Launchpad
       id: package
@@ -29,8 +41,8 @@ jobs:
       uses: ./.github/actions/deploy-launchpad
       with:
         changes_files: ${{ steps.package.outputs.changes_files }}
-        devel-repo: "ppa:texworks/ppa"
-        stable-repo: "ppa:texworks/stable"
+        devel-repo: "ssh-ppa:texworks/ppa"
+        stable-repo: "ssh-ppa:texworks/stable"
 
 ################################################################################
 

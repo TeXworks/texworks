@@ -25,6 +25,8 @@ runs:
             REPO="${{ inputs.devel-repo }}"
             ;;
         esac
+        echo """[ssh-ppa]
+        login = st.loeffler""" > ~/.dput.cf
         for FILE in ${{ inputs.changes_files }}; do
           echo "::group::Uploading ${FILE}"
           dput ${REPO} "$FILE"
