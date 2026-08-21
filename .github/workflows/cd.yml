@@ -25,13 +25,7 @@ jobs:
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.LAUNCHPAD_SSH_KEY }}
-        name: id_launchpad
         known_hosts: ${{ secrets.LAUNCHPAD_KNOWN_HOSTS }}
-        config: |
-          Host ppa.launchpad.net
-            HostName ppa.launchpad.net
-            User st.loeffler
-            IdentityFile ~/.ssh/id_launchpad
 
     - name: Install Dependencies
       run: sudo apt install --assume-yes python3-paramiko
