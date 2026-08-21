@@ -11,6 +11,8 @@ jobs:
     name: Ubuntu (Launchpad)
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
+    env:
+      PPA: ${{ case(github.ref == 'refs/heads/main', 'texworks/ppa', startsWith(github.ref, 'refs/tags/'), 'texworks/stable', '') }}
 
     # Uploading to Launchpad using FTP seems to have issues
     # Use SFTP as a workaround [https://askubuntu.com/a/1566947]
@@ -41,8 +43,7 @@ jobs:
       uses: ./.github/actions/deploy-launchpad
       with:
         changes_files: ${{ steps.package.outputs.changes_files }}
-        devel-repo: "ssh-ppa:texworks/ppa"
-        stable-repo: "ssh-ppa:texworks/stable"
+        repo: "ssh-ppa:${{ env.PPA }}"
 
 ################################################################################
 
