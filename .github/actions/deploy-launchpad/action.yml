@@ -25,7 +25,6 @@ runs:
             REPO="${{ inputs.devel-repo }}"
             ;;
         esac
-        cat ~/.ssh/config
         echo """[ssh-ppa]
         login = st.loeffler""" > ~/.dput.cf
         cat ~/.dput.cf
