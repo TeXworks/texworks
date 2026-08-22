@@ -6,6 +6,8 @@ on:
     - cron: '42 2 1 * *'
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   ubuntu:
     name: Ubuntu (Launchpad)
