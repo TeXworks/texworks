@@ -4,6 +4,8 @@ on:
   - pull_request
   - workflow_dispatch
 
+permissions: {}
+
 jobs:
   build-linux-legacy:
     name: Linux (legacy)
