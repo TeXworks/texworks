@@ -1,19 +1,27 @@
-cmake_minimum_required(VERSION 3.1...4.3)
+cmake_minimum_required(VERSION 3.5...4.3)
 
 project(tw-deps)
 
 include(ExternalProject)
 include(GNUInstallDirs)
 
+# Set target platform for compiling MSVC dependencies
+if(CMAKE_GENERATOR_PLATFORM)
+    set(PLATFORM ${CMAKE_GENERATOR_PLATFORM})
+else()
+    set(PLATFORM x64)
+endif()
+
 set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=TRUE)
-set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(Platform) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
+set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(PLATFORM) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
 
 ExternalProject_Add(lua
 	URL "https://www.lua.org/ftp/lua-5.5.1.tar.gz"
 	URL_HASH SHA256=1c4b4068d67061f2a2231ad2b5422e77acea1487ea9890f6320af614f4373dce
 	PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_LIST_DIR}/lua.cmake <SOURCE_DIR>/CMakeLists.txt
-	CMAKE_ARGS ${CMAKE_ARGS}
+	CMAKE_ARGS ${CMAKE_ARGS} -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 )
+
 
 ExternalProject_Add(hunspell
 	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.3.tar.gz"
@@ -22,9 +30,9 @@ ExternalProject_Add(hunspell
 	BUILD_COMMAND msbuild msvc\\libhunspell.vcxproj ${MSBUILD_ARGS} /p:Configuration=Release_dll
 	BUILD_IN_SOURCE TRUE
 	INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_LIBDIR}
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different msvc/x64/Release_dll/libhunspell.lib ${CMAKE_INSTALL_FULL_LIBDIR}/hunspell.lib
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different msvc/${PLATFORM}/Release_dll/libhunspell.lib ${CMAKE_INSTALL_FULL_LIBDIR}/hunspell.lib
 		COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_BINDIR}
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different msvc/x64/Release_dll/libhunspell.dll ${CMAKE_INSTALL_FULL_BINDIR}/
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different msvc/${PLATFORM}/Release_dll/libhunspell.dll ${CMAKE_INSTALL_FULL_BINDIR}/
 		COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_INCLUDEDIR}
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different src/hunspell/atypes.hxx ${CMAKE_INSTALL_FULL_INCLUDEDIR}/
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different src/hunspell/hunspell.h ${CMAKE_INSTALL_FULL_INCLUDEDIR}/
@@ -52,7 +60,7 @@ ExternalProject_Add(libjpeg
 	CONFIGURE_COMMAND NMAKE /f makefile.vs setupcopy-v16
 	BUILD_COMMAND MSBUILD jpeg.sln ${MSBUILD_ARGS}
 	INSTALL_COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_LIBDIR}
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different Release/x64/jpeg.lib ${CMAKE_INSTALL_FULL_LIBDIR}/
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different Release/${PLATFORM}/jpeg.lib ${CMAKE_INSTALL_FULL_LIBDIR}/
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different jpeglib.h jerror.h jconfig.h jmorecfg.h ${CMAKE_INSTALL_FULL_INCLUDEDIR}/
 	BUILD_IN_SOURCE TRUE
 )
