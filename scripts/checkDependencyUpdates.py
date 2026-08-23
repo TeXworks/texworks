@@ -55,9 +55,19 @@ class GithubPackage(Package):
 			downloadUrl = 'https://github.com/{}/archive/refs/tags/{}.tar.gz'.format(githubProject, tagFormat),
 			versionRegex = versionRegex)
 
+class GitlabPackage(Package):
+	def __init__(self, name, gitlabUrl, gitlabOrg, gitlabProject, tagFormat = '{0}', versionRegex = '([0-9.]+[0-9])'):
+		tagRegex = tagFormat.format(versionRegex)
+		Package.__init__(self, name,
+			#pkgListUrl = f'{gitlabUrl}/{gitlabOrg}/{gitlabProject}/-/releases/',
+			pkgListUrl = f'{gitlabUrl}/api/v4/projects/{gitlabOrg}%2F{gitlabProject}/releases',
+			pkgRegex = f'{gitlabUrl}/{gitlabOrg}/{gitlabProject}/-/archive/{tagRegex}/',
+			downloadUrl = f'{gitlabUrl}/{gitlabOrg}/{gitlabProject}/-/archive/{tagFormat}/{gitlabProject}-{tagFormat}.tar.bz2',
+			versionRegex = versionRegex)
+
 # Define all packages used by TeXworks (on Windows and/or macOS)
 pkgs = dict([(p.name, p) for p in [
-	Package('fontconfig', 'https://www.freedesktop.org/software/fontconfig/release/', r'fontconfig-[0-9.]+\.tar\.xz'),
+	GitlabPackage('fontconfig', 'https://gitlab.freedesktop.org', 'fontconfig', 'fontconfig')
 	Package('freetype', 'https://download.savannah.gnu.org/releases/freetype/', r'freetype-[0-9.]+\.tar\.xz', lambda v: 'https://github.com/freetype/freetype/archive/refs/tags/VER-{}.tar.gz'.format(v.replace('.', '-'))),
 	Package('gettext', 'https://ftp.gnu.org/gnu/gettext/', r'gettext-[0-9.]+\.tar\.xz'),
 	GithubPackage('hunspell', 'hunspell/hunspell'),
