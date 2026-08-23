@@ -92,7 +92,7 @@ private:
 
 	void createMessageTarget()
 	{
-		HINSTANCE hInstance = static_cast<HINSTANCE>(GetModuleHandle(NULL));
+		HINSTANCE hInstance = static_cast<HINSTANCE>(GetModuleHandleA(NULL));
 		if (!hInstance)
 			return;
 
@@ -115,7 +115,7 @@ private:
 		msgTarget = CreateWindowA(TW_HIDDEN_WINDOW_CLASS, "TeXworks", WS_OVERLAPPEDWINDOW,
 						CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 						HWND_MESSAGE, NULL, hInstance, NULL);
-		SetWindowLongPtr(msgTarget, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
+		SetWindowLongPtrA(msgTarget, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
 	}
 
 	// The mutex is handled exclusively by the InterProcessCommunicator
@@ -128,13 +128,13 @@ LRESULT CALLBACK TW_HiddenWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 	switch (uMsg) {
 		case WM_COPYDATA:
 		{
-			InterProcessCommunicatorPrivate * ipcp = reinterpret_cast<InterProcessCommunicatorPrivate *>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+			InterProcessCommunicatorPrivate * ipcp = reinterpret_cast<InterProcessCommunicatorPrivate *>(GetWindowLongPtrA(hwnd, GWLP_USERDATA));
 			const COPYDATASTRUCT* pcds = reinterpret_cast<const COPYDATASTRUCT*>(lParam);
 			ipcp->receivedMessage(pcds->dwData, QByteArray::fromRawData(reinterpret_cast<const char*>(pcds->lpData), pcds->cbData));
 			return 0;
 		}
 		default:
-			return DefWindowProc(hwnd, uMsg, wParam, lParam);
+			return DefWindowProcA(hwnd, uMsg, wParam, lParam);
 	}
 	return 0;
 }

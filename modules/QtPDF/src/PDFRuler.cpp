@@ -81,6 +81,9 @@ void PDFRuler::paintEvent(QPaintEvent * event)
 
   // Get rect in pixels
   const QRectF pageRect = pageRectPx(docView->currentPage());
+  if (!pageRect.isValid() || pageRect.isEmpty()) {
+    return;
+  }
 
   // Calculate transforms from px to physical units and back
   const QTransform px2pt = pagePx2Bp(docView->currentPage());

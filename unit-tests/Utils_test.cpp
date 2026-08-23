@@ -43,28 +43,50 @@ namespace Tw {
 namespace Utils {
 bool operator==(const FileVersionDatabase::Record & r1, const FileVersionDatabase::Record & r2)
 {
-	if (r1.version != r2.version || r1.hash != r2.hash)
+	auto cleanAbsoluteFileInfo = [](const FileVersionDatabase::Record & rec) {
+		const QDir dir{QDir::cleanPath(rec.filePath.absolutePath())};
+		return QFileInfo(dir, rec.filePath.fileName());
+	};
+	if (r1.version != r2.version || r1.hash != r2.hash) {
 		return false;
+	}
 
 	// Work around the fact that the behavior of QFileInfo::operator== is
 	// undefined if the objects are empty or refer to non-existant files
+	// Also, comparisons might break if paths are not cleaned and the traversal
+	// of the uncleaned path crosses into inaccessible territory (e.g., where
+	// the user has insufficient permissions or when crossing boundaries of
+	// mounted file systems)
+
+	const QFileInfo fi1 = cleanAbsoluteFileInfo(r1);
+	const QFileInfo fi2 = cleanAbsoluteFileInfo(r2);
 
 	// If the only one of the files exists, they are clearly not the same
-	if (r1.filePath.exists() != r2.filePath.exists())
+	if (fi1.exists() != fi2.exists()) {
 		return false;
+	}
 
-	if (r1.filePath.exists()) {
+	if (fi1.exists()) {
 		// If they exist, we can compare them directly
-		return (r1.filePath == r2.filePath);
+		return (fi1 == fi2);
 	}
 	else {
-		// If they don't exist, we compare the stored absolute file paths
-		// (which can be empty)
-		return (r1.filePath.absolutePath() == r2.filePath.absolutePath());
+		// If they don't exist, we compare the path strings (which can be empty).
+		return (fi1.filePath() == fi2.filePath());
 	}
 }
 bool operator==(const FileVersionDatabase & db1, const FileVersionDatabase & db2) {
 	return db1.getFileRecords() == db2.getFileRecords();
+}
+
+char * toString(const FileVersionDatabase & db)
+{
+	QStringList records;
+	for (const FileVersionDatabase::Record & record : db.getFileRecords()) {
+		records.append(QStringLiteral("R(%0,%1,%2)").arg(record.filePath.filePath()).arg(record.version).arg(QString::fromLatin1(record.hash.toHex())));
+	}
+
+	return qstrdup(qPrintable(QStringLiteral("FileVersionDatabase[%0]").arg(records.join(","))));
 }
 } // namespace Utils
 } // namespace Tw
@@ -645,7 +667,7 @@ void TestUtils::ResourcesLibrary_getLibraryPath_data()
 	QTest::newRow("does-not-exist") << QString() << sInvalid << stem + sInvalid;
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN) // *nix
 #	ifndef TW_DICPATH
-	QTest::newRow("dictionaries") << QString() << sDicts << QStringLiteral("/usr/share/hunspell:/usr/share/myspell/dicts");
+	QTest::newRow("dictionaries") << QString() << sDicts << QStringLiteral("/usr/share/hunspell:/usr/share/myspell/dicts:/usr/share/myspell");
 #	else
 	QTest::newRow("dictionaries") << QString() << sDicts << TW_DICPATH;
 #	endif

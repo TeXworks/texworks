@@ -48,6 +48,12 @@ Installation
 
 Pre-built binaries for Windows, macOS, and Linux are available for immediate download from our official [website](https://tug.org/texworks/).
 
+TeXworks is also known to be packaged in these repositories:
+
+<a href="https://repology.org/project/texworks/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/texworks.svg?exclude_unsupported=1&columns=3&exclude_sources=modules,site" alt="Packaging status">
+</a>
+
 Building TeXworks
 -----------------
 
