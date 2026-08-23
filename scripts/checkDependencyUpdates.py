@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import re, urllib.request
+import argparse, hashlib, re, urllib.request
 
 # https://stackoverflow.com/a/4836734
 def natural_sort(l):
@@ -72,6 +72,10 @@ pkgs = dict([(p.name, p) for p in [
 	Package('zlib', 'https://zlib.net/', r'zlib-[0-9.]+\.tar\.xz', 'https://github.com/madler/zlib/archive/refs/tags/v{}.tar.gz"'),
 ]])
 
+parser = argparse.ArgumentParser(description='Checks library versions of dependencies in various build scripts')
+parser.add_argument('--with-hashes', action='store_true', help='download latest versions and print their sha256 hashes')
+args = parser.parse_args()
+
 # Load CMake files for obtaining/building the dependencies
 with open('../.github/actions/msvc-dependencies/CMakeLists.txt') as fin:
 	msvc = fin.read()
@@ -86,10 +90,13 @@ with open('../.github/workflows/Dockerfile.appimage-debian') as fin:
 maxNameLen = max([len(n) for n in pkgs])
 print('{{:{len}s}}  MSVC    macOS     pkg     appImg'.format(len = maxNameLen).format(''))
 
+urls = {}
+
 # Print version information for each package and each CMake file
 for name in pkgs:
 	print('{{:{len}s}}'.format(len = maxNameLen).format(name), end = '', flush = True)
 	url = pkgs[name].getLatestDownloadUrl()
+	urls[name] = url
 	for haystack in [msvc, macos, packaging, appimage]:
 		# Note: if the package name does not appear in the CMake file, the
 		# package likely isn't used. This is a bit flaky in both directions
@@ -106,3 +113,20 @@ for name in pkgs:
 			print(u'\u001b[93;1m {:^6s} \u001b[0m'.format('check'), end = '')
 		print(' ', end = '')
 	print(' {:7s} {}'.format(pkgs[name].getLatestVersion(), url))
+
+def getSHA256(url):
+	r = urllib.request.Request(url, headers = {'User-Agent': 'python'})
+	with urllib.request.urlopen(r) as fin:
+	    return hashlib.sha256(fin.read()).hexdigest()
+
+if args.with_hashes:
+    print()
+    for name in urls:
+        print(name)
+        print(f'\tURL "{urls[name]}"')
+        try:
+            pkg_hash = getSHA256(urls[name])
+            print(f'\tURL_HASH SHA256={pkg_hash}')
+        except Exception as err:
+            print(f'\t\x1b[91;1m{err}\u001b[0m')
+
