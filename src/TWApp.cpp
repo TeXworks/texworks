@@ -22,6 +22,7 @@
 #include "TWApp.h"
 
 #include "DefaultBinaryPaths.h"
+#include "DefaultEngineList.h"
 #include "DefaultPrefs.h"
 #include "PDFDocumentWindow.h"
 #include "PrefsDialog.h"
@@ -1099,22 +1100,10 @@ void TWApp::setDefaultEngineList()
 		engineList = std::unique_ptr< QList<Engine> >(new QList<Engine>);
 	else
 		engineList->clear();
-	*engineList
-//		<< Engine("LaTeXmk", "latexmk" EXE, QStringList("-e") <<
-//				  "$pdflatex=q/pdflatex -synctex=1 %O %S/" << "-pdf" << "$fullname", true)
-	    << Engine(QString::fromLatin1("pdfTeX"), QString::fromLatin1("pdftex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("pdfLaTeX"), QString::fromLatin1("pdflatex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("LuaTeX"), QString::fromLatin1("luatex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("LuaLaTeX"), QString::fromLatin1("lualatex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("XeTeX"), QString::fromLatin1("xetex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("XeLaTeX"), QString::fromLatin1("xelatex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("ConTeXt (LuaMetaTeX)"), QString::fromLatin1("context" EXE), QStringList(QString::fromLatin1("--synctex=repeat")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("ConTeXt (LuaTeX)"), QString::fromLatin1("context" EXE), QStringList(QString::fromLatin1("--synctex=repeat")) << QString::fromLatin1("--luatex") << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("ConTeXt (pdfTeX)"), QString::fromLatin1("texexec" EXE), QStringList(QString::fromLatin1("--synctex")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("ConTeXt (XeTeX)"), QString::fromLatin1("texexec" EXE), QStringList(QString::fromLatin1("--synctex")) << QString::fromLatin1("--xtx") << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("BibTeX"), QString::fromLatin1("bibtex" EXE), QStringList(QString::fromLatin1("$basename")), false)
-	    << Engine(QString::fromLatin1("Biber"), QString::fromLatin1("biber" EXE), QStringList(QString::fromLatin1("$basename")), false)
-	    << Engine(QString::fromLatin1("MakeIndex"), QString::fromLatin1("makeindex" EXE), QStringList(QString::fromLatin1("$basename")), false);
+	for (const Tw::DefaultEngineList::Definition & definition : Tw::DefaultEngineList::definitions()) {
+		engineList->append(Engine(definition.name, definition.program, definition.arguments,
+		                          definition.showPdf, definition.sourceLanguage));
+	}
 	defaultEngineIndex = 1;
 }
 
@@ -1135,6 +1124,18 @@ const QList<Engine> TWApp::getEngineList()
 				eng.setProgram(toolsSettings.value(QString::fromLatin1("program")).toString());
 				eng.setArguments(toolsSettings.value(QString::fromLatin1("arguments")).toStringList());
 				eng.setShowPdf(toolsSettings.value(QString::fromLatin1("showPdf")).toBool());
+				eng.setSourceLanguage(toolsSettings.value(QString::fromLatin1("language")).toString());
+				if (!toolsSettings.contains(QString::fromLatin1("language"))) {
+					for (const Tw::DefaultEngineList::Definition & definition : Tw::DefaultEngineList::definitions()) {
+						if (eng.name() == definition.name && eng.program() == definition.program
+						    && eng.arguments() == definition.arguments && eng.showPdf() == definition.showPdf) {
+							eng.setSourceLanguage(definition.sourceLanguage);
+							if (!definition.sourceLanguage.isEmpty())
+								toolsSettings.setValue(QString::fromLatin1("language"), definition.sourceLanguage);
+							break;
+						}
+					}
+				}
 				engineList->append(eng);
 				toolsSettings.endGroup();
 			}
@@ -1161,6 +1162,8 @@ void TWApp::saveEngineList()
 		toolsSettings.setValue(QString::fromLatin1("program"), e.program());
 		toolsSettings.setValue(QString::fromLatin1("arguments"), e.arguments());
 		toolsSettings.setValue(QString::fromLatin1("showPdf"), e.showPdf());
+		if (!e.sourceLanguage().isEmpty())
+			toolsSettings.setValue(QString::fromLatin1("language"), e.sourceLanguage());
 		toolsSettings.endGroup();
 	}
 }
@@ -1586,4 +1589,3 @@ void TWApp::reloadSpellchecker()
 		it.key()->setSpellcheckLanguage(it.value());
 	}
 }
-

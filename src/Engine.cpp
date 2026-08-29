@@ -24,13 +24,15 @@
 
 #include <QDir>
 
-Engine::Engine(const QString& name, const QString& program, const QStringList & arguments, bool showPdf)
-	: _name(name), _program(program), _arguments(arguments), _showPdf(showPdf)
+Engine::Engine(const QString& name, const QString& program, const QStringList & arguments, bool showPdf,
+	           const QString & sourceLanguage)
+	: _name(name), _program(program), _arguments(arguments), _showPdf(showPdf), _sourceLanguage(sourceLanguage)
 {
 }
 
 Engine::Engine(const Engine& orig)
-	: _name(orig._name), _program(orig._program), _arguments(orig._arguments), _showPdf(orig._showPdf)
+	: _name(orig._name), _program(orig._program), _arguments(orig._arguments), _showPdf(orig._showPdf),
+	  _sourceLanguage(orig._sourceLanguage)
 {
 }
 
@@ -40,6 +42,7 @@ Engine& Engine::operator=(const Engine& rhs)
 	_program = rhs._program;
 	_arguments = rhs._arguments;
 	_showPdf = rhs._showPdf;
+	_sourceLanguage = rhs._sourceLanguage;
 	return *this;
 }
 
@@ -63,6 +66,11 @@ bool Engine::showPdf() const
 	return _showPdf;
 }
 
+const QString Engine::sourceLanguage() const
+{
+	return _sourceLanguage;
+}
+
 void Engine::setName(const QString& name)
 {
 	_name = name;
@@ -81,6 +89,11 @@ void Engine::setArguments(const QStringList& arguments)
 void Engine::setShowPdf(bool showPdf)
 {
 	_showPdf = showPdf;
+}
+
+void Engine::setSourceLanguage(const QString & sourceLanguage)
+{
+	_sourceLanguage = sourceLanguage;
 }
 
 bool Engine::isAvailable() const

@@ -8,6 +8,28 @@ target_compile_options(test_BibTeXFile PRIVATE ${WARNING_OPTIONS})
 target_link_libraries(test_BibTeXFile ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_BibTeXFile COMMAND test_BibTeXFile WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
+# DefaultFileFilters
+add_executable(test_DefaultFileFilters
+	DefaultFileFilters_test.cpp
+	DefaultFileFilters_test.h
+	"${CMAKE_SOURCE_DIR}/src/DefaultFileFilters.cpp"
+	"${CMAKE_SOURCE_DIR}/src/DefaultFileFilters.h"
+)
+target_compile_options(test_DefaultFileFilters PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_DefaultFileFilters ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_test(NAME test_DefaultFileFilters COMMAND test_DefaultFileFilters)
+
+# DefaultEngineList
+add_executable(test_DefaultEngineList
+	DefaultEngineList_test.cpp
+	DefaultEngineList_test.h
+	"${CMAKE_SOURCE_DIR}/src/DefaultEngineList.cpp"
+	"${CMAKE_SOURCE_DIR}/src/DefaultEngineList.h"
+)
+target_compile_options(test_DefaultEngineList PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_DefaultEngineList ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_test(NAME test_DefaultEngineList COMMAND test_DefaultEngineList)
+
 # Scripting
 add_executable(test_Scripting
 	Scripting_test.cpp
@@ -111,4 +133,3 @@ if (WITH_POPPLERQT)
 endif (WITH_POPPLERQT)
 target_link_libraries(test_Document QtPDF::qtpdf SyncTeX::synctex Hunspell::hunspell ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Document COMMAND test_Document WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
-

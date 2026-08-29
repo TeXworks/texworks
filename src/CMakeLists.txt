@@ -12,6 +12,8 @@
 set(TEXWORKS_SRCS BibTeXFile.cpp
                   CitationSelectDialog.cpp
                   CompletingEdit.cpp
+                  DefaultFileFilters.cpp
+                  DefaultEngineList.cpp
                   Engine.cpp
                   FindDialog.cpp
                   HardWrapDialog.cpp
@@ -64,6 +66,8 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   CitationSelectDialog.h
                   CompletingEdit.h
                   DefaultBinaryPaths.h
+                  DefaultFileFilters.h
+                  DefaultEngineList.h
                   DefaultPrefs.h
                   Engine.h
                   FindDialog.h
