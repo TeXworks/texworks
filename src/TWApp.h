@@ -23,6 +23,7 @@
 #define TWApp_H
 
 #include "InterProcessCommunicator.h"
+#include "languageservices/LanguageServiceManager.h"
 #include "utils/TypesetManager.h"
 
 #include <QAction>
@@ -110,6 +111,7 @@ public:
 	static QStringList getTranslationList();
 
 	Tw::Utils::TypesetManager & typesetManager() { return m_typesetManager; }
+	Tw::LanguageServices::LanguageServiceManager & languageServiceManager() { return m_languageServiceManager; }
 
 	TWScriptManager* getScriptManager() { return scriptManager; }
 
@@ -279,6 +281,7 @@ private:
 	QHash<QString, QVariant> m_globals;
 
 	Tw::Utils::TypesetManager m_typesetManager{this};
+	Tw::LanguageServices::LanguageServiceManager m_languageServiceManager{this};
 
 	static TWApp *theAppInstance;
 	Tw::InterProcessCommunicator m_IPC;
@@ -303,4 +306,3 @@ public:
 };
 
 #endif	// TWApp_H
-

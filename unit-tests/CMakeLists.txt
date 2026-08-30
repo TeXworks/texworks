@@ -71,6 +71,46 @@ ENDIF ()
 add_executable(byte_echo_test byte_echo_test.cpp)
 target_compile_options(byte_echo_test PRIVATE ${WARNING_OPTIONS})
 
+# Language-server transport
+add_executable(language_server_fake language_server_fake.cpp)
+target_compile_options(language_server_fake PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(language_server_fake ${QT_LIBRARIES})
+
+add_executable(test_LanguageServerTransport
+	LanguageServerTransport_test.cpp
+	LanguageServerTransport_test.h
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/JsonRpcTransport.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/JsonRpcTransport.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LanguageServerProcess.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LanguageServerProcess.h"
+)
+target_compile_options(test_LanguageServerTransport PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_LanguageServerTransport ${QT_LIBRARIES})
+add_dependencies(test_LanguageServerTransport language_server_fake)
+add_test(NAME test_LanguageServerTransport COMMAND test_LanguageServerTransport)
+
+# Provider-neutral language-service session and LSP adapter
+add_executable(test_LanguageServiceSession
+	LanguageServiceSession_test.cpp
+	LanguageServiceSession_test.h
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageService.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageService.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceConfiguration.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceManager.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceManager.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceTypes.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/JsonRpcTransport.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/JsonRpcTransport.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LanguageServerProcess.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LanguageServerProcess.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LspLanguageService.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LspLanguageService.h"
+)
+target_compile_options(test_LanguageServiceSession PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_LanguageServiceSession ${QT_LIBRARIES})
+add_dependencies(test_LanguageServiceSession language_server_fake)
+add_test(NAME test_LanguageServiceSession COMMAND test_LanguageServiceSession)
+
 # UI
 add_executable(test_UI
 	UI_test.cpp
