@@ -14,6 +14,7 @@
 #include "languageservices/LanguageServiceConfiguration.h"
 #include "languageservices/lsp/LanguageServerProcess.h"
 
+#include <QHash>
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QTimer>
@@ -36,6 +37,11 @@ public:
 
 	bool start() override;
 	void stop() override;
+	bool openDocument(const LanguageDocumentOpen & document) override;
+	bool changeDocument(const QUrl & url, quint64 version, const LanguageDocumentChange & change) override;
+	bool closeDocument(const QUrl & url) override;
+	bool requestCompletion(const LanguageCompletionRequest & request) override;
+	bool requestDefinition(const LanguageDefinitionRequest & request) override;
 
 private:
 	void beginInitialize();
@@ -47,6 +53,10 @@ private:
 	void initializationFailed(const QString & reason);
 	void beginProcessStop();
 	void sendExitAndStop();
+	void failCompletionRequests(const QString & reason);
+	void failDefinitionRequests(const QString & reason);
+	bool mapCompletionResult(const QJsonValue & result, QList<CompletionItem> & items) const;
+	bool mapDefinitionResult(const QJsonValue & result, QList<LanguageLocation> & locations) const;
 
 	LanguageServiceConfiguration m_configuration;
 	LanguageServerProcess m_process;
@@ -54,6 +64,8 @@ private:
 	QTimer m_shutdownTimer;
 	qint64 m_initializeRequestId{-1};
 	qint64 m_shutdownRequestId{-1};
+	QHash<qint64, quint64> m_completionRequests;
+	QHash<qint64, quint64> m_definitionRequests;
 	int m_initializeTimeoutMs;
 	int m_shutdownTimeoutMs;
 	int m_terminateTimeoutMs;

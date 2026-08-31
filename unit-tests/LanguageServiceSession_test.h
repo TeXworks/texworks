@@ -24,6 +24,12 @@ private slots:
 	void openCloseMapping_data();
 	void openCloseMapping();
 	void featureMapping();
+	void completionRequestMapping();
+	void completionResults_data();
+	void completionResults();
+	void definitionRequestMapping();
+	void definitionResults_data();
+	void definitionResults();
 	void unknownCapabilitiesIgnored();
 	void positionEncoding_data();
 	void positionEncoding();
@@ -38,6 +44,7 @@ private slots:
 	void sessionGenerationIsDistinct();
 	void managerOwnership();
 	void managerPendingReplacementOwnership();
+	void documentLifecycleMapping();
 	void optionalConfiguredServer();
 };
 

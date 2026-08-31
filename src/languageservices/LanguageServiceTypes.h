@@ -10,7 +10,10 @@
 #ifndef LANGUAGESERVICETYPES_H
 #define LANGUAGESERVICETYPES_H
 
+#include <QList>
 #include <QMetaType>
+#include <QString>
+#include <QUrl>
 
 namespace Tw {
 namespace LanguageServices {
@@ -33,6 +36,65 @@ struct LanguageServiceCapabilities
 	bool documentSymbols{false};
 	bool workspaceSymbols{false};
 	bool diagnostics{false};
+};
+
+struct LanguagePosition
+{
+	int line{0};
+	int character{0};
+};
+
+struct LanguageRange
+{
+	LanguagePosition start;
+	LanguagePosition end;
+};
+
+struct LanguageLocation
+{
+	QUrl document;
+	LanguageRange range;
+};
+
+struct CompletionItem
+{
+	QString label;
+	QString detail;
+	QString documentation;
+	QString insertText;
+	bool hasReplacementRange{false};
+	LanguageRange replacementRange;
+};
+
+struct LanguageCompletionRequest
+{
+	quint64 token{0};
+	QUrl document;
+	quint64 synchronizedVersion{0};
+	LanguagePosition position;
+};
+
+struct LanguageDefinitionRequest
+{
+	quint64 token{0};
+	QUrl document;
+	quint64 synchronizedVersion{0};
+	LanguagePosition position;
+};
+
+struct LanguageDocumentOpen
+{
+	QUrl url;
+	QString languageId;
+	quint64 version{1};
+	QString text;
+};
+
+struct LanguageDocumentChange
+{
+	bool hasRange{false};
+	LanguageRange range;
+	QString text;
 };
 
 inline bool operator==(const LanguageServiceCapabilities & lhs, const LanguageServiceCapabilities & rhs)
@@ -59,5 +121,9 @@ inline bool operator!=(const LanguageServiceCapabilities & lhs, const LanguageSe
 
 Q_DECLARE_METATYPE(Tw::LanguageServices::TextSyncKind)
 Q_DECLARE_METATYPE(Tw::LanguageServices::LanguageServiceCapabilities)
+Q_DECLARE_METATYPE(Tw::LanguageServices::LanguageLocation)
+Q_DECLARE_METATYPE(QList<Tw::LanguageServices::LanguageLocation>)
+Q_DECLARE_METATYPE(Tw::LanguageServices::CompletionItem)
+Q_DECLARE_METATYPE(QList<Tw::LanguageServices::CompletionItem>)
 
 #endif // LANGUAGESERVICETYPES_H

@@ -38,7 +38,9 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   document/TextDocument.cpp
                   document/TeXDocument.cpp
                   languageservices/LanguageService.cpp
+                  languageservices/LanguageServiceDocumentBinding.cpp
                   languageservices/LanguageServiceManager.cpp
+                  languageservices/LanguageServiceNavigation.cpp
                   languageservices/lsp/JsonRpcTransport.cpp
                   languageservices/lsp/LanguageServerProcess.cpp
                   languageservices/lsp/LspLanguageService.cpp
@@ -100,8 +102,10 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   document/TextDocument.h
                   document/TeXDocument.h
                   languageservices/LanguageService.h
+                  languageservices/LanguageServiceDocumentBinding.h
                   languageservices/LanguageServiceConfiguration.h
                   languageservices/LanguageServiceManager.h
+                  languageservices/LanguageServiceNavigation.h
                   languageservices/LanguageServiceTypes.h
                   languageservices/lsp/JsonRpcTransport.h
                   languageservices/lsp/LanguageServerProcess.h

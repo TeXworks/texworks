@@ -27,13 +27,14 @@
 #include <QPair>
 #include <QStringList>
 #include <QThread>
+#include <QUrl>
 
 #include <cstdlib>
 #include <initializer_list>
 
 namespace {
 
-QJsonObject jsonObject(const std::initializer_list<QPair<QString, QJsonValue>> & values)
+QJsonObject jsonObject(std::initializer_list<QPair<QString, QJsonValue>> values)
 {
 	QJsonObject object;
 	for (const QPair<QString, QJsonValue> & value : values)
@@ -41,7 +42,7 @@ QJsonObject jsonObject(const std::initializer_list<QPair<QString, QJsonValue>> &
 	return object;
 }
 
-QJsonArray jsonArray(const std::initializer_list<QJsonValue> & values)
+QJsonArray jsonArray(std::initializer_list<QJsonValue> values)
 {
 	QJsonArray array;
 	for (const QJsonValue & value : values)
@@ -163,6 +164,45 @@ bool validInitializeRequest(const QJsonObject & request)
 	       && !params.value(QStringLiteral("capabilities")).toObject().contains(QStringLiteral("textDocument"));
 }
 
+bool validPosition(const QJsonValue & value)
+{
+	const QJsonObject position = value.toObject();
+	return value.isObject() && position.value(QStringLiteral("line")).isDouble()
+	       && position.value(QStringLiteral("character")).isDouble();
+}
+
+bool validDocumentNotification(const QJsonObject & request)
+{
+	const QString method = request.value(QStringLiteral("method")).toString();
+	const QJsonObject params = request.value(QStringLiteral("params")).toObject();
+	const QJsonObject document = params.value(QStringLiteral("textDocument")).toObject();
+	if (!params.value(QStringLiteral("textDocument")).isObject()
+	    || !document.value(QStringLiteral("uri")).isString()
+	    || !QUrl(document.value(QStringLiteral("uri")).toString()).isLocalFile())
+		return false;
+	if (method == QStringLiteral("textDocument/didOpen"))
+		return document.value(QStringLiteral("languageId")).isString()
+		       && document.value(QStringLiteral("version")).isDouble()
+		       && document.value(QStringLiteral("text")).isString();
+	if (method == QStringLiteral("textDocument/didClose"))
+		return true;
+	if (method != QStringLiteral("textDocument/didChange")
+	    || !document.value(QStringLiteral("version")).isDouble())
+		return false;
+	const QJsonArray changes = params.value(QStringLiteral("contentChanges")).toArray();
+	if (changes.size() != 1 || !changes.first().isObject())
+		return false;
+	const QJsonObject change = changes.first().toObject();
+	if (!change.value(QStringLiteral("text")).isString())
+		return false;
+	if (!change.contains(QStringLiteral("range")))
+		return true;
+	const QJsonObject range = change.value(QStringLiteral("range")).toObject();
+	return change.value(QStringLiteral("range")).isObject()
+	       && validPosition(range.value(QStringLiteral("start")))
+	       && validPosition(range.value(QStringLiteral("end")));
+}
+
 bool isUnsupportedRequestRejection(const QJsonObject & response)
 {
 	const QJsonObject error = response.value(QStringLiteral("error")).toObject();
@@ -186,6 +226,18 @@ int main(int argc, char * argv[])
 	const auto profileIndex = arguments.indexOf(QStringLiteral("--lsp-profile"));
 	const QString lspProfile = profileIndex >= 0 && profileIndex + 1 < arguments.size()
 	                         ? arguments.at(profileIndex + 1) : QString{};
+	const auto documentLogIndex = arguments.indexOf(QStringLiteral("--document-log"));
+	const QString documentLogPath = documentLogIndex >= 0 && documentLogIndex + 1 < arguments.size()
+	                              ? arguments.at(documentLogIndex + 1) : QString{};
+	const auto definitionModeIndex = arguments.indexOf(QStringLiteral("--definition-mode"));
+	const QString definitionMode = definitionModeIndex >= 0 && definitionModeIndex + 1 < arguments.size()
+	                             ? arguments.at(definitionModeIndex + 1) : QStringLiteral("location");
+	const auto definitionTargetIndex = arguments.indexOf(QStringLiteral("--definition-target"));
+	const QString definitionTarget = definitionTargetIndex >= 0 && definitionTargetIndex + 1 < arguments.size()
+	                               ? arguments.at(definitionTargetIndex + 1) : QString{};
+	const auto completionModeIndex = arguments.indexOf(QStringLiteral("--completion-mode"));
+	const QString completionMode = completionModeIndex >= 0 && completionModeIndex + 1 < arguments.size()
+	                             ? arguments.at(completionModeIndex + 1) : QStringLiteral("array");
 	const auto confirmationLogIndex = arguments.indexOf(QStringLiteral("--confirmation-log"));
 	const QString confirmationLogPath = confirmationLogIndex >= 0 && confirmationLogIndex + 1 < arguments.size()
 	                                  ? arguments.at(confirmationLogIndex + 1) : QString{};
@@ -203,6 +255,9 @@ int main(int argc, char * argv[])
 	QFile error;
 	if (!input.open(stdin, QIODevice::ReadOnly) || !output.open(stdout, QIODevice::WriteOnly)
 	    || !error.open(stderr, QIODevice::WriteOnly))
+		return 2;
+	QFile documentLog(documentLogPath);
+	if (!documentLogPath.isEmpty() && !documentLog.open(QIODevice::WriteOnly | QIODevice::Append))
 		return 2;
 	QFile confirmationLog(confirmationLogPath);
 	if (!confirmationLogPath.isEmpty() && !confirmationLog.open(QIODevice::WriteOnly | QIODevice::Append))
@@ -281,6 +336,156 @@ int main(int argc, char * argv[])
 					return 3;
 				unsupportedRequestPending = true;
 			}
+			continue;
+		}
+		if (method == QStringLiteral("textDocument/didOpen")
+		    || method == QStringLiteral("textDocument/didChange")
+		    || method == QStringLiteral("textDocument/didClose")) {
+			if (!initializedObserved || !validDocumentNotification(request))
+				return 5;
+			if (documentLog.isOpen()) {
+				documentLog.write(QJsonDocument(request).toJson(QJsonDocument::Compact));
+				documentLog.write("\n");
+				documentLog.flush();
+			}
+			continue;
+		}
+		if (method == QStringLiteral("textDocument/definition")) {
+			const QJsonObject params = request.value(QStringLiteral("params")).toObject();
+			const QJsonObject document = params.value(QStringLiteral("textDocument")).toObject();
+			const QJsonValue positionValue = params.value(QStringLiteral("position"));
+			if (!initializedObserved || !document.value(QStringLiteral("uri")).isString()
+			    || !validPosition(positionValue))
+				return 6;
+			if (documentLog.isOpen()) {
+				documentLog.write(QJsonDocument(request).toJson(QJsonDocument::Compact));
+				documentLog.write("\n");
+				documentLog.flush();
+			}
+			if (definitionMode == QStringLiteral("delayed"))
+				QThread::msleep(200);
+			if (definitionMode == QStringLiteral("error")) {
+				const QJsonObject response = jsonObject({
+					{QStringLiteral("jsonrpc"), QStringLiteral("2.0")},
+					{QStringLiteral("id"), request.value(QStringLiteral("id"))},
+					{QStringLiteral("error"), jsonObject({{QStringLiteral("code"), -32001}, {QStringLiteral("message"), QStringLiteral("scripted definition failure")}})}
+				});
+				if (!writeAll(output, frame(response)))
+					return 3;
+				continue;
+			}
+			const QJsonObject position = positionValue.toObject();
+			QJsonObject end = position;
+			end.insert(QStringLiteral("character"), position.value(QStringLiteral("character")).toInt() + 1);
+			const QJsonObject range = jsonObject({{QStringLiteral("start"), position}, {QStringLiteral("end"), end}});
+			const QString uri = definitionMode == QStringLiteral("nonfile")
+			                  ? QStringLiteral("untitled:definition")
+			                  : definitionTarget.isEmpty() ? document.value(QStringLiteral("uri")).toString() : definitionTarget;
+			const QJsonObject location = jsonObject({{QStringLiteral("uri"), uri}, {QStringLiteral("range"), range}});
+			QJsonValue result;
+			if (definitionMode == QStringLiteral("null"))
+				result = QJsonValue(QJsonValue::Null);
+			else if (definitionMode == QStringLiteral("array"))
+				result = jsonArray({location, location});
+			else if (definitionMode == QStringLiteral("link"))
+				result = jsonArray({jsonObject({{QStringLiteral("targetUri"), uri},
+				                                {QStringLiteral("targetRange"), range},
+				                                {QStringLiteral("targetSelectionRange"), range}})});
+			else if (definitionMode == QStringLiteral("malformed"))
+				result = jsonObject({{QStringLiteral("uri"), uri}, {QStringLiteral("range"), QStringLiteral("bad")}});
+			else
+				result = location;
+			const QJsonObject response = jsonObject({
+				{QStringLiteral("jsonrpc"), QStringLiteral("2.0")},
+				{QStringLiteral("id"), request.value(QStringLiteral("id"))},
+				{QStringLiteral("result"), result}
+			});
+			if (!writeAll(output, frame(response)))
+				return 3;
+			continue;
+		}
+		if (method == QStringLiteral("textDocument/completion")) {
+			const QJsonObject params = request.value(QStringLiteral("params")).toObject();
+			const QJsonObject document = params.value(QStringLiteral("textDocument")).toObject();
+			const QJsonValue positionValue = params.value(QStringLiteral("position"));
+			if (!initializedObserved || !document.value(QStringLiteral("uri")).isString()
+			    || !validPosition(positionValue))
+				return 7;
+			if (documentLog.isOpen()) {
+				documentLog.write(QJsonDocument(request).toJson(QJsonDocument::Compact));
+				documentLog.write("\n");
+				documentLog.flush();
+			}
+			if (completionMode == QStringLiteral("delayed")
+			    || completionMode.startsWith(QStringLiteral("after-"))
+			    || completionMode == QStringLiteral("superseded"))
+				QThread::msleep(200);
+			if (completionMode == QStringLiteral("error")
+			    || completionMode == QStringLiteral("after-service-failure")) {
+				const QJsonObject response = jsonObject({
+					{QStringLiteral("jsonrpc"), QStringLiteral("2.0")},
+					{QStringLiteral("id"), request.value(QStringLiteral("id"))},
+					{QStringLiteral("error"), jsonObject({{QStringLiteral("code"), -32001}, {QStringLiteral("message"), QStringLiteral("scripted completion failure")}})}
+				});
+				if (!writeAll(output, frame(response)))
+					return 3;
+				continue;
+			}
+			const QJsonObject start = jsonObject({{QStringLiteral("line"), positionValue.toObject().value(QStringLiteral("line"))},
+		                                         {QStringLiteral("character"), qMax(0, positionValue.toObject().value(QStringLiteral("character")).toInt() - 2)}});
+			const QJsonObject range = jsonObject({{QStringLiteral("start"), start}, {QStringLiteral("end"), positionValue}});
+			QJsonValue result;
+			if (completionMode == QStringLiteral("null")) {
+				result = QJsonValue(QJsonValue::Null);
+			}
+			else if (completionMode == QStringLiteral("malformed")) {
+				result = QStringLiteral("bad");
+			}
+			else {
+				QJsonArray items;
+				if (completionMode == QStringLiteral("label"))
+					items.append(jsonObject({{QStringLiteral("label"), QStringLiteral("providerLabel")}}));
+				else if (completionMode == QStringLiteral("insert"))
+					items.append(jsonObject({{QStringLiteral("label"), QStringLiteral("providerLabel")}, {QStringLiteral("insertText"), QStringLiteral("providerInsert")}}));
+				else if (completionMode == QStringLiteral("textedit") || completionMode == QStringLiteral("utf16-range"))
+					items.append(jsonObject({{QStringLiteral("label"), QStringLiteral("providerEdit")},
+					                         {QStringLiteral("textEdit"), jsonObject({{QStringLiteral("range"), range}, {QStringLiteral("newText"), QStringLiteral("providerEdit")}})}}));
+				else if (completionMode == QStringLiteral("metadata"))
+					items.append(jsonObject({{QStringLiteral("label"), QStringLiteral("providerMeta")},
+					                         {QStringLiteral("detail"), QStringLiteral("detail")},
+					                         {QStringLiteral("documentation"), jsonObject({{QStringLiteral("kind"), QStringLiteral("markdown")}, {QStringLiteral("value"), QStringLiteral("documentation")}})}}));
+				else if (completionMode == QStringLiteral("snippet"))
+					items.append(jsonObject({{QStringLiteral("label"), QStringLiteral("snippet")}, {QStringLiteral("insertText"), QStringLiteral("${1:value}")}, {QStringLiteral("insertTextFormat"), 2}}));
+				else if (completionMode == QStringLiteral("malformed-item"))
+					items.append(jsonObject({{QStringLiteral("label"), 17}, {QStringLiteral("textEdit"), QStringLiteral("bad")}}));
+				else if (completionMode == QStringLiteral("invalid-range"))
+					items.append(jsonObject({
+						{QStringLiteral("label"), QStringLiteral("invalid")},
+						{QStringLiteral("textEdit"), jsonObject({
+							{QStringLiteral("range"), jsonObject({
+								{QStringLiteral("start"), jsonObject({
+									{QStringLiteral("line"), -1},
+									{QStringLiteral("character"), 0}
+								})},
+								{QStringLiteral("end"), positionValue}
+							})},
+							{QStringLiteral("newText"), QStringLiteral("invalid")}
+						})}
+					}));
+				else if (completionMode == QStringLiteral("duplicate"))
+					items.append(jsonObject({{QStringLiteral("label"), QStringLiteral("adlen")}, {QStringLiteral("insertText"), QString::fromUtf8("\\addtolength{}{\u2022}\n")}}));
+				else
+					items = jsonArray({jsonObject({{QStringLiteral("label"), QStringLiteral("providerLabel")}}),
+					                   jsonObject({{QStringLiteral("label"), QStringLiteral("providerInsert")}, {QStringLiteral("insertText"), QStringLiteral("inserted")}})});
+				result = completionMode == QStringLiteral("list")
+				       ? QJsonValue(jsonObject({{QStringLiteral("isIncomplete"), true}, {QStringLiteral("items"), items}}))
+				       : QJsonValue(items);
+			}
+			const QJsonObject response = jsonObject({{QStringLiteral("jsonrpc"), QStringLiteral("2.0")},
+			                           {QStringLiteral("id"), request.value(QStringLiteral("id"))},
+			                           {QStringLiteral("result"), result}});
+			if (!writeAll(output, frame(response)))
+				return 3;
 			continue;
 		}
 		if (!lspProfile.isEmpty() && method == QStringLiteral("shutdown")) {

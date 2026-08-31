@@ -44,6 +44,11 @@ public:
 
 	virtual bool start() = 0;
 	virtual void stop() = 0;
+	virtual bool openDocument(const LanguageDocumentOpen & document) = 0;
+	virtual bool changeDocument(const QUrl & url, quint64 version, const LanguageDocumentChange & change) = 0;
+	virtual bool closeDocument(const QUrl & url) = 0;
+	virtual bool requestCompletion(const LanguageCompletionRequest & request) = 0;
+	virtual bool requestDefinition(const LanguageDefinitionRequest & request) = 0;
 
 signals:
 	void stateChanged(Tw::LanguageServices::LanguageService::State state);
@@ -51,6 +56,10 @@ signals:
 	void capabilitiesChanged(const Tw::LanguageServices::LanguageServiceCapabilities & capabilities);
 	void generationChanged(quint64 generation);
 	void failed(const QString & reason);
+	void completionFinished(quint64 token, const QList<Tw::LanguageServices::CompletionItem> & items);
+	void completionFailed(quint64 token, const QString & reason);
+	void definitionFinished(quint64 token, const QList<Tw::LanguageServices::LanguageLocation> & locations);
+	void definitionFailed(quint64 token, const QString & reason);
 
 protected:
 	bool beginStart();

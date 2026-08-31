@@ -137,6 +137,7 @@ TWApp::TWApp(int &argc, char **argv)
 
 TWApp::~TWApp()
 {
+	m_languageServiceManager.stop();
 	if (scriptManager) {
 		scriptManager->saveDisabledList();
 		delete scriptManager;
