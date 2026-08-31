@@ -170,6 +170,7 @@ target_compile_options(test_LanguageServiceNavigationWindow PRIVATE ${WARNING_OP
 target_include_directories(test_LanguageServiceNavigationWindow PRIVATE "${TEXWORKS_WINDOW_TEST_BINARY_DIR}")
 target_link_libraries(test_LanguageServiceNavigationWindow ${TEXWORKS_WINDOW_TEST_LIBRARIES})
 add_dependencies(test_LanguageServiceNavigationWindow GitRev)
+add_dependencies(test_LanguageServiceNavigationWindow language_server_fake)
 add_test(NAME test_LanguageServiceNavigationWindow COMMAND test_LanguageServiceNavigationWindow)
 
 # UI

@@ -49,6 +49,7 @@ public:
 	~LanguageServerProcess() override;
 
 	State state() const { return m_state; }
+	bool isRunning() const { return m_process.state() != QProcess::NotRunning; }
 	JsonRpcTransport * transport() { return &m_transport; }
 	const JsonRpcTransport * transport() const { return &m_transport; }
 

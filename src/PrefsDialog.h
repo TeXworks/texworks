@@ -57,6 +57,8 @@ private slots:
 	void addTool();
 	void removeTool();
 	void editTool(QListWidgetItem* item = nullptr);
+	void browseForLanguageServer();
+	void updateLanguageServiceControls(bool enabled);
 
 private:
 	void init();

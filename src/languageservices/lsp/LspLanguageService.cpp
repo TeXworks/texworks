@@ -296,12 +296,14 @@ void LspLanguageService::handleProcessFinished(int, QProcess::ExitStatus, bool u
 {
 	m_initializeTimer.stop();
 	m_shutdownTimer.stop();
+	if (state() == Stopping) {
+		becomeStopped();
+		return;
+	}
 	if (unexpected) {
 		initializationFailed(tr("Language server process exited unexpectedly"));
 		return;
 	}
-	if (state() == Stopping)
-		becomeStopped();
 }
 
 bool LspLanguageService::mapCapabilities(const QJsonObject & capabilities,
@@ -371,6 +373,12 @@ void LspLanguageService::stop()
 	if (state() == Stopped || state() == NotConfigured || state() == Stopping)
 		return;
 	if (state() == Failed) {
+		setState(Stopping);
+		if (m_teardownStarted) {
+			if (!m_process.isRunning())
+				becomeStopped();
+			return;
+		}
 		beginProcessStop();
 		return;
 	}

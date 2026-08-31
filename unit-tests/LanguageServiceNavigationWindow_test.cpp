@@ -12,6 +12,8 @@
 
 #include "DefaultEngineList.h"
 #include "Engine.h"
+#include "PrefsDialog.h"
+#include "Settings.h"
 #include "TWApp.h"
 #include "TeXDocumentWindow.h"
 #include "languageservices/LanguageService.h"
@@ -21,12 +23,17 @@
 #include "utils/ResourcesLibrary.h"
 
 #include <QAction>
+#include <QCheckBox>
 #include <QComboBox>
 #include <QDir>
 #include <QFile>
 #include <QHash>
+#include <QLineEdit>
 #include <QListView>
+#include <QPlainTextEdit>
+#include <QPushButton>
 #include <QStandardPaths>
+#include <QStatusBar>
 #include <QTemporaryDir>
 #include <QTimer>
 #include <QtTest>
@@ -180,6 +187,15 @@ private:
 	TWApp * app;
 	QList<Engine> originalEngines;
 };
+
+QString fakeServerPath()
+{
+	QString name = QStringLiteral("language_server_fake");
+#ifdef Q_OS_WIN
+	name += QStringLiteral(".exe");
+#endif
+	return QDir(QCoreApplication::applicationDirPath()).filePath(name);
+}
 
 } // namespace
 
@@ -586,6 +602,209 @@ void LanguageServiceNavigationWindowTest::completionPreviewUndoRedoSynchronizati
 	QTRY_VERIFY(TWApp::instance()->languageServiceManager().service() == nullptr);
 	window->setModified(false);
 	window->close();
+	QTRY_VERIFY(TeXDocumentWindow::documentList().isEmpty());
+}
+
+void LanguageServiceNavigationWindowTest::productionConfigurationActivation()
+{
+	QVERIFY(!TWApp::instance()->languageServiceSettings().enabled);
+	QCOMPARE(TWApp::instance()->languageServiceManager().state(), LanguageService::NotConfigured);
+	QVERIFY(TWApp::instance()->languageServiceManager().service() == nullptr);
+
+	QTemporaryDir directory;
+	QVERIFY(directory.isValid());
+	const QString sourcePath = writeFile(directory, QStringLiteral("already-open.mkxl"), QStringLiteral("\\starttext\n\\stoptext\n"));
+	const QString logPath = QDir(directory.path()).filePath(QStringLiteral("documents.jsonl"));
+	TeXDocumentWindow * source = new TeXDocumentWindow(sourcePath);
+	source->show();
+	QAction * definition = source->findChild<QAction *>(QStringLiteral("actionGo_to_Definition"));
+	QVERIFY(definition);
+	QVERIFY(!definition->isEnabled());
+
+	Tw::LanguageServiceSettings settings;
+	settings.enabled = true;
+	settings.executable = fakeServerPath();
+	settings.arguments = QStringList{QStringLiteral("--lsp-profile"), QStringLiteral("digestif"),
+	                                 QStringLiteral("--document-log"), logPath,
+	                                 QStringLiteral("literal argument with spaces")};
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QCOMPARE(TWApp::instance()->languageServiceSettings(), settings);
+	QTRY_COMPARE(TWApp::instance()->languageServiceManager().state(), LanguageService::Ready);
+	LanguageService * sharedService = TWApp::instance()->languageServiceManager().service();
+	QVERIFY(sharedService != nullptr);
+	QCOMPARE(sharedService->parent(), &TWApp::instance()->languageServiceManager());
+	QTRY_VERIFY(definition->isEnabled());
+	QTRY_VERIFY(TWApp::instance()->languageServiceManager().bindingForDocument(source->textDoc())->isSynchronized());
+
+	const QString secondPath = writeFile(directory, QStringLiteral("second.mkxl"), QStringLiteral("second\n"));
+	TeXDocumentWindow * second = new TeXDocumentWindow(secondPath);
+	second->show();
+	QTRY_VERIFY(TWApp::instance()->languageServiceManager().bindingForDocument(second->textDoc())->isSynchronized());
+	QCOMPARE(TWApp::instance()->languageServiceManager().service(), sharedService);
+
+	settings.enabled = false;
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QTRY_VERIFY(TWApp::instance()->languageServiceManager().service() == nullptr);
+	QVERIFY(!definition->isEnabled());
+	QCOMPARE(TWApp::instance()->languageServiceSettings(), settings);
+	second->close();
+	source->close();
+	QTRY_VERIFY(TeXDocumentWindow::documentList().isEmpty());
+}
+
+void LanguageServiceNavigationWindowTest::productionConfigurationFailures()
+{
+	QTemporaryDir directory;
+	QVERIFY(directory.isValid());
+	const QString sourcePath = writeFile(directory, QStringLiteral("failure.mkxl"), QStringLiteral("adlen"));
+	TeXDocumentWindow * source = new TeXDocumentWindow(sourcePath);
+	source->show();
+	source->selectWindow();
+
+	Tw::LanguageServiceSettings settings;
+	settings.enabled = true;
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QVERIFY(TWApp::instance()->languageServiceManager().service() == nullptr);
+	QVERIFY(TWApp::instance()->languageServiceStatusText().contains(QStringLiteral("Choose a language server executable")));
+
+	const QString marker = QDir(directory.path()).filePath(QStringLiteral("shell-was-used"));
+	settings.executable = QStringLiteral("missing-language-server;touch %1").arg(marker);
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QTRY_COMPARE(TWApp::instance()->languageServiceManager().state(), LanguageService::Failed);
+	QVERIFY(!QFileInfo::exists(marker));
+	QTRY_VERIFY(source->statusBar()->currentMessage().contains(QStringLiteral("Language server unavailable")));
+
+	source->editor()->setFocus();
+	QTextCursor cursor = source->editor()->textCursor();
+	cursor.movePosition(QTextCursor::End);
+	source->editor()->setTextCursor(cursor);
+	QTest::keyClick(source->editor(), Qt::Key_Tab);
+	QCOMPARE(source->editor()->toPlainText(), QString::fromUtf8("\\addtolength{}{\u2022}\n"));
+
+	settings.executable = fakeServerPath();
+	settings.arguments = QStringList{QStringLiteral("--lsp-profile"), QStringLiteral("initialize-error")};
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QTRY_COMPARE(TWApp::instance()->languageServiceManager().state(), LanguageService::Failed);
+	QVERIFY(TWApp::instance()->languageServiceStatusText().contains(QStringLiteral("scripted initialize failure")));
+
+	settings.arguments = QStringList{QStringLiteral("--lsp-profile"), QStringLiteral("exit-after-initialized")};
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QTRY_COMPARE(TWApp::instance()->languageServiceManager().state(), LanguageService::Failed);
+	QVERIFY(TWApp::instance()->languageServiceStatusText().contains(QStringLiteral("exited unexpectedly")));
+
+	settings.enabled = false;
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QTRY_VERIFY(TWApp::instance()->languageServiceManager().service() == nullptr);
+	source->setModified(false);
+	source->close();
+	QTRY_VERIFY(TeXDocumentWindow::documentList().isEmpty());
+}
+
+void LanguageServiceNavigationWindowTest::pathCommandActivation()
+{
+	QTemporaryDir directory;
+	QVERIFY(directory.isValid());
+	const QString commandName = QStringLiteral("tw-language-server-path-test");
+#ifdef Q_OS_WIN
+	const QString installedCommand = QDir(directory.path()).filePath(commandName + QStringLiteral(".exe"));
+#else
+	const QString installedCommand = QDir(directory.path()).filePath(commandName);
+#endif
+	QVERIFY(QFile::copy(fakeServerPath(), installedCommand));
+	QVERIFY(QFile::setPermissions(installedCommand, QFile::permissions(fakeServerPath())));
+	const QByteArray oldPath = qgetenv("PATH");
+	const QByteArray temporaryPath = QFile::encodeName(directory.path());
+	qputenv("PATH", oldPath.isEmpty() ? temporaryPath : temporaryPath + QByteArray(PATH_LIST_SEP) + oldPath);
+
+	Tw::LanguageServiceSettings settings;
+	settings.enabled = true;
+	settings.executable = commandName;
+	settings.arguments = QStringList{QStringLiteral("--lsp-profile"), QStringLiteral("digestif")};
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QTRY_COMPARE(TWApp::instance()->languageServiceManager().state(), LanguageService::Ready);
+	QCOMPARE(TWApp::instance()->languageServiceSettings().executable, commandName);
+	settings.enabled = false;
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QTRY_VERIFY(TWApp::instance()->languageServiceManager().service() == nullptr);
+	qputenv("PATH", oldPath);
+}
+
+void LanguageServiceNavigationWindowTest::preferencesLanguageServicesUi()
+{
+	Tw::LanguageServiceSettings initial;
+	initial.enabled = false;
+	initial.executable = QStringLiteral("server-command");
+	initial.arguments = QStringList{QStringLiteral("--literal value"), QStringLiteral("quoted=\"unchanged\"")};
+	TWApp::instance()->setLanguageServiceSettings(initial);
+
+	QTimer::singleShot(0, this, SLOT(acceptLanguageServicesPreferences()));
+	QCOMPARE(PrefsDialog::doPrefsDialog(nullptr), QDialog::Accepted);
+	const Tw::LanguageServiceSettings applied = TWApp::instance()->languageServiceSettings();
+	QVERIFY(applied.enabled);
+	QCOMPARE(applied.executable, fakeServerPath());
+	QCOMPARE(applied.arguments, QStringList({QStringLiteral("--lsp-profile"), QStringLiteral("digestif"),
+	                                        QStringLiteral("--completion-mode"), QStringLiteral("label")}));
+	QTRY_COMPARE(TWApp::instance()->languageServiceManager().state(), LanguageService::Ready);
+
+	Tw::LanguageServiceSettings disabled = applied;
+	disabled.enabled = false;
+	TWApp::instance()->setLanguageServiceSettings(disabled);
+	QTRY_VERIFY(TWApp::instance()->languageServiceManager().service() == nullptr);
+}
+
+void LanguageServiceNavigationWindowTest::acceptLanguageServicesPreferences()
+{
+	auto * dialog = qobject_cast<PrefsDialog *>(QApplication::activeModalWidget());
+	QVERIFY(dialog != nullptr);
+	auto * enabled = dialog->findChild<QCheckBox *>(QStringLiteral("languageServicesEnabled"));
+	auto * executable = dialog->findChild<QLineEdit *>(QStringLiteral("languageServerExecutable"));
+	auto * arguments = dialog->findChild<QPlainTextEdit *>(QStringLiteral("languageServerArguments"));
+	auto * browse = dialog->findChild<QPushButton *>(QStringLiteral("browseLanguageServer"));
+	QVERIFY(enabled && executable && arguments && browse);
+	QVERIFY(!enabled->isChecked());
+	QVERIFY(!executable->isEnabled());
+	QVERIFY(!arguments->isEnabled());
+	QCOMPARE(executable->text(), QStringLiteral("server-command"));
+	QCOMPARE(arguments->toPlainText(), QStringLiteral("--literal value\nquoted=\"unchanged\""));
+	enabled->setChecked(true);
+	QVERIFY(executable->isEnabled());
+	QVERIFY(arguments->isEnabled());
+	executable->setText(fakeServerPath());
+	arguments->setPlainText(QStringLiteral("--lsp-profile\ndigestif\n--completion-mode\nlabel"));
+	dialog->accept();
+}
+
+void LanguageServiceNavigationWindowTest::optionalConfiguredProductionServer()
+{
+	const QString executable = QString::fromLocal8Bit(qgetenv("TEXWORKS_LANGUAGE_SERVER"));
+	if (executable.isEmpty())
+		QSKIP("Set TEXWORKS_LANGUAGE_SERVER to validate a real provider through production activation");
+	QVERIFY2(QFileInfo::exists(executable), qPrintable(executable));
+
+	QTemporaryDir directory;
+	QVERIFY(directory.isValid());
+	const QString sourcePath = writeFile(directory, QStringLiteral("real-provider.mkxl"),
+	                                    QStringLiteral("\\starttext\n\\chapter{One}\n\\stoptext\n"));
+	TeXDocumentWindow * source = new TeXDocumentWindow(sourcePath);
+	source->show();
+	QAction * definition = source->findChild<QAction *>(QStringLiteral("actionGo_to_Definition"));
+	QVERIFY(definition);
+	QVERIFY(!definition->isEnabled());
+
+	Tw::LanguageServiceSettings settings;
+	settings.enabled = true;
+	settings.executable = executable;
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QTRY_COMPARE_WITH_TIMEOUT(TWApp::instance()->languageServiceManager().state(), LanguageService::Ready, 15000);
+	QVERIFY(TWApp::instance()->languageServiceManager().capabilities().completion);
+	QVERIFY(TWApp::instance()->languageServiceManager().capabilities().definition);
+	QTRY_VERIFY(TWApp::instance()->languageServiceManager().bindingForDocument(source->textDoc())->isSynchronized());
+	QTRY_VERIFY(definition->isEnabled());
+
+	settings.enabled = false;
+	TWApp::instance()->setLanguageServiceSettings(settings);
+	QTRY_VERIFY_WITH_TIMEOUT(TWApp::instance()->languageServiceManager().service() == nullptr, 5000);
+	source->close();
 	QTRY_VERIFY(TeXDocumentWindow::documentList().isEmpty());
 }
 

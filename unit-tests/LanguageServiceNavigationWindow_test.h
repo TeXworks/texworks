@@ -16,6 +16,9 @@ class LanguageServiceNavigationWindowTest : public QObject
 {
 	Q_OBJECT
 
+public slots:
+	void acceptLanguageServicesPreferences();
+
 private slots:
 	void engineMetadataPersistence();
 	void staticCompletionRegression();
@@ -23,6 +26,11 @@ private slots:
 	void completionCandidateListDeactivation();
 	void completionCandidateListProviderIntegration();
 	void completionPreviewUndoRedoSynchronization();
+	void productionConfigurationActivation();
+	void productionConfigurationFailures();
+	void pathCommandActivation();
+	void preferencesLanguageServicesUi();
+	void optionalConfiguredProductionServer();
 	void actionAndNavigation();
 };
 
