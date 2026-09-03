@@ -29,7 +29,8 @@ class Engine
 {
 public:
 	Engine() = default;
-	Engine(const QString& name, const QString& program, const QStringList & arguments, bool showPdf);
+	Engine(const QString& name, const QString& program, const QStringList & arguments, bool showPdf,
+	       const QString & sourceLanguage = QString{});
 	Engine(const Engine& orig);
 	Engine& operator=(const Engine& rhs);
 
@@ -37,11 +38,13 @@ public:
 	const QString program() const;
 	const QStringList arguments() const;
 	bool showPdf() const;
+	const QString sourceLanguage() const;
 
 	void setName(const QString& name);
 	void setProgram(const QString& program);
 	void setArguments(const QStringList& arguments);
 	void setShowPdf(bool showPdf);
+	void setSourceLanguage(const QString & sourceLanguage);
 
 	bool isAvailable() const;
 	QProcess * run(const QFileInfo & input, QObject * parent = nullptr);
@@ -55,6 +58,7 @@ private:
 	QString _program;
 	QStringList _arguments;
 	bool _showPdf{false};
+	QString _sourceLanguage;
 };
 
 

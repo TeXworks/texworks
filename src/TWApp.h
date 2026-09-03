@@ -23,6 +23,7 @@
 #define TWApp_H
 
 #include "InterProcessCommunicator.h"
+#include "languageservices/LanguageServiceManager.h"
 #include "utils/TypesetManager.h"
 
 #include <QAction>
@@ -43,6 +44,7 @@
 
 class Engine;
 class TWScriptManager;
+namespace Tw { struct LanguageServiceSettings; }
 
 #if defined(Q_OS_WIN)
 #define PATH_LIST_SEP   ";"
@@ -110,6 +112,10 @@ public:
 	static QStringList getTranslationList();
 
 	Tw::Utils::TypesetManager & typesetManager() { return m_typesetManager; }
+	Tw::LanguageServices::LanguageServiceManager & languageServiceManager() { return m_languageServiceManager; }
+	Tw::LanguageServiceSettings languageServiceSettings() const;
+	void setLanguageServiceSettings(const Tw::LanguageServiceSettings & settings);
+	QString languageServiceStatusText() const;
 
 	TWScriptManager* getScriptManager() { return scriptManager; }
 
@@ -262,6 +268,8 @@ private:
 	void exitLater(int retCode);
 
 	void arrangeWindows(WindowArrangementFunction func);
+	void applyLanguageServiceSettings(const Tw::LanguageServiceSettings & settings);
+	void showPendingLanguageServiceNotice(QWidget * window = nullptr);
 
 	int recentFilesLimit{kDefaultMaxRecentFiles};
 
@@ -279,6 +287,9 @@ private:
 	QHash<QString, QVariant> m_globals;
 
 	Tw::Utils::TypesetManager m_typesetManager{this};
+	Tw::LanguageServices::LanguageServiceManager m_languageServiceManager{this};
+	QString m_languageServiceNotice;
+	bool m_languageServiceNoticeShown{false};
 
 	static TWApp *theAppInstance;
 	Tw::InterProcessCommunicator m_IPC;
@@ -303,4 +314,3 @@ public:
 };
 
 #endif	// TWApp_H
-

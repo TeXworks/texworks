@@ -36,6 +36,7 @@
 #include "scripting/ScriptAPI.h"
 #include "document/SpellChecker.h"
 #include "document/SpellCheckManager.h"
+#include "languageservices/LanguageServiceNavigation.h"
 #include "ui/ClickableLabel.h"
 #include "ui/RemoveAuxFilesDialog.h"
 #include "utils/CmdKeyFilter.h"
@@ -188,6 +189,7 @@ void TeXDocumentWindow::init()
 
 	connect(actionFont, &QAction::triggered, this, &TeXDocumentWindow::doFontDialog);
 	connect(actionGo_to_Line, &QAction::triggered, this, &TeXDocumentWindow::doLineDialog);
+	connect(actionGo_to_Definition, &QAction::triggered, this, &TeXDocumentWindow::goToDefinition);
 	connect(actionFind, &QAction::triggered, this, &TeXDocumentWindow::doFindDialog);
 	connect(actionFind_Again, &QAction::triggered, this, &TeXDocumentWindow::doFindAgain);
 	connect(actionReplace, &QAction::triggered, this, &TeXDocumentWindow::doReplaceDialog);
@@ -218,6 +220,9 @@ void TeXDocumentWindow::init()
 	connect(textDoc(), &Tw::Document::TeXDocument::modificationChanged, this, &TeXDocumentWindow::maybeEnableSaveAndRevert);
 	connect(textDoc(), &Tw::Document::TeXDocument::modelinesChanged, this, &TeXDocumentWindow::handleModelineChange);
 	connect(textEdit, &CompletingEdit::cursorPositionChanged, this, &TeXDocumentWindow::showCursorPosition);
+	connect(textEdit, &CompletingEdit::cursorPositionChanged, this, [this]() {
+		TWApp::instance()->languageServiceManager().cancelDefinitionRequest(textDoc());
+	});
 	connect(textEdit, &CompletingEdit::selectionChanged, this, &TeXDocumentWindow::showCursorPosition);
 	connect(textEdit, &CompletingEdit::syncClick, this, &TeXDocumentWindow::syncClick);
 	connect(this, &TeXDocumentWindow::syncFromSource, TWApp::instance(), &TWApp::syncPdf);
@@ -429,6 +434,39 @@ void TeXDocumentWindow::init()
 
 	TWUtils::insertHelpMenuItems(menuHelp);
 	TWUtils::installCustomShortcuts(this);
+	Tw::LanguageServices::LanguageServiceManager & languageServices = TWApp::instance()->languageServiceManager();
+	Tw::LanguageServices::LanguageServiceManager * languageServiceManager = &languageServices;
+	connect(textEdit, &CompletingEdit::completionRequested, this,
+	        [this, languageServiceManager](const Tw::LanguageServices::LanguagePosition & position) {
+		        languageServiceManager->requestCompletion(textDoc(), position);
+	        });
+	connect(textEdit, &CompletingEdit::completionContextInvalidated, this,
+	        [this, languageServiceManager]() { languageServiceManager->cancelCompletionRequest(textDoc()); });
+	connect(textEdit, &CompletingEdit::completionEditStarted, this,
+	        [this, languageServiceManager]() { languageServiceManager->beginCompletionEdit(textDoc()); });
+	connect(textEdit, &CompletingEdit::completionEditFinished, this,
+	        [this, languageServiceManager]() { languageServiceManager->endCompletionEdit(textDoc()); });
+	connect(&languageServices, &Tw::LanguageServices::LanguageServiceManager::completionAvailabilityChanged,
+	        this, [this](Tw::Document::TeXDocument * document, bool available) {
+		        if (document == textDoc())
+			        textEdit->setProviderCompletionAvailable(available);
+	        });
+	connect(&languageServices, &Tw::LanguageServices::LanguageServiceManager::completionReady,
+	        this, [this](Tw::Document::TeXDocument * document,
+	                     const QList<Tw::LanguageServices::CompletionItem> & items) {
+		        if (document == textDoc())
+			        textEdit->mergeProviderCompletions(items);
+	        });
+	connect(&languageServices, &Tw::LanguageServices::LanguageServiceManager::definitionAvailabilityChanged,
+	        this, [this](Tw::Document::TeXDocument * document, bool) {
+		        if (document == textDoc())
+			        updateDefinitionAction();
+	        });
+	connect(&languageServices, &Tw::LanguageServices::LanguageServiceManager::definitionReady,
+	        this, &TeXDocumentWindow::handleDefinitionResult);
+	languageServices.registerDocument(textDoc(), TWApp::instance()->getNamedEngine(engineName).sourceLanguage());
+	textEdit->setProviderCompletionAvailable(languageServices.canRequestCompletion(textDoc()));
+	updateDefinitionAction();
 	delayedInit();
 }
 
@@ -670,6 +708,29 @@ TeXDocumentWindow* TeXDocumentWindow::openDocument(const QString &fileName, bool
 	return doc;
 }
 
+TeXDocumentWindow * TeXDocumentWindow::openDocumentAtRange(const Tw::LanguageServices::LanguageLocation & location)
+{
+	if (!location.document.isLocalFile())
+		return nullptr;
+	const QFileInfo fileInfo(location.document.toLocalFile());
+	if (!fileInfo.exists() || !fileInfo.isFile())
+		return nullptr;
+	TeXDocumentWindow * document = findDocument(fileInfo.absoluteFilePath());
+	if (document) {
+		if (!document->goToRange(location.range))
+			return nullptr;
+	}
+	else {
+		if (!rangeIsValidInFile(fileInfo, location.range))
+			return nullptr;
+		document = openDocument(fileInfo.absoluteFilePath(), false, false);
+		if (!document || !document->goToRange(location.range))
+			return nullptr;
+	}
+	document->selectWindow();
+	return document;
+}
+
 void TeXDocumentWindow::closeEvent(QCloseEvent *event)
 {
 	if (process) {
@@ -690,6 +751,7 @@ void TeXDocumentWindow::closeEvent(QCloseEvent *event)
 	if (maybeSave()) {
 		event->accept();
 		saveRecentFileInfo();
+		TWApp::instance()->languageServiceManager().unregisterDocument(textDoc());
 		deleteLater();
 	}
 	else
@@ -951,7 +1013,9 @@ QTextCodec *TeXDocumentWindow::scanForEncoding(const QString &peekStr, bool &has
 QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 							  QTextCodec **codecUsed,
 							  int *lineEndings,
-							  QTextCodec * forceCodec)
+							  QTextCodec * forceCodec,
+							  bool *utf8BOM,
+							  QWidget *parent)
 	// reads the text from a file, after checking for %!TEX encoding.... metadata
 	// sets codecUsed to the QTextCodec used to read the text
 	// returns a null (not just empty) QString on failure
@@ -965,13 +1029,14 @@ QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 #endif
 	}
 
-	utf8BOM = false;
+	if (utf8BOM)
+		*utf8BOM = false;
 	QFile file(fileInfo.absoluteFilePath());
 	// Not using QFile::Text because this prevents us reading "classic" Mac files
 	// with CR-only line endings. See issue #242.
 	if (!file.open(QFile::ReadOnly)) {
-		QMessageBox::warning(this, QCoreApplication::applicationName(),
-							 tr("Cannot read file \"%1\":\n%2")
+		QMessageBox::warning(parent, QCoreApplication::applicationName(),
+							 TeXDocumentWindow::tr("Cannot read file \"%1\":\n%2")
 							 .arg(fileInfo.absoluteFilePath(), file.errorString()));
 		return QString();
 	}
@@ -987,8 +1052,8 @@ QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 		if (!(*codecUsed)) {
 			*codecUsed = TWApp::instance()->getDefaultCodec();
 			if (hasMetadata) {
-				if (QMessageBox::warning(this, tr("Unrecognized encoding"),
-						tr("The text encoding %1 used in %2 is not supported.\n\n"
+				if (QMessageBox::warning(parent, TeXDocumentWindow::tr("Unrecognized encoding"),
+						TeXDocumentWindow::tr("The text encoding %1 used in %2 is not supported.\n\n"
 						   "It will be interpreted as %3 instead, which may result in incorrect text.")
 							.arg(reqName, fileInfo.absoluteFilePath(), QString::fromUtf8((*codecUsed)->name().constData())),
 						QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Ok) == QMessageBox::Cancel)
@@ -1001,7 +1066,8 @@ QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 	// ignored during reading and not produced when writing. To keep them in
 	// files that have them, we need to check for them ourselves.
 	if ((*codecUsed)->mibEnum() == 106 && peekBytes.size() >= 3 && peekBytes[0] == '\xEF' && peekBytes[1] == '\xBB' && peekBytes[2] == '\xBF')
-		utf8BOM = true;
+		if (utf8BOM)
+			*utf8BOM = true;
 
 	// If the file is empty (we're already at the end), don't try to read
 	// anything using QTextStream below as that would return a Null-String
@@ -1033,9 +1099,22 @@ QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 	return text;
 }
 
+bool TeXDocumentWindow::rangeIsValidInFile(const QFileInfo &fileInfo,
+		const Tw::LanguageServices::LanguageRange &range)
+{
+	QTextCodec *codecUsed = nullptr;
+	const QString fileContents = readFile(fileInfo, &codecUsed);
+	if (fileContents.isNull())
+		return false;
+	QTextDocument document;
+	document.setPlainText(fileContents);
+	QTextCursor cursor;
+	return Tw::LanguageServices::cursorForLanguageRange(&document, range, cursor);
+}
+
 void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bool inBackground, bool reload, QTextCodec * forceCodec)
 {
-	QString fileContents = readFile(fileInfo, &codec, &lineEndings, forceCodec);
+	QString fileContents = readFile(fileInfo, &codec, &lineEndings, forceCodec, &utf8BOM, this);
 	showLineEndingSetting();
 	showEncodingSetting();
 
@@ -1526,6 +1605,7 @@ void TeXDocumentWindow::setCurrentFile(const QFileInfo & fileInfo)
 	conditionallyEnableRemoveAuxFiles();
 
 	TWApp::instance()->updateWindowMenus();
+	TWApp::instance()->languageServiceManager().updateDocumentIdentity(textDoc());
 }
 
 void TeXDocumentWindow::saveRecentFileInfo()
@@ -1596,8 +1676,12 @@ void TeXDocumentWindow::updateEngineList()
 	int index = engine->findText(engineName, Qt::MatchFixedString);
 	if (index < 0)
 		index = engine->findText(TWApp::instance()->getDefaultEngine().name(), Qt::MatchFixedString);
-	if (index >= 0)
-		engine->setCurrentIndex(index);
+	if (index >= 0) {
+		if (engine->currentIndex() != index)
+			engine->setCurrentIndex(index);
+		else
+			selectedEngine(index);
+	}
 }
 
 void TeXDocumentWindow::selectedEngine(QAction* engineAction) // sent by actions in menubar menu; update toolbar combo box
@@ -1614,6 +1698,8 @@ void TeXDocumentWindow::selectedEngine(int idx) // sent by toolbar combo box; ne
 {
 	const QString name = engine->itemText(idx);
 	engineName = name;
+	TWApp::instance()->languageServiceManager().updateDocumentLanguageHint(
+	    textDoc(), TWApp::instance()->getNamedEngine(engineName).sourceLanguage());
 	foreach (QAction *act, engineActions->actions()) {
 		if (act->text() == name) {
 			act->setChecked(true);
@@ -1796,6 +1882,54 @@ void TeXDocumentWindow::goToLine(int lineNo, int selStart, int selEnd)
 		cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::KeepAnchor);
 	textEdit->setTextCursor(cursor);
 	maybeCenterSelection(oldScrollValue);
+}
+
+bool TeXDocumentWindow::goToRange(const Tw::LanguageServices::LanguageRange & range)
+{
+	QTextDocument * document = textEdit->document();
+	QTextCursor cursor;
+	if (!Tw::LanguageServices::cursorForLanguageRange(document, range, cursor))
+		return false;
+	int oldScrollValue = -1;
+	if (textEdit->verticalScrollBar())
+		oldScrollValue = textEdit->verticalScrollBar()->value();
+	textEdit->setTextCursor(cursor);
+	textEdit->ensureCursorVisible();
+	maybeCenterSelection(oldScrollValue);
+	return true;
+}
+
+void TeXDocumentWindow::goToDefinition()
+{
+	const QTextCursor cursor = textEdit->textCursor();
+	Tw::LanguageServices::LanguagePosition position;
+	position.line = cursor.blockNumber();
+	position.character = cursor.positionInBlock();
+	TWApp::instance()->languageServiceManager().requestDefinition(textDoc(), position);
+}
+
+void TeXDocumentWindow::updateDefinitionAction()
+{
+	actionGo_to_Definition->setEnabled(
+		TWApp::instance()->languageServiceManager().canRequestDefinition(textDoc()));
+}
+
+void TeXDocumentWindow::handleDefinitionResult(
+	Tw::Document::TeXDocument * document,
+	const QList<Tw::LanguageServices::LanguageLocation> & locations)
+{
+	if (document != textDoc())
+		return;
+	if (locations.isEmpty()) {
+		statusBar()->showMessage(tr("Definition not found"), kStatusMessageDuration);
+		return;
+	}
+	if (locations.size() != 1) {
+		statusBar()->showMessage(tr("Multiple definitions found"), kStatusMessageDuration);
+		return;
+	}
+	if (!openDocumentAtRange(locations.first()))
+		statusBar()->showMessage(tr("Cannot open definition location"), kStatusMessageDuration);
 }
 
 void TeXDocumentWindow::maybeCenterSelection(int oldScrollValue)

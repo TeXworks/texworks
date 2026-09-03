@@ -282,6 +282,7 @@
     <addaction name="actionCopy_to_Replace"/>
     <addaction name="actionFind_Selection"/>
     <addaction name="separator"/>
+    <addaction name="actionGo_to_Definition"/>
     <addaction name="actionGo_to_Line"/>
     <addaction name="actionShow_Selection"/>
    </widget>
@@ -680,6 +681,20 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionGo_to_Definition">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Go to Definition</string>
+   </property>
+   <property name="shortcut">
+    <string>F12</string>
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
