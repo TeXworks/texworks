@@ -30,12 +30,17 @@
 #include <QPair>
 #include <QSettings>
 #include <QString>
-#include <QTextCodec>
 
 class QCompleter;
 class QMainWindow;
 class PDFDocumentWindow;
 class TeXDocumentWindow;
+
+namespace Tw {
+namespace Utils {
+class TextCodec;
+} // namespace Utils
+} // namespace Tw
 
 // static utility methods
 class TWUtils
@@ -44,7 +49,8 @@ public:
 	static void insertHelpMenuItems(QMenu* helpMenu);
 
 	// return a sorted list of all the available text codecs
-	static QList<QTextCodec*> *findCodecs();
+	// FIXME: Move to TextCodec
+	static QList<Tw::Utils::TextCodec*> *findCodecs();
 
 	// list of filename filters for the Open/Save dialogs
 	static QStringList* filterList();
@@ -75,7 +81,7 @@ public:
 private:
 	TWUtils();
 
-	static QList<QTextCodec*>		*codecList;
+	static QList<Tw::Utils::TextCodec*>		*codecList;
 	static QStringList				*translationList;
 
 	static QStringList			*filters;

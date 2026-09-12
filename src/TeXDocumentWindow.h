@@ -42,7 +42,6 @@ class QToolBar;
 class QLabel;
 class QComboBox;
 class QActionGroup;
-class QTextCodec;
 class QFileSystemWatcher;
 
 class PDFDocumentWindow;
@@ -51,6 +50,9 @@ namespace Tw {
 namespace UI {
 class ClickableLabel;
 } // namespace UI
+namespace Utils {
+class TextCodec;
+} // namespace Utils
 } // namespace Tw
 
 const int kTeXWindowStateVersion = 1; // increment this if we add toolbars/docks/etc
@@ -99,7 +101,7 @@ public:
 	int cursorPosition() const { return textCursor().position(); }
 	int selectionStart() const { return textCursor().selectionStart(); }
 	int selectionLength() const { return textCursor().selectionEnd() - textCursor().selectionStart(); }
-	QString getCurrentCodecName() const { return (codec ? QString::fromUtf8(codec->name().constData()) : QString()); }
+	QString getCurrentCodecName() const;
 	bool getUTF8BOM() const { return utf8BOM; }
 
 	QString spellcheckLanguage() const;
@@ -231,9 +233,9 @@ private:
 	void detachPdf();
 	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
-	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
-	QString readFile(const QFileInfo & fileInfo, QTextCodec **codecUsed, int *lineEndings = nullptr, QTextCodec * forceCodec = nullptr);
-	void loadFile(const QFileInfo & fileInfo, bool asTemplate = false, bool inBackground = false, bool reload = false, QTextCodec * forceCodec = nullptr);
+	Tw::Utils::TextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
+	QString readFile(const QFileInfo & fileInfo, Tw::Utils::TextCodec **codecUsed, int *lineEndings = nullptr, Tw::Utils::TextCodec * forceCodec = nullptr);
+	void loadFile(const QFileInfo & fileInfo, bool asTemplate = false, bool inBackground = false, bool reload = false, Tw::Utils::TextCodec * forceCodec = nullptr);
 	bool saveFile(const QFileInfo & fileInfo);
 	void setCurrentFile(const QFileInfo & fileInfo);
 	void saveRecentFileInfo();
@@ -263,7 +265,7 @@ private:
 	Tw::Document::TeXDocument * _texDoc;
 	PDFDocumentWindow * pdfDoc{nullptr};
 
-	QTextCodec * codec{nullptr};
+	Tw::Utils::TextCodec * codec{nullptr};
 	// When using the UTF-8 codec, byte order marks (BOMs) are ignored during
 	// reading and not produced when writing. To keep them in files that have
 	// them, we need to keep track of them ourselves.

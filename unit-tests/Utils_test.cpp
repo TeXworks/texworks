@@ -416,31 +416,156 @@ void TestUtils::CommandLineParser_printUsage()
 	QCOMPARE(strm.readAll(), QStringLiteral("Usage: %1 [opts/args]\n\n   --sLong, -s   sDesc\n   --oLong=..., -o=...   oDesc\n").arg(QFileInfo(QCoreApplication::applicationFilePath()).fileName()));
 }
 
-void TestUtils::MacCentralEurRomanCodec()
+void TestUtils::TextCodecs_roundtrip_data()
 {
-	Tw::Utils::MacCentralEurRomanCodec * c = Tw::Utils::MacCentralEurRomanCodec::instance();
-	QVERIFY(c != nullptr);
+	QTest::addColumn<QByteArray>("codecName");
+	QTest::addColumn<QByteArray>("encoded");
+	QTest::addColumn<QString>("decoded");
 
-	QCOMPARE(c->mibEnum(), -4000);
-	QCOMPARE(c->name(), QByteArray("Mac Central European Roman"));
-	QCOMPARE(c->aliases(), QList<QByteArray>({"MacCentralEuropeanRoman", "MacCentralEurRoman"}));
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+	using CharType = uint;
+#else
+	using CharType = char32_t;
+#endif
 
-	// € cannot be encoded and is replaced by ? (or \x00 if
-	// QTextCodec::ConvertInvalidToNull is specified)
-	QCOMPARE(c->fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4?"));
-	QCOMPARE(c->toUnicode(QByteArray("\x41\x80\x81\xA1\xA4")), QStringLiteral("AÄĀ°§"));
+	{
+		// A, Ä, €, 𝄞
+		const CharType characters[]{0x41, 0xC4, 0x20AC, 0x1D11E, 0x00};
+		const QByteArray utf8{"\x41\xC3\x84\xE2\x82\xAC\xF0\x9D\x84\x9E"};
+		QTest::newRow("UTF-8") << QByteArray("UTF-8") << utf8 << QString::fromUcs4(characters);
+	}
 
-	QCOMPARE(c->toUnicode(nullptr), QString());
+	{
+		// A, 丂, 龥
+		const CharType decoded[]{0x41, 0x4E02, 0x9FA5, 0x00};
+		const QByteArray encoded{"\x41\x81\x40\xFD\x9B"};
+		QTest::newRow("GBK") << QByteArray("GBK") << encoded << QString::fromUcs4(decoded);
+	}
 
-	QTextEncoder * e = c->makeEncoder(QTextCodec::ConvertInvalidToNull);
-	QVERIFY(e != nullptr);
-	QCOMPARE(e->fromUnicode(QStringLiteral("AÄĀ°§€")), QByteArray("\x41\x80\x81\xA1\xA4\x00", 6));
-	delete e;
+	{
+		// A, ｦ, ぁ, カ, 熙
+		const CharType decoded[]{0x41, 0xFF66, 0x3041, 0x30AB, 0x7199, 0x00};
+		const QByteArray encoded{"\x41\xA6\x82\x9F\x83\x4A\xEA\xA4"};
+		QTest::newRow("Shift-JIS") << QByteArray("Shift-JIS") << encoded << QString::fromUcs4(decoded);
+	}
 
-	QTextDecoder * d = c->makeDecoder(QTextCodec::ConvertInvalidToNull);
-	QVERIFY(d != nullptr);
-	QCOMPARE(d->toUnicode(QByteArray("\x41\x80\x81\xA1\xA4")), QStringLiteral("AÄĀ°§"));
-	delete d;
+	{
+		// A, Б, ў
+		const CharType decoded[]{0x41, 0x0411, 0x045E, 0x00};
+		const QByteArray encoded{"\x41\xB1\xFE"};
+		QTest::newRow("ISO-8859-5 (Cyrillic)") << QByteArray("ISO-8859-5") << encoded << QString::fromUcs4(decoded);
+	}
+
+	{
+		// A, ج
+		const CharType decoded[]{0x41, 0x062C, 0x00};
+		const QByteArray encoded{"\x41\xCC"};
+		QTest::newRow("ISO-8859-6 (Arabic)") << QByteArray("ISO-8859-6") << encoded << QString::fromUcs4(decoded);
+	}
+
+	{
+		// A, Δ, έ
+		const CharType decoded[]{0x41, 0x0394, 0x03AD, 0x00};
+		const QByteArray encoded{"\x41\xC4\xDD"};
+		QTest::newRow("ISO-8859-7 (Greek)") << QByteArray("ISO-8859-7") << encoded << QString::fromUcs4(decoded);
+	}
+
+	{
+		// A, ג
+		const CharType decoded[]{0x41, 0x05D2, 0x00};
+		const QByteArray encoded{"\x41\xE2"};
+		QTest::newRow("ISO-8859-8 (Hebrew)") << QByteArray("ISO-8859-8") << encoded << QString::fromUcs4(decoded);
+	}
+
+	{
+		// A, Ą, ¶
+		const CharType decoded[]{0x41, 0x0104, 0x00B6, 0x00};
+		const QByteArray encoded{"\x41\x84\xA6"};
+		QTest::newRow("maccentraleurope") << QByteArray("maccentraleurope") << encoded << QString::fromUcs4(decoded);
+	}
+
+}
+
+void TestUtils::TextCodecs_roundtrip()
+{
+	QFETCH(QByteArray, codecName);
+	QFETCH(QByteArray, encoded);
+	QFETCH(QString, decoded);
+
+	Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName(codecName);
+
+	QVERIFY(codec != nullptr);
+	QCOMPARE(codec->fromUnicode(decoded), encoded);
+	QCOMPARE(codec->toUnicode(encoded), decoded);
+}
+
+void TestUtils::TextCodecs_longData()
+{
+	const int numCopies = 10;
+	const int firstVal = 0x20;
+	const int lastVal = 0x3020;
+	QString decoded;
+	decoded.reserve(numCopies * (lastVal - firstVal));
+	for (int iCopy = 0; iCopy < numCopies; ++iCopy) {
+		for (int ch = firstVal; ch < lastVal; ++ch) {
+			decoded.append(QChar(ch));
+		}
+	}
+	QByteArray encoded = decoded.toUtf8();
+
+	Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName("UTF-8");
+
+	QCOMPARE(codec->fromUnicode(decoded), encoded);
+	QCOMPARE(codec->toUnicode(encoded), decoded);
+}
+
+void TestUtils::TextCodecs_canEncode_data()
+{
+	QTest::addColumn<QByteArray>("codecName");
+	QTest::addColumn<QString>("string");
+	QTest::addColumn<bool>("canEncode");
+
+	const QString empty;
+	const QString ascii{QStringLiteral("Hello World!")};
+	const QString latin1{QStringLiteral("Äßê")};
+	const QString traditionalChinese{QStringLiteral("漢")};
+	const QString simplifiedChinese{QStringLiteral("汉")};
+
+	QTest::newRow("UTF-8 / empty") << QByteArray("UTF-8") << empty << true;
+	QTest::newRow("UTF-8 / ascii") << QByteArray("UTF-8") << ascii << true;
+	QTest::newRow("UTF-8 / latin1") << QByteArray("UTF-8") << latin1 << true;
+	QTest::newRow("UTF-8 / traditional Chinese") << QByteArray("UTF-8") << traditionalChinese << true;
+	QTest::newRow("UTF-8 / simplified Chinese") << QByteArray("UTF-8") << simplifiedChinese << true;
+
+	QTest::newRow("ISO-8859-1 / empty") << QByteArray("ISO-8859-1") << empty << true;
+	QTest::newRow("ISO-8859-1 / ascii") << QByteArray("ISO-8859-1") << ascii << true;
+	QTest::newRow("ISO-8859-1 / latin1") << QByteArray("ISO-8859-1") << latin1 << true;
+	QTest::newRow("ISO-8859-1 / traditional Chinese") << QByteArray("ISO-8859-1") << traditionalChinese << false;
+	QTest::newRow("ISO-8859-1 / simplified Chinese") << QByteArray("ISO-8859-1") << simplifiedChinese << false;
+
+	QTest::newRow("GBK / empty") << QByteArray("GBK") << empty << true;
+	QTest::newRow("GBK / ascii") << QByteArray("GBK") << ascii << true;
+	QTest::newRow("GBK / latin1") << QByteArray("GBK") << latin1 << false;
+	QTest::newRow("GBK / traditional Chinese") << QByteArray("GBK") << traditionalChinese << true;
+	QTest::newRow("GBK / simplified Chinese") << QByteArray("GBK") << simplifiedChinese << true;
+
+	QTest::newRow("Shift-JIS / empty") << QByteArray("Shift-JIS") << empty << true;
+	QTest::newRow("Shift-JIS / ascii") << QByteArray("Shift-JIS") << ascii << true;
+	QTest::newRow("Shift-JIS / latin1") << QByteArray("Shift-JIS") << latin1 << false;
+	QTest::newRow("Shift-JIS / traditional Chinese") << QByteArray("Shift-JIS") << traditionalChinese << true;
+	QTest::newRow("Shift-JIS / simplified Chinese") << QByteArray("Shift-JIS") << simplifiedChinese << false;
+}
+
+void TestUtils::TextCodecs_canEncode()
+{
+	QFETCH(QByteArray, codecName);
+	QFETCH(QString, string);
+	QFETCH(bool, canEncode);
+
+	Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName(codecName);
+
+	QVERIFY(codec != nullptr);
+	QCOMPARE(codec->canEncode(string), canEncode);
 }
 
 void TestUtils::FullscreenManager()

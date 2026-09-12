@@ -61,7 +61,7 @@
 #include <QStatusBar>
 #include <QStringList>
 #include <QTextBrowser>
-#include <QTextCodec>
+#include <utils/TextCodecs.h>
 #include <QUrl>
 
 #if defined(Q_OS_WIN)
@@ -920,16 +920,16 @@ static const char* texshopSynonyms[] = {
 	nullptr
 };
 
-QTextCodec *TeXDocumentWindow::scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName)
+Tw::Utils::TextCodec *TeXDocumentWindow::scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName)
 {
 	// peek at the file for %!TEX encoding = ....
 	QRegularExpression re(QStringLiteral(u"% *!TEX +encoding *= *([^\r\n\x2029]+)[\r\n\x2029]"), QRegularExpression::CaseInsensitiveOption);
 	QRegularExpressionMatch m = re.match(peekStr);
-	QTextCodec *reqCodec = nullptr;
+	Tw::Utils::TextCodec *reqCodec = nullptr;
 	if (m.hasMatch()) {
 		hasMetadata = true;
 		reqName = m.captured(1).trimmed();
-		reqCodec = QTextCodec::codecForName(reqName.toLatin1());
+		reqCodec = Tw::Utils::TextCodec::codecForName(reqName.toLatin1());
 		if (!reqCodec) {
 			static QHash<QString,QString> *synonyms = nullptr;
 			if (!synonyms) {
@@ -938,7 +938,7 @@ QTextCodec *TeXDocumentWindow::scanForEncoding(const QString &peekStr, bool &has
 					synonyms->insert(QString::fromLatin1(texshopSynonyms[i]).toLower(), QString::fromLatin1(texshopSynonyms[i+1]));
 			}
 			if (synonyms->contains(reqName.toLower()))
-				reqCodec = QTextCodec::codecForName(synonyms->value(reqName.toLower()).toLatin1());
+				reqCodec = Tw::Utils::TextCodec::codecForName(synonyms->value(reqName.toLower()).toLatin1());
 		}
 	}
 	else
@@ -949,11 +949,11 @@ QTextCodec *TeXDocumentWindow::scanForEncoding(const QString &peekStr, bool &has
 #define PEEK_LENGTH 1024
 
 QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
-							  QTextCodec **codecUsed,
+							  Tw::Utils::TextCodec **codecUsed,
 							  int *lineEndings,
-							  QTextCodec * forceCodec)
+							  Tw::Utils::TextCodec * forceCodec)
 	// reads the text from a file, after checking for %!TEX encoding.... metadata
-	// sets codecUsed to the QTextCodec used to read the text
+	// sets codecUsed to the TextCodec used to read the text
 	// returns a null (not just empty) QString on failure
 {
 	if (lineEndings) {
@@ -1000,7 +1000,8 @@ QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 	// When using the UTF-8 codec (mib = 106), byte order marks (BOMs) are
 	// ignored during reading and not produced when writing. To keep them in
 	// files that have them, we need to check for them ourselves.
-	if ((*codecUsed)->mibEnum() == 106 && peekBytes.size() >= 3 && peekBytes[0] == '\xEF' && peekBytes[1] == '\xBB' && peekBytes[2] == '\xBF')
+	//if ((*codecUsed)->mibEnum() == 106 && peekBytes.size() >= 3 && peekBytes[0] == '\xEF' && peekBytes[1] == '\xBB' && peekBytes[2] == '\xBF')
+	if ((*codecUsed)->name() == "UTF-8" && peekBytes.size() >= 3 && peekBytes[0] == '\xEF' && peekBytes[1] == '\xBB' && peekBytes[2] == '\xBF')
 		utf8BOM = true;
 
 	// If the file is empty (we're already at the end), don't try to read
@@ -1033,7 +1034,7 @@ QString TeXDocumentWindow::readFile(const QFileInfo & fileInfo,
 	return text;
 }
 
-void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bool inBackground, bool reload, QTextCodec * forceCodec)
+void TeXDocumentWindow::loadFile(const QFileInfo & fileInfo, bool asTemplate, bool inBackground, bool reload, Tw::Utils::TextCodec * forceCodec)
 {
 	QString fileContents = readFile(fileInfo, &codec, &lineEndings, forceCodec);
 	showLineEndingSetting();
@@ -1446,7 +1447,7 @@ bool TeXDocumentWindow::saveFile(const QFileInfo & fileInfo)
 		// ignored during reading and not produced when writing. To keep them in
 		// files that have them (or the user wants them), we need to write them
 		// ourselves.
-		if (codec->mibEnum() == 106 && utf8BOM)
+		if (codec->name() == "UTF-8" && utf8BOM)
 			file.write("\xEF\xBB\xBF");
 
 		file.write(codec->fromUnicode(theText));
@@ -1676,7 +1677,7 @@ void TeXDocumentWindow::lineEndingPopup(const QPoint loc)
 
 void TeXDocumentWindow::showEncodingSetting()
 {
-	encodingLabel->setText(codec ? QString::fromUtf8(codec->name().constData()) : QString());
+	encodingLabel->setText(codec ? codec->displayName() : QString());
 }
 
 void TeXDocumentWindow::encodingPopup(const QPoint loc)
@@ -1690,15 +1691,15 @@ void TeXDocumentWindow::encodingPopup(const QPoint loc)
 	BOMAction->setCheckable(true);
 	BOMAction->setChecked(utf8BOM);
 	// Only enable this option if we are currently using the UTF-8 codec
-	BOMAction->setEnabled(codec && codec->mibEnum() == 106);
+	BOMAction->setEnabled(codec && codec->name() == "UTF-8");
 
 	if (!untitled())
 		menu.addAction(reloadAction);
 	menu.addAction(BOMAction);
 	menu.addSeparator();
 
-	foreach (QTextCodec *codec, *TWUtils::findCodecs()) {
-		QAction * a = new QAction(QString::fromUtf8(codec->name().constData()), &menu);
+	foreach (Tw::Utils::TextCodec *codec, *TWUtils::findCodecs()) {
+		QAction * a = new QAction(codec->displayName(), &menu);
 		a->setCheckable(true);
 		if (codec == this->codec)
 			a->setChecked(true);
@@ -1711,7 +1712,7 @@ void TeXDocumentWindow::encodingPopup(const QPoint loc)
 				if (QMessageBox::warning(this, tr("Unsaved changes"),
 										 tr("The file you are trying to reload has unsaved changes.\n\n"
 											"Do you want to discard your current changes, and reload the file from disk with the encoding %1?")
-				                         .arg(QString::fromUtf8(codec->name().constData())),
+				                         .arg(codec->displayName()),
 										 QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No) {
 					return;
 				}
@@ -1725,11 +1726,11 @@ void TeXDocumentWindow::encodingPopup(const QPoint loc)
 			// modifies how the file is saved. In all other cases, it does not
 			// take effect until the UTF-8 codec is selected (in which case the
 			// modified flag is set anyway).
-			if (codec && codec->mibEnum() == 106)
+			if (codec && codec->name() == "UTF-8")
 				textEdit->document()->setModified();
 		}
 		else {
-			QTextCodec *newCodec = QTextCodec::codecForName(result->text().toLatin1());
+			Tw::Utils::TextCodec *newCodec = Tw::Utils::TextCodec::codecForName(result->text().toLatin1());
 			if (newCodec && newCodec != codec) {
 				codec = newCodec;
 				showEncodingSetting();
@@ -1777,6 +1778,11 @@ QString TeXDocumentWindow::getLineText(int lineNo) const
 	if (lineNo < 1 || lineNo > doc->blockCount())
 		return QString();
 	return doc->findBlockByNumber(lineNo - 1).text();
+}
+
+QString TeXDocumentWindow::getCurrentCodecName() const
+{
+	return (codec ? QString::fromUtf8(codec->name()) : QString());
 }
 
 void TeXDocumentWindow::goToLine(int lineNo, int selStart, int selEnd)
@@ -3139,7 +3145,7 @@ void TeXDocumentWindow::handleModelineChange(QStringList changedKeys, QStringLis
 		curs.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, PEEK_LENGTH);
 		curs.endEditBlock();
 
-		QTextCodec *newCodec = scanForEncoding(curs.selectedText(), hasMetadata, reqName);
+		Tw::Utils::TextCodec *newCodec = scanForEncoding(curs.selectedText(), hasMetadata, reqName);
 		if (newCodec) {
 			codec = newCodec;
 			showEncodingSetting();
@@ -3269,7 +3275,7 @@ void TeXDocumentWindow::dropEvent(QDropEvent *event)
 
 					case INSERT_DOCUMENT_TEXT:
 						if (!Tw::Document::isPDFfile(fileName) && !Tw::Document::isImageFile(fileName) && !Tw::Document::isPostscriptFile(fileName)) {
-							QTextCodec * codecUsed{nullptr};
+							Tw::Utils::TextCodec * codecUsed{nullptr};
 							text = readFile(QFileInfo(fileName), &codecUsed);
 							if (!text.isNull()) {
 								if (!editBlockStarted) {

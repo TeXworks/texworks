@@ -17,7 +17,7 @@ if (BUILD_SHARED_PLUGINS)
   # TODO: Figure out of setting ENABLE_EXPORTS=TRUE on the TeXworks target and
   # subsequent linking to the TeXworks target can help "resolve" symbols by
   # telling the linker they can be found in the host program loading the dll
-  set(TWSCRIPT_SRC "../../src/scripting/Script.cpp")
+  set(TWSCRIPT_SRC "../../src/scripting/Script.cpp" "../../src/utils/TextCodecs.cpp")
 else ()
   # For static builds, scripting/Script.cpp is already included in the main app, so we
   # don't pull it in here to avoid multiple definitions of the Qt metaobject

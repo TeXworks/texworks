@@ -24,7 +24,12 @@
 #include <QList>
 #include <QMap>
 #include <QString>
-#include <QTextCodec>
+
+namespace Tw {
+namespace Utils {
+class TextCodec;
+} // namespace Utils
+} // namespace Tw
 
 class BibTeXFile
 {
@@ -75,7 +80,7 @@ public:
 
 	bool load(const QString & filename);
 protected:
-  static size_type readEntry(Entry & e, const QByteArray & content, const size_type startPos, const QTextCodec * codec);
+	static size_type readEntry(Entry & e, const QByteArray & content, const size_type startPos, const Tw::Utils::TextCodec * codec);
 	static void parseEntry(Entry & e, const QString & block);
   static void parseFields(Entry & e, const QString & block, const size_type startPos = 0);
 

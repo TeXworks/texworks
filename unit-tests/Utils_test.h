@@ -42,7 +42,13 @@ private slots:
 	void CommandLineParser_parse();
 	void CommandLineParser_printUsage();
 
-	void MacCentralEurRomanCodec();
+	void TextCodecs_roundtrip_data();
+	void TextCodecs_roundtrip();
+
+	void TextCodecs_longData();
+
+	void TextCodecs_canEncode_data();
+	void TextCodecs_canEncode();
 
 	void FullscreenManager();
 

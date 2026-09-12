@@ -21,6 +21,7 @@
 
 #include "scripting/JSScript.h"
 #include "Settings.h"
+#include "utils/TextCodecs.h"
 
 #include <QScriptEngine>
 #include <QScriptEngineDebugger>
@@ -52,9 +53,7 @@ bool JSScript::execute(ScriptAPIInterface * tw) const
 		// handle error
 		return false;
 	}
-	QTextStream stream(&scriptFile);
-	stream.setCodec(m_Codec);
-	QString contents = stream.readAll();
+	QString contents = m_Codec->toUnicode(scriptFile.readAll());
 	scriptFile.close();
 
 	QScriptEngine engine;

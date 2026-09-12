@@ -22,34 +22,33 @@
 #ifndef TWTextCodecs_H
 #define TWTextCodecs_H
 
-#include <QTextCodec>
+#include <QObject>
+
+struct UConverter;
 
 namespace Tw {
 namespace Utils {
 
-class MacCentralEurRomanCodec : public QTextCodec
+class TextCodec : public QObject
 {
-	Q_DISABLE_COPY(MacCentralEurRomanCodec)
+	Q_OBJECT
 public:
-	// NOTE: The mib number is arbitrary since this encoding is not in the IANA
-	// list (https://www.iana.org/assignments/character-sets/).
-	int mibEnum() const override { return -4000; }
-	QByteArray name() const override { return "Mac Central European Roman"; }
-	QList<QByteArray> aliases() const override;
+	virtual QList<QByteArray> aliases() const;
+	bool canEncode(const QString & str) const;
+	virtual QByteArray name() const;
+	virtual QString displayName() const;
+	QString toUnicode(const QByteArray & a) const;
+	QByteArray fromUnicode(const QString & str) const;
 
-	static MacCentralEurRomanCodec * instance() { return _instance; }
-
+	static QList<QByteArray> availableCodecs();
+	static TextCodec * codecForName(const QByteArray & name);
+	static TextCodec * codecForLocale();
 protected:
-	MacCentralEurRomanCodec() = default;
-	~MacCentralEurRomanCodec() override = default;
-	MacCentralEurRomanCodec(MacCentralEurRomanCodec &&) = delete;
-	MacCentralEurRomanCodec & operator=(MacCentralEurRomanCodec &&) = delete;
+	TextCodec() = default;
+	virtual ~TextCodec();
 
-	QByteArray convertFromUnicode(const QChar * input, int length, ConverterState * state) const override;
-	QString convertToUnicode(const char * chars, int len, ConverterState * state) const override;
 private:
-	static ushort unicodeCodepoints[];
-	static MacCentralEurRomanCodec * _instance;
+	UConverter * m_conv{nullptr};
 };
 
 } // namespace Utils

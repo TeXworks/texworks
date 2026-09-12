@@ -246,8 +246,8 @@ if (QT_DEFAULT_MAJOR_VERSION EQUAL 5)
         set(QT_VERSION_PATCH "${Qt5_VERSION_PATCH}")
 else ()
         # Check for Qt6
-	find_package(Qt6 REQUIRED COMPONENTS Core Core5Compat Widgets Gui UiTools Concurrent Xml LinguistTools Qml)
-	set(QT_LIBRARIES Qt6::Core Qt6::Core5Compat Qt6::Widgets Qt6::Gui Qt6::UiTools Qt6::Concurrent Qt6::Xml Qt6::Qml)
+	find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui UiTools Concurrent Xml LinguistTools Qml)
+	set(QT_LIBRARIES Qt6::Core Qt6::Widgets Qt6::Gui Qt6::UiTools Qt6::Concurrent Qt6::Xml Qt6::Qml)
 
 	if (UNIX AND NOT APPLE)
 	  find_package(Qt6 REQUIRED COMPONENTS DBus)
@@ -304,6 +304,11 @@ ADD_DEFINITIONS(-DQT_VERSION_MAJOR=${QT_VERSION_MAJOR})
 FIND_PACKAGE(ZLIB REQUIRED)
 FIND_PACKAGE(Hunspell REQUIRED)
 FIND_PACKAGE(Synctex QUIET)
+if (CMAKE_VERSION VERSION_LESS 3.7)
+	include("CMake/Modules/LegacyFindICU.cmake")
+else()
+	find_package(ICU REQUIRED COMPONENTS uc data)
+endif()
 
 # Aggregate library names and include directories into variables for easy
 # access.
@@ -313,6 +318,7 @@ SET(TeXworks_LIBS
   Hunspell::hunspell
   ${QT_LIBRARIES}
   ZLIB::ZLIB
+  ICU::uc ICU::data
   ${TEXWORKS_ADDITIONAL_LIBS}
 )
 
