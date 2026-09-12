@@ -53,7 +53,6 @@
 #include <QMessageBox>
 #include <QString>
 #include <QStringList>
-#include <QTextCodec>
 #include <QTranslator>
 #include <QUrl>
 
@@ -172,9 +171,9 @@ void TWApp::init()
 	recentFilesLimit = settings.value(QString::fromLatin1("maxRecentFiles"), kDefaultMaxRecentFiles).toInt();
 
 	QString codecName = settings.value(QString::fromLatin1("defaultEncoding"), QString::fromLatin1("UTF-8")).toString();
-	defaultCodec = QTextCodec::codecForName(codecName.toLatin1());
+	defaultCodec = Tw::Utils::TextCodec::codecForName(codecName.toLatin1());
 	if (!defaultCodec)
-		defaultCodec = QTextCodec::codecForName("UTF-8");
+		defaultCodec = Tw::Utils::TextCodec::codecForName("UTF-8");
 
 	QtPDF::Backend::Document::pageCache().setMaxCost(settings.value(QStringLiteral("pdfPageCacheSizeMiB"), kDefault_PDFPageCacheSizeMiB).toInt() * 1024 * 1024);
 
@@ -1225,12 +1224,12 @@ const Engine TWApp::getNamedEngine(const QString& name)
 	return Engine();
 }
 
-QTextCodec *TWApp::getDefaultCodec()
+Tw::Utils::TextCodec *TWApp::getDefaultCodec()
 {
 	return defaultCodec;
 }
 
-void TWApp::setDefaultCodec(QTextCodec *codec)
+void TWApp::setDefaultCodec(Tw::Utils::TextCodec *codec)
 {
 	if (!codec)
 		return;

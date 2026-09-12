@@ -47,7 +47,6 @@
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QTextBlock>
-#include <QTextCodec>
 #include <QTextCursor>
 #include <QTextStream>
 #include <QTimer>

@@ -73,9 +73,9 @@ bool SpellChecker::setLanguages(const QStringList & languages)
 		DictRef dictRef;
 		dictRef.hunhandle = ptrHunhandle;
 		dictRef.language = language;
-		dictRef.codec = QTextCodec::codecForName(Hunspell_get_dic_encoding(ptrHunhandle.get()));
+		dictRef.codec = Utils::TextCodec::codecForName(Hunspell_get_dic_encoding(ptrHunhandle.get()));
 		if (dictRef.codec == nullptr) {
-			dictRef.codec = QTextCodec::codecForLocale();
+			dictRef.codec = Utils::TextCodec::codecForLocale();
 		}
 		m_dicts.push_back(std::move(dictRef));
 	}

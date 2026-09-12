@@ -28,6 +28,7 @@
 #include "utils/IniConfig.h"
 #include "utils/ResourcesLibrary.h"
 #include "utils/WindowManager.h"
+#include <utils/TextCodecs.h>
 
 #include <QAction>
 #include <QCompleter>
@@ -44,7 +45,6 @@
 #include <QSignalMapper>
 #include <QString>
 #include <QStringList>
-#include <QTextCodec>
 
 #if defined(Q_OS_UNIX) && !defined(Q_OS_DARWIN)
 #ifndef TW_HELPPATH
@@ -155,19 +155,19 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	}
 }
 
-QList<QTextCodec*> *TWUtils::codecList = nullptr;
+QList<Tw::Utils::TextCodec*> *TWUtils::codecList = nullptr;
 
-QList<QTextCodec*> *TWUtils::findCodecs()
+QList<Tw::Utils::TextCodec*> *TWUtils::findCodecs()
 {
 	if (codecList)
 		return codecList;
 
-	codecList = new QList<QTextCodec*>;
-	QMap<QString, QTextCodec*> codecMap;
+	codecList = new QList<Tw::Utils::TextCodec*>;
+	QMap<QString, Tw::Utils::TextCodec*> codecMap;
 	QRegularExpression iso8859RegExp(QStringLiteral("^ISO[- ]8859-([0-9]+)"));
 
-	foreach (QByteArray name, QTextCodec::availableCodecs()) {
-		QTextCodec * codec = QTextCodec::codecForName(name);
+	foreach (QByteArray name, Tw::Utils::TextCodec::availableCodecs()) {
+		Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName(name);
 		QString sortKey = QString::fromUtf8(codec->name().constData()).toUpper();
 		QRegularExpressionMatch iso8859Match = iso8859RegExp.match(sortKey);
 		int rank{5};

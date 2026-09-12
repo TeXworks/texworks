@@ -35,7 +35,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QSet>
-#include <QTextCodec>
+#include <utils/TextCodecs.h>
 #include <QToolBar>
 
 PrefsDialog::PrefsDialog(QWidget *parent)
@@ -468,8 +468,8 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 	using index_type = decltype(QComboBox().currentIndex());
 
 	QStringList nameList;
-	foreach (QTextCodec *codec, *TWUtils::findCodecs())
-		nameList.append(QString::fromUtf8(codec->name().constData()));
+	foreach (Tw::Utils::TextCodec *codec, *TWUtils::findCodecs())
+		nameList.append(codec->displayName());
 	dlg.encoding->addItems(nameList);
 
 	QStringList syntaxOptions = TeXHighlighter::syntaxOptions();
@@ -589,7 +589,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		font.fromString(fontString);
 	dlg.editorFont->setCurrentIndex(static_cast<index_type>(fontFamilies.indexOf(font.family())));
 	dlg.fontSize->setValue(font.pointSize());
-	dlg.encoding->setCurrentIndex(static_cast<index_type>(nameList.indexOf(QString::fromUtf8(TWApp::instance()->getDefaultCodec()->name().constData()))));
+	dlg.encoding->setCurrentIndex(static_cast<index_type>(nameList.indexOf(TWApp::instance()->getDefaultCodec()->displayName())));
 	dlg.highlightCurrentLine->setChecked(settings.value(QString::fromLatin1("highlightCurrentLine"), kDefault_HighlightCurrentLine).toBool());
 	dlg.cursorWidth->setValue(settings.value(QStringLiteral("cursorWidth"), kDefault_CursorWidth).toInt());
 	dlg.autocompleteEnabled->setChecked(settings.value(QString::fromLatin1("autocompleteEnabled"), kDefault_AutocompleteEnabled).toBool());
@@ -757,7 +757,7 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		font = QFont(dlg.editorFont->currentText());
 		font.setPointSize(dlg.fontSize->value());
 		settings.setValue(QString::fromLatin1("font"), font.toString());
-		TWApp::instance()->setDefaultCodec(QTextCodec::codecForName(dlg.encoding->currentText().toLatin1()));
+		TWApp::instance()->setDefaultCodec(Tw::Utils::TextCodec::codecForName(dlg.encoding->currentText().toLatin1()));
 		if (dlg.language->currentIndex() >= 0) {
 			QVariant data = dlg.language->itemData(dlg.language->currentIndex());
 			if (data.isValid())

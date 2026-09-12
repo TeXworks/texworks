@@ -4,7 +4,7 @@
 #include <memory>
 #include <QString>
 #include <QStringList>
-#include <QTextCodec>
+#include <utils/TextCodecs.h>
 #include <vector>
 
 struct Hunhandle;
@@ -18,7 +18,7 @@ class SpellChecker {
 	struct DictRef {
 		QString language;
 		mutable std::weak_ptr<Hunhandle> hunhandle;
-		QTextCodec * codec{QTextCodec::codecForLocale()};
+		Utils::TextCodec * codec{Utils::TextCodec::codecForLocale()};
 
 		bool operator==(const DictRef & other) const;
 		operator bool() const { return isValid(); }

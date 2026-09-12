@@ -24,7 +24,6 @@
 #include <memory>
 #include <QHash>
 #include <QObject>
-#include <QTextCodec>
 
 struct Hunhandle;
 

@@ -30,10 +30,13 @@
 #include <QKeySequence>
 #include <QString>
 #include <QStringList>
-#include <QTextCodec>
 #include <QVariant>
 
 namespace Tw {
+namespace Utils {
+class TextCodec;
+} // namespace Utils
+
 namespace Scripting {
 
 /** \brief	Abstract base class for all Tw scripts
@@ -300,7 +303,7 @@ protected:
 
 	bool m_Enabled; ///< whether this script is enabled (runtime property, not stored in the script itself)
 
-	QTextCodec * m_Codec;
+	Utils::TextCodec * m_Codec{nullptr};
 
 private:
 	/** \brief	Constructor

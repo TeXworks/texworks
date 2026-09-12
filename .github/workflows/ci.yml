@@ -51,7 +51,7 @@ jobs:
       uses: actions/checkout@v6
 
     - name: Install dependencies
-      run: sudo apt update && sudo apt install --assume-yes --no-install-recommends libhunspell-dev liblua5.4-dev libpoppler-qt6-dev libpoppler-private-dev make poppler-data qt6-5compat-dev qt6-base-dev qt6-declarative-dev qt6-tools-dev qt6-tools-dev-tools zlib1g-dev xvfb fonts-urw-base35 poppler-data lcov
+      run: sudo apt update && sudo apt install --assume-yes --no-install-recommends libhunspell-dev liblua5.4-dev libpoppler-qt6-dev libpoppler-private-dev make poppler-data libicu-dev qt6-base-dev qt6-declarative-dev qt6-tools-dev qt6-tools-dev-tools zlib1g-dev xvfb fonts-urw-base35 poppler-data lcov
 
     - name: Configure
       run: cmake -B build -DCMAKE_BUILD_TYPE="Debug" -DWITH_COVERAGE=On .
@@ -144,7 +144,6 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         version: 6.8.*
-        modules: qt5compat
 
       # Strawberry perl comes with all sorts of libraries (without headers) that
       # can wreak havoc when building some of the dependencies

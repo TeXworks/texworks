@@ -6,8 +6,8 @@ index 5c59c0b..5dfffea 100644
  Section: tex
  Priority: optional
  Maintainer: Stefan Löffler <st.loeffler@gmail.com>
--Build-Depends: debhelper (>= 9), pkg-config, cmake (>= 3.1), qt6-5compat-dev, qt6-base-dev, qt6-declarative-dev, qt6-tools-dev, zlib1g-dev, libhunspell-dev, libpoppler-qt6-dev, libpoppler-private-dev, liblua5.4-dev, xvfb, fonts-urw-base35, poppler-data
-+Build-Depends: debhelper (>= 9), pkg-config, cmake (>= 3.1), qtbase5-dev, qtdeclarative5-dev, qtscript5-dev, qttools5-dev, qttools5-dev-tools, zlib1g-dev, libhunspell-dev, libpoppler-qt5-dev, libpoppler-private-dev, liblua5.4-dev, xvfb, fonts-urw-base35, poppler-data
+-Build-Depends: debhelper (>= 9), pkg-config, cmake (>= 3.1), qt6-base-dev, qt6-declarative-dev, qt6-tools-dev, zlib1g-dev, libhunspell-dev, libicu-dev, libpoppler-qt6-dev, libpoppler-private-dev, liblua5.4-dev, xvfb, fonts-urw-base35, poppler-data
++Build-Depends: debhelper (>= 9), pkg-config, cmake (>= 3.1), qtbase5-dev, qtdeclarative5-dev, qtscript5-dev, qttools5-dev, qttools5-dev-tools, zlib1g-dev, libhunspell-dev, libicu-dev, libpoppler-qt5-dev, libpoppler-private-dev, liblua5.4-dev, xvfb, fonts-urw-base35, poppler-data
  Standards-Version: 3.9.7
  Homepage: https://github.com/TeXworks/texworks
  Vcs-Git: https://github.com/TeXworks/texworks.git

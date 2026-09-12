@@ -36,7 +36,7 @@
 #endif
 #include <QStack>
 #include <QString>
-#include <QTextCodec>
+#include <utils/TextCodecs.h>
 #include <QVariant>
 
 #include <memory>
@@ -100,8 +100,8 @@ public:
 	void setDefaultPaths();
 	void setDefaultEngineList();
 
-	QTextCodec *getDefaultCodec();
-	void setDefaultCodec(QTextCodec *codec);
+	Tw::Utils::TextCodec *getDefaultCodec();
+	void setDefaultCodec(Tw::Utils::TextCodec *codec);
 
 	void openUrl(const QUrl& url);
 
@@ -265,7 +265,7 @@ private:
 
 	int recentFilesLimit{kDefaultMaxRecentFiles};
 
-	QTextCodec *defaultCodec{nullptr};
+	Tw::Utils::TextCodec *defaultCodec{nullptr};
 
 	std::unique_ptr<QStringList> binaryPaths;
 	std::unique_ptr<QStringList> defaultBinPaths;

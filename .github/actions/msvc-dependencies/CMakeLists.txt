@@ -15,6 +15,14 @@ endif()
 set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=TRUE)
 set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(PLATFORM) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
 
+ExternalProject_Add(icu
+	URL "https://github.com/unicode-org/icu/archive/refs/tags/release-78.3.tar.gz"
+	URL_HASH SHA256=f06bcab72736ee9d55689033b8198a178562354128cf38edb2afc2e67e3fd931
+	CONFIGURE_COMMAND ""
+	BUILD_COMMAND msbuild source\\allinone\\allinone.sln ${MSBUILD_ARGS} /p:SkipUWP=true
+	BUILD_IN_SOURCE TRUE
+)
+
 ExternalProject_Add(lua
 	URL "https://www.lua.org/ftp/lua-5.5.1.tar.gz"
 	URL_HASH SHA256=1c4b4068d67061f2a2231ad2b5422e77acea1487ea9890f6320af614f4373dce

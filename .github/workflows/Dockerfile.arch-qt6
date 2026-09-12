@@ -8,7 +8,6 @@ RUN pacman --noconfirm -Syu \
 	hunspell \
 	lua \
 	poppler-qt6 \
-	qt6-5compat \
 	qt6-base \
 	qt6-declarative \
 	qt6-tools \

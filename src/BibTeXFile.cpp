@@ -21,7 +21,7 @@
 #include "BibTeXFile.h"
 
 #include <QFile>
-#include <QTextCodec>
+#include <utils/TextCodecs.h>
 
 BibTeXFile::Entry::Type BibTeXFile::Entry::type() const
 {
@@ -91,7 +91,7 @@ bool BibTeXFile::load(const QString & filename)
 {
 	QFile file(filename);
 	QByteArray content;
-	QTextCodec * codec = QTextCodec::codecForName("utf-8");
+	Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName("utf-8");
 	size_type curPos = 0;
 
 	_entries.clear();
@@ -152,7 +152,7 @@ inline BibTeXFile::size_type findBlock(const QString & content, const BibTeXFile
 }
 
 // static
-BibTeXFile::size_type BibTeXFile::readEntry(Entry & e, const QByteArray & content, const size_type startPos, const QTextCodec * codec)
+BibTeXFile::size_type BibTeXFile::readEntry(Entry & e, const QByteArray & content, const size_type startPos, const Tw::Utils::TextCodec * codec)
 {
 	size_type curPos = content.indexOf('@', startPos);
 	if (curPos < 0)

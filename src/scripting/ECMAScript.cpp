@@ -20,6 +20,7 @@
 */
 #include "scripting/ECMAScript.h"
 #include "scripting/ScriptAPIInterface.h"
+#include "utils/TextCodecs.h"
 
 #include <QJSEngine>
 
