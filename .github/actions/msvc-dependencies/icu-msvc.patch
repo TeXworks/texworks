@@ -7,9 +7,10 @@
 -	@rmdir $(ICUBLD) /s /q
 -	@rmdir $(ICUTMP) /s /q
 -	@rmdir $(TESTDATAOUT) /s /q
-+	@rm -rf $(ICUBLD)
-+	@rm -rf $(ICUTMP)
-+	@rm -rf $(TESTDATAOUT)
++	rm -rfv $(ICUBLD)
++	rm -rfv $(ICUTMP)
++	rm -rfv $(TESTDATAOUT)
++	-dir $(ICUTMP)
  
  # DLL version information
  # If you modify this, modify winmode.c in pkgdata.
