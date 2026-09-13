@@ -214,7 +214,7 @@ jobs:
         windeployqt --release --compiler-runtime build\Release\texworks.exe
         cmake -E copy_directory build/share build/Release/share
         cd "${{ runner.workspace }}/tw-deps/bin"
-        cmake -E copy freetype.dll lcms2.dll libhunspell.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt6.dll tiff.dll z.dll "${{ github.workspace }}/build/Release/"
+        cmake -E copy freetype.dll icuuc78.dll icudt78.dll lcms2.dll libhunspell.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt6.dll tiff.dll z.dll "${{ github.workspace }}/build/Release/"
   
     - name: Run Test suite
       run: ctest -V -C Release
@@ -351,8 +351,15 @@ jobs:
     - name: Build
       run: cmake --build build -j
 
+    - name: Debug info
+      working-directory: build
+      run: |
+        otool -L test_Utils
+        otool -l test_Utils
+        otool -L ${RUNNER_TEMP}/tw-deps/lib/libicu*.dylib
+
     - name: Test
-      run: ctest -V
+      run: LD_LIBRARY_PATH="${RUNNER_TEMP}/tw-deps/lib" DYLD_PRINT_LIBRARIES=1 ctest -V
       working-directory: build
 
     - name: Package

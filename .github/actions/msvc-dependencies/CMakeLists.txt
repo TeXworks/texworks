@@ -18,10 +18,19 @@ set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(PLATFORM) /p:
 ExternalProject_Add(icu
 	URL "https://github.com/unicode-org/icu/archive/refs/tags/release-78.3.tar.gz"
 	URL_HASH SHA256=f06bcab72736ee9d55689033b8198a178562354128cf38edb2afc2e67e3fd931
+	PATCH_COMMAND git --git-dir=. apply --verbose --ignore-whitespace ${CMAKE_CURRENT_LIST_DIR}/icu-msvc.patch
 	CONFIGURE_COMMAND ""
-	BUILD_COMMAND msbuild source\\allinone\\allinone.sln ${MSBUILD_ARGS} /p:SkipUWP=true
+	BUILD_COMMAND msbuild icu4c\\source\\allinone\\allinone.sln ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
+	INSTALL_COMMAND dir /s
+		COMMAND ${CMAKE_COMMAND} -DPLATFORM=${PLATFORM} -DCMAKE_INSTALL_FULL_LIBDIR=${CMAKE_INSTALL_FULL_LIBDIR} -DCMAKE_INSTALL_FULL_BINDIR=${CMAKE_INSTALL_FULL_BINDIR} -DCMAKE_INSTALL_FULL_INCLUDEDIR=${CMAKE_INSTALL_FULL_INCLUDEDIR} -P icu4c/source/install.cmake
 )
+#		COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_LIBDIR}
+#		COMMAND ${CMAKE_COMMAND} -E copy_if_different icu4c/${ICU_LIBDIR}/*.lib ${CMAKE_INSTALL_FULL_LIBDIR}/
+#		COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_BINDIR}
+#		COMMAND ${CMAKE_COMMAND} -E copy_if_different icu4c/${ICU_BINDIR}/*.dll ${CMAKE_INSTALL_FULL_BINDIR}/
+#		COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_INCLUDEDIR}/unicode
+#		COMMAND ${CMAKE_COMMAND} -E copy_if_different icu4c/include/unicode/* ${CMAKE_INSTALL_FULL_INCLUDEDIR}/unicode/
 
 ExternalProject_Add(lua
 	URL "https://www.lua.org/ftp/lua-5.5.1.tar.gz"
