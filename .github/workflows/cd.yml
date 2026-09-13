@@ -352,6 +352,7 @@ jobs:
       run: cmake --build build -j
 
     - name: Debug info
+      working-directory: build
       run: |
         otool -L test_Utils
         otool -l test_Utils
