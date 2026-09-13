@@ -353,10 +353,10 @@ jobs:
       run: cmake --build build -j
 
     - name: Debug info
-      shell: cmd
       run: |
         otool -L test_Utils
         otool -l test_Utils
+        otool -L ${RUNNER_TEMP}/tw-deps/lib/libicu*.dylib
 
     - name: Test
       run: LD_LIBRARY_PATH="${RUNNER_TEMP}/tw-deps/lib" DYLD_PRINT_LIBRARIES=1 ctest -V
