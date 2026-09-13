@@ -352,8 +352,14 @@ jobs:
     - name: Build
       run: cmake --build build -j
 
+    - name: Debug info
+      shell: cmd
+      run: |
+        otool -L test_Utils
+        otool -l test_Utils
+
     - name: Test
-      run: LD_LIBRARY_PATH="${RUNNER_TEMP}/tw-deps/lib" ctest -V
+      run: LD_LIBRARY_PATH="${RUNNER_TEMP}/tw-deps/lib" DYLD_PRINT_LIBRARIES=1 ctest -V
       working-directory: build
 
     - name: Package
