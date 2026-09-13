@@ -24,6 +24,15 @@ runs:
         # Work around https://gitlab.com/libtiff/libtiff/-/issues/528
         sed -ie '/Libs.private\: -lwebp -lzstd -llzma -ljpeg -lz/d' /usr/lib/mxe/usr/i686-w64-mingw32.static/lib/pkgconfig/libtiff-4.pc
 
+    - name: Patch ICU
+      shell: wsl-bash {0}
+      run: |
+        cp .github/actions/setup-windows/mxe/icu4c* /usr/lib/mxe/src/
+        cd /usr/lib/mxe
+        make download-only-icu4c
+        make build-only-icu4c_i686-w64-mingw32.static
+        # FIXME: reduce icu data size
+
     - name: Build poppler
       shell: wsl-bash {0}
       run: |
