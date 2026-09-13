@@ -352,7 +352,7 @@ jobs:
       run: cmake --build build -j
 
     - name: Test
-      run: ctest -V
+      run: LD_LIBRARY_PATH="${RUNNER_TEMP}/tw-deps/lib" ctest -V
       working-directory: build
 
     - name: Package
