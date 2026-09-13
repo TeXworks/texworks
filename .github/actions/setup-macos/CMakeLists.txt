@@ -69,7 +69,7 @@ ADD_GH_GROUP(gettext)
 ExternalProject_Add(icu
 	URL "https://github.com/unicode-org/icu/archive/refs/tags/release-78.3.tar.gz"
 	URL_HASH SHA256=f06bcab72736ee9d55689033b8198a178562354128cf38edb2afc2e67e3fd931
-	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV}" source/configure ${CONFIGURE_ARGS} --disable-tests --disable-samples
+	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV}" icu4c/source/configure ${CONFIGURE_ARGS} --disable-tests --disable-samples
 	BUILD_IN_SOURCE TRUE
 )
 ADD_GH_GROUP(icu)
