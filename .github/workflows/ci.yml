@@ -195,6 +195,9 @@ jobs:
         brew install hunspell icu4c poppler-qt6 lua qt font-urw-core35
         # As poppler-qt6 conflicts with poppler, we need to force-link it
         brew link --force poppler-qt6
+        # Because macOS provides libicucore.dylib (but nothing else), we need to
+        # force link it as well (or work around it with compiler flags)
+        brew link --force icu4c
 
     - name: Configure
       run: cmake -B build -DTW_BUILD_ID='github' ${GITHUB_WORKSPACE}
