@@ -1,0 +1,15 @@
+--- a/icu4c/source/data/makedata.mak	2026-03-17 00:37:55.000000000 +0100
++++ b/icu4c/source/data/makedata.mak	2026-09-13 14:15:59.431932697 +0200
+@@ -482,9 +482,9 @@
+ 	@echo Cleaning up the data files.
+ 	@cd "$(ICUOUT)"
+ 	-@erase "$(ICUOUT)\*.dat"
+-	@rmdir $(ICUBLD) /s /q
+-	@rmdir $(ICUTMP) /s /q
+-	@rmdir $(TESTDATAOUT) /s /q
++	@rm -rf $(ICUBLD)
++	@rm -rf $(ICUTMP)
++	@rm -rf $(TESTDATAOUT)
+ 
+ # DLL version information
+ # If you modify this, modify winmode.c in pkgdata.
