@@ -22,6 +22,7 @@ ExternalProject_Add(icu
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND msbuild icu4c\\source\\allinone\\allinone.sln ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
+	INSTALL_COMMAND dir /s
 )
 
 ExternalProject_Add(lua
