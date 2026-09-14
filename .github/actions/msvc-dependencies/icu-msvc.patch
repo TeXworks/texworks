@@ -1,6 +1,8 @@
---- a/icu4c/source/data/makedata.mak	2026-03-17 00:37:55.000000000 +0100
-+++ b/icu4c/source/data/makedata.mak	2026-09-14 07:18:19.811357173 +0200
-@@ -481,16 +481,17 @@
+diff --git a/icu4c/source/data/makedata.mak b/icu4c/source/data/makedata.mak
+index 1a48ee0..d573f23 100644
+--- a/icu4c/source/data/makedata.mak
++++ b/icu4c/source/data/makedata.mak
+@@ -481,16 +481,17 @@ GODATA : CREATE_DIRS
  CLEAN : GODATA
  	@echo Cleaning up the data files.
  	@cd "$(ICUOUT)"
@@ -22,3 +24,23 @@
  
  # Targets for prebuilt Unicode data
  # Needed for ICU4J!
+diff --git a/icu4c/source/install.cmake b/icu4c/source/install.cmake
+new file mode 100644
+index 0000000..867af49
+--- /dev/null
++++ b/icu4c/source/install.cmake
+@@ -0,0 +1,14 @@
++if (${PLATFORM} STREQUAL "ARM64")
++	set(ICU_LIBDIR "libARM64")
++	set(ICU_BINDIR "binARM64")
++else ()
++	set(ICU_LIBDIR "lib64")
++	set(ICU_BINDIR "bin64")
++endif ()
++
++file(GLOB LIBS icu4c/${ICU_LIBDIR}/*.lib)
++file(GLOB DLLS icu4c/${ICU_BINDIR}/*.dll)
++
++file(INSTALL ${LIBS} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
++file(INSTALL ${DLLS} DESTINATION ${CMAKE_INSTALL_FULL_BINDIR})
++file(INSTALL icu4c/include/unicode DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR}/unicode/})
