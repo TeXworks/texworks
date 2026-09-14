@@ -9,9 +9,9 @@
 -	@rmdir $(ICUBLD) /s /q
 -	@rmdir $(ICUTMP) /s /q
 -	@rmdir $(TESTDATAOUT) /s /q
-+	erase -fsqa $(ICUBLD)
-+	erase -fsqa $(ICUTMP)
-+	erase -fsqa $(TESTDATAOUT)
++	-erase /f /s /q /a $(ICUBLD)\*
++	-erase /f /s /q /a $(ICUTMP)\*
++	-erase /f /s /q /a $(TESTDATAOUT)\*
  
  # DLL version information
  # If you modify this, modify winmode.c in pkgdata.
