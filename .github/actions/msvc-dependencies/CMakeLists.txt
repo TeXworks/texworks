@@ -15,7 +15,7 @@ endif()
 if (${PLATFORM} = "ARM64")
 	set(ICU_LIBDIR "libARM64")
 	set(ICU_BINDIR "binARM64")
-else
+else ()
 	set(ICU_LIBDIR "lib64")
 	set(ICU_BINDIR "bin64")
 endif ()
