@@ -26,7 +26,7 @@ index 1a48ee0..d573f23 100644
  # Needed for ICU4J!
 diff --git a/icu4c/source/install.cmake b/icu4c/source/install.cmake
 new file mode 100644
-index 0000000..867af49
+index 0000000..5fd7934
 --- /dev/null
 +++ b/icu4c/source/install.cmake
 @@ -0,0 +1,14 @@
@@ -43,4 +43,4 @@ index 0000000..867af49
 +
 +file(INSTALL ${LIBS} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
 +file(INSTALL ${DLLS} DESTINATION ${CMAKE_INSTALL_FULL_BINDIR})
-+file(INSTALL icu4c/include/unicode DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR}/unicode/})
++file(INSTALL icu4c/include/unicode DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR}/)
