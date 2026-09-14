@@ -12,7 +12,7 @@ else()
     set(PLATFORM x64)
 endif()
 
-if (${PLATFORM} = "ARM64")
+if (${PLATFORM} STREQUAL "ARM64")
 	set(ICU_LIBDIR "libARM64")
 	set(ICU_BINDIR "binARM64")
 else ()
