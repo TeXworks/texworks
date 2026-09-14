@@ -12,6 +12,14 @@ else()
     set(PLATFORM x64)
 endif()
 
+if (${PLATFORM} = "ARM64")
+	set(ICU_LIBDIR "libARM64")
+	set(ICU_BINDIR "binARM64")
+else
+	set(ICU_LIBDIR "lib64")
+	set(ICU_BINDIR "bin64")
+endif ()
+
 set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_SHARED_LIBS=TRUE)
 set(MSBUILD_ARGS /t:rebuild /p:Configuration=Release /p:Platform=$(PLATFORM) /p:PlatformToolset=$(PlatformToolset) /p:WindowsTargetPlatformVersion=$(WindowsTargetPlatformVersion))
 
@@ -23,6 +31,12 @@ ExternalProject_Add(icu
 	BUILD_COMMAND msbuild icu4c\\source\\allinone\\allinone.sln ${MSBUILD_ARGS}
 	BUILD_IN_SOURCE TRUE
 	INSTALL_COMMAND dir /s
+		COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_LIBDIR}
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different icu4c/${ICU_LIBDIR}/*.lib ${CMAKE_INSTALL_FULL_LIBDIR}/
+		COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_BINDIR}
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different icu4c/${ICU_BINDIR}/*.dll ${CMAKE_INSTALL_FULL_BINDIR}/
+		COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_FULL_INCLUDEDIR}/unicode
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different icu4c/include/unicode/* ${CMAKE_INSTALL_FULL_INCLUDEDIR}/unicode/
 )
 
 ExternalProject_Add(lua
