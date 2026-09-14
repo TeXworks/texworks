@@ -17,7 +17,7 @@
 +"$(ICUTMP)\icudata.res": "$(ICUSRCDATA)\misc\icudata.rc" GODATA
  	@echo Creating data DLL version information from $**
 -	@rc.exe /i "..\..\..\..\common" /r /fo $@ $**
-+	rc.exe /i "..\..\..\..\common" /r /fo $@ $**
++	rc.exe /i "..\..\..\..\common" /r /fo $@ $<
  
  # Targets for prebuilt Unicode data
  # Needed for ICU4J!
