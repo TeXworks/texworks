@@ -1,23 +1,24 @@
 --- a/icu4c/source/data/makedata.mak	2026-03-17 00:37:55.000000000 +0100
-+++ b/icu4c/source/data/makedata.mak	2026-09-14 06:15:51.379108619 +0200
-@@ -482,15 +482,15 @@
++++ b/icu4c/source/data/makedata.mak	2026-09-14 07:18:19.811357173 +0200
+@@ -481,16 +481,17 @@
+ CLEAN : GODATA
  	@echo Cleaning up the data files.
  	@cd "$(ICUOUT)"
++	dir
  	-@erase "$(ICUOUT)\*.dat"
 -	@rmdir $(ICUBLD) /s /q
 -	@rmdir $(ICUTMP) /s /q
 -	@rmdir $(TESTDATAOUT) /s /q
-+	rm -rfv $(ICUBLD)
-+	rm -rfv $(ICUTMP)
-+	rm -rfv $(TESTDATAOUT)
++	erase -fsqa $(ICUBLD)
++	erase -fsqa $(ICUTMP)
++	erase -fsqa $(TESTDATAOUT)
  
  # DLL version information
  # If you modify this, modify winmode.c in pkgdata.
--"$(ICUTMP)\icudata.res": "$(ICUSRCDATA)\misc\icudata.rc"
-+"$(ICUTMP)\icudata.res": "$(ICUSRCDATA)\misc\icudata.rc" GODATA
+ "$(ICUTMP)\icudata.res": "$(ICUSRCDATA)\misc\icudata.rc"
  	@echo Creating data DLL version information from $**
 -	@rc.exe /i "..\..\..\..\common" /r /fo $@ $**
-+	rc.exe /i "..\..\..\..\common" /r /fo $@ $<
++	rc.exe /i "..\..\..\..\common" /r /fo $@ $**
  
  # Targets for prebuilt Unicode data
  # Needed for ICU4J!
