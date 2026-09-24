@@ -36,7 +36,7 @@ ScreenCalibrationWidget::ScreenCalibrationWidget(QWidget * parent)
 {
 	setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 	_sbDPI = new QDoubleSpinBox(this);
-	_sbDPI->setRange(0, 9999);
+	_sbDPI->setRange(1, 9999);
 	_sbDPI->setValue(physicalDpiX());
 	_sbDPI->installEventFilter(this);
 	connect(_sbDPI, static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged), this, static_cast<void (ScreenCalibrationWidget::*)()>(&ScreenCalibrationWidget::repaint));
