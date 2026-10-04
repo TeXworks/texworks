@@ -233,9 +233,9 @@ private:
 	void detachPdf();
 	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
-	Tw::Utils::TextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
-	QString readFile(const QFileInfo & fileInfo, Tw::Utils::TextCodec **codecUsed, int *lineEndings = nullptr, Tw::Utils::TextCodec * forceCodec = nullptr);
-	void loadFile(const QFileInfo & fileInfo, bool asTemplate = false, bool inBackground = false, bool reload = false, Tw::Utils::TextCodec * forceCodec = nullptr);
+	Tw::Utils::TextCodec scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
+	QString readFile(const QFileInfo & fileInfo, Tw::Utils::TextCodec *codecUsed, int *lineEndings = nullptr, const Tw::Utils::TextCodec * const forceCodec = nullptr);
+	void loadFile(const QFileInfo & fileInfo, bool asTemplate = false, bool inBackground = false, bool reload = false, const Tw::Utils::TextCodec * const forceCodec = nullptr);
 	bool saveFile(const QFileInfo & fileInfo);
 	void setCurrentFile(const QFileInfo & fileInfo);
 	void saveRecentFileInfo();
@@ -265,7 +265,7 @@ private:
 	Tw::Document::TeXDocument * _texDoc;
 	PDFDocumentWindow * pdfDoc{nullptr};
 
-	Tw::Utils::TextCodec * codec{nullptr};
+	Tw::Utils::TextCodec codec;
 	// When using the UTF-8 codec, byte order marks (BOMs) are ignored during
 	// reading and not produced when writing. To keep them in files that have
 	// them, we need to keep track of them ourselves.

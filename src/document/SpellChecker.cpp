@@ -24,7 +24,7 @@ bool SpellChecker::DictRef::operator==(const DictRef & other) const
 
 bool SpellChecker::DictRef::isValid() const
 {
-	return (!language.isEmpty() && codec != nullptr && getHunhandle());
+	return (!language.isEmpty() && codec.isValid() && getHunhandle());
 }
 
 SpellChecker::SpellChecker(const QString & language)
@@ -73,8 +73,8 @@ bool SpellChecker::setLanguages(const QStringList & languages)
 		DictRef dictRef;
 		dictRef.hunhandle = ptrHunhandle;
 		dictRef.language = language;
-		dictRef.codec = Utils::TextCodec::codecForName(Hunspell_get_dic_encoding(ptrHunhandle.get()));
-		if (dictRef.codec == nullptr) {
+		dictRef.codec = Utils::TextCodec(Hunspell_get_dic_encoding(ptrHunhandle.get()));
+		if (!dictRef.codec.isValid()) {
 			dictRef.codec = Utils::TextCodec::codecForLocale();
 		}
 		m_dicts.push_back(std::move(dictRef));
@@ -89,7 +89,7 @@ bool SpellChecker::isWordCorrect(const QString & word) const
 			continue;
 		}
 		std::shared_ptr<Hunhandle> ptrHunhandle = dictRef.getHunhandle();
-		if (Hunspell_spell(ptrHunhandle.get(), dictRef.codec->fromUnicode(word).data()) != 0) {
+		if (Hunspell_spell(ptrHunhandle.get(), dictRef.codec.fromUnicode(word).data()) != 0) {
 			return true;
 		}
 	}
@@ -107,10 +107,10 @@ QList<QString> SpellChecker::suggestionsForWord(const QString & word) const
 		std::shared_ptr<Hunhandle> ptrHunhandle = dictRef.getHunhandle();
 		char ** suggestionList{nullptr};
 
-		int numSuggestions = Hunspell_suggest(ptrHunhandle.get(), &suggestionList, dictRef.codec->fromUnicode(word).data());
+		int numSuggestions = Hunspell_suggest(ptrHunhandle.get(), &suggestionList, dictRef.codec.fromUnicode(word).data());
 		suggestions.reserve(suggestions.size() + numSuggestions);
 		for (int iSuggestion = 0; iSuggestion < numSuggestions; ++iSuggestion) {
-			suggestions.append(dictRef.codec->toUnicode(suggestionList[iSuggestion]));
+			suggestions.append(dictRef.codec.toUnicode(suggestionList[iSuggestion]));
 		}
 
 		Hunspell_free_list(ptrHunhandle.get(), &suggestionList, numSuggestions);
@@ -130,7 +130,7 @@ void SpellChecker::ignoreWord(const QString & word)
 		}
 		std::shared_ptr<Hunhandle> ptrHunhandle = dictRef.getHunhandle();
 		// note that this is not persistent after quitting TW
-		Hunspell_add(ptrHunhandle.get(), dictRef.codec->fromUnicode(word).data());
+		Hunspell_add(ptrHunhandle.get(), dictRef.codec.fromUnicode(word).data());
 		return;
 	}
 }

@@ -23,6 +23,7 @@
 #define Script_H
 
 #include "scripting/ScriptAPIInterface.h"
+#include "utils/TextCodecs.h"
 
 #include <QDateTime>
 #include <QFileInfo>
@@ -303,7 +304,7 @@ protected:
 
 	bool m_Enabled; ///< whether this script is enabled (runtime property, not stored in the script itself)
 
-	Utils::TextCodec * m_Codec{nullptr};
+	Utils::TextCodec m_Codec;
 
 private:
 	/** \brief	Constructor

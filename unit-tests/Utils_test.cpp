@@ -492,11 +492,11 @@ void TestUtils::TextCodecs_roundtrip()
 	QFETCH(QByteArray, encoded);
 	QFETCH(QString, decoded);
 
-	Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName(codecName);
+	const Tw::Utils::TextCodec codec{codecName};
 
-	QVERIFY(codec != nullptr);
-	QCOMPARE(codec->fromUnicode(decoded), encoded);
-	QCOMPARE(codec->toUnicode(encoded), decoded);
+	QVERIFY(codec.isValid());
+	QCOMPARE(codec.fromUnicode(decoded), encoded);
+	QCOMPARE(codec.toUnicode(encoded), decoded);
 }
 
 void TestUtils::TextCodecs_longData()
@@ -513,10 +513,10 @@ void TestUtils::TextCodecs_longData()
 	}
 	QByteArray encoded = decoded.toUtf8();
 
-	Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName("UTF-8");
+	const Tw::Utils::TextCodec codec{"UTF-8"};
 
-	QCOMPARE(codec->fromUnicode(decoded), encoded);
-	QCOMPARE(codec->toUnicode(encoded), decoded);
+	QCOMPARE(codec.fromUnicode(decoded), encoded);
+	QCOMPARE(codec.toUnicode(encoded), decoded);
 }
 
 void TestUtils::TextCodecs_canEncode_data()
@@ -562,10 +562,10 @@ void TestUtils::TextCodecs_canEncode()
 	QFETCH(QString, string);
 	QFETCH(bool, canEncode);
 
-	Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName(codecName);
+	const Tw::Utils::TextCodec codec{codecName};
 
-	QVERIFY(codec != nullptr);
-	QCOMPARE(codec->canEncode(string), canEncode);
+	QVERIFY(codec.isValid());
+	QCOMPARE(codec.canEncode(string), canEncode);
 }
 
 void TestUtils::FullscreenManager()

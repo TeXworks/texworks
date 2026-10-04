@@ -155,20 +155,20 @@ void TWUtils::insertHelpMenuItems(QMenu* helpMenu)
 	}
 }
 
-QList<Tw::Utils::TextCodec*> *TWUtils::codecList = nullptr;
+QList<Tw::Utils::TextCodec> *TWUtils::codecList = nullptr;
 
-QList<Tw::Utils::TextCodec*> *TWUtils::findCodecs()
+QList<Tw::Utils::TextCodec> *TWUtils::findCodecs()
 {
 	if (codecList)
 		return codecList;
 
-	codecList = new QList<Tw::Utils::TextCodec*>;
-	QMap<QString, Tw::Utils::TextCodec*> codecMap;
+	codecList = new QList<Tw::Utils::TextCodec>;
+	QMap<QString, Tw::Utils::TextCodec> codecMap;
 	QRegularExpression iso8859RegExp(QStringLiteral("^ISO[- ]8859-([0-9]+)"));
 
 	foreach (QByteArray name, Tw::Utils::TextCodec::availableCodecs()) {
-		Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName(name);
-		QString sortKey = QString::fromUtf8(codec->name().constData()).toUpper();
+		const Tw::Utils::TextCodec codec{name};
+		QString sortKey = QString::fromUtf8(codec.name().constData()).toUpper();
 		QRegularExpressionMatch iso8859Match = iso8859RegExp.match(sortKey);
 		int rank{5};
 		if (sortKey.startsWith(QLatin1String("UTF-8")))

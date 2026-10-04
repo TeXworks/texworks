@@ -100,8 +100,8 @@ public:
 	void setDefaultPaths();
 	void setDefaultEngineList();
 
-	Tw::Utils::TextCodec *getDefaultCodec();
-	void setDefaultCodec(Tw::Utils::TextCodec *codec);
+	const Tw::Utils::TextCodec & getDefaultCodec() const;
+	void setDefaultCodec(const Tw::Utils::TextCodec & codec);
 
 	void openUrl(const QUrl& url);
 
@@ -265,7 +265,7 @@ private:
 
 	int recentFilesLimit{kDefaultMaxRecentFiles};
 
-	Tw::Utils::TextCodec *defaultCodec{nullptr};
+	Tw::Utils::TextCodec defaultCodec;
 
 	std::unique_ptr<QStringList> binaryPaths;
 	std::unique_ptr<QStringList> defaultBinPaths;

@@ -205,7 +205,11 @@ IF (UNIX AND NOT APPLE)
   ENDIF()
 ENDIF()
 
-set (CMAKE_CXX_STANDARD 11)
+if (CMAKE_VERSION VERSION_LESS "3.8")
+	set (CMAKE_CXX_STANDARD 11)
+else ()
+	set (CMAKE_CXX_STANDARD 17) # For ICU >= 75 (2024)
+endif()
 set (CMAKE_C_STANDARD 11)
 
 # Dependency Configuration
@@ -309,6 +313,16 @@ if (CMAKE_VERSION VERSION_LESS 3.7)
 else()
 	find_package(ICU REQUIRED COMPONENTS uc data)
 endif()
+
+include(CheckCXXSourceCompiles)
+set(__old_required_libraries ${CMAKE_REQUIRED_LIBRARIES})
+set(CMAKE_REQUIRED_LIBRARIES ICU::uc ICU::data ${CMAKE_REQUIRED_LIBRARIES})
+CHECK_CXX_SOURCE_COMPILES("#include <unicode/ucnv.h>\nint main() { ucnv_clone(nullptr, nullptr); return 0; }" ICU_HAS_CLONE)
+if (ICU_HAS_CLONE)
+	add_definitions(-DICU_HAS_CLONE)
+endif (ICU_HAS_CLONE)
+set(CMAKE_REQUIRED_LIBRARIES ${__old_required_libraries})
+
 
 # Aggregate library names and include directories into variables for easy
 # access.

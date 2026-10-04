@@ -91,7 +91,7 @@ bool BibTeXFile::load(const QString & filename)
 {
 	QFile file(filename);
 	QByteArray content;
-	Tw::Utils::TextCodec * codec = Tw::Utils::TextCodec::codecForName("utf-8");
+	const Tw::Utils::TextCodec codec{"utf-8"};
 	size_type curPos = 0;
 
 	_entries.clear();
@@ -103,7 +103,7 @@ bool BibTeXFile::load(const QString & filename)
 	file.close();
 
 	// FIXME: Encoding detection
-	if (!codec)
+	if (!codec.isValid())
 		return false;
 
 	do {
@@ -152,7 +152,7 @@ inline BibTeXFile::size_type findBlock(const QString & content, const BibTeXFile
 }
 
 // static
-BibTeXFile::size_type BibTeXFile::readEntry(Entry & e, const QByteArray & content, const size_type startPos, const Tw::Utils::TextCodec * codec)
+BibTeXFile::size_type BibTeXFile::readEntry(Entry & e, const QByteArray & content, const size_type startPos, const Tw::Utils::TextCodec & codec)
 {
 	size_type curPos = content.indexOf('@', startPos);
 	if (curPos < 0)
@@ -161,7 +161,7 @@ BibTeXFile::size_type BibTeXFile::readEntry(Entry & e, const QByteArray & conten
 	size_type start = content.indexOf('{', curPos);
 	if (start < 0)
 		return -1;
-	e._type = codec->toUnicode(content.mid(curPos, start - curPos));
+	e._type = codec.toUnicode(content.mid(curPos, start - curPos));
 
 	size_type end = findBlock(content, start);
 	if (end < 0) return -1;
@@ -170,17 +170,17 @@ BibTeXFile::size_type BibTeXFile::readEntry(Entry & e, const QByteArray & conten
 
 	switch (e.type()) {
 	case Entry::COMMENT:
-		e._key = codec->toUnicode(block);
+		e._key = codec.toUnicode(block);
 		break;
 	case Entry::PREAMBLE:
-		e._key = codec->toUnicode(block);
+		e._key = codec.toUnicode(block);
 		break;
 	case Entry::STRING:
 		// FIXME
-		parseFields(e, codec->toUnicode(block));
+		parseFields(e, codec.toUnicode(block));
 		break;
 	case Entry::NORMAL:
-		parseEntry(e, codec->toUnicode(block));
+		parseEntry(e, codec.toUnicode(block));
 		break;
 	}
 

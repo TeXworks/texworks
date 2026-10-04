@@ -50,7 +50,7 @@ public:
 
 	// return a sorted list of all the available text codecs
 	// FIXME: Move to TextCodec
-	static QList<Tw::Utils::TextCodec*> *findCodecs();
+	static QList<Tw::Utils::TextCodec> *findCodecs();
 
 	// list of filename filters for the Open/Save dialogs
 	static QStringList* filterList();
@@ -81,7 +81,7 @@ public:
 private:
 	TWUtils();
 
-	static QList<Tw::Utils::TextCodec*>		*codecList;
+	static QList<Tw::Utils::TextCodec>		*codecList;
 	static QStringList				*translationList;
 
 	static QStringList			*filters;

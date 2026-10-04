@@ -18,7 +18,7 @@ class SpellChecker {
 	struct DictRef {
 		QString language;
 		mutable std::weak_ptr<Hunhandle> hunhandle;
-		Utils::TextCodec * codec{Utils::TextCodec::codecForLocale()};
+		Utils::TextCodec codec{Utils::TextCodec::codecForLocale()};
 
 		bool operator==(const DictRef & other) const;
 		operator bool() const { return isValid(); }

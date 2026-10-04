@@ -104,6 +104,11 @@ QByteArray TextCodec::fromUnicode(const QString &str) const
 	return retVal;
 }
 
+bool TextCodec::isValid() const
+{
+	return (m_conv != nullptr);
+}
+
 QList<QByteArray> TextCodec::availableCodecs()
 {
 	QList<QByteArray> retVal;
@@ -117,30 +122,59 @@ QList<QByteArray> TextCodec::availableCodecs()
 	return retVal;
 }
 
-// static
-TextCodec *TextCodec::codecForName(const QByteArray &name)
+TextCodec::TextCodec(const QByteArray &name)
 {
 	icu::ErrorCode err;
-	UConverter * conv{ucnv_open(name.constData(), err)};
-
-	if (conv == nullptr) {
-		return nullptr;
-	}
-
-	TextCodec * retVal = new TextCodec();
-	retVal->m_conv = conv;
-	return retVal;
+	m_conv = ucnv_open(name.constData(), err);
 }
 
 // static
-TextCodec *TextCodec::codecForLocale()
+TextCodec TextCodec::codecForLocale()
 {
-	return codecForName(ucnv_getDefaultName());
+	return TextCodec(ucnv_getDefaultName());
 }
 
 TextCodec::~TextCodec()
 {
 	ucnv_close(m_conv);
+}
+
+TextCodec::TextCodec(const TextCodec & other)
+{
+	icu::ErrorCode err;
+#ifdef ICU_HAS_CLONE
+	m_conv = ucnv_clone(other.m_conv, err);
+#else
+	m_conv = ucnv_safeClone(other.m_conv, NULL, NULL, err);
+#endif
+}
+
+TextCodec::TextCodec(TextCodec && other)
+{
+	std::swap(m_conv, other.m_conv);
+}
+
+TextCodec & TextCodec::operator=(const TextCodec &other)
+{
+	icu::ErrorCode err;
+	ucnv_close(m_conv);
+#ifdef ICU_HAS_CLONE
+	m_conv = ucnv_clone(other.m_conv, err);
+#else
+	m_conv = ucnv_safeClone(other.m_conv, NULL, NULL, err);
+#endif
+	return *this;
+}
+
+TextCodec & TextCodec::operator=(TextCodec && other)
+{
+	std::swap(m_conv, other.m_conv);
+	return *this;
+}
+
+bool TextCodec::operator==(const TextCodec & other) const
+{
+	return (name() == other.name());
 }
 
 } // namespace Utils

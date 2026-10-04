@@ -20,7 +20,6 @@
 */
 
 #include "scripting/Script.h"
-#include "utils/TextCodecs.h"
 
 #include <QDir>
 #include <QMetaMethod>
@@ -34,9 +33,10 @@ namespace Scripting {
 Script::Script(QObject * plugin, const QString& fileName)
 	: m_Plugin(plugin), m_Filename(fileName), m_Type(ScriptUnknown), m_Enabled(true), m_FileSize(0)
 {
-	m_Codec = Utils::TextCodec::codecForName("UTF-8");
-	if (!m_Codec)
+	m_Codec = Utils::TextCodec("UTF-8");
+	if (!m_Codec.isValid()) {
 		m_Codec = Utils::TextCodec::codecForLocale();
+	}
 }
 
 bool Script::run(Tw::Scripting::ScriptAPIInterface & api)
@@ -62,14 +62,14 @@ bool Script::doParseHeader(const QString& beginComment, const QString& endCommen
 	if (!file.exists() || !file.open(QIODevice::ReadOnly))
 		return false;
 
-	m_Codec = Utils::TextCodec::codecForName("UTF-8");
-	if (!m_Codec)
+	m_Codec = Utils::TextCodec("UTF-8");
+	if (!m_Codec.isValid()) {
 		m_Codec = Utils::TextCodec::codecForLocale();
+	}
 
 	while (codecChanged) {
-		Utils::TextCodec * codec = m_Codec;
 		file.seek(0);
-		lines = codec->toUnicode(file.readAll()).split(QRegularExpression(QStringLiteral("\r\n|[\n\r]")));
+		lines = m_Codec.toUnicode(file.readAll()).split(QRegularExpression(QStringLiteral("\r\n|[\n\r]")));
 
 		// skip any empty lines
 		if (skipEmpty) {
@@ -156,9 +156,9 @@ Script::ParseHeaderResult Script::doParseHeader(const QStringList & lines)
 		else if (key == QLatin1String("Context")) m_Context = value;
 		else if (key == QLatin1String("Shortcut")) m_KeySequence = QKeySequence(value);
 		else if (key == QLatin1String("Encoding")) {
-			Utils::TextCodec * codec = Utils::TextCodec::codecForName(value.toUtf8());
-			if (codec) {
-				if (!m_Codec || codec->name() != m_Codec->name()) {
+			const Utils::TextCodec codec{value.toUtf8()};
+			if (codec.isValid()) {
+				if (!m_Codec.isValid() || codec != m_Codec) {
 					m_Codec = codec;
 					return ParseHeader_CodecChanged;
 				}

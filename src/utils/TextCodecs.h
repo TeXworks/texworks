@@ -22,30 +22,39 @@
 #ifndef TWTextCodecs_H
 #define TWTextCodecs_H
 
-#include <QObject>
+#include <QByteArray>
+#include <QList>
+#include <QString>
 
 struct UConverter;
 
 namespace Tw {
 namespace Utils {
 
-class TextCodec : public QObject
+class TextCodec
 {
-	Q_OBJECT
 public:
+	TextCodec() = default;
+	TextCodec(const QByteArray & name);
+	virtual ~TextCodec();
+	TextCodec(const TextCodec & other);
+	TextCodec(TextCodec && other);
+	TextCodec & operator=(const TextCodec & other);
+	TextCodec & operator=(TextCodec && other);
+	bool operator==(const TextCodec & other) const;
+	bool operator!=(const TextCodec & other) const { return !(*this == other); }
+
 	virtual QList<QByteArray> aliases() const;
 	bool canEncode(const QString & str) const;
 	virtual QByteArray name() const;
 	virtual QString displayName() const;
 	QString toUnicode(const QByteArray & a) const;
 	QByteArray fromUnicode(const QString & str) const;
+	virtual bool isValid() const;
 
 	static QList<QByteArray> availableCodecs();
-	static TextCodec * codecForName(const QByteArray & name);
-	static TextCodec * codecForLocale();
+	static TextCodec codecForLocale();
 protected:
-	TextCodec() = default;
-	virtual ~TextCodec();
 
 private:
 	UConverter * m_conv{nullptr};

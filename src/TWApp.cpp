@@ -171,9 +171,9 @@ void TWApp::init()
 	recentFilesLimit = settings.value(QString::fromLatin1("maxRecentFiles"), kDefaultMaxRecentFiles).toInt();
 
 	QString codecName = settings.value(QString::fromLatin1("defaultEncoding"), QString::fromLatin1("UTF-8")).toString();
-	defaultCodec = Tw::Utils::TextCodec::codecForName(codecName.toLatin1());
-	if (!defaultCodec)
-		defaultCodec = Tw::Utils::TextCodec::codecForName("UTF-8");
+	defaultCodec = Tw::Utils::TextCodec(codecName.toLatin1());
+	if (!defaultCodec.isValid())
+		defaultCodec = Tw::Utils::TextCodec("UTF-8");
 
 	QtPDF::Backend::Document::pageCache().setMaxCost(settings.value(QStringLiteral("pdfPageCacheSizeMiB"), kDefault_PDFPageCacheSizeMiB).toInt() * 1024 * 1024);
 
@@ -1224,20 +1224,20 @@ const Engine TWApp::getNamedEngine(const QString& name)
 	return Engine();
 }
 
-Tw::Utils::TextCodec *TWApp::getDefaultCodec()
+const Tw::Utils::TextCodec & TWApp::getDefaultCodec() const
 {
 	return defaultCodec;
 }
 
-void TWApp::setDefaultCodec(Tw::Utils::TextCodec *codec)
+void TWApp::setDefaultCodec(const Tw::Utils::TextCodec & codec)
 {
-	if (!codec)
+	if (!codec.isValid())
 		return;
 
 	if (codec != defaultCodec) {
 		defaultCodec = codec;
 		Tw::Settings settings;
-		settings.setValue(QString::fromLatin1("defaultEncoding"), codec->name());
+		settings.setValue(QString::fromLatin1("defaultEncoding"), codec.name());
 	}
 }
 

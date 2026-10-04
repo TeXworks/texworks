@@ -34,7 +34,7 @@ bool ECMAScript::execute(ScriptAPIInterface *tw) const
 		// handle error
 		return false;
 	}
-	QString contents = m_Codec->toUnicode(scriptFile.readAll());
+	QString contents = m_Codec.toUnicode(scriptFile.readAll());
 	scriptFile.close();
 
 
