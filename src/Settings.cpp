@@ -47,6 +47,22 @@ QString Settings::fileName() const
 	return m_s.fileName();
 }
 
+LanguageServiceSettings Settings::languageServiceSettings() const
+{
+	LanguageServiceSettings settings;
+	settings.enabled = m_s.value(QStringLiteral("LanguageServices/enabled"), false).toBool();
+	settings.executable = m_s.value(QStringLiteral("LanguageServices/executable")).toString();
+	settings.arguments = m_s.value(QStringLiteral("LanguageServices/arguments")).toStringList();
+	return settings;
+}
+
+void Settings::setLanguageServiceSettings(const LanguageServiceSettings & settings)
+{
+	m_s.setValue(QStringLiteral("LanguageServices/enabled"), settings.enabled);
+	m_s.setValue(QStringLiteral("LanguageServices/executable"), settings.executable);
+	m_s.setValue(QStringLiteral("LanguageServices/arguments"), settings.arguments);
+}
+
 void Settings::setPortableIniPath(const QString &iniPath)
 {
 	QSettings::setDefaultFormat(QSettings::IniFormat);
