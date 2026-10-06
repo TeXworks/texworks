@@ -29,10 +29,25 @@
 #include <QThread>
 #include <QUrl>
 
+#include <cstdio>
 #include <cstdlib>
 #include <initializer_list>
 
+#ifdef Q_OS_WIN
+#include <QtCore/qt_windows.h>
+#include <fcntl.h>
+#include <io.h>
+#endif
+
 namespace {
+
+void crashIntentionally()
+{
+#ifdef Q_OS_WIN
+	TerminateProcess(GetCurrentProcess(), EXCEPTION_ACCESS_VIOLATION);
+#endif
+	std::abort();
+}
 
 QJsonObject jsonObject(std::initializer_list<QPair<QString, QJsonValue>> values)
 {
@@ -244,16 +259,29 @@ int main(int argc, char * argv[])
 	if (arguments.contains(QStringLiteral("--exit-normal")))
 		return 0;
 	if (arguments.contains(QStringLiteral("--crash")))
-		std::abort();
+		crashIntentionally();
 	if (arguments.contains(QStringLiteral("--idle"))) {
 		while (true)
 			QThread::msleep(100);
 	}
 
+#ifdef Q_OS_WIN
+	// Preserve byte-exact JSON-RPC framing through the Windows CRT streams.
+	if (_setmode(_fileno(stdin), _O_BINARY) == -1
+	    || _setmode(_fileno(stdout), _O_BINARY) == -1)
+		return 2;
+#endif
+
 	QFile input;
 	QFile output;
 	QFile error;
-	if (!input.open(stdin, QIODevice::ReadOnly) || !output.open(stdout, QIODevice::WriteOnly)
+#ifdef Q_OS_WIN
+	const int inputDescriptor = _fileno(stdin);
+#else
+	const int inputDescriptor = fileno(stdin);
+#endif
+	// Bypass CRT stream buffering and Qt read-ahead on the long-lived input pipe.
+	if (!input.open(inputDescriptor, QIODevice::ReadOnly | QIODevice::Unbuffered) || !output.open(stdout, QIODevice::WriteOnly)
 	    || !error.open(stderr, QIODevice::WriteOnly))
 		return 2;
 	QFile documentLog(documentLogPath);
@@ -512,7 +540,7 @@ int main(int argc, char * argv[])
 		if (method == QStringLiteral("exitNormal"))
 			return 0;
 		if (method == QStringLiteral("crash"))
-			std::abort();
+			crashIntentionally();
 		if (method == QStringLiteral("malformed")) {
 			if (!writeAll(output, QByteArrayLiteral("Content-Length: invalid\r\n\r\n")))
 				return 3;
