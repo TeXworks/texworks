@@ -82,7 +82,53 @@ endif ()
 # Scan poppler libraries for dependencies on Fontconfig
 include(GetPrerequisites)
 mark_as_advanced(gp_cmd)
-get_prerequisites("${Poppler_LIBRARY}" Poppler_PREREQS TRUE FALSE "" "")
+set(_Poppler_scan_file "${Poppler_LIBRARY}")
+if (WIN32 AND MINGW AND Poppler_LIBRARY MATCHES "\\.dll\\.a$")
+  # Inspect the runtime DLL, but keep the import archive for linking.
+  set(_Poppler_dlltool "${CMAKE_DLLTOOL}")
+  if (NOT _Poppler_dlltool)
+    unset(_Poppler_dlltool)
+    get_filename_component(_Poppler_tool_dir "${CMAKE_CXX_COMPILER}" DIRECTORY)
+    get_filename_component(_Poppler_tool_name "${CMAKE_OBJDUMP}" NAME)
+    if (_Poppler_tool_name MATCHES "objdump")
+      string(REPLACE "objdump" "dlltool" _Poppler_tool_name "${_Poppler_tool_name}")
+    else ()
+      set(_Poppler_tool_name dlltool)
+    endif ()
+    find_program(_Poppler_dlltool NAMES ${_Poppler_tool_name} dlltool
+      HINTS "${_Poppler_tool_dir}")
+    mark_as_advanced(_Poppler_dlltool)
+  endif ()
+  if (NOT _Poppler_dlltool)
+    message(FATAL_ERROR "dlltool is required to identify the Poppler runtime DLL")
+  endif ()
+  execute_process(COMMAND "${_Poppler_dlltool}" --identify "${Poppler_LIBRARY}"
+    RESULT_VARIABLE _Poppler_identify_result
+    OUTPUT_VARIABLE _Poppler_dll_name
+    ERROR_VARIABLE _Poppler_identify_error
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+  if (NOT _Poppler_identify_result STREQUAL "0" OR
+      NOT _Poppler_dll_name MATCHES "^[^/\\\\;:\r\n \t]+\\.[Dd][Ll][Ll]$")
+    message(FATAL_ERROR
+      "Cannot identify one Poppler DLL from ${Poppler_LIBRARY}: result=${_Poppler_identify_result}, output=[${_Poppler_dll_name}], error=[${_Poppler_identify_error}]")
+  endif ()
+  get_filename_component(_Poppler_lib_dir "${Poppler_LIBRARY}" DIRECTORY)
+  set(_Poppler_scan_file "")
+  foreach (_Poppler_dll_dir "${_Poppler_lib_dir}/../bin" "${_Poppler_lib_dir}")
+    if (EXISTS "${_Poppler_dll_dir}/${_Poppler_dll_name}" AND
+        NOT IS_DIRECTORY "${_Poppler_dll_dir}/${_Poppler_dll_name}")
+      get_filename_component(_Poppler_scan_file
+        "${_Poppler_dll_dir}/${_Poppler_dll_name}" ABSOLUTE)
+      break()
+    endif ()
+  endforeach ()
+  if (NOT _Poppler_scan_file)
+    message(FATAL_ERROR
+      "Cannot find ${_Poppler_dll_name} in ${_Poppler_lib_dir}/../bin or ${_Poppler_lib_dir}")
+  endif ()
+endif ()
+get_prerequisites("${_Poppler_scan_file}" Poppler_PREREQS TRUE FALSE "" "")
+unset(_Poppler_scan_file)
 if ("${Poppler_PREREQS}" MATCHES "fontconfig")
   set(Poppler_NEEDS_FONTCONFIG TRUE)
 else ()
