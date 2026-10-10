@@ -5,7 +5,8 @@
 # Once done this will define
 #
 #  Poppler_FOUND - system has Poppler
-#  Poppler_NEEDS_FONTCONFIG - A boolean indicating if libpoppler depends on libfontconfig
+#  Poppler_NEEDS_FONTCONFIG - A boolean indicating if libpoppler depends on libfontconfig;
+#                            empty (unknown) if dependency scanning is skipped
 #  Poppler_PRIVATE_INCLUDE_DIRS - the include directories for Poppler private headers (if they exist)
 #  Poppler_LIBRARIES - Link these to use Poppler
 #  Poppler_<C>_FOUND - system has Poppler component <C>
@@ -82,12 +83,75 @@ endif ()
 # Scan poppler libraries for dependencies on Fontconfig
 include(GetPrerequisites)
 mark_as_advanced(gp_cmd)
-get_prerequisites("${Poppler_LIBRARY}" Poppler_PREREQS TRUE FALSE "" "")
-if ("${Poppler_PREREQS}" MATCHES "fontconfig")
-  set(Poppler_NEEDS_FONTCONFIG TRUE)
-else ()
-  set(Poppler_NEEDS_FONTCONFIG FALSE)
+set(_Poppler_scan_file "${Poppler_LIBRARY}")
+if (WIN32 AND MINGW AND Poppler_LIBRARY MATCHES "\\.dll\\.a$")
+  # Inspect the runtime DLL, but keep the import archive for linking.
+  set(_Poppler_scan_file "")
+  set(_Poppler_dlltool "${CMAKE_DLLTOOL}")
+  if (NOT _Poppler_dlltool)
+    unset(_Poppler_dlltool)
+    get_filename_component(_Poppler_tool_dir "${CMAKE_CXX_COMPILER}" DIRECTORY)
+    get_filename_component(_Poppler_tool_name "${CMAKE_OBJDUMP}" NAME)
+    if (_Poppler_tool_name MATCHES "objdump")
+      string(REPLACE "objdump" "dlltool" _Poppler_tool_name "${_Poppler_tool_name}")
+    else ()
+      set(_Poppler_tool_name dlltool)
+    endif ()
+    find_program(_Poppler_dlltool NAMES ${_Poppler_tool_name} dlltool
+      HINTS "${_Poppler_tool_dir}")
+    mark_as_advanced(_Poppler_dlltool)
+  endif ()
+  if (NOT _Poppler_dlltool)
+    message(WARNING
+      "Cannot find dlltool to identify the Poppler runtime DLL. "
+      "Skipping automatic dependency detection; set "
+      "Poppler_ADDITIONAL_DEPENDENCIES if additional link libraries are needed.")
+  else ()
+    execute_process(COMMAND "${_Poppler_dlltool}" --identify "${Poppler_LIBRARY}"
+      RESULT_VARIABLE _Poppler_identify_result
+      OUTPUT_VARIABLE _Poppler_dll_name
+      ERROR_VARIABLE _Poppler_identify_error
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if (NOT _Poppler_identify_result STREQUAL "0" OR
+        NOT _Poppler_dll_name MATCHES "^[^/\\\\;:\r\n \t]+\\.[Dd][Ll][Ll]$")
+      message(WARNING
+        "Cannot identify one Poppler DLL from ${Poppler_LIBRARY}: "
+        "result=${_Poppler_identify_result}, output=[${_Poppler_dll_name}], "
+        "error=[${_Poppler_identify_error}]. "
+        "Skipping automatic dependency detection; set "
+        "Poppler_ADDITIONAL_DEPENDENCIES if additional link libraries are needed.")
+    else ()
+      get_filename_component(_Poppler_lib_dir "${Poppler_LIBRARY}" DIRECTORY)
+      foreach (_Poppler_dll_dir "${_Poppler_lib_dir}/../bin" "${_Poppler_lib_dir}")
+        if (EXISTS "${_Poppler_dll_dir}/${_Poppler_dll_name}" AND
+            NOT IS_DIRECTORY "${_Poppler_dll_dir}/${_Poppler_dll_name}")
+          get_filename_component(_Poppler_scan_file
+            "${_Poppler_dll_dir}/${_Poppler_dll_name}" ABSOLUTE)
+          break()
+        endif ()
+      endforeach ()
+      if (NOT _Poppler_scan_file)
+        message(WARNING
+          "Cannot find ${_Poppler_dll_name} in ${_Poppler_lib_dir}/../bin "
+          "or ${_Poppler_lib_dir}. Skipping automatic dependency detection; "
+          "set Poppler_ADDITIONAL_DEPENDENCIES if additional link libraries are needed.")
+      endif ()
+    endif ()
+  endif ()
 endif ()
+if (NOT _Poppler_scan_file STREQUAL "")
+  get_prerequisites("${_Poppler_scan_file}" Poppler_PREREQS TRUE FALSE "" "")
+  if ("${Poppler_PREREQS}" MATCHES "fontconfig")
+    set(Poppler_NEEDS_FONTCONFIG TRUE)
+  else ()
+    set(Poppler_NEEDS_FONTCONFIG FALSE)
+  endif ()
+else ()
+  # Dependency information is unavailable, rather than Fontconfig absent.
+  set(Poppler_PREREQS "")
+  set(Poppler_NEEDS_FONTCONFIG "")
+endif ()
+unset(_Poppler_scan_file)
 
 # -----------------------
 # Find Poppler components
