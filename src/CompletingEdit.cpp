@@ -33,19 +33,27 @@
 #include <QAbstractItemView>
 #include <QAbstractTextDocumentLayout>
 #include <QApplication>
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+#include <QDesktopWidget>
+#endif
+#include <QGuiApplication>
 #include <QClipboard>
-#include <QCompleter>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QFrame>
 #include <QKeyEvent>
+#include <QListView>
 #include <QMenu>
 #include <QModelIndex>
 #include <QPainter>
 #include <QScrollBar>
+#include <QScreen>
+#include <QItemSelectionModel>
 #include <QSignalMapper>
 #include <QStandardItem>
 #include <QStandardItemModel>
+#include <QStyle>
 #include <QTextBlock>
 #include <QTextCodec>
 #include <QTextCursor>
@@ -56,11 +64,9 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	: QTextEdit(parent)
 {
 	Tw::Settings settings;
-	if (!sharedCompleter) { // initialize shared (static) members
-		sharedCompleter = new QCompleter(qApp);
-		sharedCompleter->setCompletionMode(QCompleter::InlineCompletion);
-		sharedCompleter->setCaseSensitivity(Qt::CaseInsensitive);
-		loadCompletionFiles(sharedCompleter);
+	if (!sharedCompletionModel) { // initialize shared (static) members
+		sharedCompletionModel = new QStandardItemModel(0, 2, qApp);
+		loadCompletionFiles(sharedCompletionModel);
 
 		currentCompletionFormat = new QTextCharFormat;
 		braceMatchingFormat = new QTextCharFormat;
@@ -88,6 +94,26 @@ CompletingEdit::CompletingEdit(QWidget *parent /* = nullptr */)
 	connect(TWApp::instance(), &TWApp::highlightLineOptionChanged, this, &CompletingEdit::resetExtraSelections);
 
 	setupUi(this);
+	// A non-activating transient keeps the editor as the keyboard owner. Qt::Popup
+	// grabs keys on some Wayland backends, which would defeat that contract.
+	completionPopup = new QFrame(this, Qt::ToolTip);
+	completionPopup->setObjectName(QStringLiteral("completionPopup"));
+	completionPopup->setFocusPolicy(Qt::NoFocus);
+	completionView = new QListView(completionPopup);
+	completionView->setObjectName(QStringLiteral("completionList"));
+	completionView->setAccessibleName(tr("Completions"));
+	completionView->setFocusPolicy(Qt::NoFocus);
+	completionView->setSelectionMode(QAbstractItemView::SingleSelection);
+	completionView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+	completionListModel = new QStandardItemModel(completionView);
+	completionView->setModel(completionListModel);
+	if (window() != this)
+		window()->installEventFilter(this);
+	connect(completionView, &QListView::clicked, this, [this](const QModelIndex & index) {
+		if (index.isValid())
+			applyCompletion(index.row());
+	});
+	connect(completionView, &QListView::activated, this, [this](const QModelIndex &) { acceptCompletion(); });
 	connect(actionJump_To_PDF, &QAction::triggered, this, [=]() { this->jumpToPdf(); });
 	// As these actions are not used in menus/toolbars, we need to manually add
 	// them to the widget for TWUtils::installCustomShortcuts to work
@@ -215,25 +241,43 @@ void CompletingEdit::updateColors()
 
 CompletingEdit::~CompletingEdit()
 {
-	setCompleter(nullptr);
-}
-
-void CompletingEdit::setCompleter(QCompleter *completer)
-{
-	c = completer;
-	if (!c)
-		return;
-
-	c->setWidget(this);
 }
 
 void CompletingEdit::cursorPositionChangedSlot()
 {
-	setCompleter(nullptr);
-	if (!currentCompletionRange.isNull())
-		currentCompletionRange = QTextCursor();
+	if (applyingCompletion)
+		return;
+	clearCompletionContext();
 	resetExtraSelections();
 	prefixLength = 0;
+}
+
+void CompletingEdit::clearCompletionContext(bool notify)
+{
+	const bool hadContext = completionSession.active;
+	completionSession = CompletionSession();
+	cmpCursor = QTextCursor();
+	currentCompletionRange = QTextCursor();
+	completionListModel->clear();
+	completionPopup->hide();
+	if (notify && hadContext)
+		emit completionContextInvalidated();
+}
+
+void CompletingEdit::cancelCompletion()
+{
+	if (!completionSession.active)
+		return;
+	restoreCompletionPrefix();
+	clearCompletionContext();
+	resetExtraSelections();
+}
+
+void CompletingEdit::setProviderCompletionAvailable(bool available)
+{
+	providerCompletionAvailable = available;
+	if (!available && completionSession.active)
+		emit completionContextInvalidated();
 }
 
 void CompletingEdit::mousePressEvent(QMouseEvent *e)
@@ -563,8 +607,6 @@ void CompletingEdit::timerEvent(QTimerEvent *e)
 
 void CompletingEdit::focusInEvent(QFocusEvent *e)
 {
-	if (c)
-		c->setWidget(this);
 	QTextEdit::focusInEvent(e);
 }
 
@@ -588,9 +630,42 @@ void CompletingEdit::resetExtraSelections()
 
 void CompletingEdit::keyPressEvent(QKeyEvent *e)
 {
+	if (completionSession.active) {
+		const QKeySequence seq(static_cast<int>(e->modifiers()) | e->key());
+		if (seq == actionNext_Completion_Placeholder->shortcut() || seq == actionPrevious_Completion_Placeholder->shortcut()) {
+			acceptCompletion();
+		}
+		else if (e->key() == Qt::Key_Escape) {
+			restoreCompletionPrefix();
+			clearCompletionContext();
+			resetExtraSelections();
+			return;
+		}
+		else if (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter) {
+			acceptCompletion();
+			return;
+		}
+		else if (e->key() == Qt::Key_Up || e->key() == Qt::Key_Down) {
+			const int next = completionSession.currentIndex + (e->key() == Qt::Key_Up ? -1 : 1);
+			if (next >= 0 && next < completionSession.candidates.size())
+				applyCompletion(next);
+			return;
+		}
+		else if (e->key() == Qt::Key_Backspace && e->modifiers() == Qt::NoModifier) {
+			refilterCompletion(e, true);
+			return;
+		}
+		else if (!e->text().isEmpty() && e->modifiers() == Qt::NoModifier && e->text().at(0).isLetterOrNumber()) {
+			refilterCompletion(e, false);
+			return;
+		}
+		else if (e->key() != Qt::Key_Tab && e->key() != Qt::Key_Backtab) {
+			acceptCompletion();
+		}
+	}
 	if (autocompleteEnabled) {
 		QKeySequence seq(static_cast<int>(e->modifiers()) | e->key());
-		if (seq == actionNext_Completion->shortcut() || seq == actionPrevious_Completion->shortcut() || seq == actionNext_Completion_Placeholder->shortcut() || seq == actionPrevious_Completion_Placeholder->shortcut()) {
+		if (seq == actionNext_Completion->shortcut() || seq == actionPrevious_Completion->shortcut() || e->key() == Qt::Key_Backtab || seq == actionNext_Completion_Placeholder->shortcut() || seq == actionPrevious_Completion_Placeholder->shortcut()) {
 			if (handleCompletionShortcut(e))
 				return;
 		}
@@ -873,8 +948,8 @@ bool CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 		return true;
 	}
 
-	// if we are at the beginning of the line (i.e., only whitespaces before a
-	// caret cursor), insert a tab (for indentation) instead of doing completion
+	// If we are at the beginning of the line (i.e., only whitespaces before a
+	// caret cursor), insert a tab (for indentation) instead of doing completion.
 	bool atLineStart = false;
 
 	QTextCursor lineStartCursor = textCursor();
@@ -886,89 +961,41 @@ bool CompletingEdit::handleCompletionShortcut(QKeyEvent *e)
 			atLineStart = true;
 	}
 
-	if (!c && !atLineStart) {
-		cmpCursor = textCursor();
-		if (!selectWord(cmpCursor) && textCursor().selectionStart() > 0) {
-			cmpCursor.setPosition(textCursor().selectionStart() - 1);
-			selectWord(cmpCursor);
-		}
-		// check if the word is preceded by open-brace; if so try with that included
-		int start = cmpCursor.selectionStart();
-		int end = cmpCursor.selectionEnd();
-		if (start > 0) { // special cases: possibly look back to include brace or hyphen(s)
-			if (cmpCursor.selectedText() == QLatin1String("-")) {
-				QTextCursor hyphCursor(cmpCursor);
-				int hyphPos = start;
-				while (hyphPos > 0) {
-					hyphCursor.setPosition(hyphPos - 1);
-					hyphCursor.setPosition(hyphPos, QTextCursor::KeepAnchor);
-					if (hyphCursor.selectedText() != QLatin1String("-"))
-						break;
-					--hyphPos;
-				}
-				cmpCursor.setPosition(hyphPos);
-				cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
-			}
-			else if (cmpCursor.selectedText() != QLatin1String("{")) {
-				QTextCursor braceCursor(cmpCursor);
-				braceCursor.setPosition(start - 1);
-				braceCursor.setPosition(start, QTextCursor::KeepAnchor);
-				if (braceCursor.selectedText() == QLatin1String("{")) {
-					cmpCursor.setPosition(start - 1);
-					cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
-				}
-			}
-		}
-
-		while (true) {
-			QString completionPrefix = cmpCursor.selectedText();
-			if (!completionPrefix.isEmpty()) {
-				setCompleter(sharedCompleter);
-				c->setCompletionPrefix(completionPrefix);
-				if (c->completionCount() == 0) {
-					if (cmpCursor.selectionStart() < start) {
-						// we must have included a preceding brace or hyphen; now try without it
-						cmpCursor.setPosition(start);
-						cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
-						continue;
-					}
-					setCompleter(nullptr);
-				}
-				else {
-					if (seq == actionPrevious_Completion->shortcut())
-						c->setCurrentRow(c->completionCount() - 1);
-					showCurrentCompletion();
-					return true;
-				}
-			}
-			break;
-		}
-	}
-
-	if (c && c->completionCount() > 0) {
-		if (seq == actionPrevious_Completion->shortcut()) {
-			if (c->currentRow() == 0) {
-				showCompletion(c->completionPrefix());
-				setCompleter(nullptr);
-			}
-			else {
-				c->setCurrentRow(c->currentRow() - 1);
-				showCurrentCompletion();
-			}
-		}
-		else {
-			if (c->currentRow() == c->completionCount() - 1) {
-				showCompletion(c->completionPrefix());
-				setCompleter(nullptr);
-			}
-			else {
-				c->setCurrentRow(c->currentRow() + 1);
-				showCurrentCompletion();
-			}
-		}
+	if (atLineStart)
+		return false;
+	const bool backwards = seq == actionPrevious_Completion->shortcut() || e->key() == Qt::Key_Backtab;
+	if (!completionSession.active)
+		return beginCompletion(backwards);
+	if (completionSession.candidates.isEmpty())
+		return providerCompletionAvailable;
+	if (!backwards) {
+		acceptCompletion();
 		return true;
 	}
-	return false;
+	const int next = completionSession.currentIndex + (backwards ? -1 : 1);
+	if (next < 0 || next >= completionSession.candidates.size()) {
+		restoreCompletionPrefix();
+		clearCompletionContext();
+		resetExtraSelections();
+	}
+	else {
+		applyCompletion(next);
+	}
+	return true;
+}
+
+void CompletingEdit::refilterCompletion(QKeyEvent * event, bool backspace)
+{
+	// Restore first so the normal QTextEdit operation never edits an expanded
+	// preview. The old request is invalidated before the fresh session begins.
+	restoreCompletionPrefix();
+	clearCompletionContext();
+	if (backspace)
+		handleBackspace(event);
+	else
+		handleOtherKey(event);
+	if (!textCursor().hasSelection())
+		(void)beginCompletion(false);
 }
 
 void CompletingEdit::handleTab(QKeyEvent * e)
@@ -984,69 +1011,261 @@ void CompletingEdit::handleTab(QKeyEvent * e)
 	}
 }
 
-void CompletingEdit::showCompletion(const QString& completion, QString::size_type insOffset)
+bool CompletingEdit::beginCompletion(bool backwards)
 {
-	disconnect(this, &CompletingEdit::cursorPositionChanged, this, &CompletingEdit::cursorPositionChangedSlot);
-
-	if (c->widget() != this)
-		return;
-
-	QTextCursor tc = cmpCursor;
-	if (tc.isNull()) {
-		tc = textCursor();
-		tc.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, static_cast<pos_type>(c->completionPrefix().length()));
+	cmpCursor = textCursor();
+	if (!selectWord(cmpCursor) && textCursor().selectionStart() > 0) {
+		cmpCursor.setPosition(textCursor().selectionStart() - 1);
+		selectWord(cmpCursor);
+	}
+	int start = cmpCursor.selectionStart();
+	const int end = cmpCursor.selectionEnd();
+	if (start > 0) {
+		if (cmpCursor.selectedText() == QLatin1String("-")) {
+			QTextCursor hyphenCursor(cmpCursor);
+			int hyphenPosition = start;
+			while (hyphenPosition > 0) {
+				hyphenCursor.setPosition(hyphenPosition - 1);
+				hyphenCursor.setPosition(hyphenPosition, QTextCursor::KeepAnchor);
+				if (hyphenCursor.selectedText() != QLatin1String("-"))
+					break;
+				--hyphenPosition;
+			}
+			cmpCursor.setPosition(hyphenPosition);
+			cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
+		}
+		else if (cmpCursor.selectedText() != QLatin1String("{")) {
+			QTextCursor braceCursor(cmpCursor);
+			braceCursor.setPosition(start - 1);
+			braceCursor.setPosition(start, QTextCursor::KeepAnchor);
+			if (braceCursor.selectedText() == QLatin1String("{")) {
+				cmpCursor.setPosition(start - 1);
+				cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
+			}
+		}
 	}
 
-	tc.insertText(completion);
-	cmpCursor = tc;
-	cmpCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor, static_cast<pos_type>(completion.length()));
+	const auto appendStatic = [this](int prefixStart, int prefixEnd) {
+		const QString prefix = cmpCursor.selectedText();
+		for (int row = 0; row < sharedCompletionModel->rowCount(); ++row) {
+			const QString label = sharedCompletionModel->item(row, 0)->text();
+			if (!label.startsWith(prefix, Qt::CaseInsensitive))
+				continue;
+			CompletionCandidate candidate;
+			candidate.insertText = sharedCompletionModel->item(row, 1)->text();
+			candidate.insertionOffset = candidate.insertText.indexOf(QLatin1String("#INS#"));
+			if (candidate.insertionOffset != -1)
+				candidate.insertText.remove(QLatin1String("#INS#"));
+			candidate.replacedText = prefix;
+			candidate.replacementStart = prefixStart;
+			candidate.replacementEnd = prefixEnd;
+			candidate.id = static_cast<quint64>(row) + 1;
+			candidate.sourceRow = row;
+			candidate.label = label;
+			completionSession.candidates.append(candidate);
+		}
+	};
 
-	if (insOffset != -1)
-		tc.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, static_cast<pos_type>(completion.length() - insOffset));
-	setTextCursor(tc);
+	completionSession.candidates.clear();
+	appendStatic(cmpCursor.selectionStart(), cmpCursor.selectionEnd());
+	if (completionSession.candidates.isEmpty() && cmpCursor.selectionStart() < start) {
+		cmpCursor.setPosition(start);
+		cmpCursor.setPosition(end, QTextCursor::KeepAnchor);
+		appendStatic(start, end);
+	}
+	if (cmpCursor.selectedText().isEmpty())
+		return false;
 
-	currentCompletionRange = cmpCursor;
-	resetExtraSelections();
-
-	connect(this, &CompletingEdit::cursorPositionChanged, this, &CompletingEdit::cursorPositionChangedSlot);
+	completionSession.active = true;
+	completionSession.baseText = text();
+	completionSession.position.line = textCursor().blockNumber();
+	completionSession.position.character = textCursor().positionInBlock();
+	completionSession.currentIndex = -1;
+	if (providerCompletionAvailable)
+		emit completionRequested(completionSession.position);
+	if (!completionSession.candidates.isEmpty()) {
+		applyCompletion(backwards ? static_cast<int>(completionSession.candidates.size()) - 1 : 0);
+		return true;
+	}
+	if (providerCompletionAvailable)
+		return true;
+	clearCompletionContext(false);
+	return false;
 }
 
-void CompletingEdit::showCurrentCompletion()
+void CompletingEdit::restoreCompletionPrefix()
 {
-	if (c->widget() != this)
+	if (completionSession.currentIndex < 0 || currentCompletionRange.isNull())
 		return;
+	emit completionEditStarted();
+	applyingCompletion = true;
+	QTextCursor cursor = currentCompletionRange;
+	cursor.insertText(completionSession.candidates.at(completionSession.currentIndex).replacedText);
+	cursor.clearSelection();
+	cursor.setPosition(absolutePosition(completionSession.position));
+	setTextCursor(cursor);
+	applyingCompletion = false;
+	emit completionEditFinished();
+}
 
-	QStandardItemModel *model = qobject_cast<QStandardItemModel*>(c->model());
-	QList<QStandardItem*> items = model->findItems(c->currentCompletion());
+void CompletingEdit::acceptCompletion()
+{
+	if (!completionSession.active)
+		return;
+	clearCompletionContext();
+	resetExtraSelections();
+}
 
-	if (items.count() > 1) {
-		if (c->currentCompletion() == prevCompletion) {
-			if (c->currentIndex().row() > prevRow)
-				++itemIndex;
-			else
-				--itemIndex;
-			if (itemIndex < 0)
-				itemIndex = items.count() - 1;
-			else if (itemIndex > items.count() - 1)
-				itemIndex = 0;
+void CompletingEdit::updateCompletionPopup()
+{
+	if (!completionSession.active || completionSession.currentIndex < 0)
+		return;
+	completionListModel->clear();
+	for (const CompletionCandidate & candidate : completionSession.candidates) {
+		auto * item = new QStandardItem(candidate.label.isEmpty() ? candidate.insertText : candidate.label);
+		item->setData(QVariant::fromValue<qulonglong>(candidate.id), Qt::UserRole);
+		completionListModel->appendRow(item);
+	}
+	completionView->setFont(font());
+	const QModelIndex selected = completionListModel->index(completionSession.currentIndex, 0);
+	completionView->setCurrentIndex(selected);
+	completionView->selectionModel()->select(selected, QItemSelectionModel::ClearAndSelect);
+	positionCompletionPopup();
+	completionPopup->show();
+}
+
+void CompletingEdit::positionCompletionPopup()
+{
+	if (completionListModel->rowCount() == 0)
+		return;
+	const int rows = qMin(8, completionListModel->rowCount());
+	const QFontMetrics metrics(font());
+	const int rowHeight = qMax(metrics.height(), completionView->sizeHintForRow(0));
+	QRect cursor = cursorRect();
+	QPoint point = viewport()->mapToGlobal(cursor.bottomLeft());
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	const QRect available = QApplication::desktop()->availableGeometry(point);
+#else
+	QScreen * targetScreen = screen() ? screen() : QGuiApplication::primaryScreen();
+	const QRect available = targetScreen->availableGeometry();
+#endif
+	const int width = qMin(qMax(completionView->sizeHintForColumn(0) +
+	                            completionView->frameWidth() * 2 +
+	                            completionView->style()->pixelMetric(QStyle::PM_ScrollBarExtent), 160),
+	                       available.width());
+	const int height = qMin(rowHeight * rows + 4, available.height());
+	completionView->setGeometry(0, 0, width, height);
+	completionPopup->resize(completionView->size());
+	if (point.y() + completionPopup->height() > available.bottom())
+		point.setY(viewport()->mapToGlobal(cursor.topLeft()).y() - completionPopup->height());
+	point.setX(qBound(available.left(), point.x(), available.right() - completionPopup->width() + 1));
+	point.setY(qBound(available.top(), point.y(), available.bottom() - completionPopup->height() + 1));
+	completionPopup->move(point);
+}
+
+void CompletingEdit::applyCompletion(int index)
+{
+	if (index < 0 || index >= completionSession.candidates.size())
+		return;
+	emit completionEditStarted();
+	applyingCompletion = true;
+	QTextCursor cursor(document());
+	cursor.beginEditBlock();
+	if (completionSession.currentIndex >= 0 && !currentCompletionRange.isNull()) {
+		QTextCursor restore = currentCompletionRange;
+		restore.insertText(completionSession.candidates.at(completionSession.currentIndex).replacedText);
+	}
+	const CompletionCandidate & candidate = completionSession.candidates.at(index);
+	cursor.setPosition(candidate.replacementStart);
+	cursor.setPosition(candidate.replacementEnd, QTextCursor::KeepAnchor);
+	cursor.insertText(candidate.insertText);
+	cursor.endEditBlock();
+	currentCompletionRange = QTextCursor(document());
+	currentCompletionRange.setPosition(candidate.replacementStart);
+	currentCompletionRange.setPosition(candidate.replacementStart + static_cast<int>(candidate.insertText.size()), QTextCursor::KeepAnchor);
+	QTextCursor displayCursor = currentCompletionRange;
+	displayCursor.clearSelection();
+	if (candidate.insertionOffset != -1)
+		displayCursor.setPosition(candidate.replacementStart + static_cast<int>(candidate.insertionOffset));
+	setTextCursor(displayCursor);
+	cmpCursor = currentCompletionRange;
+	completionSession.currentIndex = index;
+	applyingCompletion = false;
+	emit completionEditFinished();
+	resetExtraSelections();
+	updateCompletionPopup();
+}
+
+int CompletingEdit::absolutePosition(const Tw::LanguageServices::LanguagePosition & position) const
+{
+	if (position.line < 0 || position.character < 0)
+		return -1;
+	int line = 0;
+	int lineStart = 0;
+	while (line < position.line) {
+		const int newline = static_cast<int>(completionSession.baseText.indexOf(QLatin1Char('\n'), lineStart));
+		if (newline < 0)
+			return -1;
+		lineStart = newline + 1;
+		++line;
+	}
+	const int newline = static_cast<int>(completionSession.baseText.indexOf(QLatin1Char('\n'), lineStart));
+	const int lineEnd = newline < 0 ? static_cast<int>(completionSession.baseText.size()) : newline;
+	return position.character <= lineEnd - lineStart ? lineStart + position.character : -1;
+}
+
+void CompletingEdit::mergeProviderCompletions(const QList<Tw::LanguageServices::CompletionItem> & items)
+{
+	if (!completionSession.active)
+		return;
+	for (const Tw::LanguageServices::CompletionItem & item : items) {
+		int replacementStart = cmpCursor.selectionStart();
+		int replacementEnd = cmpCursor.selectionEnd();
+		if (item.hasReplacementRange) {
+			if (item.replacementRange.start.line != item.replacementRange.end.line
+			    || item.replacementRange.end.line != completionSession.position.line
+			    || item.replacementRange.end.character != completionSession.position.character)
+				continue;
+			replacementStart = absolutePosition(item.replacementRange.start);
+			replacementEnd = absolutePosition(item.replacementRange.end);
+			if (replacementStart < 0 || replacementEnd < replacementStart)
+				continue;
 		}
-		else
-			itemIndex = 0;
-		prevRow = c->currentIndex().row();
-		prevCompletion = c->currentCompletion();
+		else {
+			replacementStart = completionSession.candidates.isEmpty() ? cmpCursor.selectionStart()
+			                                                    : completionSession.candidates.first().replacementStart;
+			replacementEnd = completionSession.candidates.isEmpty() ? cmpCursor.selectionEnd()
+			                                                  : completionSession.candidates.first().replacementEnd;
+		}
+		bool duplicate = false;
+		for (const CompletionCandidate & existing : completionSession.candidates) {
+			if (existing.insertText == item.insertText
+			    && existing.replacementStart == replacementStart
+			    && existing.replacementEnd == replacementEnd) {
+				duplicate = true;
+				break;
+			}
+		}
+		if (duplicate)
+			continue;
+		CompletionCandidate candidate;
+		candidate.id = (quint64(1) << 32) | completionSession.nextProviderId++;
+		candidate.source = CompletionCandidate::Provider;
+		candidate.label = item.label;
+		candidate.insertText = item.insertText;
+		candidate.replacementStart = replacementStart;
+		candidate.replacementEnd = replacementEnd;
+		candidate.replacedText = completionSession.baseText.mid(replacementStart, replacementEnd - replacementStart);
+		completionSession.candidates.append(candidate);
 	}
-	else {
-		prevCompletion = QString();
-		itemIndex = 0;
+	if (completionSession.currentIndex < 0 && completionSession.candidates.isEmpty()) {
+		clearCompletionContext(false);
+		resetExtraSelections();
 	}
-
-	QString completion = model->item(items[itemIndex]->row(), 1)->text();
-
-	auto insOffset = completion.indexOf(QLatin1String("#INS#"));
-	if (insOffset != -1)
-		completion.replace(QLatin1String("#INS#"), QLatin1String(""));
-
-	showCompletion(completion, insOffset);
+	else if (completionSession.currentIndex < 0)
+		applyCompletion(0);
+	else
+		updateCompletionPopup();
 }
 
 void CompletingEdit::loadCompletionsFromFile(QStandardItemModel *model, const QString& filename)
@@ -1081,16 +1300,13 @@ void CompletingEdit::loadCompletionsFromFile(QStandardItemModel *model, const QS
 	}
 }
 
-void CompletingEdit::loadCompletionFiles(QCompleter *theCompleter)
+void CompletingEdit::loadCompletionFiles(QStandardItemModel *model)
 {
-	QStandardItemModel *model = new QStandardItemModel(0, 2, theCompleter); // columns are abbrev, expansion
-
 	QDir completionDir(Tw::Utils::ResourcesLibrary::getLibraryPath(QStringLiteral("completion")));
 	foreach (QFileInfo fileInfo, completionDir.entryInfoList(QDir::Files | QDir::Readable, QDir::Name)) {
 		loadCompletionsFromFile(model, fileInfo.canonicalFilePath());
 	}
 
-	theCompleter->setModel(model);
 }
 
 void CompletingEdit::jumpToPdf(QTextCursor pos)
@@ -1340,6 +1556,8 @@ void CompletingEdit::resizeEvent(QResizeEvent *e)
 
 	QRect cr = contentsRect();
 	lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberArea->sizeHint().width(), cr.height()));
+	if (completionSession.active && completionPopup->isVisible())
+		positionCompletionPopup();
 }
 
 void CompletingEdit::wheelEvent(QWheelEvent *e)
@@ -1407,7 +1625,7 @@ bool CompletingEdit::event(QEvent *e)
 	if (e->type() == QEvent::ShortcutOverride) {
 		auto ke = reinterpret_cast<QKeyEvent*>(e);
 		QKeySequence seq(static_cast<int>(ke->modifiers()) | ke->key());
-		if (seq == actionNext_Completion->shortcut() ||
+		if (seq == actionNext_Completion->shortcut() || ke->key() == Qt::Key_Backtab ||
 			seq == actionPrevious_Completion->shortcut() ||
 			seq == actionNext_Completion_Placeholder->shortcut() ||
 			seq == actionPrevious_Completion_Placeholder->shortcut())
@@ -1423,12 +1641,21 @@ bool CompletingEdit::event(QEvent *e)
 	return QTextEdit::event(e);
 }
 
+bool CompletingEdit::eventFilter(QObject *watched, QEvent *event)
+{
+	if (watched == window() && event->type() == QEvent::WindowDeactivate)
+		cancelCompletion();
+	return QTextEdit::eventFilter(watched, event);
+}
+
 void CompletingEdit::scrollContentsBy(int dx, int dy)
 {
 	if (dy != 0) {
 		emit updateRequest(viewport()->rect(), dy);
 	}
 	QTextEdit::scrollContentsBy(dx, dy);
+	if (completionSession.active && completionPopup->isVisible())
+		positionCompletionPopup();
 }
 
 Tw::Document::SpellChecker CompletingEdit::getSpellChecker() const
@@ -1494,7 +1721,7 @@ QTextCharFormat	*CompletingEdit::currentLineFormat = nullptr;
 bool CompletingEdit::highlightCurrentLine = true;
 bool CompletingEdit::autocompleteEnabled = true;
 
-QCompleter	*CompletingEdit::sharedCompleter = nullptr;
+QStandardItemModel *CompletingEdit::sharedCompletionModel = nullptr;
 
 QList<CompletingEdit::IndentMode> *CompletingEdit::indentModes = nullptr;
 QList<CompletingEdit::QuotesMode> *CompletingEdit::quotesModes = nullptr;

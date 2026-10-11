@@ -1,3 +1,8 @@
+Unreleased
+
+	* Add optional language-server completion and Go to Definition support
+	* Improve modern ConTeXt/LuaMetaTeX support
+
 Release 0.6.11 (TL'26) [February 2026]
 	* Add additional cleanup patterns for LaTeXmk, biblatex, minitoc
 	* List dictionary folders in the "Settings & Resources" dialog

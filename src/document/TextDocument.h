@@ -45,6 +45,7 @@ public:
 	const QList<Tag> & getTags() const { return _tags; }
 	void addTag(const QTextCursor & cursor, const unsigned int level, const QString & text);
 	unsigned int removeTags(int offset, int len);
+	QString canonicalText() const;
 
 signals:
 	void tagsChanged() const;

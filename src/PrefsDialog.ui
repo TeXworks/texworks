@@ -158,7 +158,70 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="0">
+       <item row="3" column="0" colspan="2">
+        <widget class="QGroupBox" name="languageServicesGroup">
+         <property name="title">
+          <string>Language Services</string>
+         </property>
+         <layout class="QGridLayout">
+          <item row="0" column="0" colspan="3">
+           <widget class="QCheckBox" name="languageServicesEnabled">
+            <property name="text">
+             <string>Enable language services</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="languageServerExecutableLabel">
+            <property name="text">
+             <string>Language server:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="languageServerExecutable"/>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="browseLanguageServer">
+            <property name="text">
+             <string>Browse...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="languageServerArgumentsLabel">
+            <property name="text">
+             <string>Arguments:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" colspan="2">
+           <widget class="QPlainTextEdit" name="languageServerArguments">
+            <property name="toolTip">
+             <string>Enter one literal argument per line.</string>
+            </property>
+            <property name="maximumHeight">
+             <number>70</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="3">
+           <widget class="QLabel" name="languageServiceStatus">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="0">
         <spacer>
          <property name="orientation">
           <enum>Qt::Vertical</enum>

@@ -12,6 +12,8 @@
 set(TEXWORKS_SRCS BibTeXFile.cpp
                   CitationSelectDialog.cpp
                   CompletingEdit.cpp
+                  DefaultFileFilters.cpp
+                  DefaultEngineList.cpp
                   Engine.cpp
                   FindDialog.cpp
                   HardWrapDialog.cpp
@@ -35,6 +37,13 @@ set(TEXWORKS_SRCS BibTeXFile.cpp
                   document/SpellCheckManager.cpp
                   document/TextDocument.cpp
                   document/TeXDocument.cpp
+                  languageservices/LanguageService.cpp
+                  languageservices/LanguageServiceDocumentBinding.cpp
+                  languageservices/LanguageServiceManager.cpp
+                  languageservices/LanguageServiceNavigation.cpp
+                  languageservices/lsp/JsonRpcTransport.cpp
+                  languageservices/lsp/LanguageServerProcess.cpp
+                  languageservices/lsp/LspLanguageService.cpp
                   scripting/ECMAScriptInterface.cpp
                   scripting/ECMAScript.cpp
                   scripting/ScriptAPI.cpp
@@ -64,6 +73,8 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   CitationSelectDialog.h
                   CompletingEdit.h
                   DefaultBinaryPaths.h
+                  DefaultFileFilters.h
+                  DefaultEngineList.h
                   DefaultPrefs.h
                   Engine.h
                   FindDialog.h
@@ -90,6 +101,15 @@ set(TEXWORKS_HDRS BibTeXFile.h
                   document/SpellCheckManager.h
                   document/TextDocument.h
                   document/TeXDocument.h
+                  languageservices/LanguageService.h
+                  languageservices/LanguageServiceDocumentBinding.h
+                  languageservices/LanguageServiceConfiguration.h
+                  languageservices/LanguageServiceManager.h
+                  languageservices/LanguageServiceNavigation.h
+                  languageservices/LanguageServiceTypes.h
+                  languageservices/lsp/JsonRpcTransport.h
+                  languageservices/lsp/LanguageServerProcess.h
+                  languageservices/lsp/LspLanguageService.h
                   scripting/ScriptAPIInterface.h
                   scripting/ScriptLanguageInterface.h
                   scripting/ScriptAPI.h
