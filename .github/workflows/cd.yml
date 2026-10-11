@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0 # fetch the entire history so we can create the changelog
 
@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Build
       run: DOCKER_BUILDKIT=1 docker build -f ./.github/workflows/Dockerfile.appimage-debian -o out .
@@ -88,7 +88,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Setup WSL
       uses: Vampire/setup-wsl@v7
@@ -186,7 +186,7 @@ jobs:
     runs-on: windows-11-arm
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
@@ -230,7 +230,7 @@ jobs:
         arch: ARM64
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: TeXworks-WindowsARM64
         path: ${{ steps.package.outputs.file }}
@@ -246,7 +246,7 @@ jobs:
       working-directory: win32
 
     - name: Upload installer artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: TeXworks-WindowsARM64-Setup
         path: win32/Output/*.exe
@@ -308,7 +308,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
       # Mono seems to provide some (potentially incompatible) headers that CMake
       # might pick up on instead of ours
