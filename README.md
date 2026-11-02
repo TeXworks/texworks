@@ -38,6 +38,8 @@ Getting Started
 
 TeXworks is a free and open-source software project. New users are encouraged to leverage this [guide](https://tug.org/texworks/#How_can_you_help), outlining the fundamental process of creating, formatting, and generating PDF documents from within TeXworks.
 
+For optional language-service configuration and use, see [Using language services](docs/language-services.md).
+
 Contribution
 -------------
 

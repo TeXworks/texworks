@@ -65,10 +65,31 @@ void PrefsDialog::init()
 	connect(toolAdd, &QToolButton::clicked, this, &PrefsDialog::addTool);
 	connect(toolRemove, &QToolButton::clicked, this, &PrefsDialog::removeTool);
 	connect(toolEdit, &QToolButton::clicked, this, [=]() { this->editTool(); });
+	connect(languageServicesEnabled, &QCheckBox::toggled,
+	        this, &PrefsDialog::updateLanguageServiceControls);
+	connect(browseLanguageServer, &QPushButton::clicked,
+	        this, &PrefsDialog::browseForLanguageServer);
 
 	connect(tabWidget, &QTabWidget::currentChanged, this, &PrefsDialog::changedTabPanel);
 
 	pathsChanged = toolsChanged = false;
+}
+
+void PrefsDialog::updateLanguageServiceControls(bool enabled)
+{
+	languageServerExecutableLabel->setEnabled(enabled);
+	languageServerExecutable->setEnabled(enabled);
+	browseLanguageServer->setEnabled(enabled);
+	languageServerArgumentsLabel->setEnabled(enabled);
+	languageServerArguments->setEnabled(enabled);
+}
+
+void PrefsDialog::browseForLanguageServer()
+{
+	const QString program = QFileDialog::getOpenFileName(this, tr("Select language server executable"),
+	                                                     languageServerExecutable->text());
+	if (!program.isEmpty())
+		languageServerExecutable->setText(QDir::toNativeSeparators(program));
 }
 
 void PrefsDialog::changedTabPanel(int index)
@@ -308,6 +329,9 @@ void PrefsDialog::restoreDefaults()
 			}
 			localePopup->setCurrentIndex(kDefault_Locale);
 			openPDFwithTeX->setChecked(kDefault_OpenPDFwithTeX);
+			languageServicesEnabled->setChecked(false);
+			languageServerExecutable->clear();
+			languageServerArguments->clear();
 			break;
 
 		case 1:
@@ -494,6 +518,22 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 
 	Tw::Settings settings;
 	// initialize controls based on the current settings
+	const Tw::LanguageServiceSettings languageServiceSettings = settings.languageServiceSettings();
+	dlg.languageServicesEnabled->setChecked(languageServiceSettings.enabled);
+	dlg.languageServerExecutable->setText(languageServiceSettings.executable);
+	dlg.languageServerArguments->setPlainText(languageServiceSettings.arguments.join(QChar::fromLatin1('\n')));
+	dlg.updateLanguageServiceControls(languageServiceSettings.enabled);
+	dlg.languageServiceStatus->setText(TWApp::instance()->languageServiceStatusText());
+	connect(&TWApp::instance()->languageServiceManager(),
+	        &Tw::LanguageServices::LanguageServiceManager::stateChanged, &dlg,
+	        [&dlg](Tw::LanguageServices::LanguageService::State) {
+		        dlg.languageServiceStatus->setText(TWApp::instance()->languageServiceStatusText());
+	        });
+	connect(&TWApp::instance()->languageServiceManager(),
+	        &Tw::LanguageServices::LanguageServiceManager::failed, &dlg,
+	        [&dlg](const QString &) {
+		        dlg.languageServiceStatus->setText(TWApp::instance()->languageServiceStatusText());
+	        });
 
 	// General
 	int oldIconSize = settings.value(QString::fromLatin1("toolBarIconSize"), kDefault_ToolBarIcons).toInt();
@@ -726,6 +766,19 @@ QDialog::DialogCode PrefsDialog::doPrefsDialog(QWidget *parent)
 		settings.setValue(QString::fromLatin1("launchOption"), launchOption);
 
 		settings.setValue(QString::fromLatin1("openPDFwithTeX"), dlg.openPDFwithTeX->isChecked());
+
+		Tw::LanguageServiceSettings newLanguageServiceSettings;
+		newLanguageServiceSettings.enabled = dlg.languageServicesEnabled->isChecked();
+		newLanguageServiceSettings.executable = dlg.languageServerExecutable->text();
+		const QString argumentsText = dlg.languageServerArguments->toPlainText();
+		if (!argumentsText.isEmpty()) {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+			newLanguageServiceSettings.arguments = argumentsText.split(QChar::fromLatin1('\n'), QString::KeepEmptyParts);
+#else
+			newLanguageServiceSettings.arguments = argumentsText.split(QChar::fromLatin1('\n'), Qt::KeepEmptyParts);
+#endif
+		}
+		TWApp::instance()->setLanguageServiceSettings(newLanguageServiceSettings);
 
 		if (dlg.localePopup->currentIndex() != oldLocaleIndex) {
 			switch (dlg.localePopup->currentIndex()) {

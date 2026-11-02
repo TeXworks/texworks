@@ -62,5 +62,29 @@ unsigned int TextDocument::removeTags(int offset, int len)
 	return removed;
 }
 
+QString TextDocument::canonicalText() const
+{
+#if QT_VERSION < QT_VERSION_CHECK(5, 9, 0)
+	return toPlainText();
+#else
+	QString text{toRawText()};
+	QChar * current = text.data();
+	QChar * end = current + text.size();
+	for (; current != end; ++current) {
+		switch (current->unicode()) {
+			case 0xfdd0:
+			case 0xfdd1:
+			case QChar::ParagraphSeparator:
+			case QChar::LineSeparator:
+				*current = QLatin1Char('\n');
+				break;
+			default:
+				break;
+		}
+	}
+	return text;
+#endif
+}
+
 } // namespace Document
 } // namespace Tw
