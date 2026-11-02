@@ -79,7 +79,7 @@ pkgs = dict([(p.name, p) for p in [
 	Package('lua', 'https://www.lua.org/ftp/', r'lua-[0-9.]+\.tar\.gz'),
 	Package('poppler', 'https://poppler.freedesktop.org/', r'poppler-[0-9.]+\.tar\.xz'),
 	Package('poppler-data', 'https://poppler.freedesktop.org/', r'poppler-data-[0-9.]+\.tar\.gz'),
-	Package('zlib', 'https://zlib.net/', r'zlib-[0-9.]+\.tar\.xz', 'https://github.com/madler/zlib/archive/refs/tags/v{}.tar.gz"'),
+	Package('zlib', 'https://zlib.net/', r'zlib-[0-9.]+\.tar\.xz', 'https://github.com/madler/zlib/archive/refs/tags/v{}.tar.gz'),
 ]])
 
 parser = argparse.ArgumentParser(description='Checks library versions of dependencies in various build scripts')
