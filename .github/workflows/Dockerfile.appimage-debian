@@ -1,28 +1,27 @@
 # NB: Don't use parallel builds (i.e., `make -j`) as that might require more RAM than is available on GitHub Actions, resulting in the run to hang and fail
 
-# Qt6 packages are built against glibc 2.28 [https://doc.qt.io/qt-6/supported-platforms.html#availability-of-packages]
-# This is the version bundled (among others) in Debian 10 [https://en.wikipedia.org/wiki/Glibc#Version_history]
+# Qt6 <= 6.9 packages are built against glibc 2.28 [https://doc.qt.io/archives/qt-6.9/supported-platforms.html#availability-of-packages]
+# Qt6 packages are built against glibc 2.34 [https://doc.qt.io/qt-6/supported-platforms.html#availability-of-packages]
 
-# Some linux distros featuring at least glibc 2.28 (see also https://repology.org/project/glibc/versions):
-# Debian 10+ [https://www.debian.org/releases/buster/amd64/release-notes/ch-whats-new.en.html#newdistro]
-# Fedora 29+ [https://fedoraproject.org/wiki/Changes/GLIBC228]
+# Some linux distros featuring at least glibc 2.34 (see also https://repology.org/project/glibc/versions):
+# Debian 11 bullseye
+# Ubuntu 22.04 jammy
+# openSUSE Leap 15.6
+# Fedora 39
 # Arch (rolling)
 # Gentoo (rolling)
-
-# Ubuntu 18.10+ [https://wiki.ubuntu.com/CosmicCuttlefish/ReleaseNotes#Toolchain_Upgrades_.2B2D3e4P4P-]
-# RHEL 8.0.0+ [https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/8.0_release_notes/rhel-8_0_0_release#platform-tools]
-# openSUSE 15.3+ [https://software.opensuse.org/package/glibc]
 
 # Poppler (25.01+) requires at least GCC-11
 
 FROM ubuntu:jammy AS build-stage
 
-ARG CMAKE_VERSION=4.4.2
+ARG CMAKE_VERSION=4.4.5
 ARG FONTCONFIG_VERSION=2.18.3
-ARG FREETYPE_VERSION=2-14-3
-ARG QT_VERSION=6.11.2
-ARG POPPLER_VERSION=26.08.0
-ARG HUNSPELL_VERSION=1.7.3
+ARG FREETYPE_VERSION=2-15-0
+ARG QT_VERSION=6.12.0
+ARG POPPLER_VERSION=26.11.0
+ARG HUNSPELL_VERSION=1.7.6
+ARG BROTLI_VERSION=1.2.1
 
 # file is required by appimagetool
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install --no-install-recommends --assume-yes \
@@ -37,13 +36,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install 
 	git \
 	gperf \
 	gsfonts \
-	libbrotli-dev \
 	libbz2-dev \
 	libcairo2-dev \
 	libdbus-1-dev \
 	libegl1-mesa-dev \
 	libgl-dev \
-	libharfbuzz-dev \
 	libjpeg-dev \
 	liblcms2-dev \
 	liblua5.3-dev \
@@ -126,6 +123,17 @@ RUN \
 	make && \
 	make install
 
+# Build Brotli
+RUN \
+	cd /opt && \
+	wget -O brotli-${BROTLI_VERSION}.tar.gz https://github.com/google/brotli/archive/refs/tags/v${BROTLI_VERSION}.tar.gz && \
+	tar -xf brotli-${BROTLI_VERSION}.tar.gz && \
+	mkdir brotli-${BROTLI_VERSION}/build && \
+	cd brotli-${BROTLI_VERSION}/build && \
+	${CMAKE} .. && \
+	make && \
+	make install
+
 # Build Poppler without the following libraries which are not needed by TeXworks
 # and are not easily available (in a recent enough version) from the package
 # manager):
@@ -141,7 +149,7 @@ RUN \
 	tar -xf poppler-${POPPLER_VERSION}.tar.xz && \
 	mkdir poppler-${POPPLER_VERSION}/build && \
 	cd poppler-${POPPLER_VERSION}/build && \
-	${CMAKE} .. -DCMAKE_PREFIX_PATH=/opt/qt/${QT_VERSION}/gcc_64/lib/cmake/ -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_BOOST=OFF -DENABLE_NSS3=OFF -DENABLE_GPGME=OFF -DENABLE_QT5=OFF -DENABLE_LIBCURL=OFF -DENABLE_LIBTIFF=OFF -DENABLE_LIBPNG=OFF && \
+	${CMAKE} .. -DCMAKE_PREFIX_PATH=/opt/qt/${QT_VERSION}/gcc_64/lib/cmake/ -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_BOOST=OFF -DENABLE_NSS3=OFF -DENABLE_GPGME=OFF -DENABLE_QT5=OFF -DENABLE_LIBCURL=OFF -DENABLE_HARFBUZZ=OFF -DENABLE_LIBTIFF=OFF -DENABLE_LIBPNG=OFF && \
 	make && \
 	make install
 

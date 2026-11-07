@@ -3,12 +3,12 @@
 PKG             := poppler
 $(PKG)_WEBSITE  := https://poppler.freedesktop.org/
 $(PKG)_IGNORE   :=
-$(PKG)_VERSION  := 26.01.0
-$(PKG)_CHECKSUM := 1cb944a4b88847f5fb6551683bc799db59f04990f5d8be07aba2acbf38601089
+$(PKG)_VERSION  := 26.11.0
+$(PKG)_CHECKSUM := 41c32680160addf5a8dd7a830e4869c01e9f6bee1abb91e44fabd1ba9d7828fb
 $(PKG)_SUBDIR   := poppler-$($(PKG)_VERSION)
 $(PKG)_FILE     := poppler-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://poppler.freedesktop.org/$($(PKG)_FILE)
-$(PKG)_DEPS     := cc boost cairo curl freetype glib jpeg lcms libpng libwebp openjpeg tiff zlib
+$(PKG)_DEPS     := cc boost brotli cairo curl freetype glib jpeg lcms libpng libwebp openjpeg tiff zlib
 
 define $(PKG)_UPDATE
     $(call GET_LATEST_VERSION, https://poppler.freedesktop.org/releases.html, poppler-)
@@ -28,18 +28,22 @@ define $(PKG)_BUILD_COMMON
         -DENABLE_CPP=@build_with_cpp@ \
         -DENABLE_GLIB=@build_with_glib@ \
         -DENABLE_GOBJECT_INTROSPECTION=OFF \
+        -DENABLE_GPGME=OFF \
         -DENABLE_GTK_DOC=OFF \
+        -DENABLE_NSS3=OFF \
         -DENABLE_QT5=@build_with_qt5@ \
+        -DQt6Core_DIR='$(PREFIX)/$(TARGET)/qt6/lib/cmake/Qt6Core' \
+        -DQt6Gui_DIR='$(PREFIX)/$(TARGET)/qt6/lib/cmake/Qt6Gui' \
+        -DQt6Widgets_DIR='$(PREFIX)/$(TARGET)/qt6/lib/cmake/Qt6Widgets' \
+        -DQt6Test_DIR='$(PREFIX)/$(TARGET)/qt6/lib/cmake/Qt6Test' \
         -DENABLE_QT6=@build_with_qt6@ \
         -DENABLE_LIBOPENJPEG=openjpeg2 \
-        -DENABLE_LCMS=ON \
+        -DENABLE_CMS=lcms2 \
         -DENABLE_DCTDECODER=libjpeg \
         -DENABLE_LIBCURL=ON \
-        -DENABLE_LIBTIFF=ON \
-        -DENABLE_NSS3=OFF \
-        -DENABLE_GPGME=OFF \
         -DENABLE_ZLIB=ON \
         -DENABLE_ZLIB_UNCOMPRESS=OFF \
+        -DENABLE_BROTLI=ON \
         -DSPLASH_CMYK=ON \
         -DUSE_FIXEDPOINT=OFF \
         -DUSE_FLOAT=OFF \
