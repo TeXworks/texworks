@@ -12,9 +12,9 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 1111111..2222222 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -88,7 +88,7 @@ option(BUILD_SHARED_LIBS "Build poppler as a shared library" ON)
- option(RUN_GPERF_IF_PRESENT "Run gperf if it is found" ON)
+@@ -89,7 +89,7 @@ option(RUN_GPERF_IF_PRESENT "Run gperf if it is found" ON)
  option(INSTALL_GLIB_DEMO "Whether to install the poppler-glib-demo program." OFF)
+ option(ENABLE_HARFBUZZ "Build with support for font subsetting (uses Harfbuzz)" ON)
  if(WIN32)
 -  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ON)
 +  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ${BUILD_SHARED_LIBS})
@@ -23,22 +23,23 @@ index 1111111..2222222 100644
  endif()
 
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Stefan=20L=C3=B6ffler?= <st.loeffler@gmail.com>
-Date: Thu, 4 Feb 2021 20:44:30 +0100
-Subject: [PATCH 2/2] Fix static linking for libopenjpeg >= 2.4
+From: brodieG <brodieG@users.noreply.github.com>
+Date: Sat, 5 Nov 2022 14:08:43 +0000
+Subject: [PATCH 2/2] Allow setting PC requires for C Lib
 
+POPPLER_REQUIRES should be set through the .mk file, although
+ideally this would all be done through the cmake files (and
+even better POPPLER would be configured for EXPORT).
 
-diff --git a/CMakeLists.txt b/CMakeLists.txt
+diff --git a/poppler.pc.cmake b/poppler.pc.cmake
 index 1111111..2222222 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -326,6 +326,9 @@ else()
-   message(FATAL_ERROR "Invalid ENABLE_LIBOPENJPEG value: ${ENABLE_LIBOPENJPEG}")
- endif()
- set(ENABLE_LIBOPENJPEG "${WITH_OPENJPEG}")
-+if(ENABLE_LIBOPENJPEG AND NOT BUILD_SHARED_LIBS)
-+  add_definitions(-DOPJ_STATIC)
-+endif()
+--- a/poppler.pc.cmake
++++ b/poppler.pc.cmake
+@@ -7,6 +7,7 @@ Description: PDF rendering library
+ Version: @POPPLER_VERSION@
+ Requires.private: @PC_REQUIRES_PRIVATE@
  
- find_soft_mandatory_package(ENABLE_LCMS LCMS2 ${LCMS2_REQUIRED_VERSION})
- set(USE_CMS ${ENABLE_LCMS})
++Requires.private: @POPPLER_REQUIRES@
+ Libs: -L${libdir} -lpoppler
+ Libs.private: @PC_LIBS_PRIVATE@
+ Cflags: -I${includedir}/poppler

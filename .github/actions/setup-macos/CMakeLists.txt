@@ -41,18 +41,25 @@ endmacro(ADD_GH_GROUP)
 
 
 ExternalProject_Add(libpng
-	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.58.tar.gz"
-	URL_HASH SHA256=a9d4df463d36a6e5f9c29bd6f4967312d17e996c1854f3511f833924eb1993cf
+	URL "https://github.com/glennrp/libpng/archive/refs/tags/v1.6.59.tar.gz"
+	URL_HASH SHA256=2540302a1844ad2b2b501977abecfa850f265f97b78f065a712ab4074a89f5b5
 	CMAKE_ARGS ${CMAKE_ARGS} -DPNG_FRAMEWORK=OFF
 )
 ADD_GH_GROUP(libpng)
 
+ExternalProject_Add(brotli
+	URL "https://github.com/google/brotli/archive/refs/tags/v1.2.1.tar.gz"
+	URL_HASH SHA256=98d35d11a78dc453aebb7d10c3748f3f73ff78c8267c0dc697b8631f67bf7e8f
+	CMAKE_ARGS ${CMAKE_ARGS}
+)
+ADD_GH_GROUP(brotli)
+
 # TODO: harfbuzz?
 ExternalProject_Add(freetype
-	URL "https://github.com/freetype/freetype/archive/refs/tags/VER-2-14-3.tar.gz"
-	URL_HASH SHA256=dc49de6b01a266eef4876a4dd34d9842c475d3e28ff2eff63bd2fb760ab56261
+	URL "https://github.com/freetype/freetype/archive/refs/tags/VER-2-15-0.tar.gz"
+	URL_HASH SHA256=87c7f1f8699b91e89f773f7dcfa505b044e1dae67f62a55d4e29c3afdcac4fb8
 	CMAKE_ARGS ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=TRUE
-	DEPENDS libpng
+	DEPENDS libpng brotli
 )
 ADD_GH_GROUP(freetype)
 
@@ -69,10 +76,9 @@ ADD_GH_GROUP(gettext)
 # Need to specify CXX as apparently that is used somewhere down the line for
 # linking (!) but without getting passed the necessary flags
 ExternalProject_Add(hunspell
-	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.3.tar.gz"
-	URL_HASH SHA256=933be3dac6fd55f6e752331a170efb7e33800e40fae1156d8434cc8c85379a1b
-	CONFIGURE_COMMAND autoreconf -vfi && env -S "CXX=\"g++ ${ARCH_FLAGS}\" ${CONFIGURE_ENV} LDFLAGS=\"-L${CMAKE_INSTALL_PREFIX}/lib ${ARCH_FLAGS}\" CPPFLAGS=-I${CMAKE_INSTALL_PREFIX}/include" ./configure ${CONFIGURE_ARGS}
-	BUILD_IN_SOURCE TRUE
+	URL "https://github.com/hunspell/hunspell/archive/refs/tags/v1.7.6.tar.gz"
+	URL_HASH SHA256=4fa9c52a5337fb0a3e03f3212b6372d0159eac3d1a3e6e938e8897ff3d9c3d0c
+	CMAKE_ARGS ${CMAKE_ARGS}
 	DEPENDS gettext
 )
 ADD_GH_GROUP(hunspell)
@@ -116,8 +122,8 @@ ExternalProject_Add(libopenjpeg
 ADD_GH_GROUP(libopenjpeg)
 
 ExternalProject_Add(lcms2
-	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.19.1.tar.gz"
-	URL_HASH SHA256=267705e278e2f7c2fb886c259dadcbaeb2be52748bcbc71c79f08aacacb7a709
+	URL "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.20.tar.gz"
+	URL_HASH SHA256=49908a4492fe7fc886517d636474bd953ebe698d38ecd3ee5862dfa308dd43ae
 	CONFIGURE_COMMAND env -S "${CONFIGURE_ENV}" ./configure ${CONFIGURE_ARGS} "--with-tiff=${CMAKE_INSTALL_PREFIX}" "--with-jpeg=${CMAKE_INSTALL_PREFIX}"
 	BUILD_IN_SOURCE TRUE
 	DEPENDS libtiff libjpeg
@@ -135,10 +141,10 @@ ExternalProject_Add(poppler
 )
 else ()
 ExternalProject_Add(poppler
-	URL "https://poppler.freedesktop.org/poppler-26.08.0.tar.xz"
-	URL_HASH SHA256=dc906e68cea698109706ac6aa3d2c9d4512fcfcac42d90b8afcda486d1b9abd0
+	URL "https://poppler.freedesktop.org/poppler-26.11.0.tar.xz"
+	URL_HASH SHA256=41c32680160addf5a8dd7a830e4869c01e9f6bee1abb91e44fabd1ba9d7828fb
 	CMAKE_ARGS ${CMAKE_ARGS} -DENABLE_BOOST=OFF -DENABLE_CPP=OFF -DENABLE_GLIB=OFF -DENABLE_UTILS=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DRUN_GPERF_IF_PRESENT=OFF -DENABLE_QT5=OFF -DBUILD_MANUAL_TESTS=OFF -DBUILD_QT5_TESTS=OFF -DENABLE_NSS3=OFF -DENABLE_GPGME=OFF -DENABLE_LIBCURL=OFF -DENABLE_LIBTIFF=OFF -DENABLE_LIBPNG=OFF
-	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg
+	DEPENDS fontconfig freetype lcms2 libjpeg libopenjpeg brotli
 )
 endif ()
 ADD_GH_GROUP(poppler)

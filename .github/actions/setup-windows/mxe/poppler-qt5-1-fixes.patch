@@ -12,9 +12,9 @@ diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 1111111..2222222 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -88,7 +88,7 @@ option(BUILD_SHARED_LIBS "Build poppler as a shared library" ON)
- option(RUN_GPERF_IF_PRESENT "Run gperf if it is found" ON)
+@@ -93,7 +93,7 @@ option(RUN_GPERF_IF_PRESENT "Run gperf if it is found" ON)
  option(INSTALL_GLIB_DEMO "Whether to install the poppler-glib-demo program." OFF)
+ option(ENABLE_HARFBUZZ "Build with support for font subsetting (uses Harfbuzz)" ON)
  if(WIN32)
 -  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ON)
 +  option(ENABLE_RELOCATABLE "Do not hardcode the poppler library location (on Windows)." ${BUILD_SHARED_LIBS})

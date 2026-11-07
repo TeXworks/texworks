@@ -67,6 +67,7 @@ class GitlabPackage(Package):
 
 # Define all packages used by TeXworks (on Windows and/or macOS)
 pkgs = dict([(p.name, p) for p in [
+	GithubPackage('brotli', 'google/brotli'),
 	GitlabPackage('fontconfig', 'https://gitlab.freedesktop.org', 'fontconfig', 'fontconfig'),
 	Package('freetype', 'https://download.savannah.gnu.org/releases/freetype/', r'freetype-[0-9.]+\.tar\.xz', lambda v: 'https://github.com/freetype/freetype/archive/refs/tags/VER-{}.tar.gz'.format(v.replace('.', '-'))),
 	Package('gettext', 'https://ftp.gnu.org/gnu/gettext/', r'gettext-[0-9.]+\.tar\.xz'),
