@@ -172,6 +172,7 @@ jobs:
     - name: Debug Test
       working-directory: modules/QtPDF/unit-tests
       run: |
+        dumpbin /DEPENDENTS ../../../build/Release/test_poppler-qt6.exe
         ../../../build/Release/test_poppler-qt6.exe
 
     - name: Test
