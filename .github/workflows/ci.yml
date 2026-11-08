@@ -169,6 +169,9 @@ jobs:
         cd "${{ runner.workspace }}/tw-deps/bin"
         cmake -E copy freetype.dll lcms2.dll hunspell-1.7.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt6.dll tiff.dll libz.dll "${{ github.workspace }}/build/Release/"
 
+    - name: Install Dumpbin
+      uses: lorenalexm/install-dumpbin-action@main
+
     - name: Debug Test
       working-directory: modules/QtPDF/unit-tests
       run: |
