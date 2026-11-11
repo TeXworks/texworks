@@ -175,15 +175,17 @@ jobs:
         cmake -E copy freetype.dll lcms2.dll hunspell-1.7.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt6.dll tiff.dll libz.dll "${{ github.workspace }}/build/Release/"
 
     - name: Debug Test
-      working-directory: build
+      working-directory: build/Release
       run: |
         dir
 
     - name: Upload debug
       uses: actions/upload-artifact@v7
       with:
-        name: TeXworks-ARM-test_debug
-        path: build/Release/test_*.exe
+        name: TeXworks-${{ matrix.arch }}-test_debug
+        path: |
+          build/Release/test_*.exe
+          build/Release/*.dll
 
 
     - name: Debug Test Scripting
