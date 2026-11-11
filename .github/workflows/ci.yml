@@ -204,6 +204,14 @@ jobs:
       env:
         QT_FORCE_STDERR_LOGGING: 1
 
+    - name: Debug failure with upterm
+      if: ${{ failure() }}
+      uses: owenthereal/action-upterm@v2
+      with:
+        limit-access-to-actor: true
+        full-access: true
+        wait-timeout-minutes: 15
+
 ################################################################################
 
   macosx-homebrew:
