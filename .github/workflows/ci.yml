@@ -196,7 +196,7 @@ jobs:
     - name: Debug Test poppler
       working-directory: modules/QtPDF/unit-tests
       run: |
-        ../../../build/Release/test_poppler-qt6.exe
+        ../../../build/Release/test_poppler-qt6.exe -nocrashhandler
 
     - name: Test
       run: ctest -V -C Release
