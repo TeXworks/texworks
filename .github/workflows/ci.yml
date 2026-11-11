@@ -6,6 +6,11 @@ on:
 
 permissions: {}
 
+env:
+  # Make Qt output always go to stderr rather than a syslog [https://stackoverflow.com/a/26325743]
+  # (especially on Windows; requires Qt >= 5.11)
+  QT_FORCE_STDERR_LOGGING: 1
+
 jobs:
   build-linux-legacy:
     name: Linux (legacy)
