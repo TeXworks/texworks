@@ -172,7 +172,7 @@ jobs:
       run: |
         cmake -E copy_directory build/share build/Release/share
         cd "${{ runner.workspace }}/tw-deps/bin"
-        cmake -E copy freetype.dll lcms2.dll hunspell-1.7.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt6.dll tiff.dll libz.dll "${{ github.workspace }}/build/Release/"
+        cmake -E copy brotlidec.dll freetype.dll lcms2.dll hunspell-1.7.dll libpng16.dll lua.dll openjp2.dll poppler.dll poppler-qt6.dll tiff.dll libz.dll "${{ github.workspace }}/build/Release/"
 
     - name: Debug Test
       working-directory: build/Release
