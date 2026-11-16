@@ -22,6 +22,7 @@
 #include "TWApp.h"
 
 #include "DefaultBinaryPaths.h"
+#include "DefaultEngineList.h"
 #include "DefaultPrefs.h"
 #include "PDFDocumentWindow.h"
 #include "PrefsDialog.h"
@@ -31,6 +32,8 @@
 #include "TeXDocumentWindow.h"
 #include "TemplateDialog.h"
 #include "document/SpellCheckManager.h"
+#include "languageservices/LanguageServiceConfiguration.h"
+#include "languageservices/lsp/LspLanguageService.h"
 #include "scripting/ScriptAPI.h"
 #include "utils/CommandlineParser.h"
 #include "utils/IniConfig.h"
@@ -51,6 +54,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QStatusBar>
 #include <QString>
 #include <QStringList>
 #include <QTextCodec>
@@ -136,6 +140,7 @@ TWApp::TWApp(int &argc, char **argv)
 
 TWApp::~TWApp()
 {
+	m_languageServiceManager.stop();
 	if (scriptManager) {
 		scriptManager->saveDisabledList();
 		delete scriptManager;
@@ -165,7 +170,19 @@ void TWApp::init()
 	theAppInstance = this;
 
 	Tw::Settings settings;
-
+	connect(&m_languageServiceManager, &Tw::LanguageServices::LanguageServiceManager::failed,
+	        this, [this](const QString & reason) {
+		        m_languageServiceNotice = tr("Language server unavailable: %1").arg(reason);
+		        m_languageServiceNoticeShown = false;
+		        showPendingLanguageServiceNotice();
+	        });
+	connect(&m_languageServiceManager, &Tw::LanguageServices::LanguageServiceManager::stateChanged,
+	        this, [this](Tw::LanguageServices::LanguageService::State state) {
+		        if (state == Tw::LanguageServices::LanguageService::Ready) {
+			        m_languageServiceNotice.clear();
+			        m_languageServiceNoticeShown = false;
+		        }
+	        });
 	QString locale = settings.value(QString::fromLatin1("locale"), QLocale::system().name()).toString();
 	applyTranslation(locale);
 
@@ -181,6 +198,7 @@ void TWApp::init()
 	TWUtils::readConfig();
 
 	scriptManager = new TWScriptManager;
+	applyLanguageServiceSettings(settings.languageServiceSettings());
 
 	connect(this, &QGuiApplication::focusObjectChanged, this, [=](QObject * focusObj) {
 		QWidget * widget = qobject_cast<QWidget*>(focusObj);
@@ -1099,22 +1117,10 @@ void TWApp::setDefaultEngineList()
 		engineList = std::unique_ptr< QList<Engine> >(new QList<Engine>);
 	else
 		engineList->clear();
-	*engineList
-//		<< Engine("LaTeXmk", "latexmk" EXE, QStringList("-e") <<
-//				  "$pdflatex=q/pdflatex -synctex=1 %O %S/" << "-pdf" << "$fullname", true)
-	    << Engine(QString::fromLatin1("pdfTeX"), QString::fromLatin1("pdftex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("pdfLaTeX"), QString::fromLatin1("pdflatex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("LuaTeX"), QString::fromLatin1("luatex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("LuaLaTeX"), QString::fromLatin1("lualatex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("XeTeX"), QString::fromLatin1("xetex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("XeLaTeX"), QString::fromLatin1("xelatex" EXE), QStringList(QString::fromLatin1("$synctexoption")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("ConTeXt (LuaMetaTeX)"), QString::fromLatin1("context" EXE), QStringList(QString::fromLatin1("--synctex=repeat")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("ConTeXt (LuaTeX)"), QString::fromLatin1("context" EXE), QStringList(QString::fromLatin1("--synctex=repeat")) << QString::fromLatin1("--luatex") << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("ConTeXt (pdfTeX)"), QString::fromLatin1("texexec" EXE), QStringList(QString::fromLatin1("--synctex")) << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("ConTeXt (XeTeX)"), QString::fromLatin1("texexec" EXE), QStringList(QString::fromLatin1("--synctex")) << QString::fromLatin1("--xtx") << QString::fromLatin1("$fullname"), true)
-	    << Engine(QString::fromLatin1("BibTeX"), QString::fromLatin1("bibtex" EXE), QStringList(QString::fromLatin1("$basename")), false)
-	    << Engine(QString::fromLatin1("Biber"), QString::fromLatin1("biber" EXE), QStringList(QString::fromLatin1("$basename")), false)
-	    << Engine(QString::fromLatin1("MakeIndex"), QString::fromLatin1("makeindex" EXE), QStringList(QString::fromLatin1("$basename")), false);
+	for (const Tw::DefaultEngineList::Definition & definition : Tw::DefaultEngineList::definitions()) {
+		engineList->append(Engine(definition.name, definition.program, definition.arguments,
+		                          definition.showPdf, definition.sourceLanguage));
+	}
 	defaultEngineIndex = 1;
 }
 
@@ -1135,6 +1141,18 @@ const QList<Engine> TWApp::getEngineList()
 				eng.setProgram(toolsSettings.value(QString::fromLatin1("program")).toString());
 				eng.setArguments(toolsSettings.value(QString::fromLatin1("arguments")).toStringList());
 				eng.setShowPdf(toolsSettings.value(QString::fromLatin1("showPdf")).toBool());
+				eng.setSourceLanguage(toolsSettings.value(QString::fromLatin1("language")).toString());
+				if (!toolsSettings.contains(QString::fromLatin1("language"))) {
+					for (const Tw::DefaultEngineList::Definition & definition : Tw::DefaultEngineList::definitions()) {
+						if (eng.name() == definition.name && eng.program() == definition.program
+						    && eng.arguments() == definition.arguments && eng.showPdf() == definition.showPdf) {
+							eng.setSourceLanguage(definition.sourceLanguage);
+							if (!definition.sourceLanguage.isEmpty())
+								toolsSettings.setValue(QString::fromLatin1("language"), definition.sourceLanguage);
+							break;
+						}
+					}
+				}
 				engineList->append(eng);
 				toolsSettings.endGroup();
 			}
@@ -1161,6 +1179,8 @@ void TWApp::saveEngineList()
 		toolsSettings.setValue(QString::fromLatin1("program"), e.program());
 		toolsSettings.setValue(QString::fromLatin1("arguments"), e.arguments());
 		toolsSettings.setValue(QString::fromLatin1("showPdf"), e.showPdf());
+		if (!e.sourceLanguage().isEmpty())
+			toolsSettings.setValue(QString::fromLatin1("language"), e.sourceLanguage());
 		toolsSettings.endGroup();
 	}
 }
@@ -1245,6 +1265,85 @@ void TWApp::setDefaultCodec(QTextCodec *codec)
 void TWApp::activatedWindow(QWidget* theWindow)
 {
 	emit hideFloatersExcept(theWindow);
+	showPendingLanguageServiceNotice(theWindow);
+}
+
+Tw::LanguageServiceSettings TWApp::languageServiceSettings() const
+{
+	return Tw::Settings{}.languageServiceSettings();
+}
+
+void TWApp::setLanguageServiceSettings(const Tw::LanguageServiceSettings & settings)
+{
+	Tw::Settings persistentSettings;
+	const Tw::LanguageServiceSettings previous = persistentSettings.languageServiceSettings();
+	persistentSettings.setLanguageServiceSettings(settings);
+	if (settings != previous)
+		applyLanguageServiceSettings(settings);
+}
+
+void TWApp::applyLanguageServiceSettings(const Tw::LanguageServiceSettings & settings)
+{
+	if (!settings.enabled) {
+		m_languageServiceNotice.clear();
+		m_languageServiceNoticeShown = false;
+		m_languageServiceManager.replaceService(nullptr);
+		return;
+	}
+	if (settings.executable.trimmed().isEmpty()) {
+		m_languageServiceNotice = tr("Language services are enabled, but no language server is configured.");
+		m_languageServiceNoticeShown = false;
+		m_languageServiceManager.replaceService(nullptr);
+		showPendingLanguageServiceNotice();
+		return;
+	}
+
+	m_languageServiceNotice.clear();
+	m_languageServiceNoticeShown = false;
+	Tw::LanguageServices::LanguageServiceConfiguration configuration;
+	configuration.executable = settings.executable;
+	configuration.arguments = settings.arguments;
+	auto * service = new Tw::LanguageServices::Lsp::LspLanguageService(configuration);
+	m_languageServiceManager.replaceService(service, QStringList{QStringLiteral("context")});
+}
+
+QString TWApp::languageServiceStatusText() const
+{
+	const Tw::LanguageServiceSettings settings = languageServiceSettings();
+	if (!settings.enabled)
+		return tr("Language services are disabled.");
+	if (settings.executable.trimmed().isEmpty())
+		return tr("Choose a language server executable to use language services.");
+	using State = Tw::LanguageServices::LanguageService::State;
+	switch (m_languageServiceManager.state()) {
+		case State::Starting:
+		case State::Initializing:
+			return tr("Language server is starting.");
+		case State::Ready:
+			return tr("Language server is available.");
+		case State::Stopping:
+			return tr("Language server is stopping.");
+		case State::Failed:
+			return tr("Language server unavailable: %1").arg(
+			           m_languageServiceManager.service()->failureReason());
+		case State::NotConfigured:
+		case State::Stopped:
+		default:
+			return tr("Language server is not running.");
+	}
+}
+
+void TWApp::showPendingLanguageServiceNotice(QWidget * window)
+{
+	if (m_languageServiceNotice.isEmpty() || m_languageServiceNoticeShown)
+		return;
+	TeXDocumentWindow * sourceWindow = qobject_cast<TeXDocumentWindow *>(window);
+	if (!sourceWindow)
+		sourceWindow = qobject_cast<TeXDocumentWindow *>(topTeXWindow());
+	if (!sourceWindow)
+		return;
+	sourceWindow->statusBar()->showMessage(m_languageServiceNotice, 10000);
+	m_languageServiceNoticeShown = true;
 }
 
 // static
@@ -1586,4 +1685,3 @@ void TWApp::reloadSpellchecker()
 		it.key()->setSpellcheckLanguage(it.value());
 	}
 }
-

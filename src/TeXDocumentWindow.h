@@ -26,6 +26,7 @@
 #include "FindDialog.h"
 #include "TWScriptableWindow.h"
 #include "document/TeXDocument.h"
+#include "languageservices/LanguageServiceTypes.h"
 #include "ui_TeXDocumentWindow.h"
 
 #include <QDateTime>
@@ -80,6 +81,7 @@ public:
 		}
 	static TeXDocumentWindow *openDocument(const QString &fileName, bool activate = true, bool raiseWindow = true,
 									 int lineNo = 0, int selStart = -1, int selEnd = -1);
+	static TeXDocumentWindow *openDocumentAtRange(const Tw::LanguageServices::LanguageLocation & location);
 
 	TeXDocumentWindow *open(const QString &fileName);
 	void makeUntitled();
@@ -108,6 +110,7 @@ public:
 		{ return pdfDoc; }
 
 	void goToLine(int lineNo, int selStart = -1, int selEnd = -1);
+	bool goToRange(const Tw::LanguageServices::LanguageRange & range);
 	void goToTag(int index);
 
 	bool isModified() const { return textEdit->document()->isModified(); }
@@ -163,6 +166,7 @@ public slots:
 	void doLineDialog();
 	void doFindDialog();
 	void doFindAgain(bool fromDialog = false);
+	void goToDefinition();
 	void doReplaceDialog();
 	void doReplaceAgain();
 	void doIndent();
@@ -224,6 +228,9 @@ private slots:
 	void encodingLabelClick(QMouseEvent * event) { encodingPopup(event->pos()); }
 	void anchorClicked(const QUrl& url);
 	void delayedInit();
+	void updateDefinitionAction();
+	void handleDefinitionResult(Tw::Document::TeXDocument * document,
+	                            const QList<Tw::LanguageServices::LanguageLocation> & locations);
 
 private:
 	void init();
@@ -231,8 +238,9 @@ private:
 	void detachPdf();
 	bool saveFilesHavingRoot(const QString& aRootFile);
 	void clearFileWatcher();
-	QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
-	QString readFile(const QFileInfo & fileInfo, QTextCodec **codecUsed, int *lineEndings = nullptr, QTextCodec * forceCodec = nullptr);
+	static QTextCodec *scanForEncoding(const QString &peekStr, bool &hasMetadata, QString &reqName);
+	static QString readFile(const QFileInfo & fileInfo, QTextCodec **codecUsed, int *lineEndings = nullptr, QTextCodec * forceCodec = nullptr, bool *utf8BOM = nullptr, QWidget *parent = nullptr);
+	static bool rangeIsValidInFile(const QFileInfo &fileInfo, const Tw::LanguageServices::LanguageRange &range);
 	void loadFile(const QFileInfo & fileInfo, bool asTemplate = false, bool inBackground = false, bool reload = false, QTextCodec * forceCodec = nullptr);
 	bool saveFile(const QFileInfo & fileInfo);
 	void setCurrentFile(const QFileInfo & fileInfo);

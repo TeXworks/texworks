@@ -8,6 +8,28 @@ target_compile_options(test_BibTeXFile PRIVATE ${WARNING_OPTIONS})
 target_link_libraries(test_BibTeXFile ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_BibTeXFile COMMAND test_BibTeXFile WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
+# DefaultFileFilters
+add_executable(test_DefaultFileFilters
+	DefaultFileFilters_test.cpp
+	DefaultFileFilters_test.h
+	"${CMAKE_SOURCE_DIR}/src/DefaultFileFilters.cpp"
+	"${CMAKE_SOURCE_DIR}/src/DefaultFileFilters.h"
+)
+target_compile_options(test_DefaultFileFilters PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_DefaultFileFilters ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_test(NAME test_DefaultFileFilters COMMAND test_DefaultFileFilters)
+
+# DefaultEngineList
+add_executable(test_DefaultEngineList
+	DefaultEngineList_test.cpp
+	DefaultEngineList_test.h
+	"${CMAKE_SOURCE_DIR}/src/DefaultEngineList.cpp"
+	"${CMAKE_SOURCE_DIR}/src/DefaultEngineList.h"
+)
+target_compile_options(test_DefaultEngineList PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_DefaultEngineList ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_test(NAME test_DefaultEngineList COMMAND test_DefaultEngineList)
+
 # Scripting
 add_executable(test_Scripting
 	Scripting_test.cpp
@@ -49,6 +71,108 @@ ENDIF ()
 add_executable(byte_echo_test byte_echo_test.cpp)
 target_compile_options(byte_echo_test PRIVATE ${WARNING_OPTIONS})
 
+# Language-server transport
+add_executable(language_server_fake language_server_fake.cpp)
+target_compile_options(language_server_fake PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(language_server_fake ${QT_LIBRARIES})
+
+add_executable(test_LanguageServerTransport
+	LanguageServerTransport_test.cpp
+	LanguageServerTransport_test.h
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/JsonRpcTransport.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/JsonRpcTransport.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LanguageServerProcess.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LanguageServerProcess.h"
+)
+target_compile_options(test_LanguageServerTransport PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_LanguageServerTransport ${QT_LIBRARIES})
+add_dependencies(test_LanguageServerTransport language_server_fake)
+add_test(NAME test_LanguageServerTransport COMMAND test_LanguageServerTransport)
+
+# Provider-neutral language-service session and LSP adapter
+add_executable(test_LanguageServiceSession
+	LanguageServiceSession_test.cpp
+	LanguageServiceSession_test.h
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageService.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageService.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceDocumentBinding.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceDocumentBinding.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceConfiguration.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceManager.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceManager.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceTypes.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/JsonRpcTransport.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/JsonRpcTransport.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LanguageServerProcess.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LanguageServerProcess.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LspLanguageService.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/lsp/LspLanguageService.h"
+	"${CMAKE_SOURCE_DIR}/src/document/TextDocument.cpp"
+	"${CMAKE_SOURCE_DIR}/src/document/TextDocument.h"
+	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.cpp"
+	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.h"
+	"${CMAKE_SOURCE_DIR}/src/TeXHighlighter.h"
+	LanguageServiceDocument_test_support.cpp
+)
+target_compile_options(test_LanguageServiceSession PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_LanguageServiceSession ${QT_LIBRARIES})
+add_dependencies(test_LanguageServiceSession language_server_fake)
+add_test(NAME test_LanguageServiceSession COMMAND test_LanguageServiceSession)
+
+# Provider-neutral document lifecycle and synchronization
+add_executable(test_LanguageServiceDocument
+	LanguageServiceDocument_test.cpp
+	LanguageServiceDocument_test.h
+	LanguageServiceDocument_test_support.cpp
+	"${CMAKE_SOURCE_DIR}/src/document/TextDocument.cpp"
+	"${CMAKE_SOURCE_DIR}/src/document/TextDocument.h"
+	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.cpp"
+	"${CMAKE_SOURCE_DIR}/src/document/TeXDocument.h"
+	"${CMAKE_SOURCE_DIR}/src/TeXHighlighter.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageService.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageService.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceDocumentBinding.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceDocumentBinding.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceManager.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceManager.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceNavigation.cpp"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceNavigation.h"
+	"${CMAKE_SOURCE_DIR}/src/languageservices/LanguageServiceTypes.h"
+)
+target_compile_options(test_LanguageServiceDocument PRIVATE ${WARNING_OPTIONS})
+target_link_libraries(test_LanguageServiceDocument ${QT_LIBRARIES})
+add_test(NAME test_LanguageServiceDocument COMMAND test_LanguageServiceDocument)
+
+# Go-to-definition source-window action and navigation integration
+get_target_property(TEXWORKS_WINDOW_TEST_SOURCES TeXworks SOURCES)
+set(TEXWORKS_WINDOW_TEST_SOURCE_DIR "${PROJECT_SOURCE_DIR}/src")
+set(TEXWORKS_WINDOW_TEST_BINARY_DIR "${PROJECT_BINARY_DIR}/src")
+set(TEXWORKS_WINDOW_TEST_RESOLVED_SOURCES)
+foreach(source ${TEXWORKS_WINDOW_TEST_SOURCES})
+	if (IS_ABSOLUTE "${source}")
+		set(resolved_source "${source}")
+	elseif (EXISTS "${TEXWORKS_WINDOW_TEST_SOURCE_DIR}/${source}")
+		set(resolved_source "${TEXWORKS_WINDOW_TEST_SOURCE_DIR}/${source}")
+	else()
+		set(resolved_source "${TEXWORKS_WINDOW_TEST_BINARY_DIR}/${source}")
+	endif()
+	if (NOT resolved_source MATCHES "/main\\.cpp$")
+		list(APPEND TEXWORKS_WINDOW_TEST_RESOLVED_SOURCES "${resolved_source}")
+	endif()
+endforeach()
+get_target_property(TEXWORKS_WINDOW_TEST_LIBRARIES TeXworks LINK_LIBRARIES)
+add_executable(test_LanguageServiceNavigationWindow
+	LanguageServiceNavigationWindow_test.cpp
+	LanguageServiceNavigationWindow_test.h
+	${TEXWORKS_WINDOW_TEST_RESOLVED_SOURCES}
+)
+target_compile_options(test_LanguageServiceNavigationWindow PRIVATE ${WARNING_OPTIONS})
+target_include_directories(test_LanguageServiceNavigationWindow PRIVATE "${TEXWORKS_WINDOW_TEST_BINARY_DIR}")
+target_link_libraries(test_LanguageServiceNavigationWindow ${TEXWORKS_WINDOW_TEST_LIBRARIES})
+add_dependencies(test_LanguageServiceNavigationWindow GitRev)
+add_dependencies(test_LanguageServiceNavigationWindow language_server_fake)
+add_test(NAME test_LanguageServiceNavigationWindow COMMAND test_LanguageServiceNavigationWindow)
+
 # UI
 add_executable(test_UI
 	UI_test.cpp
@@ -62,6 +186,7 @@ add_executable(test_UI
 )
 target_compile_options(test_UI PRIVATE ${WARNING_OPTIONS})
 target_link_libraries(test_UI ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
+add_dependencies(test_UI byte_echo_test)
 add_test(NAME test_UI COMMAND test_UI WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
 
 # Utils
@@ -111,4 +236,3 @@ if (WITH_POPPLERQT)
 endif (WITH_POPPLERQT)
 target_link_libraries(test_Document QtPDF::qtpdf SyncTeX::synctex Hunspell::hunspell ${QT_LIBRARIES} ${ZLIB_LIBRARIES} ${TEXWORKS_ADDITIONAL_LIBS})
 add_test(NAME test_Document COMMAND test_Document WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/testcases")
-

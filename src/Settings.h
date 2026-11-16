@@ -22,8 +22,24 @@
 #define SETTINGS_H
 
 #include <QSettings>
+#include <QStringList>
 
 namespace Tw {
+
+struct LanguageServiceSettings
+{
+	bool enabled{false};
+	QString executable;
+	QStringList arguments;
+
+	bool operator==(const LanguageServiceSettings & other) const
+	{
+		return enabled == other.enabled
+		       && executable == other.executable
+		       && arguments == other.arguments;
+	}
+	bool operator!=(const LanguageServiceSettings & other) const { return !(*this == other); }
+};
 
 class Settings
 {
@@ -43,6 +59,8 @@ public:
 	QVariant value(KeyType key, const QVariant & defaultValue = QVariant()) const;
 
 	QString fileName() const;
+	LanguageServiceSettings languageServiceSettings() const;
+	void setLanguageServiceSettings(const LanguageServiceSettings & settings);
 
 	static void setPortableIniPath(const QString & iniPath);
 #if defined(Q_OS_WIN)
