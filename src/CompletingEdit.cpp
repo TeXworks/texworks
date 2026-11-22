@@ -599,6 +599,14 @@ void CompletingEdit::keyPressEvent(QKeyEvent *e)
 	if (!e->text().isEmpty())
 		cmpCursor = QTextCursor();
 
+	if (e->matches(QKeySequence::InsertLineSeparator) && !isReadOnly()) {
+		// A new TeX source line must start a new text block for line numbering.
+		QTextCursor cursor = textCursor();
+		cursor.insertBlock();
+		setTextCursor(cursor);
+		return;
+	}
+
 	switch (e->key()) {
 		case Qt::Key_Return:
 			handleReturn(e);
